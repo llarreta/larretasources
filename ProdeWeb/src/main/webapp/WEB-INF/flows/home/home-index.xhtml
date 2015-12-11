@@ -1,0 +1,435 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/WEB-INF/layouts/standard.xhtml">
+
+<ui:define name="title">
+</ui:define>
+
+<ui:define name="notes">
+</ui:define>
+
+<ui:define name="content">
+	<h:form id="formDialog">
+		<p:dialog header="#{msg['equipo.headerDialog']}"
+					widgetVar="itemDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+			<div class="ui-grid ui-grid-responsive">
+    			<div class="ui-grid-row">	
+					<div class="ui-grid-col-12">  
+						<pe:ckEditor id="editor" value="#{dataView.privateMessage}"  
+										toolbar="[['Save', 'About'],'/',
+				                               [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript','-', 'RemoveFormat' ],
+				                               [ 'Styles', 'Format', 'Font', 'FontSize' ],
+				                               [ 'TextColor', 'BGColor' ],
+				                               [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak' ],
+				                               [ 'Link', 'Unlink', 'Anchor' ],
+				                               [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-','Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter','JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ],
+				                               [ 'Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker', 'Scayt' ],
+				                               [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo','Redo' ],
+				                               [ 'Preview', 'Print', '-',  'Source', 'Maximize' ]
+				                               ]"
+									>  
+								<p:ajax event="save" listener="#{controller.publicMessage}" update=":tabView:formWall :formDialog" oncomplete="PF('itemDialog').hide()"/>  
+						</pe:ckEditor> 
+					</div>
+				</div>
+			</div>
+		</p:dialog>
+	</h:form>
+	
+		<h:form id="headerForm" rendered="#{dataView.visibleHome}">
+			<div class="ui-grid ui-grid-responsive">
+  				<div class="ui-grid-row">
+  					<div class="ui-grid-col-12">
+						<p:outputLabel styleClass="label-select-competition" value="#{msg['app.competition']}"/>
+						<p:outputLabel styleClass="label-select-player" value="#{msg['app.player']}"/>
+					</div>
+				</div>	
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-12">
+						<p:selectOneMenu id="competition" value="#{dataView.competition}" var="competition" filter="false" styleClass="select-competition" >
+				            <f:selectItems value="#{dataView.competitionsParticipateOf}" var="competition" itemLabel="#{competition.name}" itemValue="#{competition}" />
+				 			<p:column>
+				                <h:outputText value="#{competition.name}" />
+				            </p:column>
+				        </p:selectOneMenu>
+						<p:selectOneMenu id="player" value="#{dataView.player}" var="player" 
+							filter="false" valueChangeListener="#{controller.playerChangeEvent}" immediate="true" converter="#{playerConverter}" styleClass="select-player">
+				            <f:selectItems value="#{dataView.playersInCompetition}" var="player" itemLabel="#{player.appPlayerName}" itemValue="#{player}" />
+				 			<p:column>
+				                <h:outputText value="#{player.appPlayerName}" />
+				            </p:column>
+				            <p:ajax update=":tabView:form" event="change"  onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()"  />
+	        			</p:selectOneMenu>
+					</div>
+				</div>					
+			</div>
+				
+		</h:form>
+		    <p:tabView id="tabView" styleClass="menu-tab-home" >  
+	        <p:tab title="Pronosticos" rendered="#{dataView.visibleHome}" titleStyleClass="animated lightSpeedIn">
+				<h:form id="form" styleClass="animated bounceInRight">
+			    	<p:tabView value="#{dataView.predictions}" var="prediction" dynamic="true" cache="false" activeIndex="#{dataView.activeRound}" 
+			    		onTabChange="PF('blockUI').block()"  onTabShow="PF('blockUI').unblock()" >  
+					
+					<p:ajax event="tabChange" listener="#{dataView.tabChange}" />
+	        		
+	        		<p:tab titleStyleClass="animated bounceInUp">
+	        			<f:facet name="title" >
+	        				<p:outputLabel value="#{prediction.round.name}"/>
+							
+							<p:tooltip id="bestRoundTooltipTitle" 		for="bestRoundTitle" 		value="Mejor puntaje de la fecha" 	rendered="#{prediction.score.bestInRound}" 	/>
+							<p:tooltip id="bestCompetitionTooltipTitle" for="bestCompetitionTitle" 	value="Mejor puntaje del torneo"	rendered="#{prediction.score.bestInCompetition}"	/>
+							
+							<h:panelGroup id="bestRoundTitle" 			styleClass="fa fa-star home-tab-bestRound-position" 			rendered="#{prediction.score.bestInRound}" />
+							<h:panelGroup id="bestCompetitionTitle" 	styleClass="fa fa-trophy home-tab-bestCompetition-position" 	rendered="#{prediction.score.bestInCompetition}" />
+						</f:facet>
+			    			<div class="first-round-label-home">
+							</div>
+							<div class="next-round-label-home">
+								<p:outputLabel value="Proximo encuentro:" rendered="#{(prediction.predictable and dataView.editablePredictions) or (!prediction.predictable)}"/>
+							    <p:outputLabel value="#{prediction.round.next}" rendered="#{(prediction.predictable and dataView.editablePredictions) or (!prediction.predictable)}">
+						 			<f:convertDateTime pattern="#{dataView.generalDateFormat}" />
+						 		</p:outputLabel>
+							</div>
+							<div class="download-home">
+								<p:commandButton value="Descargar pronósticos" ajax="false" icon="ui-icon fa fa-download" actionListener="#{controller.download}" 
+										onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()" styleClass="textShadow animated fadeIn"
+										rendered="#{!prediction.predictable}"
+										>
+									<p:fileDownload value="#{dataView.file}" />
+									<f:attribute name="selected" value="#{prediction}"/>
+								</p:commandButton>
+							</div>
+							<div class="autoPredict-home">
+						        <p:commandButton value="Recomendar resultados"	icon="ui-icon fa fa-random" actionListener="#{controller.autoPredict}" immediate="true" rendered="#{prediction.predictable and dataView.editablePredictions}"
+									update=":tabView:form" onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()" styleClass="textShadow animated fadeIn">
+									<f:attribute name="selected" value="#{prediction}"/>
+						        </p:commandButton>									    
+			         		</div>
+			        <p:outputLabel rendered="#{prediction.predictable and !dataView.editablePredictions}"
+			           		value="Para evitar especulaciones, usted no podra visualizar el pronostico de otro jugador hasta tanto no haya cerrado la fecha, es decir comenzado el primer partido de la misma."/>
+
+			           <div class="dataTable-align-home">
+			           
+			           <p:dataTable var="bet" value="#{prediction.orderBets}" editable="#{dataView.editablePredictions}" editMode="cell" 
+			           			rendered="#{(prediction.predictable and dataView.editablePredictions) or (!prediction.predictable)}"
+			           			emptyMessage="#{msg['fecha.vacia']}"  style="table-layout:fixed" styleClass="animated fadeInUp">
+			           		<p:column headerText="#{prediction.totalScore} Pts." width="50" style="text-align:center;" >
+			           			<p:outputLabel id="score" value="#{bet.score.value}" rendered="#{bet.hasScore}" />
+			           			<p:overlayPanel id="scoreDetail" for="score" showEffect="blind" hideEffect="explode"
+			           							showEvent="mouseover" hideEvent="mouseout" 
+			           							showCloseIcon="false"
+			           			>
+			           				<p:dataTable var="game" value="#{bet.result}" style="table-layout:fixed">
+							           		<p:column headerText="" width="50">
+										    	<p:graphicImage library="#{game.local.library}" name="#{game.local.shield}" rendered="#{game.haveLocalLogo}" 
+										    		width="32px" height="32px"
+										    	/>
+										    </p:column>
+										    <p:column headerText="Local" width="150" style="text-align:left;" >
+								    			<p:outputLabel value="#{game.local.name}" />
+										    </p:column>
+										    <p:column headerText="Goles" width="50" style="text-align:center;" >
+								    			<p:outputLabel value=" #{game.localGoals}" />
+										    </p:column>
+										    <p:column headerText="" width="50" style="text-align:center;" >
+										    	<p:outputLabel value="Vs." />
+										    </p:column>
+											<p:column headerText="Goles" width="50" style="text-align:center;" >
+								    			<p:outputLabel value="#{game.visitorGoals}" />
+										    </p:column>				    
+										    <p:column headerText="Visitante" width="150" style="text-align:right;" >
+										        <h:outputLabel value="#{game.visitor.name}" />
+										    </p:column>
+										    <p:column headerText="" width="50">
+										    	 <p:graphicImage library="#{game.visitor.library}" name="#{game.visitor.shield}" rendered="#{game.haveVisitorLogo}"
+										    	 	width="32px" height="32px"
+										    	 />	
+										    </p:column>
+			           				</p:dataTable>
+			           			</p:overlayPanel>
+						    </p:column>
+			           		<p:column headerText="" width="50">
+						    	<p:graphicImage library="#{bet.game.local.library}" name="#{bet.game.local.shield}" rendered="#{bet.game.haveLocalLogo}" 
+						    		width="32px" height="32px"
+						    	/>
+						    </p:column>
+						    <p:column headerText="Local" width="150" style="text-align:left;" >
+				    			<p:outputLabel value="#{bet.game.local.name}" />
+						    </p:column>
+						    <p:column headerText="Goles" width="50" style="text-align:center;" >
+			           			<p:cellEditor>
+						    		<f:facet name="output">
+						    			<p:outputLabel id="commonsLocal" value=" #{bet.localGoals} " />
+						    			<p:tooltip id="commonsLocalTooltip" for="commonsLocal"
+						    					value="Este encuentro esta fuera de horario pronosticable. No es posible pronosticar."
+						    					rendered="#{bet.game.nonPredictable}"
+						    					/>
+						    		</f:facet>
+						    		<f:facet name="input">
+						    			<h:inputText value="#{bet.localGoals}" rendered="#{bet.game.predictable}" >
+						    				<p:ajax event="keyup" listener="#{controller.save}" />
+						    			</h:inputText>
+						    			<p:outputLabel id="localNotPredictable" value="#{bet.localGoals}" rendered="#{bet.game.nonPredictable}"/>
+						    			<p:tooltip id="localNotPredictableTooltip" for="localNotPredictable" 
+						    					value="Este encuentro esta fuera de horario pronosticable. No es posible pronosticar."
+						    					rendered="#{bet.game.nonPredictable}"
+						    					/>
+						    		</f:facet>
+						    	</p:cellEditor>
+						    </p:column>
+						    <p:column headerText="Doble" width="50" style="text-align:center;" >
+						    	<p:commandButton id="HardBet" icon="ui-icon-check" actionListener="#{controller.hardBetSelection}" update="@form" immediate="true" disabled="#{bet.game.nonPredictable or !dataView.editablePredictions}"
+						    		rendered="#{bet.hardBet}"  onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()" >
+					         		<f:attribute name="betSelected" value="#{bet}"/>
+					         		<f:attribute name="predictionSelected" value="#{prediction}"/>
+					         	</p:commandButton>
+						    	<p:commandButton id="notHardBet" icon="ui-icon-close" actionListener="#{controller.hardBetSelection}"  disabled="#{bet.game.nonPredictable or !dataView.editablePredictions}"
+						    		update="@form" immediate="true" rendered="#{bet.notHardBet}" style="background:grey;"
+						    		 onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()" >
+					         		<f:attribute name="betSelected" value="#{bet}"/>
+					         		<f:attribute name="predictionSelected" value="#{prediction}"/>
+					         	</p:commandButton>
+						    </p:column>
+							<p:column headerText="Goles" width="50" style="text-align:center;" >
+								<p:cellEditor>
+						    		<f:facet name="output">
+							    		<p:outputLabel id="commonsVisitor" value="#{bet.visitorGoals}" />
+							    		<p:tooltip id="commonsVisitorTooltip" for="commonsVisitor"
+							    					value="Este encuentro esta fuera de horario pronosticable. No es posible pronosticar."
+							    					rendered="#{bet.game.nonPredictable}"
+							    					/>
+						    		</f:facet>
+						    		<f:facet name="input">
+						    			<h:inputText value="#{bet.visitorGoals}" rendered="#{bet.game.predictable}" >
+						    				<p:ajax event="keyup" listener="#{controller.save}" />
+						    			</h:inputText>
+						    			<p:outputLabel id="visitorNotPredictable" value="#{bet.visitorGoals}" rendered="#{bet.game.nonPredictable}"/>
+						    			<p:tooltip id="visitorNotPredictableTooltip" for="visitorNotPredictable" 
+						    					value="Este encuentro esta fuera de horario pronosticable. No es posible pronosticar."
+						    					rendered="#{bet.game.nonPredictable}"
+						    					/>
+						    		</f:facet>
+					    		</p:cellEditor>
+						    </p:column>				    
+						    <p:column headerText="Visitante" width="150" style="text-align:right;" >
+						        <p:outputLabel value="#{bet.game.visitor.name}" />
+						    </p:column>
+						    <p:column headerText="" width="50">
+						    	 <p:graphicImage library="#{bet.game.visitor.library}" name="#{bet.game.visitor.shield}" rendered="#{bet.game.haveVisitorLogo}"
+						    	 	width="32px" height="32px"
+						    	 />	
+						    </p:column>
+						    <p:column headerText="Fecha" width="150" style="text-align:center;">
+						    	<p:outputLabel value="#{bet.game.startDate}">
+					 				<f:convertDateTime pattern="#{dataView.generalDateFormat}" />
+					 			</p:outputLabel>
+							 </p:column>	    
+					    
+						</p:dataTable>
+					</div>
+			 	</p:tab>
+	    		</p:tabView>  
+		    </h:form>
+		</p:tab>
+		<p:tab title="El Muro" titleStyleClass="animated lightSpeedIn">
+		 <h:form id="formWall" styleClass="animated bounceInRight">
+		 	<pe:timer autoStart="true" timeout="#{dataView.messageRefreshTime}" update=":tabView:formWall" singleRun="false" visible="false"    />
+		 	
+			<p:dataScroller id="wall" value="#{dataView.messages}" var="message" >
+				 <f:facet name="header">
+		 			<p:commandLink id="publicar" oncomplete="PF('itemDialog').show()"	immediate="true" update="" >
+						<i class="fa fa-pencil" />
+						<p:outputLabel value="Publicar Mensaje" />
+					</p:commandLink>
+	 	        </f:facet>
+		 
+		        <div class="message-box">
+		        	<p:outputLabel value="#{message.from.nick}" styleClass="message-nick" style="font-weight: bold" rendered="#{message.isVisible}"/>
+		        	<p:outputLabel value="#{message.ago}" styleClass="message-ago" rendered="#{message.isVisible}"/>
+		        	<div class="container-message">
+		            	<p:outputLabel value="#{message.message}" styleClass="message-description" escape="false" rendered="#{message.isVisible}"/>
+		            </div>
+		        </div>
+			</p:dataScroller>
+			</h:form>
+		</p:tab>    
+		<p:tab title="Tabla de posiciones" titleStyleClass="animated lightSpeedIn">
+			<p:dataTable id="score" var="score" style="width:70%" value="#{dataView.ordererScores}" 
+					emptyMessage="#{msg['datatable.sindatos']}" styleClass="animated bounceInRight home-tab-datatable">
+				<p:column headerText="Pos." width="35" style="text-align:center">
+					<p:outputLabel value="#{score.position}" />
+				</p:column>
+				<p:column headerText="Jugador" width="200">
+					<p:outputLabel value="#{score.player.appPlayerName}" />
+				</p:column>
+				<p:columns value="#{dataView.columns}" var="column" width="70"  >
+					<f:facet name="header">
+	                	<p:outputLabel value="#{column.header}" />
+	            	</f:facet>
+	            		<div class="ui-grid ui-grid-responsive">
+   			 				<div class="ui-grid-row home-positions-icons">
+   			 					<div class="ui-grid-col-4">
+   			 						<div class="home-position-variance">	
+										<p:outputLabel value="#{score.nextWithoutAvance.positionVariance}"/>
+									</div>
+									<div class="home-icon-position-variant">
+										<h:panelGroup styleClass="fa fa-level-up"  rendered="#{score.nextWithoutAvance.isAscendentPosition}" />
+										<h:panelGroup styleClass="fa fa-level-down"  rendered="#{score.nextWithoutAvance.isDescendentPosition}" />
+									</div>
+								</div>
+								<div class="ui-grid-col-4">
+									<div class="home-score-position">
+										<p:outputLabel value="#{score.nextWithoutAvance.value}" />
+									</div>
+								</div>
+								<div class="ui-grid-col-4">
+									<p:tooltip id="bestRoundTooltip" for="bestRound" 
+							    					value="Mejor puntaje de la fecha"
+							    					rendered="#{score.nextWithoutAvance.bestInRound}"
+							    					/>
+									<p:tooltip id="bestCompetitionTooltip" for="bestCompetition" 
+							    					value="Mejor puntaje del torneo"
+							    					rendered="#{score.nextWithoutAvance.bestInRound}"/>
+									<div class="home-bestRound-position">
+										<h:panelGroup id="bestRound" styleClass="fa fa-star" rendered="#{score.nextWithoutAvance.bestInRound}" />
+									</div>
+									<div class="home-bestCompetition-position">
+										<h:panelGroup id="bestCompetition" styleClass="fa fa-trophy" rendered="#{score.nextWithoutAvance.bestInCompetition}" />
+										<!-- 
+											Solo para que eavance PredictionScore 
+											Debe estar siempre como ultimo campo  dentro de columns
+											y la visibilidad de este modo
+											display:none; visibility:hidden;
+										 -->
+										<p:outputLabel value="#{score.next}" style="display:none; visibility:hidden;"/>
+										
+									</div>
+								</div>
+							</div>
+						</div>	
+				</p:columns>
+				<p:column headerText="Puntaje Total" width="65" style="text-align:center">
+					<p:outputLabel value="#{score.value}" />
+				</p:column>
+			</p:dataTable>			
+		</p:tab>
+		<p:tab title="Ponele!" titleStyleClass="animated lightSpeedIn" >  <!-- rendered="#{!dataView.actualRound.predictable}" -->
+			<h:form id="formSuppose" styleClass="animated bounceInRight">	
+	           <p:dataTable var="supposeGame" value="#{dataView.actualRound.sortedGames}" editable="true" editMode="cell" emptyMessage="#{msg['datatable.sindatos']}">
+	           		<f:facet name="header">
+						<p:commandButton id="suppose" value="Suponer resultados"	icon="ui-icon fa fa-random" actionListener="#{controller.suppose}" immediate="true" update=":tabView:formSuppose"
+							onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()" />
+					</f:facet>
+				    <p:column headerText="" width="50">
+				    	<p:graphicImage library="#{supposeGame.local.library}" name="#{supposeGame.local.shield}" rendered="#{supposeGame.haveLocalLogo}" width="32px" height="32px" />
+				    </p:column>
+				    <p:column headerText="Local" width="150" style="text-align:left;">
+					 	<h:outputText value="#{supposeGame.local.name}" />
+				    </p:column>
+	           		<p:column headerText="Goles" width="50" style="text-align:center;">
+          				<p:cellEditor>
+				    		<f:facet name="output"><h:outputText value="#{supposeGame.localGoals}" /></f:facet>
+				    		<f:facet name="input">
+				    			<h:inputText value="#{supposeGame.localGoals}" />
+				    		</f:facet>
+				    	</p:cellEditor>
+				    </p:column>
+				    <p:column headerText="" width="50" style="text-align:center;" >
+				        <h:outputText value="Vs" style="center" />
+				    </p:column>
+					<p:column headerText="Goles" width="50" style="text-align:center;">
+						<p:cellEditor>
+				    		<f:facet name="output"><h:outputText value="#{supposeGame.visitorGoals}" /></f:facet>
+				    		<f:facet name="input">
+				    			<h:inputText value="#{supposeGame.visitorGoals}" />
+				    		</f:facet>
+				    	</p:cellEditor>					
+				    </p:column>	
+				    <p:column headerText="Visitante" width="150" style="text-align:right;">
+					    <h:outputText value="#{supposeGame.visitor.name}" />
+				    </p:column>
+				    <p:column headerText="" width="50">
+				    	 <p:graphicImage library="#{supposeGame.visitor.library}" name="#{supposeGame.visitor.shield}" rendered="#{supposeGame.haveVisitorLogo}" width="32px" height="32px"/>	
+				    </p:column>
+				    <p:column headerText="Fecha" width="150" style="text-align:center;">
+					   <p:outputLabel value="#{supposeGame.startDate}">
+					 			<f:convertDateTime pattern="#{dataView.generalDateFormat}" />
+					 	</p:outputLabel>	
+					 </p:column>	    
+				</p:dataTable>
+				<p:dataTable id="supposeTable" var="score" style="width:50%" value="#{dataView.supposeScores}" 
+						emptyMessage="#{msg['datatable.sindatos']}" styleClass="animated bounceInRight home-tab-datatable">
+					<p:column headerText="Pos." width="35" style="text-align:center">
+						<p:outputLabel value="#{score.position}" />
+					</p:column>
+					<p:column headerText="Jugador" width="200">
+						<p:outputLabel value="#{score.player.appPlayerName}" />
+					</p:column>
+					<p:columns value="#{dataView.supposeColumns}" var="column" width="70"  >
+						<f:facet name="header">
+		                	<p:outputLabel value="#{column.header}" />
+		            	</f:facet>
+		            		<div class="ui-grid ui-grid-responsive">
+	   			 				<div class="ui-grid-row home-positions-icons">
+	   			 					<div class="ui-grid-col-4">
+	   			 						<div class="home-position-variance">	
+											<p:outputLabel value="#{score.nextWithoutAvance.positionVariance}"/>
+										</div>
+										<div class="home-icon-position-variant">
+											<h:panelGroup styleClass="fa fa-level-up"  rendered="#{score.nextWithoutAvance.isAscendentPosition}" />
+											<h:panelGroup styleClass="fa fa-level-down"  rendered="#{score.nextWithoutAvance.isDescendentPosition}" />
+										</div>
+									</div>
+									<div class="ui-grid-col-4">
+										<div class="home-score-position">
+											<p:outputLabel value="#{score.nextWithoutAvance.value}" />
+										</div>
+									</div>
+									<div class="ui-grid-col-4">
+										<p:tooltip id="bestRoundTooltip2" for="bestRound2" 
+								    					value="Mejor puntaje de la fecha"
+								    					rendered="#{score.nextWithoutAvance.bestInRound}"
+								    					/>
+										<p:tooltip id="bestCompetitionTooltip2" for="bestCompetition2" 
+								    					value="Mejor puntaje del torneo"
+								    					rendered="#{score.nextWithoutAvance.bestInRound}"/>
+										<div class="home-bestRound-position">
+											<h:panelGroup id="bestRound2" styleClass="fa fa-star" rendered="#{score.nextWithoutAvance.bestInRound}" />
+										</div>
+										<div class="home-bestCompetition-position">
+											<h:panelGroup id="bestCompetition2" styleClass="fa fa-trophy" rendered="#{score.nextWithoutAvance.bestInCompetition}" />
+											<!-- 
+											Solo para que avance PredictionScore 
+											Debe estar siempre como ultimo campo  dentro de columns
+											y la visibilidad de este modo
+											display:none; visibility:hidden;
+										 -->
+										<p:outputLabel value="#{score.next}" style="display:none; visibility:hidden;"/>
+											
+										</div>
+									</div>
+								</div>
+							</div>	
+					</p:columns>
+					<p:column headerText="Puntaje Total" width="65" style="text-align:center">
+						<p:outputLabel value="#{score.value}" />
+					</p:column>
+				</p:dataTable>			
+			</h:form>
+		
+		
+		</p:tab>
+		<p:tab title="Reglamento" titleStyleClass="animated lightSpeedIn">
+			<p:outputLabel value="#{msg['prode.reglamento']}" escape="false" />
+		</p:tab>    
+	</p:tabView>
+
+</ui:define>
+</ui:composition>

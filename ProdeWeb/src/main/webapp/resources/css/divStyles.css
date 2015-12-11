@@ -1,0 +1,437 @@
+.slot {
+	border-radius: 50%;
+  	display: inline-block;
+  	margin-right: 20px;
+  	width: 100px;
+  	height: 100px;
+  	background: grey;
+}
+
+.slotActive {
+	border-radius: 50%;
+  	display: inline-block;
+  	margin-right: 20px;
+  	width: 125px;
+  	height: 125px;
+  	background: #F2AF02;
+}
+
+.ui-carousel .ui-carousel-header {
+	margin: 0 1px;
+	height: 40px;
+	overflow: hidden;
+	padding-top: 7px;
+	padding-bottom: 8px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.left-content {
+	padding-right: 20px;
+}
+
+#signup{
+	position: absolute;
+  	right: 0;
+  	width: 160px;
+  	top: 22px;
+}
+
+form#signupform {
+  	position: absolute !important;
+  	left: 15%;
+  	top: 5% !important;
+}
+
+div#signin {
+ 	margin-right: auto;
+  	margin-left: auto;
+  	margin-top: 12%;
+  	width: 316px;
+  	height: 245px;
+}
+
+.ui-grid-col-12.logo-center {
+  	position: relative;
+  	left: 11%;
+}
+.ui-grid-row.login-center {
+  	position: relative;
+  	left: 18%;
+  	margin-top: 3%;
+}
+
+.ui-grid-row.align-login-button {
+  	position: relative;
+  	margin-top: 6%;
+  	margin-left: 26%;
+}
+state-default, .ui-widget-header .ui-state-default {
+  	border: 1px solid #51cd06;
+  	background: honeydew;
+  	color: #ffffff;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+ 	border: 1px solid #67d923;
+ 	color: #ffffff;
+}
+
+.ui-inputfield {
+  	background: white !important;
+  	color: #333 !important;
+  	border-top: 0;
+  	border-left: 0;
+  	border-right: 0;
+  	border-bottom: 0;
+  	border-bottom-color: green !important;
+  	box-shadow: 3px 3px 8px #00000E;
+}
+
+.login-center .ui-inputfield {
+ 	background: white !important;
+  	color: #333 !important;
+  	border-top: 0;
+  	border-left: 0;
+  	border-right: 0;
+  	border-bottom: 0;
+  	border-bottom-color: green !important;
+  	box-shadow: 3px 3px 8px #00000E;
+  	width: 186px;
+}
+
+.ui-inputfield.ui-state-hover {
+  	background: lightgreen !important;
+  	color: #333 !important;
+  	border-top: 0;
+  	border-left: 0;
+  	border-right: 0;
+  	border-bottom: 0;
+}
+.ui-message-error-icon {
+ 	position: relative;
+  	background-position: 0px -96px;
+  	left: -3px;
+  	top: 0px;
+}
+
+.ui-messages-error, .ui-message-error {
+  	color: #b94a48;
+  	background-color: #f2dede;
+  	border-color: #eed3d7;
+  	position: relative;
+  	left: 91px;
+  	top: 6px;
+  	width: 10px;	
+}
+.iconBox {
+	background: dimgrey;
+  	color: #fff;
+  	padding: 6px;
+  	height: 15px;
+  	width: 15px;
+  	position: absolute;
+  	left: -30px;
+  	top: 2px;
+  	box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  	border-radius: 30%;
+}
+.ui-grid-row.signup-center {
+  	position: relative;
+  	left: 10%;
+  	margin-top: 3%;
+}
+.ui-grid-col-12.text-bold-efect {
+  	text-shadow: 1px 1px 2px;
+  	font-weight: bold;
+  	position: relative;
+  	left: 18%;
+  	color: darkslategrey;
+}
+.iconPosition {
+	position: absolute !important;
+  	left: 31% !important;
+}
+.ui-selectonemenu {
+  	display: inline-block;
+  	position: relative;
+  	zoom: 1;
+  	cursor: pointer;
+  	box-shadow: 2px 4px 17px -5px black;
+}
+
+.signup-buton-register {
+  	position: relative;
+  	left: 12%;
+  	margin-top: 1%;
+}
+
+.signup-messageError {
+	position: relative;
+  	left: -76%;
+}
+
+
+.ui-datascroller .ui-datascroller-header {
+	text-align: left !important;
+  	padding: 3px 6px !important;
+  	border-bottom: 0px none !important;
+}
+
+.notifications-iconSpace{
+	position: relative;
+	left: 5%;
+}
+.ui-outputlabel.ui-widget.font-xxs{
+	font-size: 2em;
+}
+
+.ui-icon {
+    text-indent: 0;
+}  
+.textShadow {
+	text-shadow:5px 0px 5px #000000;
+}
+
+.ui-widget-header {
+  	border: 1px solid #51cd06;
+  	background: #4fb202 url("/ProdeWeb/app/javax.faces.resource/images/ui-bg_highlight-soft_50_4fb202_1x100.png?ln=primefaces-prode") 50% 50% repeat-x;
+  	font-weight: bold;
+  	color: #ffffff;
+  	box-shadow: 2px 9px 36px 4px gray;
+}
+
+.ui-widget-content {
+  	color: #312e25;
+}
+
+.content-shadow{
+	box-shadow: 2px 9px 28px -3px gray;	
+}
+
+.label-select-competition {
+  	position: relative;
+  	left: 16%;
+  	margin-top: 16px;
+  	top: 12px;
+}
+.label-select-player {
+  	position: relative;
+  	top: 12px;
+  	left: 56%;
+}
+.select-competition {
+  	position: relative !important;
+ 	width: 300px !important;
+  	top: 14px;
+  	left: 7%;
+}
+
+.select-player {
+  	position: relative !important;
+  	left: 28%;
+  	top: 12px;
+}
+
+.menu-tab-home {
+  	position: relative;
+  	top: 34px;
+  	margin-left: auto !important;
+  	margin-right: auto !important;
+  	border: transparent !important;
+  	color: transparent !important;
+  	box-shadow: transparent !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger{
+	border-right: none;
+  	border-top: none;
+  	border-bottom: none;
+  	cursor: pointer;
+  	width: 24px;
+  	height: 100%;
+  	position: absolute;
+  	right: 0;
+  	top: 0;
+  	padding: 0 3px;
+}
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+  	color: #ffffff;
+  	text-decoration: none;
+}
+
+.ui-state-hover a, .ui-state-hover a:link, .ui-state-hover a:visited {
+	color: green;
+}
+
+.state-default, .ui-widget-header .ui-state-default {
+  	border: 1px solid #51cd06;
+  	background: green;
+  	color: #ffffff;
+}
+
+.state-default, .ui-widget-header .ui-state-hover {
+  	border: 1px solid #51cd06;
+  	background: #b9ef82 url("/ProdeWeb/app/javax.faces.resource/images/ui-bg_gloss-wave_100_b9ef82_500x100.png?ln=primefaces-prode") 50% 50% repeat-x;
+  	color: #ffffff;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
+  	cursor: text;
+  	color: white;
+  	border: 1px solid green;
+  	border-radius: 4px;
+  	background: #4fb202 url("/ProdeWeb/app/javax.faces.resource/images/ui-bg_highlight-soft_50_4fb202_1x100.png?ln=primefaces-prode") 50% 50% repeat-x;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	border-right: none;
+  	border-top: none;
+  	border-bottom: none;
+  	cursor: pointer;
+  	width: 24px;
+  	height: 100%;
+  	position: absolute;
+  	right: 0;
+  	top: 0;
+  	padding: 0 3px;
+}
+
+.first-round-label-home{
+	position: relative;
+  	left: 0%;
+}
+.next-round-label-home{
+	position: relative;
+  	left: 0%;
+}
+
+.autoPredict-home {
+  position: relative;
+  margin-left: 77%;
+  top: -49px;
+}
+
+.container-message {
+  word-wrap: break-word;
+  margin-top: 2%;
+}
+
+.download-home {
+  	position: relative;
+  	top: -60px;
+  	margin-left: 63%;
+}
+
+.dataTable-align-home {
+  position: relative;
+  margin-top: -2%;
+}
+tr.ui-selectonemenu-item.ui-selectonemenu-row.ui-widget-content {
+  	background-color: aliceblue;
+}
+
+.message-nick {
+  	color: orange;
+  	font-size: 22px !important;
+  	text-shadow: 1px -1px 4px black;
+  	margin-top: 3%;
+}
+
+.message-ago {
+  	top: 14px;
+  	position: relative;
+  	margin-left: -5%;
+  	font-size: 14px !important;
+  	color: gray;
+  	text-shadow: 2px 0px 6px gray;
+}
+
+.message-description {
+  	position: relative;
+  	top: -11px;
+}
+
+.container-fluid {
+  	padding-right: 15px;
+  	padding-left: 15px;
+  	margin-right: auto;
+  	margin-left: auto;
+  	padding-bottom: 5%;
+}
+
+.home-bestRound-position {
+  margin-left: 22%;
+  margin-top: 0%;
+  font-size: 12px;
+  color: darkslateblue;
+}
+
+.home-tab-bestRound-position {
+  color: darkslateblue;
+  margin-left: 6%;
+}
+
+.home-bestCompetition-position {
+  color: gold;
+  margin-left: 75%;
+  margin-top: -21%;
+}
+
+.home-tab-bestCompetition-position{
+	color: gold;
+	margin-left: 5%;
+}
+
+.home-icon-position-variant {
+  color: antiquewhite;
+  margin-left: 38%;
+  margin-top: -89%;
+  font-size: 13px;
+}
+.home-position-variance {
+  margin-top: 38%;
+  margin-left: -14%;
+  font-size: 11px;
+  color: antiquewhite;
+}
+
+.home-score-position {
+  margin-left: 9%;
+  margin-top: -1%;
+  font-size: 21px;
+  color: antiquewhite;
+}
+.home-tab-datatable {
+ 	margin-left: 23%;
+}
+
+.ui-grid-col-8.select-signup-friend-position {
+  	margin-left: -1%;
+}
+
+.ui-grid-row.home-positions-icons {
+  	margin-left: -4%;
+  	margin-top: -2%;
+}
+
+.message-box {
+  position: relative;
+  width: 100%;
+}
+.publicidad {
+   width: 13%;
+    z-index: 1;
+    position: absolute;
+    margin-top: 23%;
+    margin-left: -8%;
+}
+.publicidad:hover {
+width: 13%;
+    z-index: 1;
+    position: absolute;
+    margin-top: 23%;
+    margin-left: -8%;
+    box-shadow: 0px 0px 14px -4px whitesmoke;
+}

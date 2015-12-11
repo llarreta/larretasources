@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	>
+
+<h:head>
+	<title><h:outputText value="#{msg['app.login']}" /></title>
+</h:head>
+<h:body>
+ <h:panelGroup id="bodyPanel" layout="block">
+ 	<f:facet name="last">
+		<h:outputStylesheet library="css" name="estilos.css"/>
+		<h:outputStylesheet library="css" name="icons.css"/>
+		<h:outputStylesheet  library="css" name="animate.css"/>	
+		<h:outputStylesheet  library="css" name="divStyles.css"/>	
+		<h:outputStylesheet library="css" name="font-awesome.css"/>
+	</f:facet>
+	<div class="ui-grid ui-grid-responsive">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-12 left-content" >	
+				<p:outputLabel value="#{dataView.version}" />	
+			</div>			
+		</div>
+	
+		<h:form id = "signup">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-12 right-content">		
+					<p:commandButton id="signup" action="signup" value="#{msg['app.signup']}" icon="fa fa-user" styleClass="animated infinite jello textShadow"/>
+				</div>
+			</div>
+		</h:form>
+		
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-12">	
+				<div class="animated bounceInDown">
+					<div id="signin" class = "afterLogin">
+						<h:form id = "formSignin">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-12 logo-center">	
+								<p:growl></p:growl>	
+									<p:graphicImage id="logo" library="images" name="PRODE.png" height="80" width="250"/>
+								</div>
+							</div>
+							<div class="ui-grid-row login-center">
+								<div class="ui-grid-col-4">
+									<div class="iconBox">
+										<i class="fa fa-user iconPosition"/>
+									</div>
+									<p:inputText id = "nick" value="#{dataView.nick}"  styleClass = "#{styleElement}" 
+									 requiredMessage="#{msg['app.userRequired']}" required="true"/>
+									<p:watermark for="nick" value="#{msg['app.login.nick']}"/>
+								</div>
+								<div class="ui-grid-col-8">
+									<div class="messageError">
+										<p:message for ="nick" display="icon"/>
+									</div>
+								</div>
+							</div>
+							<div class="ui-grid-row login-center">
+								<div class="ui-grid-col-4">
+									<div class="iconBox">
+										<i class="fa fa-lock iconPosition"/>
+									</div>
+									<p:password id = "password" value="#{dataView.password}" styleClass = "#{styleElement}" 
+									 requiredMessage="#{msg['app.passwordRequired']}" required="true"/>
+									<p:watermark for="password" value="#{msg['app.login.password']}"/>
+								</div>
+								<div class="ui-grid-col-8">
+									<div class="messageError">
+										<p:message for = "password" display="icon"/>	
+									</div>
+								</div>
+							</div>
+							<div class="ui-grid-row align-login-button">
+								<div class="ui-grid-col-12">
+									<p:commandButton id="buttonSignin" action="signin" value="#{msg['app.login.confirm']}"
+										update="@form" styleClass="animated infinite pulse textShadow" icon="fa fa-sign-in"
+										onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()"
+										/>
+								</div>
+							</div>	
+						</h:form>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</h:panelGroup>	
+<pe:blockUI target="bodyPanel" widgetVar="blockUI"   >  
+	<h:panelGrid columns="2">  
+		<h:graphicImage library="images" name="loading.gif"  style="margin-right: 12px; vertical-align: middle;"/>  
+		<h:outputText value="#{msg['app.message-loading']}" style="white-space: nowrap;"/>  
+	</h:panelGrid>  
+</pe:blockUI>
+
+</h:body>
+
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+	<!--
+		Also see ../parent-flow.xml. 
+	-->
+	
+	<var name="controller" 			class="ar.com.larreta.commons.controllers.NotificationsController" />
+	<var name="dataView" 			class="ar.com.larreta.prode.views.ProdeHomeDataView" />
+	
+	<on-start>
+        <set name="controller.dataView" value="dataView" />
+    </on-start>
+
+	<view-state id="notifications">
+	    <transition on="end" to="end"/>
+	</view-state>
+	
+</flow>

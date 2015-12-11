@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags" 
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	>
+<f:view contentType="text/html" >
+    <f:facet name="first">
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Cache-control" content="no-cache"/>
+        <meta http-equiv="expires" content="0"/>
+        <meta http-equiv="#{dataView.metadataName}" content="#{dataView.metadataContent}"/>
+    </f:facet>	
+	
+	<pe:head title="#{msg['app.prode']}">
+ 	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'/>
+    </pe:head>
+
+<h:body>
+ <h:panelGroup id="bodyPanel" layout="block">
+    <div id="wrapper">
+	<h:outputScript library="menuAdministrator/js" name="bootstrap.min.js"/>
+	<f:facet name="last">
+		<h:outputStylesheet  library="css" name="divStyles.css"/>	
+		<h:outputStylesheet  library="css" name="icons.css"/>
+		<h:outputStylesheet  library="css" name="menus.css"/>
+		<h:outputStylesheet library="menuAdministrator/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet library="menuAdministrator/css" name="sb-admin.css"/>
+		<h:outputStylesheet library="css" name="font-awesome.css"/>
+		<h:outputStylesheet  library="css" name="animate.css"/>	
+	</f:facet>
+<!--         Navegacion -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!--             header para mobile -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home"> <i class="fa fa-home fa-fw"/>#{msg['app.titleApp']}</a>
+               <sec:authorize ifAnyGranted="Default">
+                <a class="navbar-brand" href="https://www.facebook.com/profile.php?id=100004505148681" target="_blank">
+                   	<p:graphicImage library="images" name="Walter publicidad.jpg" styleClass="publicidad"/>
+	             </a>
+	            </sec:authorize>
+                <!-- a class="navbar-brand" href="#{dataView.previousURL}"> <i class="fa fa-arrow-circle-left"/></a>
+                <a class="navbar-brand" href="#{dataView.forwardURL}"> <i class="fa fa-arrow-circle-right"/></a -->
+            
+            </div>
+<!--             Menu de arriba a la derecha -->
+	            <ul class="nav navbar-right top-nav">
+	<!--                Mensajes -->
+	                <!--  li class="dropdown">
+	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	                    	<i class="fa fa-envelope">
+	                    		<span class="badge">#{dataView.cantMessages}</span>	
+	                    	</i> 
+	                    	<b class="caret"></b></a>
+	                    <ul class="dropdown-menu message-dropdown">
+	                       	<li class="message-footer">
+	                            <a href="#">Read All New Messages</a>
+	                        </li>
+	                    </ul>
+	                </li-->
+	<!--                 Aca van las notificaciones  -->
+	                <li class="dropdown">
+	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	                    <i class="#{dataView.iconNotification}">
+	                    	<span class="badge">#{dataView.countNotifications}</span>
+	                    </i> <b class="caret"></b></a>
+	                    
+	                    <ul class="dropdown-menu alert-dropdown">
+	<!--                         <li> -->
+	<!--                             <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a> -->
+	<!--                         </li> -->
+	                       
+	                        <li>
+	                            <a href="notifications">#{msg['app.viewAllNotifications']}</a>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li class="dropdown">
+	                    <a href="#" class="dropdown-toggle size-menu" data-toggle="dropdown"><i class="fa fa-user"></i><p:outputLabel value=" #{dataView.actualUser.nick}"/><b class="caret"></b></a>
+	                    <ul class="dropdown-menu">
+	                        <li>
+	                            <a href="changePassword"><i class="fa fa-lock fa-lg icon-position"></i><p:outputLabel id="change-password" value="#{msg['app.changePassword']}"/></a>
+	                        </li>
+	                        <li>
+	                            <a href="logout"><i class="fa fa-fw fa-power-off fa-lg icon-position"></i><p:outputLabel value="#{msg['app.logOut']}"/></a>
+	                        </li>
+	                    </ul>
+					</li>
+	        </ul>
+            
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                     <sec:authorize ifAnyGranted="Admin">
+                    <li>
+                      <a href="javascript:;" data-toggle="collapse" data-target="#competitionMenu"> <i class="fa fa-trophy"/> #{msg['app.competition']} 
+                      <i class="fa fa-fw fa-caret-down"/></a>
+                      	<ul id="competitionMenu" class="collapse">
+                            <li>
+                                <a href="competition">#{msg['app.adminCompetition']}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    </sec:authorize>
+                     <sec:authorize ifAnyGranted="Admin">
+                    <li>
+                    	<a href="javascript:;" data-toggle="collapse" data-target="#teamMenu"><i class="fa fa-futbol-o"/> #{msg['app.team']}
+                    	<i class="fa fa-fw fa-caret-down"/></a>
+                    	<ul id="teamMenu" class="collapse">
+                    		<li>
+                    			<a href="viewTeams">#{msg['app.viewTeams']}</a>
+                    		</li>
+                    	
+                    	</ul>
+                    </li>
+                    </sec:authorize>
+                    <sec:authorize ifAnyGranted="Admin">
+                    <li>
+                    	<a href="javascript:;" data-toggle="collapse" data-target="#userMenu"><i class="fa fa-users"/> #{msg['app.user']}
+                    	<i class="fa fa-fw fa-caret-down"/></a>
+                    	<ul id="userMenu" class="collapse">
+                    		<li>
+                    			<a href="access">Historial de accesos</a>
+                    		</li>  
+                    		<li>
+                    			<a href="users">#{msg['app.usersAdmin']}</a>
+                    		</li>
+                    		<li>
+                    			<a href="profiles">#{msg['app.profiles']}</a>
+                    		</li>
+                  		
+                    	</ul>
+                    </li>
+                    </sec:authorize>
+                    </ul>
+                    
+            </div>
+            
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+<!-- 				<div class="jumbotron"> -->
+<!--                    <div> -->
+						<ui:insert name="content"/>
+<!-- 					</div> -->
+<!--                 </div> -->
+
+			</div>
+            
+
+        </div>
+       
+
+    </div>
+ 
+    
+</h:panelGroup>
+
+	<pe:blockUI target="bodyPanel" widgetVar="blockUI"   >  
+	    <h:panelGrid columns="2">  
+	        <h:graphicImage library="images" name="loading.gif"  style="margin-right: 12px; vertical-align: middle;"/>  
+	        <h:outputText value="Aguarde un momento, por favor..." style="white-space: nowrap;"/>  
+	    </h:panelGrid>  
+	</pe:blockUI>
+
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/layouts/standard.xhtml">
+
+<ui:define name="content">
+	<h:form id="form">
+		<p:outputPanel>
+			<p:outputLabel value="#{msg['createCompetition.name']}" style="width:180px"/>
+			<p:spacer width="5" height="10" />
+			<p:inputText id="name" value="#{dataView.name}" placeholder="#{msg['createCompetition.nameCompetition']}" style="width:200px"/>
+			<div style="height:20px"/>
+			<p:outputLabel value="Fecha de inicio de inscripcion" style="width:180px"/>
+			<p:spacer width="5" height="10" />
+			<p:calendar placeholder="#{dataView.generalDateFormat}" id="registrationStart" value="#{dataView.registrationStart}" pattern="#{dataView.generalDateFormat}" readonly="false"/>
+			<div style="height:20px"/>
+			<p:outputLabel value="Fecha de fin de inscripcion" style="width:180px"/>
+			<p:spacer width="5" height="10" />
+			<p:calendar placeholder="#{dataView.generalDateFormat}" id="registrationEnd" value="#{dataView.registrationEnd}" pattern="#{dataView.generalDateFormat}" readonly="false"/>
+			<div style="height:20px"/>
+
+		</p:outputPanel>
+
+
+	    <p:tabView value="#{dataView.rounds}" var="round" dynamic="true" cache="false"  >  
+	        <p:tab title="#{round.name}" >
+	           <p:dataTable var="game" value="#{round.sortedGames}" editable="true" editMode="cell" emptyMessage="#{msg['datatable.sindatos']}">
+	           		<f:facet name="header">
+						<p:commandButton id="recomendar" value="Recomendar resultados"	icon="ui-icon-trash" actionListener="#{controller.autoResult}" immediate="true" update=":form"
+						onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()">
+			         		<f:attribute name="roundSelected" value="#{round}"/>
+			         	 </p:commandButton>			           
+					</f:facet>
+				    <p:column headerText="">
+				    	<p:graphicImage library="#{game.local.library}" name="#{game.local.shield}" rendered="#{game.haveLocalLogo}" width="32px" height="32px" />
+				    </p:column>
+				    <p:column headerText="Local">
+					    <p:cellEditor>
+					    		<f:facet name="output"><h:outputText value="#{game.local.name}" /></f:facet>
+					    		<f:facet name="input">
+					    			<p:selectOneMenu id="local" value="#{game.local}" var="team" converter="#{teamConverter}" >
+							            <f:selectItems value="#{controller.avaiablesTeams}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
+											 <p:column>
+								                <p:graphicImage library="#{team.library}" name="#{team.shield}" rendered="#{team.haveLogo}" width="32px" height="32px"/>
+								            </p:column>
+								            <p:column>
+								                <h:outputText value="#{team.name}" />
+								            </p:column>
+							        </p:selectOneMenu>
+					    		</f:facet>
+					    </p:cellEditor>
+				    </p:column>
+	           		<p:column headerText="Goles">
+          				<p:cellEditor>
+				    		<f:facet name="output"><h:outputText value="#{game.localGoals}" /></f:facet>
+				    		<f:facet name="input">
+				    			<h:inputText value="#{game.localGoals}" />
+				    		</f:facet>
+				    	</p:cellEditor>
+				    </p:column>
+				    <p:column headerText="" >
+				        <h:outputText value="Vs" style="center" />
+				    </p:column>
+					<p:column headerText="Goles">
+						<p:cellEditor>
+				    		<f:facet name="output"><h:outputText value="#{game.visitorGoals}" /></f:facet>
+				    		<f:facet name="input">
+				    			<h:inputText value="#{game.visitorGoals}" />
+				    		</f:facet>
+				    	</p:cellEditor>					
+				    </p:column>	
+				    <p:column headerText="Visitante">
+					    <p:cellEditor>
+					    		<f:facet name="output"><h:outputText value="#{game.visitor.name}" /></f:facet>
+					    		<f:facet name="input">
+					    			<p:selectOneMenu id="visitor" value="#{game.visitor}" var="team" converter="#{teamConverter}" >
+							            <f:selectItems value="#{controller.avaiablesTeams}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
+											 <p:column>
+								                <p:graphicImage library="#{team.library}" name="#{team.shield}" width="32px" height="32px"/>
+								            </p:column>
+								            <p:column>
+								                <h:outputText value="#{team.name}" />
+								            </p:column>
+							        </p:selectOneMenu>
+					    		</f:facet>
+					    </p:cellEditor>
+				    </p:column>
+				    <p:column headerText="">
+				    	 <p:graphicImage library="#{game.visitor.library}" name="#{game.visitor.shield}" rendered="#{game.haveVisitorLogo}" width="32px" height="32px"/>	
+				    </p:column>
+				    <p:column headerText="Fecha">
+					    <p:cellEditor>
+					 		<f:facet name="output">
+					 	    	<p:outputLabel id="startDateReadOnly" value="#{game.startDate}">
+					 				<f:convertDateTime pattern="#{dataView.generalDateFormat}" />
+					 			</p:outputLabel>
+					 		</f:facet>
+							<f:facet name="input">
+								<p:calendar placeholder="#{dataView.generalDateFormat}" id="startDate" value="#{game.startDate}" 
+											pattern="#{dataView.generalDateFormat}" readonly="false" >
+									<f:ajax event="change" update="@form"/>
+								</p:calendar>
+							</f:facet>			 		
+					 	</p:cellEditor>		
+					 </p:column>	    
+				</p:dataTable>
+	        	<p:commandButton value="Agregar Encuentro" actionListener="#{controller.addGame}" update="@form" immediate="true"
+	        	onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()">
+	        		<f:attribute name="roundSelected" value="#{round}"/>
+	        	</p:commandButton>
+	        	<p:commandButton value="Procesar Fecha" actionListener="#{controller.processRound}" update="@form" immediate="true"
+	        	onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()">
+	        		<f:attribute name="roundSelected" value="#{round}"/>
+	        	</p:commandButton>
+	        </p:tab>
+	    </p:tabView>  
+	    <p:commandButton value="Agregar Fecha" actionListener="#{controller.addRound}" update="@form" onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()" />
+	    <p:commandButton id="confirm" action="confirm" value="#{msg['app.login.confirm']}" icon="ui-icon-check" onstart="PF('blockUI').block()" oncomplete="PF('blockUI').unblock()" />
+	</h:form>
+
+</ui:define>
+
+</ui:composition>

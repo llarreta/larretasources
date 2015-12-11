@@ -1,0 +1,98 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/layouts/standard.xhtml">
+
+	<ui:define name="content">
+		<p:outputPanel id="panelDialog">
+			<h:form id="formDialog">
+
+				<p:dialog header="#{msg['equipo.headerDialog']}"
+					widgetVar="itemDialog" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="false">
+
+					<p:outputPanel id="itemDetail" style="text-align:center;">
+						<p:focus context="itemDetail" />
+						<p:outputLabel value="#{msg['team.name']}" />
+						<p:spacer height="10" width="20" />
+						<p:inputText id="name" value="#{dataView.selected.name}"
+							required="true" label="#{msg['team.name']}" type="text"
+							placeholder="#{msg['viewTeams.nameTeam']}">
+							<f:validateLength minimum="2" />
+						</p:inputText>
+
+						<p:messages for="name" />
+						<div style="height: 10px" />
+						<p:outputLabel value="#{msg['team.library']}" />
+						<p:spacer height="10" width="20" />
+						<p:inputText id="library" value="#{dataView.selected.library}"
+							placeholder="#{msg['viewTeams.library']}" />
+						<div style="height: 10px" />
+						<p:outputLabel value="#{msg['team.shield']}" />
+						<div style="height: 5px" />
+						<p:inputText id="shield" value="#{dataView.selected.shield}"
+							placeholder="#{msg['viewTeams.shield']}" />
+						<div style="height: 10px" />
+
+						<p:commandButton id="saveOrUpdate" action="#{teamDataView.action}" update="@parent"
+							value="#{teamDataView.msgSaveorUpdate}" icon="ui-icon-disk"
+							/>
+
+
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+		</p:outputPanel>
+
+		<h:form id="formList">
+
+			<p:commandLink id="save" oncomplete="PF('itemDialog').show()"
+				immediate="true" actionListener="#{dataView.resetSelectedItem}"
+				update=":panelDialog" style="float:left">
+				<i class="fa fa-plus" />
+				<h:outputText value="#{msg['app.add']}" />
+			</p:commandLink>
+
+
+			<p:dataGrid var="team" value="#{dataView.paginator}" columns="3"
+				layout="grid" rows="12" paginator="true" lazy="true" id="teams"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16"
+				emptyMessage="#{msg['datatable.nodata']}">
+
+				<p:panel header="#{team.name}" style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:graphicImage library="#{team.library}" name="#{team.shield}" />
+						<p:outputLabel value="#{team.name}" />
+						<p:commandLink id="modify" oncomplete="PF('itemDialog').show()"	immediate="true" update=":panelDialog" actionListener="#{dataView.updateDialog}">
+							<i class="fa fa-pencil" />
+							<p:outputLabel value="#{msg['app.modif']}" />
+							<f:setPropertyActionListener target="#{dataView.selected}" value="#{team}" />
+						</p:commandLink>
+						<p:commandLink id="remove" icon="ui-icon-trash"
+							actionListener="#{dataView.remove}" immediate="true"
+							update=":formList">
+							<i class="fa fa-trash" />
+							<p:outputLabel value="#{msg['app.remove']}" />
+							<f:attribute name="team" value="#{team}" />
+							<p:confirm header="#{msg['app.confirm']}"
+								message="#{msg['teams.confirmRemove']}" icon="ui-icon-alert" />
+						</p:commandLink>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="#{msg['app.yes']}" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="#{msg['app.no']}" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</h:panelGrid>
+				</p:panel>
+			</p:dataGrid>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
