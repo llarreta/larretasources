@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+	<!-- Pasos estandar para un abm -->
+	<action-state id="starting" >
+	    <evaluate expression="flowScope.controller.starting(flowRequestContext)" />
+	    <transition to="start" />
+	</action-state>
+    
+	<view-state id="start" view="none.xhtml" >
+	    	<transition on="create" to="create" />
+	    	<transition on="update" to="update" />
+	</view-state>
+	
+	<action-state id="update" >
+	    <evaluate expression="flowScope.controller.initUpdate(flowRequestContext)" />
+	    <transition to="updateView" />
+	</action-state>
+	
+	<action-state id="create" >
+	    <evaluate expression="flowScope.controller.initCreate(flowRequestContext)" />
+	    <transition to="createView" />
+	</action-state>
+
+	<view-state id="updateView" view="none.xhtml">
+	    <transition on="confirm" to="preUpdate" />
+	</view-state>
+	
+	<view-state id="createView" view="none.xhtml">
+	    <transition on="confirm" to="preCreate" />
+	</view-state>	
+
+	<action-state id="preUpdate">
+	    <evaluate expression="flowScope.controller.preUpdate(flowRequestContext)"/>
+	    <transition to="onUpdate"/>
+	</action-state>
+	<action-state id="onUpdate">
+	    <evaluate expression="flowScope.controller.onUpdate(flowRequestContext)"/>
+	    <transition to="postUpdate"/>
+	</action-state>
+	<action-state id="postUpdate">
+	    <evaluate expression="flowScope.controller.postUpdate(flowRequestContext)"/>
+	    <transition to="start"/>
+	</action-state>
+	
+	<action-state id="preCreate">
+	    <evaluate expression="flowScope.controller.preCreate(flowRequestContext)"/>
+	    <transition to="onCreate"/>
+	</action-state>
+	<action-state id="onCreate">
+	    <evaluate expression="flowScope.controller.onCreate(flowRequestContext)"/>
+	    <transition to="postCreate"/>
+	</action-state>
+	<action-state id="postCreate">
+	    <evaluate expression="flowScope.controller.postCreate(flowRequestContext)"/>
+	    <transition to="start"/>
+	</action-state>
+
+	
+</flow>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+	<!--
+		Also see ../parent-flow.xml. 
+	-->
+
+	<var name="styleElement" class="java.lang.String"/>
+	<var name="controller" 	class="ar.com.larreta.smarttrace.controllers.SmartTraceLoginController" />
+	<var name="dataView" 	class="ar.com.larreta.smarttrace.views.SmartTraceLoginDataView" />
+	
+	<on-start>
+        <set name="controller.dataView" value="dataView" />
+    </on-start>
+    
+	<action-state id="starting">
+	    <evaluate expression="flowScope.controller.init(flowRequestContext)"/>
+	    <transition to = "login"/>
+	</action-state>
+
+	<view-state id="login">
+		<transition on="signup" to="signup"/>
+		<transition on="signin" to="signin"/>
+	</view-state>
+	
+	<action-state id="signin">
+	    <evaluate expression="flowScope.controller.login(flowRequestContext)"/>
+	    <transition to = "end"/>
+	    <transition on-exception="ar.com.larreta.commons.exceptions.ErrorLoginException" to = "addError"/>
+	</action-state>
+
+	<action-state id="addError">
+	     <evaluate expression="flowScope.controller.addLoginError(flowRequestContext)"/>
+	    <transition to = "login"/>
+	</action-state>
+	
+	<action-state id="signupConfirm">
+	    <evaluate expression="flowScope.controller.signup(flowRequestContext)"/>
+	    <transition to = "signupOK"/>
+	    <transition on-exception="ar.com.larreta.commons.exceptions.SignUpException" 	to="signup"/>
+	</action-state>
+	
+	<view-state id="signupOK" />
+	
+	
+</flow>

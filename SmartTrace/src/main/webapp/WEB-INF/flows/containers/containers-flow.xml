@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="crud-flow">
+
+   	<var name="controller" 			class="ar.com.larreta.smarttrace.controllers.ContainerController" />
+	<var name="dataView" 			class="ar.com.larreta.smarttrace.views.ContainerDataView" />
+	
+	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.Container"/>
+    <var name="materialEntity" 		class="ar.com.larreta.smarttrace.domain.Material"/>
+	<var name="materialTypeEntity" 	class="ar.com.larreta.smarttrace.domain.MaterialType"/>
+	
+	<var name="containerConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
+	<var name="materialConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
+	<var name="materialTypeConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
+	
+	
+	<on-start>
+        <set name="materialConverter.entityClass" value="materialEntity"/>
+    	<set name="containerConverter.entityClass" value="entity"/>
+    	<set name="materialTypeConverter.entityClass" value="materialTypeEntity"/>
+    </on-start>
+    
+	<action-state id="starting" parent="crud-flow#starting"/>
+	<view-state id="start"  	parent="crud-flow#start"  		view="containers.xhtml"/>
+	<view-state id="updateView" parent="crud-flow#updateView" 	view="containersUpdate.xhtml" />
+	<view-state id="createView" parent="crud-flow#createView" 	view="containersUpdate.xhtml" /> 
+
+</flow>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="crud-flow">
+
+	<var name="controller" 			class="ar.com.larreta.commons.controllers.StandardController" />
+	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
+	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.Provider"/>
+	
+	<on-start>
+        <set name="controller.dataView" value="dataView" />
+        <set name="controller.entityClass" value="entity" />
+    </on-start>
+	
+	<action-state id="starting" parent="crud-flow#starting"/>
+	<view-state id="start"  	parent="crud-flow#start"  		view="providers.xhtml"/>
+	<view-state id="updateView" parent="crud-flow#updateView" 	view="providersUpdate.xhtml" />
+	<view-state id="createView" parent="crud-flow#createView" 	view="providersUpdate.xhtml" />
+
+</flow>

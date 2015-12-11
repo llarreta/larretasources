@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mail" pageWidth="612" pageHeight="202" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ee27ef4e-dff5-4428-8168-439556fe7c33">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="round" class="java.lang.String"/>
+	<parameter name="link" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="surname" class="java.lang.String"/>
+	<parameter name="dueDate" class="java.lang.String"/>
+	<title>
+		<band height="162" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="612" height="35" uuid="53d4f7c6-0a36-4dce-8766-c6b55d15a17f"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hola " + $P{name}+" "+$P{surname}+","]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="65" width="612" height="29" uuid="ed966838-2a42-4d25-8dcf-685213d23c1c"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[Ingresa ya mismo en la aplicacion y hace tu pronostico ...]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="35" width="612" height="30" uuid="5bbd384e-720a-4691-b3fb-a5e939648772"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Aun no has pronosticado para :" + $P{round}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="Reference">
+				<reportElement x="0" y="94" width="612" height="32" uuid="ed28848d-ffd4-48d5-b85a-2eb92c4e8f19"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  >> Click aqui para pronosticar ..."]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA[$P{link}]]></hyperlinkReferenceExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="126" width="612" height="35" uuid="b1001d42-6f55-4d88-a3b8-aaeb94fccf4e"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tenes tiempo hasta el " + $P{dueDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+</jasperReport>

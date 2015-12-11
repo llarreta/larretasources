@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="crud-flow">
+
+	<var name="controller" 			class="ar.com.larreta.smarttrace.controllers.MaterialsController" />
+	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
+	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.Material"/>
+	<var name="unitTypeConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
+	<var name="entityUnitType" 		class="ar.com.larreta.smarttrace.domain.UnitType"/>
+	
+	<on-start>
+        <set name="controller.dataView" 			value="dataView" />
+        <set name="controller.entityClass" 			value="entity" />
+        <set name="unitTypeConverter.entityClass" 	value="entityUnitType" />
+    </on-start>
+	
+	<action-state id="starting" parent="crud-flow#starting"/>
+	<view-state id="start"  	parent="crud-flow#start"  		view="materials.xhtml"/>
+	<view-state id="updateView" parent="crud-flow#updateView" 	view="materialsUpdate.xhtml" />
+	<view-state id="createView" parent="crud-flow#createView" 	view="materialsUpdate.xhtml" />
+
+</flow>

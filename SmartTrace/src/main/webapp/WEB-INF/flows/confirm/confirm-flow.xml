@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="parent-flow">
+
+	<!--
+		Also see ../parent-flow.xml. 
+	-->
+
+	<var name="controller" 			class="ar.com.larreta.prode.controllers.ProdeLoginController" />
+	<var name="dataView" 			class="ar.com.larreta.prode.views.ProdeLoginDataView" />
+	
+	<on-start>
+        <set name="controller.dataView" value="dataView" />
+    </on-start>
+
+	<action-state id="confirm">
+	    <evaluate expression="controller.confirm(flowRequestContext)"/>
+	    <transition to = "confirmOK" />
+	</action-state>
+	
+	<view-state id="confirmOK" />
+	
+</flow>
