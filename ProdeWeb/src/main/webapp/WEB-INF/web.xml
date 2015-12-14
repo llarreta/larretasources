@@ -35,11 +35,14 @@
 	    <param-value>true</param-value>
 	</context-param>  	
 
-<listener>
+  <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <listener>
     <listener-class>ar.com.larreta.commons.controllers.HttpSessionEventPublicher</listener-class>
   </listener>
-  
+
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
