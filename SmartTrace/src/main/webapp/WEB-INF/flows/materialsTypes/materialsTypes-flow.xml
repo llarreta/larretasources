@@ -6,7 +6,7 @@
 
 	<var name="controller" 			class="ar.com.larreta.commons.controllers.StandardController" />
 	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
-	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.MaterialType"/>
+	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.Classification"/>
 	
 	<on-start>
         <set name="controller.dataView" value="dataView" />

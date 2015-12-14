@@ -6,7 +6,7 @@ import org.primefaces.model.TreeNode;
 
 import ar.com.larreta.commons.views.DataView;
 import ar.com.larreta.smarttrace.domain.Container;
-import ar.com.larreta.smarttrace.domain.Material;
+import ar.com.larreta.smarttrace.domain.MaterialType;
 
 /**
  * @author ignacio.m.larreta
@@ -23,7 +23,7 @@ public class ContainerDataView extends DataView{
 	private Boolean containerSelect;
 	private Boolean materialSelect;
 	private Boolean fatherContainerSelect;
-	private Material materialSelected;
+	private MaterialType materialSelected;
 	private List<Container> containers;
 
 	/**
@@ -94,14 +94,14 @@ public class ContainerDataView extends DataView{
 	 * Material seleccionado en el caso de que no tenga un container
 	 * @return the materialSelected
 	 */
-	public Material getMaterialSelected() {
+	public MaterialType getMaterialSelected() {
 		return materialSelected;
 	}
 
 	/**
 	 * @param materialSelected the materialSelected to set
 	 */
-	public void setMaterialSelected(Material materialSelected) {
+	public void setMaterialSelected(MaterialType materialSelected) {
 		this.materialSelected = materialSelected;
 	}
 

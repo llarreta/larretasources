@@ -8,13 +8,13 @@ import javax.persistence.Table;
 
 import ar.com.larreta.commons.domain.audit.AuditableEntity;
 import ar.com.larreta.commons.domain.audit.EntityChangeHistory;
-import ar.com.larreta.smarttrace.domain.Material;
+import ar.com.larreta.smarttrace.domain.MaterialType;
 
 @Entity
-@Table(name = "materialChangeHistory")
+@Table(name = "materialTypeChangeHistory")
 public class MaterialChangeHistory extends EntityChangeHistory {
 
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Material.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=MaterialType.class)
 	@JoinColumn (name="idAuditableEntity")	
 	@Override
 	public AuditableEntity getAuditableEntity() {

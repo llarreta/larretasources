@@ -8,8 +8,8 @@
 	<var name="dataView" 			class="ar.com.larreta.smarttrace.views.ContainerDataView" />
 	
 	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.Container"/>
-    <var name="materialEntity" 		class="ar.com.larreta.smarttrace.domain.Material"/>
-	<var name="materialTypeEntity" 	class="ar.com.larreta.smarttrace.domain.MaterialType"/>
+    <var name="materialEntity" 		class="ar.com.larreta.smarttrace.domain.MaterialType"/>
+	<var name="materialTypeEntity" 	class="ar.com.larreta.smarttrace.domain.Classification"/>
 	
 	<var name="containerConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
 	<var name="materialConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>

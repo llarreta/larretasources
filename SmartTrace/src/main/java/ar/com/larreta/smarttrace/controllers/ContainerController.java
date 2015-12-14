@@ -15,8 +15,8 @@ import org.springframework.webflow.execution.RequestContext;
 import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
+import ar.com.larreta.smarttrace.domain.Classification;
 import ar.com.larreta.smarttrace.domain.Container;
-import ar.com.larreta.smarttrace.domain.Material;
 import ar.com.larreta.smarttrace.domain.MaterialType;
 import ar.com.larreta.smarttrace.views.ContainerDataView;
 
@@ -63,7 +63,7 @@ public class ContainerController extends StandardControllerImpl{
 		if((fatherContainer.getChildrenContainers() != null) && (!fatherContainer.getChildrenContainers().isEmpty())){
 			loadChildrenContainers(getDataViewContainer().getRoot(), fatherContainer);
 		}
-		if(fatherContainer.getMaterial() != null){
+		if(fatherContainer.getMaterialType() != null){
 			loadMaterialContainer(getDataViewContainer().getRoot(), fatherContainer);
 		}
 	}
@@ -81,9 +81,9 @@ public class ContainerController extends StandardControllerImpl{
 
 	private void deleteMaterial() {
 		if(getDataViewContainer().getNodeSelected() != null){	
-			if(getContainer().getMaterial()!=null){
-				if(getContainer().getMaterial().equals(getDataViewContainer().getMaterialSelected())){
-					getContainer().setMaterial(null);
+			if(getContainer().getMaterialType()!=null){
+				if(getContainer().getMaterialType().equals(getDataViewContainer().getMaterialSelected())){
+					getContainer().setMaterialType(null);
 					getDataViewContainer().getLog().info("El usuario elimino el elemento del contenedor padre.");
 				}else{
 					deleteMaterialInChildrenContainer(getContainer().getChildrenContainers());
@@ -105,8 +105,8 @@ public class ContainerController extends StandardControllerImpl{
 	private void deleteMaterialInChildrenContainer(Collection<Container> containers) {
 		for(Container container : containers){
 			if(container.equals((Container)getDataViewContainer().getNodeSelected().getParent().getData())){
-				if((container.getMaterial() != null) && (container.getMaterial().equals(getDataViewContainer().getMaterialSelected()))){
-					container.setMaterial(null);
+				if((container.getMaterialType() != null) && (container.getMaterialType().equals(getDataViewContainer().getMaterialSelected()))){
+					container.setMaterialType(null);
 					getDataViewContainer().getLog().info("El usuario elimino el elemento de un container hijo seleccionado correctamente.");
 				}
 			}
@@ -143,7 +143,7 @@ public class ContainerController extends StandardControllerImpl{
 	}
 
 	private void loadMaterialContainer(TreeNode root, Container fatherContainer) {
-		TreeNode material = new DefaultTreeNode(fatherContainer.getMaterial(), root);
+		TreeNode material = new DefaultTreeNode(fatherContainer.getMaterialType(), root);
 		material.setExpanded(true);
 	}
 
@@ -154,7 +154,7 @@ public class ContainerController extends StandardControllerImpl{
 			if((childContainer.getChildrenContainers() != null) && (!childContainer.getChildrenContainers().isEmpty())){
 				loadChildrenContainers(childrenContainer, childContainer);
 			}
-			if(childContainer.getMaterial() != null){
+			if(childContainer.getMaterialType() != null){
 				this.loadMaterialContainer(childrenContainer, childContainer);
 			}
 		}
@@ -173,7 +173,7 @@ public class ContainerController extends StandardControllerImpl{
 	
 	public Boolean tryCastMaterial(Object node){
 		try{
-			Material material = (Material) node;
+			MaterialType material = (MaterialType) node;
 			return true;
 		}catch(ClassCastException e){
 			return false;
@@ -203,7 +203,7 @@ public class ContainerController extends StandardControllerImpl{
 	}
 
 	private void castMaterial() {
-		getDataViewContainer().setMaterialSelected((Material)this.getDataViewContainer().getNodeSelected().getData());
+		getDataViewContainer().setMaterialSelected((MaterialType)this.getDataViewContainer().getNodeSelected().getData());
 		getDataViewContainer().setContainerSelected(null);
 		getDataViewContainer().setContainerSelect(false);
 		getDataViewContainer().setMaterialSelect(true);
@@ -239,14 +239,14 @@ public class ContainerController extends StandardControllerImpl{
 				getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
 			}
 		}else{
-			if(getDataViewContainer().getContainerSelected().getMaterial() == null){
-				Material newMaterial = new Material();
+			if(getDataViewContainer().getContainerSelected().getMaterialType() == null){
+				MaterialType newMaterial = new MaterialType();
 				newMaterial.setDescription("New Material");
 				newMaterial.setCount(1L);
 				newMaterial.setContainers(new HashSet<Container>());
 				newMaterial.getId();
 				newMaterial.getContainers().add(getContainer());
-				getDataViewContainer().getContainerSelected().setMaterial(newMaterial);
+				getDataViewContainer().getContainerSelected().setMaterialType(newMaterial);
 			}
 		}
 		loadRoot();
@@ -285,21 +285,21 @@ public class ContainerController extends StandardControllerImpl{
 		return new ArrayList<Container>();
 	}
 	
-	public List<Material> getMaterials(){
-		try {
-			return (List<Material>) super.getService().load(Material.class);
-		} catch (NotServiceAssignedException e) {
-			getLog().error(AppException.getStackTrace(e));
-		}
-		return new ArrayList<Material>();
-	}
-	
-	public List<MaterialType> getMaterialsType(){
+	public List<MaterialType> getMaterials(){
 		try {
 			return (List<MaterialType>) super.getService().load(MaterialType.class);
 		} catch (NotServiceAssignedException e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
 		return new ArrayList<MaterialType>();
+	}
+	
+	public List<Classification> getMaterialsType(){
+		try {
+			return (List<Classification>) super.getService().load(Classification.class);
+		} catch (NotServiceAssignedException e) {
+			getLog().error(AppException.getStackTrace(e));
+		}
+		return new ArrayList<Classification>();
 	}
 }

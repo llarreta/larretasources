@@ -12,18 +12,18 @@ CREATE TABLE [SCHEMMA].unitType (
 	PRIMARY KEY (ID)
 );
 
-CREATE TABLE [SCHEMMA].material (
+CREATE TABLE [SCHEMMA].materialType (
 	id BIGINT NOT NULL,
 	deleted DATETIME,
 	description VARCHAR(255),
 	idUnitType BIGINT NOT NULL,
 	count BIGINT NOT NULL,
 	idProvider BIGINT NOT NULL,
-	idMaterialType BIGINT NOT NULL,
+	idClassification BIGINT NOT NULL,
 	PRIMARY KEY (ID)
 );
 
-CREATE TABLE [SCHEMMA].materialType (
+CREATE TABLE [SCHEMMA].classification (
 	id BIGINT NOT NULL,
 	deleted DATETIME,
 	description VARCHAR(255),
@@ -35,7 +35,7 @@ CREATE TABLE [SCHEMMA].container (
 	deleted DATETIME,
 	code VARCHAR(255),
 	description VARCHAR(255),
-	idMaterial BIGINT NOT NULL,
+	idMaterialType BIGINT NOT NULL,
 	count BIGINT NOT NULL,
 	elaboration DATETIME,
 	expiration DATETIME,
@@ -61,20 +61,20 @@ CREATE TABLE [SCHEMMA].target (
 	idContainerTarget BIGINT NOT NULL
 );
 
-ALTER TABLE [SCHEMMA].material
-ADD CONSTRAINT fk_unitType_in_material
+ALTER TABLE [SCHEMMA].materialType
+ADD CONSTRAINT fk_unitType_in_materialType
 FOREIGN KEY (idUnitType)
 REFERENCES [SCHEMMA].unitType(id);
 
-ALTER TABLE [SCHEMMA].material
-ADD CONSTRAINT fk_provider_in_material
+ALTER TABLE [SCHEMMA].materialType
+ADD CONSTRAINT fk_provider_in_materialType
 FOREIGN KEY (idProvider)
 REFERENCES [SCHEMMA].provider(id);
 
 ALTER TABLE [SCHEMMA].container
-ADD CONSTRAINT fk_material_in_container
-FOREIGN KEY (idMaterial)
-REFERENCES [SCHEMMA].material(id);
+ADD CONSTRAINT fk_materialType_in_container
+FOREIGN KEY (idMaterialType)
+REFERENCES [SCHEMMA].materialType(id);
 
 ALTER TABLE [SCHEMMA].container
 ADD CONSTRAINT fk_containerParent_in_container
@@ -101,7 +101,7 @@ ADD CONSTRAINT fk_container_in_target
 FOREIGN KEY (idContainerTarget)
 REFERENCES [SCHEMMA].container(id);
 
-ALTER TABLE [SCHEMMA].material
-ADD CONSTRAINT fk_materialType_in_material
-FOREIGN KEY (idMaterialType)
+ALTER TABLE [SCHEMMA].materialType
+ADD CONSTRAINT fk_classification_in_materialType
+FOREIGN KEY (idClassification)
 REFERENCES [SCHEMMA].materialType(id);

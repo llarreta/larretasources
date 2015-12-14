@@ -38,7 +38,7 @@
 	         		<!-- Para uso con atributo action del commandButton -->
 	         		<f:setPropertyActionListener target="#{dataView.selected}" value="#{actualItem}" />
 	         	</p:commandButton>
-	         	 <p:commandButton id="Eliminar" value="Eliminar"	icon="ui-icon-trash" actionListener="#{controller.delete}" immediate="true" update=":formList">
+	         	 <p:commandButton id="Eliminar" value="Eliminar"	icon="ui-icon-trash" actionListener="#{controller.delete}" immediate="true" update=":formList" ajax="true">
 	         		<f:attribute name="selected" value="#{actualItem}"/>
 	         	 	<p:confirm header="#{msg['app.confirm']}" message="#{msg['app.confirmRemove']}" icon="ui-icon-alert" />
 	         	 </p:commandButton>	         		

@@ -44,7 +44,7 @@
 	</action-state>
 	<action-state id="postUpdate">
 	    <evaluate expression="flowScope.controller.postUpdate(flowRequestContext)"/>
-	    <transition to="start"/>
+	    <transition to="starting"/>
 	</action-state>
 	
 	<action-state id="preCreate">
@@ -57,7 +57,7 @@
 	</action-state>
 	<action-state id="postCreate">
 	    <evaluate expression="flowScope.controller.postCreate(flowRequestContext)"/>
-	    <transition to="start"/>
+	    <transition to="starting"/>
 	</action-state>
 
 	

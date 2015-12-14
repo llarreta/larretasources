@@ -12,7 +12,7 @@ CREATE TABLE [SCHEMMA].materialChangeHistory (
 ALTER TABLE [SCHEMMA].materialChangeHistory
 ADD CONSTRAINT fk_material_in_materialChangeHistory
 FOREIGN KEY (idAuditableEntity)
-REFERENCES [SCHEMMA].material(id);
+REFERENCES [SCHEMMA].materialType(id);
 
 ALTER TABLE [SCHEMMA].materialChangeHistory
 ADD CONSTRAINT fk_user_in_materialChangeHistory

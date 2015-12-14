@@ -6,7 +6,7 @@
 
 	<var name="controller" 			class="ar.com.larreta.smarttrace.controllers.MaterialsController" />
 	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
-	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.Material"/>
+	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.MaterialType"/>
 	<var name="unitTypeConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
 	<var name="entityUnitType" 		class="ar.com.larreta.smarttrace.domain.UnitType"/>
 	

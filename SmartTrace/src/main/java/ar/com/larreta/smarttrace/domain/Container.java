@@ -2,7 +2,6 @@ package ar.com.larreta.smarttrace.domain;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,18 +15,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
-
-import ar.com.larreta.commons.domain.audit.AuditableEntity;
-import ar.com.larreta.commons.domain.audit.EntityChangeHistory;
-import ar.com.larreta.commons.faces.TreeTableAvaiable;
-import ar.com.larreta.smarttrace.domain.history.ContainerChangeHistory;
 
 /**
  * Representa un contenedor de materiales
@@ -40,7 +31,7 @@ import ar.com.larreta.smarttrace.domain.history.ContainerChangeHistory;
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Container SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Container extends ar.com.larreta.commons.domain.Entity implements TreeTableAvaiable {
+public class Container extends ar.com.larreta.commons.domain.Entity {
 
 	/**
 	 * Codigo identificador del contenedor
@@ -55,7 +46,7 @@ public class Container extends ar.com.larreta.commons.domain.Entity implements T
 	/**
 	 * Material contenido
 	 */
-	private Material material;
+	private MaterialType materialType;
 	
 	/**
 	 * Cantidad del material contenido
@@ -91,11 +82,6 @@ public class Container extends ar.com.larreta.commons.domain.Entity implements T
 	 * Pasos en los que este container fue utilizado como destino
 	 */
 	private Collection<Step> targetSteps;
-	
-	/**
-	 * Representa el elemento actual como nodo de un arbol
-	 */
-	private TreeNode node;
 	
 	@ManyToMany (fetch=FetchType.LAZY, targetEntity=Step.class)
 	@JoinTable(name = "source", joinColumns = { @JoinColumn(name = "idContainerSource") }, 
@@ -137,14 +123,14 @@ public class Container extends ar.com.larreta.commons.domain.Entity implements T
 		this.description = description;
 	}
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Material.class)
-	@JoinColumn (name="idMaterial")
-	public Material getMaterial() {
-		return material;
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=MaterialType.class)
+	@JoinColumn (name="idMaterialType")
+	public MaterialType getMaterialType() {
+		return materialType;
 	}
 
-	public void setMaterial(Material material) {
-		this.material = material;
+	public void setMaterialType(MaterialType materialType) {
+		this.materialType = materialType;
 	}
 
 	@Basic
@@ -182,9 +168,6 @@ public class Container extends ar.com.larreta.commons.domain.Entity implements T
 
 	public void setParentContainer(Container parentContainer) {
 		this.parentContainer = parentContainer;
-		if (parentContainer!=null){
-			getTreeNode().setParent(parentContainer.getTreeNode());
-		}
 	}
 
 	@OneToMany (mappedBy="parentContainer", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=Container.class)
@@ -194,25 +177,6 @@ public class Container extends ar.com.larreta.commons.domain.Entity implements T
 
 	public void setChildrenContainers(Collection<Container> childrenContainers) {
 		this.childrenContainers = childrenContainers;
-	}
-
-//	@OneToMany (mappedBy="auditableEntity", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=ContainerChangeHistory.class)
-//	public Set<EntityChangeHistory> getChangesHistory() {
-//		return changesHistory;
-//	}
-//
-//	@Override
-//	public EntityChangeHistory newEntityChangeHistoryInstance() {
-//		return new ContainerChangeHistory();
-//	}
-
-	@Transient
-	@Override
-	public TreeNode getTreeNode() {
-		if (node==null){
-			node = new DefaultTreeNode(this);
-		}
-		return node;
 	}
 
 }

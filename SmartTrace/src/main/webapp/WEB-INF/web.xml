@@ -26,8 +26,11 @@
 	    <param-value>true</param-value>
 	</context-param>  	
 
-<listener>
+  <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <listener>
     <listener-class>ar.com.larreta.commons.controllers.HttpSessionEventPublicher</listener-class>
   </listener>
   
