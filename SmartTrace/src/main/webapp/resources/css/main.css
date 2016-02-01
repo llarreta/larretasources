@@ -183,10 +183,17 @@ a.ui-menuitem-link.ui-corner-all.menu-item-default {
 #blurred-bg-canvas {
     position: absolute;
     z-index: 10;
+    height: 100% !important;
 }
 
 #captured-image {
     display: none;
+}
+
+.ui-commandlink.ui-widget.fa.fa-pencil-square-o {
+    color: #FFFFFF;
+    font-size: 25px;
+    text-shadow: 1px 1px 1px gray;
 }
 
 /*
@@ -693,7 +700,6 @@ div.ui-selectonemenu-trigger.ui-state-default.ui-corner-right span.ui-icon.ui-ic
     background-color: rgb(210, 202, 202);
     box-shadow: 0px 3px 47px -6px darkslategray;
     border-radius: 3px;
-    min-height: 100%;
     position: relative;
 }
 
