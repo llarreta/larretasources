@@ -90,7 +90,7 @@ img.logo-main-menu {
 .main-bar-1 {
     background: inherit;
     position: relative;
-    width: 30% !important;
+    width: 76% !important;
     margin-left: 23%;
     margin-top: -3.2%;
     border: none;
@@ -103,6 +103,14 @@ img.logo-main-menu {
     margin-left: 70%;
     background: inherit;
     font-family: 'Arimo', sans-serif;
+}
+.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.unitTypeDescriptionUpdate {
+    margin-left: 28%;
+}
+.ui-outputlabel.ui-widget.titleUnitTypesUpdateNew {
+    color: white !important;
+    font-size: 45px !important;
+    position: absolute;
 }
 .menu-item-default:hover{
 	border-radius: 200px !important;
@@ -792,4 +800,18 @@ a.ui-datepicker-next.ui-corner-all.ui-state-hover.ui-datepicker-next-hover, a.ui
     text-shadow: 0px 0px 2px gray;
     color: #1CAFF6;
     transition: color 0.2s ease-in-out;
+}
+.ui-outputlabel.ui-widget.titleUnitTypesUpdateNew {
+    color: white !important;
+    font-size: 50px !important;
+    text-shadow: 1px 1px 1px gray;
+    position: absolute;
+    margin-top: 35px;
+}
+.ui-outputpanel.ui-widget.white-container-default.width-52.margin-top-150px {
+    margin-top: 150px;
+}
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.button-create-unitType {
+    margin-left: 42%;
+    margin-top: 5%;
 }
