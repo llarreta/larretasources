@@ -804,7 +804,7 @@ a.ui-datepicker-next.ui-corner-all.ui-state-hover.ui-datepicker-next-hover, a.ui
 .ui-outputlabel.ui-widget.titleUnitTypesUpdateNew {
     color: white !important;
     font-size: 50px !important;
-    text-shadow: 1px 1px 1px gray;
+    text-shadow: 4px 1px 1px gray;
     position: absolute;
     margin-top: 35px;
 }
@@ -814,4 +814,29 @@ a.ui-datepicker-next.ui-corner-all.ui-state-hover.ui-datepicker-next-hover, a.ui
 .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.button-create-unitType {
     margin-left: 42%;
     margin-top: 5%;
+}
+.ui-dialog-titlebar.ui-widget-header.ui-helper-clearfix.ui-corner-top {
+    display: none;
+}
+span.ui-confirm-dialog-message {
+    font-size: 18px;
+    text-shadow: 1px 1px 1px rgba(128, 128, 128, 0.25);
+	margin-top: 18px;
+}
+.ui-confirm-dialog.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-hidden-container {
+    border-radius: 16px;
+}
+span.ui-icon.ui-confirm-dialog-severity.fa.fa-exclamation-triangle {
+    color: #FFEB3B;
+    font-size: 35px;
+    width: 58px;
+    height: 58px;
+    padding-left: 11px;
+    padding-top: 11px;
+    text-shadow: 1px 1px 2px gray;
+}
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.ui-confirmdialog-yes {
+    margin-left: 108px;
+    background-color: #2195CE;
+    background-image: none;
 }
