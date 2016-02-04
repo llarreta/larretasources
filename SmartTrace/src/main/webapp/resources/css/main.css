@@ -825,6 +825,7 @@ span.ui-confirm-dialog-message {
 }
 .ui-confirm-dialog.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-hidden-container {
     border-radius: 16px;
+	margin-left: -60px;
 }
 span.ui-icon.ui-confirm-dialog-severity.fa.fa-exclamation-triangle {
     color: #FFEB3B;
@@ -839,4 +840,31 @@ span.ui-icon.ui-confirm-dialog-severity.fa.fa-exclamation-triangle {
     margin-left: 108px;
     background-color: #2195CE;
     background-image: none;
+    color: white;
+    text-shadow: 1px 1px 1px gray;
+    width: 80px;
+}
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.ui-confirmdialog-no {
+    margin-left: 16px;
+    background-color: #2195CE;
+    background-image: none;
+    color: white;
+    text-shadow: 1px 1px 1px gray;
+    width: 80px;
+}
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.ui-confirmdialog-no .ui-button-icon-left.ui-icon.ui-c.ui-icon-close:before {
+    color: white;
+    text-shadow: 1px 1px 1px gray;
+    margin-top: -2px;
+}
+span.ui-button-icon-left.ui-icon.ui-c.ui-icon-check:before {
+    content: "\f00c";
+}
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.ui-confirmdialog-yes .ui-button-icon-left.ui-icon.ui-c.ui-icon-check:before {
+    margin-left: 10px;
+    top: 1px;
+    position: relative;
+}
+.ui-dialog-content.ui-widget-content {
+    padding-bottom: 0px;
 }

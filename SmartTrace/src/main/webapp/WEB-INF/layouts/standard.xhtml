@@ -19,11 +19,10 @@
 	
 	<pe:head title="#{msg['app.name']}">
  		<link href='https://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'/>
-    </pe:head>
+ 	</pe:head>
 
 <h:body>
 <h:panelGroup id="bodyPanel" layout="block">
-	
 	<f:facet name="last">
 		<h:outputStylesheet  	library="css" name="main.css"/>
 		<h:outputStylesheet 	library="smarttrace/css" name="bootstrap.min.css"/>
@@ -102,11 +101,8 @@
         <h:outputText value="Aguarde un momento, por favor..." style="white-space: nowrap;"/>  
     </h:panelGrid>  
 </pe:blockUI>
-
-<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
-<h:outputScript name="blurry-menu.js" library="smarttrace/jQuery"/>
-<h:outputScript name="ext_fastblur.js" library="smarttrace/jQuery"/>
-<h:outputScript name="ext_html2canvas.js" library="smarttrace/jQuery"/>
+	<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
+	
 </h:body>
 </f:view>
 </html>
