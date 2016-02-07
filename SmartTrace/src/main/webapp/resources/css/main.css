@@ -185,7 +185,11 @@ a.ui-menuitem-link.ui-corner-all.menu-item-default {
 }
 
 #menu-content {
-    position: relative;
+    position: absolute;
+    width: 260px;
+    top: 0px;
+    height: 100%;
+    background-color: rgba(145, 208, 240, 0.69);
 }
 
 #blurred-bg-canvas {
@@ -317,7 +321,7 @@ li.ui-widget.ui-menuitem.ui-corner-all.ui-menu-parent.ui-menuitem-active {
 }
 
 a.ui-menuitem-link.ui-corner-all.default-menu-item-configuration {
-    color: gray;
+    color: black;
     width: 107%;
     margin-left: -3%;
     padding-left: 28px;

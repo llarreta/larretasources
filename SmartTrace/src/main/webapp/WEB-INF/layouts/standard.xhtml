@@ -22,6 +22,7 @@
  	</pe:head>
 
 <h:body>
+<input class="menu-control"  type="number" value="0" style="display:none;"/>
 <h:panelGroup id="bodyPanel" layout="block">
 	<f:facet name="last">
 		<h:outputStylesheet  	library="css" name="main.css"/>
@@ -31,7 +32,7 @@
 		<h:outputStylesheet 	library="css" name="socicon.css"/>
 		<h:outputStylesheet  	library="css" name="font-awesome-animation.min.css"/>	
 	</f:facet>
-	<h:form>
+	<h:form id="menu-form">
 	   	<div class="bar-main-menu">
 	   		<p:graphicImage library="images" name="logo-barra-menu.png" styleClass="logo-main-menu"/>
 			<p:menubar styleClass="main-bar-1">
@@ -56,14 +57,12 @@
 				</p:submenu>
 			</p:menubar>
 	   	</div>
-		<div id="hamburger" onclick="BlurryMenu.openMenu()">
+		<div id="hamburger" onclick="openMenu()">
 			<div/>
 			<div/>
 			<div/>
 		</div>
-		<div id="menu">
-			<img id="captured-image" src="img/"/>
-			<canvas id="blurred-bg-canvas"></canvas>
+		<p:outputPanel id="menu" styleClass="left-menu" style="display:none">
 			<div id="menu-content" style="z-index: 11;">
 				<p:menu styleClass="menu-left-configurations">
 			        <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.configuration']}"/>
@@ -73,7 +72,7 @@
 		            <p:menuitem styleClass="default-menu-item-configuration" value="Otros sub-menu"/>
 			    </p:menu>
 	    	</div>
-		</div>
+		</p:outputPanel>
 	</h:form>
    	<div class="container">
    		<div class="ui-grid ui-grid-responsive">
@@ -102,7 +101,7 @@
     </h:panelGrid>  
 </pe:blockUI>
 	<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
-	
+	<h:outputScript name="left-menu.js" library="smarttrace/jQuery"/>
 </h:body>
 </f:view>
 </html>
