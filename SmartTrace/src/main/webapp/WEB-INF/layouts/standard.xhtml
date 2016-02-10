@@ -23,6 +23,7 @@
 
 <h:body>
 <input class="menu-control"  type="number" value="0" style="display:none;"/>
+<input class="menu-root-control"  type="number" value="0" style="display:none;"/>
 <h:panelGroup id="bodyPanel" layout="block">
 	<f:facet name="last">
 		<h:outputStylesheet  	library="css" name="main.css"/>
@@ -36,11 +37,12 @@
 	   	<div class="bar-main-menu">
 	   		<p:graphicImage library="images" name="logo-barra-menu.png" styleClass="logo-main-menu"/>
 			<p:menubar styleClass="main-bar-1">
-				<p:menuitem value="#{msg['main-bar.init']}" styleClass="menu-item-default" 	url="/app/providers"/>
-				<p:menuitem value="#{msg['main-bar.2']}" 	styleClass="menu-item-default" 	url="/app/unitsTypes" />
+				<p:menuitem value="#{msg['main-bar.init']}" styleClass="menu-item-default" 	url="/app/home"/>
+				<p:submenu label="Configuraciones Basicas" styleClass="sub-menu-main">
+					<p:menuitem value="#{msg['main-bar.2']}" 	styleClass="menu-item-default" 	url="/app/providers" />
+				</p:submenu>
 				<p:menuitem value="#{msg['main-bar.3']}" 	styleClass="menu-item-default" 	url="/app/materialsTypes"/>
 				<p:menuitem value="#{msg['main-bar.4']}" 	styleClass="menu-item-default"	url="/app/containers"/>
-				<p:menuitem value="#{msg['main-bar.5']}" 	styleClass="menu-item-default"	url="/app/materials"/>
 			</p:menubar>
 			<p:menubar styleClass="main-bar-2">
 				<p:submenu label="#{dataView.actualUser.nick}" styleClass="profile-menu">
@@ -62,6 +64,22 @@
 			<div/>
 			<div/>
 		</div>
+		<div id="hamburger" class="hamburger-root" onclick="openMenuRoot()">
+			<div/>
+			<div/>
+			<div/>
+		</div>
+		<p:outputPanel id="menu-root" styleClass="root-menu" style="display:none">
+			<div id="menu-root-content" style="z-index: 11;">
+				<p:menu styleClass="menu-root-configurations">
+			        <p:menuitem styleClass="default-menu-root-item-configuration" value="#{msg['root-menu.unitsTypes']}" url="/app/unitsTypes" />
+		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 1"/>
+		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 2"/>
+		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 3"/>
+		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Otros sub-menu"/>
+			    </p:menu>
+	    	</div>
+		</p:outputPanel>
 		<p:outputPanel id="menu" styleClass="left-menu" style="display:none">
 			<div id="menu-content" style="z-index: 11;">
 				<p:menu styleClass="menu-left-configurations">
@@ -102,6 +120,7 @@
 </pe:blockUI>
 	<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
 	<h:outputScript name="left-menu.js" library="smarttrace/jQuery"/>
+	<h:outputScript name="root-menu.js" library="smarttrace/jQuery"/>
 </h:body>
 </f:view>
 </html>

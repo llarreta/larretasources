@@ -90,19 +90,25 @@ img.logo-main-menu {
 .main-bar-1 {
     background: inherit;
     position: relative;
-    width: 76% !important;
+    width: 49% !important;
     margin-left: 23%;
     margin-top: -3.2%;
     border: none;
     font-family: 'Arimo', sans-serif;
 }
 .main-bar-2 {
-    width: 29% !important;
+    width: 14% !important;
     border: none;
     margin-top: -4%;
-    margin-left: 70%;
+    margin-left: 74%;
     background: inherit;
     font-family: 'Arimo', sans-serif;
+}
+.hamburger-root {
+    margin-left: 92% !important;
+    z-index: 100 !important;
+    top: 8px;
+    position: relative;
 }
 .ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.unitTypeDescriptionUpdate {
     margin-left: 28%;
@@ -183,12 +189,38 @@ a.ui-menuitem-link.ui-corner-all.menu-item-default {
     color: #ffffff;
     z-index: 10;
 }
-
+#menu-root {
+    box-shadow: 5px 5px 30px #000000;
+    position: absolute;
+    width: 0px;
+    overflow: hidden;
+    top: 0px;
+    left: -7px;
+    margin-left: 84%;
+    color: #ffffff;
+    z-index: 10;
+}
+.ui-outputpanel.ui-widget.root-menu {
+    margin-left: 0%;
+}
 #menu-content {
     position: absolute;
     width: 260px;
     top: 0px;
     height: 100%;
+    background-color: rgba(145, 208, 240, 0.69);
+}
+.ui-menu.ui-widget.ui-widget-content.ui-corner-all.ui-helper-clearfix.menu-root-configurations {
+    width: 200px;
+    left: 13px;
+    background-color: rgba(28, 175, 246, 0.33);
+}
+#menu-root-content {
+    position: absolute;
+    width: 200px;
+    top: 19px;
+    height: 100%;
+    margin-left: 84%;
     background-color: rgba(145, 208, 240, 0.69);
 }
 
@@ -318,41 +350,54 @@ li.ui-widget.ui-menuitem.ui-corner-all.ui-menu-parent.ui-menuitem-active {
     background-color: inherit;
     width: 100%;
     border: none;
+    margin-top: 19px;
 }
 
 a.ui-menuitem-link.ui-corner-all.default-menu-item-configuration {
-    color: black;
     width: 107%;
-    margin-left: -3%;
+    margin-left: -15%;
     padding-left: 28px;
+    color: gray;
+    height: 50px !important;
+    margin-bottom: 0%;
+    margin-top: -10%;
+    line-height: 40px;
+}
+a.ui-menuitem-link.ui-corner-all.default-menu-item-configuration:hover {
+	color: white;
+    border: none;
+    background: inherit;
+    box-shadow: none;
+    width: 147%;
+    transition: background 0.2s ease-in-out;
+    background-color: #1CAFF6 !important;
+    margin-left: -15%;
+    margin-top: -10%;
 }
 
-a.ui-menuitem-link.ui-corner-all.default-menu-item-configuration:hover {
+a.ui-menuitem-link.ui-corner-all.default-menu-root-item-configuration {
+    width: 100%;
+    padding-left: 28px;
+    color: gray;
+    height: 50px !important;
+    margin-bottom: 0%;
+    margin-top: 0%;
+    line-height: 40px;
+    width: 105%;
+    margin-left: -6%;
+}
+a.ui-menuitem-link.ui-corner-all.default-menu-root-item-configuration:hover {
     color: white;
     border: none;
     background: inherit;
     box-shadow: none;
-}
-#menu-content .ui-menuitem.ui-widget.ui-corner-all:hover {
-    background: inherit;
-}
-
-a.ui-menuitem-link.ui-corner-all.default-menu-item-configuration:hover {
-    transition: background 0.2s ease-in-out;
+	transition: background 0.2s ease-in-out;
     background-color: #1CAFF6 !important;
 }
 
-a.ui-menuitem-link.ui-corner-all.default-menu-item-configuration {
-    color: gray;
-    width: 140%;
-    height: 50px !important;
-    margin-left: -10%;
-    padding-left: 28px;
-    margin-bottom: 0%;
-    margin-top: -7%;
-    line-height: 40px;
+#menu-content .ui-menuitem.ui-widget.ui-corner-all:hover {
+    background: inherit;
 }
-
 .ui-outputpanel.ui-widget.box-message-test {
     background: #fff;
     -webkit-border-radius: 10px;
@@ -421,14 +466,20 @@ tr.ui-widget-content.ui-datatable-odd {
     margin-left: 2%;
     margin-right: 6%;
     font-size: 25px;
-    color: #00B1BA;
+    color: gainsboro;
     margin-top: 0% !important;
+}
+.ui-commandlink.ui-widget.fa.fa-pencil-square-o.table-link-default:hover {
+    text-decoration: inherit;
 }
 .ui-commandlink.ui-widget.fa.fa-trash-o.table-link-default {
     margin-left: 3%;
     margin-right: -36%;
     font-size: 25px;
     color: #E45F5D;
+}
+.ui-commandlink.ui-widget.fa.fa-trash-o.table-link-default:hover {
+    text-decoration: inherit;
 }
 .ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom {
    	background-color: inherit;
