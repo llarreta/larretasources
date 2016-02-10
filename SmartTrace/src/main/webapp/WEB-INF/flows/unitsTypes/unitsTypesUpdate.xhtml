@@ -13,10 +13,10 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<p:outputLabel id="titleCreate" value="#{msg['unitTypeUpdate.titleNewUnitType']}" styleClass="titleUnitTypesUpdateNew"/>
+		<p:outputLabel id="titleCreate" value="#{msg['unitTypeUpdate.titleNewUnitType']}" styleClass="titleDefault"/>
 		<h:form id="formEdit" style="width: 100%;">
 			<p:outputPanel id="white-container" styleClass="white-container-default width-52 margin-top-150px">
-				<p:inputText id="description" value="#{dataView.selected.description}" styleClass="unitTypeDescriptionUpdate"/>
+				<p:inputText id="description" value="#{dataView.selected.description}" styleClass="itemDescriptionUpdate"/>
 				<p:tooltip value="#{msg['app.description']}" for="description"/>
 				<p:watermark value="#{msg['app.description']}" for="description"/>
 				<p:commandButton id="confirm" action="confirm" value="#{msg['unitTypeUpdate.createButton']}" icon="fa fa-check" 

@@ -38,8 +38,9 @@
 	   		<p:graphicImage library="images" name="logo-barra-menu.png" styleClass="logo-main-menu"/>
 			<p:menubar styleClass="main-bar-1">
 				<p:menuitem value="#{msg['main-bar.init']}" styleClass="menu-item-default" 	url="/app/home"/>
-				<p:submenu label="Configuraciones Basicas" styleClass="sub-menu-main">
-					<p:menuitem value="#{msg['main-bar.2']}" 	styleClass="sub-menu-item-default" 	url="/app/providers" />
+				<p:submenu label="#{msg['main-bar.basicConfigurations']}" styleClass="sub-menu-main">
+					<p:menuitem value="#{msg['main-bar.providers']}" 	styleClass="sub-menu-item-default" 	url="/app/providers" />
+					<p:menuitem value="#{msg['main-bar.classifications']}" 	styleClass="sub-menu-item-default" 	url="/app/classifications" />
 				</p:submenu>
 				<p:menuitem value="#{msg['main-bar.3']}" 	styleClass="menu-item-default" 	url="/app/materialsTypes"/>
 				<p:menuitem value="#{msg['main-bar.4']}" 	styleClass="menu-item-default"	url="/app/containers"/>

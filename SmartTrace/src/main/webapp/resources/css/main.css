@@ -110,13 +110,8 @@ img.logo-main-menu {
     top: 8px;
     position: relative;
 }
-.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.unitTypeDescriptionUpdate {
+.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.itemDescriptionUpdate {
     margin-left: 28%;
-}
-.ui-outputlabel.ui-widget.titleUnitTypesUpdateNew {
-    color: white !important;
-    font-size: 45px !important;
-    position: absolute;
 }
 .menu-item-default:hover{
 	border-radius: 200px !important;
@@ -856,7 +851,7 @@ a.ui-datepicker-next.ui-corner-all.ui-state-hover.ui-datepicker-next-hover, a.ui
     color: #1CAFF6;
     transition: color 0.2s ease-in-out;
 }
-.ui-outputlabel.ui-widget.titleUnitTypesUpdateNew {
+.ui-outputlabel.ui-widget.titleDefault {
     color: white !important;
     font-size: 50px !important;
     text-shadow: 4px 1px 1px gray;
