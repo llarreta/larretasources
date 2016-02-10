@@ -16,7 +16,7 @@
 <h:form id="formList">
 	<p:remoteCommand autoRun="true" oncomplete="setIcons()"/>
 	<p:outputPanel id="white-container" styleClass="white-container-default width-52">
-		<p:commandButton value="Create" id="create" ajax="false" styleClass="button-create margin-left-84" action="create" icon="fa fa-plus"/>
+		<p:commandButton value="#{msg['app.create']}" id="create" ajax="false" styleClass="button-create margin-left-84" action="create" icon="fa fa-plus"/>
 	    <p:dataTable 	id="itemsTable"
 	    				var="actualItem" value="#{dataView.paginator}" paginator="true" lazy="true"
 	    			 	rows="10"
