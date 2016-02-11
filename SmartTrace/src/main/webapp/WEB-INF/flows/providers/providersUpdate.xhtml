@@ -13,14 +13,19 @@
 </ui:define>
 
 <ui:define name="content">
-	<p:outputLabel id="titleCreate" value="#{msg['providersUpdate.titleNewProvider']}" styleClass="titleDefault"/>
+	<p:outputLabel id="titleCreate" value="#{msg['providersUpdate.titleNewProvider']}" styleClass="titleDefault"
+		rendered="#{controller.newItem}"/>
+	<p:outputLabel id="titleUpdate" value="#{msg['providersUpdate.titleUpdateProvider']}" styleClass="titleDefault"
+		rendered="#{!controller.newItem}"/>
 	<h:form id="formEdit" style="width: 100%;">
 		<p:outputPanel id="white-container" styleClass="white-container-default width-52 margin-top-150px">
 			<p:inputText id="description" value="#{dataView.selected.description}" styleClass="itemDescriptionUpdate"/>
 			<p:tooltip value="#{msg['app.description']}" for="description"/>
 			<p:watermark value="#{msg['app.description']}" for="description"/>
-			<p:commandButton id="confirm" action="confirm" value="#{msg['unitTypeUpdate.createButton']}" icon="fa fa-check" 
-				ajax="false" styleClass="button-create-unitType"/>
+			<p:commandButton id="confirm" action="confirm" value="#{msg['providersUpdate.createButton']}" icon="fa fa-check" 
+				ajax="false" styleClass="button-create-unitType" rendered="#{controller.newItem}"/>
+			<p:commandButton id="update" action="confirm" value="#{msg['providersUpdate.updateButton']}" icon="fa fa-check" 
+				ajax="false" styleClass="button-create-unitType" rendered="#{!controller.newItem}"/>
 		</p:outputPanel>
 	</h:form>
 </ui:define>

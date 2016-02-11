@@ -513,9 +513,6 @@ th.ui-state-default {
     box-shadow: 0px 0px 9px 0px gray;
     border-radius: 5px;
 }
-
-
-
 span.ui-paginator-next.ui-state-default.ui-corner-all, span.ui-paginator-last.ui-state-default.ui-corner-all,
 span.ui-paginator-prev.ui-state-default.ui-corner-all, span.ui-paginator-first.ui-state-default.ui-corner-all {
     background: inherit;
@@ -585,7 +582,6 @@ span.ui-icon.ui-icon-seek-end:before {
     transform: translate(0, 0);
     content: "\f101";
 }
-
 span.ui-icon.ui-icon-seek-prev:before {
 	display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
@@ -596,7 +592,6 @@ span.ui-icon.ui-icon-seek-prev:before {
     transform: translate(0, 0);
     content: "\f104";
 }
-
 span.ui-icon.ui-icon-seek-first:before {
 	display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
@@ -636,13 +631,18 @@ span.ui-icon.ui-icon-close:before {
 .width-52 {
     width: 52% !important;
 }
+.width-80 {
+    width: 80% !important;
+}
 .margin-left-84{
 	margin-left: 84% !important;
 }
 .margin-left-93{
 	margin-left: 93% !important;
 }
-
+.margin-top-150px {
+    margin-top: 150px !important;
+}
 .ui-commandlink.ui-widget.fa.fa-pencil-square-o.treeNode-link-edit {
     color: white;
     margin-left: -12px;
@@ -676,6 +676,7 @@ a.ui-overlaypanel-close.ui-state-default {
 }
 .ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all {
     max-width: 210px;
+    border: 2px solid #ebebeb;
 }
 div.ui-selectonemenu-trigger.ui-state-default.ui-corner-right span.ui-icon.ui-icon-triangle-1-s.ui-c {
     margin-top: 9px;
@@ -685,7 +686,10 @@ div.ui-selectonemenu-trigger.ui-state-default.ui-corner-right span.ui-icon.ui-ic
     background: #FFFFFF;
     color: rgba(0, 0, 0, 0.38);
     box-shadow: inherit;
-    border: 1px solid rgba(0, 0, 0, 0.22);
+    border-left: 1px solid #ebebeb;
+    border-right: none;
+    border-bottom: none;
+    border-top: none;
 }
 
 .ui-messages.ui-widget.global-message-error-style {
@@ -927,4 +931,25 @@ a.ui-menuitem-link.ui-corner-all.sub-menu-item-default.ui-state-hover {
     border: none;
     transition: background-color 0.2s ease-in-out, width 0.2s ease-in-out, margin-left 0.2s ease-in-out, color 0.2s ease-in-out;
     background-image: none;
+}
+.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.materialsTypeUpdate-inputCount {
+    width: 90px;
+    margin-left: 28%;
+    margin-top: 4%;
+}
+.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.select-materialsType-unitType {
+    margin-left: 250px;
+    top: -40px;
+    position: relative;
+}
+.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.select-materialsType-provider {
+    margin-left: 38%;
+    margin-top: -22px;
+}
+.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.select-materialsType-classification {
+    margin-left: 36%;
+    margin-top: 15px;
+}
+.ui-selectonemenu label.ui-selectonemenu-label{
+	padding-left: 3px;
 }

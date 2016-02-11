@@ -12,44 +12,56 @@
 </ui:define>
 
 <ui:define name="content">
-
-<h:form id="formList">
-
-	<p:commandButton value="Create" id="create" ajax="false" style="float:right" action="create" icon="ui-icon-plusthick"/>
-    <p:dataTable 	id="itemsTable"
-    				var="actualItem" value="#{dataView.paginator}" paginator="true" lazy="true"
-    			 	rows="10"
-                 	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 	rowsPerPageTemplate="5,10,15" 
-                 	selectionMode="single" selection="#{dataView.selected}"  
-                 	emptyMessage="#{msg['datatable.sindatos']}"
-                 	currentPageReportTemplate="{currentPage} #{msg['datatable.de']} {totalPages}"
-                 >
-	        <p:column headerText="#{msg['app.user.id']}" sortBy="#{actualItem.id}" width="10%">
-	            <h:outputText value="#{actualItem.id}" />
-	        </p:column>
-	        <p:column headerText="#{msg['app.description']}" sortBy="#{actualItem.description}" filterBy="#{actualItem.description}" width="68%" >
-	            <h:outputText value="#{actualItem.description}" />
-	        </p:column>
-	        <p:column >
-	         	<p:commandButton id="Modificar" value="Modificar"	icon="ui-icon-pencil" action="update" immediate="true"  >
-	         		<!-- f:attribute name="selected" value="#{actualItem}"/ -->
-	         	
-	         		<!-- Para uso con atributo action del commandButton -->
-	         		<f:setPropertyActionListener target="#{dataView.selected}" value="#{actualItem}" />
-	         	</p:commandButton>
-	         	 <p:commandButton id="Eliminar" value="Eliminar"	icon="ui-icon-trash" actionListener="#{controller.delete}" immediate="true" update=":formList">
-	         		<f:attribute name="selected" value="#{actualItem}"/>
-	         	 	<p:confirm header="#{msg['app.confirm']}" message="#{msg['app.confirmRemove']}" icon="ui-icon-alert" />
-	         	 </p:commandButton>	         		
-	         	 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="#{msg['app.yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+	<h:form id="formList">
+		<p:remoteCommand autoRun="true" oncomplete="setIcons()"/>
+		<p:outputLabel id="titleCreate" value="#{msg['materialsTypeList.titleListMaterialType']}" styleClass="titleDefault"/>
+		<p:outputPanel id="white-container" styleClass="white-container-default width-80 margin-top-150px">
+			<p:commandButton value="#{msg['app.create']}" id="create" ajax="false" styleClass="button-create margin-left-84" action="create" icon="fa fa-plus"/>
+		    <p:dataTable 	id="itemsTable"
+		    				var="actualItem" value="#{dataView.paginator}" paginator="true" lazy="true"
+		    			 	rows="10"
+		                 	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+		                 	rowsPerPageTemplate="5,10,15" 
+		                 	selectionMode="single" selection="#{dataView.selected}"  
+		                 	emptyMessage="#{msg['datatable.sindatos']}"
+		                 	currentPageReportTemplate="{currentPage} #{msg['datatable.de']} {totalPages}"
+		                 	paginatorPosition="bottom">
+		        <p:column headerText="#{msg['app.description']}" sortBy="#{actualItem.description}" filterBy="#{actualItem.description}" width="30%" >
+		            <h:outputText value="#{actualItem.description}" />
+		        </p:column>
+		        <p:column headerText="#{msg['materialsTypeList.count']}" width="19%">
+		            <h:outputText value="#{actualItem.count}" />
+		        </p:column>
+		        <p:column headerText="#{msg['materialsTypeList.unitType']}" width="24%">
+		            <h:outputText value="#{actualItem.unitType.description}" />
+		        </p:column>
+		        <p:column headerText="#{msg['materialsTypeList.provider']}" width="30%">
+		            <h:outputText value="#{actualItem.provider.description}" />
+		        </p:column>
+		        <p:column headerText="#{msg['materialsTypeList.classification']}" width="21%">
+		            <h:outputText value="#{actualItem.classification.description}" />
+		        </p:column>
+		        <p:column width="20%">
+		         	<p:commandLink id="Modificar" styleClass="fa fa-pencil-square-o table-link-default" action="update" immediate="true"  >
+		         		<!-- f:attribute name="selected" value="#{actualItem}"/ -->
+		         	
+		         		<!-- Para uso con atributo action del commandButton -->
+		         		<f:setPropertyActionListener target="#{dataView.selected}" value="#{actualItem}" />
+		         	</p:commandLink>
+		         	 <p:commandLink id="Eliminar" styleClass="fa fa-trash-o table-link-default" actionListener="#{controller.delete}" 
+		         	 	immediate="true" update=":formList" ajax="true">
+		         		<f:attribute name="selected" value="#{actualItem}"/>
+		         	 	<p:confirm message="#{msg['app.confirmRemove']}" icon="fa fa-exclamation-triangle"/>
+		         	 </p:commandLink>	         		
+		         	 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false" closeOnEscape="true">
+						<p:commandButton value="#{msg['app.yes']}" type="button" styleClass="ui-confirmdialog-yes" 
+							icon="ui-icon-check"/>
 						<p:commandButton value="#{msg['app.no']}" type="button"	styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-				</p:confirmDialog>
-	        </p:column>
-    </p:dataTable>
-</h:form>
-
+					</p:confirmDialog>
+	        	</p:column>
+		    </p:dataTable>
+		</p:outputPanel>
+	</h:form>
 </ui:define>
 
 </ui:composition>

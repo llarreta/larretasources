@@ -42,8 +42,10 @@
 					<p:menuitem value="#{msg['main-bar.providers']}" 	styleClass="sub-menu-item-default" 	url="/app/providers" />
 					<p:menuitem value="#{msg['main-bar.classifications']}" 	styleClass="sub-menu-item-default" 	url="/app/classifications" />
 				</p:submenu>
-				<p:menuitem value="#{msg['main-bar.3']}" 	styleClass="menu-item-default" 	url="/app/materialsTypes"/>
-				<p:menuitem value="#{msg['main-bar.4']}" 	styleClass="menu-item-default"	url="/app/containers"/>
+				<p:submenu label="#{msg['main-bar.materialConfigurations']}" styleClass="sub-menu-main">
+					<p:menuitem value="#{msg['main-bar.materialType']}" styleClass="sub-menu-item-default"	url="/app/materialsTypes"/>
+					<p:menuitem value="#{msg['main-bar.container']}" styleClass="sub-menu-item-default" url="/app/containers"/>
+				</p:submenu>
 			</p:menubar>
 			<p:menubar styleClass="main-bar-2">
 				<p:submenu label="#{dataView.actualUser.nick}" styleClass="profile-menu">
