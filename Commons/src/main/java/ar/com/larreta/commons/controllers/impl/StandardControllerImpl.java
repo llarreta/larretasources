@@ -48,7 +48,7 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 	protected StandardService service;
 
 	protected DataView dataView;
-	
+
 	protected Class entityClass;
 	
 	protected Boolean newItem;
@@ -183,8 +183,8 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 	
 	@GenericExecution
 	public void starting(RequestContext flowRequestContext) throws PaginatorNotFoundException{
-		varsAssign(flowRequestContext);
 		
+		varsAssign(flowRequestContext);
 		getLog().info("starting:" + getFlowRequestInfo(flowRequestContext));
 		DataView dataView = getDataView();
 		try {

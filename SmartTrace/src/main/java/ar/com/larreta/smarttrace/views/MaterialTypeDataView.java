@@ -2,7 +2,9 @@ package ar.com.larreta.smarttrace.views;
 
 import java.util.List;
 
+import ar.com.larreta.commons.controllers.Paginator;
 import ar.com.larreta.commons.views.DataView;
+import ar.com.larreta.smarttrace.controllers.MaterialTypePaginator;
 import ar.com.larreta.smarttrace.domain.Classification;
 import ar.com.larreta.smarttrace.domain.Provider;
 import ar.com.larreta.smarttrace.domain.UnitType;
@@ -16,6 +18,16 @@ public class MaterialTypeDataView extends DataView{
 	private List<UnitType> 			unitsTypes;
 	private List<Provider> 			providers;
 	private List<Classification> 	classifications;
+	
+	public MaterialTypeDataView() {
+		paginator = newPaginator();
+		paginator.setDataView(this);
+	}
+	
+	@Override
+	protected Paginator newPaginator() {
+		return new MaterialTypePaginator();
+	}
 	
 	/**
 	 * @return the unitsTypes

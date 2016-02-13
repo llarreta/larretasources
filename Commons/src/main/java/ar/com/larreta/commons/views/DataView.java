@@ -23,7 +23,7 @@ public class DataView extends AppObjectImpl {
 	
 	protected Entity selected;
 	
-	private Paginator paginator;
+	protected Paginator paginator;
 	
 	private StandardController controller;
 

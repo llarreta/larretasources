@@ -27,7 +27,7 @@
 				</p:outputPanel>
 				<p:outputPanel styleClass="ui-grid-row">	
 					<p:outputPanel styleClass="ui-grid-col-12">
-						<p:inputText id="count" value="#{dataview.selected.count}"
+						<p:inputText id="count" value="#{dataView.selected.count}"
 							requiredMessage="#{msg['materialsTypeUpdate.countRequired']}"
 							validatorMessage="#{msg['app.invalidNumber']}"
 							styleClass="materialsTypeUpdate-inputCount">
@@ -35,7 +35,7 @@
 						</p:inputText>
 						<p:tooltip value="#{msg['materialsTypeUpdate.count']}" for="count"/>
 						<p:watermark value="#{msg['materialsTypeUpdate.count']}" for="count"/>
-						<p:selectOneMenu id="unitType" value="#{dataview.selected.unitType}"
+						<p:selectOneMenu id="unitType" value="#{dataView.selected.unitType}"
 			                converter="#{unitTypeConverter}" effect="fold" editable="false"
 			                var="unitType" styleClass="select-materialsType-unitType"
 			                converterMessage="#{msg['materialsTypeUpdate.unitType.converterMessage']}"
@@ -43,7 +43,7 @@
 			                required="true" requiredMessage="#{msg['materialsTypeUpdate.unitType.requiredMessage']}">
 							<f:selectItem itemLabel="#{msg['materialsTypeUpdate.unitType.item']}"
 			          		itemValue=""/>
-			                <f:selectItems value="#{dataview.unitsTypes}" var="unitType"
+			                <f:selectItems value="#{dataView.unitsTypes}" var="unitType"
 			                    itemValue="#{unitType}" itemLabel="#{unitType.description}" />
 			                <p:column>
 			                    <h:outputText value="#{unitType.description}" />
@@ -53,7 +53,7 @@
 				</p:outputPanel>
 				<p:outputPanel styleClass="ui-grid-row">	
 					<p:outputPanel styleClass="ui-grid-col-12">
-						<p:selectOneMenu id="provider" value="#{dataview.selected.provider}"
+						<p:selectOneMenu id="provider" value="#{dataView.selected.provider}"
 			                converter="#{providerConverter}" effect="fold" editable="false"
 			                var="provider" styleClass="select-materialsType-provider"
 			                converterMessage="#{msg['materialsTypeUpdate.provider.converterMessage']}"
@@ -61,7 +61,7 @@
 			                required="true" requiredMessage="#{msg['materialsTypeUpdate.provider.requiredMessage']}">
 							<f:selectItem itemLabel="#{msg['materialsTypeUpdate.provider.item']}"
 			          		itemValue=""/>
-			                <f:selectItems value="#{dataview.providers}" var="provider"
+			                <f:selectItems value="#{dataView.providers}" var="provider"
 			                    itemValue="#{provider}" itemLabel="#{provider.description}" />
 			                <p:column>
 			                    <h:outputText value="#{provider.description}" />
@@ -71,7 +71,7 @@
 	            </p:outputPanel>
 	            <p:outputPanel styleClass="ui-grid-row">	
 					<p:outputPanel styleClass="ui-grid-col-12">
-			            <p:selectOneMenu id="classification" value="#{dataview.selected.classification}"
+			            <p:selectOneMenu id="classification" value="#{dataView.selected.classification}"
 			                converter="#{classificationConverter}" effect="fold" editable="false"
 			                var="classification" styleClass="select-materialsType-classification"
 			                converterMessage="#{msg['materialsTypeUpdate.classification.converterMessage']}"
@@ -79,7 +79,7 @@
 			                required="true" requiredMessage="#{msg['materialsTypeUpdate.classification.requiredMessage']}">
 							<f:selectItem itemLabel="#{msg['materialsTypeUpdate.classification.item']}"
 			          		itemValue=""/>
-			                <f:selectItems value="#{dataview.classifications}" var="classification"
+			                <f:selectItems value="#{dataView.classifications}" var="classification"
 			                    itemValue="#{classification}" itemLabel="#{classification.description}" />
 			                <p:column>
 			                    <h:outputText value="#{classification.description}" />

@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -158,6 +159,16 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters){
 		LoadArguments args = new LoadArguments(entityType);
+		args.setFirstResult(firstResult);
+		args.setMaxResults(maxResults);
+		return dao.load(args);
+	}
+	
+	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties){
+		LoadArguments args = new LoadArguments(entityType);
+		for(String field : lazyProperties){
+			args.addProjectedProperties(field);
+		}
 		args.setFirstResult(firstResult);
 		args.setMaxResults(maxResults);
 		return dao.load(args);
