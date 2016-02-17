@@ -39,7 +39,7 @@ CREATE TABLE [SCHEMMA].container (
 	count BIGINT NOT NULL,
 	elaboration DATETIME,
 	expiration DATETIME,
-	idParent BIGINT NOT NULL,
+	idParent BIGINT,
 	PRIMARY KEY (ID)
 );
 

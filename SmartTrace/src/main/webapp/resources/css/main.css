@@ -634,6 +634,9 @@ span.ui-icon.ui-icon-close:before {
 .width-80 {
     width: 80% !important;
 }
+.width-85{
+	width: 85% !important;
+}
 .margin-left-84{
 	margin-left: 84% !important;
 }
@@ -700,7 +703,7 @@ div.ui-selectonemenu-trigger.ui-state-default.ui-corner-right span.ui-icon.ui-ic
 .ui-messages-error, .ui-message-error {
     color: red;
     background-color: #CAC8C8;
-    text-shadow: 1px 0px 4px gray;
+    text-shadow: 0px 0px 1px gray;
     border-color: black;
 }
 
@@ -952,4 +955,7 @@ a.ui-menuitem-link.ui-corner-all.sub-menu-item-default.ui-state-hover {
 }
 .ui-selectonemenu label.ui-selectonemenu-label{
 	padding-left: 3px;
+}
+.ui-treenode-content.ui-tree-selectable.ui-state-default.ui-corner-all.ui-state-highlight {
+    background-color: #7CD0FF;
 }
