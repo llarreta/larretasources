@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.primefaces.model.TreeNode;
 
+import ar.com.larreta.commons.controllers.Paginator;
 import ar.com.larreta.commons.views.DataView;
+import ar.com.larreta.smarttrace.controllers.ContainerPaginator;
+import ar.com.larreta.smarttrace.controllers.MaterialTypePaginator;
 import ar.com.larreta.smarttrace.domain.Container;
 import ar.com.larreta.smarttrace.domain.MaterialType;
 
@@ -24,6 +27,16 @@ public class ContainerDataView extends DataView{
 	private MaterialType materialSelected;
 	private List<Container> containers;
 
+	public ContainerDataView() {
+		paginator = newPaginator();
+		paginator.setDataView(this);
+	}
+	
+	@Override
+	protected Paginator newPaginator() {
+		return new ContainerPaginator();
+	}
+	
 	/**
 	 * Nodo principal del arbol
 	 * 

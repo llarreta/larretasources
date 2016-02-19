@@ -23,6 +23,7 @@ public interface StandardService extends AppObject {
 	public void saveIfNotExist(Entity entity, String field);
 	public Boolean isExist(Entity entity);
 	public Entity getEntity(Entity entity);
+	public Entity getEntity(Entity entity, Collection<String> properties);
 	public Boolean isExist(Entity entity, String field);
 	public Entity getEntity(Entity entity, String field);
 	public Collection load(Class entityType);

@@ -34,8 +34,9 @@
 					<p:ajax event="select" listener="#{controller.loadSelect}" update="formEdit:tree"/>
 					<p:treeNode id="treeNode" styleClass="tree-node-default">
 						<p:commandLink id="edit-link" styleClass="fa fa-pencil-square-o treeNode-link-edit" 
-			        		oncomplete="PF('editPanel').show()" update="formEdit:editPanelContent" disabled="#{controller.isEqualsNodes(node)}"
-			        		resetValues="true"/>
+			        		oncomplete="PF('editPanel').show()" update="formEdit:editPanelContent" disabled="#{controller.isEqualsNodes(node)}">
+			        		<p:resetInput target="formEdit:editPanelContent" />
+			        	</p:commandLink>
 			        	<p:outputLabel value="#{node.count} #{node.description}"/>
 			        	<p:commandLink id="remove-selected-link" styleClass="fa fa-trash" 
 		        			oncomplete="removeSelected()" rendered="#{controller.isNodeDeleted(node)}" disabled="#{controller.isEqualsNodes(node)}"/>
@@ -50,7 +51,6 @@
 			    
 			    <p:overlayPanel widgetVar="editPanel" showEffect="fade" hideEffect="fade" dismissable="false" showCloseIcon="true">
 					<p:outputPanel id="editPanelContent"> 	  	
-			 	  		
 			 	  		<p:inputText id="nameContainer" value="#{dataView.containerSelected.description}" rendered="#{dataView.containerSelect}"
 			           	required="false" styleClass="name-container-overlayPanel">
 				     		<p:ajax event="blur" update="formEdit:tree" process="@this"/>

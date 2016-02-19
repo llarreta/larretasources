@@ -40,6 +40,15 @@ public class ContainerController extends StandardControllerImpl{
 		loadRoot();
 	}
 	
+	@Override
+	public void initUpdate(RequestContext flowRequestContext) {
+		super.initUpdate(flowRequestContext);
+		List<String> properties = new ArrayList<String>();
+		properties.add("materialType");
+		properties.add("parentContainer");
+		setContainer(((Container)service.getEntity(getDataView().getSelected(), properties)));
+	}
+	
 	private void loadContainers() {
 		try {
 			getDataViewContainer().getContainers().addAll((Collection<Container>)super.getService().load(Container.class));
@@ -300,8 +309,10 @@ public class ContainerController extends StandardControllerImpl{
 	}
 	
 	public void changeMaterialOfContainer(){
-		((Container)getDataViewContainer().getNodeSelected().getParent().getData()).setMaterialType(getDataViewContainer().getMaterialSelected());
-		loadRoot();
+		if(getDataViewContainer().getMaterialSelected() != null){	
+			((Container)getDataViewContainer().getNodeSelected().getParent().getData()).setMaterialType(getDataViewContainer().getMaterialSelected());
+			loadRoot();
+		}
 	}
 	
 	/**

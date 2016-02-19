@@ -14,9 +14,10 @@
 <ui:define name="content">
 
 <h:form id="formList">
-	<p:outputPanel id="white-container" styleClass="white-container-default">
-	
-		<p:commandButton value="Create" id="create" ajax="false" styleClass="button-create margin-left-93" action="create" icon="fa fa-plus"/>
+	<p:outputLabel id="titleList" value="#{msg['containerList.titleListContainer']}" styleClass="titleDefault"/>
+	<p:outputPanel id="white-container" styleClass="white-container-default margin-top-150px">
+		<p:remoteCommand autoRun="true" oncomplete="setIcons()"/>
+		<p:commandButton value="#{msg['app.create']}" id="create" ajax="false" styleClass="button-create margin-left-93" action="create" icon="fa fa-plus"/>
 		
 	    <p:dataTable 	id="itemsTable"
 	    				var="actualItem" value="#{dataView.paginator}" paginator="true" lazy="true"
@@ -27,29 +28,37 @@
 	                 	emptyMessage="#{msg['datatable.sindatos']}"
 	                 	currentPageReportTemplate="{currentPage} #{msg['datatable.de']} {totalPages}"
 	                 	paginatorPosition="bottom">
-		        <p:column headerText="#{msg['app.user.id']}" sortBy="#{actualItem.id}" width="10%">
-		            <h:outputText value="#{actualItem.id}" />
+		        <p:column headerText="#{msg['container.code']}" width="10%">
+		            <h:outputText value="#{actualItem.code}" />
 		        </p:column>
-		        <p:column headerText="#{msg['app.description']}" sortBy="#{actualItem.description}" filterBy="#{actualItem.description}" width="68%" >
+		        <p:column headerText="#{msg['app.description']}" sortBy="#{actualItem.description}" filterBy="#{actualItem.description}" width="20%" >
 		            <h:outputText value="#{actualItem.description}" />
 		        </p:column>
-		        <p:column >
-		         	<p:commandButton id="Modificar" value="Modificar"	icon="ui-icon-pencil" action="update" immediate="true"  >
+		        <p:column headerText="#{msg['container.dateElaboration']}" width="30%">
+		            <h:outputText value="#{actualItem.elaboration}" />
+		        </p:column>
+		        <p:column headerText="#{msg['container.dateExpiration']}" width="30%">
+		            <h:outputText value="#{actualItem.expiration}" />
+		        </p:column>
+		        <p:column width="10%">
+		         	<p:commandLink id="Modificar" styleClass="fa fa-pencil-square-o table-link-default" action="update" immediate="true"  >
 		         		<!-- f:attribute name="selected" value="#{actualItem}"/ -->
 		         	
 		         		<!-- Para uso con atributo action del commandButton -->
 		         		<f:setPropertyActionListener target="#{dataView.selected}" value="#{actualItem}" />
-		         	</p:commandButton>
-		         	 <p:commandButton id="Eliminar" value="Eliminar"	icon="ui-icon-trash" actionListener="#{controller.delete}" immediate="true" update=":formList">
+		         	</p:commandLink>
+		         	 <p:commandLink id="Eliminar" styleClass="fa fa-trash-o table-link-default" actionListener="#{controller.delete}" 
+		         	 	immediate="true" update=":formList" ajax="true">
 		         		<f:attribute name="selected" value="#{actualItem}"/>
-		         	 	<p:confirm header="#{msg['app.confirm']}" message="#{msg['app.confirmRemove']}" icon="ui-icon-alert" />
-		         	 </p:commandButton>	         		
-		         	 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-							<p:commandButton value="#{msg['app.yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-							<p:commandButton value="#{msg['app.no']}" type="button"	styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		         	 	<p:confirm message="#{msg['app.confirmRemove']}" icon="fa fa-exclamation-triangle"/>
+		         	 </p:commandLink>	         		
+		         	 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false" closeOnEscape="true">
+						<p:commandButton value="#{msg['app.yes']}" type="button" styleClass="ui-confirmdialog-yes" 
+							icon="ui-icon-check"/>
+						<p:commandButton value="#{msg['app.no']}" type="button"	styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					</p:confirmDialog>
-		        </p:column>
-	    </p:dataTable>
+	        	</p:column>
+		</p:dataTable>
 	</p:outputPanel>
 </h:form>
 

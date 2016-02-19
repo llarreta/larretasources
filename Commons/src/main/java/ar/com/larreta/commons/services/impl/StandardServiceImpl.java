@@ -119,6 +119,21 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	public Entity getEntity(Entity entity) {
 		return dao.getEntity(entity.getClass(), entity.getId());
 	}
+	
+	/**
+	 * Retonra una entidad desde la base a partir del id de la entidad pasada por parametro + joinea las propiedades pasadas
+	 * @param entity
+	 * @param collection<String>
+	 * @return
+	 */
+	public Entity getEntity(Entity entity, Collection<String> properties) {
+		LoadArguments args = new LoadArguments(entity.getClass());
+		args.addWhereEqual("id", entity.getId());
+		for(String propertie : properties){
+			args.addProjectedProperties(propertie);
+		}
+		return dao.getEntity(args);
+	}
 
 	/**
 	 * Retorna true si la entidad existe evaluando el campo pasado por parametro
