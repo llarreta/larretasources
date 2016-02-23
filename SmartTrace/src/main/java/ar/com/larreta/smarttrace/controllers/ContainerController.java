@@ -40,15 +40,6 @@ public class ContainerController extends StandardControllerImpl{
 		loadRoot();
 	}
 	
-	@Override
-	public void initUpdate(RequestContext flowRequestContext) {
-		super.initUpdate(flowRequestContext);
-		List<String> properties = new ArrayList<String>();
-		properties.add("materialType");
-		properties.add("parentContainer");
-		setContainer(((Container)service.getEntity(getDataView().getSelected(), properties)));
-	}
-	
 	private void loadContainers() {
 		try {
 			getDataViewContainer().getContainers().addAll((Collection<Container>)super.getService().load(Container.class));
@@ -154,7 +145,6 @@ public class ContainerController extends StandardControllerImpl{
 	private void loadMaterialContainer(TreeNode root, Container fatherContainer) {
 		TreeNode material = new DefaultTreeNode(fatherContainer.getMaterialType(), root);
 		material.setExpanded(true);
-		root.getChildren().add(material);
 	}
 
 	private void loadChildrenContainers(TreeNode fatherTreeNode, Container fatherContainer) {
@@ -190,15 +180,6 @@ public class ContainerController extends StandardControllerImpl{
 		}
 	}
 	
-	public Boolean tryCastContainer(Object node){
-		try{
-			Container container = (Container) node;
-			return true;
-		}catch(ClassCastException e){
-			return false;
-		}
-	}
-	
 	public Boolean isNodeContainer(Object node){
 		try{
 			Container container = (Container) node;
@@ -206,22 +187,6 @@ public class ContainerController extends StandardControllerImpl{
 		}catch(ClassCastException e){
 			return false;
 		}
-	}
-	
-	public Boolean isEqualsNodes(Object node){
-		if(tryCastMaterial(node)){
-			MaterialType materialType = (MaterialType) node;
-			if((getDataViewContainer().getMaterialSelected() != null) && (materialType != null) && (materialType.equals(getDataViewContainer().getMaterialSelected()))){
-				return false;
-			}
-		}
-		if(tryCastContainer(node)){
-			Container container = (Container) node;
-			if((getDataViewContainer().getContainerSelected() != null) && (container != null) && (container.equals(getDataViewContainer().getContainerSelected()))){
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	public void loadSelect(NodeSelectEvent event){
@@ -261,27 +226,27 @@ public class ContainerController extends StandardControllerImpl{
 				Container newContainer = new Container();
 				newContainer.setDescription("New Container");
 				newContainer.setCount(1L);
-				newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
+				newContainer.setParentContainer(getContainer());
 				newContainer.getId();
 				getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
 			}else{
 				Container newContainer = new Container();
 				newContainer.setDescription("New Container");
 				newContainer.setCount(1L);
-				newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
+				newContainer.setParentContainer(getContainer());
 				newContainer.getId();
 				getDataViewContainer().getContainerSelected().setChildrenContainers(new ArrayList<Container>());
 				getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
 			}
 		}else{
 			if(getDataViewContainer().getContainerSelected().getMaterialType() == null){
-				MaterialType newMaterialType = new MaterialType();
-				newMaterialType.setDescription("New Material");
-				newMaterialType.setCount(1L);
-				newMaterialType.setContainers(new HashSet<Container>());
-				newMaterialType.getId();
-				newMaterialType.getContainers().add(getDataViewContainer().getContainerSelected());
-				getDataViewContainer().getContainerSelected().setMaterialType(newMaterialType);
+				MaterialType newMaterial = new MaterialType();
+				newMaterial.setDescription("New Material");
+				newMaterial.setCount(1L);
+				newMaterial.setContainers(new HashSet<Container>());
+				newMaterial.getId();
+				newMaterial.getContainers().add(getContainer());
+				getDataViewContainer().getContainerSelected().setMaterialType(newMaterial);
 			}
 		}
 		loadRoot();
@@ -307,14 +272,7 @@ public class ContainerController extends StandardControllerImpl{
 	public ContainerDataView getDataViewContainer() {
 		return (ContainerDataView) super.getDataView();
 	}
-	
-	public void changeMaterialOfContainer(){
-		if(getDataViewContainer().getMaterialSelected() != null){	
-			((Container)getDataViewContainer().getNodeSelected().getParent().getData()).setMaterialType(getDataViewContainer().getMaterialSelected());
-			loadRoot();
-		}
-	}
-	
+
 	/**
 	 * @return the containers
 	 */
@@ -327,12 +285,21 @@ public class ContainerController extends StandardControllerImpl{
 		return new ArrayList<Container>();
 	}
 	
-	public List<MaterialType> getMaterialsType(){
+	public List<MaterialType> getMaterials(){
 		try {
 			return (List<MaterialType>) super.getService().load(MaterialType.class);
 		} catch (NotServiceAssignedException e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
 		return new ArrayList<MaterialType>();
+	}
+	
+	public List<Classification> getMaterialsType(){
+		try {
+			return (List<Classification>) super.getService().load(Classification.class);
+		} catch (NotServiceAssignedException e) {
+			getLog().error(AppException.getStackTrace(e));
+		}
+		return new ArrayList<Classification>();
 	}
 }

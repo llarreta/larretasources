@@ -19,12 +19,11 @@
 	
 	<pe:head title="#{msg['app.name']}">
  		<link href='https://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'/>
- 	</pe:head>
+    </pe:head>
 
 <h:body>
-<input class="menu-control"  type="number" value="0" style="display:none;"/>
-<input class="menu-root-control"  type="number" value="0" style="display:none;"/>
 <h:panelGroup id="bodyPanel" layout="block">
+	
 	<f:facet name="last">
 		<h:outputStylesheet  	library="css" name="main.css"/>
 		<h:outputStylesheet 	library="smarttrace/css" name="bootstrap.min.css"/>
@@ -33,19 +32,16 @@
 		<h:outputStylesheet 	library="css" name="socicon.css"/>
 		<h:outputStylesheet  	library="css" name="font-awesome-animation.min.css"/>	
 	</f:facet>
-	<h:form id="menu-form">
+	<h:form>
 	   	<div class="bar-main-menu">
 	   		<p:graphicImage library="images" name="logo-barra-menu.png" styleClass="logo-main-menu"/>
 			<p:menubar styleClass="main-bar-1">
-				<p:menuitem value="#{msg['main-bar.init']}" styleClass="menu-item-default" 	url="/app/home"/>
-				<p:submenu label="#{msg['main-bar.basicConfigurations']}" styleClass="sub-menu-main">
-					<p:menuitem value="#{msg['main-bar.providers']}" 	styleClass="sub-menu-item-default" 	url="/app/providers" />
-					<p:menuitem value="#{msg['main-bar.classifications']}" 	styleClass="sub-menu-item-default" 	url="/app/classifications" />
-				</p:submenu>
-				<p:submenu label="#{msg['main-bar.materialConfigurations']}" styleClass="sub-menu-main">
-					<p:menuitem value="#{msg['main-bar.materialType']}" styleClass="sub-menu-item-default"	url="/app/materialsTypes"/>
-					<p:menuitem value="#{msg['main-bar.container']}" styleClass="sub-menu-item-default" url="/app/containers"/>
-				</p:submenu>
+				<p:menuitem value="#{msg['main-bar.init']}" styleClass="menu-item-default" 	url="/app/providers"/>
+				<p:menuitem value="#{msg['main-bar.2']}" 	styleClass="menu-item-default" 	url="/app/unitsTypes" />
+				<p:menuitem value="#{msg['main-bar.3']}" 	styleClass="menu-item-default" 	url="/app/materialsTypes"/>
+				<p:menuitem value="#{msg['main-bar.4']}" 	styleClass="menu-item-default"	url="/app/containers"/>
+				<p:menuitem value="#{msg['main-bar.5']}" 	styleClass="menu-item-default"	url="/app/materials"/>
+				<p:menuitem value="Prueba Screen" 			styleClass="menu-item-default"	url="/app/screens?entityName=ar.com.larreta.smarttrace.domain.Provider"/>
 			</p:menubar>
 			<p:menubar styleClass="main-bar-2">
 				<p:submenu label="#{dataView.actualUser.nick}" styleClass="profile-menu">
@@ -62,38 +58,24 @@
 				</p:submenu>
 			</p:menubar>
 	   	</div>
-		<div id="hamburger" onclick="openMenu()">
+		<div id="hamburger" onclick="BlurryMenu.openMenu()">
 			<div/>
 			<div/>
 			<div/>
 		</div>
-		<div id="hamburger" class="hamburger-root" onclick="openMenuRoot()">
-			<div/>
-			<div/>
-			<div/>
-		</div>
-		<p:outputPanel id="menu-root" styleClass="root-menu" style="display:none">
-			<div id="menu-root-content" style="z-index: 11;">
-				<p:menu styleClass="menu-root-configurations">
-			        <p:menuitem styleClass="default-menu-root-item-configuration" value="#{msg['root-menu.unitsTypes']}" url="/app/unitsTypes" />
-		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 1"/>
-		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 2"/>
-		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 3"/>
-		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Otros sub-menu"/>
-			    </p:menu>
-	    	</div>
-		</p:outputPanel>
-		<p:outputPanel id="menu" styleClass="left-menu" style="display:none">
-			<div id="menu-content" style="z-index: 11;">
+		<div id="menu">
+			<img id="captured-image" src="img/"/>
+			<canvas id="blurred-bg-canvas"></canvas>
+			<div id="menu-content">
 				<p:menu styleClass="menu-left-configurations">
-			        <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.configuration']}"/>
-		            <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.usersAdmin']}"/>
-		            <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.accountStatus']}"/>
-		            <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.technicalSupport']}"/>
+			        <p:menuitem styleClass="default-menu-item-configuration" value="Configuraciones"/>
+		            <p:menuitem styleClass="default-menu-item-configuration" value="Administrar Usuarios"/>
+		            <p:menuitem styleClass="default-menu-item-configuration" value="Ver estado de cuenta"/>
+		            <p:menuitem styleClass="default-menu-item-configuration" value="Soporte Tecnico"/>
 		            <p:menuitem styleClass="default-menu-item-configuration" value="Otros sub-menu"/>
 			    </p:menu>
 	    	</div>
-		</p:outputPanel>
+		</div>
 	</h:form>
    	<div class="container">
    		<div class="ui-grid ui-grid-responsive">
@@ -121,9 +103,11 @@
         <h:outputText value="Aguarde un momento, por favor..." style="white-space: nowrap;"/>  
     </h:panelGrid>  
 </pe:blockUI>
-	<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
-	<h:outputScript name="left-menu.js" library="smarttrace/jQuery"/>
-	<h:outputScript name="root-menu.js" library="smarttrace/jQuery"/>
+
+<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
+<h:outputScript name="blurry-menu.js" library="smarttrace/jQuery"/>
+<h:outputScript name="ext_fastblur.js" library="smarttrace/jQuery"/>
+<h:outputScript name="ext_html2canvas.js" library="smarttrace/jQuery"/>
 </h:body>
 </f:view>
 </html>

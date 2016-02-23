@@ -13,91 +13,18 @@
 </ui:define>
 
 <ui:define name="content">
-	<p:outputLabel id="titleCreate" value="#{msg['materialsTypeUpdate.titleNewMaterialType']}" styleClass="titleDefault" rendered="#{controller.newItem}"/>
-	<p:outputLabel id="titleUpdate" value="#{msg['materialsTypeUpdate.titleUpdateMaterialType']}" styleClass="titleDefault" rendered="#{!controller.newItem}"/>
-	<h:form id="formEdit" style="width: 100%;">
-		<p:outputPanel id="white-container" styleClass="white-container-default width-52 margin-top-150px">
-			<p:outputPanel styleClass="ui-grid ui-grid-responsive">
-				<p:outputPanel styleClass="ui-grid-row">	
-					<p:outputPanel styleClass="ui-grid-col-12">
-						<p:inputText id="description" value="#{dataView.selected.description}" styleClass="itemDescriptionUpdate"/>
-						<p:tooltip value="#{msg['app.description']}" for="description"/>
-						<p:watermark value="#{msg['app.description']}" for="description"/>
-					</p:outputPanel>
-				</p:outputPanel>
-				<p:outputPanel styleClass="ui-grid-row">	
-					<p:outputPanel styleClass="ui-grid-col-12">
-						<p:inputText id="count" value="#{dataView.selected.count}"
-							requiredMessage="#{msg['materialsTypeUpdate.countRequired']}"
-							validatorMessage="#{msg['app.invalidNumber']}"
-							styleClass="materialsTypeUpdate-inputCount">
-								<f:validateLength minimum="1"/>
-						</p:inputText>
-						<p:tooltip value="#{msg['materialsTypeUpdate.count']}" for="count"/>
-						<p:watermark value="#{msg['materialsTypeUpdate.count']}" for="count"/>
-						<p:selectOneMenu id="unitType" value="#{dataView.selected.unitType}"
-			                converter="#{unitTypeConverter}" effect="fold" editable="false"
-			                var="unitType" styleClass="select-materialsType-unitType"
-			                converterMessage="#{msg['materialsTypeUpdate.unitType.converterMessage']}"
-			                filter="true" validatorMessage="#{msg['materialsTypeUpdate.unitType.converterMessage']}" 
-			                required="true" requiredMessage="#{msg['materialsTypeUpdate.unitType.requiredMessage']}">
-							<f:selectItem itemLabel="#{msg['materialsTypeUpdate.unitType.item']}"
-			          		itemValue=""/>
-			                <f:selectItems value="#{dataView.unitsTypes}" var="unitType"
-			                    itemValue="#{unitType}" itemLabel="#{unitType.description}" />
-			                <p:column>
-			                    <h:outputText value="#{unitType.description}" />
-			                </p:column>
-			            </p:selectOneMenu>
-					</p:outputPanel>
-				</p:outputPanel>
-				<p:outputPanel styleClass="ui-grid-row">	
-					<p:outputPanel styleClass="ui-grid-col-12">
-						<p:selectOneMenu id="provider" value="#{dataView.selected.provider}"
-			                converter="#{providerConverter}" effect="fold" editable="false"
-			                var="provider" styleClass="select-materialsType-provider"
-			                converterMessage="#{msg['materialsTypeUpdate.provider.converterMessage']}"
-			                filter="true" validatorMessage="#{msg['materialsTypeUpdate.provider.converterMessage']}" 
-			                required="true" requiredMessage="#{msg['materialsTypeUpdate.provider.requiredMessage']}">
-							<f:selectItem itemLabel="#{msg['materialsTypeUpdate.provider.item']}"
-			          		itemValue=""/>
-			                <f:selectItems value="#{dataView.providers}" var="provider"
-			                    itemValue="#{provider}" itemLabel="#{provider.description}" />
-			                <p:column>
-			                    <h:outputText value="#{provider.description}" />
-			                </p:column>
-			            </p:selectOneMenu>
-	            	</p:outputPanel>
-	            </p:outputPanel>
-	            <p:outputPanel styleClass="ui-grid-row">	
-					<p:outputPanel styleClass="ui-grid-col-12">
-			            <p:selectOneMenu id="classification" value="#{dataView.selected.classification}"
-			                converter="#{classificationConverter}" effect="fold" editable="false"
-			                var="classification" styleClass="select-materialsType-classification"
-			                converterMessage="#{msg['materialsTypeUpdate.classification.converterMessage']}"
-			                filter="true" validatorMessage="#{msg['materialsTypeUpdate.classification.converterMessage']}" 
-			                required="true" requiredMessage="#{msg['materialsTypeUpdate.classification.requiredMessage']}">
-							<f:selectItem itemLabel="#{msg['materialsTypeUpdate.classification.item']}"
-			          		itemValue=""/>
-			                <f:selectItems value="#{dataView.classifications}" var="classification"
-			                    itemValue="#{classification}" itemLabel="#{classification.description}" />
-			                <p:column>
-			                    <h:outputText value="#{classification.description}" />
-			                </p:column>
-			            </p:selectOneMenu>
-			    	</p:outputPanel>
-			    </p:outputPanel>
-			    <p:outputPanel styleClass="ui-grid-row">	
-					<p:outputPanel styleClass="ui-grid-col-12">
-						<p:commandButton id="confirm" action="confirm" value="#{msg['materialsTypeUpdate.createButton']}" icon="fa fa-check" 
-							ajax="false" styleClass="button-create-unitType" rendered="#{controller.newItem}"/>
-						<p:commandButton id="update" action="confirm" value="#{msg['materialsTypeUpdate.updateButton']}" icon="fa fa-check" 
-							ajax="false" styleClass="button-create-unitType" rendered="#{!controller.newItem}"/>
-					</p:outputPanel>
-				</p:outputPanel>
-			</p:outputPanel>
-		</p:outputPanel>
-	</h:form>
+
+<h:form id="formEdit">
+	<h:panelGrid columns="2" cellpadding="5">
+		<p:outputLabel value="#{msg['app.description']}" />
+		<p:inputText value="#{dataView.selected.description}" />
+		<p:spacer height="10"/>
+	</h:panelGrid>
+
+	<p:commandButton id="confirm" action="confirm" value="#{msg['app.login.confirm']}" icon="ui-icon-check"  />
+
+</h:form>
+
 </ui:define>
 
 </ui:composition>

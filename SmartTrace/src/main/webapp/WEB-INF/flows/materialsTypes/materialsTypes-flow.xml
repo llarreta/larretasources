@@ -4,20 +4,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	parent="crud-flow">
 
-	<var name="controller" 				class="ar.com.larreta.smarttrace.controllers.MaterialTypeController" />
-	<var name="dataView" 				class="ar.com.larreta.smarttrace.views.MaterialTypeDataView" />
-	<var name="entity" 					class="ar.com.larreta.smarttrace.domain.MaterialType"/>
-	<var name="unitTypeEntity" 			class="ar.com.larreta.smarttrace.domain.UnitType"/>
-	<var name="providerEntity" 			class="ar.com.larreta.smarttrace.domain.Provider"/>
-	<var name="classificationEntity"	class="ar.com.larreta.smarttrace.domain.Classification"/>
-	<var name="unitTypeConverter"		class="ar.com.larreta.commons.faces.EntityConverter"/>
-	<var name="providerConverter"		class="ar.com.larreta.commons.faces.EntityConverter"/>
-	<var name="classificationConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
+	<var name="controller" 			class="ar.com.larreta.commons.controllers.StandardController" />
+	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
+	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.Classification"/>
 	
 	<on-start>
-        <set name="unitTypeConverter.entityClass"		value="unitTypeEntity"/>
-    	<set name="providerConverter.entityClass" 		value="providerEntity"/>
-    	<set name="classificationConverter.entityClass" value="classificationEntity"/>
+        <set name="controller.dataView" value="dataView" />
+        <set name="controller.entityClass" value="entity" />
     </on-start>
 	
 	<action-state id="starting" parent="crud-flow#starting"/>
