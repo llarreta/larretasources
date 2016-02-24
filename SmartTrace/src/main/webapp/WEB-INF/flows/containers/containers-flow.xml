@@ -22,6 +22,6 @@
 	<action-state id="starting" parent="crud-flow#starting"/>
 	<view-state id="start"  	parent="crud-flow#start"  		view="containers.xhtml"/>
 	<view-state id="updateView" parent="crud-flow#updateView" 	view="containersUpdate.xhtml" />
-	<view-state id="createView" parent="crud-flow#createView" 	view="containersUpdate.xhtml" /> 
+	<view-state id="createView" parent="crud-flow#createView" 	view="containersCreate.xhtml" /> 
 
 </flow>

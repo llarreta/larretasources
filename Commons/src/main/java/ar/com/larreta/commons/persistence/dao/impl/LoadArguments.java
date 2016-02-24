@@ -95,6 +95,18 @@ public class LoadArguments implements Serializable {
 	}
 	
 	/**
+	 * Agrega una propiedad projectada
+	 * Retorna la referencia al objeto actual para que pueda seguir appendeando propiedades en left
+	 * @param name, left
+	 * @return
+	 */
+	public LoadArguments addProjectedPropertiesLeftJoin(String name){
+		ProjectedProperty projectedProperty = new ProjectedProperty(this, name, true);
+		projectedProperties.add(projectedProperty);
+		return this;
+	}
+	
+	/**
 	 * Agrega una propiedad collection
 	 * Retorna la referencia al objeto actual para que pueda seguir appendeando propiedades
 	 * @param name

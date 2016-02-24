@@ -13,8 +13,7 @@
 </ui:define>
 
 <ui:define name="content">
-	<p:outputLabel id="titleCreate" value="#{msg['materialsTypeUpdate.titleNewMaterialType']}" styleClass="titleDefault" rendered="#{controller.newItem}"/>
-	<p:outputLabel id="titleUpdate" value="#{msg['materialsTypeUpdate.titleUpdateMaterialType']}" styleClass="titleDefault" rendered="#{!controller.newItem}"/>
+	<p:outputLabel id="titleUpdate" value="#{msg['materialsTypeUpdate.titleUpdateMaterialType']}" styleClass="titleDefault"/>
 	<h:form id="formEdit" style="width: 100%;">
 		<p:outputPanel id="white-container" styleClass="white-container-default width-52 margin-top-150px">
 			<p:outputPanel styleClass="ui-grid ui-grid-responsive">
@@ -89,10 +88,8 @@
 			    </p:outputPanel>
 			    <p:outputPanel styleClass="ui-grid-row">	
 					<p:outputPanel styleClass="ui-grid-col-12">
-						<p:commandButton id="confirm" action="confirm" value="#{msg['materialsTypeUpdate.createButton']}" icon="fa fa-check" 
-							ajax="false" styleClass="button-create-unitType" rendered="#{controller.newItem}"/>
 						<p:commandButton id="update" action="confirm" value="#{msg['materialsTypeUpdate.updateButton']}" icon="fa fa-check" 
-							ajax="false" styleClass="button-create-unitType" rendered="#{!controller.newItem}"/>
+							ajax="false" styleClass="button-create-unitType"/>
 					</p:outputPanel>
 				</p:outputPanel>
 			</p:outputPanel>

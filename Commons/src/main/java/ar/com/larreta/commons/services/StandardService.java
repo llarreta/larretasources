@@ -24,6 +24,7 @@ public interface StandardService extends AppObject {
 	public Boolean isExist(Entity entity);
 	public Entity getEntity(Entity entity);
 	public Entity getEntity(Entity entity, Collection<String> properties);
+	public Entity getEntity(Entity entity, Collection<String> properties, Collection<String> projectedCollections);
 	public Boolean isExist(Entity entity, String field);
 	public Entity getEntity(Entity entity, String field);
 	public Collection load(Class entityType);

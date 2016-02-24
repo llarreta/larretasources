@@ -25,7 +25,6 @@ public class ContainerDataView extends DataView{
 	private Boolean materialSelect;
 	private Boolean fatherContainerSelect;
 	private MaterialType materialSelected;
-	private List<Container> containers;
 
 	public ContainerDataView() {
 		paginator = newPaginator();
@@ -165,17 +164,4 @@ public class ContainerDataView extends DataView{
 		this.fatherContainerSelect = fatherContainerSelect;
 	}
 
-	/**
-	 * @return the containers
-	 */
-	public List<Container> getContainers() {
-		return containers;
-	}
-
-	/**
-	 * @param containers the containers to set
-	 */
-	public void setContainers(List<Container> containers) {
-		this.containers = containers;
-	}
 }

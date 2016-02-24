@@ -14,6 +14,17 @@ public class ProjectedProperty extends QueryElement {
 	public ProjectedProperty(LoadArguments args, String name){
 		setArgs(args);
 		setName(name);
+		args.addLeftJoin(name);
+	}
+	
+	public ProjectedProperty(LoadArguments args, String name, Boolean left){
+		setArgs(args);
+		setName(name);
+		if(left){
+			args.addLeftJoin(name);
+		}else{
+			args.addInnerJoin(name);
+		}
 	}
 	
 	public String getShortName(){

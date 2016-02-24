@@ -51,8 +51,6 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 
 	protected Class entityClass;
 	
-	protected Boolean newItem;
-	
 	public Class getEntityClass() {
 		return entityClass;
 	}
@@ -213,11 +211,9 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 		getLog().info("initCreate:" + getFlowRequestInfo(flowRequestContext));
 		DataView dataView = getDataView();
 		dataView.setSelected(dataView.newSelected());
-		newItem = true;
 	}
 	public void initUpdate(RequestContext flowRequestContext){
 		getLog().info("initUpdate:" + getFlowRequestInfo(flowRequestContext));
-		newItem = false;
 	}
 	public void preCreate(RequestContext flowRequestContext){
 		getLog().info("preCreate:" + getFlowRequestInfo(flowRequestContext));
@@ -302,13 +298,5 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 			return null;
 		}
 		return actionEvent.getComponent().getAttributes().get(eventAttribute);
-	}
-
-	public Boolean getNewItem() {
-		return newItem;
-	}
-
-	public void setNewItem(Boolean newItem) {
-		this.newItem = newItem;
 	}
 }

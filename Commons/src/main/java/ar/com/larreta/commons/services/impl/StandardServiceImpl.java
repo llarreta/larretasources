@@ -134,6 +134,26 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 		}
 		return dao.getEntity(args);
 	}
+	
+	/**
+	 * Retonra una entidad desde la base a partir del id de la entidad pasada por parametro + joinea las propiedades pasadas
+	 * + joinea colecciones
+	 * @param entity
+	 * @param collection<String>
+	 * @param collection<String>
+	 * @return
+	 */
+	public Entity getEntity(Entity entity, Collection<String> properties, Collection<String> projectedCollections) {
+		LoadArguments args = new LoadArguments(entity.getClass());
+		args.addWhereEqual("id", entity.getId());
+		for(String propertie : properties){
+			args.addProjectedProperties(propertie);
+		}
+		for(String collection : projectedCollections){
+			args.addProjectedCollectionLeftJoin(collection);
+		}
+		return dao.getEntity(args);
+	}
 
 	/**
 	 * Retorna true si la entidad existe evaluando el campo pasado por parametro
@@ -161,7 +181,6 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 		}
 		return null;
 	}
-
 	
 	/**
 	 * Retorna todos los elementos para una determinada entidad
@@ -182,7 +201,7 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties){
 		LoadArguments args = new LoadArguments(entityType);
 		for(String field : lazyProperties){
-			args.addProjectedProperties(field);
+			args.addProjectedPropertiesLeftJoin(field);
 		}
 		args.setFirstResult(firstResult);
 		args.setMaxResults(maxResults);
