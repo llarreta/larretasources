@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="crud-flow">
+
+<<<<<<< HEAD
+	<var name="controller" 				class="ar.com.larreta.smarttrace.controllers.MaterialTypeController" />
+	<var name="dataView" 				class="ar.com.larreta.smarttrace.views.MaterialTypeDataView" />
+	<var name="entity" 					class="ar.com.larreta.smarttrace.domain.MaterialType"/>
+	<var name="unitTypeEntity" 			class="ar.com.larreta.smarttrace.domain.UnitType"/>
+	<var name="providerEntity" 			class="ar.com.larreta.smarttrace.domain.Provider"/>
+	<var name="classificationEntity"	class="ar.com.larreta.smarttrace.domain.Classification"/>
+	<var name="unitTypeConverter"		class="ar.com.larreta.commons.faces.EntityConverter"/>
+	<var name="providerConverter"		class="ar.com.larreta.commons.faces.EntityConverter"/>
+	<var name="classificationConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
+	|
+=======
+	<var name="controller" 			class="ar.com.larreta.commons.controllers.StandardController" />
+	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
+	<var name="entity" 				class="ar.com.larreta.smarttrace.domain.Classification"/>
+	
+>>>>>>> b6501eddabbc9a06958462c228121ac6831395ab
+	<on-start>
+        <set name="controller.dataView" value="dataView" />
+        <set name="controller.entityClass" value="entity" />
+    </on-start>
+	
+	<action-state id="starting" parent="crud-flow#starting"/>
+	<view-state id="start"  	parent="crud-flow#start"  		view="materialsTypes.xhtml"/>
+	<view-state id="updateView" parent="crud-flow#updateView" 	view="materialsTypesUpdate.xhtml" />
+	<view-state id="createView" parent="crud-flow#createView" 	view="materialsTypesCreate.xhtml" />
+
+</flow>

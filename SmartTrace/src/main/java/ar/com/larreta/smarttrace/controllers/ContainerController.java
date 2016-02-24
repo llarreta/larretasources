@@ -312,6 +312,7 @@ public class ContainerController extends StandardControllerImpl{
 				addNewMaterialNode();
 			}
 		}
+		
 	}
 	
 	

@@ -20,37 +20,34 @@
 				showIcon="true" styleClass="global-message-error-style"/>
 	<p:outputPanel styleClass="ui-grid-col-12 container-white">
 		<h:form id="formEdit">
-			<p:remoteCommand autoRun="true" oncomplete="setIcons()"/>
+			
 			<p:commandButton id="confirm" action="confirm" icon="fa fa-save fa-2x" styleClass="button-save" ajax="false"
 				immediate="true"/>
+				
 			<p:outputPanel styleClass="ui-grid-col-12">
-				
 				<p:remoteCommand name="addContainer" actionListener="#{controller.addContainer}" update="formEdit:tree" immediate="true"/>
-				<p:remoteCommand name="addMaterial"  actionListener="#{controller.addMaterial}"  update="formEdit:tree" immediate="true"/>
+				<p:remoteCommand name="addMaterial" actionListener="#{controller.addMaterial}" update="formEdit:tree" immediate="true"/>
 				<p:remoteCommand name="removeSelected" actionListener="#{controller.deleteSelected}" update="formEdit:tree" immediate="true"/>
-				
 				<p:tree id="tree" value="#{dataView.root}" var="node" orientation="horizontal" styleClass="tree-style"
 					selection="#{dataView.nodeSelected}" dynamic="true" selectionMode="single" animate="true">
-					<p:ajax event="select" listener="#{controller.loadSelect}" update="formEdit:tree"/>
+					<p:ajax event="select" listener="#{controller.loadSelect}" update="formEdit:editPanelContent"/>
 					<p:treeNode id="treeNode" styleClass="tree-node-default">
 						<p:commandLink id="edit-link" styleClass="fa fa-pencil-square-o treeNode-link-edit" 
-			        		oncomplete="PF('editPanel').show()" update="formEdit:editPanelContent" disabled="#{controller.isEqualsNodes(node)}">
-			        		<p:resetInput target="formEdit:editPanelContent" />
-			        	</p:commandLink>
+			        		oncomplete="PF('editPanel').show('#{component.clientId}')"/>
 			        	<p:outputLabel value="#{node.count} #{node.description}"/>
 			        	<p:commandLink id="remove-selected-link" styleClass="fa fa-trash" 
-		        			oncomplete="removeSelected()" rendered="#{controller.isNodeDeleted(node)}" disabled="#{controller.isEqualsNodes(node)}"/>
+		        			oncomplete="removeSelected()" rendered="#{controller.isNodeDeleted(node)}"/>
 			        	<p:commandLink id="add-container-link" styleClass="fa fa-dropbox" 
-			        		oncomplete="addContainer()" rendered="#{controller.isNodeContainer(node)}" disabled="#{controller.isEqualsNodes(node)}"/>
+			        		oncomplete="addContainer()" rendered="#{controller.isNodeContainer(node)}"/>
 			        	<p:tooltip for="add-container-link" value="#{msg['containersUpdate.addContainer']}"/>
 		        		<p:commandLink id="add-material-link" styleClass="fa fa-bitbucket" 
-		        			oncomplete="addMaterial()" rendered="#{controller.isNodeContainer(node)}" disabled="#{controller.isEqualsNodes(node)}"/>
+		        			oncomplete="addMaterial()" rendered="#{controller.isNodeContainer(node)}"/>
 		        		<p:tooltip for="add-material-link" value="#{msg['containersUpdate.addMaterial']}"/>
 	        		</p:treeNode>
 			    </p:tree>
-			    
 			    <p:overlayPanel widgetVar="editPanel" showEffect="fade" hideEffect="fade" dismissable="false" showCloseIcon="true">
 					<p:outputPanel id="editPanelContent"> 	  	
+			 	  		
 			 	  		<p:inputText id="nameContainer" value="#{dataView.containerSelected.description}" rendered="#{dataView.containerSelect}"
 			           	required="false" styleClass="name-container-overlayPanel">
 				     		<p:ajax event="blur" update="formEdit:tree" process="@this"/>
@@ -87,7 +84,24 @@
 					    </p:calendar>
 					    <p:watermark for="dateExpiration" value="#{msg['containersUpdate.dateExpiration']}" />
 					    <p:tooltip for="dateExpiration" value="#{msg['containersUpdate.dateExpiration']}" styleClass="calendar-tooltip"/>
-					    <p:selectOneMenu id="materialType-select" value="#{dataView.materialSelected}" 
+					    
+					    <p:inputText id="nameMaterial" value="#{dataView.materialSelected.description}" 
+			           		rendered="#{dataView.materialSelect and !dataView.fatherContainerSelect}"
+			            	required="false" styleClass="name-material-overlaypanel">
+			            	<p:ajax event="blur" update="formEdit:tree" process="@this"/>
+			            </p:inputText>
+			            <p:watermark for="nameMaterial" value="#{msg['app.name']}"/>
+			            <p:tooltip for="nameMaterial" value="#{msg['app.name']}"/>
+			            
+			            <p:inputText id="countMaterial" value="#{dataView.materialSelected.count}" 
+			            	rendered="#{dataView.materialSelect and !dataView.fatherContainerSelect}"
+			            	required="false" styleClass="count-material-overlaypanel">
+					     	<p:ajax event="blur" update="formEdit:tree" process="@this"/>
+					   	</p:inputText> 
+					    <p:watermark for="countMaterial" value="#{msg['containersUpdate.count']}" />
+					    <p:tooltip for="countMaterial" value="#{msg['containersUpdate.count']}" />
+					    
+					    <p:selectOneMenu id="materialType-select" value="#{dataView.materialSelected.materialType}" 
 					    		rendered="#{dataView.materialSelect and !dataView.fatherContainerSelect}"
 					        	var="materialType" converter="#{materialTypeConverter}" effect="fold" editable="false" 
 					        	styleClass="name-container-overlayPanel" filter="false" required="false">
@@ -97,7 +111,7 @@
 							<p:column>
 								<h:outputText value="#{materialType.description}" />
 							</p:column>
-				        	<p:ajax listener="#{controller.changeMaterialOfContainer}" update="formEdit:editPanelContent formEdit:tree" process="@this" event="change"/>
+				        	<p:ajax update="formEdit:editPanelContent" process="@this" event="change"/>
 					    </p:selectOneMenu>
 					</p:outputPanel>
 		    	</p:overlayPanel>
