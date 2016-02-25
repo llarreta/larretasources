@@ -13,7 +13,7 @@
 	<var name="unitTypeConverter"		class="ar.com.larreta.commons.faces.EntityConverter"/>
 	<var name="providerConverter"		class="ar.com.larreta.commons.faces.EntityConverter"/>
 	<var name="classificationConverter"	class="ar.com.larreta.commons.faces.EntityConverter"/>
-	|
+	
 	<on-start>
         <set name="unitTypeConverter.entityClass"		value="unitTypeEntity"/>
     	<set name="providerConverter.entityClass" 		value="providerEntity"/>
@@ -23,6 +23,6 @@
 	<action-state id="starting" parent="crud-flow#starting"/>
 	<view-state id="start"  	parent="crud-flow#start"  		view="materialsTypes.xhtml"/>
 	<view-state id="updateView" parent="crud-flow#updateView" 	view="materialsTypesUpdate.xhtml" />
-	<view-state id="createView" parent="crud-flow#createView" 	view="materialsTypesCreate.xhtml" />
+	<view-state id="createView" parent="crud-flow#createView" 	view="materialsTypesUpdate.xhtml" />
 
 </flow>
