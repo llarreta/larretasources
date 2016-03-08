@@ -28,6 +28,8 @@ public interface StandardService extends AppObject {
 	public Boolean isExist(Entity entity, String field);
 	public Entity getEntity(Entity entity, String field);
 	public Collection load(Class entityType);
+	public Collection load(Class entityType, List<String> lazyProperties);
+	public Collection load(Class entityType, List<String> lazyProperties, List<String> lazyCollections);
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters);
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties);
 	public Long count(Class entityType);

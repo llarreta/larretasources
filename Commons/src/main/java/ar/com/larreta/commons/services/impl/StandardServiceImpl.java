@@ -146,8 +146,10 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	public Entity getEntity(Entity entity, Collection<String> properties, Collection<String> projectedCollections) {
 		LoadArguments args = new LoadArguments(entity.getClass());
 		args.addWhereEqual("id", entity.getId());
-		for(String propertie : properties){
-			args.addProjectedProperties(propertie);
+		if(properties != null){
+			for(String propertie : properties){
+				args.addProjectedProperties(propertie);
+			}
 		}
 		for(String collection : projectedCollections){
 			args.addProjectedCollectionLeftJoin(collection);
@@ -189,6 +191,25 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 */
 	public Collection load(Class entityType){
 		return dao.load(new LoadArguments(entityType));
+	}
+	
+	public Collection load(Class entityType, List<String> lazyProperties){
+		LoadArguments args = new LoadArguments(entityType);
+		for(String field : lazyProperties){
+			args.addProjectedPropertiesLeftJoin(field);
+		}
+		return dao.load(args);
+	}
+	
+	public Collection load(Class entityType, List<String> lazyProperties, List<String> lazyCollections){
+		LoadArguments args = new LoadArguments(entityType);
+		for(String field : lazyProperties){
+			args.addProjectedPropertiesLeftJoin(field);
+		}
+		for(String field : lazyCollections){
+			args.addProjectedCollectionLeftJoin(field);
+		}
+		return dao.load(args);
 	}
 
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters){

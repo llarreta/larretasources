@@ -84,6 +84,7 @@ public class ContainerController extends StandardControllerImpl{
 		}
 	}
 	
+	
 	private void checkChildrensAndMaterialType() throws LazyInitializationException{
 		if((getDataViewContainer().getContainerSelected().getChildrenContainers() != null)
 				&& (!getDataViewContainer().getContainerSelected().getChildrenContainers().isEmpty())){
@@ -112,8 +113,10 @@ public class ContainerController extends StandardControllerImpl{
 
 	private void loadChildrenContainers() {
 		for(Container childContainer : getDataViewContainer().getContainerSelected().getChildrenContainers()){
-			TreeNode childrenContainer = new DefaultTreeNode(childContainer, getDataViewContainer().getNodeSelected());
-			childrenContainer.setExpanded(true);
+			if(childContainer != null){	
+				TreeNode childrenContainer = new DefaultTreeNode(childContainer, getDataViewContainer().getNodeSelected());
+				childrenContainer.setExpanded(true);
+			}
 		}
 	}
 	
@@ -260,7 +263,7 @@ public class ContainerController extends StandardControllerImpl{
 			castMaterial(event);
 		}
 	}
-
+	
 	private void castMaterial(NodeSelectEvent event) {
 		getDataViewContainer().setNodeSelected(event.getTreeNode());
 		getDataViewContainer().setMaterialSelected((MaterialType)this.getDataViewContainer().getNodeSelected().getData());
@@ -354,15 +357,20 @@ public class ContainerController extends StandardControllerImpl{
 	}
 	
 	public void changeMaterialOfContainer(){
+		List<String> lazyCollections = new ArrayList<String>();
+		lazyCollections.add("containers");
+		getDataViewContainer().setMaterialSelected((MaterialType)service.getEntity(getDataViewContainer().getMaterialSelected(), null, lazyCollections)); 
 		if(getDataViewContainer().getMaterialSelected() != null){	
-			((Container)getDataViewContainer().getNodeSelected().getParent().getData()).setMaterialType(getDataViewContainer().getMaterialSelected());
-			for(int i = 0; i < getDataViewContainer().getNodeSelected().getParent().getChildren().size(); i++){
-				if(getDataViewContainer().getNodeSelected().getParent().getChildren().get(i).equals(getDataViewContainer().getNodeSelected())){
-					TreeNode tree = new DefaultTreeNode(getDataViewContainer().getMaterialSelected(), getDataViewContainer().getNodeSelected().getParent());
-					getDataViewContainer().getNodeSelected().getParent().getChildren().set(i, tree);
-					getDataViewContainer().setNodeSelected(getDataViewContainer().getNodeSelected().getParent().getChildren().get(i)); 
-				}
+			if(((Container)getDataViewContainer().getNodeSelected().getParent().getData()).getMaterialType() != null){
+				((Container)getDataViewContainer().getNodeSelected().getParent().getData()).getMaterialType().getContainers().
+					remove(((Container)getDataViewContainer().getNodeSelected().getParent().getData()));
 			}
+			getDataViewContainer().getMaterialSelected().getContainers().add(((Container)getDataViewContainer().getNodeSelected().getParent().getData()));
+			((Container)getDataViewContainer().getNodeSelected().getParent().getData()).setMaterialType(getDataViewContainer().getMaterialSelected());
+			TreeNode node = new DefaultTreeNode(getDataViewContainer().getMaterialSelected(), getDataViewContainer().getNodeSelected().getParent());
+			getDataViewContainer().getNodeSelected().getParent().getChildren().add(node);
+			getDataViewContainer().getNodeSelected().getParent().getChildren().remove(getDataViewContainer().getNodeSelected());
+			getDataViewContainer().setNodeSelected(node);
 		}
 	}
 	
@@ -380,6 +388,8 @@ public class ContainerController extends StandardControllerImpl{
 	
 	public List<MaterialType> getMaterialsType(){
 		try {
+			List<String> lazyCollection = new ArrayList<String>();
+			lazyCollection.add("containers");
 			return (List<MaterialType>) super.getService().load(MaterialType.class);
 		} catch (NotServiceAssignedException e) {
 			getLog().error(AppException.getStackTrace(e));

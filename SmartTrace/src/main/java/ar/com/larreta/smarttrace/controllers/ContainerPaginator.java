@@ -25,11 +25,13 @@ public class ContainerPaginator extends Paginator {
 			properties.add("materialType");
 			properties.add("parentContainer");
 			datasource = new ArrayList<Entity>(getService().load(getEntityClass(), first, pageSize, null, filters, properties));
-			for(int i = 0; i < datasource.size(); i++){
-				if(((Container)datasource.get(i)).getParentContainer() != null){
-					datasource.remove(i);
+			List<Entity> entityForDelete = new ArrayList<Entity>();
+			for(Entity entity : datasource){
+				if(((Container)entity).getParentContainer() != null){
+					entityForDelete.add(entity);
 				}
 			}
+			datasource.removeAll(entityForDelete);
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));		
 		}
@@ -44,11 +46,13 @@ public class ContainerPaginator extends Paginator {
 			properties.add("materialType");
 			properties.add("parentContainer");
 			datasource = new ArrayList<Entity>(getService().load(getEntityClass(), first,	pageSize, getOrder(sortOrder, sortField), filters, properties));
-			for(int i = 0; i < datasource.size(); i++){
-				if(((Container)datasource.get(i)).getParentContainer() != null){
-					datasource.remove(i);
+			List<Entity> entityForDelete = new ArrayList<Entity>();
+			for(Entity entity : datasource){
+				if(((Container)entity).getParentContainer() != null){
+					entityForDelete.add(entity);
 				}
 			}
+			datasource.removeAll(entityForDelete);
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
