@@ -28,10 +28,12 @@
 
 	<view-state id="updateView" view="none.xhtml">
 	    <transition on="confirm" to="preUpdate" />
+	    <transition on="cancel" to="start"/>
 	</view-state>
 	
 	<view-state id="createView" view="none.xhtml">
 	    <transition on="confirm" to="preCreate" />
+		<transition on="cancel" to="start"/>
 	</view-state>	
 
 	<action-state id="preUpdate">

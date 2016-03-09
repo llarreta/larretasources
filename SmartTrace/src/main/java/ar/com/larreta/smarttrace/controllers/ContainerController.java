@@ -44,6 +44,48 @@ public class ContainerController extends StandardControllerImpl{
 		setContainer(((Container)service.getEntity(getDataView().getSelected(), properties, projectedCollection)));
 		init();
 	}
+	
+	@Override
+	public void onUpdate(RequestContext flowRequestContext)
+			throws NotServiceAssignedException {
+		for(Container container : getDataViewContainer().getContainersToDelete()){
+			getService().delete(container);
+		}
+		super.onUpdate(flowRequestContext);
+	}
+	
+	@Override
+	public void onDelete(RequestContext flowRequestContext) {
+		if((getContainer().getChildrenContainers() != null) && (!getContainer().getChildrenContainers().isEmpty())){
+			for(Container container : getContainer().getChildrenContainers()){
+				if((container.getChildrenContainers() != null) && (!container.getChildrenContainers().isEmpty())){
+					deleteChildrensContainers(container.getChildrenContainers());
+				}
+				try {
+					getService().delete(container);
+				} catch (NotServiceAssignedException e) {
+					getLog().error("NotServiceAssignedException" + e);
+					e.printStackTrace();
+				}
+			}
+		}
+		super.onDelete(flowRequestContext);
+	}
+
+	private void deleteChildrensContainers(
+			Collection<Container> childrenContainers) {
+		for(Container container : childrenContainers){
+			if((container.getChildrenContainers() != null) && (!container.getChildrenContainers().isEmpty())){
+				deleteChildrensContainers(container.getChildrenContainers());
+			}
+			try {
+				getService().delete(container);
+			} catch (NotServiceAssignedException e) {
+				getLog().error("NotServiceAssignedException" + e);
+				e.printStackTrace();
+			}
+		}
+	}
 
 	private void init() {
 		getDataViewContainer().setContainContainer(true);
@@ -51,6 +93,7 @@ public class ContainerController extends StandardControllerImpl{
 		getDataViewContainer().setContainerSelect(true);
 		getDataViewContainer().setMaterialSelect(false);
 		getDataViewContainer().setFatherContainerSelect(true);
+		getDataViewContainer().setContainersToDelete(new ArrayList<Container>());
 		loadRoot();
 	}
 	
@@ -165,9 +208,11 @@ public class ContainerController extends StandardControllerImpl{
 
 	private void deleteContainer() {
 		getDataViewContainer().getLog().info("Borrando contenedor...");
+		getDataViewContainer().getContainersToDelete().add(getDataViewContainer().getContainerSelected());
 		if((getContainer().getChildrenContainers()!=null) && (!getContainer().getChildrenContainers().isEmpty())){
 			getDataViewContainer().getLog().info("Id de contenedor a borrar: " + getDataViewContainer().getContainerSelected().getId());
 			if(getContainer().getChildrenContainers().contains(getDataViewContainer().getContainerSelected())){
+				getDataViewContainer().getContainerSelected().setParentContainer(null);
 				getContainer().getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
 				deleteNode();
 			}else{
@@ -182,6 +227,7 @@ public class ContainerController extends StandardControllerImpl{
 		for(Container children : childrenContainers){
 			if((children.getChildrenContainers()!=null) && (!children.getChildrenContainers().isEmpty())){
 				if(children.getChildrenContainers().contains(getDataViewContainer().getContainerSelected())){
+					getDataViewContainer().getContainerSelected().setParentContainer(null);
 					children.getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
 					deleteNode();
 				}else{

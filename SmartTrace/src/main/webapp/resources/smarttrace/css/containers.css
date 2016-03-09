@@ -60,3 +60,6 @@
     text-shadow: 1px 1px 1px #5F5E5E;
     box-shadow: 1px 1px 8px -2px gray !important;
 }
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.button-save {
+    margin-left: 7px;
+}

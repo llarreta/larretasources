@@ -25,6 +25,7 @@ public class ContainerDataView extends DataView{
 	private Boolean materialSelect;
 	private Boolean fatherContainerSelect;
 	private MaterialType materialSelected;
+	private List<Container> containersToDelete;
 
 	public ContainerDataView() {
 		paginator = newPaginator();
@@ -164,4 +165,11 @@ public class ContainerDataView extends DataView{
 		this.fatherContainerSelect = fatherContainerSelect;
 	}
 
+	public List<Container> getContainersToDelete() {
+		return containersToDelete;
+	}
+
+	public void setContainersToDelete(List<Container> containersToDelete) {
+		this.containersToDelete = containersToDelete;
+	}
 }
