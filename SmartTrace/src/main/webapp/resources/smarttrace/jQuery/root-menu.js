@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
 		num = $(".menu-root-control").val();
 		if(num == 1){
 			console.log("CloseMenuRoot");
-			menu.removeClass("animated fadeInRight").addClass("animated fadeOutRight");
+			menu.removeClass("animated bounceInDown").addClass("animated bounceOutDown");
 			setTimeout(function () {
 			      menu.css('display', 'none');
 			    }, 500);
@@ -18,5 +18,5 @@ function openMenuRoot(){
 	$(".menu-root-control").val(num);
 	console.log("OpenMenuRoot");
 	$(PrimeFaces.escapeClientId('menu-form:menu-root')).css('display', 'block');
-	$(PrimeFaces.escapeClientId('menu-form:menu-root')).removeClass("animated fadeOutRight").addClass("animated fadeInRight");
+	$(PrimeFaces.escapeClientId('menu-form:menu-root')).removeClass("animated bounceOutDown").addClass("animated bounceInDown");
 }

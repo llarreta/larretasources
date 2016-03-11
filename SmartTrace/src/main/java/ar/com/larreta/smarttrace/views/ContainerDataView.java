@@ -1,15 +1,11 @@
 package ar.com.larreta.smarttrace.views;
 
-import java.util.List;
-
 import org.primefaces.model.TreeNode;
 
 import ar.com.larreta.commons.controllers.Paginator;
 import ar.com.larreta.commons.views.DataView;
 import ar.com.larreta.smarttrace.controllers.ContainerPaginator;
-import ar.com.larreta.smarttrace.controllers.MaterialTypePaginator;
 import ar.com.larreta.smarttrace.domain.Container;
-import ar.com.larreta.smarttrace.domain.MaterialType;
 
 /**
  * @author ignacio.m.larreta
@@ -17,21 +13,26 @@ import ar.com.larreta.smarttrace.domain.MaterialType;
  */
 public class ContainerDataView extends DataView{
 	
+	/** TreeNode Principal */
 	private TreeNode root;
+	
+	/** TreeNode Seleccionado */
 	private TreeNode nodeSelected;
+	
+	/** Container Seleccionado */
 	private Container containerSelected;
-	private Boolean containContainer;
-	private Boolean containerSelect;
-	private Boolean materialSelect;
-	private Boolean fatherContainerSelect;
-	private MaterialType materialSelected;
-	private List<Container> containersToDelete;
 
+	/**
+	 * Constructor
+	 */
 	public ContainerDataView() {
 		paginator = newPaginator();
 		paginator.setDataView(this);
 	}
 	
+	/**
+	 * Seteamos el paginador contenedor
+	 */
 	@Override
 	protected Paginator newPaginator() {
 		return new ContainerPaginator();
@@ -86,90 +87,17 @@ public class ContainerDataView extends DataView{
 	}
 
 	/**
-	 * Boolean para controlar la carga de hijos de un container en la vista
-	 * 
-	 * @return the containContainer
-	 */
-	public Boolean getContainContainer() {
-		return containContainer;
-	}
-
-	/**
-	 * @param containContainer the containContainer to set
-	 */
-	public void setContainContainer(Boolean containContainer) {
-		this.containContainer = containContainer;
-	}
-
-	/**
-	 * Material seleccionado en el caso de que no tenga un container
-	 * @return the materialSelected
-	 */
-	public MaterialType getMaterialSelected() {
-		return materialSelected;
-	}
-
-	/**
-	 * @param materialSelected the materialSelected to set
-	 */
-	public void setMaterialSelected(MaterialType materialSelected) {
-		this.materialSelected = materialSelected;
-	}
-
-	/**
 	 * @return the containerSelect
 	 */
 	public Boolean getContainerSelect() {
-		return containerSelect;
-	}
-
-	/**
-	 * @param containerSelect the containerSelect to set
-	 */
-	public void setContainerSelect(Boolean containerSelect) {
-		this.containerSelect = containerSelect;
-	}
-
-	/**
-	 * @return the materialSelect
-	 */
-	public Boolean getMaterialSelect() {
-		return materialSelect;
-	}
-
-	/**
-	 * @param materialSelect the materialSelect to set
-	 */
-	public void setMaterialSelect(Boolean materialSelect) {
-		this.materialSelect = materialSelect;
+		return containerSelected != null;
 	}
 
 	/**
 	 * @return the fatherContainerSelect
 	 */
 	public Boolean getFatherContainerSelect() {
-		if(super.selected != null && this.containerSelected != null){	
-			if(((Container)super.selected).equals(this.containerSelected)){
-				this.fatherContainerSelect = true;
-			}else{
-				this.fatherContainerSelect = false;
-			}
-		}
-		return fatherContainerSelect;
+		return (containerSelected != null) && (containerSelected.getParentContainer() == null);
 	}
 
-	/**
-	 * @param fatherContainerSelect the fatherContainerSelect to set
-	 */
-	public void setFatherContainerSelect(Boolean fatherContainerSelect) {
-		this.fatherContainerSelect = fatherContainerSelect;
-	}
-
-	public List<Container> getContainersToDelete() {
-		return containersToDelete;
-	}
-
-	public void setContainersToDelete(List<Container> containersToDelete) {
-		this.containersToDelete = containersToDelete;
-	}
 }

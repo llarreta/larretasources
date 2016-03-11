@@ -35,11 +35,11 @@ CREATE TABLE [SCHEMMA].container (
 	deleted DATETIME,
 	code VARCHAR(255),
 	description VARCHAR(255),
-	idMaterialType BIGINT NOT NULL,
+	idMaterialType BIGINT,
 	count BIGINT NOT NULL,
 	elaboration DATETIME,
 	expiration DATETIME,
-	idParent BIGINT NOT NULL,
+	idParent BIGINT,
 	PRIMARY KEY (ID)
 );
 

@@ -23,6 +23,6 @@
 	<action-state id="starting" parent="crud-flow#starting"/>
 	<view-state id="start"  	parent="crud-flow#start"  		view="materialsTypes.xhtml"/>
 	<view-state id="updateView" parent="crud-flow#updateView" 	view="materialsTypesUpdate.xhtml" />
-	<view-state id="createView" parent="crud-flow#createView" 	view="materialsTypesUpdate.xhtml" />
+	<view-state id="createView" parent="crud-flow#createView" 	view="materialsTypesCreate.xhtml" />
 
 </flow>

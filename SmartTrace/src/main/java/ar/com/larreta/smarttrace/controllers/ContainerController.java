@@ -25,7 +25,7 @@ import ar.com.larreta.smarttrace.views.ContainerDataView;
  *
  */
 public class ContainerController extends StandardControllerImpl{
-
+	
 	@Override
 	public void initCreate(RequestContext flowRequestContext) {
 		super.initCreate(flowRequestContext);
@@ -44,56 +44,14 @@ public class ContainerController extends StandardControllerImpl{
 		setContainer(((Container)service.getEntity(getDataView().getSelected(), properties, projectedCollection)));
 		init();
 	}
-	
-	@Override
-	public void onUpdate(RequestContext flowRequestContext)
-			throws NotServiceAssignedException {
-		for(Container container : getDataViewContainer().getContainersToDelete()){
-			getService().delete(container);
-		}
-		super.onUpdate(flowRequestContext);
-	}
-	
-	@Override
-	public void onDelete(RequestContext flowRequestContext) {
-		if((getContainer().getChildrenContainers() != null) && (!getContainer().getChildrenContainers().isEmpty())){
-			for(Container container : getContainer().getChildrenContainers()){
-				if((container.getChildrenContainers() != null) && (!container.getChildrenContainers().isEmpty())){
-					deleteChildrensContainers(container.getChildrenContainers());
-				}
-				try {
-					getService().delete(container);
-				} catch (NotServiceAssignedException e) {
-					getLog().error("NotServiceAssignedException" + e);
-					e.printStackTrace();
-				}
-			}
-		}
-		super.onDelete(flowRequestContext);
-	}
 
-	private void deleteChildrensContainers(
-			Collection<Container> childrenContainers) {
-		for(Container container : childrenContainers){
-			if((container.getChildrenContainers() != null) && (!container.getChildrenContainers().isEmpty())){
-				deleteChildrensContainers(container.getChildrenContainers());
-			}
-			try {
-				getService().delete(container);
-			} catch (NotServiceAssignedException e) {
-				getLog().error("NotServiceAssignedException" + e);
-				e.printStackTrace();
-			}
-		}
-	}
-
+	/** 
+	 * Metodo Inicializador de Variables 
+	 * @return void
+	 * 
+	 * */
 	private void init() {
-		getDataViewContainer().setContainContainer(true);
-		getDataViewContainer().setContainerSelected(this.getContainer());
-		getDataViewContainer().setContainerSelect(true);
-		getDataViewContainer().setMaterialSelect(false);
-		getDataViewContainer().setFatherContainerSelect(true);
-		getDataViewContainer().setContainersToDelete(new ArrayList<Container>());
+		getDataViewContainer().setContainerSelected(getContainer());
 		loadRoot();
 	}
 	
@@ -108,7 +66,7 @@ public class ContainerController extends StandardControllerImpl{
 		fatherContainer = getContainer();
 		
 		if(fatherContainer.getDescription() == null){
-			fatherContainer.setDescription("new container");
+			fatherContainer.setDescription("New container");
 			fatherContainer.setCount(1L);
 		}
 		TreeNode node = new DefaultTreeNode(fatherContainer, null);
@@ -116,28 +74,43 @@ public class ContainerController extends StandardControllerImpl{
 		getDataViewContainer().getRoot().setExpanded(true);
 	}
 	
+	/** 
+	 * Metodo encargado de cargar los datos del nodo seleccionado
+	 * en la vista.
+	 *  
+	 * @return void
+	 * 
+	 * */
 	public void loadContainerSelectedInTree(){
 		if(getDataViewContainer().getNodeSelected().getChildren().isEmpty()){
 			try{
-				checkChildrensAndMaterialType();
+				checkChildrens();
 			}catch(LazyInitializationException e){
 				reloadContainerSelected();
-				checkChildrensAndMaterialType();
+				checkChildrens();
 			}
 		}
 	}
 	
-	
-	private void checkChildrensAndMaterialType() throws LazyInitializationException{
+	/** 
+	 * Metodo encargado de revisar si el contenedor seleccionado tiene hijos
+	 *   
+	 * @return void
+	 * 
+	 * */
+	private void checkChildrens() throws LazyInitializationException{
 		if((getDataViewContainer().getContainerSelected().getChildrenContainers() != null)
 				&& (!getDataViewContainer().getContainerSelected().getChildrenContainers().isEmpty())){
 			loadChildrenContainers();
 		}
-		if(getDataViewContainer().getContainerSelected().getMaterialType() != null){
-			loadMaterialContainer();
-		}
 	}
 	
+	/** 
+	 * En caso de lazyInitialization recarga el contenedor con los datos de la base
+	 *  
+	 * @return void
+	 * 
+	 * */
 	private void reloadContainerSelected(){
 		List<String> properties = new ArrayList<String>();
 		properties.add("materialType");
@@ -149,11 +122,20 @@ public class ContainerController extends StandardControllerImpl{
 		getDataViewContainer().setContainerSelected((Container)service.getEntity(getDataViewContainer().getContainerSelected(), properties, collections));
 	}
 	
-	private void loadMaterialContainer() {
-		TreeNode material = new DefaultTreeNode(getDataViewContainer().getContainerSelected().getMaterialType(), getDataViewContainer().getNodeSelected());
-		material.setExpanded(true);	
+	private void reloadParentContainerOfTheContainerSelected(){
+		List<String> properties = new ArrayList<String>();
+		properties.add("materialType");
+		List<String> collections = new ArrayList<String>();
+		collections.add("childrenContainers");
+		getDataViewContainer().getContainerSelected().setParentContainer((Container)service.
+				getEntity(getDataViewContainer().getContainerSelected().getParentContainer(), properties, collections));
 	}
-
+	
+	/** 
+	 * Metodo encargado de cargar en la vista los hijos del contenedor seleccionado 
+	 * @return void
+	 * 
+	 * */
 	private void loadChildrenContainers() {
 		for(Container childContainer : getDataViewContainer().getContainerSelected().getChildrenContainers()){
 			if(childContainer != null){	
@@ -163,219 +145,120 @@ public class ContainerController extends StandardControllerImpl{
 		}
 	}
 	
+	/** 
+	 * Metodo encargado de borrar el nodo seleccionado y su contenido 
+	 * @return void
+	 * 
+	 * */
 	public void deleteSelected(){
-		if(getDataViewContainer().getContainerSelected() != null){
-			deleteContainer();
-		}else{
-			if(getDataViewContainer().getMaterialSelected() != null){
-				deleteMaterial();
-			}
-		}
+		if(getDataViewContainer().getContainerSelect()) deleteContainer();
 	}
-
-	private void deleteMaterial() {
-		getDataViewContainer().getLog().info("Borrando Material...");
-		if(getDataViewContainer().getNodeSelected() != null){	
-			getDataViewContainer().getLog().info("Tiene seleccionado un nodo");
-			((Container) getDataViewContainer().getNodeSelected().getParent().getData()).setMaterialType(null);
-			deleteNode();
-		}else{
-			addMessage("global-messages-error", getMessage("containersUpdate.materialIsNotSelectedErrorTitle"), 
-					getMessage("containersUpdate.materialIsNotSelectedErrorSumary"), FacesMessage.SEVERITY_ERROR);
-			getDataViewContainer().getLog().error("El usuario intento eliminar un material pero no lo selecciono primero.");
-		}
-	}
-
+	
+	/** 
+	 * Metodo encargado de borrar el nodo seleccionado 
+	 * @return void
+	 * 
+	 * */
 	private void deleteNode() {
-		if((getDataViewContainer().getRoot().getChildren() != null)){	
-			if(getDataViewContainer().getRoot().getChildren().contains(getDataViewContainer().getNodeSelected())){
-				getDataViewContainer().getRoot().getChildren().remove(getDataViewContainer().getNodeSelected());
-			}else{
-				deleteNodeChildren(getDataViewContainer().getRoot().getChildren());
-			}
-		}
+		getDataViewContainer().getLog().info("Borrando nodo...");
+		getDataViewContainer().getNodeSelected().getParent().getChildren().remove(getDataViewContainer().getNodeSelected());
 	}
 
-	private void deleteNodeChildren(List<TreeNode> children) {
-		for(TreeNode node : children){
-			if((node.getChildren() != null) && (node.getChildren().contains(getDataViewContainer().getNodeSelected()))){
-				node.getChildren().remove(getDataViewContainer().getNodeSelected());
-			}else{
-				deleteNodeChildren(node.getChildren());
-			}
-		}
-	}
-
+	/** 
+	 * Metodo encargado de borrar el contenedor seleccionado 
+	 * @return void
+	 * 
+	 * */
 	private void deleteContainer() {
 		getDataViewContainer().getLog().info("Borrando contenedor...");
-		getDataViewContainer().getContainersToDelete().add(getDataViewContainer().getContainerSelected());
-		if((getContainer().getChildrenContainers()!=null) && (!getContainer().getChildrenContainers().isEmpty())){
-			getDataViewContainer().getLog().info("Id de contenedor a borrar: " + getDataViewContainer().getContainerSelected().getId());
-			if(getContainer().getChildrenContainers().contains(getDataViewContainer().getContainerSelected())){
-				getDataViewContainer().getContainerSelected().setParentContainer(null);
-				getContainer().getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
-				deleteNode();
-			}else{
-				deleteContainerInChildrenContainer(getContainer().getChildrenContainers());
-			}
+		try{
+			getDataViewContainer().getContainerSelected().getParentContainer().
+			getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
+			deleteNode();
+		}catch(LazyInitializationException e){
+			getDataViewContainer().getLog().info("Lazy Exception tratando de borrar el contenedor... recargando... y reintentando...");
+			reloadParentContainerOfTheContainerSelected();
+			getDataViewContainer().getContainerSelected().getParentContainer().
+			getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
+			deleteNode();
 		}
 	}
 
-	private void deleteContainerInChildrenContainer(
-			Collection<Container> childrenContainers) {
-		getDataViewContainer().getLog().info("No se encontro el contenedor... seguimos buscando...");	
-		for(Container children : childrenContainers){
-			if((children.getChildrenContainers()!=null) && (!children.getChildrenContainers().isEmpty())){
-				if(children.getChildrenContainers().contains(getDataViewContainer().getContainerSelected())){
-					getDataViewContainer().getContainerSelected().setParentContainer(null);
-					children.getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
-					deleteNode();
-				}else{
-					deleteContainerInChildrenContainer(children.getChildrenContainers());
-				}
-			}
-		}
-	}
-
-	
+	/** 
+	 * Metodo  
+	 * @return Boolean
+	 * 
+	 * */
 	public Boolean isNodeDeleted(Object node){
-		try{
-			Container container = (Container) node;
-			getDataViewContainer().getLog().info("IsNodeDeleted");
-			if((container != null) && (container.getParentContainer() != null)){
-				getDataViewContainer().getLog().info("Container " + container.getDescription());
-				getDataViewContainer().getLog().info("Parent Container " + container.getParentContainer());
-				return true;
-			}
-			return false;
-		}catch(ClassCastException e){
-		  	return	tryCastMaterial(node);
-		}
+		return ((Container)node).getParentContainer() != null;
 	}
-	
-	public Boolean tryCastMaterial(Object node){
-		try{
-			MaterialType material = (MaterialType) node;
-			return true;
-		}catch(ClassCastException e){
-			return false;
-		}
-	}
-	
-	public Boolean tryCastContainer(Object node){
-		try{
-			Container container = (Container) node;
-			return true;
-		}catch(ClassCastException e){
-			return false;
-		}
-	}
-	
-	public Boolean isNodeContainer(Object node){
-		try{
-			Container container = (Container) node;
-			return true;
-		}catch(ClassCastException e){
-			return false;
-		}
-	}
-	
+
+	/** 
+	 * Metodo encargado de revisar si el nodo esta seleccionado
+	 * @return Boolean
+	 * 
+	 * */
 	public Boolean isEqualsNodes(Object node){
-		if(tryCastMaterial(node)){
-			MaterialType materialType = (MaterialType) node;
-			if((getDataViewContainer().getMaterialSelected() != null) && (materialType != null) && (materialType.equals(getDataViewContainer().getMaterialSelected()))){
-				return false;
-			}
-		}
-		if(tryCastContainer(node)){
-			Container container = (Container) node;
-			if((getDataViewContainer().getContainerSelected() != null) && (container != null) && (container.equals(getDataViewContainer().getContainerSelected()))){
-				return false;
-			}
+		Container container = (Container) node;
+		if((getDataViewContainer().getContainerSelect()) && (container != null) && (container.equals(getDataViewContainer().getContainerSelected()))){
+			return false;
 		}
 		return true;
 	}
 	
+	/** 
+	 * Metodo encargado de cargar lo que se selecciono de la vista
+	 * @return void
+	 * 
+	 * */
 	public void loadSelect(NodeSelectEvent event){
-		try{
-			getDataViewContainer().setNodeSelected(event.getTreeNode());
-			getDataViewContainer().setContainerSelected((Container)this.getDataViewContainer().getNodeSelected().getData());
-			getDataViewContainer().setMaterialSelected(null);
-			getDataViewContainer().setMaterialSelect(false);
-			getDataViewContainer().setContainerSelect(true);
-			getDataViewContainer().setFatherContainerSelect(getDataViewContainer().getNodeSelected().getParent() == null);
-			loadContainerSelectedInTree();
-		}catch(ClassCastException castError){
-			castMaterial(event);
-		}
-	}
-	
-	private void castMaterial(NodeSelectEvent event) {
+		getDataView().getLog().info("loadSelect");
 		getDataViewContainer().setNodeSelected(event.getTreeNode());
-		getDataViewContainer().setMaterialSelected((MaterialType)this.getDataViewContainer().getNodeSelected().getData());
-		getDataViewContainer().setContainerSelected(null);
-		getDataViewContainer().setContainerSelect(false);
-		getDataViewContainer().setMaterialSelect(true);
-		getDataViewContainer().setFatherContainerSelect(false);
+		getDataViewContainer().setContainerSelected((Container)this.getDataViewContainer().getNodeSelected().getData());
+		try{
+			getDataViewContainer().getContainerSelected().getMaterialType();
+		}catch(LazyInitializationException e){
+			getDataView().getLog().debug("Ocurrio un lazyInitializationError al "
+					+ "tratar cargar el tipo de material voy a cargarlo desde la base...");
+			reloadContainerSelected();
+		}
+		loadContainerSelectedInTree();
 	}
 	
+	/** 
+	 * Metodo encargado de cargar un contenedor nuevo en el contenedor
+	 * seleccionado y el arbol.
+	 * 
+	 * @return void
+	 * 
+	 * */
 	public void addContainer(){
-		getDataViewContainer().setContainContainer(true);
-		addNewContainerOrMaterial();
-	}
-	
-	public void addMaterial(){
-		getDataViewContainer().setContainContainer(false);
-		addNewContainerOrMaterial();
-	}
-	
-	public void addNewContainerOrMaterial(){
-		if(getDataViewContainer().getContainContainer()){
-			if(getDataViewContainer().getContainerSelected().getChildrenContainers() != null){
-				Container newContainer = new Container();
-				newContainer.setDescription("New Container");
-				newContainer.setCount(1L);
-				newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
-				newContainer.getId();
-				getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
-				addNewContainerNode(newContainer);
-			}else{
-				Container newContainer = new Container();
-				newContainer.setDescription("New Container");
-				newContainer.setCount(1L);
-				newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
-				newContainer.getId();
-				getDataViewContainer().getContainerSelected().setChildrenContainers(new ArrayList<Container>());
-				getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
-				addNewContainerNode(newContainer);
-			}
+		if(getDataViewContainer().getContainerSelected().getChildrenContainers() != null){
+			Container newContainer = new Container();
+			newContainer.setDescription("New Container");
+			newContainer.setCount(1L);
+			newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
+			newContainer.getId();
+			getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
+			addNewContainerNode(getDataViewContainer().getNodeSelected(), newContainer);
 		}else{
-			if(getDataViewContainer().getContainerSelected().getMaterialType() == null){
-				MaterialType newMaterialType = new MaterialType();
-				newMaterialType.setDescription("New Material");
-				newMaterialType.setCount(1L);
-				newMaterialType.setContainers(new HashSet<Container>());
-				newMaterialType.getId();
-				newMaterialType.getContainers().add(getDataViewContainer().getContainerSelected());
-				getDataViewContainer().getContainerSelected().setMaterialType(newMaterialType);
-				addNewMaterialNode();
-			}
+			Container newContainer = new Container();
+			newContainer.setDescription("New Container");
+			newContainer.setCount(1L);
+			newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
+			newContainer.getId();
+			getDataViewContainer().getContainerSelected().setChildrenContainers(new ArrayList<Container>());
+			getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
+			addNewContainerNode(getDataViewContainer().getNodeSelected(), newContainer);
 		}
 	}
 	
-	
-	private void addNewMaterialNode() {
-		TreeNode tree = new DefaultTreeNode(getDataViewContainer().getContainerSelected().getMaterialType(), getDataViewContainer().getNodeSelected());
-		tree.setExpanded(true);
-		tree.setParent(getDataViewContainer().getNodeSelected());
-		getDataViewContainer().getNodeSelected().getChildren().add(tree);
-	}
-
-	private void addNewContainerNode(Container newContainer) {
-		checkChildrenNode(getDataViewContainer().getNodeSelected(), newContainer);
-	}
-	
-	private void checkChildrenNode(TreeNode root, Container container) {
+	/** 
+	 * Metodo encargado de cargar el nodo nuevo
+	 * @return void
+	 * 
+	 * */
+	private void addNewContainerNode(TreeNode root, Container container) {
 		TreeNode tree = new DefaultTreeNode(container, root);
 		tree.setExpanded(true);
 		tree.setParent(root);
@@ -383,7 +266,7 @@ public class ContainerController extends StandardControllerImpl{
 	}
 
 	/**
-	 * Recupera el container padre seleccionado
+	 * Recupera el container principal seleccionado
 	 * 
 	 * @return Container
 	 */
@@ -391,33 +274,23 @@ public class ContainerController extends StandardControllerImpl{
 		return (Container) getDataViewContainer().getSelected();
 	}
 	
+	/**
+	 * SetContainer
+	 * 
+	 * @return void
+	 * @param container
+	 */
 	public void setContainer(Container container){
 		getDataViewContainer().setSelected(container);
 	}
 	
 	/**
+	 * Recupera el dataView Container
+	 * 
 	 * @return the dataView
 	 */
 	public ContainerDataView getDataViewContainer() {
 		return (ContainerDataView) super.getDataView();
-	}
-	
-	public void changeMaterialOfContainer(){
-		List<String> lazyCollections = new ArrayList<String>();
-		lazyCollections.add("containers");
-		getDataViewContainer().setMaterialSelected((MaterialType)service.getEntity(getDataViewContainer().getMaterialSelected(), null, lazyCollections)); 
-		if(getDataViewContainer().getMaterialSelected() != null){	
-			if(((Container)getDataViewContainer().getNodeSelected().getParent().getData()).getMaterialType() != null){
-				((Container)getDataViewContainer().getNodeSelected().getParent().getData()).getMaterialType().getContainers().
-					remove(((Container)getDataViewContainer().getNodeSelected().getParent().getData()));
-			}
-			getDataViewContainer().getMaterialSelected().getContainers().add(((Container)getDataViewContainer().getNodeSelected().getParent().getData()));
-			((Container)getDataViewContainer().getNodeSelected().getParent().getData()).setMaterialType(getDataViewContainer().getMaterialSelected());
-			TreeNode node = new DefaultTreeNode(getDataViewContainer().getMaterialSelected(), getDataViewContainer().getNodeSelected().getParent());
-			getDataViewContainer().getNodeSelected().getParent().getChildren().add(node);
-			getDataViewContainer().getNodeSelected().getParent().getChildren().remove(getDataViewContainer().getNodeSelected());
-			getDataViewContainer().setNodeSelected(node);
-		}
 	}
 	
 	/**
@@ -432,6 +305,10 @@ public class ContainerController extends StandardControllerImpl{
 		return new ArrayList<Container>();
 	}
 	
+	/**
+	 * 
+	 * @return the materials
+	 */
 	public List<MaterialType> getMaterialsType(){
 		try {
 			List<String> lazyCollection = new ArrayList<String>();
