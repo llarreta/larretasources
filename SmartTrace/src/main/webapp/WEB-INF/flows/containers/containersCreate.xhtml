@@ -54,7 +54,7 @@
 			    </p:tree>
 			    <p:remoteCommand name="processOverlayPanel" process="formEdit:editPanelContent" update="formEdit:tree formEdit:editPanelContent"/>
 			    <p:overlayPanel dynamic="true" widgetVar="editPanel" showEffect="fade" hideEffect="fade" onHide="processOverlayPanel()" 
-			    	for="formEdit:tree:edit-link" at="right bottom">
+			    	for="formEdit:tree:edit-link" at="right bottom" dismissable="false" showCloseIcon="true"> 
 					<p:outputPanel id="editPanelContent"> 	  	
 			 	  		<p:inputText id="nameContainer" value="#{dataView.containerSelected.description}"
 			           	required="false" styleClass="name-container-overlayPanel"/>
@@ -74,18 +74,22 @@
 					    
 					    <p:calendar id="dateElaboration" value="#{dataView.containerSelected.elaboration}" pattern="dd/MM/yyyy HH:mm:ss" 
 					    	required="false" styleClass="date-elaboration-overlayPanel"
-					    	locale="es"/>
+					    	locale="es" onclick="setIcons()">
+					    	<p:ajax event="dateSelect" onstart="setIcons()"/>
+					    </p:calendar>
 					    <p:watermark for="dateElaboration" value="#{msg['containersUpdate.dateElaboration']}" />
 					    <p:tooltip for="dateElaboration" value="#{msg['containersUpdate.dateElaboration']}" styleClass="calendar-tooltip"/>
 					    
 					    <p:calendar id="dateExpiration" value="#{dataView.containerSelected.expiration}" pattern="dd/MM/yyyy HH:mm:ss" 
 					    	required="false" styleClass="date-expiration-overlayPanel"
-					    	locale="es"/>
+					    	locale="es" onclick="setIcons()">
+					    	<p:ajax event="dateSelect" onstart="setIcons()"/>
+					    </p:calendar>
 					    <p:watermark for="dateExpiration" value="#{msg['containersUpdate.dateExpiration']}" />
 					    <p:tooltip for="dateExpiration" value="#{msg['containersUpdate.dateExpiration']}" styleClass="calendar-tooltip"/>
 					    <p:selectOneMenu id="materialType-select" value="#{dataView.containerSelected.materialType}" 
 					    		var="materialType" converter="#{materialTypeConverter}" effect="fold" editable="false" 
-					        	styleClass="name-container-overlayPanel" filter="false" required="false">
+					        	styleClass="select-material-overlayPanel" filter="false" required="false">
 				        	<f:selectItem itemLabel="#{msg['containersUpdate.selectMaterialType']}" itemValue=""/>
 				            <f:selectItems value="#{controller.materialsType}" var="materialType" itemLabel="#{materialType.description}" 
 				            	itemValue="#{materialType}"/>

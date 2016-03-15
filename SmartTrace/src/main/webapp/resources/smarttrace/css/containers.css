@@ -63,3 +63,11 @@
 .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.button-save {
     margin-left: 7px;
 }
+.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.select-material-overlayPanel {
+    margin-top: 10px;
+}
+.date-expiration-overlayPanel {
+    margin-top: 10px;
+    display: block;
+    position: relative;
+}

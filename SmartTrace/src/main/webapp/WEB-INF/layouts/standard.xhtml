@@ -120,7 +120,9 @@
         <h:outputText value="Aguarde un momento, por favor..." style="white-space: nowrap;"/>  
     </h:panelGrid>  
 </pe:blockUI>
-	<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
+	<p:outputPanel autoUpdate="true">
+		<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
+	</p:outputPanel>
 	<h:outputScript name="left-menu.js" library="smarttrace/jQuery"/>
 	<h:outputScript name="root-menu.js" library="smarttrace/jQuery"/>
 </h:body>

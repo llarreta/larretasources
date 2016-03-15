@@ -197,6 +197,7 @@ a.ui-menuitem-link.ui-corner-all.menu-item-default {
 }
 .ui-outputpanel.ui-widget.root-menu {
     margin-left: 0%;
+	margin-top: -4px;
 }
 #menu-content {
     position: absolute;
@@ -208,7 +209,12 @@ a.ui-menuitem-link.ui-corner-all.menu-item-default {
 .ui-menu.ui-widget.ui-widget-content.ui-corner-all.ui-helper-clearfix.menu-root-configurations {
     width: 200px;
     left: 13px;
+    padding-bottom: initial;
     background-color: rgba(28, 175, 246, 0.33);
+    padding-left: initial;
+    padding-top: initial;
+    padding-right: initial;
+    z-index: 10;
 }
 #menu-root-content {
     position: absolute;

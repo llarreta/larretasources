@@ -122,6 +122,13 @@ public class ContainerController extends StandardControllerImpl{
 		getDataViewContainer().setContainerSelected((Container)service.getEntity(getDataViewContainer().getContainerSelected(), properties, collections));
 	}
 	
+	/** 
+	 * En caso de lazyInitialization recarga el tipo de material y los contenedores hijos del contenedor padre 
+	 * del container seleccionado
+	 *  
+	 * @return void
+	 * 
+	 * */
 	private void reloadParentContainerOfTheContainerSelected(){
 		List<String> properties = new ArrayList<String>();
 		properties.add("materialType");
@@ -233,24 +240,16 @@ public class ContainerController extends StandardControllerImpl{
 	 * 
 	 * */
 	public void addContainer(){
-		if(getDataViewContainer().getContainerSelected().getChildrenContainers() != null){
-			Container newContainer = new Container();
-			newContainer.setDescription("New Container");
-			newContainer.setCount(1L);
-			newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
-			newContainer.getId();
-			getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
-			addNewContainerNode(getDataViewContainer().getNodeSelected(), newContainer);
-		}else{
-			Container newContainer = new Container();
-			newContainer.setDescription("New Container");
-			newContainer.setCount(1L);
-			newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
-			newContainer.getId();
+		if(getDataViewContainer().getContainerSelected().getChildrenContainers() == null){
 			getDataViewContainer().getContainerSelected().setChildrenContainers(new ArrayList<Container>());
-			getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
-			addNewContainerNode(getDataViewContainer().getNodeSelected(), newContainer);
 		}
+		Container newContainer = new Container();
+		newContainer.setDescription("New Container");
+		newContainer.setCount(1L);
+		newContainer.setParentContainer(getDataViewContainer().getContainerSelected());
+		newContainer.getId();
+		getDataViewContainer().getContainerSelected().getChildrenContainers().add(newContainer);
+		addNewContainerNode(getDataViewContainer().getNodeSelected(), newContainer);
 	}
 	
 	/** 
