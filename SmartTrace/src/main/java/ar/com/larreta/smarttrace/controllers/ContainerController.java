@@ -1,11 +1,7 @@
 package ar.com.larreta.smarttrace.controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-
-import javax.faces.application.FacesMessage;
 
 import org.hibernate.LazyInitializationException;
 import org.primefaces.event.NodeSelectEvent;

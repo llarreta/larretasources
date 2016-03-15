@@ -13,7 +13,8 @@
 </ui:define>
 
 <ui:define name="content">
-		<f:facet name="last">
+	<p:outputLabel id="titleUpdate" value="#{msg['containerUpdate.titleUpdateContainer']}" styleClass="titleDefault"/>
+	<f:facet name="last">
 		<h:outputStylesheet library="smarttrace" name="css/containers.css"/>
 	</f:facet>
 	<p:messages id="global-messages-error" showSummary="true" showDetail="true" autoUpdate="true" closable="true" 
