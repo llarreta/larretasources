@@ -5,6 +5,12 @@ body{
 	padding:0;
 	height:100%;
 }
+.container{
+	top: 22px;
+    position: relative;
+    min-height: 530px !important;
+}
+
 img.logo-main-menu {
     height: auto;
     width: 14%;
@@ -207,7 +213,7 @@ a.ui-menuitem-link.ui-corner-all.menu-item-default {
     background-color: rgba(145, 208, 240, 0.69);
 }
 .ui-menu.ui-widget.ui-widget-content.ui-corner-all.ui-helper-clearfix.menu-root-configurations {
-    width: 200px;
+    width: 196px;
     left: 13px;
     padding-bottom: initial;
     background-color: rgba(28, 175, 246, 0.33);
@@ -783,9 +789,6 @@ div.ui-selectonemenu-trigger.ui-state-default.ui-corner-right span.ui-icon.ui-ic
 .google-position {
     margin-left: 1%;
     margin-top: 1%;
-}
-.container {
-    min-height: 530px !important;
 }
 
 .social-networks-icons {
