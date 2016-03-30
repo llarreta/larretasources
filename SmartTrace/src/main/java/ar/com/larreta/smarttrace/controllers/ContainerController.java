@@ -7,6 +7,7 @@ import org.hibernate.LazyInitializationException;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.webflow.execution.RequestContext;
 
 import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
@@ -14,6 +15,7 @@ import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
 import ar.com.larreta.smarttrace.domain.Container;
 import ar.com.larreta.smarttrace.domain.MaterialType;
+import ar.com.larreta.smarttrace.services.ContainerService;
 import ar.com.larreta.smarttrace.views.ContainerDataView;
 
 /**
@@ -21,6 +23,9 @@ import ar.com.larreta.smarttrace.views.ContainerDataView;
  *
  */
 public class ContainerController extends StandardControllerImpl{
+	
+	@Autowired
+	private ContainerService containerService;
 	
 	@Override
 	public void initCreate(RequestContext flowRequestContext) {
@@ -174,17 +179,9 @@ public class ContainerController extends StandardControllerImpl{
 	 * */
 	private void deleteContainer() {
 		getDataViewContainer().getLog().info("Borrando contenedor...");
-		try{
-			getDataViewContainer().getContainerSelected().getParentContainer().
-			getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
-			deleteNode();
-		}catch(LazyInitializationException e){
-			getDataViewContainer().getLog().info("Lazy Exception tratando de borrar el contenedor... recargando... y reintentando...");
-			reloadParentContainerOfTheContainerSelected();
-			getDataViewContainer().getContainerSelected().getParentContainer().
-			getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
-			deleteNode();
-		}
+		((Container)getDataViewContainer().getNodeSelected().getData()).
+		getChildrenContainers().remove(getDataViewContainer().getContainerSelected());
+		deleteNode();
 	}
 
 	/** 
@@ -217,15 +214,18 @@ public class ContainerController extends StandardControllerImpl{
 	public void loadSelect(NodeSelectEvent event){
 		getDataView().getLog().info("loadSelect");
 		getDataViewContainer().setNodeSelected(event.getTreeNode());
-		getDataViewContainer().setContainerSelected((Container)this.getDataViewContainer().getNodeSelected().getData());
-		try{
-			getDataViewContainer().getContainerSelected().getMaterialType();
-		}catch(LazyInitializationException e){
-			getDataView().getLog().debug("Ocurrio un lazyInitializationError al "
-					+ "tratar cargar el tipo de material voy a cargarlo desde la base...");
-			reloadContainerSelected();
+		Container containerSelected = (Container) getDataViewContainer().getNodeSelected().getData();
+		if(getDataViewContainer().getNodeSelected().getChildren().isEmpty()){
+			Container containerDB = containerService.getContainerLoadingMaterialTypeAndChildContainers(containerSelected);
+			if(containerDB != null){
+				getDataViewContainer().setContainerSelected(containerDB);
+			}else{
+				getDataViewContainer().setContainerSelected(containerSelected);
+			}
+			loadContainerSelectedInTree();
+		}else{
+			getDataViewContainer().setContainerSelected(containerSelected);
 		}
-		loadContainerSelectedInTree();
 	}
 	
 	/** 

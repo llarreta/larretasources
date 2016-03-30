@@ -171,7 +171,7 @@ public class Container extends ar.com.larreta.commons.domain.Entity {
 	}
 
 	@OneToMany (mappedBy="parentContainer", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=Container.class)
-//	@Where(clause="deleted IS NULL")
+	@Where(clause="deleted IS NULL")
 	public Collection<Container> getChildrenContainers() {
 		return childrenContainers;
 	}

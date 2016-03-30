@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ar.com.larreta.commons.services.impl;
 
 import java.util.Collection;

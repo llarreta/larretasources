@@ -37,10 +37,19 @@
 			<p:outputPanel styleClass="ui-grid-col-12">
 				
 				<p:remoteCommand name="addContainer" actionListener="#{controller.addContainer}" update="formEdit:tree" immediate="true"/>
-				<p:remoteCommand name="removeSelected" actionListener="#{controller.deleteSelected}" update="formEdit:tree" immediate="true"/>
 				
-				<p:tree id="tree" value="#{dataView.root}" var="node" orientation="horizontal" styleClass="tree-style"
-					selection="#{dataView.nodeSelected}" dynamic="true" selectionMode="single" animate="true">
+				<p:remoteCommand name="removeSelected" onstart="PF('deleteContainerConfirmation').show()" immediate="true"/>
+				<p:confirmDialog widgetVar="deleteContainerConfirmation" showEffect="fade" hideEffect="fade" 
+				message="#{msg['container.confirmDeleteContainer']}" closable="false" severity="alert" >
+					<p:commandButton value="#{msg['app.yes']}" styleClass="ui-confirmdialog-yes" 
+						icon="ui-icon-check"  actionListener="#{controller.deleteSelected}" 
+						update="formEdit:tree" immediate="true" ajax="true" oncomplete="PF('deleteContainerConfirmation').hide()"/>
+					<p:commandButton value="#{msg['app.no']}" type="button"	styleClass="ui-confirmdialog-no" icon="ui-icon-close" 
+						onclick="PF('deleteContainerConfirmation').hide()"/>
+				</p:confirmDialog>
+				
+				<p:tree id="tree" value="#{dataView.root}" var="node" styleClass="tree-style"
+					selection="#{dataView.nodeSelected}" dynamic="true" selectionMode="single" animate="true" orientation="horizontal">
 					<p:ajax event="select" listener="#{controller.loadSelect}" update="formEdit:tree formEdit:editPanelContent"/>
 					<p:treeNode id="treeNode" styleClass="tree-node-default">
 						<p:commandLink id="edit-link" styleClass="fa fa-pencil-square-o treeNode-link-edit" 
@@ -54,7 +63,7 @@
 	        		</p:treeNode>
 			    </p:tree>
 			    <p:remoteCommand name="processOverlayPanel" process="formEdit:editPanelContent" update="formEdit:tree formEdit:editPanelContent"/>
-			   <p:overlayPanel dynamic="true" widgetVar="editPanel" showEffect="fade" hideEffect="fade" onHide="processOverlayPanel()" 
+			    <p:overlayPanel dynamic="true" widgetVar="editPanel" showEffect="fade" hideEffect="fade" onHide="processOverlayPanel()" 
 			    	for="formEdit:tree:edit-link" at="right bottom" dismissable="false" showCloseIcon="true"> 
 					<p:outputPanel id="editPanelContent"> 	  	
 			 	  		<p:inputText id="nameContainer" value="#{dataView.containerSelected.description}"
@@ -73,17 +82,17 @@
 				     	<p:watermark for="codeContainer" value="#{msg['containersUpdate.code']}" />
 					    <p:tooltip for="codeContainer" value="#{msg['containersUpdate.code']}" />
 					    
-					    <p:calendar id="dateElaboration" value="#{dataView.containerSelected.elaboration}" pattern="dd/MM/yyyy HH:mm:ss" 
+					    <p:calendar id="dateElaboration" value="#{dataView.containerSelected.elaboration}" pattern="#{controller.appConfigData.generalDateFormat}" 
 					    	required="false" styleClass="date-elaboration-overlayPanel"
-					    	locale="es" onclick="setIcons()">
+					    	locale="#{msg['app.activeLanguage']}" onclick="setIcons()">
 					    	<p:ajax event="dateSelect" onstart="setIcons()"/>
 					    </p:calendar>
 					    <p:watermark for="dateElaboration" value="#{msg['containersUpdate.dateElaboration']}" />
 					    <p:tooltip for="dateElaboration" value="#{msg['containersUpdate.dateElaboration']}" styleClass="calendar-tooltip"/>
 					    
-					    <p:calendar id="dateExpiration" value="#{dataView.containerSelected.expiration}" pattern="dd/MM/yyyy HH:mm:ss" 
+					    <p:calendar id="dateExpiration" value="#{dataView.containerSelected.expiration}" pattern="#{controller.appConfigData.generalDateFormat}" 
 					    	required="false" styleClass="date-expiration-overlayPanel"
-					    	locale="es" onclick="setIcons()">
+					    	locale="#{msg['app.activeLanguage']}" onclick="setIcons()">
 					    	<p:ajax event="dateSelect" onstart="setIcons()"/>
 					    </p:calendar>
 					    <p:watermark for="dateExpiration" value="#{msg['containersUpdate.dateExpiration']}" />

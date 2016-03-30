@@ -299,4 +299,9 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 		}
 		return actionEvent.getComponent().getAttributes().get(eventAttribute);
 	}
+
+	public AppConfigData getAppConfigData() {
+		return appConfigData;
+	}
+	
 }
