@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	parent="crud-flow">
+
+	<var name="controller" 			class="ar.com.larreta.commons.controllers.AccessController" />
+	<var name="dataView" 			class="ar.com.larreta.commons.views.AccessDataView" />
+	
+	<on-start>
+        <set name="controller.dataView" value="dataView" />
+    </on-start>
+	
+	<action-state id="starting" parent="crud-flow#starting"/>
+	<view-state id="start"  	parent="crud-flow#start"  		view="access.xhtml"/>
+	
+</flow>

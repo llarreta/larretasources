@@ -3,3 +3,7 @@ RemoteSystemsTempFiles/
 *.rej
 *.orig
 Servers/
+.recommenders/
+Colegio/.settings/.jsdtscope
+Colegio/.settings/
+Colegio/.wtpmodules

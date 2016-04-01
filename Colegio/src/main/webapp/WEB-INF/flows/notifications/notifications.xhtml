@@ -1,0 +1,34 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/layouts/standard.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formList">
+			<p:dataScroller value="#{dataView.notifications}" var="notification" chunkSize="10" styleClass="animated bounceInRight content-shadow">
+				<f:facet name="header">
+           			<p:outputLabel value="#{msg['app.notifications']}" styleClass="font-xxs"/> 
+        		</f:facet>
+				<f:facet name="loader">
+            		<p:commandButton type="button" value="#{msg['app.seeMore']}" icon="ui-icon-circle-triangle-s" styleClass="animated bounceInRight"/>
+        		</f:facet>
+        		<h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+        			 <p:outputPanel>
+		                <h:panelGrid columns="1">
+		                   <p:outputLabel value="#{notification.description}" />
+		                </h:panelGrid>
+           			 </p:outputPanel>
+           			 <p:commandLink id="confirm"	immediate="true" update="@form" 
+								actionListener="#{controller.confirm}" rendered="#{notification.withConfirm}" styleClass="animated flash">
+							<i class="fa fa-newspaper-o" />
+							<p:outputLabel value="#{msg['app.signUpCompetition']}" styleClass="notifications-iconSpace"/>
+							<f:attribute name="selected" value="#{notification}"/>
+					</p:commandLink>
+        		</h:panelGrid>
+			</p:dataScroller>
+		</h:form>
+	</ui:define>
+</ui:composition>

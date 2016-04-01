@@ -1,0 +1,13 @@
+Alguna de las funcionalidades o acciones a cubrir:
+
+1) ABM de todas las entidades del diagrama de dominio
+2) Deuda actual por alumno
+3) Deuda actual por responsable
+4) Asociar responsable a multiples alumnos y biceversa
+5) Realizar pagos totales y parciales, bonificar la totalidad del pago o parcialmente
+6) Asociar alumno a plan de pagos, de manera individual y masivamente
+7) Imprimir recibos de pagos, historicos y realizados en el momento
+8) Anular obligaciones adeudas
+9) Sacar reportes sumarizado por dia, mes y anio. Con posibilidad de discriminar saldos por PaymentDirection y PaymentEntity. Y agrupar saldos segun ProductGroup.
+10) Realizar los pagos con factura digital, sincronizando con servicios de afip.
+11) Actualizar obligations de los paymentsplan manteniendo el historico de los precios anteriores.

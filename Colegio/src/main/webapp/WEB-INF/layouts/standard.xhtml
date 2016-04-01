@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags" 
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	>
+<f:view contentType="text/html" >
+    <f:facet name="first">
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Cache-control" content="no-cache"/>
+        <meta http-equiv="expires" content="0"/>
+        <meta http-equiv="#{dataView.metadataName}" content="#{dataView.metadataContent}"/>
+    </f:facet>	
+	
+	<pe:head title="#{msg['app.name']}">
+ 		<link href='https://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'/>
+ 	</pe:head>
+
+<h:body>
+<input class="menu-control"  type="number" value="0" style="display:none;"/>
+<input class="menu-root-control"  type="number" value="0" style="display:none;"/>
+<h:panelGroup id="bodyPanel" layout="block">
+	<f:facet name="last">
+		<h:outputStylesheet  	library="css" name="main.css"/>
+		<h:outputStylesheet 	library="smarttrace/css" name="bootstrap.min.css"/>
+		<h:outputStylesheet 	library="css" name="font-awesome.css"/>
+		<h:outputStylesheet  	library="css" name="animate.css"/>	
+		<h:outputStylesheet 	library="css" name="socicon.css"/>
+		<h:outputStylesheet  	library="css" name="font-awesome-animation.min.css"/>	
+	</f:facet>
+	<h:form id="menu-form">
+	   	<div class="bar-main-menu">
+	   		<p:graphicImage library="images" name="logo-barra-menu.png" styleClass="logo-main-menu"/>
+			<p:menubar styleClass="main-bar-1">
+				<p:menuitem value="#{msg['main-bar.init']}" styleClass="menu-item-default" 	url="/app/home"/>
+				<p:submenu label="#{msg['main-bar.basicConfigurations']}" styleClass="sub-menu-main">
+					<p:menuitem value="#{msg['main-bar.providers']}" 	styleClass="sub-menu-item-default" 	url="/app/providers" />
+					<p:menuitem value="#{msg['main-bar.classifications']}" 	styleClass="sub-menu-item-default" 	url="/app/classifications" />
+				</p:submenu>
+				<p:submenu label="#{msg['main-bar.materialConfigurations']}" styleClass="sub-menu-main">
+					<p:menuitem value="#{msg['main-bar.materialType']}" styleClass="sub-menu-item-default"	url="/app/materialsTypes"/>
+					<p:menuitem value="#{msg['main-bar.container']}" styleClass="sub-menu-item-default" url="/app/containers"/>
+				</p:submenu>
+			</p:menubar>
+			<p:menubar styleClass="main-bar-2">
+				<p:submenu label="#{dataView.actualUser.nick}" styleClass="profile-menu">
+					<p:menuitem value="#{msg['main-bar.yourProfile']}" styleClass="sub-menu-standard"/>
+					<p:menuitem value="#{msg['main-bar.adminAccount']}" styleClass="sub-menu-standard"/>
+					<p:menuitem value="#{msg['main-bar.help']}" styleClass="sub-menu-standard"/>
+					<p:menuitem value="#{msg['main-bar.closeSession']}" styleClass="sub-menu-standard" url="/app/logout"/>
+				</p:submenu>
+				<p:submenu icon="faa-parent animated-hover fa fa-envelope faa-horizontal">
+					<p:menuitem value="Mensaje 1" styleClass="messages-notification"/>
+				</p:submenu>
+				<p:submenu icon="faa-parent animated-hover fa fa-bell faa-ring">
+					<p:menuitem value="Notificacion 1" styleClass="alert-notification"/>
+				</p:submenu>
+			</p:menubar>
+	   	</div>
+		<div id="hamburger" onclick="openMenu()">
+			<div/>
+			<div/>
+			<div/>
+		</div>
+		<div id="hamburger" class="hamburger-root" onclick="openMenuRoot()">
+			<div/>
+			<div/>
+			<div/>
+		</div>
+		<p:outputPanel id="menu-root" styleClass="root-menu" style="display:none">
+			<div id="menu-root-content" style="z-index: 11;">
+				<p:menu styleClass="menu-root-configurations">
+			        <p:menuitem styleClass="default-menu-root-item-configuration" value="#{msg['root-menu.unitsTypes']}" url="/app/unitsTypes" />
+		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 1"/>
+		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 2"/>
+		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Menu 3"/>
+		            <p:menuitem styleClass="default-menu-root-item-configuration" value="Otros sub-menu"/>
+			    </p:menu>
+	    	</div>
+		</p:outputPanel>
+		<p:outputPanel id="menu" styleClass="left-menu" style="display:none">
+			<div id="menu-content" style="z-index: 11;">
+				<p:menu styleClass="menu-left-configurations">
+			        <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.configuration']}"/>
+		            <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.usersAdmin']}"/>
+		            <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.accountStatus']}"/>
+		            <p:menuitem styleClass="default-menu-item-configuration" value="#{msg['secondary-bar.technicalSupport']}"/>
+		            <p:menuitem styleClass="default-menu-item-configuration" value="Otros sub-menu"/>
+			    </p:menu>
+	    	</div>
+		</p:outputPanel>
+	</h:form>
+   	<div class="container">
+   		<div class="ui-grid ui-grid-responsive">
+    		<div class="ui-grid-col-12">
+	    		<div class="ui-grid-row">
+	    			<ui:insert name="content"/>
+	    		</div>
+	    	</div>
+	    </div>
+	</div>
+            
+</h:panelGroup>
+<div id="footer" class="ui-grid-col-12">
+	<div class="footer-standar">
+		<p:graphicImage styleClass="logo-footer" library="images" name="logosmarttrace-blanco.png"/>
+		<p:commandLink styleClass="socicon socicon-twitter sc-2x social-networks-icons twitter-position"/>
+		<p:commandLink styleClass="socicon socicon-facebook sc-2x social-networks-icons facebook-position"/>
+		<p:commandLink styleClass="socicon socicon-google sc-2x social-networks-icons google-position"/>
+		<p:outputLabel value="#{msg['loggin.labelRights']}" styleClass="label-rights"/>
+	</div>
+</div>
+<pe:blockUI target="bodyPanel" widgetVar="blockUI"   >  
+    <h:panelGrid columns="2">  
+        <h:outputText value="Aguarde un momento, por favor..." style="white-space: nowrap;"/>  
+    </h:panelGrid>  
+</pe:blockUI>
+	<p:outputPanel autoUpdate="true">
+		<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
+	</p:outputPanel>
+	<h:outputScript name="left-menu.js" library="smarttrace/jQuery"/>
+	<h:outputScript name="root-menu.js" library="smarttrace/jQuery"/>
+</h:body>
+</f:view>
+</html>

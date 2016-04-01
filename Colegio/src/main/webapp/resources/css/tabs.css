@@ -1,0 +1,91 @@
+#css3dimagePager, #css3dtransparency {
+    text-align:center; position:relative; z-index:11; padding:0 0 10px; margin:0;
+  }
+  #css3dimagePager li {
+    padding-right:2em; display:inline-block;
+    cursor:pointer;
+  }
+  #css3dimagePager li.active, #css3dtransparency.active{ font-weight:bold;}
+
+  #css3dimageslider {
+    -webkit-perspective: 1200;
+    -moz-perspective: 1200px;
+    -ms-perspective: 1200;
+    perspective: 1200;
+	
+    -webkit-perspective-origin: 50% 100px;
+    -moz-perspective-origin: 50% 100px;
+    -ms-perspective-origin: 50% 100px;
+    perspective-origin: 50% 100px;
+    margin:100px auto 20px auto;
+	
+    width:800px;
+    height:500px; 
+  }
+
+  #css3dimageslider ul {
+    position: relative;
+    margin: 0 auto;
+    height: 1000px;
+    width: 700px;
+	list-style:none;
+	
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    -webkit-transform-origin: 50% 100px 0;
+    -moz-transform-origin: 50% 100px 0;
+    -ms-transform-origin: 50% 100px 0;
+    transform-origin: 50% 100px 0;
+
+    -webkit-transition:all 1.0s ease-in-out;
+    -moz-transition:all 1.0s ease-in-out;
+    -ms-transition:all 1.0s ease-in-out;
+    transition:all 1.0s ease-in-out;
+
+  }
+
+  #css3dimageslider ul li {
+    position: absolute;
+    height: 1000px;
+    width: 700px;
+    padding: 0px;
+  }
+
+  #css3dimageslider ul li:nth-child(1)  {
+    -webkit-transform: translateZ(225px);
+    -moz-transform: translateZ(225px);
+    -ms-transform: translateZ(225px);
+    transform: translateZ(225px);
+  }
+
+  #css3dimageslider ul li:nth-child(2)  {
+    -webkit-transform: rotateY(90deg) translateZ(225px);
+    -moz-transform: rotateY(90deg) translateZ(225px);
+    -ms-transform: rotateY(90deg) translateZ(225px);
+    transform: rotateY(90deg) translateZ(225px);
+  }
+
+  #css3dimageslider ul li:nth-child(3) {
+    -webkit-transform: rotateY(180deg) translateZ(225px);
+    -moz-transform: rotateY(180deg) translateZ(225px);
+    -ms-transform: rotateY(180deg) translateZ(225px);
+    transform: rotateY(180deg) translateZ(225px);
+  }
+
+  #css3dimageslider ul li:nth-child(4) {
+    -webkit-transform: rotateY(-90deg) translateZ(225px);
+    -moz-transform: rotateY(-90deg) translateZ(225px);
+    -ms-transform: rotateY(-90deg) translateZ(225px);
+    transform: rotateY(-90deg) translateZ(225px);
+  }
+  
+  #css3dimageslider.transparency img {
+    opacity:0.7;
+  }
+  
+  .noBackground{
+  
+  }
