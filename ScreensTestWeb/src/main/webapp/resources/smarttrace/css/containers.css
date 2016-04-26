@@ -1,0 +1,73 @@
+.ui-outputpanel.ui-widget.ui-grid-col-12.container-white {
+    background: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 35px 40px 40px 40px;
+    width: 100%;
+    word-break: break-word;
+    margin: 0 auto 30px auto;
+    -webkit-box-shadow: 0 0 25px rgba(0,0,0,0.04);
+    -moz-box-shadow: 0 0 25px rgba(0,0,0,0.04);
+    box-shadow: 0 0 25px rgba(0,0,0,0.04);
+    margin-top: 10%;
+}
+.ui-commandlink.ui-widget.fa.fa-dropbox {
+    color: #FFFFFF;
+    font-size: 25px;
+    margin-left: 7%;
+    text-shadow: 1px 1px 1px gray;
+}
+.ui-commandlink.ui-widget.fa.fa-pencil-square-o.treeNode-link-edit {
+    color: #FFFFFF;
+    text-shadow: 1px 1px 1px gray;
+    font-size: 20px;
+}
+.ui-commandlink.ui-widget.fa.fa-bitbucket {
+    color: #FFFFFF;
+    font-size: 25px;
+    margin-left: 4%;
+    text-shadow: 1px 1px 1px gray;
+}
+.ui-commandlink.ui-widget.fa.fa-trash {
+    color: #FFFFFF;
+    font-size: 20px;
+    margin-left: 6%;
+    text-shadow: 1px 1px 1px gray;
+}
+.ui-treenode-content.ui-tree-selectable.ui-state-default.ui-corner-all {
+    min-width: 200px;
+    width: auto;
+    box-sizing: content-box;
+    background: #1CAFF6;
+    color: white;
+    text-shadow: 1px 1px 1px gray;
+    border: none;
+    box-shadow: 1px 1px 8px -2px gray;
+}
+.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.count-container-overlayPanel {
+    margin-top: 10px;
+}
+.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.select-container-position {
+    margin-top: 10px;
+}
+.ui-tree.ui-tree-horizontal.ui-widget.ui-widget-content.ui-corner-all.tree-style {
+    overflow-x: auto;
+}
+.ui-tooltip.ui-widget.ui-widget-content.ui-shadow.ui-corner-all {
+    background: rgba(189, 189, 189, 0.72) !important;
+    color: white !important;
+    text-shadow: 1px 1px 1px #5F5E5E;
+    box-shadow: 1px 1px 8px -2px gray !important;
+}
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.button-save {
+    margin-left: 7px;
+}
+.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.select-material-overlayPanel {
+    margin-top: 10px;
+}
+.date-expiration-overlayPanel {
+    margin-top: 10px;
+    display: block;
+    position: relative;
+}

@@ -1,5 +1,6 @@
 package ar.com.larreta.commons.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
@@ -175,8 +176,16 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	}
 
 	public Collection<String> getDatabaseInitializeScripts() {
-		String scripts =  getProperty(PROPERTY_NAME_DATABASE_INITIALIZE_SCRIPTS);
-		return Arrays.asList(StringUtils.split(scripts, ","));
+		Integer index = 0;
+		String scripts =  getProperty(PROPERTY_NAME_DATABASE_INITIALIZE_SCRIPTS + "." + index);
+		Collection<String> scriptsCol = new ArrayList<String>();
+		while(scripts!=null){
+			scriptsCol.add(scripts);
+			index++;
+			scripts =  getProperty(PROPERTY_NAME_DATABASE_INITIALIZE_SCRIPTS + "." + index);
+		}
+
+		return scriptsCol;
 	}
 
 	public Boolean getDatabaseInitializeDropSchemma(){

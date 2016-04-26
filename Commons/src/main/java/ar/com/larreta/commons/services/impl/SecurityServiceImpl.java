@@ -1,6 +1,7 @@
 package ar.com.larreta.commons.services.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +23,12 @@ public class SecurityServiceImpl extends StandardServiceImpl implements	Security
 	public Security getSecurityConfig() {
 		LoadArguments args = new LoadArguments(Security.class);
 		args.addProjectedCollection("securityMatchers");
-		
 		Collection results = getDao().load(args);
-		return (Security) results.iterator().next();
+		Iterator<Security> it = results.iterator();
+		if (it.hasNext()){
+			return it.next();
+		}
+		return null;
 	}
 
 }

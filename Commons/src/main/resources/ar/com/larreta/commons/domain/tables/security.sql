@@ -15,6 +15,7 @@ CREATE TABLE [SCHEMMA].securityMatcherRoles (
 
 CREATE TABLE [SCHEMMA].security (
 	id BIGINT NOT NULL,
+	avaiable TINYINT(1),
 	deleted DATETIME,
 	loginPage VARCHAR(255) NOT NULL,
 	loginProcessingUrl VARCHAR(255) NOT NULL,

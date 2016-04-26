@@ -51,21 +51,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		Security security = securityService.getSecurityConfig();
 		
-		http.csrf().disable()
-		.formLogin()
-			.loginPage(security.getLoginPage()).loginProcessingUrl(security.getLoginProcessingUrl())
-			.defaultSuccessUrl(security.getDefaultSuccessUrl())
-			.failureUrl(security.getFailureUrl())
-			.usernameParameter(security.getUsernameParameter())
-			.passwordParameter(security.getPasswordParameter());
-	
-		http.logout().logoutUrl(security.getLogoutUrl()).logoutSuccessUrl(security.getLogoutSuccessUrl()).deleteCookies(security.getDeleteCookies());
+		if (security.getAvaiable()){
+			http.csrf().disable()
+			.formLogin()
+				.loginPage(security.getLoginPage()).loginProcessingUrl(security.getLoginProcessingUrl())
+				.defaultSuccessUrl(security.getDefaultSuccessUrl())
+				.failureUrl(security.getFailureUrl())
+				.usernameParameter(security.getUsernameParameter())
+				.passwordParameter(security.getPasswordParameter());
 		
-		if (security.getSecurityMatchers()!=null){
-			Iterator<SecurityMatcher> matchers = security.getSecurityMatchers().iterator();
-			while (matchers.hasNext()) {
-				SecurityMatcher securityMatcher = (SecurityMatcher) matchers.next();
-				securityMatcher.process(http);
+			http.logout().logoutUrl(security.getLogoutUrl()).logoutSuccessUrl(security.getLogoutSuccessUrl()).deleteCookies(security.getDeleteCookies());
+			
+			if (security.getSecurityMatchers()!=null){
+				Iterator<SecurityMatcher> matchers = security.getSecurityMatchers().iterator();
+				while (matchers.hasNext()) {
+					SecurityMatcher securityMatcher = (SecurityMatcher) matchers.next();
+					securityMatcher.process(http);
+				}
 			}
 		}
 		

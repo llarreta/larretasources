@@ -28,6 +28,15 @@ public class Security extends ar.com.larreta.commons.domain.Entity {
 	private String logoutSuccessUrl;
 	private String deleteCookies;
 	private Set<SecurityMatcher> securityMatchers;
+	private Boolean avaiable = Boolean.TRUE;
+	
+	@Basic
+	public Boolean getAvaiable() {
+		return avaiable;
+	}
+	public void setAvaiable(Boolean avaiable) {
+		this.avaiable = avaiable;
+	}
 	
 	@Basic
 	public String getLoginPage() {

@@ -16,7 +16,7 @@ public class TestCryptographer {
 			
 			Base64 base64 = new Base64Impl();
 
-			encryptTest(base64, "smarttrace");
+			encryptTest(base64, "screens");
 			encryptTest(base64, "trace");
 			encryptTest(base64, "user3");
 			encryptTest(base64, "user4");

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mail" pageWidth="612" pageHeight="202" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ee27ef4e-dff5-4428-8168-439556fe7c33">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="user" class="java.lang.String"/>
+	<parameter name="link" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="surname" class="java.lang.String"/>
+	<title>
+		<band height="126" splitType="Stretch">
+			<textField hyperlinkType="Reference">
+				<reportElement x="0" y="94" width="612" height="32" uuid="91103a16-2f87-4b54-a8fc-48f9f8dfdc60"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  >> Click aqui para loguear en el sistema ..."]]></textFieldExpression>
+				<hyperlinkReferenceExpression><![CDATA[$P{link}]]></hyperlinkReferenceExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="612" height="35" uuid="53d4f7c6-0a36-4dce-8766-c6b55d15a17f"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hola " + $P{name}+" "+$P{surname}+","]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="65" width="612" height="29" uuid="ed966838-2a42-4d25-8dcf-685213d23c1c"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[ha quedado activado, y desde este mismo momento ya podes disfrutar de nuestra aplicacion.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="35" width="612" height="30" uuid="5bbd384e-720a-4691-b3fb-a5e939648772"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Te confirmamos que el usuario:" + $P{user}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="612" height="74" uuid="eaefb092-7e27-46de-9b37-26271067c2f1"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[En caso de no haber sido usted quien registro esta cuenta, desestime este correo y disculpe las molestias que le pudimos haber ocacionado.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>
