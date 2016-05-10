@@ -63,13 +63,19 @@
     <filter-name>PrimeFaces FileUpload Filter</filter-name>
     <servlet-name>Spring MVC Servlet</servlet-name>
   </filter-mapping>
+
+  <servlet>
+    <servlet-name>FilesFrameworksInitializer</servlet-name>
+    <servlet-class>ar.com.larreta.commons.initializer.FilesFrameworksInitializer</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
   
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
+    <load-on-startup>2</load-on-startup>
   </servlet>
-
+  
   <servlet>
     <servlet-name>Spring MVC Servlet</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

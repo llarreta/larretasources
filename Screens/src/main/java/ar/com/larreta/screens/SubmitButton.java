@@ -2,6 +2,17 @@ package ar.com.larreta.screens;
 
 import java.util.Set;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Where;
+
+@Entity
+@DiscriminatorValue("submitButton")
 public class SubmitButton extends Button {
 
 	private String action;
@@ -12,6 +23,8 @@ public class SubmitButton extends Button {
 		ajax = Boolean.FALSE;
 	}
 	
+	@OneToMany (mappedBy="button", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=PropertyActionListener.class)
+	@Where(clause="deleted IS NULL")
 	public Set<PropertyActionListener> getProperties() {
 		return properties;
 	}
@@ -20,6 +33,7 @@ public class SubmitButton extends Button {
 		this.properties = properties;
 	}
 
+	@Basic
 	public String getAction() {
 		return action;
 	}

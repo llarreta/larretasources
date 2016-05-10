@@ -20,7 +20,10 @@ public class ScreensControllerImpl extends HomeController {
 
 	@Override
 	public void home(RequestContext flowRequestContext) {
+		
 		Screen screen = new Screen();
+		
+		screen.setTitle("app.titleApp");
 		
 		screen.addStyleSheet("css", 			"main.css");
 		screen.addStyleSheet("smarttrace/css", 	"bootstrap.min.css");
@@ -32,16 +35,14 @@ public class ScreensControllerImpl extends HomeController {
 		screen.setHeader(getHeader());
 		screen.setFooter(getFooter());
 		
-		
 		OutputPanel outputPanel = new OutputPanel();
 		outputPanel.setStyleClass("box-message-test");
-		outputPanel.add(new Label("description", "app.description"));
+		outputPanel.add(new Label("app.description"));
 		outputPanel.add(new Input());
 		SubmitButton button = new SubmitButton();
 		button.setAction("confirm");
 		button.setValue("app.login.confirm");
 		button.setIcon("ui-icon-check");
-		outputPanel.add(button);
 		outputPanel.add(button);
 		
 		screen.add(outputPanel);
@@ -74,7 +75,6 @@ public class ScreensControllerImpl extends HomeController {
 
 	private Form getHeader() {
 		Form form = new Form();
-		form.setId("menu-form");
 		Div div = new Div("bar-main-menu");
 		form.add(div);
 		GraphicImage image = new GraphicImage("images", "logo-barra-menu.png");

@@ -1,9 +1,13 @@
 package ar.com.larreta.commons.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.File;
+import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -14,9 +18,18 @@ import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.utils.FormatPatterns;
+import ar.com.larreta.commons.utils.iterators.IterateResources;
+import ar.com.larreta.commons.utils.iterators.ResourcesList;
+import ar.com.larreta.commons.utils.iterators.UrlAction;
 
 //@Component(AppConfigDataImpl.APP_CONFIG_DATA)
 public class AppConfigDataImpl extends Properties implements AppConfigData{
+	
+	public static final String SEPARATOR = "/";
+	private static final String FILE = "file:";
+	private static final String LIB_FOLDER = "WEB-INF/lib";
+	private static final String CLASS_FOLDER = "WEB-INF/classes";
+	private static final String INITIALIZE_PATTERN = "([^\\s]+(\\.(?i)(initialize))$)";	
 	
 	public static final String APP_CONFIG_DATA = "appConfigData";
 
@@ -24,7 +37,7 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	
 	private static String APP_VERSION = "app.version";
 	
-	private static final String BAR = "/";
+	private static final String BAR = SEPARATOR;
 	private static final String TWO_POINTS = ":";
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
 	
@@ -64,14 +77,36 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 
 	 private static final String MESSAGE_REFRESH_TIME = "message.refresh.time";
 
+	 private static final String WEB_INF = "WEB-INF";
+	 
+	 private static final String DEPLOY_PATH = "deploy.path";
+	 
 	 private AppObject appObject = new AppObjectImpl(getClass());
 	 
 	public AppConfigDataImpl(){
-		try {
-			java.net.URL url = getClass().getClassLoader().getResource(APPLICATION_PROPERTIES_FILE);
-			load(url.openStream());
-		} catch(Exception e){
-			getLog().error(AppException.getStackTrace(e));
+		IterateResources iterateResources = new IterateResources(APPLICATION_PROPERTIES_FILE, new UrlAction() {
+			@Override
+			public void process(URL url) {
+				try {
+					String fileName = url.getFile().replace(FILE, StringUtils.EMPTY);
+					String deployPath = fileName.substring(1, fileName.indexOf(WEB_INF));
+					setDeployPath(deployPath);
+					load(url.openStream());
+				} catch(Exception e){
+					getLog().error(AppException.getStackTrace(e));
+				}
+			}
+		});
+		iterateResources.start();
+	}
+	
+	public String getDeployPath(){
+		return getProperty(DEPLOY_PATH);
+	}
+	
+	public void setDeployPath(String deployPath){
+		if (get(DEPLOY_PATH)==null){
+			setProperty(DEPLOY_PATH, deployPath);
 		}
 	}
 	
@@ -176,16 +211,31 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	}
 
 	public Collection<String> getDatabaseInitializeScripts() {
-		Integer index = 0;
-		String scripts =  getProperty(PROPERTY_NAME_DATABASE_INITIALIZE_SCRIPTS + "." + index);
-		Collection<String> scriptsCol = new ArrayList<String>();
-		while(scripts!=null){
-			scriptsCol.add(scripts);
-			index++;
-			scripts =  getProperty(PROPERTY_NAME_DATABASE_INITIALIZE_SCRIPTS + "." + index);
-		}
+		
+		List<String> scripts = (List<String>) ResourcesList.getResourcesFromDirectory(new File(getDeployPath() + LIB_FOLDER), Pattern.compile(INITIALIZE_PATTERN));
+		scripts.addAll(ResourcesList.getResourcesFromDirectory(new File(getDeployPath() + CLASS_FOLDER), Pattern.compile(INITIALIZE_PATTERN)));
+		
+		Collections.sort(scripts, new Comparator<String>() {
 
-		return scriptsCol;
+			@Override
+			public int compare(String nameA, String nameB) {
+				String onlyNameA = getOnlyName(nameA);
+				String onlyNameB = getOnlyName(nameB);
+				return onlyNameA.compareTo(onlyNameB);
+			}
+
+			private String getOnlyName(String nameA) {
+				String onlyName = nameA;
+				String name = nameA;
+				Integer start = name.lastIndexOf(SEPARATOR);
+				if (start>=0){
+					onlyName = name.substring(start + 1);
+				} 
+				return onlyName;
+			}
+		});
+
+		return scripts;
 	}
 
 	public Boolean getDatabaseInitializeDropSchemma(){
@@ -268,4 +318,23 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	public void statisticsStop(Long id){
 		appObject.statisticsStop(id);
 	}
+
+	@Override
+	public String getProperty(String key) {
+		String value = super.getProperty(key);
+		if (StringUtils.isEmpty(value)){
+			getLog().error("No se encontro valor para la key:" + key);
+		}
+		return value;
+	}
+
+	@Override
+	public String getProperty(String key, String defaultValue) {
+		String value = super.getProperty(key, defaultValue);
+		if (StringUtils.isEmpty(value)){
+			getLog().error("No se encontro valor para la key:" + key);
+		}
+		return value;
+	}
+
 }

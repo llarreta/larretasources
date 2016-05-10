@@ -9,22 +9,24 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
-<f:view contentType="text/html" >
+<f:view contentType="${screen.contentType}" >
 
     <f:facet name="first">
-    	<meta http-equiv="Content-Type" 				content="text/html; charset=UTF-8"/>
-        <meta http-equiv="Pragma" 						content="no-cache"/>
-        <meta http-equiv="Cache-control" 				content="no-cache"/>
-        <meta http-equiv="expires" 						content="0"/>
+        <meta http-equiv="Content-Type" 				content="${screen.contentType}"/>
+        <meta http-equiv="Pragma" 						content="${screen.pragma}"/>
+        <meta http-equiv="Cache-control" 				content="${screen.cacheControl}"/>
+        <meta http-equiv="expires" 						content="${screen.expires}"/>
         <meta http-equiv="#{dataView.metadataName}" 	content="#{dataView.metadataContent}"/>
     </f:facet>	
 	
-	<pe:head title="#{msg['app.name']}">
+	<pe:head title="${screen.title}">
  		<link href='https://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'/>
  	</pe:head>
 
 <h:body>
-
+		
+		<f:loadBundle var="msg" basename="ar.com.larreta.commons.resources.ResourceBundle"  />
+		
 		<input class="menu-control"  type="number" value="0" style="display:none;"/>
 		<input class="menu-root-control"  type="number" value="0" style="display:none;"/>
 	

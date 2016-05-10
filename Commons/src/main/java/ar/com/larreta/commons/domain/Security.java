@@ -35,7 +35,9 @@ public class Security extends ar.com.larreta.commons.domain.Entity {
 		return avaiable;
 	}
 	public void setAvaiable(Boolean avaiable) {
-		this.avaiable = avaiable;
+		if (avaiable!=null){
+			this.avaiable = avaiable;
+		}
 	}
 	
 	@Basic

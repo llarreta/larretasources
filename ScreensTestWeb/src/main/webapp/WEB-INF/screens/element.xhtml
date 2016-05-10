@@ -9,26 +9,22 @@
 	>
 
 		<c:if test="${element.simpleName == 'SubmitButton' || element.simpleName == 'AjaxButton'}">
-			<!-- FIXME: luego ver de colocarle el id -->
-			<p:commandButton 	
+			<p:commandButton	id="#{element.idValue}" 	
 								action="${element.action}" 		value="${element.value}" 
 								icon="${element.icon}" 			styleClass="${element.styleClass}"
 								ajax="${element.ajax}" />
 		</c:if>
 
 		<c:if test="${element.simpleName == 'Label'}">
-			<!-- FIXME: luego ver de colocarle el id -->
-			<p:outputLabel 		value="${element.value}"		styleClass="${element.styleClass}"	/>
+			<p:outputLabel 		id="#{element.idValue}"		value="${element.value}"		styleClass="${element.styleClass}"	/>
 		</c:if>
 
 		<c:if test="${element.simpleName == 'Input'}">
-			<!-- FIXME: luego ver de colocarle el id -->
-			<p:inputText 		value="${element.value}"		styleClass="${element.styleClass}"	/>
+			<p:inputText 		id="#{element.idValue}"		value="${element.value}"		styleClass="${element.styleClass}"	/>
 		</c:if>
 
 		<c:if test="${element.simpleName == 'OutputPanel'}">
-			<!-- FIXME: luego ver de colocarle el id -->
-			<p:outputPanel 		autoUpdate="#{element.autoUpdate}"		styleClass="${element.styleClass}"  >
+			<p:outputPanel 		id="#{element.idValue}"		autoUpdate="#{element.autoUpdate}"		styleClass="${element.styleClass}"  >
 					<ui:include src="/WEB-INF/screens/iterate.xhtml">
 						<ui:param name="elements" value="#{element.elements}" />
 					</ui:include>
@@ -36,13 +32,11 @@
 		</c:if>
 
 		<c:if test="${element.simpleName == 'GraphicImage'}">
-			<!-- FIXME: luego ver de colocarle el id -->
-	   		<p:graphicImage library="#{element.library}" name="#{element.name}" styleClass="#{element.styleClass}"/>
+	   		<p:graphicImage id="#{element.idValue}"		library="#{element.library}" name="#{element.name}" styleClass="#{element.styleClass}"/>
 		</c:if>
 		
 		<c:if test="${element.simpleName == 'Div'}">
-			<!-- FIXME: luego ver de colocarle el id -->
-			<div class="#{element.className}">
+			<div id="#{element.idValue}"		class="#{element.className}">
 					<ui:include src="/WEB-INF/screens/iterate.xhtml">
 						<ui:param name="elements" value="#{element.elements}" />
 					</ui:include>
@@ -50,8 +44,7 @@
 		</c:if>
 
 		<c:if test="${element.simpleName == 'Form'}">
-			<!-- FIXME: luego ver de colocarle el id -->
-			<h:form id="#{element.id}">
+			<h:form id="#{element.idValue}" >
 					<ui:include src="/WEB-INF/screens/iterate.xhtml">
 						<ui:param name="elements" value="#{element.elements}" />
 					</ui:include>
@@ -59,8 +52,7 @@
 		</c:if>
 		
 		<c:if test="${element.simpleName == 'MenuBar'}">
-			<!-- FIXME: luego ver de colocarle el id -->
-			<p:menubar model="#{element.menuModel}" />
+			<p:menubar id="#{element.idValue}"		model="#{element.menuModel}" />
 		</c:if>	
 		
 		<c:if test="${element.simpleName == 'OutputScript'}">
@@ -68,8 +60,23 @@
 		</c:if>	
 
 		<c:if test="${element.simpleName == 'CommandLink'}">
-			<!-- FIXME: luego ver de colocarle el id -->
 			<p:commandLink styleClass="#{element.styleClass}" />
+		</c:if>
+		
+		<c:if test="${element.simpleName == 'BlockUI'}">
+			<pe:blockUI target="#{element.target}" widgetVar="#{element.widgetVar}"   >  
+				<ui:include src="/WEB-INF/screens/iterate.xhtml">
+					<ui:param name="elements" value="#{element.elements}" />
+				</ui:include>
+			</pe:blockUI>
+		</c:if>
+		
+		<c:if test="${element.simpleName == 'PanelGrid'}">
+			 <h:panelGrid id="#{element.idValue}"		columns="#{element.columns}">
+					<ui:include src="/WEB-INF/screens/iterate.xhtml">
+						<ui:param name="elements" value="#{element.elements}" />
+					</ui:include>
+			</h:panelGrid>
 		</c:if>
 		
 		<!-- p:tooltip 		value="${element.tooltip}" 			for="${element.id}" 	rendered="${element.isTooltip}"/>

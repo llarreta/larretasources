@@ -1,6 +1,8 @@
 package ar.com.larreta.commons;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,7 +36,6 @@ import ar.com.larreta.commons.utils.impl.Base64Impl;
 public class AppConfig extends AppObjectImpl{
 	
 	private static final String DB_INITIALIZE_AUTOCOMMIT = "db.initialize.autocommit";
-
 	private static final String DB_INITIALIZE_STOPONERROR = "db.initialize.stoponerror";
 
 	private static final String ZIP = ".zip";
@@ -157,7 +158,7 @@ public class AppConfig extends AppObjectImpl{
 					Iterator<String> itScripts = scripts.iterator();
 					while (itScripts.hasNext()) {
 						String actualScript = (String) itScripts.next();
-						InputStream inputStream = getClass().getResourceAsStream(actualScript);
+						InputStream inputStream = getInputStream(actualScript);
 						InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 						connection.runScript(inputStreamReader);	
 					}
@@ -166,6 +167,19 @@ public class AppConfig extends AppObjectImpl{
 				getLog().info("PRECAUCION!!! no se inicializo el esquema debido a que appConfigData es nulo.");
 			}
 		}
+	}
+
+	private InputStream getInputStream(String actualScript) throws FileNotFoundException {
+		InputStream inputStream = null;
+		try {
+			inputStream = getClass().getResourceAsStream(AppConfigDataImpl.SEPARATOR + actualScript);
+			if (inputStream==null){
+				inputStream = new FileInputStream(new File(actualScript));
+			}
+		} catch (Exception e){
+			inputStream = new FileInputStream(new File(actualScript));
+		}
+		return inputStream;
 	}
 
 	public void backup(JDBCConnection connection) throws IOException {

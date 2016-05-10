@@ -48,4 +48,5 @@ public interface AppConfigData extends AppObject{
 	public void statisticsStop(Long id);
 	public String getProperty(String key);
 	public Object get(Object key);
+	public String getDeployPath();
 }

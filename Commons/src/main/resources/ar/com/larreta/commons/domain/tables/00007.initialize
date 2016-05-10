@@ -1,0 +1,2 @@
+insert into [SCHEMMA].resourceMessage (id, country, language, keyValue, text) values (1, 'ES', 'es', 'app.description', 'Descripcion');
+insert into [SCHEMMA].resourceMessage (id, country, language, keyValue, text) values (2, 'ES', 'es', 'app.login.confirm', 'Confirmar');

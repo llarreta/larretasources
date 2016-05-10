@@ -1,5 +1,9 @@
 package ar.com.larreta.screens;
 
+import javax.persistence.Basic;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Library extends ScreenElement {
 	private String name;
 	private String library;
@@ -9,6 +13,7 @@ public abstract class Library extends ScreenElement {
 		setLibrary(library);
 	}
 	
+	@Basic
 	public String getLibrary() {
 		return library;
 	}
@@ -17,6 +22,7 @@ public abstract class Library extends ScreenElement {
 		this.library = library;
 	}
 
+	@Basic
 	public String getName() {
 		return name;
 	}

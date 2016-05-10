@@ -7,8 +7,7 @@ public class Label extends ScreenElement {
 
 	public Label(){}
 	
-	public Label(String id, String value){
-		setId(id);
+	public Label(String value){
 		setValue(value);
 	}
 	

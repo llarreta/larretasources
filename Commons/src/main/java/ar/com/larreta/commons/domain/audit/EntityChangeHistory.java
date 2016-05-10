@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.domain.User;
 
 @MappedSuperclass
