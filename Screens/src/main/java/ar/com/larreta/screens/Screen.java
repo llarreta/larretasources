@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Basic;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,11 +13,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
 @Entity
 @Table(name = "screen")
+@DiscriminatorValue(value = "screen")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class Screen extends Container {
 
@@ -48,7 +51,9 @@ public class Screen extends Container {
 	}
 
 	public void setContentType(String contentType) {
-		this.contentType = contentType;
+		if (!StringUtils.isEmpty(contentType)){
+			this.contentType = contentType;
+		}
 	}
 
 	@Basic
@@ -57,7 +62,9 @@ public class Screen extends Container {
 	}
 
 	public void setPragma(String pragma) {
-		this.pragma = pragma;
+		if (!StringUtils.isEmpty(pragma)){
+			this.pragma = pragma;
+		}
 	}
 
 	@Basic
@@ -66,7 +73,9 @@ public class Screen extends Container {
 	}
 
 	public void setCacheControl(String cacheControl) {
-		this.cacheControl = cacheControl;
+		if (!StringUtils.isEmpty(cacheControl)){
+			this.cacheControl = cacheControl;
+		}
 	}
 
 	@Basic
@@ -75,10 +84,22 @@ public class Screen extends Container {
 	}
 
 	public void setExpires(String expires) {
-		this.expires = expires;
+		if (!StringUtils.isEmpty(expires)){
+			this.expires = expires;
+		}
+	}
+
+	@ManyToOne (fetch=FetchType.EAGER, targetEntity=ScreenElement.class)
+	@JoinColumn (name="idHeader")
+	public ScreenElement getHeader() {
+		return header;
+	}
+
+	public void setHeader(ScreenElement header) {
+		this.header = header;
 	}
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=ScreenElement.class)
+	@ManyToOne (fetch=FetchType.EAGER, targetEntity=ScreenElement.class)
 	@JoinColumn (name="idFooter")
 	public ScreenElement getFooter() {
 		return footer;
@@ -88,17 +109,7 @@ public class Screen extends Container {
 		this.footer = footer;
 	}
 
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=ScreenElement.class)
-	@JoinColumn (name="idHeader")
-	public ScreenElement getHeader() {
-		return header;
-	}
-
-	public void setHeader(ScreenElement header) {
-		this.header = header;
-	}
-
-	@ManyToMany (fetch=FetchType.LAZY, targetEntity=StyleSheet.class)
+	@ManyToMany (fetch=FetchType.EAGER, targetEntity=StyleSheet.class)
 	@JoinTable(name = "hasStyleSheets", joinColumns = { @JoinColumn(name = "idScreen") }, 
 		inverseJoinColumns = { @JoinColumn(name = "idStyleSheet") })
 	public Collection<StyleSheet> getStyleSheets() {

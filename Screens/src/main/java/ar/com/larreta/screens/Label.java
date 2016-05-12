@@ -1,7 +1,15 @@
 package ar.com.larreta.screens;
 
-import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
+import javax.persistence.Basic;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "label")
+@DiscriminatorValue(value = "label")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class Label extends ScreenElement {
 	private String value;
 
@@ -11,8 +19,9 @@ public class Label extends ScreenElement {
 		setValue(value);
 	}
 	
+	@Basic
 	public String getValue() {
-		return StandardControllerImpl.getMessage(value);
+		return value;
 	}
 
 	public void setValue(String value) {

@@ -1,6 +1,8 @@
 package ar.com.larreta.screens;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
@@ -12,25 +14,38 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
-import ar.com.larreta.commons.domain.UserState;
-
 @Entity
 @Table(name = "screenElement")
+@DiscriminatorColumn(name = "type")
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity {
 
+	private Integer order = 0;
 	private String styleClass;
 	private String tooltip;
 	private String watermark;
 	private ScreenElement parent;
+
+	@Basic @Column(name="orderIndex")
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		if (order!=null){
+			this.order = order;
+		}
+	}
+
 	
 	@Transient
 	public String getIdValue(){
 		return getSimpleName() + getId();
 	}
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=UserState.class)
+	@ManyToOne (fetch=FetchType.EAGER, targetEntity=ScreenElement.class)
 	@JoinColumn (name="idParent")
+	//@Transient
 	public ScreenElement getParent() {
 		return parent;
 	}
@@ -41,7 +56,7 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 
 	@Transient
 	public Boolean getIsWatermark(){
-		return StringUtils.isEmpty(watermark);
+		return !StringUtils.isEmpty(watermark);
 	}
 	
 	@Basic
@@ -55,7 +70,7 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 
 	@Transient
 	public Boolean getIsTooltip(){
-		return StringUtils.isEmpty(tooltip);
+		return !StringUtils.isEmpty(tooltip);
 	}
 	
 	@Basic

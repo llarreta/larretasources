@@ -4,13 +4,14 @@ CREATE TABLE [SCHEMMA].screenElement (
 	styleClass VARCHAR(255),
 	tooltip VARCHAR(255),
 	watermark VARCHAR(255),
+	type VARCHAR(255),
 	idParent BIGINT,
+	orderIndex BIGINT,
 	PRIMARY KEY (ID)
 );
 
 CREATE TABLE [SCHEMMA].styleSheet (
 	id BIGINT NOT NULL,
-	deleted DATETIME,
 	name VARCHAR(255) NOT NULL,
 	library VARCHAR(255) NOT NULL,
 	PRIMARY KEY (ID)
@@ -18,7 +19,6 @@ CREATE TABLE [SCHEMMA].styleSheet (
 
 CREATE TABLE [SCHEMMA].screen (
 	id BIGINT NOT NULL,
-	deleted DATETIME,
 	title VARCHAR(255),
 	contentType VARCHAR(255),
 	pragma VARCHAR(255),
@@ -37,7 +37,6 @@ CREATE TABLE [SCHEMMA].hasStyleSheets (
 
 CREATE TABLE [SCHEMMA].attribute (
 	id BIGINT NOT NULL,
-	deleted DATETIME,
 	name VARCHAR(255) NOT NULL,
 	value VARCHAR(255) NOT NULL,
 	idButton BIGINT NOT NULL,
@@ -46,7 +45,6 @@ CREATE TABLE [SCHEMMA].attribute (
 
 CREATE TABLE [SCHEMMA].propertyActionListener (
 	id BIGINT NOT NULL,
-	deleted DATETIME,
 	target VARCHAR(255) NOT NULL,
 	value VARCHAR(255) NOT NULL,
 	forAttributes VARCHAR(255) NOT NULL,
@@ -56,7 +54,6 @@ CREATE TABLE [SCHEMMA].propertyActionListener (
 
 CREATE TABLE [SCHEMMA].confirm (
 	id BIGINT NOT NULL,
-	deleted DATETIME,
 	header VARCHAR(255) NOT NULL,
 	message VARCHAR(255) NOT NULL,
 	icon VARCHAR(255) NOT NULL,
@@ -68,10 +65,8 @@ CREATE TABLE [SCHEMMA].confirm (
 
 CREATE TABLE [SCHEMMA].button (
 	id BIGINT NOT NULL,
-	deleted DATETIME,
 	value VARCHAR(255) NOT NULL,
 	icon VARCHAR(255) NOT NULL,
-	buttonType VARCHAR(255) NOT NULL,
 	type VARCHAR(255) NOT NULL,
 	idConfirm BIGINT NOT NULL,
 	PRIMARY KEY (ID)
@@ -79,7 +74,6 @@ CREATE TABLE [SCHEMMA].button (
 
 CREATE TABLE [SCHEMMA].ajaxButton (
 	id BIGINT NOT NULL,
-	deleted DATETIME,
 	actionListener VARCHAR(255) NOT NULL,
 	updateValue VARCHAR(255) NOT NULL,
 	PRIMARY KEY (ID)
@@ -87,10 +81,112 @@ CREATE TABLE [SCHEMMA].ajaxButton (
 
 CREATE TABLE [SCHEMMA].submitButton (
 	id BIGINT NOT NULL,
-	deleted DATETIME,
 	action VARCHAR(255) NOT NULL,
 	PRIMARY KEY (ID)
 );
+
+CREATE TABLE [SCHEMMA].divtag (
+	id BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].form (
+	id BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].menuItem (
+	id BIGINT NOT NULL,
+	value VARCHAR(255) NOT NULL,
+	url VARCHAR(255) NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].subMenu (
+	id BIGINT NOT NULL,
+	label VARCHAR(255) NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].menuBar (
+	id BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].graphicImage (
+	id BIGINT NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	library VARCHAR(255) NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].commandLink (
+	id BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].outputPanel (
+	id BIGINT NOT NULL,
+	autoUpdate VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].label (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].input (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE [SCHEMMA].input
+ADD CONSTRAINT fk_screenElement_in_input
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].label
+ADD CONSTRAINT fk_screenElement_in_label
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].outputPanel
+ADD CONSTRAINT fk_screenElement_in_outputPanel
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].commandLink
+ADD CONSTRAINT fk_screenElement_in_commandLink
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].form
+ADD CONSTRAINT fk_screenElement_in_form
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].divtag
+ADD CONSTRAINT fk_screenElement_in_divtag
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].menuItem
+ADD CONSTRAINT fk_screenElement_in_menuItem
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].subMenu
+ADD CONSTRAINT fk_screenElement_in_subMenu
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].menuBar
+ADD CONSTRAINT fk_screenElement_in_menuBar
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].screenElement
 ADD CONSTRAINT fk_parent_in_screenElement

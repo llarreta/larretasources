@@ -11,8 +11,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
 
-@Entity
-@DiscriminatorValue("submitButton")
+//@Entity
+//@DiscriminatorValue("submitButton")
 public class SubmitButton extends Button {
 
 	private String action;

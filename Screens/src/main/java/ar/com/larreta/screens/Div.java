@@ -1,18 +1,16 @@
 package ar.com.larreta.screens;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "divtag")
+@DiscriminatorValue(value = "div")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class Div extends Container {
 	
-	private String className;
-
-	public Div(String className){
-		setClassName(className);
-	}
+	public Div(){}
 	
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
 }

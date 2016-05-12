@@ -8,6 +8,8 @@ public abstract class Library extends ScreenElement {
 	private String name;
 	private String library;
 
+	public Library(){}
+	
 	public Library(String library, String name){
 		setName(name);
 		setLibrary(library);

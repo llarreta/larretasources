@@ -2,15 +2,25 @@ package ar.com.larreta.screens;
 
 import java.util.Iterator;
 
+import javax.persistence.Basic;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.primefaces.model.menu.DefaultSubMenu;
 
-import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
-
+@Entity
+@Table(name = "subMenu")
+@DiscriminatorValue(value = "subMenu")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class SubMenu extends Container implements MenuElement{
 
 	private String label;
 	private DefaultSubMenu submenu;
 	
+	@Transient
 	public DefaultSubMenu getSubmenu() {
 		if (submenu==null){
 			submenu = new DefaultSubMenu(getLabel());
@@ -29,8 +39,9 @@ public class SubMenu extends Container implements MenuElement{
 		this.submenu = submenu;
 	}
 	
+	@Basic
 	public String getLabel() {
-		return StandardControllerImpl.getMessage(label);
+		return label;
 	}
 
 	public void setLabel(String label) {
@@ -44,6 +55,7 @@ public class SubMenu extends Container implements MenuElement{
 		}
 	}
 
+	@Transient
 	public org.primefaces.model.menu.MenuElement getElement() {
 		return getSubmenu();
 	}

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -12,9 +13,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
-@Entity
-@Table(name = "confirm")
-@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
+//@Entity
+//@Table(name = "confirm")
+//@DiscriminatorValue(value = "confirm")
+//@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class Confirm extends ScreenElement {
 
 	private String header;

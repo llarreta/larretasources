@@ -2,13 +2,24 @@ package ar.com.larreta.screens;
 
 import java.util.Iterator;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.MenuModel;
 
+@Entity
+@Table(name = "menuBar")
+@DiscriminatorValue(value = "menuBar")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class MenuBar extends Container {
 	
 	private MenuModel menuModel;
 	
+	@Transient
 	public MenuModel getMenuModel() {
 		if (menuModel==null){
 			menuModel = new DefaultMenuModel();
