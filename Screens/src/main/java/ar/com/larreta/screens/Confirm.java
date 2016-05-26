@@ -1,5 +1,6 @@
 package ar.com.larreta.screens;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -10,13 +11,14 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
 
-//@Entity
-//@Table(name = "confirm")
-//@DiscriminatorValue(value = "confirm")
-//@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
+@Entity
+@Table(name = "confirm")
+@DiscriminatorValue(value = "confirm")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class Confirm extends ScreenElement {
 
 	private String header;
@@ -25,15 +27,32 @@ public class Confirm extends ScreenElement {
 	private Boolean global;
 	private String showEffect;
 	private String hideEffect;
-	private Set<Button> buttons;
-	
-	@OneToMany (mappedBy="confirm", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=Button.class)
+	private Set<SubmitButton> submitButtons;
+	private Set<AjaxButton> ajaxButtons;
+
+	@OneToMany (mappedBy="confirm", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=AjaxButton.class)
 	@Where(clause="deleted IS NULL")
-	public Set<Button> getButtons() {
-		return buttons;
+	public Set<AjaxButton> getAjaxButtons() {
+		return ajaxButtons;
 	}
-	public void setButtons(Set<Button> buttons) {
-		this.buttons = buttons;
+	public void setAjaxButtons(Set<AjaxButton> ajaxButtons) {
+		this.ajaxButtons = ajaxButtons;
+	}
+	@OneToMany (mappedBy="confirm", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=SubmitButton.class)
+	@Where(clause="deleted IS NULL")
+	public Set<SubmitButton> getSubmitButtons() {
+		return submitButtons;
+	}
+	public void setSubmitButtons(Set<SubmitButton> buttons) {
+		this.submitButtons = buttons;
+	}
+	
+	@Transient
+	public Set<Button> getButtons(){
+		Set<Button> buttons = new HashSet<Button>();
+		buttons.addAll(getAjaxButtons());
+		buttons.addAll(getSubmitButtons());
+		return buttons;
 	}
 	
 	@Basic

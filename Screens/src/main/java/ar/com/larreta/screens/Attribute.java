@@ -9,17 +9,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "attribute")
-//@DiscriminatorValue(value = "attribute")
-//@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
+@Entity
+@Table(name = "attribute")
+@DiscriminatorValue(value = "attribute")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class Attribute extends ScreenElement {
 
 	private String name;
 	private String value;
 	private AjaxButton button;
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=AjaxButton.class)
+	@ManyToOne (fetch=FetchType.EAGER, targetEntity=AjaxButton.class)
 	@JoinColumn (name="idButton")
 	public AjaxButton getButton() {
 		return button;

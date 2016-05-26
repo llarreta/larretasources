@@ -10,12 +10,12 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
+import org.apache.log4j.Logger;
 import org.hibernate.annotations.Where;
 
+import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.persistence.dao.impl.MainEntity;
-import ar.com.larreta.commons.utils.UniqueKeys;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @MappedSuperclass
 //Solamente trae los que no fueron borrados logicamente
@@ -25,15 +25,22 @@ public abstract class Entity implements Serializable {
 	
 	public static final String ID = "id";
 	
+	private static final Logger LOGGER = Logger.getLogger(Entity.class);
+	
 	protected Long id;
 	protected Date deleted;
 
 	@Id
 	public Long getId() {
-		if (id==null){
-			id = UniqueKeys.getInstance().next(getClass());
+		try {
+			if (id==null){
+				id = AppManager.getInstance().getAppConfig().getLockApp().nextIdentifier();
+			}
+			return id;
+		} catch (Exception e){
+			LOGGER.error("Ocurrio un error obteniendo id", e);
 		}
-		return id;
+		return null;
 	}
 
 	public void setId(Long id) {

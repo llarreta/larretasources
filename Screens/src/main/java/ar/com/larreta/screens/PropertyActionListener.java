@@ -9,10 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "propertyActionListener")
-//@DiscriminatorValue(value = "propertyActionListener")
-//@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
+@Entity
+@Table(name = "propertyActionListener")
+@DiscriminatorValue(value = "propertyActionListener")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class PropertyActionListener extends ScreenElement {
 
 	private String target;
@@ -20,7 +20,7 @@ public class PropertyActionListener extends ScreenElement {
 	private String forAttributes;
 	private SubmitButton button;
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=SubmitButton.class)
+	@ManyToOne (fetch=FetchType.EAGER, targetEntity=SubmitButton.class)
 	@JoinColumn (name="idButton")
 	public SubmitButton getButton() {
 		return button;

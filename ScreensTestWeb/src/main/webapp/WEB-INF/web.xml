@@ -65,8 +65,20 @@
   </filter-mapping>
 
   <servlet>
+    <servlet-name>ScreenFrameworkInitializer</servlet-name>
+    <servlet-class>ar.com.larreta.screens.initializer.ScreenFrameworkInitializer</servlet-class>
+    <load-on-startup>5</load-on-startup>
+  </servlet>
+
+  <servlet>
     <servlet-name>FilesFrameworksInitializer</servlet-name>
     <servlet-class>ar.com.larreta.commons.initializer.FilesFrameworksInitializer</servlet-class>
+    <load-on-startup>4</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>LockAppInitializer</servlet-name>
+    <servlet-class>ar.com.larreta.commons.initializer.LockAppInitializer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
   

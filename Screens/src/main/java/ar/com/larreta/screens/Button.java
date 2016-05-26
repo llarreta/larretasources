@@ -1,46 +1,30 @@
 package ar.com.larreta.screens;
 
 import javax.persistence.Basic;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
-import javax.persistence.Table;
 
 import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
 
-//@Entity
-//@Table(name = "button")
-//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-//@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
+@MappedSuperclass
 public abstract class Button extends ScreenElement {
 
 	private String value;
 	private String icon;
 	protected Boolean ajax;
 	private Boolean inmediate = Boolean.FALSE;
-	private String type = "button";
 	private Confirm confirm;
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Confirm.class)
+	@ManyToOne (fetch=FetchType.EAGER, targetEntity=Confirm.class)
 	@JoinColumn (name="idConfirm")
 	public Confirm getConfirm() {
 		return confirm;
 	}
 	public void setConfirm(Confirm confirm) {
 		this.confirm = confirm;
-	}
-	
-	@Basic
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
 	}
 	
 	@Basic

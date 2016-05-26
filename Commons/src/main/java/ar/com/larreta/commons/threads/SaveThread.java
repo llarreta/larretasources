@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.initializer.LockAppInitializer;
 import ar.com.larreta.commons.services.StandardService;
 import ar.com.larreta.commons.utils.DateUtils;
 
@@ -74,6 +75,7 @@ public class SaveThread extends Thread {
 	}
 	
 	@Override
+	//FIXME: Actualizar el lockApp
 	protected void execute() {
 		synchronized (SaveThread.class) {
 			Entity entity = null;
@@ -95,6 +97,9 @@ public class SaveThread extends Thread {
 						}
 					}
 				} else {
+					//Grabamos la info de lockeo
+					LockAppInitializer.writeLockApp(this);
+					// estiramos el intervalo o frecuencia de ejecucion de este thread
 					enlargeInterval();
 				}
 			} catch (Exception e){

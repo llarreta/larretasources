@@ -1,5 +1,6 @@
 package ar.com.larreta.screens;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import javax.persistence.DiscriminatorValue;
@@ -23,6 +24,7 @@ public class MenuBar extends Container {
 	public MenuModel getMenuModel() {
 		if (menuModel==null){
 			menuModel = new DefaultMenuModel();
+			Collection elements = getOrdererElements();
 			if (elements!=null){
 				Iterator it = elements.iterator();
 				while (it.hasNext()) {

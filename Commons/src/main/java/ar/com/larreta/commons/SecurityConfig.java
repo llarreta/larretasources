@@ -15,7 +15,6 @@ import ar.com.larreta.commons.domain.Security;
 import ar.com.larreta.commons.domain.SecurityMatcher;
 import ar.com.larreta.commons.security.AuthenticationProvider;
 import ar.com.larreta.commons.services.SecurityService;
-import ar.com.larreta.commons.services.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -52,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		Security security = securityService.getSecurityConfig();
 		
 		if (security.getAvaiable()){
-			http.csrf().disable()
+			http.csrf().disable() //FIXME: Ver si es necesario que esto se setee siempre independientemente de q la seguridad este habilitada
 			.formLogin()
 				.loginPage(security.getLoginPage()).loginProcessingUrl(security.getLoginProcessingUrl())
 				.defaultSuccessUrl(security.getDefaultSuccessUrl())

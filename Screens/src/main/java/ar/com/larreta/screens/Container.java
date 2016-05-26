@@ -18,31 +18,41 @@ import org.hibernate.annotations.Where;
 
 @MappedSuperclass
 public abstract class Container extends ScreenElement {
-	
-	protected Set<ScreenElement> elements = new HashSet<ScreenElement>();
 
-	@OneToMany (mappedBy="parent", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=ScreenElement.class)
-	@Where(clause="deleted IS NULL")
-	public Set<ScreenElement> getElements() {
-		return elements;
-	}
+	protected Set<ContainedElement> containedElements = new HashSet<ContainedElement>();
 	
+	@OneToMany (mappedBy="container", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=ContainedElement.class)
+	@Where(clause="deleted IS NULL")
+	public Set<ContainedElement> getContainedElements() {
+		return containedElements;
+	}
+
+	public void setContainedElements(Set<ContainedElement> containedElements) {
+		this.containedElements = containedElements;
+	}
+
 	@Transient
 	public Collection<ScreenElement> getOrdererElements(){
-		List<ScreenElement> ordererElements = new ArrayList<ScreenElement>(getElements());
-		Collections.sort(ordererElements, new Comparator<ScreenElement>() {
-			public int compare(ScreenElement elementA, ScreenElement elementB) {
+		List<ContainedElement> ordererElements = new ArrayList<ContainedElement>(getContainedElements());
+		Collections.sort(ordererElements, new Comparator<ContainedElement>() {
+			public int compare(ContainedElement elementA, ContainedElement elementB) {
 				return elementA.getOrder().compareTo(elementB.getOrder());
 			}
 		});
-		return ordererElements;
+		List<ScreenElement> elements = new ArrayList<ScreenElement>();
+		java.util.Iterator<ContainedElement> it = ordererElements.iterator();
+		while (it.hasNext()) {
+			ContainedElement containedElement = (ContainedElement) it.next();
+			elements.add(containedElement.getElement());
+		}
+		return elements;
 	}
 
-	public void setElements(Set<ScreenElement> elements) {
-		this.elements = elements;
+	public void add(Integer orderIndex, ScreenElement element){
+		containedElements.add(new ContainedElement(orderIndex, this, element));
 	}
 	
 	public void add(ScreenElement element){
-		elements.add(element);
+		add(0, element);
 	}
 }

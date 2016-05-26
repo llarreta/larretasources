@@ -20,6 +20,8 @@ import ar.com.larreta.commons.utils.SessionData;
 @Component
 public class AppManager extends AppObjectImpl{
 	
+	private static final String APP_CONFIG = "appConfig";
+
 	private static final String SERVICE = "Service";
 
 	private static final String AUTHENTICATION_MANAGER = "authenticationManager";
@@ -151,6 +153,10 @@ public class AppManager extends AppObjectImpl{
 			bean = getAppContext().getBean(name);
 		}
 		return bean;
+	}
+	
+	public AppConfig getAppConfig(){
+		return (AppConfig) getBean(APP_CONFIG);
 	}
 	
 	public StandardService getStandardService(Class entityClass){

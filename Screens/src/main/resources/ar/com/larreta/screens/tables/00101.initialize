@@ -5,7 +5,14 @@ CREATE TABLE [SCHEMMA].screenElement (
 	tooltip VARCHAR(255),
 	watermark VARCHAR(255),
 	type VARCHAR(255),
-	idParent BIGINT,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].containedElement (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	idContainer BIGINT NOT NULL,
+	idElement BIGINT NOT NULL,
 	orderIndex BIGINT,
 	PRIMARY KEY (ID)
 );
@@ -17,6 +24,30 @@ CREATE TABLE [SCHEMMA].styleSheet (
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE [SCHEMMA].tabletag (
+	id BIGINT NOT NULL,
+	var VARCHAR(255),
+	value VARCHAR(255),
+	paginator TINYINT(1),
+	lazy TINYINT(1),
+	rows VARCHAR(255),
+	paginatorTemplate VARCHAR(255),
+	rowsPerPageTemplate VARCHAR(255),
+	selectionMode VARCHAR(255),
+	selection VARCHAR(255),
+	emptyMessage VARCHAR(255),
+	currentPageReportTemplate VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].columntag (
+	id BIGINT NOT NULL,
+	headerText VARCHAR(255),
+	sortBy VARCHAR(255),
+	width VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
 CREATE TABLE [SCHEMMA].screen (
 	id BIGINT NOT NULL,
 	title VARCHAR(255),
@@ -24,8 +55,6 @@ CREATE TABLE [SCHEMMA].screen (
 	pragma VARCHAR(255),
 	cacheControl VARCHAR(255),
 	expires VARCHAR(255),
-	idHeader BIGINT,
-	idFooter BIGINT,
 	PRIMARY KEY (ID)
 );
 
@@ -65,23 +94,13 @@ CREATE TABLE [SCHEMMA].confirm (
 
 CREATE TABLE [SCHEMMA].button (
 	id BIGINT NOT NULL,
-	value VARCHAR(255) NOT NULL,
-	icon VARCHAR(255) NOT NULL,
-	type VARCHAR(255) NOT NULL,
-	idConfirm BIGINT NOT NULL,
-	PRIMARY KEY (ID)
-);
-
-CREATE TABLE [SCHEMMA].ajaxButton (
-	id BIGINT NOT NULL,
-	actionListener VARCHAR(255) NOT NULL,
-	updateValue VARCHAR(255) NOT NULL,
-	PRIMARY KEY (ID)
-);
-
-CREATE TABLE [SCHEMMA].submitButton (
-	id BIGINT NOT NULL,
-	action VARCHAR(255) NOT NULL,
+	value VARCHAR(255),
+	icon VARCHAR(255),
+	idConfirm BIGINT,
+	actionListener VARCHAR(255),
+	updateValue VARCHAR(255),
+	action VARCHAR(255),
+	inmediate TINYINT(1),
 	PRIMARY KEY (ID)
 );
 
@@ -143,6 +162,16 @@ CREATE TABLE [SCHEMMA].input (
 	PRIMARY KEY (ID)
 );
 
+ALTER TABLE [SCHEMMA].tabletag
+ADD CONSTRAINT fk_screenElement_in_tabletag
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].columntag
+ADD CONSTRAINT fk_screenElement_in_columntag
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
 ALTER TABLE [SCHEMMA].input
 ADD CONSTRAINT fk_screenElement_in_input
 FOREIGN KEY (id)
@@ -188,9 +217,14 @@ ADD CONSTRAINT fk_screenElement_in_menuBar
 FOREIGN KEY (id)
 REFERENCES [SCHEMMA].screenElement(id);
 
-ALTER TABLE [SCHEMMA].screenElement
-ADD CONSTRAINT fk_parent_in_screenElement
-FOREIGN KEY (idParent)
+ALTER TABLE [SCHEMMA].containedElement
+ADD CONSTRAINT fk_container_in_containedElement
+FOREIGN KEY (idContainer)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].containedElement
+ADD CONSTRAINT fk_element_in_containedElement
+FOREIGN KEY (idElement)
 REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].button
@@ -201,26 +235,16 @@ REFERENCES [SCHEMMA].confirm(id);
 ALTER TABLE [SCHEMMA].propertyActionListener
 ADD CONSTRAINT fk_submitButton_in_propertyActionListener
 FOREIGN KEY (idButton)
-REFERENCES [SCHEMMA].submitButton(id);
+REFERENCES [SCHEMMA].button(id);
 
 ALTER TABLE [SCHEMMA].attribute
 ADD CONSTRAINT fk_ajaxButton_in_attribute
 FOREIGN KEY (idButton)
-REFERENCES [SCHEMMA].ajaxButton(id);
+REFERENCES [SCHEMMA].button(id);
 
 ALTER TABLE [SCHEMMA].screen
 ADD CONSTRAINT fk_screenElement_in_screen
 FOREIGN KEY (id)
-REFERENCES [SCHEMMA].screenElement(id);
-
-ALTER TABLE [SCHEMMA].screen
-ADD CONSTRAINT fk_header_in_screen
-FOREIGN KEY (idHeader)
-REFERENCES [SCHEMMA].screenElement(id);
-
-ALTER TABLE [SCHEMMA].screen
-ADD CONSTRAINT fk_footer_in_screen
-FOREIGN KEY (idFooter)
 REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].hasStyleSheets

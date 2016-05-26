@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.impl.AppConfigDataImpl;
+import ar.com.larreta.commons.initializer.LockApp;
 import ar.com.larreta.commons.persistence.JDBCConnection;
 import ar.com.larreta.commons.persistence.impl.CommonsSessionFactoryImpl;
 import ar.com.larreta.commons.utils.Base64;
@@ -54,11 +55,18 @@ public class AppConfig extends AppObjectImpl{
 	private AppConfigData appConfigData;
 	
 	private Base64 base64;
+	
+	private LockApp lockApp; 
     
-    //@Autowired
-    //private JDBCConnection jdbcConnection;
-    
-    public Base64 getBase64() {
+    public LockApp getLockApp() {
+		return lockApp;
+	}
+
+	public void setLockApp(LockApp lockApp) {
+		this.lockApp = lockApp;
+	}
+
+	public Base64 getBase64() {
     	if(base64==null){
     		base64=new Base64Impl();
     	}

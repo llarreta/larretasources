@@ -36,12 +36,7 @@
 				<c:forEach items="${screen.styleSheets}" var="styleSheet">
 					<h:outputStylesheet  	library="${styleSheet.library}" name="${styleSheet.name}"/>
 				</c:forEach>
-			</f:facet>
-		
-			<ui:include src="/WEB-INF/screens/element.xhtml">
-				<ui:param name="element" value="#{screen.header}" />
-			</ui:include>
-			
+			</f:facet>	
 			
 		   	<div class="container">
 		   		<div class="ui-grid ui-grid-responsive">
@@ -54,10 +49,6 @@
 			</div>
 		            
 		</h:panelGroup>
-
-		<ui:include src="/WEB-INF/screens/element.xhtml">
-			<ui:param name="element" value="#{screen.footer}" />
-		</ui:include>
 	
 		<pe:blockUI target="bodyPanel" widgetVar="blockUI"   >  
 		    <h:panelGrid columns="2">  

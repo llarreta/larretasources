@@ -28,6 +28,10 @@ public class FormatPatterns implements Serializable {
 		return new SimpleDateFormat(format);
 	}
 	
+	public SimpleDateFormat getGeneralSimpleDateFormat(){
+		return getFormatter(getGeneralDateFormat());
+	}
+	
 	
 	
 

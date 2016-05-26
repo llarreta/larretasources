@@ -1,5 +1,6 @@
 package ar.com.larreta.screens;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import javax.persistence.Basic;
@@ -24,6 +25,7 @@ public class SubMenu extends Container implements MenuElement{
 	public DefaultSubMenu getSubmenu() {
 		if (submenu==null){
 			submenu = new DefaultSubMenu(getLabel());
+			Collection<ScreenElement> elements = getOrdererElements();
 			if (elements!=null){
 				Iterator it = elements.iterator();
 				while (it.hasNext()) {

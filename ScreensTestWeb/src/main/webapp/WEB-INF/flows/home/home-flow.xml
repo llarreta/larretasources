@@ -12,13 +12,15 @@
 	
 	<var name="controller" 			class="ar.com.larreta.screens.controllers.ScreensControllerImpl" />
 	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
+	<var name="screenId" 			class="java.lang.String"   />
 	
 	<on-start>
         <set name="controller.dataView" value="dataView" />
+        <set name="screenId" 			value="1" />
     </on-start>
 	
 	<action-state id="home">
-	    <evaluate expression="flowScope.controller.home(flowRequestContext)"></evaluate>
+	    <evaluate expression="flowScope.controller.home(flowRequestContext, screenId)"></evaluate>
 	    <transition to="home-index" />
 	</action-state>
 	

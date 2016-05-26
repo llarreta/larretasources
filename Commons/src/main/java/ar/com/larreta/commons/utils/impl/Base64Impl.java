@@ -4,10 +4,9 @@ import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObjectImpl;
-import ar.com.larreta.commons.domain.User;
 import ar.com.larreta.commons.utils.Base64;
-import ar.com.larreta.commons.utils.UniqueKeys;
 
 @Component
 public class Base64Impl extends AppObjectImpl implements Base64 {
@@ -87,7 +86,7 @@ public class Base64Impl extends AppObjectImpl implements Base64 {
 	 * @return
 	 */
 	public String getToken(){
-		return encode(basicTextEncryptor.encrypt(UniqueKeys.getInstance().next(User.class).toString()));
+		return encode(basicTextEncryptor.encrypt(AppManager.getInstance().getAppConfig().getLockApp().nextIdentifier().toString()));
 	}
 	
 }

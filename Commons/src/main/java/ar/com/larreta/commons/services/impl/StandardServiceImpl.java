@@ -20,7 +20,6 @@ import ar.com.larreta.commons.AppConfigData;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
-import ar.com.larreta.commons.exceptions.NotImplementedException;
 import ar.com.larreta.commons.persistence.dao.StandardDAO;
 import ar.com.larreta.commons.persistence.dao.impl.CountArguments;
 import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
@@ -46,8 +45,6 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	
 	@Autowired
 	protected AppConfigData appConfigData;
-	
-	//protected Class entityclass;
 	
 	public StandardDAO getDao() {
 		return dao;
@@ -229,23 +226,7 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 		return dao.load(args);
 	}
 	
-	/**
-	 * Retorna todos los elementos para la entidad 
-	 * @param entityType
-	 * @return
-	 * @throws NotImplementedException 
-	 */
-	/*public Collection load() throws NotImplementedException{
-		return load(getEntityClass());
-	}
-	
-	public Collection load(Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters) throws NotImplementedException{
-		LoadArguments args = new LoadArguments(getEntityClass());
-		args.setFirstResult(firstResult);
-		args.setMaxResults(maxResults);
-		return dao.load(args);
-	}*/
-	
+
 	protected Collection<Criterion> processRestrictions(Map<String, Object> filters){
 		if ((filters!=null) && (!filters.isEmpty())){
 			Collection<Criterion> criterions = new ArrayList<Criterion>();
@@ -275,27 +256,6 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	public Long count(Class entityType){
 		return dao.count(new CountArguments(entityType));
 	}
-	
-	/**
-	 * Retorna la cantidad de elementos de la entidad 
-	 * @param entityType
-	 * @return
-	 * @throws NotImplementedException 
-	 */
-	/*public Long count() throws NotImplementedException{
-		return count(getEntityClass());
-	}*/
-
-	/*public Class getEntityClass() throws NotImplementedException {
-		if (entityclass==null){
-			throw new NotImplementedException();
-		}
-		return entityclass;
-	}
-	
-	public void setEntityClass(Class entityclass) {
-		this.entityclass = entityclass;
-	}*/
 	
 	/**
 	 * Retorna el valor maximo del id para la clase pasada por parametro

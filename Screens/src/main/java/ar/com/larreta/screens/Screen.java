@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -32,8 +31,6 @@ public class Screen extends Container {
 	private String cacheControl = NO_CACHE;
 	private String expires = DEFAULT_EXPIRES;
 	private Collection<StyleSheet> styleSheets;
-	private ScreenElement header;
-	private ScreenElement footer;
 	private String title;
 
 	@Basic
@@ -89,27 +86,7 @@ public class Screen extends Container {
 		}
 	}
 
-	@ManyToOne (fetch=FetchType.EAGER, targetEntity=ScreenElement.class)
-	@JoinColumn (name="idHeader")
-	public ScreenElement getHeader() {
-		return header;
-	}
-
-	public void setHeader(ScreenElement header) {
-		this.header = header;
-	}
-	
-	@ManyToOne (fetch=FetchType.EAGER, targetEntity=ScreenElement.class)
-	@JoinColumn (name="idFooter")
-	public ScreenElement getFooter() {
-		return footer;
-	}
-
-	public void setFooter(ScreenElement footer) {
-		this.footer = footer;
-	}
-
-	@ManyToMany (fetch=FetchType.EAGER, targetEntity=StyleSheet.class)
+	@ManyToMany (fetch=FetchType.EAGER,  cascade=CascadeType.ALL, targetEntity=StyleSheet.class)
 	@JoinTable(name = "hasStyleSheets", joinColumns = { @JoinColumn(name = "idScreen") }, 
 		inverseJoinColumns = { @JoinColumn(name = "idStyleSheet") })
 	public Collection<StyleSheet> getStyleSheets() {

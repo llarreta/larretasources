@@ -5,13 +5,19 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
-//@Entity
-//@DiscriminatorValue("ajaxButton")
+@Entity
+@Table(name = "button")
+@DiscriminatorValue(value = "ajaxButton")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class AjaxButton extends Button {
 
 	private String actionListener;
@@ -23,7 +29,7 @@ public class AjaxButton extends Button {
 		ajax = Boolean.TRUE;
 	}
 	
-	@OneToMany (mappedBy="button", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=Attribute.class)
+	@OneToMany (mappedBy="button", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=Attribute.class)
 	@Where(clause="deleted IS NULL")
 	public Set<Attribute> getAttributes() {
 		return attributes;

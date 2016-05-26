@@ -1,18 +1,15 @@
 package ar.com.larreta.screens;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 @Entity
 @Table(name = "screenElement")
@@ -20,40 +17,17 @@ import org.apache.commons.lang.StringUtils;
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity {
 
-	private Integer order = 0;
+	private static final Logger LOGGER = Logger.getLogger(ScreenElement.class);
+	
 	private String styleClass;
 	private String tooltip;
 	private String watermark;
-	private ScreenElement parent;
-
-	@Basic @Column(name="orderIndex")
-	public Integer getOrder() {
-		return order;
-	}
-
-	public void setOrder(Integer order) {
-		if (order!=null){
-			this.order = order;
-		}
-	}
-
 	
 	@Transient
 	public String getIdValue(){
 		return getSimpleName() + getId();
 	}
 	
-	@ManyToOne (fetch=FetchType.EAGER, targetEntity=ScreenElement.class)
-	@JoinColumn (name="idParent")
-	//@Transient
-	public ScreenElement getParent() {
-		return parent;
-	}
-
-	public void setParent(ScreenElement parent) {
-		this.parent = parent;
-	}
-
 	@Transient
 	public Boolean getIsWatermark(){
 		return !StringUtils.isEmpty(watermark);

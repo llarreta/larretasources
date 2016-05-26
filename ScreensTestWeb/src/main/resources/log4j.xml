@@ -5,7 +5,7 @@
 	<!-- Appenders -->
 	<appender class="org.apache.log4j.RollingFileAppender" name="LOG_FILE">
         <param value="true" name="Append"/>
-        <param value="C:\\log\\smarttrace.log" name="File"/>
+        <param value="C:\\log\\screen.log" name="File"/>
         <param value="ALL" name="Threshold"/>
         <param value="100MB" name="MaxFileSize"/>
         <param value="3" name="MaxBackupIndex"/>

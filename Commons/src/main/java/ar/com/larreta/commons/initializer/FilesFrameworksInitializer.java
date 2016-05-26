@@ -1,7 +1,9 @@
 package ar.com.larreta.commons.initializer;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
@@ -10,6 +12,8 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.AppObjectImpl;
@@ -20,6 +24,8 @@ public class FilesFrameworksInitializer extends GenericServlet {
 
 	private static final String COPY_PROPERTIES = "copy.properties";
 	private AppObject appObject = new AppObjectImpl(getClass());
+	
+	private PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -34,15 +40,19 @@ public class FilesFrameworksInitializer extends GenericServlet {
 				
 				appObject.getLog().debug("Copiando:" + key + ", a la siguiente ruta:" + path);
 				
+				Path pathObject = Paths.get(path);
 				try {
 					Files.copy(
-						getClass().getClassLoader().getResourceAsStream(key), 
-						Paths.get(path), 
+						resolver.getResources(key)[0].getInputStream(), 
+						pathObject, 
 						StandardCopyOption.REPLACE_EXISTING);
 				} catch (IOException e) {
+					String dirPath = path.substring(0, path.lastIndexOf(File.separator));
+					File file = new File(dirPath);
+					file.mkdirs();
+					process(key, value);
 					appObject.getLog().error("Ocurrio un error copiando archivos", e);
-				}
-				
+				} 
 			}
 		});
 		

@@ -33,9 +33,5 @@ public interface StandardService extends AppObject {
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters);
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties);
 	public Long count(Class entityType);
-	/*public Collection load() throws NotImplementedException;
-	public Collection load(Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters) throws NotImplementedException;
-	public Long count() throws NotImplementedException;*/
-	//public Class getEntityClass() throws NotImplementedException;
 	public Long getMaxId(Class type);
 }

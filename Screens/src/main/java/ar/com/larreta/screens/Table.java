@@ -1,23 +1,60 @@
 package ar.com.larreta.screens;
 
-import java.util.Set;
+import javax.faces.context.FacesContext;
+import javax.persistence.Basic;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Transient;
 
-public class Table extends ScreenElement {
+@Entity
+@javax.persistence.Table(name = "tabletag")
+@DiscriminatorValue(value = "table")
+@PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
+public class Table extends Container {
 
 	private String var = "actualItem";
-	private String value = "#{dataView.paginator}";
+	private String value = "dataView.paginator";	
+	//private String value = "#{dataView.paginator}";
 	private Boolean paginator = Boolean.TRUE;
 	private Boolean lazy = Boolean.TRUE;
 	private String rows = "10";
 	private String paginatorTemplate = "{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}";
 	private String rowsPerPageTemplate = "5,10,15";
 	private String selectionMode = "single";
-	private String selection = "#{dataView.selected}";
-	private String emptyMessage = "#{msg['datatable.sindatos']}";
-	private String currentPageReportTemplate = "{currentPage} #{msg['datatable.de']} {totalPages}";
-	
-	private Set<Column> columns;
+	private String selection = "dataView.selected";
+	//private String selection = "#{dataView.selected}";
+	private String emptyMessage = "datatable.sindatos";
+	//private String emptyMessage = "#{msg['datatable.sindatos']}";
+	private String currentPageReportTemplate = "{currentPage} 'datatable.de' {totalPages}";
+	//private String currentPageReportTemplate = "{currentPage} #{msg['datatable.de']} {totalPages}";
 
+	
+	@Override
+	/**
+	 * Este metodo se sobrescribe para que no tenga funcionalidad
+	 * utilizar addColumn
+	 */
+	public void add(Integer orderIndex, ScreenElement element) {
+	}
+
+	@Override
+	/**
+	 * Este metodo se sobrescribe para que no tenga funcionalidad
+	 * utilizar addColumn
+	 */
+	public void add(ScreenElement element) {
+	}
+	
+	public void addColumn(Integer orderIndex, Column element) {
+		super.add(orderIndex, element);
+	}
+
+	public void addColumn(Column element) {
+		super.add(element);
+	}
+
+	@Basic
 	public String getVar() {
 		return var;
 	}
@@ -26,6 +63,12 @@ public class Table extends ScreenElement {
 		this.var = var;
 	}
 
+	@Transient
+	public Object getValueEvaluated(){
+		return ScreenUtils.evaluate(getValue());
+	}
+	
+	@Basic
 	public String getValue() {
 		return value;
 	}
@@ -34,6 +77,7 @@ public class Table extends ScreenElement {
 		this.value = value;
 	}
 
+	@Basic
 	public Boolean getPaginator() {
 		return paginator;
 	}
@@ -42,6 +86,7 @@ public class Table extends ScreenElement {
 		this.paginator = paginator;
 	}
 
+	@Basic
 	public Boolean getLazy() {
 		return lazy;
 	}
@@ -50,6 +95,7 @@ public class Table extends ScreenElement {
 		this.lazy = lazy;
 	}
 
+	@Basic
 	public String getRows() {
 		return rows;
 	}
@@ -58,6 +104,7 @@ public class Table extends ScreenElement {
 		this.rows = rows;
 	}
 
+	@Basic
 	public String getPaginatorTemplate() {
 		return paginatorTemplate;
 	}
@@ -66,6 +113,7 @@ public class Table extends ScreenElement {
 		this.paginatorTemplate = paginatorTemplate;
 	}
 
+	@Basic
 	public String getRowsPerPageTemplate() {
 		return rowsPerPageTemplate;
 	}
@@ -74,6 +122,7 @@ public class Table extends ScreenElement {
 		this.rowsPerPageTemplate = rowsPerPageTemplate;
 	}
 
+	@Basic
 	public String getSelectionMode() {
 		return selectionMode;
 	}
@@ -82,6 +131,12 @@ public class Table extends ScreenElement {
 		this.selectionMode = selectionMode;
 	}
 
+	@Transient
+	public Object getSelectionEvaluated(){
+		return ScreenUtils.evaluate(getSelection());
+	}
+	
+	@Basic
 	public String getSelection() {
 		return selection;
 	}
@@ -90,6 +145,7 @@ public class Table extends ScreenElement {
 		this.selection = selection;
 	}
 
+	@Basic
 	public String getEmptyMessage() {
 		return emptyMessage;
 	}
@@ -98,6 +154,7 @@ public class Table extends ScreenElement {
 		this.emptyMessage = emptyMessage;
 	}
 
+	@Basic
 	public String getCurrentPageReportTemplate() {
 		return currentPageReportTemplate;
 	}
@@ -106,12 +163,4 @@ public class Table extends ScreenElement {
 		this.currentPageReportTemplate = currentPageReportTemplate;
 	}
 
-	public Set<Column> getColumns() {
-		return columns;
-	}
-
-	public void setColumns(Set<Column> columns) {
-		this.columns = columns;
-	}
-	
 }

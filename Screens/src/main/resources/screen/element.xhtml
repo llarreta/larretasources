@@ -78,6 +78,35 @@
 					</ui:include>
 			</h:panelGrid>
 		</c:if>
+
+		<c:if test="${element.simpleName == 'Table'}">
+			     <p:dataTable 	id="#{element.idValue}"
+			         selectionMode="#{element.selectionMode}"
+			         rows="#{element.rows}"
+			         paginator="#{element.paginator}" lazy="#{element.lazy}"
+			         paginatorTemplate="#{element.paginatorTemplate}"
+                 	 rowsPerPageTemplate="#{element.rowsPerPageTemplate}" 
+				     emptyMessage="#{element.emptyMessage}"
+				     currentPageReportTemplate="#{element.currentPageReportTemplate}"
+    				 var="tableElement"  selection="#{element.selectionEvaluated}"
+			     	 value="#{element.valueEvaluated}"
+			     >   
+			     <!--
+			         
+			     	  
+			     		
+    				
+    			 	
+                 	  
+                 -->
+                 
+                 	<!-- p:columns value="#{element.ordererElements}" var="column" headerText="#{column.headerText}" sortBy="#{column.sortby}" width="#{column.width}" >
+		                 <ui:include src="/WEB-INF/screens/iterate.xhtml">
+								<ui:param name="elements" value="#{element.ordererElements}" />
+						 </ui:include>                 	
+					</p:columns-->
+                 </p:dataTable>
+		</c:if>
 		
 		<p:tooltip 		value="${element.tooltip}" 			for="#{element.idValue}" 	rendered="${element.isTooltip}"/>
 		<p:watermark 	value="${element.watermark}"		for="#{element.idValue}"	rendered="${element.isWatermark}"/>
