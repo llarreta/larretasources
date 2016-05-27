@@ -23,6 +23,10 @@ public class ResourceMessageServiceImpl extends StandardServiceImpl implements R
 	public static final String RESOURCE_MESSAGE_SERVICE = "ResourceMessageService";
 
 	public String getMessage(Locale locale, String key){
+		if (StringUtils.isEmpty(key)){
+			return key;
+		}
+		
 		String country = locale.getCountry();
 		String language = locale.getLanguage();
 		

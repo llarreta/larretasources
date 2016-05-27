@@ -24,7 +24,7 @@ public class SubMenu extends Container implements MenuElement{
 	@Transient
 	public DefaultSubMenu getSubmenu() {
 		if (submenu==null){
-			submenu = new DefaultSubMenu(getLabel());
+			submenu = new DefaultSubMenu(getLabelEvaluated());
 			Collection<ScreenElement> elements = getOrdererElements();
 			if (elements!=null){
 				Iterator it = elements.iterator();
@@ -41,6 +41,11 @@ public class SubMenu extends Container implements MenuElement{
 		this.submenu = submenu;
 	}
 	
+	@Transient
+	public String getLabelEvaluated() {
+		return (String) ScreenUtils.evaluate(getLabel());
+	}
+	
 	@Basic
 	public String getLabel() {
 		return label;
@@ -49,6 +54,11 @@ public class SubMenu extends Container implements MenuElement{
 	public void setLabel(String label) {
 		this.label = label;
 	}
+	
+	public void setLabelMessage(String label) {
+		this.label = ScreenUtils.generateMessage(label);
+	}
+	
 
 	@Override
 	public void add(ScreenElement element) {

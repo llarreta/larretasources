@@ -25,7 +25,7 @@ public class FilesFrameworksInitializer extends GenericServlet {
 	private static final String COPY_PROPERTIES = "copy.properties";
 	private AppObject appObject = new AppObjectImpl(getClass());
 	
-	private PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();;
+	private PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -33,6 +33,8 @@ public class FilesFrameworksInitializer extends GenericServlet {
 		appObject.getLog().debug("Comenzando a copiar archivos de los diferentes frameworks de larreta");
 
 		IterateResourcesProperties iterateResourcesProperties = new IterateResourcesProperties(COPY_PROPERTIES, new PropertyAction() {
+
+			private Boolean createDir = Boolean.TRUE;
 			
 			@Override
 			public void process(String key, String value) {
@@ -46,12 +48,17 @@ public class FilesFrameworksInitializer extends GenericServlet {
 						resolver.getResources(key)[0].getInputStream(), 
 						pathObject, 
 						StandardCopyOption.REPLACE_EXISTING);
+					createDir = Boolean.TRUE;
 				} catch (IOException e) {
-					String dirPath = path.substring(0, path.lastIndexOf(File.separator));
-					File file = new File(dirPath);
-					file.mkdirs();
-					process(key, value);
-					appObject.getLog().error("Ocurrio un error copiando archivos", e);
+					if (createDir){
+						String dirPath = path.substring(0, path.lastIndexOf(File.separator));
+						File file = new File(dirPath);
+						file.mkdirs();
+						createDir = Boolean.FALSE;
+						process(key, value);
+					} else {
+						appObject.getLog().error("Ocurrio un error copiando archivos", e);
+					}
 				} 
 			}
 		});

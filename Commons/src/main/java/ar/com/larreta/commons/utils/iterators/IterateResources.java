@@ -8,10 +8,10 @@ import ar.com.larreta.commons.AppObjectImpl;
 public class IterateResources extends AppObjectImpl implements Iterator{
 	
 	private Enumeration<URL> definitionFiles;
-	private UrlAction urlAction;
+	private URLAction urlAction;
 	private String name;
 	
-	public IterateResources(String name, UrlAction urlAction){
+	public IterateResources(String name, URLAction urlAction){
 		this.urlAction = urlAction;
 		this.name = name;
 	}

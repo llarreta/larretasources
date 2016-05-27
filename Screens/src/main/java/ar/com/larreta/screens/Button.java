@@ -37,7 +37,7 @@ public abstract class Button extends ScreenElement {
 	
 	@Basic
 	public String getValue() {
-		return StandardControllerImpl.getMessage(value);
+		return value;
 	}
 	public void setValue(String value) {
 		this.value = value;

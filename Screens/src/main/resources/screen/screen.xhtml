@@ -15,16 +15,13 @@
 	</ui:define>
 	
 	<ui:define name="content">
+		<!-- FIXME: Evaluar la necesidad de tener estos 3 DIVs -->
 		<div class="ui-grid ui-grid-responsive">
 	    	<div class="ui-grid-row">
 	        	<div class="ui-grid-col-12">
-						<h:form id="prueba">
-						
-							<ui:include src="/WEB-INF/screens/iterate.xhtml">
+							<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 								<ui:param name="elements" value="#{screen.ordererElements}" />
 							</ui:include>
-	
-						</h:form>
 				</div>
 			</div>
 		</div>

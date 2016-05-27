@@ -43,7 +43,7 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 		Screen screen = new Screen();
 		screen.setId(new Long(1));
 		
-		screen.setTitle("app.titleApp");
+		screen.setTitleMessage("app.titleApp");
 		
 		screen.addStyleSheet("css", 			"main.css");
 		screen.addStyleSheet("smarttrace/css", 	"bootstrap.min.css");
@@ -52,7 +52,9 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 		screen.addStyleSheet("css", 			"socicon.css");
 		screen.addStyleSheet("css", 			"font-awesome-animation.min.css");
 		
+		Form form = new Form();
 		OutputPanel outputPanel = new OutputPanel();
+		form.add(outputPanel);
 		outputPanel.setStyleClass("box-message-test");
 		outputPanel.add(new Label("app.description"));
 		outputPanel.add(new Input());
@@ -63,13 +65,16 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 		outputPanel.add(button);
 		
 		screen.add(0, getHeader());
-		screen.add(1, outputPanel);
+		screen.add(1, form);
 		
 		Table table = new Table();
 		Column column = new Column();
-		//headerText="#{msg['app.user.id']}" sortBy="#{actualItem.id}" width="10%"
 		column.setHeaderText("app.user.id");
 		column.setSortBy("actualItem.id");
+		column.setWidth("50%");
+
+		column.add(new Label("Prueba"));
+		
 		table.addColumn(column);
 		
 		screen.add(2, table);
@@ -113,12 +118,12 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 		MenuBar menuBar = new MenuBar();
 		menuBar.setStyleClass("main-bar-1");
 		MenuItem item = new MenuItem();
-		item.setValue("main-bar.init");
+		item.setValueMessage("main-bar.init");
 		item.setStyleClass("menu-item-default");
 		item.setUrl("/app/home");
 		menuBar.add(item);
 		SubMenu subMenu = new SubMenu();
-		subMenu.setLabel("main-bar.basicConfigurations");
+		subMenu.setLabelMessage("main-bar.basicConfigurations");
 		subMenu.setStyleClass("sub-menu-main");
 		subMenu.add(item);
 		menuBar.add(subMenu);

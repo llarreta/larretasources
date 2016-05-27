@@ -222,18 +222,18 @@ public class LoginControllerImpl extends StandardControllerImpl implements Login
 	protected void validate(LoginDataView loginView) throws SignUpException {
 		Boolean valid = Boolean.TRUE;
 		if ((loginView.getNick()!=null)&&(userService.isNickAvailable(loginView.getNick()))){
-			addMessage(SIGNUP, NICK, "Error!", getMessage("app.validation.nick.unavailable"), FacesMessage.SEVERITY_ERROR);
+			addMessage(SIGNUP, NICK, "Error!", AppManager.getInstance().getResourceBundle().getString("app.validation.nick.unavailable"), FacesMessage.SEVERITY_ERROR);
 			valid = Boolean.FALSE;
 		}	
 
 		if ((loginView.getEmail()!=null)&&(userService.isEmailAvailable(loginView.getEmail()))){
-			addMessage(SIGNUP, EMAIL, "Error!", getMessage("app.validation.email.unavailable"), FacesMessage.SEVERITY_ERROR);
+			addMessage(SIGNUP, EMAIL, "Error!", AppManager.getInstance().getResourceBundle().getString("app.validation.email.unavailable"), FacesMessage.SEVERITY_ERROR);
 			valid = Boolean.FALSE;
 		}
 
 		if ((loginView.getPassword()!=null)&&!loginView.getPassword().equals(loginView.getReenteredPassword())){
-			addMessage(SIGNUP, PASSWORD, "Error!", getMessage("app.validation.password.differents"), FacesMessage.SEVERITY_ERROR);
-			addMessage(SIGNUP, REENTERED_PASSWORD, "Error!", getMessage("app.validation.password.differents"), FacesMessage.SEVERITY_ERROR);
+			addMessage(SIGNUP, PASSWORD, "Error!", AppManager.getInstance().getResourceBundle().getString("app.validation.password.differents"), FacesMessage.SEVERITY_ERROR);
+			addMessage(SIGNUP, REENTERED_PASSWORD, "Error!", AppManager.getInstance().getResourceBundle().getString("app.validation.password.differents"), FacesMessage.SEVERITY_ERROR);
 			valid = Boolean.FALSE;
 		}
 		if (!valid){

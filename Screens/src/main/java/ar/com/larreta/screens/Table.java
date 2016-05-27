@@ -1,6 +1,5 @@
 package ar.com.larreta.screens;
 
-import javax.faces.context.FacesContext;
 import javax.persistence.Basic;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -14,20 +13,16 @@ import javax.persistence.Transient;
 public class Table extends Container {
 
 	private String var = "actualItem";
-	private String value = "dataView.paginator";	
-	//private String value = "#{dataView.paginator}";
+	private String value = ScreenUtils.generateExpression("dataView.paginator");
 	private Boolean paginator = Boolean.TRUE;
 	private Boolean lazy = Boolean.TRUE;
 	private String rows = "10";
 	private String paginatorTemplate = "{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}";
 	private String rowsPerPageTemplate = "5,10,15";
 	private String selectionMode = "single";
-	private String selection = "dataView.selected";
-	//private String selection = "#{dataView.selected}";
-	private String emptyMessage = "datatable.sindatos";
-	//private String emptyMessage = "#{msg['datatable.sindatos']}";
-	private String currentPageReportTemplate = "{currentPage} 'datatable.de' {totalPages}";
-	//private String currentPageReportTemplate = "{currentPage} #{msg['datatable.de']} {totalPages}";
+	private String selection = ScreenUtils.generateExpression("dataView.selected");
+	private String emptyMessage = ScreenUtils.generateExpression("msg['datatable.sindatos']");
+	private String currentPageReportTemplate = "{currentPage} #{msg['datatable.de']} {totalPages}";
 
 	
 	@Override
@@ -36,6 +31,7 @@ public class Table extends Container {
 	 * utilizar addColumn
 	 */
 	public void add(Integer orderIndex, ScreenElement element) {
+		super.add(orderIndex, (Column)element);
 	}
 
 	@Override
@@ -44,6 +40,7 @@ public class Table extends Container {
 	 * utilizar addColumn
 	 */
 	public void add(ScreenElement element) {
+		super.add((Column)element);
 	}
 	
 	public void addColumn(Integer orderIndex, Column element) {
@@ -162,5 +159,5 @@ public class Table extends Container {
 	public void setCurrentPageReportTemplate(String currentPageReportTemplate) {
 		this.currentPageReportTemplate = currentPageReportTemplate;
 	}
-
+	
 }

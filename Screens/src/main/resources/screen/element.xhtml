@@ -25,7 +25,7 @@
 
 		<c:if test="${element.simpleName == 'OutputPanel'}">
 			<p:outputPanel 		id="#{element.idValue}"		autoUpdate="#{element.autoUpdate}"		styleClass="${element.styleClass}"  >
-					<ui:include src="/WEB-INF/screens/iterate.xhtml">
+					<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 						<ui:param name="elements" value="#{element.ordererElements}" />
 					</ui:include>
 			</p:outputPanel>
@@ -37,7 +37,7 @@
 		
 		<c:if test="${element.simpleName == 'Div'}">
 			<div id="#{element.idValue}"		class="#{element.styleClass}">
-					<ui:include src="/WEB-INF/screens/iterate.xhtml">
+					<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 						<ui:param name="elements" value="#{element.ordererElements}" />
 					</ui:include>
 			</div>
@@ -45,7 +45,7 @@
 
 		<c:if test="${element.simpleName == 'Form'}">
 			<h:form id="#{element.idValue}" >
-					<ui:include src="/WEB-INF/screens/iterate.xhtml">
+					<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 						<ui:param name="elements" value="#{element.ordererElements}" />
 					</ui:include>
 			</h:form>
@@ -65,7 +65,7 @@
 		
 		<c:if test="${element.simpleName == 'BlockUI'}">
 			<pe:blockUI target="#{element.target}" widgetVar="#{element.widgetVar}"   >  
-				<ui:include src="/WEB-INF/screens/iterate.xhtml">
+				<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 					<ui:param name="elements" value="#{element.ordererElements}" />
 				</ui:include>
 			</pe:blockUI>
@@ -73,7 +73,7 @@
 		
 		<c:if test="${element.simpleName == 'PanelGrid'}">
 			 <h:panelGrid id="#{element.idValue}"		columns="#{element.columns}">
-					<ui:include src="/WEB-INF/screens/iterate.xhtml">
+					<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 						<ui:param name="elements" value="#{element.ordererElements}" />
 					</ui:include>
 			</h:panelGrid>
@@ -91,20 +91,13 @@
     				 var="tableElement"  selection="#{element.selectionEvaluated}"
 			     	 value="#{element.valueEvaluated}"
 			     >   
-			     <!--
-			         
-			     	  
-			     		
-    				
-    			 	
-                 	  
-                 -->
-                 
-                 	<!-- p:columns value="#{element.ordererElements}" var="column" headerText="#{column.headerText}" sortBy="#{column.sortby}" width="#{column.width}" >
-		                 <ui:include src="/WEB-INF/screens/iterate.xhtml">
-								<ui:param name="elements" value="#{element.ordererElements}" />
+                 	<p:columns value="#{element.ordererElements}" var="column" 
+                 			headerText="#{column.headerText}" sortBy="#{column.sortby}" width="#{column.width}" 
+                 			>
+		                 <ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+								<ui:param name="elements" value="#{column.ordererElements}" />
 						 </ui:include>                 	
-					</p:columns-->
+					</p:columns>
                  </p:dataTable>
 		</c:if>
 		

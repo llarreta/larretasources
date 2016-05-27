@@ -5,16 +5,16 @@
 	parent="crud-flow">
 
     
-	<var name="controller" 			class="ar.com.larreta.commons.controllers.ProfilesController" />
-	<var name="dataView" 			class="ar.com.larreta.commons.views.ProfileDataView" />
+	<var name="controller" 			class="ar.com.larreta.screens.controllers.ScreensControllerImpl" />
+	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
 	
 	<on-start>
         <set name="controller.dataView" value="dataView" />
     </on-start>
 	
 	<action-state id="starting" parent="crud-flow#starting"/>
-	<view-state id="start"  	parent="crud-flow#start"  		view="profiles.xhtml"/>
-	<view-state id="updateView" parent="crud-flow#updateView" 	view="profilesUpdate.xhtml" />
-	<view-state id="createView" parent="crud-flow#createView" 	view="profilesUpdate.xhtml" />
+	<view-state id="start"  	parent="crud-flow#start"  		view="screen.xhtml"/>
+	<view-state id="updateView" parent="crud-flow#updateView" 	view="screen.xhtml" />
+	<view-state id="createView" parent="crud-flow#createView" 	view="screen.xhtml" />
 
 </flow>

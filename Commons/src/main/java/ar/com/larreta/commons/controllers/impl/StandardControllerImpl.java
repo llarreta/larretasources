@@ -84,19 +84,6 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 	}
 	
 	/**
-	 * Retorna un mensaje a partir de la key
-	 * @param key
-	 * @return
-	 */
-	@Deprecated
-	public static String getMessage(String key) {
-		//FIXME: Evaluar si tiene sentido que esta funcionalidad siga aca o es mejor colocarla en el resourcemessage
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		String message = facesContext.getApplication().evaluateExpressionGet(facesContext, MSG_PREFIX + key + MSG_POSTFIX, String.class);
-		return message;
-	}
-	
-	/**
 	 * Agrega un mensaje para poder ser utilizado en la vista
 	 * @param form
 	 * @param field
@@ -206,7 +193,9 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 		dataView = (DataView) flowRequestContext.getFlowScope().get(DataView.DATA_VIEW);
 		dataView.setController(this);
 		Object objectEntityClass = flowRequestContext.getFlowScope().get(ENTITY);
-		entityClass = objectEntityClass.getClass();
+		if (objectEntityClass!=null){
+			entityClass = objectEntityClass.getClass();
+		}
 	}
 
 	public void initCreate(RequestContext flowRequestContext){

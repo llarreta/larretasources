@@ -19,6 +19,7 @@ public class ResourceBundle extends java.util.ResourceBundle {
 	public ResourceBundle() {
 		super();
 		refreshLocale();
+		AppManager.getInstance().setResourceBundle(this);
 	}
 
 	private void refreshLocale() {

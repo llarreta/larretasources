@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.commons.controllers.SessionInitializer;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.resources.ResourceBundle;
 import ar.com.larreta.commons.services.StandardService;
 import ar.com.larreta.commons.utils.Base64;
 import ar.com.larreta.commons.utils.MailSender;
@@ -50,6 +51,16 @@ public class AppManager extends AppObjectImpl{
 	private AppConfigData appConfigData;
 	
 	private MailSender mailSender;
+	
+	private ResourceBundle resourceBundle;
+
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
+	}
+
+	public void setResourceBundle(ResourceBundle resourceBundle) {
+		this.resourceBundle = resourceBundle;
+	}
 
 	public AppConfigData getAppConfigData() {
 		return appConfigData;

@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.core.io.Resource;
 
 import ar.com.larreta.commons.AppConfigData;
 import ar.com.larreta.commons.AppManager;
@@ -20,7 +21,7 @@ import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.utils.FormatPatterns;
 import ar.com.larreta.commons.utils.iterators.IterateResources;
 import ar.com.larreta.commons.utils.iterators.ResourcesList;
-import ar.com.larreta.commons.utils.iterators.UrlAction;
+import ar.com.larreta.commons.utils.iterators.URLAction;
 
 //@Component(AppConfigDataImpl.APP_CONFIG_DATA)
 public class AppConfigDataImpl extends Properties implements AppConfigData{
@@ -84,7 +85,7 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	 private AppObject appObject = new AppObjectImpl(getClass());
 	 
 	public AppConfigDataImpl(){
-		IterateResources iterateResources = new IterateResources(APPLICATION_PROPERTIES_FILE, new UrlAction() {
+		IterateResources iterateResources = new IterateResources(APPLICATION_PROPERTIES_FILE, new URLAction() {
 			@Override
 			public void process(URL url) {
 				try {

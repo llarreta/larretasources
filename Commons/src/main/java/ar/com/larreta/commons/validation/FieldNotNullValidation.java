@@ -9,6 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.util.StringUtils;
 
+import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
 import ar.com.larreta.commons.validation.constraints.FieldNotNull;
 
@@ -34,7 +35,7 @@ public class FieldNotNullValidation extends StandardControllerImpl implements Co
 
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		if(StringUtils.isEmpty(value)){
-			String messages = getMessage(this.key);
+			String messages = AppManager.getInstance().getResourceBundle().getString(this.key);
 			addMessage(this.formId, this.fieldId, "Error!", messages, FacesMessage.SEVERITY_ERROR);
 			
 			return false;

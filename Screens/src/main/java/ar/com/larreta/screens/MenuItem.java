@@ -23,7 +23,7 @@ public class MenuItem extends ScreenElement implements MenuElement{
 	public org.primefaces.model.menu.MenuItem getMenuItem() {
 		if (menuItem==null){
 			menuItem = new DefaultMenuItem();
-			menuItem.setValue(getValue());
+			menuItem.setValue(getValueEvaluated());
 			menuItem.setUrl(url);
 			menuItem.setStyleClass(getStyleClass());
 		}
@@ -33,6 +33,11 @@ public class MenuItem extends ScreenElement implements MenuElement{
 		this.menuItem = menuItem;
 	}
 	
+	@Transient
+	public String getValueEvaluated() {
+		return (String) ScreenUtils.evaluate(getValue());
+	}
+	
 	@Basic
 	public String getValue() {
 		return value;
@@ -40,6 +45,11 @@ public class MenuItem extends ScreenElement implements MenuElement{
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	public void setValueMessage(String value) {
+		this.value = ScreenUtils.generateMessage(value);
+	}
+	
 	
 	@Basic
 	public String getUrl() {

@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -33,6 +34,11 @@ public class Screen extends Container {
 	private Collection<StyleSheet> styleSheets;
 	private String title;
 
+	@Transient
+	public String getTitleEvaluated() {
+		return (String) ScreenUtils.evaluate(getTitle());
+	}
+	
 	@Basic
 	public String getTitle() {
 		return title;
@@ -40,6 +46,10 @@ public class Screen extends Container {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public void setTitleMessage(String title) {
+		this.title = ScreenUtils.generateMessage(title);
 	}
 
 	@Basic
