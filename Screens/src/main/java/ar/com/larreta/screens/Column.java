@@ -1,9 +1,12 @@
 package ar.com.larreta.screens;
 
+import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Transient;
 
 import org.primefaces.model.SelectableDataModel;
 
@@ -49,4 +52,9 @@ public class Column extends Container implements SelectableDataModel {
 		return null;
 	}
 
+	@Override
+	@Transient
+	public Collection<ScreenElement> getOrdererElements() {
+		return super.getOrdererElements();
+	}
 }

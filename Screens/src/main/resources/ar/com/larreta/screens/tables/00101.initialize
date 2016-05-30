@@ -5,6 +5,7 @@ CREATE TABLE [SCHEMMA].screenElement (
 	tooltip VARCHAR(255),
 	watermark VARCHAR(255),
 	type VARCHAR(255),
+	isPropertyValue TINYINT(1),
 	PRIMARY KEY (ID)
 );
 

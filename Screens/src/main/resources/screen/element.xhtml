@@ -7,6 +7,12 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
+		<c:if test="${element.isPropertyValue}">
+			<c:set var="value" value="#{tableElement[element.value]}" />
+		</c:if>
+		<c:if test="${!element.isPropertyValue}">
+			<c:set var="value" value="#{element.value}" />
+		</c:if>
 
 		<c:if test="${element.simpleName == 'SubmitButton' || element.simpleName == 'AjaxButton'}">
 			<p:commandButton	id="#{element.idValue}" 	
@@ -16,7 +22,7 @@
 		</c:if>
 
 		<c:if test="${element.simpleName == 'Label'}">
-			<p:outputLabel 		id="#{element.idValue}"		value="${element.value}"		styleClass="${element.styleClass}"	/>
+			<p:outputLabel 		id="#{element.idValue}"		value="#{value}"		styleClass="${element.styleClass}"	/>
 		</c:if>
 
 		<c:if test="${element.simpleName == 'Input'}">
@@ -91,13 +97,14 @@
     				 var="tableElement"  selection="#{element.selectionEvaluated}"
 			     	 value="#{element.valueEvaluated}"
 			     >   
-                 	<p:columns value="#{element.ordererElements}" var="column" 
-                 			headerText="#{column.headerText}" sortBy="#{column.sortby}" width="#{column.width}" 
-                 			>
-		                 <ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+			     	<c:forEach var="column" items="#{element.ordererElements}">
+			     		<p:column headerText="#{column.headerText}" sortBy="#{column.sortby}" width="#{column.width}">
+			     			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 								<ui:param name="elements" value="#{column.ordererElements}" />
-						 </ui:include>                 	
-					</p:columns>
+								<ui:param name="tableElement" value="#{tableElement}" />
+						 	</ui:include> 	
+			     		</p:column>
+			     	</c:forEach>
                  </p:dataTable>
 		</c:if>
 		

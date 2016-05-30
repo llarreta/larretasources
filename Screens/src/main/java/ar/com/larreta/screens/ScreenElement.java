@@ -22,7 +22,18 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	private String styleClass;
 	private String tooltip;
 	private String watermark;
-	
+	private Boolean isPropertyValue = Boolean.FALSE;
+
+
+	@Basic
+	public Boolean getIsPropertyValue() {
+		return isPropertyValue;
+	}
+
+	public void setIsPropertyValue(Boolean isPropertyValue) {
+		this.isPropertyValue = isPropertyValue;
+	}
+
 	@Transient
 	public String getIdValue(){
 		return getSimpleName() + getId();

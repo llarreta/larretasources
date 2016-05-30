@@ -68,14 +68,28 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 		screen.add(1, form);
 		
 		Table table = new Table();
-		Column column = new Column();
-		column.setHeaderText("app.user.id");
-		column.setSortBy("actualItem.id");
-		column.setWidth("50%");
 
-		column.add(new Label("Prueba"));
+		Column columnId = new Column();
+		columnId.setHeaderText("app.user.id");
+		columnId.setSortBy("actualItem.id");
+		columnId.setWidth("50%");
+
+		Label labelId = new Label("id");
+		labelId.setIsPropertyValue(Boolean.TRUE);
+
+		columnId.add(labelId);
+
+		Column columnNick = new Column();
+		columnNick.setHeaderText("app.user.nick");
+		columnNick.setSortBy("actualItem.nick");
+		columnNick.setWidth("50%");
 		
-		table.addColumn(column);
+		Label labelNick = new Label("nick");
+		labelNick.setIsPropertyValue(Boolean.TRUE);
+		columnNick.add(labelNick);
+		
+		table.addColumn(columnId);
+		table.addColumn(columnNick);
 		
 		screen.add(2, table);
 		screen.add(3, getFooter());
