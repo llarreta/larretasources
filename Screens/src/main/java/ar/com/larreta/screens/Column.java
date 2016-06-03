@@ -20,6 +20,11 @@ public class Column extends Container implements SelectableDataModel {
 	private String sortBy;
 	private String width;
 	
+	@Transient
+	public String getHeaderTextEvaluated() {
+		return (String) ScreenUtils.evaluate(getHeaderText());
+	}
+	
 	@Basic
 	public String getHeaderText() {
 		return headerText;

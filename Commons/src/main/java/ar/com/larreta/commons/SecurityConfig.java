@@ -49,9 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		Security security = securityService.getSecurityConfig();
+		http.csrf().disable(); 
 		
 		if (security.getAvaiable()){
-			http.csrf().disable() //FIXME: Ver si es necesario que esto se setee siempre independientemente de q la seguridad este habilitada
+			http
 			.formLogin()
 				.loginPage(security.getLoginPage()).loginProcessingUrl(security.getLoginProcessingUrl())
 				.defaultSuccessUrl(security.getDefaultSuccessUrl())

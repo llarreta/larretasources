@@ -59,4 +59,9 @@ public abstract class Button extends ScreenElement {
 		this.ajax = ajax;
 	}
 	
+	@Transient
+	public abstract String getActionEvaluated();
+
+	@Transient
+	public abstract Long getNextScreenId();
 }

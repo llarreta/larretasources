@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
 @Entity
 @Table(name = "input")
 @DiscriminatorValue(value = "input")
@@ -15,10 +17,15 @@ public class Input extends ScreenElement {
 
 	@Basic
 	public String getValue() {
+		String bindingValue = (String) getBindingPropertyValue();
+		if (!StringUtils.isEmpty(bindingValue)){
+			value = bindingValue;
+		}
 		return value;
 	}
 
 	public void setValue(String value) {
 		this.value = value;
+		setBindingPropertyValue(value);
 	}
 }

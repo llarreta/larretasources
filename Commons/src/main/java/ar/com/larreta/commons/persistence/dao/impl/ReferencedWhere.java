@@ -2,6 +2,8 @@ package ar.com.larreta.commons.persistence.dao.impl;
 
 import org.hibernate.Query;
 
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+
 public class ReferencedWhere extends Where {
 
 	public ReferencedWhere(LoadArguments args, String field, String operator, String referencedValue) {

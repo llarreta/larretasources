@@ -1,6 +1,8 @@
 package ar.com.larreta.commons.controllers;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +17,9 @@ import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.services.StandardService;
+import ar.com.larreta.commons.services.args.ServiceInfo;
 import ar.com.larreta.commons.views.DataView;
 
 public class Paginator extends LazyDataModel<Entity> implements AppObject {
@@ -27,6 +31,19 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	private AppObject appObject = new AppObjectImpl(getClass());
 	
 	protected DataView dataView;
+	
+	private Collection<LoadListener> loadListeners = new ArrayList<LoadListener>();
+	
+	private LoadArguments arguments;
+	private List<String> lazyProperties = new ArrayList<String>();
+	
+	public void setLazyProperties(List<String> lazyProperties) {
+		this.lazyProperties = lazyProperties;
+	}
+
+	public void addLoadListener(LoadListener loadListener){
+		loadListeners.add(loadListener);
+	}
 	
 	public DataView getDataView() {
 		return dataView;
@@ -64,8 +81,11 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 
 	public void refresh() throws NotServiceAssignedException {
 		try {
-			// FIXME: Evaluar como se comporta el count con filtros, posible issue
-			count = getService().count(getEntityClass()).intValue();
+			if (arguments!=null){
+				count = getService().count(arguments.toCountArguments()).intValue();
+			} else {
+				count = getService().count(getEntityClass()).intValue();
+			}
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
@@ -76,10 +96,21 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 		return count;
 	}
 
+	private void alertLoadListeners(List<Entity> entities){
+		Iterator<LoadListener> iterator = loadListeners.iterator();
+		while (iterator.hasNext()) {
+			LoadListener loadListener = (LoadListener) iterator.next();
+			loadListener.alert(entities);
+		}
+	}
+	
 	@Override
 	public List<Entity> load(int first, int pageSize, List<SortMeta> multiSortMeta, Map<String, Object> filters) {
 		try {
-			datasource = new ArrayList<Entity>(getService().load(getEntityClass(), first, pageSize, null, filters));
+			ServiceInfo serviceInfo = getService().loadServiceInfo(getEntityClass(), first, pageSize, null, filters, lazyProperties);
+			datasource = new ArrayList<Entity>(serviceInfo.getData());
+			arguments = serviceInfo.getArguments();
+			alertLoadListeners(datasource);
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));		
 		}
@@ -89,7 +120,10 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	@Override
 	public List<Entity> load(int first, int pageSize, String sortField,	SortOrder sortOrder, Map<String, Object> filters) {
 		try {
-			datasource = new ArrayList<Entity>(getService().load(getEntityClass(), first,	pageSize, getOrder(sortOrder, sortField), filters));
+			ServiceInfo serviceInfo = getService().loadServiceInfo(getEntityClass(), first, pageSize, getOrder(sortOrder, sortField), filters, lazyProperties);
+			datasource = new ArrayList<Entity>(serviceInfo.getData());
+			arguments = serviceInfo.getArguments();
+			alertLoadListeners(datasource);
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));
 		}

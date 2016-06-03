@@ -3,6 +3,8 @@ package ar.com.larreta.commons.persistence.dao.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+
 public abstract class Where extends QueryElement {
 
 	private String operator;

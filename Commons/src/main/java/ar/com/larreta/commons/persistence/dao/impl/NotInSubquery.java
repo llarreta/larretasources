@@ -1,5 +1,6 @@
 package ar.com.larreta.commons.persistence.dao.impl;
 
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 public class NotInSubquery extends Subquery {
 

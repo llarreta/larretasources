@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.reports.HTML;
 import ar.com.larreta.commons.reports.Report;
 import ar.com.larreta.commons.services.impl.StandardServiceImpl;

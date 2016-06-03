@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import ar.com.larreta.commons.domain.audit.UserAccessHistory;
 import ar.com.larreta.commons.exceptions.NotImplementedException;
 import ar.com.larreta.commons.persistence.AccessDAO;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.services.AccessService;
 
 @Service

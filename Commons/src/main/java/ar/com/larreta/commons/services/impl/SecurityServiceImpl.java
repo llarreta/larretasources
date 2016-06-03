@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.larreta.commons.domain.Security;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.services.SecurityService;
 
 @Service

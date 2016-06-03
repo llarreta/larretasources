@@ -1,0 +1,30 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	>
+     <p:dataTable 	id="#{element.idValue}"
+         selectionMode="#{element.selectionMode}"
+         rows="#{element.rows}"
+         paginator="#{element.paginator}" lazy="#{element.lazy}"
+         paginatorTemplate="#{element.paginatorTemplate}"
+              	 rowsPerPageTemplate="#{element.rowsPerPageTemplate}" 
+	     emptyMessage="#{element.emptyMessage}"
+	     currentPageReportTemplate="#{element.currentPageReportTemplate}"
+ 				 var="tableElement"  selection="#{dataView.selected}"
+     	 value="#{element.valueEvaluated}"
+     >   
+     	<c:forEach var="column" items="#{element.ordererElements}">
+     		<p:column headerText="#{column.headerText}" sortBy="#{column.sortby}" width="#{column.width}">
+     			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+					<ui:param name="elementValue" value="#{tableElement}" />
+					<ui:param name="elements" value="#{column.ordererElements}" />
+			 	</ui:include> 	
+     		</p:column>
+     	</c:forEach>
+     </p:dataTable>
+</html>

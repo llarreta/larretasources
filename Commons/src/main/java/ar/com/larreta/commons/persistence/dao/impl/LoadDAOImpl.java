@@ -11,6 +11,8 @@ import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.persistence.CommonsSessionFactory;
 import ar.com.larreta.commons.persistence.dao.LoadDao;
+import ar.com.larreta.commons.persistence.dao.args.CountArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 /**
  * DAO con la funcionalidad de poder cargar entidades desde la base  

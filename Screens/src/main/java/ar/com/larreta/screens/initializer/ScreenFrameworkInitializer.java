@@ -8,7 +8,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+
 import ar.com.larreta.commons.AppManager;
+import ar.com.larreta.commons.domain.ResourceMessage;
+import ar.com.larreta.commons.domain.User;
+import ar.com.larreta.screens.AjaxButton;
 import ar.com.larreta.screens.Column;
 import ar.com.larreta.screens.CommandLink;
 import ar.com.larreta.screens.Div;
@@ -18,8 +23,10 @@ import ar.com.larreta.screens.Input;
 import ar.com.larreta.screens.Label;
 import ar.com.larreta.screens.MenuBar;
 import ar.com.larreta.screens.MenuItem;
-import ar.com.larreta.screens.OutputPanel;
+import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.Screen;
+import ar.com.larreta.screens.ScreenElement;
+import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.SubMenu;
 import ar.com.larreta.screens.SubmitButton;
 import ar.com.larreta.screens.Table;
@@ -31,7 +38,8 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		ScreensService screensService = (ScreensService) AppManager.getInstance().getBean(ScreenServiceImpl.SCREEN_SERVICE);
-		screensService.save(getScreen());
+		screensService.save(getInitialScreen());
+		screensService.save(getUpdateScreen());
 	}
 	
 	@Override
@@ -39,63 +47,140 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 		// No hacemos nada
 	}
 	
-	private Screen getScreen() {
+	
+	private Screen getUpdateScreen() {
+		Screen screen = new Screen();
+		screen.setEntityClass(User.class.getName());
+		screen.setId(new Long(2));
+
+		addStyleSheets(screen);
+
+		screen.add(0, getHeader());
+		
+		Form form = new Form();
+		
+		PanelGrid panelGrid = new PanelGrid();
+		panelGrid.setColumns("2");
+		form.add(panelGrid);
+		
+		panelGrid.add(0, new Label("app.nick"));
+		Input inputNick = new Input();
+		inputNick.setBindingObject("#{dataView.selected}");
+		inputNick.setBindingProperty("nick");
+		panelGrid.add(1, inputNick);
+		
+		panelGrid.add(2, new Label("app.email"));
+		Input inputEmail = new Input();
+		inputEmail.setBindingObject("#{dataView.selected}");
+		inputEmail.setBindingProperty("email");
+		panelGrid.add(3, inputEmail);
+
+		SubmitButton submitButton = new SubmitButton();
+		submitButton.setAction("preCreate");
+		submitButton.setValue("app.confirm");
+		submitButton.setIcon("ui-icon-check");
+		submitButton.setNextScreenId(new Long(2));
+		form.add(submitButton);
+		
+		SubmitButton returnButton = new SubmitButton();
+		returnButton.setAction("starting");
+		returnButton.setValue("app.back");
+		returnButton.setIcon("ui-icon-check");
+		returnButton.setNextScreenId(new Long(1));
+		form.add(returnButton);
+		
+		screen.add(1, form);
+		screen.add(2, getFooter());
+		
+		return screen;
+	}
+	
+	private Screen getInitialScreen() {
 		Screen screen = new Screen();
 		screen.setId(new Long(1));
+		screen.setEntityClass(ResourceMessage.class.getName());
 		
 		screen.setTitleMessage("app.titleApp");
 		
+		addStyleSheets(screen);
+		
+		screen.add(0, getHeader());
+		
+		Form form = new Form();
+		
+		SubmitButton submitButton = new SubmitButton();
+		submitButton.setAction("create");
+		submitButton.setValue("app.create");
+		submitButton.setIcon("ui-icon-plusthick");
+		submitButton.setNextScreenId(new Long(2));
+		form.add(submitButton);
+		
+		Table table = new Table();
+		table.setLazyProperties("country,language");
+		form.add(table);
+		
+		table.addColumn(0, getColumnWithLabelProperty("country", 	ScreenUtils.generateMessage("app.country"), 	"tableElement.country",  	"10%"));
+		table.addColumn(1, getColumnWithLabelProperty("language", 	ScreenUtils.generateMessage("app.language"), "tableElement.language", 	"10%"));
+		table.addColumn(2, getColumnWithLabelProperty("key", 		ScreenUtils.generateMessage("app.key"), 		"tableElement.key", 		"25%"));
+		table.addColumn(3, getColumnWithLabelProperty("textString", 		ScreenUtils.generateMessage("app.text"), 	"tableElement.text", 		"25%"));
+		table.addColumn(4, getColumnWithButtons());
+		
+		screen.add(1, form);
+		screen.add(2, getFooter());
+		
+		return screen;
+	}
+
+	private void addStyleSheets(Screen screen) {
 		screen.addStyleSheet("css", 			"main.css");
 		screen.addStyleSheet("smarttrace/css", 	"bootstrap.min.css");
 		screen.addStyleSheet("css", 			"font-awesome.css");
 		screen.addStyleSheet("css", 			"animate.css");
 		screen.addStyleSheet("css", 			"socicon.css");
 		screen.addStyleSheet("css", 			"font-awesome-animation.min.css");
-		
-		Form form = new Form();
-		OutputPanel outputPanel = new OutputPanel();
-		form.add(outputPanel);
-		outputPanel.setStyleClass("box-message-test");
-		outputPanel.add(new Label("app.description"));
-		outputPanel.add(new Input());
-		SubmitButton button = new SubmitButton();
-		button.setAction("confirm");
-		button.setValue("app.login.confirm");
-		button.setIcon("ui-icon-check");
-		outputPanel.add(button);
-		
-		screen.add(0, getHeader());
-		screen.add(1, form);
-		
-		Table table = new Table();
-
-		Column columnId = new Column();
-		columnId.setHeaderText("app.user.id");
-		columnId.setSortBy("actualItem.id");
-		columnId.setWidth("50%");
-
-		Label labelId = new Label("id");
-		labelId.setIsPropertyValue(Boolean.TRUE);
-
-		columnId.add(labelId);
-
-		Column columnNick = new Column();
-		columnNick.setHeaderText("app.user.nick");
-		columnNick.setSortBy("actualItem.nick");
-		columnNick.setWidth("50%");
-		
-		Label labelNick = new Label("nick");
-		labelNick.setIsPropertyValue(Boolean.TRUE);
-		columnNick.add(labelNick);
-		
-		table.addColumn(columnId);
-		table.addColumn(columnNick);
-		
-		screen.add(2, table);
-		screen.add(3, getFooter());
-		
-		return screen;
 	}
+	
+	public Column getColumnWithLabelProperty(String property, String header, String sort, String width){
+		Column column = new Column();
+		column.setHeaderText(header);
+		column.setSortBy(sort);
+		column.setWidth(width);
+		
+		Label label = new Label(StringUtils.EMPTY);
+		label.setBindingObject(ScreenElement.TABLE_ELEMENT);
+		label.setBindingProperty(property);
+		column.add(label);
+		
+		return column;
+	}
+	
+	public Column getColumnWithButtons(){
+		Column column = new Column();
+		
+		PanelGrid panelGrid = new PanelGrid();
+		panelGrid.setColumns("2");
+		
+		SubmitButton updateButton = new SubmitButton();
+		updateButton.setAction("update");
+		updateButton.setIcon("ui-icon-pencil");
+		updateButton.setValue("app.modify");
+		updateButton.setInmediate(Boolean.TRUE);
+		
+		AjaxButton deleteButton = new AjaxButton();
+		deleteButton.setActionListener("#{controller.delete}");
+		deleteButton.setIcon("ui-icon-trash");
+		deleteButton.setValue("app.delete");
+		deleteButton.setInmediate(Boolean.TRUE);
+		
+		panelGrid.add(updateButton);
+		panelGrid.add(deleteButton);
+		column.add(panelGrid);
+		
+		return column;	
+	}
+	
+	
+	
 
 	private Div getFooter() {
 		Div div = new Div();

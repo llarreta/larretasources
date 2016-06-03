@@ -3,6 +3,7 @@ package ar.com.larreta.commons.persistence.dao.impl;
 import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.commons.AppObjectImpl;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 public class QueryElement extends AppObjectImpl {
 
@@ -79,10 +80,12 @@ public class QueryElement extends AppObjectImpl {
 	
 	public static String generateSymbol(LoadArguments args, String property) {
 		String symbol = StringUtils.upperCase(StringUtils.replace(ar.com.larreta.commons.utils.StringUtils.vocalRemove(property), StandardDAOImpl.DOT, UNDERFLOW));
-		while (args.containSymbol(symbol)){
-			symbol += UNDERFLOW + SUB;
+		if (args!=null){
+			while (args.containSymbol(symbol)){
+				symbol += UNDERFLOW + SUB;
+			}
+			args.addSymbol(property, symbol);
 		}
-		args.addSymbol(property, symbol);
 		return symbol;
 	}
 }

@@ -21,11 +21,12 @@ import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.persistence.dao.StandardDAO;
-import ar.com.larreta.commons.persistence.dao.impl.CountArguments;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
-import ar.com.larreta.commons.persistence.dao.impl.MaxArguments;
+import ar.com.larreta.commons.persistence.dao.args.CountArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.MaxArguments;
 import ar.com.larreta.commons.persistence.dao.impl.StandardDAOImpl;
 import ar.com.larreta.commons.services.StandardService;
+import ar.com.larreta.commons.services.args.ServiceInfo;
 
 @Service(StandardServiceImpl.STANDARD_SERVICE)
 @Transactional
@@ -187,43 +188,43 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 * @return
 	 */
 	public Collection load(Class entityType){
-		return dao.load(new LoadArguments(entityType));
-	}
-	
-	public Collection load(Class entityType, List<String> lazyProperties){
-		LoadArguments args = new LoadArguments(entityType);
-		for(String field : lazyProperties){
-			args.addProjectedPropertiesLeftJoin(field);
-		}
-		return dao.load(args);
-	}
-	
-	public Collection load(Class entityType, List<String> lazyProperties, List<String> lazyCollections){
-		LoadArguments args = new LoadArguments(entityType);
-		for(String field : lazyProperties){
-			args.addProjectedPropertiesLeftJoin(field);
-		}
-		for(String field : lazyCollections){
-			args.addProjectedCollectionLeftJoin(field);
-		}
-		return dao.load(args);
+		return loadServiceInfo(entityType).getData();
 	}
 
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters){
-		LoadArguments args = new LoadArguments(entityType);
-		args.setFirstResult(firstResult);
-		args.setMaxResults(maxResults);
-		return dao.load(args);
+		return loadServiceInfo(entityType, firstResult, maxResults, order, filters).getData();
 	}
 	
 	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties){
-		LoadArguments args = new LoadArguments(entityType);
+		return loadServiceInfo(entityType, firstResult, maxResults, order, filters, lazyProperties).getData();
+	}
+
+	@Override
+	public ServiceInfo loadServiceInfo(Class entityType) {
+		LoadArguments arguments = new LoadArguments(entityType);
+		Collection data = dao.load(arguments);
+		return new ServiceInfo(arguments, data);
+	}
+
+	@Override
+	public ServiceInfo loadServiceInfo(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters) {
+		LoadArguments arguments = new LoadArguments(entityType);
+		arguments.setFirstResult(firstResult);
+		arguments.setMaxResults(maxResults);
+		Collection data = dao.load(arguments);
+		return new ServiceInfo(arguments, data);
+	}
+
+	@Override
+	public ServiceInfo loadServiceInfo(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties) {
+		LoadArguments arguments = new LoadArguments(entityType);
 		for(String field : lazyProperties){
-			args.addProjectedPropertiesLeftJoin(field);
+			arguments.addProjectedPropertiesLeftJoin(field);
 		}
-		args.setFirstResult(firstResult);
-		args.setMaxResults(maxResults);
-		return dao.load(args);
+		arguments.setFirstResult(firstResult);
+		arguments.setMaxResults(maxResults);
+		Collection data = dao.load(arguments);
+		return new ServiceInfo(arguments, data);
 	}
 	
 
@@ -256,6 +257,11 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	public Long count(Class entityType){
 		return dao.count(new CountArguments(entityType));
 	}
+
+	public Long count(CountArguments arguments){
+		return dao.count(arguments);
+	}
+
 	
 	/**
 	 * Retorna el valor maximo del id para la clase pasada por parametro
@@ -277,5 +283,5 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 		}
 		return max;
 	}
-	
+
 }

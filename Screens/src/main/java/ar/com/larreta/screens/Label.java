@@ -7,6 +7,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
+
 @Entity
 @Table(name = "label")
 @DiscriminatorValue(value = "label")
@@ -14,15 +16,23 @@ import javax.persistence.Transient;
 public class Label extends ScreenElement {
 	private String value;
 
-	public Label(){}
+	public Label(){
+		setBindingProperty("value");
+	}
 	
 	public Label(String value){
+		this();
 		setValue(value);
 	}
 	
 	@Transient
-	public String getValueEvaluated() {
-		return (String) ScreenUtils.evaluate(getValue());
+	public Object getValueEvaluated() {
+		
+		String bindingValue = (String) getBindingPropertyValue();
+		if (!StringUtils.isEmpty(bindingValue)){
+			value = bindingValue;
+		}
+		return value;
 	}
 	
 	@Basic
@@ -32,5 +42,6 @@ public class Label extends ScreenElement {
 
 	public void setValue(String value) {
 		this.value = value;
+		setBindingPropertyValue(value);
 	}
 }

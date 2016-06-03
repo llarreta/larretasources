@@ -11,7 +11,7 @@ import ar.com.larreta.commons.domain.Profile;
 import ar.com.larreta.commons.domain.Role;
 import ar.com.larreta.commons.domain.User;
 import ar.com.larreta.commons.persistence.UserDAO;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.persistence.dao.impl.StandardDAOImpl;
 
 @Repository

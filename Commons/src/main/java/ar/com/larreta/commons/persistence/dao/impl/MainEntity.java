@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+
 public class MainEntity implements Serializable {
 	
 	private static final String HIBERNATE_PROXY_PREFIX = "_$$";
@@ -15,6 +17,7 @@ public class MainEntity implements Serializable {
 
 	public MainEntity(Class type){
 		this.type = type;
+		alias = QueryElement.generateSymbol(this.args, type.getSimpleName());
 	}
 	
 	public MainEntity(LoadArguments args, Class type){

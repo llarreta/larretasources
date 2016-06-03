@@ -6,8 +6,8 @@ import org.hibernate.Query;
 
 import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.persistence.CommonsSessionFactory;
-import ar.com.larreta.commons.persistence.dao.impl.CountArguments;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.CountArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 public interface LoadDao extends AppObject {
 	public org.hibernate.SessionFactory getSessionFactory();

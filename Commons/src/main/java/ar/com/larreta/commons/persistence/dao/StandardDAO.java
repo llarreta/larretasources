@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import ar.com.larreta.commons.domain.Entity;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 public interface StandardDAO extends LoadDao {
 	/**

@@ -14,7 +14,7 @@ import ar.com.larreta.commons.domain.audit.UserAccessHistory;
 import ar.com.larreta.commons.exceptions.ErrorLoginException;
 import ar.com.larreta.commons.exceptions.NotImplementedException;
 import ar.com.larreta.commons.persistence.UserDAO;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.services.UserService;
 
 @Service(UserServiceImpl.USER_SERVICE)

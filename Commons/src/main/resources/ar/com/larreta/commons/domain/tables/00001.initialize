@@ -64,10 +64,26 @@ CREATE TABLE [SCHEMMA].message (
 CREATE TABLE [SCHEMMA].resourceMessage (
 	id BIGINT NOT NULL,
 	deleted DATETIME,
-	country VARCHAR(255),
-	language VARCHAR(255),
+	idCountry BIGINT NOT NULL,
+	idLanguage BIGINT NOT NULL,
 	keyValue VARCHAR(255),
 	text LONGBLOB,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].country (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	abbreviation VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].language (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	abbreviation VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -110,3 +126,13 @@ ALTER TABLE [SCHEMMA].message
 ADD CONSTRAINT fk_userto_in_message
 FOREIGN KEY (idTo)
 REFERENCES [SCHEMMA].user(id);
+
+ALTER TABLE [SCHEMMA].resourceMessage
+ADD CONSTRAINT fk_country_in_resourceMessage
+FOREIGN KEY (idCountry)
+REFERENCES [SCHEMMA].country(id);
+
+ALTER TABLE [SCHEMMA].resourceMessage
+ADD CONSTRAINT fk_language_in_resourceMessage
+FOREIGN KEY (idLanguage)
+REFERENCES [SCHEMMA].language(id);

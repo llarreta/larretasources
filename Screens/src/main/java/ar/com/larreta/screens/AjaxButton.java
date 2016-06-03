@@ -11,7 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Where;
 
 @Entity
@@ -55,6 +57,18 @@ public class AjaxButton extends Button {
 
 	public void setActionListener(String actionListener) {
 		this.actionListener = actionListener;
+	}
+
+	@Transient
+	@Override
+	public String getActionEvaluated() {
+		return StringUtils.EMPTY;
+	}
+	
+	@Transient
+	@Override
+	public Long getNextScreenId(){
+		return null;
 	}
 	
 }

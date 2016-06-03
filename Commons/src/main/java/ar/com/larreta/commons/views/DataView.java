@@ -26,6 +26,26 @@ public class DataView extends AppObjectImpl {
 	protected Paginator paginator;
 	
 	private StandardController controller;
+	
+	private String forward;
+	
+	private String nextScreenId;
+
+	public String getNextScreenId() {
+		return nextScreenId;
+	}
+
+	public void setNextScreenId(String nextScreenId) {
+		this.nextScreenId = nextScreenId;
+	}
+
+	public String getForward() {
+		return forward;
+	}
+
+	public void setForward(String forward) {
+		this.forward = forward;
+	}
 
 	public DataView() {
 		super();

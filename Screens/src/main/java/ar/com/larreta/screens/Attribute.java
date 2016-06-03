@@ -1,6 +1,7 @@
 package ar.com.larreta.screens;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +20,7 @@ public class Attribute extends ScreenElement {
 	private String value;
 	private AjaxButton button;
 	
-	@ManyToOne (fetch=FetchType.EAGER, targetEntity=AjaxButton.class)
+	@ManyToOne (fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=AjaxButton.class)
 	@JoinColumn (name="idButton")
 	public AjaxButton getButton() {
 		return button;

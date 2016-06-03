@@ -43,7 +43,8 @@ public abstract class Container extends ScreenElement {
 		java.util.Iterator<ContainedElement> it = ordererElements.iterator();
 		while (it.hasNext()) {
 			ContainedElement containedElement = (ContainedElement) it.next();
-			elements.add(containedElement.getElement());
+			ScreenElement screenElement = containedElement.getElement();
+			elements.add(screenElement);
 		}
 		return elements;
 	}

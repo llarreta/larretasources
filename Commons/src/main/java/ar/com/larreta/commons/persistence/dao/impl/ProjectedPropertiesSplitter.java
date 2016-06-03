@@ -14,6 +14,8 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+
 /**
  * Se encarga de splittear todas las propiedades que seran necesarias obtener de la base
  * para poder retornar lo que el usuario pretende 

@@ -1,5 +1,6 @@
 package ar.com.larreta.screens;
 
+import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang.StringUtils;
@@ -68,6 +69,14 @@ public class ScreenUtils {
 			return generateExpression(OPEN_MSG + value + CLOSE_MSG);
 		}
 		return value;
+	}
+	
+	public static MethodExpression createMethod(String expression, Class expectedReturnType,  Class[] expectedParamTypes){
+		return facesContext.getApplication().getExpressionFactory().createMethodExpression(facesContext.getELContext(), expression, expectedReturnType,  expectedParamTypes);
+	}
+	
+	public static MethodExpression createSimpleMethod(String expression){
+		return createMethod(expression, String.class, null);
 	}
 	
 }

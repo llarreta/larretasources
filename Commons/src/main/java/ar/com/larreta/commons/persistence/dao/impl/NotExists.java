@@ -2,6 +2,8 @@ package ar.com.larreta.commons.persistence.dao.impl;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+
 public class NotExists extends Subquery {
 	private static final String NOT_EXISTS = "NOT EXISTS";
 

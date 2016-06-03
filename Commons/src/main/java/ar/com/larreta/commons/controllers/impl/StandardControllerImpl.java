@@ -31,6 +31,7 @@ import ar.com.larreta.commons.views.DataView;
 
 public class StandardControllerImpl extends AppObjectImpl implements StandardController {
 	
+	private static final String FORWARD_PARAM = "forward";
 	private static final String ENTITY = "entity";
 	private static final String MSG_POSTFIX = "']}";
 	private static final String MSG_PREFIX = "#{msg['";
@@ -270,6 +271,28 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 		preDelete(null);
 		onDelete(null);
 		postDelete(null);
+	}
+
+	public void forward(RequestContext flowRequestContext){
+		getDataView().setForward(getDataView().getForward()); 
+	}
+	
+	public void forward(ActionEvent actionEvent){
+		setSelected(actionEvent);
+		getDataView().setForward(getDataView().getForward());
+	}
+
+	
+	/**
+	 * Setea el forward
+	 * @param actionEvent
+	 */
+	public void setForward(ActionEvent actionEvent) {
+		DataView dataView = getDataView();
+		Object forward = getEventAttribute(actionEvent, FORWARD_PARAM);
+		if ((forward!=null) && (dataView!=null)){
+			dataView.setForward((String) forward);
+		}
 	}
 	
 	/**

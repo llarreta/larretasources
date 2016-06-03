@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.hibernate.Query;
 
 import ar.com.larreta.commons.AppManager;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 public abstract class Subquery extends Where {
 	

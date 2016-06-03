@@ -10,8 +10,8 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import ar.com.larreta.commons.domain.Entity;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.persistence.dao.impl.Equal;
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
 import ar.com.larreta.commons.persistence.dao.impl.ReferencedEqual;
 import ar.com.larreta.commons.persistence.dao.impl.StandardDAOImpl;
 import ar.com.larreta.commons.persistence.dao.impl.Where;

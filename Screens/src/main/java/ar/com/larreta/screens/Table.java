@@ -1,10 +1,17 @@
 package ar.com.larreta.screens;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
+
+import org.apache.commons.lang.StringUtils;
+
+import ar.com.larreta.commons.controllers.Paginator;
 
 @Entity
 @javax.persistence.Table(name = "tabletag")
@@ -12,6 +19,8 @@ import javax.persistence.Transient;
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class Table extends Container {
 
+	private static final String SEPARATOR = ",";
+	
 	private String var = "actualItem";
 	private String value = ScreenUtils.generateExpression("dataView.paginator");
 	private Boolean paginator = Boolean.TRUE;
@@ -23,8 +32,17 @@ public class Table extends Container {
 	private String selection = ScreenUtils.generateExpression("dataView.selected");
 	private String emptyMessage = ScreenUtils.generateExpression("msg['datatable.sindatos']");
 	private String currentPageReportTemplate = "{currentPage} #{msg['datatable.de']} {totalPages}";
-
+	private String lazyProperties;
 	
+	@Basic
+	public String getLazyProperties() {
+		return lazyProperties;
+	}
+
+	public void setLazyProperties(String lazyProperties) {
+		this.lazyProperties = lazyProperties;
+	}
+
 	@Override
 	/**
 	 * Este metodo se sobrescribe para que no tenga funcionalidad
@@ -62,7 +80,12 @@ public class Table extends Container {
 
 	@Transient
 	public Object getValueEvaluated(){
-		return ScreenUtils.evaluate(getValue());
+		Object valueEvaluated = ScreenUtils.evaluate(getValue());
+		if (!StringUtils.isEmpty(lazyProperties) && (valueEvaluated instanceof Paginator)){
+			List<String> properties = Arrays.asList(lazyProperties.split(SEPARATOR));
+			((Paginator)valueEvaluated).setLazyProperties(properties);
+		}
+		return valueEvaluated;
 	}
 	
 	@Basic
@@ -151,6 +174,11 @@ public class Table extends Container {
 		this.emptyMessage = emptyMessage;
 	}
 
+	@Transient
+	public String getCurrentPageReportTemplateEvaluated() {
+		return (String) ScreenUtils.evaluate(getCurrentPageReportTemplate());
+	}
+	
 	@Basic
 	public String getCurrentPageReportTemplate() {
 		return currentPageReportTemplate;
@@ -159,5 +187,6 @@ public class Table extends Container {
 	public void setCurrentPageReportTemplate(String currentPageReportTemplate) {
 		this.currentPageReportTemplate = currentPageReportTemplate;
 	}
+
 	
 }

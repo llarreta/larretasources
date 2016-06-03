@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.persistence.dao.StandardDAO;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 /**
  * DAO con las funcionalidades basicas resueltas

@@ -11,9 +11,9 @@
 	<on-start>
         <set name="controller.dataView" value="dataView" />
     </on-start>
-	
-	<action-state id="starting" parent="crud-flow#starting"/>
-	<view-state id="start"  	parent="crud-flow#start"  		view="screen.xhtml"/>
+
+	<action-state id="starting" parent="crud-flow#starting" />
+	<view-state id="start"  	parent="crud-flow#start"  		view="screen.xhtml" />
 	<view-state id="updateView" parent="crud-flow#updateView" 	view="screen.xhtml" />
 	<view-state id="createView" parent="crud-flow#createView" 	view="screen.xhtml" />
 

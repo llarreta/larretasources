@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 /**
  * Procesa el resultado del DAO y lo vuelca sobre la entidad principal 

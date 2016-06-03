@@ -3,7 +3,7 @@ package ar.com.larreta.smarttrace.services.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.com.larreta.commons.persistence.dao.impl.LoadArguments;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.services.impl.StandardServiceImpl;
 import ar.com.larreta.smarttrace.domain.Container;
 import ar.com.larreta.smarttrace.services.ContainerService;

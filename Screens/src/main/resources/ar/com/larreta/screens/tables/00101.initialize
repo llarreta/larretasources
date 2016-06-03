@@ -5,7 +5,8 @@ CREATE TABLE [SCHEMMA].screenElement (
 	tooltip VARCHAR(255),
 	watermark VARCHAR(255),
 	type VARCHAR(255),
-	isPropertyValue TINYINT(1),
+	bindingObject VARCHAR(255),
+	bindingProperty VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -38,6 +39,7 @@ CREATE TABLE [SCHEMMA].tabletag (
 	selection VARCHAR(255),
 	emptyMessage VARCHAR(255),
 	currentPageReportTemplate VARCHAR(255),
+	lazyProperties VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -51,6 +53,7 @@ CREATE TABLE [SCHEMMA].columntag (
 
 CREATE TABLE [SCHEMMA].screen (
 	id BIGINT NOT NULL,
+	entityClass VARCHAR(255),
 	title VARCHAR(255),
 	contentType VARCHAR(255),
 	pragma VARCHAR(255),
@@ -67,6 +70,7 @@ CREATE TABLE [SCHEMMA].hasStyleSheets (
 
 CREATE TABLE [SCHEMMA].attribute (
 	id BIGINT NOT NULL,
+	deleted DATETIME,
 	name VARCHAR(255) NOT NULL,
 	value VARCHAR(255) NOT NULL,
 	idButton BIGINT NOT NULL,
@@ -102,6 +106,7 @@ CREATE TABLE [SCHEMMA].button (
 	updateValue VARCHAR(255),
 	action VARCHAR(255),
 	inmediate TINYINT(1),
+	nextScreenId BIGINT,
 	PRIMARY KEY (ID)
 );
 
@@ -160,6 +165,13 @@ CREATE TABLE [SCHEMMA].label (
 CREATE TABLE [SCHEMMA].input (
 	id BIGINT NOT NULL,
 	value VARCHAR(255),
+	binding VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].panelGrid (
+	id BIGINT NOT NULL,
+	columns VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -260,5 +272,10 @@ REFERENCES [SCHEMMA].styleSheet(id);
 
 ALTER TABLE [SCHEMMA].styleSheet
 ADD CONSTRAINT fk_screenElement_in_styleSheet
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].panelGrid
+ADD CONSTRAINT fk_screenElement_in_panelGrid
 FOREIGN KEY (id)
 REFERENCES [SCHEMMA].screenElement(id);

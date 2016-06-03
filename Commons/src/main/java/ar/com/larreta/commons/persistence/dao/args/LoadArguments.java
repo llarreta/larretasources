@@ -1,4 +1,4 @@
-package ar.com.larreta.commons.persistence.dao.impl;
+package ar.com.larreta.commons.persistence.dao.args;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,6 +6,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+
+import ar.com.larreta.commons.persistence.dao.impl.Asc;
+import ar.com.larreta.commons.persistence.dao.impl.Desc;
+import ar.com.larreta.commons.persistence.dao.impl.Equal;
+import ar.com.larreta.commons.persistence.dao.impl.InnerJoin;
+import ar.com.larreta.commons.persistence.dao.impl.JoinedEntity;
+import ar.com.larreta.commons.persistence.dao.impl.LeftJoin;
+import ar.com.larreta.commons.persistence.dao.impl.MainEntity;
+import ar.com.larreta.commons.persistence.dao.impl.NotExists;
+import ar.com.larreta.commons.persistence.dao.impl.NotInSubquery;
+import ar.com.larreta.commons.persistence.dao.impl.Order;
+import ar.com.larreta.commons.persistence.dao.impl.ProjectedCollection;
+import ar.com.larreta.commons.persistence.dao.impl.ProjectedPropertiesSplitter;
+import ar.com.larreta.commons.persistence.dao.impl.ProjectedProperty;
+import ar.com.larreta.commons.persistence.dao.impl.Where;
 
 /**
  * Representa los diferentes argumentos o variables que pueden ser modificables para traer entidades desde la base de datos 
@@ -19,8 +34,38 @@ public class LoadArguments implements Serializable {
 	private Collection<Order> orders = new ArrayList<Order>();
 	private Integer firstResult;
 	private Integer maxResults;
+	
 	private Map<String, String> symbols = new HashMap<String, String>();
 	private ProjectedPropertiesSplitter splitter;
+
+	public LoadArguments toLoadArguments(){
+		LoadArguments args = new LoadArguments(mainEntity.getType());
+		setCommonsProperties(args);
+		return args;
+	}
+
+	public CountArguments toCountArguments(){
+		CountArguments args = new CountArguments(mainEntity.getType());
+		setCommonsProperties(args);
+		return args;
+	}
+	
+	public MaxArguments toMaxArguments(String field){
+		MaxArguments args = new MaxArguments(mainEntity.getType(), field);
+		setCommonsProperties(args);
+		return args;
+	}
+
+	private void setCommonsProperties(LoadArguments args) {
+		args.setProjectedProperties(getProjectedProperties());
+		args.setWheres(getWheres());
+		args.setJoins(getJoins());
+		args.setOrders(getOrders());
+		args.setFirstResult(getFirstResult());
+		args.setMaxResults(getMaxResults());
+		args.setSymbols(getSymbols());
+		args.setSplitter(getSplitter());
+	}
 	
 	public LoadArguments(Class type){
 		mainEntity = new MainEntity(this, type);
@@ -34,6 +79,7 @@ public class LoadArguments implements Serializable {
 		this.mainEntity = mainEntity;
 		mainEntity.setLoadArguments(this);
 	}
+	
 	
 	public Integer getFirstResult() {
 		return firstResult;
@@ -261,5 +307,22 @@ public class LoadArguments implements Serializable {
 
 	public void setMainEntity(MainEntity mainEntity) {
 		this.mainEntity = mainEntity;
+	}
+
+	public void setProjectedProperties(Collection<ProjectedProperty> projectedProperties) {
+		this.projectedProperties = projectedProperties;
+	}
+
+
+	public ProjectedPropertiesSplitter getSplitter() {
+		return splitter;
+	}
+
+	public void setSplitter(ProjectedPropertiesSplitter splitter) {
+		this.splitter = splitter;
+	}
+
+	public Map<String, String> getSymbols() {
+		return symbols;
 	}
 }

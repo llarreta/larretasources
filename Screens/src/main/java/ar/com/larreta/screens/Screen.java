@@ -33,6 +33,17 @@ public class Screen extends Container {
 	private String expires = DEFAULT_EXPIRES;
 	private Collection<StyleSheet> styleSheets;
 	private String title;
+	
+	private String entityClass;
+
+	@Basic
+	public String getEntityClass() {
+		return entityClass;
+	}
+
+	public void setEntityClass(String entityClass) {
+		this.entityClass = entityClass;
+	}
 
 	@Transient
 	public String getTitleEvaluated() {

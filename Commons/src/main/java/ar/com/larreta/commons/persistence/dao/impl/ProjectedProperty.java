@@ -8,6 +8,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.commons.domain.Entity;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 public class ProjectedProperty extends QueryElement {
 

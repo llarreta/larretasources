@@ -10,6 +10,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 public class ProjectedCollection extends ProjectedProperty {
 

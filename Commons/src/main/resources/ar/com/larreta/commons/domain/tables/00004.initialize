@@ -13,6 +13,9 @@ insert into [SCHEMMA].containsRoles (idProfile, idRole) values (1, 2);
 insert into [SCHEMMA].containsRoles (idProfile, idRole) values (2, 2);
 insert into [SCHEMMA].hasProfiles (idUser, idProfile) values (1, 1);
 
+insert into [SCHEMMA].country (id, abbreviation, description) values (1, 'ES', 'España');
+insert into [SCHEMMA].language (id, abbreviation, description) values (1, 'es', 'Español');
+
 
 
 
