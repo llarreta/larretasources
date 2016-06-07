@@ -21,6 +21,14 @@ public class SubMenu extends Container implements MenuElement{
 	private String label;
 	private DefaultSubMenu submenu;
 	
+	public SubMenu(){}
+
+	public SubMenu(String labelMessage, String styleClass){
+		this();
+		setLabelMessage(labelMessage);
+		setStyleClass(styleClass);
+	}
+	
 	@Transient
 	public DefaultSubMenu getSubmenu() {
 		if (submenu==null){

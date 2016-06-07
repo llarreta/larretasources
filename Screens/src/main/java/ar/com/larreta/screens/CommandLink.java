@@ -11,4 +11,11 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class CommandLink extends ScreenElement {
 
+	public CommandLink(){}
+	
+	public CommandLink(String styleClass){
+		this();
+		setStyleClass(styleClass);
+	}
+	
 }

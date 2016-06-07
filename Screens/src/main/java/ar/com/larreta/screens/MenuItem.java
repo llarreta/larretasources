@@ -19,6 +19,15 @@ public class MenuItem extends ScreenElement implements MenuElement{
 	private String value;
 	private String url;
 
+	public MenuItem(){}
+	
+	public MenuItem(String value, String url, String styleClass){
+		this();
+		setValueMessage(value);
+		setUrl(url);
+		setStyleClass(styleClass);
+	}
+	
 	@Transient
 	public org.primefaces.model.menu.MenuItem getMenuItem() {
 		if (menuItem==null){

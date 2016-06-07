@@ -20,6 +20,12 @@ public class Label extends ScreenElement {
 		setBindingProperty("value");
 	}
 	
+	public Label(String value, String styleClass){
+		this();
+		setValue(value);
+		setStyleClass(styleClass);
+	}
+	
 	public Label(String value){
 		this();
 		setValue(value);

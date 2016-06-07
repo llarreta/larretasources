@@ -20,6 +20,13 @@ public class MenuBar extends Container {
 	
 	private MenuModel menuModel;
 	
+	public MenuBar(){}
+	
+	public MenuBar(String styleClass){
+		this();
+		setStyleClass(styleClass);
+	}
+	
 	@Transient
 	public MenuModel getMenuModel() {
 		if (menuModel==null){

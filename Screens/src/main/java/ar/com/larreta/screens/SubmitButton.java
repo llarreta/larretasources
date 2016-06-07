@@ -22,6 +22,24 @@ public class SubmitButton extends Button {
 	private Set<PropertyActionListener> properties;
 	private Long nextScreenId;
 
+	public SubmitButton() {
+		super();
+		ajax = Boolean.FALSE;
+	}
+	
+	public SubmitButton(String action, String icon, String value) {
+		this();
+		setAction(action);
+		setIcon(icon);
+		setValue(value);
+	}
+	
+	public SubmitButton(String action, String icon, String value, Boolean inmediate) {
+		this(action, icon, value);
+		setInmediate(inmediate);
+	}
+	
+	
 	@Basic
 	public Long getNextScreenId() {
 		return nextScreenId;
@@ -31,11 +49,6 @@ public class SubmitButton extends Button {
 		this.nextScreenId = nextScreenId;
 	}
 
-	public SubmitButton() {
-		super();
-		ajax = Boolean.FALSE;
-	}
-	
 	@OneToMany (mappedBy="button", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=PropertyActionListener.class)
 	//FIXME: Descomentar esta linea provoca un error en hibernate para crear la query que trae la info
 	//@Where(clause="deleted IS NULL")

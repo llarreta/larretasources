@@ -16,5 +16,9 @@ public class GraphicImage extends Library {
 	public GraphicImage(String library, String name) {
 		super(library, name);
 	}
-
+	
+	public GraphicImage(String library, String name, String styleClass) {
+		this(library, name);
+		setStyleClass(styleClass);
+	}
 }

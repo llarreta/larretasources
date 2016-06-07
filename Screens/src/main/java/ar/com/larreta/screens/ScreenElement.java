@@ -22,6 +22,9 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 
 	private static final Logger LOGGER = Logger.getLogger(ScreenElement.class);
 	
+	@Transient
+	private ScreenElement me;
+	
 	private String styleClass;
 	private String tooltip;
 	private String watermark;
@@ -140,4 +143,21 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 		this.styleClass = styleClass;
 	}
 	
+	@Transient
+	protected ScreenElement getMe(Class toInstance) {
+		if (me==null){
+			try {
+				me = (ScreenElement) toInstance.newInstance();
+				PropertyUtils.copyProperties(me, this);
+			} catch (Exception e) {
+				LOGGER.error("Ocurrio un error copiando propiedades", e);
+			}
+		}
+		return me;
+	}
+	
+	@Transient
+	public ScreenElement getMe(){
+		return this;
+	}
 }

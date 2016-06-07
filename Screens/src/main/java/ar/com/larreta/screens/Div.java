@@ -13,4 +13,9 @@ public class Div extends Container {
 	
 	public Div(){}
 	
+	public Div(String styleClass){
+		this();
+		setStyleClass(styleClass);
+	}
+	
 }

@@ -14,6 +14,12 @@ public class PanelGrid extends Container {
 
 	private String columns;
 
+	public PanelGrid(){}
+	
+	public PanelGrid(Integer columns){
+		setColumns(columns.toString());
+	}
+	
 	@Basic
 	public String getColumns() {
 		return columns;

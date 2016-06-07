@@ -50,10 +50,11 @@ public abstract class Container extends ScreenElement {
 	}
 
 	public void add(Integer orderIndex, ScreenElement element){
-		containedElements.add(new ContainedElement(orderIndex, this, element));
+		containedElements.add(new ContainedElement(orderIndex, this.getMe(), element));
 	}
 	
 	public void add(ScreenElement element){
 		add(0, element);
 	}
+	
 }

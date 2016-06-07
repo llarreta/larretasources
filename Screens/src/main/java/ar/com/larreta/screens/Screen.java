@@ -36,6 +36,19 @@ public class Screen extends Container {
 	
 	private String entityClass;
 
+	public Screen(){}
+	
+	public Screen(Class entityClass){
+		this();
+		String entityClassName = entityClass.getName();
+		setEntityClass(entityClassName);
+	}
+	
+	public Screen(Long id, Class entityClass){
+		this(entityClass);
+		setId(id);
+	}
+	
 	@Basic
 	public String getEntityClass() {
 		return entityClass;
