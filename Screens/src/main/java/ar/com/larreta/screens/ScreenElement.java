@@ -18,7 +18,8 @@ import org.apache.log4j.Logger;
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity {
 
-	public static final String TABLE_ELEMENT = "#{tableElement}";
+	public static final String TABLE_ELEMENT = ScreenUtils.generateExpression("tableElement");
+	public static final String CONTROLLER = ScreenUtils.generateExpression("controller");
 
 	private static final Logger LOGGER = Logger.getLogger(ScreenElement.class);
 	
@@ -37,6 +38,21 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 		return ScreenUtils.evaluate(getBindingObject());
 	}
 	
+	@Transient
+	public Boolean getIsBindingTableElementWithProperty(){
+		return TABLE_ELEMENT.equals(getBindingObject()) && !StringUtils.isEmpty(getBindingProperty());
+	}
+	
+	@Transient
+	public Boolean getIsBindingTableElementWithoutProperty(){
+		return TABLE_ELEMENT.equals(getBindingObject()) && StringUtils.isEmpty(getBindingProperty());
+	}
+	
+	@Transient
+	public Boolean getIsBindingTableElement(){
+		return TABLE_ELEMENT.equals(getBindingObject());
+	}
+
 	/**
 	 * Asigna el valor a la propiedad del objeto enlazado
 	 * @param value
@@ -53,11 +69,6 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 			}
 		}
 	}
-
-	@Transient
-	public Boolean getIsBindingTableElement(){
-		return TABLE_ELEMENT.equals(getBindingObject());
-	}
 	
 	/**
 	 * Retorna el valor de la propiedad en el objeto enlazado
@@ -69,7 +80,7 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 			Object toBinding = getBindingObjectInstance();
 			if (toBinding!=null){
 				try {
-					return PropertyUtils.getProperty(toBinding, getBindingProperty());
+					return ScreenUtils.fixValue(PropertyUtils.getProperty(toBinding, getBindingProperty()));
 				} catch (Exception e){
 					LOGGER.error("Ocurrio un error en el get binding", e);
 				}
@@ -77,6 +88,8 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 		}
 		return null;
 	}
+	
+
 
 	@Basic
 	public String getBindingObject() {

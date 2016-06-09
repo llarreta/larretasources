@@ -29,12 +29,14 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 
 	private Long getScreenId(RequestContext flowRequestContext) {
 		Long screenId = null;
-		String id = flowRequestContext.getRequestParameters().get(SCREEN_ID);
-		if (!StringUtils.isEmpty(id)){
-			screenId = new Long(id);
+		if (getDataView().getNextScreenId()!=null){
+			screenId = new Long(getDataView().getNextScreenId());
 		}
 		if (screenId==null){
-			screenId = new Long(getDataView().getNextScreenId());
+			String id = flowRequestContext.getRequestParameters().get(SCREEN_ID);
+			if (!StringUtils.isEmpty(id)){
+				screenId = new Long(id);
+			}
 		}
 		return screenId;
 	}
@@ -63,6 +65,10 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 		super.initCreate(flowRequestContext);
 	}
 
-
+	@Override
+	public void initUpdate(RequestContext flowRequestContext) {
+		getScreen(flowRequestContext);
+		super.initUpdate(flowRequestContext);
+	}
 
 }

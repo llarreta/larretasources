@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "attribute")
@@ -35,6 +36,11 @@ public class Attribute extends ScreenElement {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Transient
+	public Object getValueEvaluated(){
+		return ScreenUtils.evaluate(getValue());
 	}
 	
 	@Basic

@@ -1,60 +1,25 @@
 package ar.com.larreta.screens;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "confirm")
 @DiscriminatorValue(value = "confirm")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class Confirm extends ScreenElement {
+public class Confirm extends Container {
 
 	private String header;
 	private String message;
 	private String icon;
-	private Boolean global;
+	private Boolean global = Boolean.TRUE;
 	private String showEffect;
 	private String hideEffect;
-	private Set<SubmitButton> submitButtons;
-	private Set<AjaxButton> ajaxButtons;
 
-	@OneToMany (mappedBy="confirm", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=AjaxButton.class)
-	@Where(clause="deleted IS NULL")
-	public Set<AjaxButton> getAjaxButtons() {
-		return ajaxButtons;
-	}
-	public void setAjaxButtons(Set<AjaxButton> ajaxButtons) {
-		this.ajaxButtons = ajaxButtons;
-	}
-	@OneToMany (mappedBy="confirm", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=SubmitButton.class)
-	@Where(clause="deleted IS NULL")
-	public Set<SubmitButton> getSubmitButtons() {
-		return submitButtons;
-	}
-	public void setSubmitButtons(Set<SubmitButton> buttons) {
-		this.submitButtons = buttons;
-	}
-	
-	@Transient
-	public Set<Button> getButtons(){
-		Set<Button> buttons = new HashSet<Button>();
-		buttons.addAll(getAjaxButtons());
-		buttons.addAll(getSubmitButtons());
-		return buttons;
-	}
-	
 	@Basic
 	public Boolean getGlobal() {
 		return global;
@@ -79,12 +44,22 @@ public class Confirm extends ScreenElement {
 		this.hideEffect = hideEffect;
 	}
 	
+	@Transient
+	public String getHeaderEvaluated(){
+		return (String) ScreenUtils.evaluate(getHeader());
+	}
+	
 	@Basic
 	public String getHeader() {
 		return header;
 	}
 	public void setHeader(String header) {
 		this.header = header;
+	}
+
+	@Transient
+	public String getMessageEvaluated() {
+		return  (String) ScreenUtils.evaluate(getMessage());
 	}
 	
 	@Basic

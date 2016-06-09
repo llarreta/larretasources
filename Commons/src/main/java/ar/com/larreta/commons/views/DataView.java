@@ -31,6 +31,12 @@ public class DataView extends AppObjectImpl {
 	
 	private String nextScreenId;
 
+	public DataView() {
+		super();
+		paginator = newPaginator();
+		paginator.setDataView(this);
+	}
+	
 	public String getNextScreenId() {
 		return nextScreenId;
 	}
@@ -45,12 +51,6 @@ public class DataView extends AppObjectImpl {
 
 	public void setForward(String forward) {
 		this.forward = forward;
-	}
-
-	public DataView() {
-		super();
-		paginator = newPaginator();
-		paginator.setDataView(this);
 	}
 
 	protected Paginator newPaginator() {

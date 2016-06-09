@@ -14,12 +14,12 @@
          paginatorTemplate="#{element.paginatorTemplate}"
               	 rowsPerPageTemplate="#{element.rowsPerPageTemplate}" 
 	     emptyMessage="#{element.emptyMessage}"
-	     currentPageReportTemplate="#{element.currentPageReportTemplate}"
+	     currentPageReportTemplate="#{element.currentPageReportTemplateEvaluated}"
  				 var="tableElement"  selection="#{dataView.selected}"
      	 value="#{element.valueEvaluated}"
      >   
      	<c:forEach var="column" items="#{element.ordererElements}">
-     		<p:column headerText="#{column.headerText}" sortBy="#{column.sortby}" width="#{column.width}">
+     		<p:column headerText="#{column.headerTextEvaluated}" sortBy="#{column.sortby}" width="#{column.width}">
      			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 					<ui:param name="elementValue" value="#{tableElement}" />
 					<ui:param name="elements" value="#{column.ordererElements}" />

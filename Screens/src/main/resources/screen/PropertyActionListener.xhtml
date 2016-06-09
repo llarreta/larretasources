@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	>
+	<c:if test="#{element.isBindingTableElementWithoutProperty}">
+		<f:setPropertyActionListener target="#{element.target}" value="#{tableElement}" />
+	</c:if>
+	<c:if test="#{element.isBindingTableElementWithProperty}">
+		<f:setPropertyActionListener target="#{element.target}" value="#{tableElement[element.bindingProperty]}" />
+	</c:if>
+	<c:if test="#{!element.isBindingTableElement}">
+		<f:setPropertyActionListener target="#{element.target}" value="#{element.valueEvaluated}" />
+	</c:if>
+	
+	
+</html>

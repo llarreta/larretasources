@@ -274,11 +274,13 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 	}
 
 	public void forward(RequestContext flowRequestContext){
+		getLog().info("Executing forward to:" +  getDataView().getForward() );
 		getDataView().setForward(getDataView().getForward()); 
 	}
 	
 	public void forward(ActionEvent actionEvent){
 		setSelected(actionEvent);
+		getLog().info("Executing forward to:" +  getDataView().getForward() );
 		getDataView().setForward(getDataView().getForward());
 	}
 

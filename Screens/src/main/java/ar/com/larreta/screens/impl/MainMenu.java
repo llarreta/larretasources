@@ -5,16 +5,17 @@ import javax.persistence.Transient;
 import ar.com.larreta.screens.MenuBar;
 import ar.com.larreta.screens.MenuItem;
 import ar.com.larreta.screens.ScreenElement;
-import ar.com.larreta.screens.SubMenu;
 
 public class MainMenu extends MenuBar {
+	private static final String MENU_ITEM_DEFAULT_STYLE = "menu-item-default";
+	private static final String APP_SCREEN_URL = "/app/screen?screenId=";
+
 	public MainMenu(){
 		super("main-bar-1");
 		setId(ScreenImplementationsIds.MAIN_MENU);
-		add(new MenuItem("main-bar.init", "/app/home", "menu-item-default"));
-		SubMenu subMenu = new SubMenu("main-bar.basicConfigurations", "sub-menu-main");
-		subMenu.add(new MenuItem("main-bar.init", "/app/home", "menu-item-default"));
-		add(subMenu);
+		add(new MenuItem("Language", APP_SCREEN_URL + ScreenImplementationsIds.LANGUAGE_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(new MenuItem("Country", APP_SCREEN_URL + ScreenImplementationsIds.COUNTRY_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(new MenuItem("Resource Message", APP_SCREEN_URL + ScreenImplementationsIds.RESOURCE_MESSAGE_MAIN, MENU_ITEM_DEFAULT_STYLE));
 	}
 	
 	@Transient

@@ -7,6 +7,21 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
 	
-	<ui:include src="/WEB-INF/flows/screen/Button.xhtml" />
+		<p:commandButton	id="#{element.idValue}"
+						actionListener="#{element.actionListener}"	type="#{element.buttonType}"
+						value="#{element.bindingPropertyValue}" 
+						icon="#{element.icon}" 						styleClass="#{element.styleClass}"
+						ajax="#{element.ajax}" 						immediate="#{element.inmediate}"
+						update="#{element.update}">
+		
+			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+					<ui:param name="elements" value="#{element.params}" />
+			</ui:include>
+		</p:commandButton>
+		<p:confirmDialog global="#{element.confirm.global}" showEffect="#{element.confirm.showEffect}" hideEffect="#{element.confirm.hideEffect}" rendered="#{element.confirm!=null}">
+			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+				<ui:param name="elements" value="#{element.confirm.ordererElements}" />
+			</ui:include>
+		</p:confirmDialog>
 	
 </html>

@@ -1,5 +1,7 @@
 package ar.com.larreta.screens;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -39,6 +41,11 @@ public class SubmitButton extends Button {
 		setInmediate(inmediate);
 	}
 	
+	public SubmitButton(String action, String icon, String value, Long nextScreenId) {
+		this(action, icon, value);
+		setNextScreenId(nextScreenId);
+	}
+	
 	
 	@Basic
 	public Long getNextScreenId() {
@@ -59,6 +66,14 @@ public class SubmitButton extends Button {
 	public void setProperties(Set<PropertyActionListener> properties) {
 		this.properties = properties;
 	}
+	
+	public void add(PropertyActionListener propertyActionListener){
+		if (properties==null){
+			properties = new HashSet<PropertyActionListener>();
+		}
+		propertyActionListener.setButton(this);
+		properties.add(propertyActionListener);
+	}
 
 	@Transient
 	public String getActionEvaluated() {
@@ -72,6 +87,17 @@ public class SubmitButton extends Button {
 
 	public void setAction(String action) {
 		this.action = action;
+	}
+
+	@Transient
+	@Override
+	public Collection getParams() {
+		Collection params = super.getParams();
+		Set attributes = getProperties();
+		if (attributes!=null){
+			params.addAll(attributes);
+		}
+		return params;
 	}
 
 	

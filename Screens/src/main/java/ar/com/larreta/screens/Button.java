@@ -1,24 +1,34 @@
 package ar.com.larreta.screens;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
-
 @MappedSuperclass
-public abstract class Button extends ScreenElement {
+public abstract class Button extends ValuedElement {
 
-	private String value;
 	private String icon;
 	protected Boolean ajax;
 	private Boolean inmediate = Boolean.FALSE;
 	private Confirm confirm;
+	private String buttonType;
+
+	@Basic
+	public String getButtonType() {
+		return buttonType;
+	}
+	public void setButtonType(String buttonType) {
+		this.buttonType = buttonType;
+	}
 	
-	@ManyToOne (fetch=FetchType.EAGER, targetEntity=Confirm.class)
+	@OneToOne (fetch=FetchType.EAGER, targetEntity=Confirm.class, cascade=CascadeType.ALL)
 	@JoinColumn (name="idConfirm")
 	public Confirm getConfirm() {
 		return confirm;
@@ -33,14 +43,6 @@ public abstract class Button extends ScreenElement {
 	}
 	public void setInmediate(Boolean inmediate) {
 		this.inmediate = inmediate;
-	}
-	
-	@Basic
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
 	}
 	
 	@Basic
@@ -64,4 +66,13 @@ public abstract class Button extends ScreenElement {
 
 	@Transient
 	public abstract Long getNextScreenId();
+
+	@Transient
+	public Collection getParams(){
+		Collection params = new ArrayList();
+		if (getConfirm()!=null){
+			params.add(getConfirm());
+		}
+		return params;
+	}
 }

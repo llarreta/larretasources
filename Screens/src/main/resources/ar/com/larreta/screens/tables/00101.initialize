@@ -72,28 +72,29 @@ CREATE TABLE [SCHEMMA].attribute (
 	id BIGINT NOT NULL,
 	deleted DATETIME,
 	name VARCHAR(255) NOT NULL,
-	value VARCHAR(255) NOT NULL,
+	value VARCHAR(255),
 	idButton BIGINT NOT NULL,
 	PRIMARY KEY (ID)
 );
 
 CREATE TABLE [SCHEMMA].propertyActionListener (
 	id BIGINT NOT NULL,
-	target VARCHAR(255) NOT NULL,
-	value VARCHAR(255) NOT NULL,
-	forAttributes VARCHAR(255) NOT NULL,
+	value VARCHAR(255),
+	forAttributes VARCHAR(255),
 	idButton BIGINT NOT NULL,
+	targetBindingObject VARCHAR(255) NOT NULL,
+	targetBindingProperty VARCHAR(255) NOT NULL,
 	PRIMARY KEY (ID)
 );
 
 CREATE TABLE [SCHEMMA].confirm (
 	id BIGINT NOT NULL,
-	header VARCHAR(255) NOT NULL,
-	message VARCHAR(255) NOT NULL,
-	icon VARCHAR(255) NOT NULL,
+	header VARCHAR(255),
+	message VARCHAR(255),
+	icon VARCHAR(255),
 	global TINYINT(1),
-	showEffect VARCHAR(255) NOT NULL,
-	hideEffect VARCHAR(255) NOT NULL,
+	showEffect VARCHAR(255),
+	hideEffect VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -102,11 +103,13 @@ CREATE TABLE [SCHEMMA].button (
 	value VARCHAR(255),
 	icon VARCHAR(255),
 	idConfirm BIGINT,
-	actionListener VARCHAR(255),
+	actionListenerObject VARCHAR(255),
+	actionListenerMethod VARCHAR(255),
 	updateValue VARCHAR(255),
 	action VARCHAR(255),
 	inmediate TINYINT(1),
 	nextScreenId BIGINT,
+	buttonType VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -164,8 +167,8 @@ CREATE TABLE [SCHEMMA].label (
 
 CREATE TABLE [SCHEMMA].input (
 	id BIGINT NOT NULL,
-	value VARCHAR(255),
 	binding VARCHAR(255),
+	value VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -174,6 +177,37 @@ CREATE TABLE [SCHEMMA].panelGrid (
 	columns VARCHAR(255),
 	PRIMARY KEY (ID)
 );
+
+CREATE TABLE [SCHEMMA].comboBox (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	itemsValue VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].comboBoxItem (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	itemLabel VARCHAR(255),
+	noSelectionOption VARCHAR(255),
+	idComboBox BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE [SCHEMMA].comboBoxItem
+ADD CONSTRAINT fk_screenElement_in_comboBoxItem
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].comboBoxItem
+ADD CONSTRAINT fk_comboBox_in_comboBoxItem
+FOREIGN KEY (idComboBox)
+REFERENCES [SCHEMMA].comboBox(id);
+
+ALTER TABLE [SCHEMMA].comboBox
+ADD CONSTRAINT fk_screenElement_in_comboBox
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].tabletag
 ADD CONSTRAINT fk_screenElement_in_tabletag
@@ -239,11 +273,6 @@ ALTER TABLE [SCHEMMA].containedElement
 ADD CONSTRAINT fk_element_in_containedElement
 FOREIGN KEY (idElement)
 REFERENCES [SCHEMMA].screenElement(id);
-
-ALTER TABLE [SCHEMMA].button
-ADD CONSTRAINT fk_confirm_in_button
-FOREIGN KEY (idConfirm)
-REFERENCES [SCHEMMA].confirm(id);
 
 ALTER TABLE [SCHEMMA].propertyActionListener
 ADD CONSTRAINT fk_submitButton_in_propertyActionListener

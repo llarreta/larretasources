@@ -4,6 +4,7 @@ import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import ar.com.larreta.commons.AppManager;
 
@@ -14,8 +15,6 @@ public class ScreenUtils {
 	
 	private static final String OPEN_MSG = "msg['";
 	private static final String CLOSE_MSG = "']";
-	
-	private static FacesContext facesContext = FacesContext.getCurrentInstance();
 	
 	//FIXME: Considerar la posibilidad de que en el mismo mensaje vengan varias expresiones a resolver
 	public static String messaging(String exp){
@@ -46,7 +45,8 @@ public class ScreenUtils {
 			exp = messaging(exp);
 			//FIXME: Evaluar solo la expresion entre lo que se abre y lo que se cierra
 			if (exp.indexOf(OPEN_EXP)>=0){
-				return  facesContext.getApplication().evaluateExpressionGet(facesContext, exp , Object.class);
+				FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), exp , Object.class);
+				return  FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), exp , Object.class);
 			}
 		}
 		return exp;
@@ -72,11 +72,23 @@ public class ScreenUtils {
 	}
 	
 	public static MethodExpression createMethod(String expression, Class expectedReturnType,  Class[] expectedParamTypes){
-		return facesContext.getApplication().getExpressionFactory().createMethodExpression(facesContext.getELContext(), expression, expectedReturnType,  expectedParamTypes);
+		return FacesContext.getCurrentInstance().getApplication().getExpressionFactory().createMethodExpression(
+					FacesContext.getCurrentInstance().getELContext(), expression, expectedReturnType,  expectedParamTypes);
 	}
 	
 	public static MethodExpression createSimpleMethod(String expression){
 		return createMethod(expression, String.class, null);
 	}
 	
+	/**
+	 * Escapea los valores
+	 * @param value
+	 * @return
+	 */
+	public static Object fixValue(Object value){
+		if (value instanceof String) {
+			return StringEscapeUtils.escapeHtml4((String) value);
+		}
+		return value;
+	}
 }
