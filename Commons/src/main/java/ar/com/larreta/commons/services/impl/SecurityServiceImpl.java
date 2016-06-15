@@ -21,12 +21,16 @@ public class SecurityServiceImpl extends StandardServiceImpl implements	Security
 	 */
 	@Override
 	public Security getSecurityConfig() {
-		LoadArguments args = new LoadArguments(Security.class);
-		args.addProjectedCollection("securityMatchers");
-		Collection results = getDao().load(args);
-		Iterator<Security> it = results.iterator();
-		if (it.hasNext()){
-			return it.next();
+		try {
+			LoadArguments args = new LoadArguments(Security.class);
+			args.addProjectedCollection("securityMatchers");
+			Collection results = getDao().load(args);
+			Iterator<Security> it = results.iterator();
+			if (it.hasNext()){
+				return it.next();
+			}
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getSecurityConfig", e);
 		}
 		return null;
 	}

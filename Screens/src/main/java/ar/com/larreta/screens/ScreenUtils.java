@@ -5,11 +5,15 @@ import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.log4j.Logger;
 
 import ar.com.larreta.commons.AppManager;
+import ar.com.larreta.commons.faces.EntityConverter;
 
 public class ScreenUtils {
 
+	private static Logger logger = Logger.getLogger(ScreenUtils.class);
+	
 	private static final String OPEN_EXP = "#{";
 	private static final String CLOSE_EXP = "}";
 	
@@ -91,4 +95,26 @@ public class ScreenUtils {
 		}
 		return value;
 	}
+	
+	public static Class getClass(String className){
+		try {
+			return ScreenUtils.class.getClassLoader().loadClass(className);
+		} catch (Exception e){
+			logger.error("Ocurrio un error obteniendo clase a partir del nombre", e);
+		}
+		return null;
+	}
+	
+	public static Object getObject(String className){
+		Class classInstance = getClass(className);
+		if (classInstance!=null){
+			try {
+				return classInstance.newInstance();
+			} catch (Exception e){
+				logger.error("Ocurrio un error obteniendo objeto a partir de clase", e);
+			}
+		}
+		return null;
+	}
+	
 }

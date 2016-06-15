@@ -13,14 +13,14 @@ import javax.persistence.Table;
 @Table(name = "containedElement")
 public class ContainedElement extends ar.com.larreta.commons.domain.Entity {
 
-	private Integer order = 0;
+	private Long order = new Long(0);
 	private ScreenElement container;
 	private ScreenElement element;
 
 	public ContainedElement(){}
 	
 	public ContainedElement(Integer order, ScreenElement container, ScreenElement element){
-		this.order = order;
+		this.order = new Long(order);
 		this.container = container;
 		this.element = element;
 	}
@@ -46,11 +46,11 @@ public class ContainedElement extends ar.com.larreta.commons.domain.Entity {
 	}
 
 	@Basic @Column(name="orderIndex")
-	public Integer getOrder() {
+	public Long getOrder() {
 		return order;
 	}
 
-	public void setOrder(Integer order) {
+	public void setOrder(Long order) {
 		if (order!=null){
 			this.order = order;
 		}

@@ -55,14 +55,19 @@ public class UserServiceImpl extends StandardServiceImpl implements UserService 
 	 */
 	@Transactional(readOnly=true)
 	public User getUserByNickWithProfiles(String nick) {
-		LoadArguments args = new LoadArguments(User.class);
-		args.addProjectedCollection("profiles").addProjectedCollection("profiles.roles");
-		args.addWhereEqual("nick", nick);
-		Collection users = userDAO.load(args);
-		if ((users==null) || (users.isEmpty())){
-			return null;
+		try {
+			LoadArguments args = new LoadArguments(User.class);
+			args.addProjectedCollection("profiles").addProjectedCollection("profiles.roles");
+			args.addWhereEqual("nick", nick);
+			Collection users = userDAO.load(args);
+			if ((users==null) || (users.isEmpty())){
+				return null;
+			}
+			return (User) users.iterator().next();
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getUserByNickWithProfiles", e);
 		}
-		return (User) users.iterator().next();
+		return null;
 	}
 
 	/**
@@ -72,13 +77,18 @@ public class UserServiceImpl extends StandardServiceImpl implements UserService 
 	 */
 	@Transactional(readOnly=true)
 	public User getUserByNick(String nick) {
-		LoadArguments args = new LoadArguments(User.class);
-		args.addWhereEqual("nick", nick);
-		Collection users = userDAO.load(args);
-		if ((users==null) || (users.isEmpty())){
-			return null;
+		try {
+			LoadArguments args = new LoadArguments(User.class);
+			args.addWhereEqual("nick", nick);
+			Collection users = userDAO.load(args);
+			if ((users==null) || (users.isEmpty())){
+				return null;
+			}
+			return (User) users.iterator().next();
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getUserByNick", e);
 		}
-		return (User) users.iterator().next();
+		return null;
 	}
 
 	/**
@@ -118,7 +128,12 @@ public class UserServiceImpl extends StandardServiceImpl implements UserService 
 	
 	@Transactional(readOnly=true)
 	public Collection<Role> getRoles(User user){
-		return userDAO.getRoles(user);
+		try {
+			return userDAO.getRoles(user);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getRoles", e);
+		}
+		return null;
 	}
 	
 	public Collection<Profile> getProfiles(User user){

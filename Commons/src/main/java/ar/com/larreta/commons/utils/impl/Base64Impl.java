@@ -8,17 +8,21 @@ import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.utils.Base64;
 
-@Component
+@Component(Base64Impl.BASE64)
 public class Base64Impl extends AppObjectImpl implements Base64 {
 	
+	public static final String BASE64 = "base64";
+
 	public static final String ENCRYPTION_PASSWORD = "aj8NxAK0wT894RwExkEpk0EikOlgztoFuIlaRrUBKkM=";
 	
-	private BasicTextEncryptor basicTextEncryptor;
-
 	public Base64Impl(){
-		this.basicTextEncryptor = new BasicTextEncryptor();
-		basicTextEncryptor.setPassword(ENCRYPTION_PASSWORD);
 	}
+	
+	private BasicTextEncryptor getEncryptor(){
+		BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
+		basicTextEncryptor.setPassword(ENCRYPTION_PASSWORD);
+		return basicTextEncryptor;
+	} 
 	
 	/**
 	 * Codifica el texto en base 64
@@ -47,7 +51,7 @@ public class Base64Impl extends AppObjectImpl implements Base64 {
 	 * @return
 	 */
 	private String encrypt (String text, Integer countdown){
-		String encrypted = encode(basicTextEncryptor.encrypt(text));
+		String encrypted = encode(getEncryptor().encrypt(text));
 		//Validamos que pueda desencriptarse
 		try{
 			decrypt(encrypted);
@@ -78,7 +82,7 @@ public class Base64Impl extends AppObjectImpl implements Base64 {
 	 * @return
 	 */
 	public String decrypt (String text){
-		return basicTextEncryptor.decrypt(decode(text));
+		return getEncryptor().decrypt(decode(text));
 	}
 	
 	/**
@@ -86,7 +90,7 @@ public class Base64Impl extends AppObjectImpl implements Base64 {
 	 * @return
 	 */
 	public String getToken(){
-		return encode(basicTextEncryptor.encrypt(AppManager.getInstance().getAppConfig().getLockApp().nextIdentifier().toString()));
+		return encode(getEncryptor().encrypt(AppManager.getInstance().getAppConfig().getLockApp().nextIdentifier().toString()));
 	}
 	
 }

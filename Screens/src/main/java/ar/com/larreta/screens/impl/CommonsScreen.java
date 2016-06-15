@@ -37,11 +37,21 @@ public abstract class CommonsScreen extends Screen{
 	
 	public CommonsScreen(Long id, Class entityClass){
 		super(id, entityClass);
+		setCommons();
+	}
+
+	protected void setCommons() {
 		setTitleMessage("app.titleApp");
 		setStyleSheets(styleSheets);
 		add(0, header.getMe());
 		add(1, getBody());
 		add(2, footer.getMe());
+	}
+	
+	public CommonsScreen(Long id, Class entityClass, String listener){
+		super(id, entityClass);
+		setScreenListenerName(listener);
+		setCommons();
 	}
 
 	@Transient

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.persistence.dao.StandardDAO;
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
 
 /**
  * DAO con las funcionalidades basicas resueltas
@@ -25,8 +26,9 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 
 	/**
 	 * Obtiene una entidad de la base de datos del tipo entityClass y filtrando por el id
+	 * @throws UnreportedEntityException 
 	 */
-	public Entity getEntity(Class entityClass, Serializable id){
+	public Entity getEntity(Class entityClass, Serializable id) throws UnreportedEntityException{
 		LoadArguments args = new LoadArguments(entityClass);
 		args.addWhereEqual("id", id);
 		return getEntity(args);
@@ -56,8 +58,9 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * @param field
 	 * @param value
 	 * @return
+	 * @throws UnreportedEntityException 
 	 */
-	public Entity getEntity(Class entityClass, String field, Object value){
+	public Entity getEntity(Class entityClass, String field, Object value) throws UnreportedEntityException{
 		LoadArguments args = new LoadArguments(entityClass);
 		args.addWhereEqual(field, value);
 		return getEntity(args);

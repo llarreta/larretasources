@@ -8,10 +8,11 @@ import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.persistence.CommonsSessionFactory;
 import ar.com.larreta.commons.persistence.dao.args.CountArguments;
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
 
 public interface LoadDao extends AppObject {
 	public org.hibernate.SessionFactory getSessionFactory();
-	public Collection load(Class type);
+	public Collection load(Class type) throws UnreportedEntityException;
 	public Collection load(LoadArguments args);
 	public Long count(CountArguments args);
 	public Query makeQuery(LoadArguments args);

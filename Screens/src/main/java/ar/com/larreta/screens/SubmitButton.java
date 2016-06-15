@@ -45,6 +45,12 @@ public class SubmitButton extends Button {
 		this(action, icon, value);
 		setNextScreenId(nextScreenId);
 	}
+
+	public SubmitButton(String action, String icon, String value, Long nextScreenId, Boolean inmediate) {
+		this(action, icon, value);
+		setNextScreenId(nextScreenId);
+		setInmediate(inmediate);
+	}
 	
 	
 	@Basic

@@ -115,7 +115,12 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 * @return
 	 */
 	public Entity getEntity(Entity entity) {
-		return dao.getEntity(entity.getClass(), entity.getId());
+		try {
+			return dao.getEntity(entity.getClass(), entity.getId());
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getEntity", e);
+		}
+		return null;
 	}
 	
 	/**
@@ -125,12 +130,17 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 * @return
 	 */
 	public Entity getEntity(Entity entity, Collection<String> properties) {
-		LoadArguments args = new LoadArguments(entity.getClass());
-		args.addWhereEqual("id", entity.getId());
-		for(String propertie : properties){
-			args.addProjectedProperties(propertie);
+		try {
+			LoadArguments args = new LoadArguments(entity.getClass());
+			args.addWhereEqual("id", entity.getId());
+			for(String propertie : properties){
+				args.addProjectedProperties(propertie);
+			}
+			return dao.getEntity(args);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getEntity", e);
 		}
-		return dao.getEntity(args);
+		return null;
 	}
 	
 	/**
@@ -142,17 +152,22 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 * @return
 	 */
 	public Entity getEntity(Entity entity, Collection<String> properties, Collection<String> projectedCollections) {
-		LoadArguments args = new LoadArguments(entity.getClass());
-		args.addWhereEqual("id", entity.getId());
-		if(properties != null){
-			for(String propertie : properties){
-				args.addProjectedProperties(propertie);
+		try {
+			LoadArguments args = new LoadArguments(entity.getClass());
+			args.addWhereEqual("id", entity.getId());
+			if(properties != null){
+				for(String propertie : properties){
+					args.addProjectedProperties(propertie);
+				}
 			}
+			for(String collection : projectedCollections){
+				args.addProjectedCollectionLeftJoin(collection);
+			}
+			return dao.getEntity(args);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getEntity", e);
 		}
-		for(String collection : projectedCollections){
-			args.addProjectedCollectionLeftJoin(collection);
-		}
-		return dao.getEntity(args);
+		return null;
 	}
 
 	/**
@@ -201,30 +216,45 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 
 	@Override
 	public ServiceInfo loadServiceInfo(Class entityType) {
-		LoadArguments arguments = new LoadArguments(entityType);
-		Collection data = dao.load(arguments);
-		return new ServiceInfo(arguments, data);
+		try {
+			LoadArguments arguments = new LoadArguments(entityType);
+			Collection data = dao.load(arguments);
+			return new ServiceInfo(arguments, data);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el loadServiceInfo", e);
+		}
+		return null;
 	}
 
 	@Override
 	public ServiceInfo loadServiceInfo(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters) {
-		LoadArguments arguments = new LoadArguments(entityType);
-		arguments.setFirstResult(firstResult);
-		arguments.setMaxResults(maxResults);
-		Collection data = dao.load(arguments);
-		return new ServiceInfo(arguments, data);
+		try {
+			LoadArguments arguments = new LoadArguments(entityType);
+			arguments.setFirstResult(firstResult);
+			arguments.setMaxResults(maxResults);
+			Collection data = dao.load(arguments);
+			return new ServiceInfo(arguments, data);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el loadServiceInfo", e);
+		}
+		return null;
 	}
 
 	@Override
 	public ServiceInfo loadServiceInfo(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties) {
-		LoadArguments arguments = new LoadArguments(entityType);
-		for(String field : lazyProperties){
-			arguments.addProjectedPropertiesLeftJoin(field);
+		try {
+			LoadArguments arguments = new LoadArguments(entityType);
+			for(String field : lazyProperties){
+				arguments.addProjectedPropertiesLeftJoin(field);
+			}
+			arguments.setFirstResult(firstResult);
+			arguments.setMaxResults(maxResults);
+			Collection data = dao.load(arguments);
+			return new ServiceInfo(arguments, data);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el loadServiceInfo", e);
 		}
-		arguments.setFirstResult(firstResult);
-		arguments.setMaxResults(maxResults);
-		Collection data = dao.load(arguments);
-		return new ServiceInfo(arguments, data);
+		return null;
 	}
 	
 
@@ -255,7 +285,12 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 * @return
 	 */
 	public Long count(Class entityType){
-		return dao.count(new CountArguments(entityType));
+		try {
+			return dao.count(new CountArguments(entityType));
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el count", e);
+		}
+		return null;
 	}
 
 	public Long count(CountArguments arguments){
@@ -270,16 +305,20 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 */
 	public Long getMaxId(Class type) {
 		Long max = null;
-		MaxArguments args = new MaxArguments(type, Entity.ID);
-		Collection ids = dao.load(args);
-		if (ids!=null){
-			Iterator itIds = ids.iterator();
-			if (itIds.hasNext()){
-				max = (Long) itIds.next();
+		try {
+			MaxArguments args = new MaxArguments(type, Entity.ID);
+			Collection ids = dao.load(args);
+			if (ids!=null){
+				Iterator itIds = ids.iterator();
+				if (itIds.hasNext()){
+					max = (Long) itIds.next();
+				}
 			}
-		}
-		if (max==null){
-			max = new Long(0);
+			if (max==null){
+				max = new Long(0);
+			}
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getMaxId", e);
 		}
 		return max;
 	}

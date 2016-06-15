@@ -21,7 +21,6 @@ public class Table extends Container {
 
 	private static final String SEPARATOR = ",";
 	
-	private String var = "actualItem";
 	private String value = ScreenUtils.generateExpression("dataView.paginator");
 	private Boolean paginator = Boolean.TRUE;
 	private Boolean lazy = Boolean.TRUE;
@@ -67,15 +66,6 @@ public class Table extends Container {
 
 	public void addColumn(Column element) {
 		super.add(element);
-	}
-
-	@Basic
-	public String getVar() {
-		return var;
-	}
-
-	public void setVar(String var) {
-		this.var = var;
 	}
 
 	@Transient

@@ -2,6 +2,8 @@ package ar.com.larreta.commons.persistence.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +30,8 @@ import java.sql.Statement;
 import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -39,25 +43,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.commons.AppConfig;
+import ar.com.larreta.commons.AppConfigData;
 import ar.com.larreta.commons.AppObjectImpl;
+import ar.com.larreta.commons.AppState;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.impl.AppConfigDataImpl;
 import ar.com.larreta.commons.persistence.IEAction;
 import ar.com.larreta.commons.persistence.JDBCConnection;
 import ar.com.larreta.commons.persistence.NamedParameterStatement;
+import ar.com.larreta.commons.utils.Zipper;
 
 /**
  * Wrapper de connection, para establecer una conexion JDBC pura
  */
-@Component
-@DependsOn("appConfig")
+@Component(JDBCConnectionImpl.JDBC_CONNECTION)
+@DependsOn(AppConfigDataImpl.APP_CONFIG_DATA)
 public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection {
 	
+	private static final String TEXT_FILE_ENCODING = "text.file.encoding";
+	private static final String ZIP = ".zip";
+	private static final String EXPORT = "export_";
+	
+	public static final String JDBC_CONNECTION = "JDBCConnectionImpl";
+
 	private static final long serialVersionUID = 1L;
 
 	private static final String SQL = ".sql";
-
-	private static final String EXPORT = "export_";
 
 	private static final String WHITE_SPACE = " ";
 
@@ -72,7 +83,7 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 	public static final String NEW_LINE = "\n";
 	
 	@Autowired
-	private AppConfig appConfig;
+	private AppConfigData appConfigData;
 	
 	public final static String DEFAULT_DELIMITER = ";";
 	
@@ -83,18 +94,67 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 
 	@PostConstruct
 	public void init() throws ClassNotFoundException, SQLException, IOException{
-		appConfig.initializeSchemma(this);
+		if (AppState.getInstance().isInitializing()){
+			if (appConfigData!=null){
+				AppState.getInstance().advanceLevel();
+				
+				//JDBCConnection connection = jdbcConnection;
+				if (appConfigData.getDatabaseBackup()){
+					backup();
+				}
+				
+				if (appConfigData.getDatabaseInitialize()){
+					File dumpDir = new File(appConfigData.getDatabaseDumpDirectory());
+					if (!dumpDir.exists()||!dumpDir.isDirectory()){
+						dumpDir.mkdirs();
+					}
+					
+					if (appConfigData.getDatabaseInitializeDropSchemma()){
+						//Borramos el esquema anterior
+						dropSchema();
+						//Generamos nuevamente el esquema
+						createSchema();
+					}
+					
+					//Creamos las tablas necesarias
+					Collection<String> scripts = appConfigData.getDatabaseInitializeScripts();
+					Iterator<String> itScripts = scripts.iterator();
+					while (itScripts.hasNext()) {
+						String actualScript = (String) itScripts.next();
+						InputStream inputStream = getInputStream(actualScript);
+						InputStreamReader inputStreamReader = new InputStreamReader(inputStream, appConfigData.getProperty(TEXT_FILE_ENCODING));
+						runScript(inputStreamReader);	
+					}
+				}
+			} else {
+				getLog().info("PRECAUCION!!! no se inicializo el esquema debido a que appConfigData es nulo.");
+			}
+		}
+		
+	}
+	
+	private InputStream getInputStream(String actualScript) throws FileNotFoundException {
+		InputStream inputStream = null;
+		try {
+			inputStream = getClass().getResourceAsStream(AppConfigDataImpl.SEPARATOR + actualScript);
+			if (inputStream==null){
+				inputStream = new FileInputStream(new File(actualScript));
+			}
+		} catch (Exception e){
+			inputStream = new FileInputStream(new File(actualScript));
+		}
+		return inputStream;
 	}
 	
 	public Connection getConnection(){
 		if (connection==null){
 			try {
 				//STEP 1: Register JDBC driver
-				Class.forName(appConfig.getAppConfigData().getDatabaseDriver());
+				Class.forName(appConfigData.getDatabaseDriver());
 				//STEP 2: Open a connection
-				connection = DriverManager.getConnection(appConfig.getAppConfigData().getDatabaseURL(),
-															appConfig.getDatabaseAdminUsername(),
-															appConfig.getDatabaseAdminPassword());			
+				connection = DriverManager.getConnection(appConfigData.getDatabaseURL(),
+															appConfigData.getDatabaseAdminUsername(),
+															appConfigData.getDatabaseAdminPassword());			
 			} catch (Exception e){
 				getLog().error(AppException.getStackTrace(e));
 			}
@@ -102,9 +162,17 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 		return connection;
 	}
 	
+	public void backup() throws IOException {
+		//Generamos el backup de lo que exista hasta este momento
+		Zipper zipper = new Zipper();
+		File sqlFile = getDump();
+		zipper.zipSingleFile(sqlFile, appConfigData.getDatabaseDumpDirectory() + File.separator + EXPORT + System.currentTimeMillis() + ZIP);
+		sqlFile.delete();
+	}
+	
 	public void dropSchema(){
 		try {
-			executeSimpleQuery("DROP SCHEMA IF EXISTS " + appConfig.getAppConfigData().getDatabaseURLSchemma());
+			executeSimpleQuery("DROP SCHEMA IF EXISTS " + appConfigData.getDatabaseURLSchemma());
 		} catch (SQLException e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
@@ -112,7 +180,7 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 	
 	public void createSchema(){
 		try {
-			executeSimpleQuery("CREATE SCHEMA IF NOT EXISTS " + appConfig.getAppConfigData().getDatabaseURLSchemma());
+			executeSimpleQuery("CREATE SCHEMA IF NOT EXISTS " + appConfigData.getDatabaseURLSchemma());
 		} catch (SQLException e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
@@ -378,11 +446,11 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
                                     Statement statement = getConnection().createStatement();
 
                                     String finalQuery = command.toString();
-                                    finalQuery = finalQuery.replace(VAR_SCHEMMA, appConfig.getAppConfigData().getDatabaseURLSchemma());
+                                    finalQuery = finalQuery.replace(VAR_SCHEMMA, appConfigData.getDatabaseURLSchemma());
                                     getLog().info(finalQuery);
 
                                     boolean hasResults = false;
-                                    if (appConfig.getStopOnError()) {
+                                    if (getStopOnError()) {
                                             hasResults = statement.execute(finalQuery);
                                     } else {
                                             try {
@@ -455,14 +523,14 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 	 * @throws IOException
 	 */
 	public File getDump() throws IOException{
-		File file = new File(appConfig.getAppConfigData().getDatabaseDumpDirectory() + File.separator + EXPORT + System.currentTimeMillis() + SQL );
+		File file = new File(appConfigData.getDatabaseDumpDirectory() + File.separator + EXPORT + System.currentTimeMillis() + SQL );
 		final FileWriter writer = new FileWriter(file);
 		
 		List<String> params = new ArrayList<String>();
-		params.add(appConfig.getAppConfigData().getDatabaseHomeDirectory() + appConfig.getAppConfigData().getDatabaseDumpCommand());
-		String paramsWithReplacedValues = appConfig.getAppConfigData().getDatabaseDumpCommandParam().replace(USER, appConfig.getDatabaseAdminUsername())
-															.replace(PASSWORD, appConfig.getDatabaseAdminPassword())
-														.		replace(DATABASE, appConfig.getAppConfigData().getDatabaseURLSchemma());
+		params.add(appConfigData.getDatabaseHomeDirectory() + appConfigData.getDatabaseDumpCommand());
+		String paramsWithReplacedValues = appConfigData.getDatabaseDumpCommandParam().replace(USER, appConfigData.getDatabaseAdminUsername())
+															.replace(PASSWORD, appConfigData.getDatabaseAdminPassword())
+														.		replace(DATABASE, appConfigData.getDatabaseURLSchemma());
 		params.addAll(Arrays.asList(paramsWithReplacedValues.split(WHITE_SPACE)));
 		
 		
@@ -546,4 +614,13 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 		return 0;
 	}
 
+	public Boolean getStopOnError(){
+		try{
+			return new Boolean((String) appConfigData.get(AppConfigDataImpl.DB_INITIALIZE_STOPONERROR));
+		} catch (Exception e){
+			getLog().error(AppException.getStackTrace(e));
+		}
+		return Boolean.TRUE;
+	}
+	
 }

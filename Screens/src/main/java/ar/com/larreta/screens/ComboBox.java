@@ -14,6 +14,10 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import ar.com.larreta.commons.AppManager;
+import ar.com.larreta.commons.faces.EntityConverter;
 
 @Entity
 @Table(name = "comboBox")
@@ -21,8 +25,10 @@ import org.apache.commons.lang.StringUtils;
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class ComboBox extends ValuedElement {
 
+	private static Logger logger = Logger.getLogger(ComboBox.class);
+	
 	private Set<ComboBoxItem> individualItems;
-	private String itemsValue;
+	private String entityType;
 	
 	@OneToMany (mappedBy="comboBox", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=ComboBoxItem.class)
 	public Set<ComboBoxItem> getIndividualItems() {
@@ -41,22 +47,34 @@ public class ComboBox extends ValuedElement {
 	}
 	
 	@Basic
-	public String getItemsValue() {
-		return itemsValue;
+	public String getEntityType() {
+		return entityType;
 	}
-	public void setItemsValue(String itemsValue) {
-		this.itemsValue = itemsValue;
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
 	}
 	
 	@Transient
-	public Object getItemsValueEvaluated(){
-		return ScreenUtils.evaluate(getItemsValue());
+	public EntityConverter getConverter(){
+			EntityConverter converter = new EntityConverter();
+			converter.setEntityClass(ScreenUtils.getClass(getEntityType()));
+			return converter;
+	}
+	
+	@Transient
+	public Object getItems(){
+		try {
+			return AppManager.getInstance().getStandardService().load(ScreenUtils.getClass(getEntityType()));
+		} catch (Exception e){
+			logger.error("Ocurrio un error obteniendo items", e);
+		}
+		return null;
 	}
 
 	
 	@Transient
 	public Boolean getIsItemsValueExist(){
-		return !StringUtils.isEmpty(getItemsValue());
+		return !StringUtils.isEmpty(getEntityType());
 	}
 	
 }

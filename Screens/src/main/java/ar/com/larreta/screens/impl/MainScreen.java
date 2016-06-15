@@ -27,6 +27,10 @@ public abstract class MainScreen extends CommonsScreen {
 	public MainScreen(Long id, Class entityClass){
 		super(id, entityClass);
 	}
+	
+	public MainScreen(Long id, Class entityClass, String listener){
+		super(id, entityClass, listener);
+	}
 
 	@Override
 	public ScreenElement getBody() {

@@ -21,6 +21,7 @@ import ar.com.larreta.commons.persistence.dao.impl.ProjectedCollection;
 import ar.com.larreta.commons.persistence.dao.impl.ProjectedPropertiesSplitter;
 import ar.com.larreta.commons.persistence.dao.impl.ProjectedProperty;
 import ar.com.larreta.commons.persistence.dao.impl.Where;
+import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
 
 /**
  * Representa los diferentes argumentos o variables que pueden ser modificables para traer entidades desde la base de datos 
@@ -38,19 +39,19 @@ public class LoadArguments implements Serializable {
 	private Map<String, String> symbols = new HashMap<String, String>();
 	private ProjectedPropertiesSplitter splitter;
 
-	public LoadArguments toLoadArguments(){
+	public LoadArguments toLoadArguments() throws UnreportedEntityException{
 		LoadArguments args = new LoadArguments(mainEntity.getType());
 		setCommonsProperties(args);
 		return args;
 	}
 
-	public CountArguments toCountArguments(){
+	public CountArguments toCountArguments() throws UnreportedEntityException{
 		CountArguments args = new CountArguments(mainEntity.getType());
 		setCommonsProperties(args);
 		return args;
 	}
 	
-	public MaxArguments toMaxArguments(String field){
+	public MaxArguments toMaxArguments(String field) throws UnreportedEntityException{
 		MaxArguments args = new MaxArguments(mainEntity.getType(), field);
 		setCommonsProperties(args);
 		return args;
@@ -67,11 +68,11 @@ public class LoadArguments implements Serializable {
 		args.setSplitter(getSplitter());
 	}
 	
-	public LoadArguments(Class type){
+	public LoadArguments(Class type) throws UnreportedEntityException{
 		mainEntity = new MainEntity(this, type);
 	}
 
-	public LoadArguments(Class type, String uniqueProjectionField){
+	public LoadArguments(Class type, String uniqueProjectionField) throws UnreportedEntityException{
 		mainEntity = new MainEntity(this, type, uniqueProjectionField);
 	}
 
@@ -194,8 +195,9 @@ public class LoadArguments implements Serializable {
 	 * @param field
 	 * @param arguments
 	 * @return
+	 * @throws UnreportedEntityException 
 	 */
-	public LoadArguments addWhereNotInSubquery(String field, String subField, Class subClass){
+	public LoadArguments addWhereNotInSubquery(String field, String subField, Class subClass) throws UnreportedEntityException{
 		LoadArguments args = new LoadArguments(new MainEntity(this, subClass, subField));
 		args.setSymbols(symbols);
 		addWhere(new NotInSubquery(this, field, args));
@@ -207,8 +209,9 @@ public class LoadArguments implements Serializable {
 	 * @param subClass
 	 * @param wheres
 	 * @return
+	 * @throws UnreportedEntityException 
 	 */
-	public LoadArguments addWhereNotExists(Class subClass, Collection<Where> wheres){
+	public LoadArguments addWhereNotExists(Class subClass, Collection<Where> wheres) throws UnreportedEntityException{
 		LoadArguments args = new LoadArguments(new MainEntity(this, subClass, "id"));
 		args.setWheres(wheres);
 		args.setSymbols(symbols);

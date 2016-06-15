@@ -13,6 +13,7 @@ import ar.com.larreta.commons.domain.User;
 import ar.com.larreta.commons.persistence.UserDAO;
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.persistence.dao.impl.StandardDAOImpl;
+import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
 
 @Repository
 public class UserDAOImpl extends StandardDAOImpl implements UserDAO {
@@ -63,8 +64,9 @@ public class UserDAOImpl extends StandardDAOImpl implements UserDAO {
 	 * Trae todos los roles para un determinado usuario
 	 * @param user
 	 * @return
+	 * @throws UnreportedEntityException 
 	 */
-	public Collection<Role> getRoles(User user){
+	public Collection<Role> getRoles(User user) throws UnreportedEntityException{
 		LoadArguments args = new LoadArguments(Role.class);
 		args.addInnerJoin("profiles").addInnerJoin("profiles.users");
 		args.addWhereEqual("profiles.users.id", user.getId());

@@ -28,7 +28,6 @@ CREATE TABLE [SCHEMMA].styleSheet (
 
 CREATE TABLE [SCHEMMA].tabletag (
 	id BIGINT NOT NULL,
-	var VARCHAR(255),
 	value VARCHAR(255),
 	paginator TINYINT(1),
 	lazy TINYINT(1),
@@ -59,6 +58,7 @@ CREATE TABLE [SCHEMMA].screen (
 	pragma VARCHAR(255),
 	cacheControl VARCHAR(255),
 	expires VARCHAR(255),
+	screenListenerName VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -120,6 +120,7 @@ CREATE TABLE [SCHEMMA].divtag (
 
 CREATE TABLE [SCHEMMA].form (
 	id BIGINT NOT NULL,
+	acceptcharset VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -181,7 +182,7 @@ CREATE TABLE [SCHEMMA].panelGrid (
 CREATE TABLE [SCHEMMA].comboBox (
 	id BIGINT NOT NULL,
 	value VARCHAR(255),
-	itemsValue VARCHAR(255),
+	entityType VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -193,6 +194,28 @@ CREATE TABLE [SCHEMMA].comboBoxItem (
 	idComboBox BIGINT NOT NULL,
 	PRIMARY KEY (ID)
 );
+
+CREATE TABLE [SCHEMMA].multiBox (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	sourceCaption VARCHAR(255),
+	targetCaption VARCHAR(255),
+	propertyItemLabel VARCHAR(255),
+	effect VARCHAR(255),
+	filterMatchMode VARCHAR(255),
+	entityType VARCHAR(255),
+	showSourceControls TINYINT(1),
+	showTargetControls TINYINT(1),
+	showCheckbox TINYINT(1),
+	showSourceFilter TINYINT(1),
+	showTargetFilter TINYINT(1),
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE [SCHEMMA].multiBox
+ADD CONSTRAINT fk_screenElement_in_multiBox
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].comboBoxItem
 ADD CONSTRAINT fk_screenElement_in_comboBoxItem

@@ -5,12 +5,13 @@ import java.util.Collection;
 
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
 
 public interface StandardDAO extends LoadDao {
 	/**
 	 * Obtiene una entidad de la base de datos del tipo entityClass y filtrando por el id
 	 */
-	public Entity getEntity(Class entityClass, Serializable id);
+	public Entity getEntity(Class entityClass, Serializable id) throws UnreportedEntityException;
 	/**
 	 * Obtienen una entidad de la base de datos, filtrando por wheres y proyectando las propiedades pasadas por parametro
 	 * Tener presente que si la consulta retorna mas de una entidad, entonces se retorna solo la primera
@@ -27,7 +28,7 @@ public interface StandardDAO extends LoadDao {
 	 * @param value
 	 * @return
 	 */
-	public Entity getEntity(Class entityClass, String field, Object value);
+	public Entity getEntity(Class entityClass, String field, Object value)  throws UnreportedEntityException;
 	/**
 	 * Crea una nueva entidad en la base de datos
 	 * @param entity

@@ -70,14 +70,4 @@ public class ResourceMessage extends ar.com.larreta.commons.domain.Entity {
 		}
 	}
 	
-	@Transient
-	public String getTextMessage() {
-		if ((text!=null) && (text.length>0)){
-			return new String(text);
-		} 
-		return StringUtils.EMPTY;
-	}
-	
-	
-	
 }

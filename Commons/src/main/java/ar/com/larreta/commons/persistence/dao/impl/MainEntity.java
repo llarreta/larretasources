@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
 
 public class MainEntity implements Serializable {
 	
@@ -15,12 +16,15 @@ public class MainEntity implements Serializable {
 	private String alias = StringUtils.EMPTY;
 	private LoadArguments args;
 
-	public MainEntity(Class type){
+	public MainEntity(Class type) throws UnreportedEntityException{
+		if (type==null){
+			throw new UnreportedEntityException();
+		}
 		this.type = type;
 		alias = QueryElement.generateSymbol(this.args, type.getSimpleName());
 	}
 	
-	public MainEntity(LoadArguments args, Class type){
+	public MainEntity(LoadArguments args, Class type) throws UnreportedEntityException{
 		this(type);
 		setLoadArguments(args);
 		alias = QueryElement.generateSymbol(this.args, type.getSimpleName());
@@ -30,12 +34,12 @@ public class MainEntity implements Serializable {
 		this.args = args;
 	}
 	
-	public MainEntity(LoadArguments args, Class type, String uniqueProjectionField){
+	public MainEntity(LoadArguments args, Class type, String uniqueProjectionField) throws UnreportedEntityException{
 		this(args, type);
 		this.uniqueProjectionField=uniqueProjectionField;
 	}
 	
-	public MainEntity(Class type, String uniqueProjectionField){
+	public MainEntity(Class type, String uniqueProjectionField) throws UnreportedEntityException{
 		this(type);
 		this.uniqueProjectionField=uniqueProjectionField;
 	}	

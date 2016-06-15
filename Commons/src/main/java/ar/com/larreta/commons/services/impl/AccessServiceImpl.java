@@ -37,14 +37,18 @@ public class AccessServiceImpl extends StandardServiceImpl implements AccessServ
 	}
 
 	@Override
-	public Collection load(Class entityType, Integer firstResult,
-			Integer maxResults, Order order, Map<String, Object> filters) {
-		LoadArguments args = new LoadArguments(entityType);
-		args.addProjectedProperties("user");
-		args.addDescOrder("userAccessDate");
-		args.setFirstResult(firstResult);
-		args.setMaxResults(maxResults);
-		return getDao().load(args);
+	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters) {
+		try {
+			LoadArguments args = new LoadArguments(entityType);
+			args.addProjectedProperties("user");
+			args.addDescOrder("userAccessDate");
+			args.setFirstResult(firstResult);
+			args.setMaxResults(maxResults);
+			return getDao().load(args);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el load", e);
+		}
+		return null;
 	}
 
 	

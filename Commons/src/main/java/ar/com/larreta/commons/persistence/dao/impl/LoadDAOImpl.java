@@ -13,6 +13,7 @@ import ar.com.larreta.commons.persistence.CommonsSessionFactory;
 import ar.com.larreta.commons.persistence.dao.LoadDao;
 import ar.com.larreta.commons.persistence.dao.args.CountArguments;
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
+import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
 
 /**
  * DAO con la funcionalidad de poder cargar entidades desde la base  
@@ -63,8 +64,9 @@ public abstract class LoadDAOImpl extends AppObjectImpl implements LoadDao {
 	 * @param firstResult
 	 * @param maxResults
 	 * @return
+	 * @throws UnreportedEntityException 
 	 */
-	public Collection load(Class type){
+	public Collection load(Class type) throws UnreportedEntityException{
 		
 		LoadArguments args = new LoadArguments(type);
 		

@@ -28,12 +28,16 @@ public class LocaleServiceImpl extends StandardServiceImpl implements LocaleServ
 	}
 	
 	private Entity getEntity(Class entityClass, String abbreviation) {
-		LoadArguments arguments = new LoadArguments(entityClass);
-		Equal equal = new Equal(arguments, "abbreviation", abbreviation);
-		arguments.addWhere(equal);
-		Collection result = dao.load(arguments);
-		if (result!=null && result.size()>0){
-			return (Entity) result.iterator().next();
+		try {
+			LoadArguments arguments = new LoadArguments(entityClass);
+			Equal equal = new Equal(arguments, "abbreviation", abbreviation);
+			arguments.addWhere(equal);
+			Collection result = dao.load(arguments);
+			if (result!=null && result.size()>0){
+				return (Entity) result.iterator().next();
+			}
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getEntity", e);
 		}
 		return null;
 	}

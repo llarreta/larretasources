@@ -132,7 +132,7 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 	}
 
 	/**
-	 * Retorna un DualListModel a partir del targe y source pasado por parametro
+	 * Retorna un DualListModel a partir del target y source pasado por parametro
 	 * Quitando del source lo que ya se encuentra en el target
 	 * @param setTarget
 	 * @param setSource

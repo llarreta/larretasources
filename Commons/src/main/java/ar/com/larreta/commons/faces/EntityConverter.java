@@ -10,6 +10,7 @@ import javax.faces.convert.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.NoEntityClassFoundException;
@@ -68,6 +69,10 @@ public class EntityConverter extends AppObjectImpl implements Converter  {
 	public void setEntityClass(Object entityClass) {
 		this.entityClass = entityClass.getClass();
 	}
+	
+	public void setEntityClass(Class entityClass) {
+		this.entityClass = entityClass;
+	}
 
 	public Entity getEntity() throws InstantiationException, IllegalAccessException, NoEntityClassFoundException{
 		if (entityClass!=null){
@@ -81,11 +86,17 @@ public class EntityConverter extends AppObjectImpl implements Converter  {
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		if (value==null){
+			return null;
+		}
 		return getValueAsString(value.getClass()).getAsString(this, context, component, value);
 	}
 
 	
 	public StandardService getStandardService() {
+		if (standardService==null){
+			standardService = AppManager.getInstance().getStandardService();
+		}
 		return standardService;
 	}
 

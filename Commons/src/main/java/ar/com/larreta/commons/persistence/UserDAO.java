@@ -6,6 +6,7 @@ import ar.com.larreta.commons.domain.Profile;
 import ar.com.larreta.commons.domain.Role;
 import ar.com.larreta.commons.domain.User;
 import ar.com.larreta.commons.persistence.dao.StandardDAO;
+import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
 
 public interface UserDAO extends StandardDAO {
 
@@ -24,6 +25,6 @@ public interface UserDAO extends StandardDAO {
 	 * @param user
 	 * @return
 	 */
-	public Collection<Role> getRoles(User user); 
+	public Collection<Role> getRoles(User user) throws UnreportedEntityException; 
 
 }

@@ -23,54 +23,63 @@ public class ResourceMessageServiceImpl extends LocaleServiceImpl implements Res
 	public static final String RESOURCE_MESSAGE_SERVICE = "ResourceMessageService";
 
 	public String getMessage(Locale locale, String key){
-		if (StringUtils.isEmpty(key)){
-			return key;
-		}
-		
-		String country = locale.getCountry();
-		String language = locale.getLanguage();
-		
-		String message = getMessageOnCache(key, country, language);
-		
-		 if (StringUtils.isEmpty(message)){
-				LoadArguments args = new LoadArguments(ResourceMessage.class);
-				args.addProjectedProperties("country")
-					.addProjectedProperties("language")
-					.addWhereEqual("country.abbreviation", country)
-					.addWhereEqual("language.abbreviation", language)
-					.addWhereEqual("key", key);
-				Collection<ResourceMessage> resources = dao.load(args);
-				if (resources!=null && !resources.isEmpty()){
-					ResourceMessage resourceMessage = resources.iterator().next();
-					message = resourceMessage.getTextMessage();
-					
-					if (!StringUtils.isEmpty(message)){
-						putMessageOnCache(key, message, country, language);
-					}
-					return message;
-				} else {
-					ResourceMessage resourceMessage = new ResourceMessage();
-					resourceMessage.setCountry(getCountry(country));
-					resourceMessage.setLanguage(getLanguage(language));
-					resourceMessage.setKey(key);
-					resourceMessage.setTextString(key);
-					save(resourceMessage);
-				}
+		try {
+			if (StringUtils.isEmpty(key)){
 				return key;
-		 }
-
-		return message;
+			}
+			
+			String country = locale.getCountry();
+			String language = locale.getLanguage();
+			
+			String message = getMessageOnCache(key, country, language);
+			
+			 if (StringUtils.isEmpty(message)){
+					LoadArguments args = new LoadArguments(ResourceMessage.class);
+					args.addProjectedProperties("country")
+						.addProjectedProperties("language")
+						.addWhereEqual("country.abbreviation", country)
+						.addWhereEqual("language.abbreviation", language)
+						.addWhereEqual("key", key);
+					Collection<ResourceMessage> resources = dao.load(args);
+					if (resources!=null && !resources.isEmpty()){
+						ResourceMessage resourceMessage = resources.iterator().next();
+						message = resourceMessage.getTextString();
+						
+						if (!StringUtils.isEmpty(message)){
+							putMessageOnCache(key, message, country, language);
+						}
+						return message;
+					} else {
+						ResourceMessage resourceMessage = new ResourceMessage();
+						resourceMessage.setCountry(getCountry(country));
+						resourceMessage.setLanguage(getLanguage(language));
+						resourceMessage.setKey(key);
+						resourceMessage.setTextString(key);
+						save(resourceMessage);
+					}
+					return key;
+			 }
+			return message;
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getMessage", e);
+		}
+		return StringUtils.EMPTY;
 	}
 
 
 
-	private String getMessageOnCache(String key, String country, String language) {
+	public String getMessageOnCache(String key, String country, String language) {
 		Map<String, String> messagesFromLanguage = getMessageCache(country, language);
 		String message = messagesFromLanguage.get(key);
 		return message;
 	}
+
+	public void deleteMessageOnCache(String key, String country, String language) {
+		Map<String, String> messagesFromLanguage = getMessageCache(country, language);
+		messagesFromLanguage.remove(key);
+	}
 	
-	private void putMessageOnCache(String key, String text, String country, String language) {
+	public void putMessageOnCache(String key, String text, String country, String language) {
 		Map<String, String> messagesFromLanguage = getMessageCache(country, language);
 		messagesFromLanguage.put(key, text);
 	}

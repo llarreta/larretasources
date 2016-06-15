@@ -3,7 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	parent="crud-flow">
-
     
 	<var name="controller" 			class="ar.com.larreta.screens.controllers.ScreensControllerImpl" />
 	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />

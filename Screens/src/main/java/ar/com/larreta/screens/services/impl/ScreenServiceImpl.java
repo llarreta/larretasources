@@ -14,7 +14,7 @@ public class ScreenServiceImpl extends StandardServiceImpl implements ScreensSer
 
 	public static final String SCREEN_SERVICE = "screenService";
 	
-	//FIXME: Tener la precaucion de que este mapa no sobrecargue la memoria
+	//FIXME: Tener la precaucion de que este mapa no sobrecargue la memoria // Revisar porque falla por concurrencia este hash 
 	private Map<Long, Screen> screens = new ConcurrentHashMap<Long, Screen>();
 
 	public Screen getScreen(Long id) {

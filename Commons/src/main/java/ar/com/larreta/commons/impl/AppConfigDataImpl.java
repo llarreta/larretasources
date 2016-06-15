@@ -11,19 +11,24 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.core.io.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import ar.com.larreta.commons.AppConfigData;
 import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.utils.Base64;
 import ar.com.larreta.commons.utils.FormatPatterns;
+import ar.com.larreta.commons.utils.impl.Base64Impl;
 import ar.com.larreta.commons.utils.iterators.IterateResources;
 import ar.com.larreta.commons.utils.iterators.ResourcesList;
 import ar.com.larreta.commons.utils.iterators.URLAction;
 
-//@Component(AppConfigDataImpl.APP_CONFIG_DATA)
+@Component(AppConfigDataImpl.APP_CONFIG_DATA)
+@DependsOn(Base64Impl.BASE64)
 public class AppConfigDataImpl extends Properties implements AppConfigData{
 	
 	public static final String SEPARATOR = "/";
@@ -41,6 +46,8 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	private static final String BAR = SEPARATOR;
 	private static final String TWO_POINTS = ":";
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
+	
+	public static final String DB_INITIALIZE_STOPONERROR = "db.initialize.stoponerror";
 	
 	private static final String PROPERTY_NAME_DATABASE_URL_PREFIX = "db.url.prefix";
 	private static final String PROPERTY_NAME_DATABASE_URL_DOMAIN = "db.url.domain";
@@ -82,6 +89,9 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	 
 	 private static final String DEPLOY_PATH = "deploy.path";
 	 
+	 @Autowired
+	 private Base64 base64;
+	 
 	 private AppObject appObject = new AppObjectImpl(getClass());
 	 
 	public AppConfigDataImpl(){
@@ -122,15 +132,6 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	public String getMailHost() {
 		return getProperty(PROPERTY_NAME_MAIL_HOST);
 	}
-
-	public String getMailPassword() {
-		return getProperty(PROPERTY_NAME_MAIL_PASSWORD);
-	}
-
-	public String getMailUser() {
-		return getProperty(PROPERTY_NAME_MAIL_USERNAME);
-	}
-
 	
 	public String packagesToScan(){
 		return getProperty(MAPPING_CLASS_PACKAGE);
@@ -138,22 +139,6 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	
 	public String getGeneralDateFormat() {
 		return getProperty(FormatPatterns.GENERAL_DATE_FORMAT);
-	}
-	
-	public String getDatabasePassword() {
-		return getProperty(PROPERTY_NAME_DATABASE_PASSWORD);
-	}
-
-	public String getDatabaseUsername() {
-		return getProperty(PROPERTY_NAME_DATABASE_USERNAME);
-	}
-
-	public String getDatabaseAdminPassword() {
-		return getProperty(PROPERTY_NAME_DATABASE_ADMIN_PASSWORD);
-	}
-
-	public String getDatabaseAdminUsername() {
-		return getProperty(PROPERTY_NAME_DATABASE_ADMIN_USERNAME);
 	}
 	
 	public String getDatabaseDriver() {
@@ -338,4 +323,29 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 		return value;
 	}
 
+	public String getMailPassword() {
+		return base64.decrypt(getProperty(PROPERTY_NAME_MAIL_PASSWORD));
+	}
+
+	public String getMailUser() {
+		return base64.decrypt(getProperty(PROPERTY_NAME_MAIL_USERNAME));
+	}
+		
+	public String getDatabasePassword() {
+		return base64.decrypt(getProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+	}
+
+	public String getDatabaseUsername() {
+		return base64.decrypt(getProperty(PROPERTY_NAME_DATABASE_USERNAME));
+	}
+
+	public String getDatabaseAdminPassword() {
+		return base64.decrypt(getProperty(PROPERTY_NAME_DATABASE_ADMIN_PASSWORD));
+	}
+
+	public String getDatabaseAdminUsername() {
+		return base64.decrypt(getProperty(PROPERTY_NAME_DATABASE_ADMIN_USERNAME));
+	}
+
+	
 }

@@ -18,8 +18,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 

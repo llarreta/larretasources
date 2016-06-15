@@ -1,5 +1,7 @@
 package ar.com.larreta.screens.impl.saver;
 
+import ar.com.larreta.commons.domain.Country;
+import ar.com.larreta.commons.domain.Language;
 import ar.com.larreta.commons.domain.ResourceMessage;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
@@ -13,7 +15,7 @@ public class ResourceMessageSaver extends ABMSaver {
 	public ResourceMessageSaver() {
 		super();
 
-		mainScreen = new MainScreen(ScreenImplementationsIds.RESOURCE_MESSAGE_MAIN, abmClass) {
+		mainScreen = new MainScreen(ScreenImplementationsIds.RESOURCE_MESSAGE_MAIN, abmClass, DeleteResourceMessageListener.class.getName()) {
 			
 			@Override
 			protected void makeColumns() {
@@ -36,7 +38,7 @@ public class ResourceMessageSaver extends ABMSaver {
 		};
 		
 		
-		createScreen = new CreateScreen(ScreenImplementationsIds.RESOURCE_MESSAGE_CREATE, abmClass) {
+		createScreen = new CreateScreen(ScreenImplementationsIds.RESOURCE_MESSAGE_CREATE, abmClass, ChangeResourceMessageListener.class.getName()) {
 			
 			@Override
 			protected void makeBody() {
@@ -49,7 +51,7 @@ public class ResourceMessageSaver extends ABMSaver {
 			}
 		};
 		
-		updateScreen = new UpdateScreen(ScreenImplementationsIds.RESOURCE_MESSAGE_UPDATE, abmClass) {
+		updateScreen = new UpdateScreen(ScreenImplementationsIds.RESOURCE_MESSAGE_UPDATE, abmClass, ChangeResourceMessageListener.class.getName()) {
 			
 			@Override
 			protected void makeBody() {
@@ -66,8 +68,10 @@ public class ResourceMessageSaver extends ABMSaver {
 
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
-		index = screen.addInput(index, "app.abbreviation", "abbreviation");
-		index = screen.addInput(index, "app.description", "description");
+		index = screen.addCombo(index, "app.country", 		"country", 		Country.class.getName());
+		index = screen.addCombo(index, "app.language", 		"language", 	Language.class.getName());
+		index = screen.addInput(index, "app.key", 			"key");
+		index = screen.addInput(index, "app.text", 			"textString");
 	}
 
 }

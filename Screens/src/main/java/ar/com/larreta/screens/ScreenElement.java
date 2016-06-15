@@ -80,7 +80,9 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 			Object toBinding = getBindingObjectInstance();
 			if (toBinding!=null){
 				try {
-					return ScreenUtils.fixValue(PropertyUtils.getProperty(toBinding, getBindingProperty()));
+//					return ScreenUtils.fixValue(PropertyUtils.getProperty(toBinding, getBindingProperty()));
+
+					return PropertyUtils.getProperty(toBinding, getBindingProperty());
 				} catch (Exception e){
 					LOGGER.error("Ocurrio un error en el get binding", e);
 				}

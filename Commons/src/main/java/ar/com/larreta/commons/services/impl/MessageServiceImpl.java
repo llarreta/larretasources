@@ -16,10 +16,15 @@ import ar.com.larreta.commons.services.MessageService;
 public class MessageServiceImpl extends StandardServiceImpl implements MessageService {
 	
 	public Collection load() throws NotImplementedException {
-		LoadArguments args = new LoadArguments(Message.class);
-		args.addProjectedProperties("from");
-		args.addDescOrder("date");
-		return dao.load(args);
+		try {
+			LoadArguments args = new LoadArguments(Message.class);
+			args.addProjectedProperties("from");
+			args.addDescOrder("date");
+			return dao.load(args);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el load", e);
+		}
+		return null;
 	}
 
 }

@@ -4,4 +4,7 @@ import java.util.Locale;
 
 public interface ResourceMessageService {
 	String getMessage(Locale locale, String key);
+	String getMessageOnCache(String key, String country, String language);
+	void putMessageOnCache(String key, String text, String country, String language);
+	void deleteMessageOnCache(String key, String country, String language);
 }

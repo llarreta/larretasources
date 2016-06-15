@@ -17,6 +17,8 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
+import ar.com.larreta.screens.impl.ScreenListener;
+
 @Entity
 @Table(name = "screen")
 @DiscriminatorValue(value = "screen")
@@ -35,13 +37,40 @@ public class Screen extends Container {
 	private String title;
 	
 	private String entityClass;
+	
+	private ScreenListener screenListener;
+
+	private String screenListenerName;
+	
+	@Basic
+	public String getScreenListenerName() {
+		return screenListenerName;
+	}
+
+	public void setScreenListenerName(String screenListenerName) {
+		this.screenListenerName = screenListenerName;
+	}
+
+	@Transient
+	public ScreenListener getScreenListener() {
+		if ((screenListener==null) && (!StringUtils.isEmpty(screenListenerName))){
+			screenListener = (ScreenListener) ScreenUtils.getObject(screenListenerName);
+		}
+		return screenListener;
+	}
+
+	public void setScreenListener(ScreenListener screenListener) {
+		this.screenListener = screenListener;
+	}
 
 	public Screen(){}
 	
 	public Screen(Class entityClass){
 		this();
-		String entityClassName = entityClass.getName();
-		setEntityClass(entityClassName);
+		if (entityClass!=null){
+			String entityClassName = entityClass.getName();
+			setEntityClass(entityClassName);
+		}
 	}
 	
 	public Screen(Long id, Class entityClass){

@@ -82,12 +82,20 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	public void refresh() throws NotServiceAssignedException {
 		try {
 			if (arguments!=null){
-				count = getService().count(arguments.toCountArguments()).intValue();
+				setCount(getService().count(arguments.toCountArguments()));
 			} else {
-				count = getService().count(getEntityClass()).intValue();
+				if (getEntityClass()!=null){
+					setCount(getService().count(getEntityClass()));
+				}
 			}
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));
+		}
+	}
+
+	protected void setCount(Long value) {
+		if (value!=null){
+			count = value.intValue();
 		}
 	}
 

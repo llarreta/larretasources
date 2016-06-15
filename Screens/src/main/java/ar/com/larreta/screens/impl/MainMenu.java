@@ -13,9 +13,11 @@ public class MainMenu extends MenuBar {
 	public MainMenu(){
 		super("main-bar-1");
 		setId(ScreenImplementationsIds.MAIN_MENU);
-		add(new MenuItem("Language", APP_SCREEN_URL + ScreenImplementationsIds.LANGUAGE_MAIN, MENU_ITEM_DEFAULT_STYLE));
-		add(new MenuItem("Country", APP_SCREEN_URL + ScreenImplementationsIds.COUNTRY_MAIN, MENU_ITEM_DEFAULT_STYLE));
-		add(new MenuItem("Resource Message", APP_SCREEN_URL + ScreenImplementationsIds.RESOURCE_MESSAGE_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(0, new MenuItem("app.language", APP_SCREEN_URL + ScreenImplementationsIds.LANGUAGE_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(1, new MenuItem("app.country", APP_SCREEN_URL + ScreenImplementationsIds.COUNTRY_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(2, new MenuItem("app.resourceMessage", APP_SCREEN_URL + ScreenImplementationsIds.RESOURCE_MESSAGE_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(3, new MenuItem("app.role", APP_SCREEN_URL + ScreenImplementationsIds.ROLE_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(4, new MenuItem("app.profile", APP_SCREEN_URL + ScreenImplementationsIds.PROFILE_MAIN, MENU_ITEM_DEFAULT_STYLE));
 	}
 	
 	@Transient

@@ -14,9 +14,11 @@ import ar.com.larreta.commons.AuditInterceptor;
 import ar.com.larreta.commons.domain.audit.AuditableEntity;
 import ar.com.larreta.commons.services.AuditService;
 
-@Service
+@Service(AuditInterceptorImpl.AUDIT_INTERCEPTOR)
 public class AuditInterceptorImpl extends EmptyInterceptor implements AuditInterceptor {
 	
+	public static final String AUDIT_INTERCEPTOR = "auditInterceptor";
+
 	@Autowired
 	private AuditService auditService;
 	
