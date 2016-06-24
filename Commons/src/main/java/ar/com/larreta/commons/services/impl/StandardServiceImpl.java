@@ -109,18 +109,22 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	}
 
 	
+	public Entity getEntity(Class entityType, Long id){
+		try {
+			return dao.getEntity(entityType, id);
+		} catch (Exception e){
+			getLog().error("Ocurrio un error en el getEntity", e);
+		}
+		return null;
+	}
+	
 	/**
 	 * Retonra una entidad desde la base a partir del id de la entidad pasada por parametro
 	 * @param entity
 	 * @return
 	 */
 	public Entity getEntity(Entity entity) {
-		try {
-			return dao.getEntity(entity.getClass(), entity.getId());
-		} catch (Exception e){
-			getLog().error("Ocurrio un error en el getEntity", e);
-		}
-		return null;
+		return getEntity(entity.getClass(), entity.getId());
 	}
 	
 	/**

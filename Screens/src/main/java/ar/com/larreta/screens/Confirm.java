@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 @Table(name = "confirm")
 @DiscriminatorValue(value = "confirm")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class Confirm extends Container {
+public class Confirm extends StandardContainer {
 
 	private String header;
 	private String message;

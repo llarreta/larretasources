@@ -7,6 +7,7 @@ import ar.com.larreta.screens.Input;
 import ar.com.larreta.screens.Label;
 import ar.com.larreta.screens.MultiBox;
 import ar.com.larreta.screens.PanelGrid;
+import ar.com.larreta.screens.Password;
 import ar.com.larreta.screens.ScreenElement;
 import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.SubmitButton;
@@ -17,6 +18,10 @@ public abstract class CreateScreen extends CommonsScreen {
 	private Integer index;
 	private Form form;
 	
+	public Form getForm() {
+		return form;
+	}
+
 	public abstract Long getNextScreenId();
 
 	public CreateScreen(Long id, Class entityClass) {
@@ -56,6 +61,12 @@ public abstract class CreateScreen extends CommonsScreen {
 		return "preCreate";
 	}
 
+	public Integer addPassword(Integer index, String labelText, String dataViewSelectedProperty) {
+		body.add(index++, new Label(labelText));
+		body.add(index++, new Password(DATA_VIEW_SELECTED, dataViewSelectedProperty));
+		return index;
+	}
+	
 	public Integer addInput(Integer index, String labelText, String dataViewSelectedProperty) {
 		body.add(index++, new Label(labelText));
 		body.add(index++, new Input(DATA_VIEW_SELECTED, dataViewSelectedProperty));
@@ -69,7 +80,7 @@ public abstract class CreateScreen extends CommonsScreen {
 		comboBox.setBindingProperty(dataViewSelectedProperty);
 		comboBox.setEntityType(entityType);
 		
-		comboBox.add(getVoidItem());
+		comboBox.addComboBoxItem(getVoidItem());
 		
 		body.add(index++, comboBox);
 		return index;
@@ -89,6 +100,11 @@ public abstract class CreateScreen extends CommonsScreen {
 		body.add(index++, multiBox);
 		
 		addNewBody(2);
+		return index;
+	}
+	
+	public Integer addInBody(Integer index, ScreenElement element){
+		body.add(index++, element);
 		return index;
 	}
 	

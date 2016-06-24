@@ -1,6 +1,6 @@
 package ar.com.larreta.screens;
 
-public class BlockUI extends Container {
+public class BlockUI extends StandardContainer {
 
 	private String target;
 	private String widgetVar;

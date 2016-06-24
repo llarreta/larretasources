@@ -18,6 +18,9 @@ public class MainMenu extends MenuBar {
 		add(2, new MenuItem("app.resourceMessage", APP_SCREEN_URL + ScreenImplementationsIds.RESOURCE_MESSAGE_MAIN, MENU_ITEM_DEFAULT_STYLE));
 		add(3, new MenuItem("app.role", APP_SCREEN_URL + ScreenImplementationsIds.ROLE_MAIN, MENU_ITEM_DEFAULT_STYLE));
 		add(4, new MenuItem("app.profile", APP_SCREEN_URL + ScreenImplementationsIds.PROFILE_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(5, new MenuItem("app.user", APP_SCREEN_URL + ScreenImplementationsIds.USER_MAIN, MENU_ITEM_DEFAULT_STYLE));
+		add(6, new MenuItem("app.security", APP_SCREEN_URL + ScreenImplementationsIds.SECURITY_UPDATE, MENU_ITEM_DEFAULT_STYLE));
+		add(7, new MenuItem("app.securityMatcher", APP_SCREEN_URL + ScreenImplementationsIds.SECURITY_MATCHER_MAIN, MENU_ITEM_DEFAULT_STYLE));
 	}
 	
 	@Transient

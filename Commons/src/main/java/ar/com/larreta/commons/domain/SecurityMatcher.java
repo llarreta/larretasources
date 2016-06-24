@@ -26,6 +26,8 @@ public abstract class SecurityMatcher extends ar.com.larreta.commons.domain.Enti
 	private String pattern;
 	private Security security;
 	
+	private String securityMatcherType;
+	
 	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Security.class)
 	@JoinColumn (name="idSecurity")
 	public Security getSecurity() {
@@ -47,5 +49,17 @@ public abstract class SecurityMatcher extends ar.com.larreta.commons.domain.Enti
 	
 	@Transient
 	public abstract void process(HttpSecurity http) throws Exception;
+	
+	@Transient
+	public abstract String getSecurityMatcherType();
+	
+	public void setSecurityMatcherType(String type){
+		this.securityMatcherType = type;
+	}
+	
+	@Transient
+	public String getType(){
+		return securityMatcherType;
+	}
 	
 }

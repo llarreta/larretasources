@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
 @Table(name = "outputPanel")
 @DiscriminatorValue(value = "outputPanel")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class OutputPanel extends Container {
+public class OutputPanel extends StandardContainer {
 	
 	private String autoUpdate = StringUtils.EMPTY;
 

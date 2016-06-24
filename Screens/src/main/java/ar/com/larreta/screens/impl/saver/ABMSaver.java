@@ -1,6 +1,7 @@
 package ar.com.larreta.screens.impl.saver;
 
 import ar.com.larreta.commons.AppManager;
+import ar.com.larreta.screens.impl.CommonsScreen;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
 import ar.com.larreta.screens.services.ScreensService;
@@ -20,9 +21,15 @@ public abstract class ABMSaver {
 	 * Guarda los screens que implementa
 	 */
 	public void save(){
-		screensService.saveOrUpdate(mainScreen.getMe());
-		screensService.saveOrUpdate(createScreen.getMe());
-		screensService.saveOrUpdate(updateScreen.getMe());
+		save(mainScreen);
+		save(createScreen);
+		save(updateScreen);
+	}
+
+	protected void save(CommonsScreen screen) {
+		if (screen!=null){
+			screensService.saveOrUpdate(screen.getMe());
+		}
 	}
 	
 	

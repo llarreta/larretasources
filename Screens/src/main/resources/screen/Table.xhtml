@@ -19,7 +19,7 @@
      	 value="#{element.valueEvaluated}"
      >   
      	<c:forEach var="column" items="#{element.ordererElements}">
-     		<p:column headerText="#{column.headerTextEvaluated}" sortBy="#{column.sortby}" width="#{column.width}">
+     		<p:column headerText="#{column.headerTextEvaluated}" sortBy="#{column.sortBy}" width="#{column.width}">
      			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 					<ui:param name="elementValue" value="#{tableElement}" />
 					<ui:param name="elements" value="#{column.ordererElements}" />

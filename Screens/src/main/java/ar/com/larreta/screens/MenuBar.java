@@ -16,7 +16,7 @@ import org.primefaces.model.menu.MenuModel;
 @Table(name = "menuBar")
 @DiscriminatorValue(value = "menuBar")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class MenuBar extends Container {
+public class MenuBar extends StandardContainer {
 	
 	private MenuModel menuModel;
 	

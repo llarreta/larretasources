@@ -23,7 +23,7 @@ import ar.com.larreta.screens.impl.ScreenListener;
 @Table(name = "screen")
 @DiscriminatorValue(value = "screen")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class Screen extends Container {
+public class Screen extends StandardContainer {
 
 	private static final String DEFAULT_EXPIRES = "0";
 	private static final String NO_CACHE = "no-cache";
@@ -38,31 +38,114 @@ public class Screen extends Container {
 	
 	private String entityClass;
 	
-	private ScreenListener screenListener;
+	private ScreenListener preActionListener;
+	private ScreenListener postActionListener;
+	private ScreenListener initActionListener;
 
-	private String screenListenerName;
+	private String preActionListenerName;
+	private String postActionListenerName;
+	private String initActionListenerName;
 	
+	private String lazyProperties;
+	private String lazyCollections;
+
 	@Basic
-	public String getScreenListenerName() {
-		return screenListenerName;
+	public String getInitActionListenerName() {
+		return initActionListenerName;
 	}
 
-	public void setScreenListenerName(String screenListenerName) {
-		this.screenListenerName = screenListenerName;
+	public void setInitActionListenerName(String initActionListenerName) {
+		this.initActionListenerName = initActionListenerName;
 	}
 
 	@Transient
-	public ScreenListener getScreenListener() {
-		if ((screenListener==null) && (!StringUtils.isEmpty(screenListenerName))){
-			screenListener = (ScreenListener) ScreenUtils.getObject(screenListenerName);
+	public ScreenListener getInitActionListener() {
+		if ((initActionListener==null) && (!StringUtils.isEmpty(initActionListenerName))){
+			initActionListener = (ScreenListener) ScreenUtils.getObject(initActionListenerName);
 		}
-		return screenListener;
+		return initActionListener;
 	}
 
-	public void setScreenListener(ScreenListener screenListener) {
-		this.screenListener = screenListener;
+	public void setInitActionListener(ScreenListener initActionListener) {
+		this.initActionListener = initActionListener;
+	}
+	
+	@Basic
+	public String getPreActionListenerName() {
+		return preActionListenerName;
 	}
 
+	public void setPreActionListenerName(String preActionListenerName) {
+		this.preActionListenerName = preActionListenerName;
+	}
+
+	@Transient
+	public ScreenListener getPreActionListener() {
+		if ((preActionListener==null) && (!StringUtils.isEmpty(preActionListenerName))){
+			preActionListener = (ScreenListener) ScreenUtils.getObject(preActionListenerName);
+		}
+		return preActionListener;
+	}
+
+	public void setPreActionListener(ScreenListener preActionListener) {
+		this.preActionListener = preActionListener;
+	}
+	
+	@Basic
+	public String getPostActionListenerName() {
+		return postActionListenerName;
+	}
+
+	public void setPostActionListenerName(String postActionListenerName) {
+		this.postActionListenerName = postActionListenerName;
+	}
+
+	@Transient
+	public ScreenListener getPostActionListener() {
+		if ((postActionListener==null) && (!StringUtils.isEmpty(postActionListenerName))){
+			postActionListener = (ScreenListener) ScreenUtils.getObject(postActionListenerName);
+		}
+		return postActionListener;
+	}
+
+	public void setPostActionListener(ScreenListener postActionListener) {
+		this.postActionListener = postActionListener;
+	}
+	
+	
+	@Transient
+	public Boolean getIsLazyProperties(){
+		return !StringUtils.isEmpty(lazyProperties) || !StringUtils.isEmpty(lazyCollections);
+	}
+	
+	@Basic
+	public String getLazyProperties() {
+		return lazyProperties;
+	}
+
+	public void setLazyProperties(String lazyProperties) {
+		this.lazyProperties = lazyProperties;
+	}
+	
+	@Transient
+	public Collection<String> getLazyPropertiesSplitted(){
+		return ScreenUtils.split(lazyProperties);
+	}
+
+	@Basic
+	public String getLazyCollections() {
+		return lazyCollections;
+	}
+
+	public void setLazyCollections(String lazyCollections) {
+		this.lazyCollections = lazyCollections;
+	}
+
+	@Transient
+	public Collection<String> getLazyCollectionsSplitted(){
+		return ScreenUtils.split(lazyCollections);
+	}
+	
 	public Screen(){}
 	
 	public Screen(Class entityClass){

@@ -24,6 +24,7 @@ public interface StandardService extends AppObject {
 	public void saveOrUpdate(Collection entities);
 	public void saveIfNotExist(Entity entity, String field);
 	public Boolean isExist(Entity entity);
+	public Entity getEntity(Class entityType, Long id);
 	public Entity getEntity(Entity entity);
 	public Entity getEntity(Entity entity, Collection<String> properties);
 	public Entity getEntity(Entity entity, Collection<String> properties, Collection<String> projectedCollections);

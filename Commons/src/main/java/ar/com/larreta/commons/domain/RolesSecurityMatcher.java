@@ -1,7 +1,5 @@
 package ar.com.larreta.commons.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -18,9 +16,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 @Entity
 @Table(name = "securityMatcher")
-@DiscriminatorValue("roles")
+@DiscriminatorValue(RolesSecurityMatcher.ROLES)
 public class RolesSecurityMatcher extends SecurityMatcher {
 
+	public static final String ROLES = "roles";
+	
 	private Set<Role> roles;
 
 	@ManyToMany (fetch=FetchType.EAGER, targetEntity=Role.class)
@@ -49,6 +49,12 @@ public class RolesSecurityMatcher extends SecurityMatcher {
 			http.authorizeRequests().antMatchers(getPattern()).hasAnyAuthority(authorities);
 		}
 		
+	}
+
+	@Transient
+	@Override
+	public String getSecurityMatcherType() {
+		return ROLES;
 	}
 	
 }

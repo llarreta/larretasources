@@ -1,7 +1,7 @@
 package ar.com.larreta.screens;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.persistence.Basic;
 import javax.persistence.DiscriminatorValue;
@@ -17,10 +17,8 @@ import ar.com.larreta.commons.controllers.Paginator;
 @javax.persistence.Table(name = "tabletag")
 @DiscriminatorValue(value = "table")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class Table extends Container {
+public class Table extends StandardContainer {
 
-	private static final String SEPARATOR = ",";
-	
 	private String value = ScreenUtils.generateExpression("dataView.paginator");
 	private Boolean paginator = Boolean.TRUE;
 	private Boolean lazy = Boolean.TRUE;
@@ -32,6 +30,46 @@ public class Table extends Container {
 	private String emptyMessage = ScreenUtils.generateExpression("msg['datatable.sindatos']");
 	private String currentPageReportTemplate = "{currentPage} #{msg['datatable.de']} {totalPages}";
 	private String lazyProperties;
+
+	public ScreenElement findInColumn(Integer column, Long id){
+		Integer index = 0;
+		Collection<ScreenElement> elements = getOrdererElements();
+		if (elements!=null){
+			Iterator<ScreenElement> it = elements.iterator();
+			while (it.hasNext()) {
+				ScreenElement screenElement = (ScreenElement) it.next();
+				if (screenElement instanceof Column) {
+					Column columnFinded = (Column) screenElement;
+					if (index==column){
+						return columnFinded.getSearchMap().recursiveFind(id);	
+					}
+					index++;
+				}
+				
+			}
+		}
+		return null;
+	}
+	
+	public Collection<ScreenElement> findInColumn(Integer column, Class type){
+		Integer index = 0;
+		Collection<ScreenElement> elements = getOrdererElements();
+		if (elements!=null){
+			Iterator<ScreenElement> it = elements.iterator();
+			while (it.hasNext()) {
+				ScreenElement screenElement = (ScreenElement) it.next();
+				if (screenElement instanceof Column) {
+					Column columnFinded = (Column) screenElement;
+					if (index==column){
+						return columnFinded.getSearchMap().recursiveFind(type);	
+					}
+					index++;
+				}
+				
+			}
+		}
+		return null;
+	}
 	
 	@Basic
 	public String getLazyProperties() {
@@ -72,8 +110,7 @@ public class Table extends Container {
 	public Object getValueEvaluated(){
 		Object valueEvaluated = ScreenUtils.evaluate(getValue());
 		if (!StringUtils.isEmpty(lazyProperties) && (valueEvaluated instanceof Paginator)){
-			List<String> properties = Arrays.asList(lazyProperties.split(SEPARATOR));
-			((Paginator)valueEvaluated).setLazyProperties(properties);
+			((Paginator)valueEvaluated).setLazyProperties(ScreenUtils.split(lazyProperties));
 		}
 		return valueEvaluated;
 	}

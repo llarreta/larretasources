@@ -19,6 +19,9 @@ import ar.com.larreta.screens.impl.saver.LanguageSaver;
 import ar.com.larreta.screens.impl.saver.ProfileSaver;
 import ar.com.larreta.screens.impl.saver.ResourceMessageSaver;
 import ar.com.larreta.screens.impl.saver.RoleSaver;
+import ar.com.larreta.screens.impl.saver.SecurityMatcherSaver;
+import ar.com.larreta.screens.impl.saver.SecuritySaver;
+import ar.com.larreta.screens.impl.saver.UserSaver;
 
 public class ScreenFrameworkInitializer extends GenericServlet {
 
@@ -33,6 +36,9 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 		savers.add(new ResourceMessageSaver());
 		savers.add(new RoleSaver());
 		savers.add(new ProfileSaver());
+		savers.add(new UserSaver());
+		savers.add(new SecuritySaver());
+		savers.add(new SecurityMatcherSaver());
 		
 		Iterator<ABMSaver> it = savers.iterator();
 		while (it.hasNext()) {

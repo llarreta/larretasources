@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "divtag")
 @DiscriminatorValue(value = "div")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class Div extends Container {
+public class Div extends StandardContainer {
 	
 	public Div(){}
 	

@@ -9,13 +9,21 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 @Entity
 @Table(name = "securityMatcher")
-@DiscriminatorValue("permitAll")
+@DiscriminatorValue(PermitAllSecurityMatcher.PERMIT_ALL)
 public class PermitAllSecurityMatcher extends SecurityMatcher {
+
+	public static final String PERMIT_ALL = "permitAll";
 
 	@Transient
 	@Override
 	public void process(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(getPattern()).permitAll();
+	}
+
+	@Transient
+	@Override
+	public String getSecurityMatcherType() {
+		return PERMIT_ALL;
 	}
 	
 }

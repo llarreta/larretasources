@@ -1,7 +1,12 @@
 package ar.com.larreta.screens;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -13,6 +18,8 @@ import ar.com.larreta.commons.faces.EntityConverter;
 public class ScreenUtils {
 
 	private static Logger logger = Logger.getLogger(ScreenUtils.class);
+	
+	private static final String SEPARATOR = ",";
 	
 	private static final String OPEN_EXP = "#{";
 	private static final String CLOSE_EXP = "}";
@@ -115,6 +122,31 @@ public class ScreenUtils {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Corta un tecto segun la aparicion del separador ,
+	 * @param textTosplit
+	 * @return
+	 */
+	public static List<String> split(String textTosplit){
+		if (!StringUtils.isEmpty(textTosplit)){
+			return Arrays.asList(textTosplit.split(SEPARATOR));
+		}
+		return null;
+	}
+	
+	/**
+	 * Obtienen un atributo de un evento
+	 * @param actionEvent
+	 * @param eventAttribute
+	 * @return
+	 */
+	public static Object getEventAttribute(FacesEvent actionEvent, String eventAttribute) {
+		if ((actionEvent==null) || (actionEvent.getComponent()==null) || (actionEvent.getComponent().getAttributes()==null)){
+			return null;
+		}
+		return actionEvent.getComponent().getAttributes().get(eventAttribute);
 	}
 	
 }

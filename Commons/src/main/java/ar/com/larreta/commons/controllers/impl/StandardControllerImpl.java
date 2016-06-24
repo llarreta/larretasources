@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.FacesEvent;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -309,7 +310,7 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 		}
 	}
 
-	public Object getEventAttribute(ActionEvent actionEvent, String eventAttribute) {
+	public Object getEventAttribute(FacesEvent actionEvent, String eventAttribute) {
 		if ((actionEvent==null) || (actionEvent.getComponent()==null) || (actionEvent.getComponent().getAttributes()==null)){
 			return null;
 		}

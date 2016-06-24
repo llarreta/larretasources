@@ -16,7 +16,7 @@ import org.primefaces.model.menu.DefaultSubMenu;
 @Table(name = "subMenu")
 @DiscriminatorValue(value = "subMenu")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class SubMenu extends Container implements MenuElement{
+public class SubMenu extends StandardContainer implements MenuElement{
 
 	private String label;
 	private DefaultSubMenu submenu;

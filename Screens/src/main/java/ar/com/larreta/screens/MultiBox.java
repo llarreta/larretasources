@@ -2,6 +2,7 @@ package ar.com.larreta.screens;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -159,7 +160,7 @@ public class MultiBox extends ValuedElement {
 	}
 	
 	public void setDualListValue(DualListModel dualListModel){
-		setBindingPropertyValue(dualListModel.getTarget());
+		setBindingPropertyValue(new HashSet(dualListModel.getTarget()));
 	}
 	
 	/**
@@ -169,7 +170,7 @@ public class MultiBox extends ValuedElement {
 	 * @param setSource
 	 * @return
 	 */
-	private DualListModel getDualListModel(Collection setTarget, Collection setSource) {
+	private DualListModel getDualListModel(Collection setSource, Collection setTarget) {
 		List target = new ArrayList(getNotNullSet(setTarget));
 		List source = new ArrayList(getNotNullSet(setSource));
 		if (target!=null){

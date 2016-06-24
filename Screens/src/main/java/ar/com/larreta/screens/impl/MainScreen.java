@@ -43,9 +43,13 @@ public abstract class MainScreen extends CommonsScreen {
 	
 		table.addColumn(9999, getColumnWithButtons(form.getIdValue()));
 
-		form.add(1, new SubmitButton("create", "ui-icon-plusthick", "app.create", getCreateScreenId()));
+		putCreateButton(form);
 		
 		return form;
+	}
+
+	protected void putCreateButton(Form form) {
+		form.add(1, new SubmitButton("create", "ui-icon-plusthick", "app.create", getCreateScreenId()));
 	}
 
 	protected abstract void makeColumns();
@@ -97,10 +101,14 @@ public abstract class MainScreen extends CommonsScreen {
 		deleteButton.add(attribute);
 		
 		panelGrid.add(0, updateButton);
-		panelGrid.add(1, deleteButton);
+		addDeleteButton(panelGrid, deleteButton);
 		column.add(panelGrid);
 		
 		return column;	
+	}
+
+	protected void addDeleteButton(PanelGrid panelGrid, AjaxButton deleteButton) {
+		panelGrid.add(1, deleteButton);
 	}
 
 	protected Confirm getConfirm() {

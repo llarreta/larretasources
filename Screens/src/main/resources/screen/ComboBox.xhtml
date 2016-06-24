@@ -9,7 +9,10 @@
 	
 	<p:selectOneMenu id="#{element.idValue}" value="#{element.bindingPropertyValue}" styleClass="${element.styleClass}" 	converter="#{element.converter}" >
 		<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
-			<ui:param name="elements" value="#{element.individualItems}" />
+			<ui:param name="elements" value="#{element.ordererElements}" />
+		</ui:include>	
+		<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+			<ui:param name="elements" value="#{element.ordererIndividualItems}" />
 		</ui:include>
 		<c:if test="#{element.isItemsValueExist}">
          	<f:selectItems value="#{element.items}" />

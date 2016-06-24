@@ -63,7 +63,6 @@ public class ResourceMessageSaver extends ABMSaver {
 				return ScreenImplementationsIds.RESOURCE_MESSAGE_MAIN;
 			}
 		};
-		
 	}
 
 	protected void makeBody(CreateScreen screen) {

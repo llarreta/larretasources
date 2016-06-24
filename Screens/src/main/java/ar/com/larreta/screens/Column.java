@@ -14,7 +14,7 @@ import org.primefaces.model.SelectableDataModel;
 @javax.persistence.Table(name = "columntag")
 @DiscriminatorValue(value = "column")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class Column extends Container implements SelectableDataModel {
+public class Column extends StandardContainer implements SelectableDataModel {
 	
 	private String headerText;
 	private String sortBy;

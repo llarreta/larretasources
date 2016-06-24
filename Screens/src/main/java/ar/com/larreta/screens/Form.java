@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
 @Table(name = "form")
 @DiscriminatorValue(value = "form")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class Form extends Container {
+public class Form extends StandardContainer {
 
 	private String acceptcharset = "UTF-8";
 

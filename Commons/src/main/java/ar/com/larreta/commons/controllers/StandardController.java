@@ -3,15 +3,14 @@ package ar.com.larreta.commons.controllers;
 import java.util.Collection;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.event.FacesEvent;
 
 import org.primefaces.model.DualListModel;
 import org.springframework.webflow.execution.RequestContext;
 
 import ar.com.larreta.commons.AppObject;
-import ar.com.larreta.commons.exceptions.NotImplementedException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
 import ar.com.larreta.commons.exceptions.PaginatorNotFoundException;
-import ar.com.larreta.commons.exceptions.ServiceNotFoundException;
 import ar.com.larreta.commons.services.StandardService;
 import ar.com.larreta.commons.views.DataView;
 
@@ -89,7 +88,7 @@ public interface StandardController extends AppObject {
 	 */
 	public void setSelected(ActionEvent actionEvent);
 
-	public Object getEventAttribute(ActionEvent actionEvent, String eventAttribute);
+	public Object getEventAttribute(FacesEvent actionEvent, String eventAttribute);
 
 	public DataView getDataView();
 

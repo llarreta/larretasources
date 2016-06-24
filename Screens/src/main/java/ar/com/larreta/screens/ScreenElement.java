@@ -1,16 +1,23 @@
 package ar.com.larreta.screens;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "screenElement")
@@ -32,6 +39,35 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	
 	private String bindingObject;
 	private String bindingProperty;
+	
+	private Boolean rendered = Boolean.TRUE;
+	
+	protected Set<ContainedElement> parents = new HashSet<ContainedElement>();
+	
+	@OneToMany (mappedBy="element", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=ContainedElement.class)
+	@Where(clause="deleted IS NULL")
+	public Set<ContainedElement> getParents() {
+		return parents;
+	}
+
+	public void setParents(Set<ContainedElement> parents) {
+		this.parents = parents;
+	}
+	public void add(ContainedElement parent){
+		if (parents==null){
+			parents=new HashSet<ContainedElement>();
+		}
+		parents.add(parent);
+	}
+
+	@Basic
+	public Boolean getRendered() {
+		return rendered;
+	}
+
+	public void setRendered(Boolean rendered) {
+		this.rendered = rendered;
+	}
 
 	@Transient
 	public Object getBindingObjectInstance() {
@@ -160,13 +196,13 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	
 	@Transient
 	protected ScreenElement getMe(Class toInstance) {
-		if (me==null){
-			try {
+		try {
+			if (me==null){
 				me = (ScreenElement) toInstance.newInstance();
-				PropertyUtils.copyProperties(me, this);
-			} catch (Exception e) {
-				LOGGER.error("Ocurrio un error copiando propiedades", e);
 			}
+			PropertyUtils.copyProperties(me, this);
+		} catch (Exception e) {
+			LOGGER.error("Ocurrio un error copiando propiedades", e);
 		}
 		return me;
 	}

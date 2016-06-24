@@ -7,6 +7,7 @@ CREATE TABLE [SCHEMMA].screenElement (
 	type VARCHAR(255),
 	bindingObject VARCHAR(255),
 	bindingProperty VARCHAR(255),
+	rendered TINYINT(1),
 	PRIMARY KEY (ID)
 );
 
@@ -58,7 +59,11 @@ CREATE TABLE [SCHEMMA].screen (
 	pragma VARCHAR(255),
 	cacheControl VARCHAR(255),
 	expires VARCHAR(255),
-	screenListenerName VARCHAR(255),
+	preActionListenerName VARCHAR(255),
+	postActionListenerName VARCHAR(255),
+	initActionListenerName VARCHAR(255),
+	lazyProperties VARCHAR(255),
+	lazyCollections VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -73,7 +78,7 @@ CREATE TABLE [SCHEMMA].attribute (
 	deleted DATETIME,
 	name VARCHAR(255) NOT NULL,
 	value VARCHAR(255),
-	idButton BIGINT NOT NULL,
+	idButton BIGINT,
 	PRIMARY KEY (ID)
 );
 
@@ -182,12 +187,14 @@ CREATE TABLE [SCHEMMA].panelGrid (
 CREATE TABLE [SCHEMMA].comboBox (
 	id BIGINT NOT NULL,
 	value VARCHAR(255),
+	changeListener VARCHAR(255),
 	entityType VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
 CREATE TABLE [SCHEMMA].comboBoxItem (
 	id BIGINT NOT NULL,
+	orderIndex BIGINT,
 	value VARCHAR(255),
 	itemLabel VARCHAR(255),
 	noSelectionOption VARCHAR(255),
@@ -211,6 +218,40 @@ CREATE TABLE [SCHEMMA].multiBox (
 	showTargetFilter TINYINT(1),
 	PRIMARY KEY (ID)
 );
+
+CREATE TABLE [SCHEMMA].password (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	required TINYINT(1),
+	feedback TINYINT(1),
+	inline TINYINT(1),
+	matchId VARCHAR(255),
+	label VARCHAR(255),
+	promptLabel VARCHAR(255),
+	weakLabel VARCHAR(255),
+	goodLabel VARCHAR(255),
+	strongLabel VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].ajax (
+	id BIGINT NOT NULL,
+	event VARCHAR(255),
+	updateAttribute VARCHAR(255),
+	listener VARCHAR(255),
+	eventElementId VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE [SCHEMMA].ajax
+ADD CONSTRAINT fk_screenElement_in_ajax
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].password
+ADD CONSTRAINT fk_screenElement_in_password
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].multiBox
 ADD CONSTRAINT fk_screenElement_in_multiBox

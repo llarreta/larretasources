@@ -27,5 +27,16 @@ public class ScreenImplementationsIds {
 	public static final Long PROFILE_MAIN 			= new Long(15);
 	public static final Long PROFILE_CREATE 		= new Long(16);
 	public static final Long PROFILE_UPDATE 		= new Long(17);
+
+	public static final Long USER_MAIN 			= new Long(18);
+	public static final Long USER_CREATE 		= new Long(19);
+	public static final Long USER_UPDATE 		= new Long(20);
+	
+	public static final Long SECURITY_MAIN 			= new Long(21);
+	public static final Long SECURITY_UPDATE 		= new Long(22);
+
+	public static final Long SECURITY_MATCHER_MAIN 			= new Long(23);
+	public static final Long SECURITY_MATCHER_CREATE 		= new Long(24);
+	public static final Long SECURITY_MATCHER_UPDATE 		= new Long(25);
 	
 }

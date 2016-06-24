@@ -16,7 +16,7 @@ public abstract class CommonsScreen extends Screen{
 
 	private static final Logger LOGGER = Logger.getLogger(CommonsScreen.class);
 	
-	protected static final String DATA_VIEW_SELECTED = ScreenUtils.generateExpression("dataView.selected");
+	public static final String DATA_VIEW_SELECTED = ScreenUtils.generateExpression("dataView.selected");
 	protected static final String DATA_VIEW = ScreenUtils.generateExpression("dataView");
 	protected static final String SELECTED = "selected";
 	
@@ -38,6 +38,13 @@ public abstract class CommonsScreen extends Screen{
 	public CommonsScreen(Long id, Class entityClass){
 		super(id, entityClass);
 		setCommons();
+		initialize();
+	}
+
+	public CommonsScreen(Long id, Class entityClass, String listener){
+		super(id, entityClass);
+		setPostActionListenerName(listener);
+		setCommons();
 	}
 
 	protected void setCommons() {
@@ -48,12 +55,8 @@ public abstract class CommonsScreen extends Screen{
 		add(2, footer.getMe());
 	}
 	
-	public CommonsScreen(Long id, Class entityClass, String listener){
-		super(id, entityClass);
-		setScreenListenerName(listener);
-		setCommons();
-	}
-
+	public void initialize(){}
+	
 	@Transient
 	public abstract ScreenElement getBody();
 
