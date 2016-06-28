@@ -19,20 +19,15 @@ import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
 import ar.com.larreta.screens.impl.ScreenImplementationsIds;
-import ar.com.larreta.screens.impl.UpdateScreen;
 
 @Component
-public class SecurityMatcherSaver extends ABMSaver {
-	public static final String PANEL_ROLES_ID = "panelRolesId";
-	public static final String PANEL_PERMIT_ALL_ID = "panelPermitAllId";
-	public static final String PANEL_AUTHENTICATED_ID = "panelAuthenticatedId";
-	
+public class MessageSaver extends ABMSaver {
 	private Class abmClass = SecurityMatcher.class;
 	
-	public SecurityMatcherSaver() {
+	public MessageSaver() {
 		super();
 
-		mainScreen = new MainScreen(ScreenImplementationsIds.SECURITY_MATCHER_MAIN, abmClass) {
+		mainScreen = new MainScreen(ScreenImplementationsIds.MESSAGE_MAIN, abmClass) {
 			
 			@Override
 			protected void makeColumns() {
@@ -42,47 +37,26 @@ public class SecurityMatcherSaver extends ABMSaver {
 			
 			@Override
 			public Long getCreateScreenId() {
-				return ScreenImplementationsIds.SECURITY_MATCHER_CREATE;
+				return ScreenImplementationsIds.MESSAGE_CREATE;
 			}
 
 			@Override
 			public Long getUpdateScreenId() {
-				return ScreenImplementationsIds.SECURITY_MATCHER_UPDATE;
+				return ScreenImplementationsIds.HOME;
 			}
 		};
 		
 		
-		createScreen = new CreateScreen(ScreenImplementationsIds.SECURITY_MATCHER_CREATE, RolesSecurityMatcher.class) {
+		createScreen = new CreateScreen(ScreenImplementationsIds.MESSAGE_CREATE, abmClass) {
 			
 			@Override
 			public void initialize() {
 				super.initialize();
-				setInitActionListenerName(InitSecurityMatcherTypeListener.class.getName());
 			}
 
 			@Override
 			protected void makeBody() {
-				SecurityMatcherSaver.this.makeBody(this);
-			}
-			
-			@Override
-			public Long getNextScreenId() {
-				return ScreenImplementationsIds.SECURITY_MATCHER_MAIN;
-			}
-		};
-		
-		updateScreen = new UpdateScreen(ScreenImplementationsIds.SECURITY_MATCHER_UPDATE, abmClass) {
-
-			@Override
-			public void initialize() {
-				super.initialize();
-				setInitActionListenerName(InitSecurityMatcherTypeListener.class.getName());
-				setPreActionListenerName(SecurityMatcherUpdateListener.class.getName());
-			}
-			
-			@Override
-			protected void makeBody() {
-				SecurityMatcherSaver.this.makeBody(this);
+				MessageSaver.this.makeBody(this);
 			}
 			
 			@Override
@@ -140,10 +114,6 @@ public class SecurityMatcherSaver extends ABMSaver {
 		comboBox.addComboBoxItem(getComboBoxItem(comboBox, RolesSecurityMatcher.ROLES, "securityMatcher.roles", 3));
 		
 		comboBox.setChangeListener(SecurityMatcherTypeListener.class.getName());
-		
-		addAttribute(comboBox, 0, PANEL_AUTHENTICATED_ID,  panelAuthenticated);
-		addAttribute(comboBox, 1, PANEL_PERMIT_ALL_ID,  panelPermitAll);
-		addAttribute(comboBox, 2, PANEL_ROLES_ID,  panelRoles);
 		
 		Ajax ajax = new Ajax();
 		ajax.setChangeEvent();

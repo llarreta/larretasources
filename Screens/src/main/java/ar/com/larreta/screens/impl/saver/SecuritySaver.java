@@ -1,10 +1,13 @@
 package ar.com.larreta.screens.impl.saver;
 
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.commons.domain.Security;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.ScreenImplementationsIds;
 import ar.com.larreta.screens.impl.UpdateScreen;
 
+@Component
 public class SecuritySaver extends ABMSaver {
 	private Class abmClass = Security.class;
 	

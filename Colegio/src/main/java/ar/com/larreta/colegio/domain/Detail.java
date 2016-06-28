@@ -16,27 +16,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import ar.com.larreta.commons.domain.ParametricEntity;
+
 @Entity
 @Table(name = "detail")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Detail SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Detail extends ar.com.larreta.commons.domain.Entity{
+public class Detail extends ParametricEntity{
 
-	private String description;
 	private Double value;
 	private Set<LittleDetail> littleDetails;
 	private Price price;
 
-	@Basic @Column (name="description")
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	@Basic @Column (name="value")
+	@Basic @Column (name="detailValue")
 	public Double getValue() {
 		return value;
 	}

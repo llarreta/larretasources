@@ -6,7 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -15,7 +14,7 @@ import ar.com.larreta.commons.utils.DateUtils;
 
 @Entity
 @Table(name = "message")
-public class Message extends ParametricEntity {
+public class Message extends BigParametricEntity {
 	
 	public static final String DATE = "date";
 
@@ -23,32 +22,6 @@ public class Message extends ParametricEntity {
 	private Date date;
 	private User to;
 	
-	private byte[] extDescription;
-
-	public void setMessage(String description) {
-		if (description!=null){
-			setExtDescription(description.getBytes());
-		}
-	}
-
-	@Transient
-	public String getMessage() {
-		if ((extDescription!=null) && (extDescription.length>0)){
-			return new String(extDescription);
-		} 
-		return getDescription();
-	}
-
-	
-	@Lob @Basic
-	public byte[] getExtDescription() {
-		return extDescription;
-	}
-
-	public void setExtDescription(byte[] extDescription) {
-		this.extDescription = extDescription;
-	}
-
 	@Basic
 	public Date getDate() {
 		return date;
@@ -83,9 +56,4 @@ public class Message extends ParametricEntity {
 		this.to = to;
 	}
 	
-	@Transient
-	public Boolean getIsVisible(){
-		return ((getDescription()!=null) && (getDescription().trim().length()>0)) ||
-				((extDescription!=null) && extDescription.length>0);
-	}
 }

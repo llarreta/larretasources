@@ -3,7 +3,7 @@ CREATE TABLE [SCHEMMA].securityMatcher (
 	deleted DATETIME,
 	matcherType VARCHAR(255) NOT NULL,
 	pattern VARCHAR(255) NOT NULL,
-	idSecurity BIGINT NOT NULL,
+	idSecurity BIGINT,
 	PRIMARY KEY (ID)
 );
 

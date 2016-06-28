@@ -1,0 +1,296 @@
+CREATE TABLE [SCHEMMA].year (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].division (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].level (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].course (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	idLevel BIGINT NOT NULL,
+	idYear BIGINT NOT NULL,
+	idDivision BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].documentType (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].paymentDirection (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].paymentEntity (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].productGroup (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].littleDetail (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	littleDetailValue DOUBLE,
+	idDetail BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].detail (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	detailValue DOUBLE,
+	idPrice BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].price (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	validityStartDate DATETIME,
+	priceValue DOUBLE,
+	idObligation BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].obligation (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	dueDate DATETIME,
+	priceValue DOUBLE,
+	idPaymentPlan BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].product (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	idProductGroup BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].paymentPlan (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].person (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	name VARCHAR(255),
+	surname VARCHAR(255),
+	idDocumentType BIGINT,
+	documentNumber INT,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].student (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	idCourse BIGINT,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].obligationStatus (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	idObligation BIGINT NOT NULL,
+	idStudent BIGINT NOT NULL,
+	paidOff TINYINT(1),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].responsible (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	cbu VARCHAR(255),
+	cuil VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].studentResponsible (
+	idResponsible BIGINT NOT NULL,
+	idStudent BIGINT NOT NULL,
+	PRIMARY KEY (idResponsible, idStudent)
+);
+
+CREATE TABLE [SCHEMMA].studentPaymentPlan (
+	idStudent BIGINT NOT NULL,
+	idPaymentPlan BIGINT NOT NULL,
+	PRIMARY KEY (idStudent, idPaymentPlan)
+);
+
+CREATE TABLE [SCHEMMA].paymentUnit (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	paymentUnitValue DOUBLE,
+	idPersonBenefiting BIGINT NOT NULL,
+	idProduct BIGINT NOT NULL,
+	idPaymentDirection BIGINT NOT NULL,
+	idPaymentEntity  BIGINT NOT NULL,
+	idPayment BIGINT NOT NULL,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].payment (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	paymentValue DOUBLE,
+	idPersonWhoPays BIGINT NOT NULL,
+	paymentDate DATETIME,
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE [SCHEMMA].payment
+ADD CONSTRAINT fk_personWhoPays_in_payment
+FOREIGN KEY (idPersonWhoPays)
+REFERENCES [SCHEMMA].person(id);
+
+ALTER TABLE [SCHEMMA].paymentUnit
+ADD CONSTRAINT fk_payment_in_paymentUnit
+FOREIGN KEY (idPayment)
+REFERENCES [SCHEMMA].payment(id);
+
+ALTER TABLE [SCHEMMA].paymentUnit
+ADD CONSTRAINT fk_paymentEntity_in_paymentUnit
+FOREIGN KEY (idPaymentEntity)
+REFERENCES [SCHEMMA].paymentEntity(id);
+
+ALTER TABLE [SCHEMMA].paymentUnit
+ADD CONSTRAINT fk_paymentDirection_in_paymentUnit
+FOREIGN KEY (idPaymentDirection)
+REFERENCES [SCHEMMA].paymentDirection(id);
+
+ALTER TABLE [SCHEMMA].paymentUnit
+ADD CONSTRAINT fk_product_in_paymentUnit
+FOREIGN KEY (idProduct)
+REFERENCES [SCHEMMA].product(id);
+
+ALTER TABLE [SCHEMMA].paymentUnit
+ADD CONSTRAINT fk_personBenefiting_in_paymentUnit
+FOREIGN KEY (idPersonBenefiting)
+REFERENCES [SCHEMMA].person(id);
+
+ALTER TABLE [SCHEMMA].studentPaymentPlan
+ADD CONSTRAINT fk_paymentPlan_in_studentPaymentPlan
+FOREIGN KEY (idPaymentPlan)
+REFERENCES [SCHEMMA].paymentPlan(id);
+
+ALTER TABLE [SCHEMMA].studentPaymentPlan
+ADD CONSTRAINT fk_student_in_studentPaymentPlan
+FOREIGN KEY (idStudent)
+REFERENCES [SCHEMMA].student(id);
+
+ALTER TABLE [SCHEMMA].studentResponsible
+ADD CONSTRAINT fk_responsible_in_studentResponsible
+FOREIGN KEY (idResponsible)
+REFERENCES [SCHEMMA].responsible(id);
+
+ALTER TABLE [SCHEMMA].studentResponsible
+ADD CONSTRAINT fk_student_in_studentResponsible
+FOREIGN KEY (idStudent)
+REFERENCES [SCHEMMA].student(id);
+
+ALTER TABLE [SCHEMMA].obligationStatus
+ADD CONSTRAINT fk_student_in_obligationStatus
+FOREIGN KEY (idStudent)
+REFERENCES [SCHEMMA].student(id);
+
+ALTER TABLE [SCHEMMA].obligationStatus
+ADD CONSTRAINT fk_obligation_in_obligationStatus
+FOREIGN KEY (idObligation)
+REFERENCES [SCHEMMA].obligation(id);
+
+ALTER TABLE [SCHEMMA].student
+ADD CONSTRAINT fk_person_in_student
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].person(id);
+
+ALTER TABLE [SCHEMMA].student
+ADD CONSTRAINT fk_course_in_student
+FOREIGN KEY (idCourse)
+REFERENCES [SCHEMMA].course(id);
+
+ALTER TABLE [SCHEMMA].person
+ADD CONSTRAINT fk_documentType_in_person
+FOREIGN KEY (idDocumentType)
+REFERENCES [SCHEMMA].documentType(id);
+
+ALTER TABLE [SCHEMMA].obligation
+ADD CONSTRAINT fk_paymentPlan_in_obligation
+FOREIGN KEY (idPaymentPlan)
+REFERENCES [SCHEMMA].paymentPlan(id);
+
+ALTER TABLE [SCHEMMA].product
+ADD CONSTRAINT fk_productGroup_in_product
+FOREIGN KEY (idProductGroup)
+REFERENCES [SCHEMMA].productGroup(id);
+
+ALTER TABLE [SCHEMMA].obligation
+ADD CONSTRAINT fk_product_in_obligation
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].product(id);
+
+ALTER TABLE [SCHEMMA].price
+ADD CONSTRAINT fk_obligation_in_price
+FOREIGN KEY (idObligation)
+REFERENCES [SCHEMMA].obligation(id);
+
+ALTER TABLE [SCHEMMA].detail
+ADD CONSTRAINT fk_price_in_detail
+FOREIGN KEY (idPrice)
+REFERENCES [SCHEMMA].price(id);
+
+ALTER TABLE [SCHEMMA].littleDetail
+ADD CONSTRAINT fk_detail_in_littleDetail
+FOREIGN KEY (idDetail)
+REFERENCES [SCHEMMA].detail(id);
+
+ALTER TABLE [SCHEMMA].course
+ADD CONSTRAINT fk_division_in_course
+FOREIGN KEY (idDivision)
+REFERENCES [SCHEMMA].division(id);
+
+ALTER TABLE [SCHEMMA].course
+ADD CONSTRAINT fk_level_in_course
+FOREIGN KEY (idLevel)
+REFERENCES [SCHEMMA].level(id);
+
+ALTER TABLE [SCHEMMA].course
+ADD CONSTRAINT fk_year_in_course
+FOREIGN KEY (idYear)
+REFERENCES [SCHEMMA].year(id);

@@ -1,0 +1,1 @@
+UPDATE [SCHEMMA].security SET avaiable=false WHERE id=1;

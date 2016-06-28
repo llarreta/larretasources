@@ -13,9 +13,7 @@ public class ParametricEntity extends Entity {
 	
 	private String description;
 	
-	public ParametricEntity(){
-		
-	}
+	public ParametricEntity(){}
 	
 	public ParametricEntity(Long id, String description){
 		this.id = id;

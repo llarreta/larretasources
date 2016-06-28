@@ -44,6 +44,9 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	
 	protected Set<ContainedElement> parents = new HashSet<ContainedElement>();
 	
+	@Transient
+	private Boolean initialized = Boolean.FALSE;
+	
 	@OneToMany (mappedBy="element", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=ContainedElement.class)
 	@Where(clause="deleted IS NULL")
 	public Set<ContainedElement> getParents() {
@@ -196,6 +199,10 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	
 	@Transient
 	protected ScreenElement getMe(Class toInstance) {
+		if (!initialized){
+			initialized=!initialized;
+			initialize();
+		}
 		try {
 			if (me==null){
 				me = (ScreenElement) toInstance.newInstance();
@@ -211,4 +218,7 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	public ScreenElement getMe(){
 		return this;
 	}
+	
+	public void initialize(){}
+	
 }

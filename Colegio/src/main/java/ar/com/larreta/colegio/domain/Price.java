@@ -23,6 +23,7 @@ import org.hibernate.annotations.Where;
 @SQLDelete (sql="UPDATE Price SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
 public class Price extends ar.com.larreta.commons.domain.Entity {
+
 	private Date validityStartDate;
 	private Double value;
 	private Set<Detail> details;
@@ -44,7 +45,7 @@ public class Price extends ar.com.larreta.commons.domain.Entity {
 		this.validityStartDate = validityStartDate;
 	}
 	
-	@Basic @Column (name="value")
+	@Basic @Column (name="priceValue")
 	public Double getValue() {
 		return value;
 	}

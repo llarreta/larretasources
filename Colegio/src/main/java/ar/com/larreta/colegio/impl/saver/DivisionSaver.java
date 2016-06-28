@@ -1,22 +1,21 @@
-package ar.com.larreta.screens.impl.saver;
+package ar.com.larreta.colegio.impl.saver;
 
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.commons.domain.Country;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
-import ar.com.larreta.screens.impl.ScreenImplementationsIds;
 import ar.com.larreta.screens.impl.UpdateScreen;
+import ar.com.larreta.screens.impl.saver.ABMSaver;
 
 @Component
-public class CountrySaver extends ABMSaver {
-
+public class DivisionSaver extends ABMSaver {
 	private Class abmClass = Country.class;
 	
-	public CountrySaver() {
+	public DivisionSaver() {
 		super();
 
-		mainScreen = new MainScreen(ScreenImplementationsIds.COUNTRY_MAIN, abmClass) {
+		mainScreen = new MainScreen(ColegioIds.DIVISION_MAIN, abmClass) {
 			
 			@Override
 			protected void makeColumns() {
@@ -26,39 +25,39 @@ public class CountrySaver extends ABMSaver {
 			
 			@Override
 			public Long getCreateScreenId() {
-				return ScreenImplementationsIds.COUNTRY_CREATE;
+				return ColegioIds.DIVISION_CREATE;
 			}
 
 			@Override
 			public Long getUpdateScreenId() {
-				return ScreenImplementationsIds.COUNTRY_UPDATE;
+				return ColegioIds.DIVISION_UPDATE;
 			}
 		};
 		
 		
-		createScreen = new CreateScreen(ScreenImplementationsIds.COUNTRY_CREATE, abmClass) {
+		createScreen = new CreateScreen(ColegioIds.DIVISION_CREATE, abmClass) {
 			
 			@Override
 			protected void makeBody() {
-				CountrySaver.this.makeBody(this);
+				DivisionSaver.this.makeBody(this);
 			}
 			
 			@Override
 			public Long getNextScreenId() {
-				return ScreenImplementationsIds.COUNTRY_MAIN;
+				return ColegioIds.DIVISION_MAIN;
 			}
 		};
 		
-		updateScreen = new UpdateScreen(ScreenImplementationsIds.COUNTRY_UPDATE, abmClass) {
+		updateScreen = new UpdateScreen(ColegioIds.DIVISION_UPDATE, abmClass) {
 			
 			@Override
 			protected void makeBody() {
-				CountrySaver.this.makeBody(this);
+				DivisionSaver.this.makeBody(this);
 			}
 			
 			@Override
 			public Long getNextScreenId() {
-				return ScreenImplementationsIds.COUNTRY_MAIN;
+				return ColegioIds.DIVISION_MAIN;
 			}
 		};
 		
@@ -69,5 +68,6 @@ public class CountrySaver extends ABMSaver {
 		index = screen.addInput(index, "app.abbreviation", "abbreviation");
 		index = screen.addInput(index, "app.description", "description");
 	}
+
 
 }

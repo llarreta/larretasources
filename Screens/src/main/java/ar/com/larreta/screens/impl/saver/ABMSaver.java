@@ -9,8 +9,6 @@ import ar.com.larreta.screens.services.impl.ScreenServiceImpl;
 
 public abstract class ABMSaver {
 
-	private ScreensService screensService = (ScreensService) AppManager.getInstance().getBean(ScreenServiceImpl.SCREEN_SERVICE);
-	
 	protected MainScreen mainScreen;
 	protected CreateScreen createScreen;
 	protected CreateScreen updateScreen;
@@ -28,9 +26,12 @@ public abstract class ABMSaver {
 
 	protected void save(CommonsScreen screen) {
 		if (screen!=null){
-			screensService.saveOrUpdate(screen.getMe());
+			getScreenService().saveOrUpdate(screen.getMe());
 		}
 	}
 	
+	public ScreensService getScreenService() {
+		return (ScreensService) AppManager.getInstance().getBean(ScreenServiceImpl.SCREEN_SERVICE);
+	}
 	
 }

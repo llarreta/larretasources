@@ -18,7 +18,7 @@ public class TestCryptographer {
 
 			encryptTest(base64, "screens");
 			encryptTest(base64, "trace");
-			encryptTest(base64, "user3");
+			encryptTest(base64, "colegio");
 			encryptTest(base64, "user4");
 			encryptTest(base64, "user5");
 			encryptTest(base64, "user6");

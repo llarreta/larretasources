@@ -1,5 +1,7 @@
 package ar.com.larreta.screens.impl.saver;
 
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.commons.domain.Profile;
 import ar.com.larreta.commons.domain.Role;
 import ar.com.larreta.commons.domain.User;
@@ -8,6 +10,7 @@ import ar.com.larreta.screens.impl.MainScreen;
 import ar.com.larreta.screens.impl.ScreenImplementationsIds;
 import ar.com.larreta.screens.impl.UpdateScreen;
 
+@Component
 public class UserSaver extends ABMSaver {
 	private Class abmClass = User.class;
 	

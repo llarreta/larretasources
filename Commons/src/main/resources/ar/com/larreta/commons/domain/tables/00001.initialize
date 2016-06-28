@@ -54,7 +54,7 @@ CREATE TABLE [SCHEMMA].containsRoles (
 CREATE TABLE [SCHEMMA].message (
 	id BIGINT NOT NULL,
 	deleted DATETIME,
-	description VARCHAR(255),
+	text LONGBLOB,
 	idFrom BIGINT NOT NULL,
 	idTo BIGINT,
 	date DATETIME,

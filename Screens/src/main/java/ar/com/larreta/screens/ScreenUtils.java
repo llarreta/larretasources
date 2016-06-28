@@ -1,7 +1,9 @@
 package ar.com.larreta.screens;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.el.MethodExpression;
@@ -11,9 +13,13 @@ import javax.faces.event.FacesEvent;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
 
 import ar.com.larreta.commons.AppManager;
-import ar.com.larreta.commons.faces.EntityConverter;
+import ar.com.larreta.screens.impl.Footer;
+import ar.com.larreta.screens.impl.Header;
+import ar.com.larreta.screens.impl.MainMenu;
+import ar.com.larreta.screens.impl.saver.ABMSaver;
 
 public class ScreenUtils {
 
@@ -148,5 +154,53 @@ public class ScreenUtils {
 		}
 		return actionEvent.getComponent().getAttributes().get(eventAttribute);
 	}
+	
+	public static MainMenu getMainMenu(){
+		return (MainMenu) getScreenElement(MainMenu.MAIN_MENU, MainMenu.class);
+	}
+
+	public static Header getHeader(){
+		return (Header) getScreenElement(Header.HEADER, Header.class);
+	}
+
+	public static Footer getFooter(){
+		return (Footer) getScreenElement(Footer.FOOTER, Footer.class);
+	}
+
+	
+	public static Object getScreenElement(String defaultName, Class toSearch) {
+		try{
+			ApplicationContext context = AppManager.getInstance().getAppContext();
+			Collection names = Arrays.asList(context.getBeanNamesForType(toSearch));
+			if (names.size()>1){
+				Iterator it = names.iterator();
+				while (it.hasNext()) {
+					String name = (String) it.next();
+					if (!defaultName.equals(name)){
+						return context.getBean(name);
+					}
+				}
+			}
+			return context.getBean((String) names.iterator().next());
+		} catch (Exception e){
+			logger.error(e);
+		}
+		return null;
+	}
+	
+	public static Collection<ABMSaver> getSavers(){
+		Collection<ABMSaver> savers = new ArrayList<ABMSaver>();
+		
+		ApplicationContext context = AppManager.getInstance().getAppContext();
+		Collection names = Arrays.asList(context.getBeanNamesForType(ABMSaver.class));
+		Iterator<String> it = names.iterator();
+		while (it.hasNext()) {
+			String name = (String) it.next();
+			savers.add((ABMSaver) context.getBean(name));
+		}
+		
+		return savers;
+	}
+	
 	
 }

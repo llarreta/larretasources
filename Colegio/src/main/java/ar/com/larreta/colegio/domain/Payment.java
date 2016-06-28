@@ -29,7 +29,7 @@ public class Payment extends ar.com.larreta.commons.domain.Entity {
 	private Set<PaymentUnit> paymentUnits;
 	private Date paymentDate;
 	
-	@Basic @Column (name="value")
+	@Basic @Column (name="paymentValue")
 	public Double getValue() {
 		return value;
 	}

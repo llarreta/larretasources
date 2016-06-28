@@ -12,12 +12,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import ar.com.larreta.commons.domain.ParametricEntity;
+
 @Entity
 @Table(name = "paymentUnit")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE PaymentUnit SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class PaymentUnit extends ar.com.larreta.commons.domain.Entity {
+public class PaymentUnit extends ParametricEntity {
 	
 	private Double value;
 	private Person personBenefiting;
@@ -25,9 +27,8 @@ public class PaymentUnit extends ar.com.larreta.commons.domain.Entity {
 	private PaymentDirection paymentDirection;
 	private PaymentEntity paymentEntity;
 	private Payment payment;
-	private String description;
 	
-	@Basic @Column (name="value")
+	@Basic @Column (name="paymentUnitValue")
 	public Double getValue() {
 		return value;
 	}
@@ -79,14 +80,5 @@ public class PaymentUnit extends ar.com.larreta.commons.domain.Entity {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
-	
-	@Basic @Column (name="description")
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 
 }

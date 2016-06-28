@@ -1,11 +1,14 @@
 package ar.com.larreta.screens.impl.saver;
 
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.commons.domain.Role;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
 import ar.com.larreta.screens.impl.ScreenImplementationsIds;
 import ar.com.larreta.screens.impl.UpdateScreen;
 
+@Component
 public class RoleSaver extends ABMSaver {
 	private Class abmClass = Role.class;
 	

@@ -38,5 +38,9 @@ public class ScreenImplementationsIds {
 	public static final Long SECURITY_MATCHER_MAIN 			= new Long(23);
 	public static final Long SECURITY_MATCHER_CREATE 		= new Long(24);
 	public static final Long SECURITY_MATCHER_UPDATE 		= new Long(25);
+
+	public static final Long MESSAGE_MAIN 			= new Long(26);
+	public static final Long MESSAGE_CREATE 		= new Long(27);
+
 	
 }

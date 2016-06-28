@@ -100,7 +100,8 @@ public class LockApp {
 	public synchronized Long nextIdentifier(){
 		// Se valida la fecha de expiracion del sistema
 		LockAppInitializer.validateExpirationDate(appObject);
-		return identifier++;
+		identifier++;
+		return identifier;
 	}
 	
 	public String getDecryptedLockString(){

@@ -15,10 +15,9 @@ import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
 import ar.com.larreta.commons.exceptions.PaginatorNotFoundException;
 import ar.com.larreta.commons.views.DataView;
-import ar.com.larreta.screens.AjaxButton;
+import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;
-import ar.com.larreta.screens.SubmitButton;
 import ar.com.larreta.screens.impl.ScreenListener;
 import ar.com.larreta.screens.services.ScreensService;
 import ar.com.larreta.screens.services.impl.ScreenServiceImpl;
@@ -95,6 +94,9 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 	@Override
 	public void starting(RequestContext flowRequestContext) throws PaginatorNotFoundException {
 		getScreen(flowRequestContext);
+		
+		screen.getSearchMap().recursiveFind(Form.class);
+		
 		super.starting(flowRequestContext);
 		callListener(flowRequestContext, screen.getInitActionListener());
 	}

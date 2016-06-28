@@ -57,6 +57,7 @@ public class SecurityMatcherTypeListener implements ComboBoxListener {
 		}
 		
 		if (old!=null){
+			newSecurityMatcher.setId(old.getId());
 			newSecurityMatcher.setSecurity(old.getSecurity());
 			newSecurityMatcher.setPattern(old.getPattern());
 		}

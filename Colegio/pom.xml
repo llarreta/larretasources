@@ -61,7 +61,7 @@
 			    <version>2.4</version>
 			    <configuration>
 			        <failOnMissingWebXml>false</failOnMissingWebXml>
-			        <warName>smartTrace</warName>
+			        <warName>colegio</warName>
 			    </configuration>
 			</plugin>
 			
@@ -252,6 +252,11 @@
 		<dependency>
 			<groupId>ar.com.larreta.commons</groupId>
 			<artifactId>Commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>ar.com.larreta.screens</groupId>
+			<artifactId>Screens</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

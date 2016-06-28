@@ -21,8 +21,6 @@ public abstract class CommonsScreen extends Screen{
 	protected static final String SELECTED = "selected";
 	
 	protected static Collection<StyleSheet> styleSheets = getStyles();
-	protected static Header header = new Header();
-	protected static Footer footer = new Footer();
 	
 	private static Collection<StyleSheet> getStyles(){
 		Collection<StyleSheet> styleSheets = new ArrayList<StyleSheet>();
@@ -37,25 +35,32 @@ public abstract class CommonsScreen extends Screen{
 	
 	public CommonsScreen(Long id, Class entityClass){
 		super(id, entityClass);
-		setCommons();
-		initialize();
 	}
 
 	public CommonsScreen(Long id, Class entityClass, String listener){
 		super(id, entityClass);
 		setPostActionListenerName(listener);
-		setCommons();
 	}
 
 	protected void setCommons() {
 		setTitleMessage("app.titleApp");
 		setStyleSheets(styleSheets);
-		add(0, header.getMe());
+		add(0, getHeader());
 		add(1, getBody());
-		add(2, footer.getMe());
+		add(2, getFooter());
+	}
+
+	protected ScreenElement getFooter() {
+		return ScreenUtils.getFooter().getMe();
+	}
+
+	protected ScreenElement getHeader() {
+		return ScreenUtils.getHeader().getMe();
 	}
 	
-	public void initialize(){}
+	public void initialize(){
+		setCommons();
+	}
 	
 	@Transient
 	public abstract ScreenElement getBody();
