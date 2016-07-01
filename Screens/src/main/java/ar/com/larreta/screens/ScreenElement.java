@@ -19,6 +19,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.Where;
 
+import ar.com.larreta.commons.AppManager;
+import ar.com.larreta.screens.impl.saver.ScreenConstantIds;
+
 @Entity
 @Table(name = "screenElement")
 @DiscriminatorColumn(name = "type")
@@ -29,6 +32,9 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	public static final String CONTROLLER = ScreenUtils.generateExpression("controller");
 
 	private static final Logger LOGGER = Logger.getLogger(ScreenElement.class);
+	
+	@Transient
+	protected ScreenConstantIds screenConstantIds = (ScreenConstantIds) AppManager.getInstance().getBean(ScreenConstantIds.CONSTANT_IDS);
 	
 	@Transient
 	private ScreenElement me;
@@ -195,28 +201,6 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	
 	public void setStyleClass(String styleClass) {
 		this.styleClass = styleClass;
-	}
-	
-	@Transient
-	protected ScreenElement getMe(Class toInstance) {
-		if (!initialized){
-			initialized=!initialized;
-			initialize();
-		}
-		try {
-			if (me==null){
-				me = (ScreenElement) toInstance.newInstance();
-			}
-			PropertyUtils.copyProperties(me, this);
-		} catch (Exception e) {
-			LOGGER.error("Ocurrio un error copiando propiedades", e);
-		}
-		return me;
-	}
-	
-	@Transient
-	public ScreenElement getMe(){
-		return this;
 	}
 	
 	public void initialize(){}

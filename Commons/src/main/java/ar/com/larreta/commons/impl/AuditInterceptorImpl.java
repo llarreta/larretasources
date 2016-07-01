@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.AuditInterceptor;
+import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.domain.audit.AuditableEntity;
 import ar.com.larreta.commons.services.AuditService;
 
@@ -38,6 +39,15 @@ public class AuditInterceptorImpl extends EmptyInterceptor implements AuditInter
 		return super.onSave(entity, id, state, propertyNames, types);
 	}
 
+	@Override
+	public String getEntityName(Object object) {
+		if (object instanceof Entity) {
+			Entity entity = (Entity) object;
+			return entity.getPersistEntityName();
+		}
+		return super.getEntityName(object);
+	}
+	
 	@Override
 	public Logger getLog() {
 		return appObject.getLog();

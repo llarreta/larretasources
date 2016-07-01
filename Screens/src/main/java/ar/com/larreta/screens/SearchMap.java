@@ -1,24 +1,26 @@
 package ar.com.larreta.screens;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import ar.com.larreta.commons.AppObjectImpl;
+import ar.com.larreta.screens.exceptions.NotUniqueObjectException;
+
 /**
  * se encarga de clasificar los componentes de un formulario
  * para luego poder realizar busquedas facilmente 
  */
-public class SearchMap implements Serializable {
+public class SearchMap extends AppObjectImpl {
 
 	private Map<Long, ScreenElement> elementsById = new HashMap<Long, ScreenElement>();
 	private Map<Class, Map<Long, ScreenElement>> elementsByClasses = new HashMap<Class, Map<Long,ScreenElement>>();
 	private Collection<Container> containers = new ArrayList<Container>();
 	
 
-	public void add(Collection<ContainedElement> elements){
+	public void add(Collection<ContainedElement> elements) throws NotUniqueObjectException{
 		if (elements!=null){
 			Iterator<ContainedElement> it = elements.iterator();
 			while (it.hasNext()) {
@@ -28,7 +30,13 @@ public class SearchMap implements Serializable {
 		}
 	}
 	
-	public void add(ScreenElement element){
+	public void add(ScreenElement element) throws NotUniqueObjectException{
+		ScreenElement old = recursiveFind(element.getId());
+		if (old!=null && old!=element){
+			getLog().error("Se encontro objeto identico con id:" + old.getIdValue());
+			throw new NotUniqueObjectException();
+		}
+		
 		elementsById.put(element.getId(), element);
 
 		Map<Long, ScreenElement> elementsByClass = elementsByClasses.get(element.getClass());

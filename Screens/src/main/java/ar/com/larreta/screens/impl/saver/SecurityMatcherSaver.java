@@ -1,5 +1,6 @@
 package ar.com.larreta.screens.impl.saver;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.commons.domain.AuthenticatedSecurityMatcher;
@@ -18,81 +19,59 @@ import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
-import ar.com.larreta.screens.impl.ScreenImplementationsIds;
-import ar.com.larreta.screens.impl.UpdateScreen;
 
 @Component
 public class SecurityMatcherSaver extends ABMSaver {
+
+	private static final Logger LOGGER = Logger.getLogger(SecurityMatcherSaver.class);
+	
 	public static final String PANEL_ROLES_ID = "panelRolesId";
 	public static final String PANEL_PERMIT_ALL_ID = "panelPermitAllId";
 	public static final String PANEL_AUTHENTICATED_ID = "panelAuthenticatedId";
 	
-	private Class abmClass = SecurityMatcher.class;
-	
 	public SecurityMatcherSaver() {
 		super();
-
-		mainScreen = new MainScreen(ScreenImplementationsIds.SECURITY_MATCHER_MAIN, abmClass) {
-			
-			@Override
-			protected void makeColumns() {
-				table.addColumn(0, getColumnWithLabelProperty("pattern", 	"app.pattern", 	"tableElement.pattern",  	"40%"));
-				table.addColumn(1, getColumnWithLabelProperty("securityMatcherType", 	"app.securityMatcherType", 	"tableElement.securityMatcherType",  	"40%"));
-			}
-			
+		mainScreen = new MainScreen(getABMClass()) {
 			@Override
 			public Long getCreateScreenId() {
-				return ScreenImplementationsIds.SECURITY_MATCHER_CREATE;
+				return screenConstantIds.getIdentifier(RolesSecurityMatcher.class.getSimpleName() + "Create");
 			}
 
 			@Override
-			public Long getUpdateScreenId() {
-				return ScreenImplementationsIds.SECURITY_MATCHER_UPDATE;
+			protected void makeColumns() {
+				SecurityMatcherSaver.this.makeColumn(this);
 			}
 		};
 		
-		
-		createScreen = new CreateScreen(ScreenImplementationsIds.SECURITY_MATCHER_CREATE, RolesSecurityMatcher.class) {
-			
+		createScreen = new CreateScreen(RolesSecurityMatcher.class) {
 			@Override
-			public void initialize() {
-				super.initialize();
-				setInitActionListenerName(InitSecurityMatcherTypeListener.class.getName());
+			public Long getNextScreenId() {
+				return screenConstantIds.getIdentifier(SecurityMatcher.class.getSimpleName() + "Main");
 			}
 
 			@Override
 			protected void makeBody() {
 				SecurityMatcherSaver.this.makeBody(this);
 			}
-			
-			@Override
-			public Long getNextScreenId() {
-				return ScreenImplementationsIds.SECURITY_MATCHER_MAIN;
-			}
 		};
 		
-		updateScreen = new UpdateScreen(ScreenImplementationsIds.SECURITY_MATCHER_UPDATE, abmClass) {
-
-			@Override
-			public void initialize() {
-				super.initialize();
-				setInitActionListenerName(InitSecurityMatcherTypeListener.class.getName());
-				setPreActionListenerName(SecurityMatcherUpdateListener.class.getName());
-			}
-			
-			@Override
-			protected void makeBody() {
-				SecurityMatcherSaver.this.makeBody(this);
-			}
-			
-			@Override
-			public Long getNextScreenId() {
-				return ScreenImplementationsIds.SECURITY_MATCHER_MAIN;
-			}
-		};
-		
+		createScreen.setInitActionListenerName(InitSecurityMatcherTypeListener.class.getName());
+		updateScreen.setInitActionListenerName(InitSecurityMatcherTypeListener.class.getName());
+		updateScreen.setPreActionListenerName(SecurityMatcherUpdateListener.class.getName());
+	}
+	
+	@Override
+	public Class getABMClass() {
+		return SecurityMatcher.class;
 	}
 
+	@Override
+	protected void makeColumn(MainScreen screen) {
+		screen.getTable().addColumn(0, screen.getColumnWithLabelProperty("pattern", 	"app.pattern", 	"tableElement.pattern",  	"40%"));
+		screen.getTable().addColumn(1, screen.getColumnWithLabelProperty("securityMatcherType", 	"app.securityMatcherType", 	"tableElement.securityMatcherType",  	"40%"));
+	}
+	
+	@Override
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
 

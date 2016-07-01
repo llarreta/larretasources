@@ -19,7 +19,9 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		AppManager.getInstance().getStandardService().saveOrUpdate(new HomeScreen().getMe());
+		HomeScreen homeScreen = (HomeScreen) AppManager.getInstance().getBean("homeScreen");
+		homeScreen.initialize();
+		AppManager.getInstance().getStandardService().saveOrUpdate(homeScreen);
 		
 		Collection<ABMSaver> savers = ScreenUtils.getSavers();
 		Iterator<ABMSaver> it = savers.iterator();

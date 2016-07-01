@@ -5,14 +5,20 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.log4j.Logger;
 
 @Entity
 @Table(name = "containedElement")
 public class ContainedElement extends ar.com.larreta.commons.domain.Entity {
 
+	private static final Logger LOGGER = Logger.getLogger(Entity.class);
+	
 	private Long order = new Long(0);
 	private ScreenElement container;
 	private ScreenElement element;
@@ -55,6 +61,22 @@ public class ContainedElement extends ar.com.larreta.commons.domain.Entity {
 			this.order = order;
 		}
 	}
-	
+
+	// Se sobrescriben los dos metodos siguientes para que determine que son iguales mediante los dos elementos que componen la relacion
+	//FIXME: Ir por el lado del composite id
+	@Transient
+	@Override
+	public Long getId() {
+		try {
+			if (id==null && container!=null && element!=null){
+				Long indexFactor = ar.com.larreta.commons.domain.Entity.getIndexFactor(2);
+				id = (container.getId() * indexFactor) + element.getId(); 
+			}
+			return id;
+		} catch (Exception e){
+			LOGGER.error("Ocurrio un error obteniendo id", e);
+		}
+		return null;
+	}
 	
 }

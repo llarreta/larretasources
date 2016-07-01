@@ -25,6 +25,7 @@ import ar.com.larreta.screens.impl.ScreenListener;
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
 public class Screen extends StandardContainer {
 
+	private static final String DOT = ".";
 	private static final String DEFAULT_EXPIRES = "0";
 	private static final String NO_CACHE = "no-cache";
 	private static final String TEXT_HTML_CHARSET_UTF_8 = "text/html; charset=UTF-8";
@@ -168,6 +169,11 @@ public class Screen extends StandardContainer {
 
 	public void setEntityClass(String entityClass) {
 		this.entityClass = entityClass;
+	}
+	
+	@Transient
+	public String getEntityClassShortName(){
+		return entityClass.substring(entityClass.lastIndexOf(DOT) + 1);
 	}
 
 	@Transient

@@ -23,6 +23,9 @@ public class ScreenServiceImpl extends StandardServiceImpl implements ScreensSer
 			screen = new Screen();
 			screen.setId(id);
 			screen = (Screen) getEntity(screen);
+			if (screen==null){
+				getLog().info("No se encontro Screen(" + id + ").");
+			}
 			screens.put(id, screen);
 		}
 		return screen;

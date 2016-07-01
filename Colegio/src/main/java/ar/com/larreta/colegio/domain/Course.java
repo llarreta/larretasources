@@ -31,7 +31,7 @@ public class Course extends ar.com.larreta.commons.domain.Entity {
 		this.level = level;
 	}
 
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Level.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Year.class)
 	@JoinColumn (name="idYear")
 	public Year getYear() {
 		return year;
@@ -40,7 +40,7 @@ public class Course extends ar.com.larreta.commons.domain.Entity {
 		this.year = year;
 	}
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Level.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Division.class)
 	@JoinColumn (name="idDivision")
 	public Division getDivision() {
 		return division;

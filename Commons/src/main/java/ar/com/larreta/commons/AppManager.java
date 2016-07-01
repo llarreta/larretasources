@@ -18,9 +18,11 @@ import ar.com.larreta.commons.utils.Base64;
 import ar.com.larreta.commons.utils.MailSender;
 import ar.com.larreta.commons.utils.SessionData;
 
-@Component
+@Component(AppManager.APP_MANAGER)
 public class AppManager extends AppObjectImpl{
 	
+	public static final String APP_MANAGER = "appManager";
+
 	private static final String APP_CONFIG = "appConfig";
 
 	private static final String SERVICE = "Service";

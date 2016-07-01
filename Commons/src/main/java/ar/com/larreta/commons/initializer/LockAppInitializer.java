@@ -36,8 +36,17 @@ public class LockAppInitializer extends GenericServlet {
 			String path = getServletContext().getRealPath(LOCK_APP);
 			
 			String lockAppString = getText(path);
+			
+			appObject.getLog().debug("LockAppString => " + lockAppString);
+			
 			LockApp lockApp = new LockApp(lockAppString);
 			lockApp.setPath(path);
+			
+			appObject.getLog().debug("Informacion de bloqueo de la aplicacion");
+			appObject.getLog().debug("_______________________________________");
+			appObject.getLog().debug("Propietary     :" + lockApp.getPropietary());
+			appObject.getLog().debug("Expiration Date:" + lockApp.getExpirationDate());
+			appObject.getLog().debug("Last Date      :" + lockApp.getLastDate());
 			
 			AppManager.getInstance().getAppConfig().setLockApp(lockApp);
 			

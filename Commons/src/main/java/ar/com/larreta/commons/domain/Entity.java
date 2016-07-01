@@ -80,6 +80,24 @@ public abstract class Entity implements Serializable {
 		return MainEntity.getEntityName(this.getClass());
 	}
 	
+	@Deprecated
+	public static Long getIndexFactor(Integer parts){
+		Integer divParts = 19/parts;
+		Long index = new Long(1);
+		while(divParts>=0){
+			index *= 10;
+			divParts--;
+		}
+		return index;
+	}
 	
+	/**
+	 * Util para redefinir el tipo de entidad a utilizar durante la persistencia
+	 * Si es null asume que el tipo de entidad es el definido en el encabezado de la clase 
+	 */
+	@Transient
+	public String getPersistEntityName(){
+		return null;
+	}
 	
 }

@@ -18,18 +18,25 @@ public abstract class CreateScreen extends CommonsScreen {
 	private Integer index;
 	private Form form;
 	
+	@Override
+	public Long getId() {
+		return screenConstantIds.getIdentifier(getEntityClassShortName() + "Create");
+	}
+	
 	public Form getForm() {
 		return form;
 	}
 
-	public abstract Long getNextScreenId();
+	public Long getNextScreenId(){
+		return screenConstantIds.getIdentifier(getEntityClassShortName() + "Main");
+	}
 
-	public CreateScreen(Long id, Class entityClass) {
-		super(id, entityClass);
+	public CreateScreen(Class entityClass) {
+		super(entityClass);
 	}
 	
-	public CreateScreen(Long id, Class entityClass, String listener){
-		super(id, entityClass, listener);
+	public CreateScreen(Class entityClass, String listener){
+		super(entityClass, listener);
 	}
 	
 	@Override
@@ -41,7 +48,9 @@ public abstract class CreateScreen extends CommonsScreen {
 		makeBody();
 		
 		form.add(index++, new SubmitButton(getConfirmAction(), "ui-icon-check", "app.confirm", getNextScreenId()));
-		form.add(index++, new SubmitButton("starting", "ui-icon-check", "app.back", getNextScreenId()));
+		SubmitButton backButton = new SubmitButton("starting", "ui-icon-check", "app.back", getNextScreenId());
+		backButton.setInmediate(Boolean.TRUE);
+		form.add(index++, backButton);
 
 		return form;
 	}

@@ -1,5 +1,6 @@
 package ar.com.larreta.screens.impl;
 
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,26 +18,35 @@ import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.SubmitButton;
 import ar.com.larreta.screens.Table;
 
+@MappedSuperclass
 public abstract class MainScreen extends CommonsScreen {
 
 	private static final String DELETE = "delete";
 	protected Table table;
 
-	public abstract Long getCreateScreenId();
-
-	public MainScreen(Long id, Class entityClass){
-		super(id, entityClass);
+	@Override
+	public Long getId() {
+		return screenConstantIds.getIdentifier(getEntityClassShortName() + "Main");
 	}
 	
-	public MainScreen(Long id, Class entityClass, String listener){
-		super(id, entityClass, listener);
+	@Transient
+	public Table getTable() {
+		return table;
+	}
+
+	public MainScreen(Class entityClass){
+		super(entityClass);
+	}
+	
+	public MainScreen(Class entityClass, String listener){
+		super(entityClass, listener);
 	}
 
 	@Override
 	public ScreenElement getBody() {
 		Form form = new Form();
 		table = new Table();
-		//table.setLazyProperties("country,language");
+		table.setId(screenConstantIds.getIdentifier(getEntityClassShortName() + "MainTable"));
 		form.add(0, table);
 		
 		makeColumns();
@@ -68,9 +78,7 @@ public abstract class MainScreen extends CommonsScreen {
 		
 		return column;
 	}
-	
-	public abstract Long getUpdateScreenId();
-	
+
 	@Transient
 	public Column getColumnWithButtons(String update){
 		Column column = new Column();
@@ -134,6 +142,13 @@ public abstract class MainScreen extends CommonsScreen {
 		return confirm;
 	}
 
+	public Long getCreateScreenId(){
+		return screenConstantIds.getIdentifier(getEntityClassShortName() + "Create");
+	}
+
+	public Long getUpdateScreenId(){
+		return screenConstantIds.getIdentifier(getEntityClassShortName() + "Update");
+	}
 
 
 }

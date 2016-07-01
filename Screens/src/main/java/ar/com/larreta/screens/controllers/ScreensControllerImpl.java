@@ -18,6 +18,7 @@ import ar.com.larreta.commons.views.DataView;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;
+import ar.com.larreta.screens.Table;
 import ar.com.larreta.screens.impl.ScreenListener;
 import ar.com.larreta.screens.services.ScreensService;
 import ar.com.larreta.screens.services.impl.ScreenServiceImpl;
@@ -81,7 +82,7 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 	public Screen getScreen(RequestContext flowRequestContext) {
 		try {
 			screen = (Screen) getService().getScreen(getScreenId(flowRequestContext));
-			flowRequestContext.getFlowScope().put(SCREEN_REF, screen);
+			flowRequestContext.getFlowScope().put(SCREEN_REF, screen); 
 			if (!StringUtils.isEmpty(screen.getEntityClass())){
 				setEntityClass(getClass().getClassLoader().loadClass(screen.getEntityClass()));
 			}
@@ -93,6 +94,7 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 
 	@Override
 	public void starting(RequestContext flowRequestContext) throws PaginatorNotFoundException {
+
 		getScreen(flowRequestContext);
 		
 		screen.getSearchMap().recursiveFind(Form.class);

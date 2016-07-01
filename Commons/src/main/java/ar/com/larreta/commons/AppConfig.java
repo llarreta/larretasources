@@ -65,13 +65,17 @@ public class AppConfig extends AppObjectImpl{
 
     
 	@Bean
+	public CommonsSessionFactoryImpl commonsSessionFactoryImpl() throws ClassNotFoundException, SQLException, IOException{; 
+		CommonsSessionFactoryImpl commonsSessionFactoryImpl = new CommonsSessionFactoryImpl();
+		commonsSessionFactoryImpl.setPackagesToScan(packagesToScan());
+		commonsSessionFactoryImpl.setHibernateProperties(hibernateProperties());
+		commonsSessionFactoryImpl.setDataSource(dataSource());
+		return commonsSessionFactoryImpl;
+	}
+	
+	@Bean
 	public String packagesToScan(){
 		return getAppConfigData().packagesToScan();
-	}
-
-	@Bean
-	public FormatPatterns formatPatterns(){
-		return new FormatPatterns(getAppConfigData());
 	}
 
 	@Bean
@@ -87,8 +91,6 @@ public class AppConfig extends AppObjectImpl{
 		return dataSource;
 	}
 
-
-
 	@Bean
 	public Properties hibernateProperties(){
 		Properties properties = new Properties();
@@ -103,6 +105,10 @@ public class AppConfig extends AppObjectImpl{
 		return properties;
 	}
 	
+	@Bean
+	public FormatPatterns formatPatterns(){
+		return new FormatPatterns(getAppConfigData());
+	}
 	
 	 @Bean
 	 @Autowired
@@ -110,7 +116,6 @@ public class AppConfig extends AppObjectImpl{
 		 HibernateTransactionManager txManager = new HibernateTransactionManager();
 		 txManager.setSessionFactory(sessionFactory);
 		 txManager.setEntityInterceptor((Interceptor) AppManager.getInstance().getBean(AuditInterceptorImpl.AUDIT_INTERCEPTOR));
- 
 		 return txManager;
 	 }
 	
@@ -123,15 +128,6 @@ public class AppConfig extends AppObjectImpl{
 		return Boolean.TRUE;
 	}
 	
-	@Bean
-	public CommonsSessionFactoryImpl commonsSessionFactoryImpl() throws ClassNotFoundException, SQLException, IOException{
-		CommonsSessionFactoryImpl commonsSessionFactoryImpl = new CommonsSessionFactoryImpl();
-		commonsSessionFactoryImpl.setPackagesToScan(packagesToScan());
-		commonsSessionFactoryImpl.setHibernateProperties(hibernateProperties());
-		commonsSessionFactoryImpl.setDataSource(dataSource());
-		return commonsSessionFactoryImpl;
-	}
-
 	public Base64 getBase64() {
 		return base64;
 	}

@@ -22,6 +22,9 @@ public abstract class CommonsScreen extends Screen{
 	
 	protected static Collection<StyleSheet> styleSheets = getStyles();
 	
+	private static Header header;
+	private static Footer footer;
+	
 	private static Collection<StyleSheet> getStyles(){
 		Collection<StyleSheet> styleSheets = new ArrayList<StyleSheet>();
 		styleSheets.add(new StyleSheet("css", 				"main.css"));
@@ -33,12 +36,12 @@ public abstract class CommonsScreen extends Screen{
 		return styleSheets;
 	}
 	
-	public CommonsScreen(Long id, Class entityClass){
-		super(id, entityClass);
+	public CommonsScreen(Class entityClass){
+		super(entityClass);
 	}
 
-	public CommonsScreen(Long id, Class entityClass, String listener){
-		super(id, entityClass);
+	public CommonsScreen(Class entityClass, String listener){
+		super(entityClass);
 		setPostActionListenerName(listener);
 	}
 
@@ -51,11 +54,19 @@ public abstract class CommonsScreen extends Screen{
 	}
 
 	protected ScreenElement getFooter() {
-		return ScreenUtils.getFooter().getMe();
+		if (footer==null){
+			footer = ScreenUtils.getFooter();
+			footer.initialize();
+		}
+		return footer;
 	}
 
 	protected ScreenElement getHeader() {
-		return ScreenUtils.getHeader().getMe();
+		if (header==null){
+			header = ScreenUtils.getHeader();
+			header.initialize();
+		}
+		return header;
 	}
 	
 	public void initialize(){
@@ -65,10 +76,9 @@ public abstract class CommonsScreen extends Screen{
 	@Transient
 	public abstract ScreenElement getBody();
 
-	@Transient
 	@Override
-	public ScreenElement getMe(){
-		return (ScreenElement) getMe(Screen.class);
+	public String getPersistEntityName() {
+		return Screen.class.getName();
 	}
 
 }

@@ -3,6 +3,7 @@ package ar.com.larreta.screens.impl.saver;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.commons.domain.AuthenticatedSecurityMatcher;
+import ar.com.larreta.commons.domain.Message;
 import ar.com.larreta.commons.domain.ParametricEntity;
 import ar.com.larreta.commons.domain.PermitAllSecurityMatcher;
 import ar.com.larreta.commons.domain.Role;
@@ -18,53 +19,12 @@ import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
-import ar.com.larreta.screens.impl.ScreenImplementationsIds;
 
 @Component
 public class MessageSaver extends ABMSaver {
-	private Class abmClass = SecurityMatcher.class;
-	
+
 	public MessageSaver() {
 		super();
-
-		mainScreen = new MainScreen(ScreenImplementationsIds.MESSAGE_MAIN, abmClass) {
-			
-			@Override
-			protected void makeColumns() {
-				table.addColumn(0, getColumnWithLabelProperty("pattern", 	"app.pattern", 	"tableElement.pattern",  	"40%"));
-				table.addColumn(1, getColumnWithLabelProperty("securityMatcherType", 	"app.securityMatcherType", 	"tableElement.securityMatcherType",  	"40%"));
-			}
-			
-			@Override
-			public Long getCreateScreenId() {
-				return ScreenImplementationsIds.MESSAGE_CREATE;
-			}
-
-			@Override
-			public Long getUpdateScreenId() {
-				return ScreenImplementationsIds.HOME;
-			}
-		};
-		
-		
-		createScreen = new CreateScreen(ScreenImplementationsIds.MESSAGE_CREATE, abmClass) {
-			
-			@Override
-			public void initialize() {
-				super.initialize();
-			}
-
-			@Override
-			protected void makeBody() {
-				MessageSaver.this.makeBody(this);
-			}
-			
-			@Override
-			public Long getNextScreenId() {
-				return ScreenImplementationsIds.SECURITY_MATCHER_MAIN;
-			}
-		};
-		
 	}
 
 	protected void makeBody(CreateScreen screen) {
@@ -140,6 +100,17 @@ public class MessageSaver extends ABMSaver {
 		item.setComboBox(comboBox);
 		item.setOrder(order);
 		return item;
+	}
+
+	@Override
+	public Class getABMClass() {
+		return Message.class;
+	}
+
+	@Override
+	protected void makeColumn(MainScreen screen) {
+		screen.getTable().addColumn(0, screen.getColumnWithLabelProperty("pattern", 	"app.pattern", 	"tableElement.pattern",  	"40%"));
+		screen.getTable().addColumn(1, screen.getColumnWithLabelProperty("securityMatcherType", 	"app.securityMatcherType", 	"tableElement.securityMatcherType",  	"40%"));
 	}
 
 }

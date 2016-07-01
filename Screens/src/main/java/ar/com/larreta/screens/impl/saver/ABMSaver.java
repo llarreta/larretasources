@@ -4,6 +4,7 @@ import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.screens.impl.CommonsScreen;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
+import ar.com.larreta.screens.impl.UpdateScreen;
 import ar.com.larreta.screens.services.ScreensService;
 import ar.com.larreta.screens.services.impl.ScreenServiceImpl;
 
@@ -13,7 +14,30 @@ public abstract class ABMSaver {
 	protected CreateScreen createScreen;
 	protected CreateScreen updateScreen;
 	
-	public ABMSaver(){}
+	public ABMSaver(){
+		mainScreen = new MainScreen(getABMClass()) {
+			@Override
+			protected void makeColumns() {
+				ABMSaver.this.makeColumn(this);
+			}
+		};
+		
+		createScreen = new CreateScreen(getABMClass()) {
+			@Override
+			protected void makeBody() {
+				ABMSaver.this.makeBody(this);
+			}
+		};
+		
+		updateScreen = new UpdateScreen(getABMClass()) {
+			@Override
+			protected void makeBody() {
+				ABMSaver.this.makeBody(this);
+			}
+		};
+	}
+	
+	public abstract Class getABMClass();
 	
 	/**
 	 * Guarda los screens que implementa
@@ -26,12 +50,16 @@ public abstract class ABMSaver {
 
 	protected void save(CommonsScreen screen) {
 		if (screen!=null){
-			getScreenService().saveOrUpdate(screen.getMe());
+			screen.initialize();
+			getScreenService().saveOrUpdate(screen);
 		}
 	}
 	
 	public ScreensService getScreenService() {
 		return (ScreensService) AppManager.getInstance().getBean(ScreenServiceImpl.SCREEN_SERVICE);
 	}
+	
+	protected abstract void makeBody(CreateScreen screen);
+	protected abstract void makeColumn(MainScreen screen);
 	
 }

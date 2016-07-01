@@ -14,11 +14,14 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.apache.log4j.Logger;
 import org.hibernate.annotations.Where;
 
 @MappedSuperclass
 public abstract class StandardContainer extends ScreenElement implements Container {
 
+	private static final Logger LOGGER = Logger.getLogger(StandardContainer.class);
+	
 	protected Set<ContainedElement> containedElements = new HashSet<ContainedElement>();
 	private SearchMap searchMap = new SearchMap();
 
@@ -34,8 +37,12 @@ public abstract class StandardContainer extends ScreenElement implements Contain
 	}
 
 	public void setContainedElements(Set<ContainedElement> containedElements) {
-		this.containedElements = containedElements;
-		searchMap.add(containedElements);
+		try {
+			this.containedElements = containedElements;
+			searchMap.add(containedElements);
+		} catch (Exception e){
+			LOGGER.error("Ocurrio un error", e);
+		}
 	}
 
 	@Transient
@@ -57,12 +64,16 @@ public abstract class StandardContainer extends ScreenElement implements Contain
 	}
 
 	public void add(Integer orderIndex, ScreenElement element){
-		containedElements.add(new ContainedElement(orderIndex, this.getMe(), element));
-		searchMap.add(element);
+		try {
+			containedElements.add(new ContainedElement(orderIndex, this, element));
+			searchMap.add(element);
+		} catch (Exception e){
+			LOGGER.error("Ocurrio un error", e);
+		}
 	}
 	
 	public void add(ScreenElement element){
-		add(0, element);
+			add(0, element);
 	}
 	
 }
