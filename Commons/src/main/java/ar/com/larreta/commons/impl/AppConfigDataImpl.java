@@ -10,7 +10,6 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -20,6 +19,7 @@ import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.logger.AppLogger;
 import ar.com.larreta.commons.utils.Base64;
 import ar.com.larreta.commons.utils.FormatPatterns;
 import ar.com.larreta.commons.utils.impl.Base64Impl;
@@ -280,11 +280,11 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 		return AppManager.getInstance().getBase64().decrypt(getMailUser());
 	}
 	
-	public Logger getLog(){
+	public AppLogger getLog(){
 		return appObject.getLog();
 	}
 
-	public void setLog(Logger log){
+	public void setLog(AppLogger log){
 		appObject.setLog(log);
 	}
 	

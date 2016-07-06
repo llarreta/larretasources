@@ -42,17 +42,21 @@ public abstract class CreateScreen extends CommonsScreen {
 	@Override
 	public ScreenElement getBody() {
 		form = new Form();
+		
 		index = 0;
+		form.add(index++, new Label(getEntityClassShortName() + "." + getTitleAction() + ".Title"));
 		addNewBody(2);
-		
 		makeBody();
-		
 		form.add(index++, new SubmitButton(getConfirmAction(), "ui-icon-check", "app.confirm", getNextScreenId()));
 		SubmitButton backButton = new SubmitButton("starting", "ui-icon-check", "app.back", getNextScreenId());
 		backButton.setInmediate(Boolean.TRUE);
 		form.add(index++, backButton);
 
 		return form;
+	}
+
+	protected String getTitleAction() {
+		return "Create";
 	}
 
 	protected void addNewBody(Integer columns) {
@@ -83,11 +87,16 @@ public abstract class CreateScreen extends CommonsScreen {
 	}
 	
 	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType) {
+		return addCombo(index, labelText, dataViewSelectedProperty, entityType, null);
+	}
+
+	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties) {
 		body.add(index++, new Label(labelText));
 		ComboBox comboBox = new ComboBox();
 		comboBox.setBindingObject(DATA_VIEW_SELECTED);
 		comboBox.setBindingProperty(dataViewSelectedProperty);
 		comboBox.setEntityType(entityType);
+		comboBox.setLazyProperties(lazyProperties);
 		
 		comboBox.addComboBoxItem(getVoidItem());
 		
@@ -96,6 +105,11 @@ public abstract class CreateScreen extends CommonsScreen {
 	}
 	
 	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, String entityType, String propertyItemLabel){
+		return addMultiBox(index, sourceCaption, targetCaption, dataViewSelectedProperty, entityType, propertyItemLabel, null);
+	}
+
+	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption,
+			String dataViewSelectedProperty, String entityType, String propertyItemLabel, String lazyProperties) {
 		addNewBody(1);
 		
 		MultiBox multiBox = new MultiBox();
@@ -105,6 +119,7 @@ public abstract class CreateScreen extends CommonsScreen {
 		multiBox.setBindingObject(DATA_VIEW_SELECTED);
 		multiBox.setBindingProperty(dataViewSelectedProperty);
 		multiBox.setPropertyItemLabel(propertyItemLabel);
+		multiBox.setLazyProperties(lazyProperties);
 		
 		body.add(index++, multiBox);
 		

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.webflow.execution.RequestContext;
 
 import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
+import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
 import ar.com.larreta.commons.exceptions.PaginatorNotFoundException;
 import ar.com.larreta.commons.views.DataView;
@@ -19,6 +20,7 @@ import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;
 import ar.com.larreta.screens.Table;
+import ar.com.larreta.screens.exceptions.ScreenNotFoundException;
 import ar.com.larreta.screens.impl.ScreenListener;
 import ar.com.larreta.screens.services.ScreensService;
 import ar.com.larreta.screens.services.impl.ScreenServiceImpl;
@@ -93,9 +95,13 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 	}
 
 	@Override
-	public void starting(RequestContext flowRequestContext) throws PaginatorNotFoundException {
+	public void starting(RequestContext flowRequestContext) throws AppException {
 
 		getScreen(flowRequestContext);
+		
+		if (screen==null){
+			throw new ScreenNotFoundException();
+		}
 		
 		screen.getSearchMap().recursiveFind(Form.class);
 		

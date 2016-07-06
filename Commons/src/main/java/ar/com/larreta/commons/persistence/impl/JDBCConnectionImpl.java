@@ -98,7 +98,6 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 			if (appConfigData!=null){
 				AppState.getInstance().advanceLevel();
 				
-				//JDBCConnection connection = jdbcConnection;
 				if (appConfigData.getDatabaseBackup()){
 					backup();
 				}
@@ -186,8 +185,8 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 		}
 	}
 	
-	public void executeSimpleQuery(String query)
-			throws SQLException {
+	public void executeSimpleQuery(String query) throws SQLException {
+		getLog().bdInitializer(query);
 		NamedParameterStatement preparedStatement = new NamedParameterStatement(getConnection(), query);
 		preparedStatement.execute();
 		preparedStatement.close();
@@ -429,7 +428,7 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
                             }
                             String trimmedLine = line.trim();
                             if (trimmedLine.startsWith("--")) {
-                            	getLog().info(trimmedLine);
+                            	getLog().bdInitializer(trimmedLine);
                             } else if (trimmedLine.length() < 1
                                             || trimmedLine.startsWith("//")) {
                                     // Do nothing
@@ -447,7 +446,7 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 
                                     String finalQuery = command.toString();
                                     finalQuery = finalQuery.replace(VAR_SCHEMMA, appConfigData.getDatabaseURLSchemma());
-                                    getLog().info(finalQuery);
+                                    getLog().bdInitializer(finalQuery);
 
                                     boolean hasResults = false;
                                     if (getStopOnError()) {

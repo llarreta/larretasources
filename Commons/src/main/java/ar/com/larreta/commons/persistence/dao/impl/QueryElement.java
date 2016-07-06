@@ -77,15 +77,24 @@ public class QueryElement extends AppObjectImpl {
 		return methodSymbolicName;
 	}
 
-	
+	/**
+	 * Genera un symbolo para una propiedad dada
+	 * Este symbolo luego es utilizado en la query HQL en construccion
+	 * @param args
+	 * @param property
+	 * @return
+	 */
 	public static String generateSymbol(LoadArguments args, String property) {
-		String symbol = StringUtils.upperCase(StringUtils.replace(ar.com.larreta.commons.utils.StringUtils.vocalRemove(property), StandardDAOImpl.DOT, UNDERFLOW));
 		if (args!=null){
-			while (args.containSymbol(symbol)){
-				symbol += UNDERFLOW + SUB;
+			if (args.containPropertySymbol(property)){
+				return args.getSymbol(property);
 			}
-			args.addSymbol(property, symbol);
+			args.addSymbol(property, generateSymbol(property));
 		}
-		return symbol;
+		return generateSymbol(property);
+	}
+
+	private static String generateSymbol(String property) {
+		return StringUtils.upperCase(StringUtils.replace(ar.com.larreta.commons.utils.StringUtils.vocalRemove(property), StandardDAOImpl.DOT, UNDERFLOW));
 	}
 }

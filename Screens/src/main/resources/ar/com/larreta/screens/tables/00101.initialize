@@ -189,6 +189,7 @@ CREATE TABLE [SCHEMMA].comboBox (
 	value VARCHAR(255),
 	changeListener VARCHAR(255),
 	entityType VARCHAR(255),
+	lazyProperties VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -216,6 +217,7 @@ CREATE TABLE [SCHEMMA].multiBox (
 	showCheckbox TINYINT(1),
 	showSourceFilter TINYINT(1),
 	showTargetFilter TINYINT(1),
+	lazyProperties VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 

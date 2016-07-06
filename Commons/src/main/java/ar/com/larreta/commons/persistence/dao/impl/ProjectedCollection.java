@@ -60,7 +60,9 @@ public class ProjectedCollection extends ProjectedProperty {
 			PropertyUtils.setProperty(toSet, getShortName(), newInstance());
 		}
 		Collection collection = (Collection) PropertyUtils.getProperty(toSet, getShortName());
-		collection.add(value);
+		if (value!=null){
+			collection.add(value);
+		}
 	}
 
 	@Override

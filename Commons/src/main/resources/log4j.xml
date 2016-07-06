@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Application Loggers -->
+	<logger name="ar.com.larreta">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="hqlLogger">
+		<level value="DEBUG" />
+		<appender-ref ref="hqlAppenderAsync" />
+	</logger>
+	
+	<logger name="bdInitializeLogger">
+		<level value="DEBUG" />
+		<appender-ref ref="bdInitializeAppenderAsync" />
+	</logger>	
+	
+	<logger name="mailLogger">
+		<level value="DEBUG" />
+		<appender-ref ref="mailAppenderAsync" />
+	</logger>
+	
+	<logger name="errorLogger">
+		<level value="DEBUG" />
+		<appender-ref ref="errorAppenderAsync" />
+	</logger>	
+
+	<!-- Hibernate Loggers -->
+		<!-- Log all SQL DML statements as they are executed -->
+		<logger name="org.hibernate.SQL"  >
+			<level value="DEBUG" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log all JDBC parameters -->
+		<logger name="org.hibernate.type"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log all SQL DDL statements as they are executed -->
+		<logger name="org.hibernate.tool.hbm2ddl"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log the state of all entities (max 20 entities) associated with the session at flush time -->
+		<logger name="org.hibernate.pretty"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log all second-level cache activity -->
+		<logger name="org.hibernate.cache"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log transaction related activity -->
+		<logger name="org.hibernate.transaction"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log all JDBC resource acquisition -->
+		<logger name="org.hibernate.jdbc"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log HQL and SQL ASTs during query parsing -->
+		<logger name="org.hibernate.hql.ast.AST"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log all JAAS authorization requests -->
+		<logger name="org.hibernate.secure"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+		<!-- Log everything (a lot of information, but very useful for troubleshooting) -->
+		<logger name="org.hibernate"  >
+			<level value="ERROR" />
+			<appender-ref ref="hibernateAppenderAsync" /> 
+		</logger>
+	
+	<!-- Root Logger -->
+	<root>
+		<priority value="ERROR" />
+		<appender-ref ref="generalAppenderAsync" />
+		<appender-ref ref="consoleAppenderAsync" />
+	</root>
+
+	<!-- Asynchronic declarations -->
+	<appender name="consoleAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="consoleAppender" /> 
+ 	</appender>
+ 	<appender name="generalAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="generalAppender" /> 
+ 	</appender>
+ 	<appender name="hqlAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="hqlAppender" /> 
+ 	</appender>
+ 	<appender name="mailAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="mailAppender" /> 
+ 	</appender>
+ 	<appender name="hibernateAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="hibernateAppender" /> 
+ 	</appender>
+ 	<appender name="bdInitializeAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="bdInitializeAppender" /> 
+ 	</appender>
+ 	<appender name="errorAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="errorAppender" /> 
+ 	</appender> 	
+
+	<!-- Appenders -->
+	<appender class="org.apache.log4j.ConsoleAppender" name="consoleAppender">
+	    <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+	</appender>
+
+	<appender class="org.apache.log4j.RollingFileAppender" name="errorAppender">
+        <param name="Append"				value="true" />
+        <param name="File"					value="\\log\\${contextPath}\\error.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
+
+	<appender class="org.apache.log4j.RollingFileAppender" name="bdInitializeAppender">
+        <param name="Append"				value="true" />
+        <param name="File"					value="\\log\\${contextPath}\\bd\\bdInitialize.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
+
+	<appender class="org.apache.log4j.RollingFileAppender" name="hibernateAppender">
+        <param name="Append"				value="true" />
+        <param name="File"					value="\\log\\${contextPath}\\bd\\hibernate.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
+	
+	<appender class="org.apache.log4j.RollingFileAppender" name="generalAppender">
+        <param name="Append"				value="true" />
+        <param name="File"					value="\\log\\${contextPath}\\app.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
+    
+	<appender class="org.apache.log4j.RollingFileAppender" name="hqlAppender">
+        <param name="Append"				value="true" />
+        <param name="File"					value="\\log\\${contextPath}\\bd\\hql.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
+        
+	<appender class="org.apache.log4j.RollingFileAppender" name="mailAppender">
+        <param name="Append"				value="true" />
+        <param name="File"					value="\\log\\${contextPath}\\mail\\mail.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
+        
+</log4j:configuration>

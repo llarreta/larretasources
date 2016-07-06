@@ -21,4 +21,8 @@ public abstract class UpdateScreen extends CreateScreen {
 		return PRE_UPDATE;
 	}
 
+	@Override
+	protected String getTitleAction() {
+		return "Update";
+	}
 }

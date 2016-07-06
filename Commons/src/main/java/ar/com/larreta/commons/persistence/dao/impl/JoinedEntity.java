@@ -33,4 +33,18 @@ public abstract class JoinedEntity extends QueryElement {
 		return hql.toString();
 	}
 	
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof JoinedEntity) {
+			JoinedEntity joinedEntity = (JoinedEntity) obj;
+			return name.equals(joinedEntity.getName());
+		}
+		return Boolean.FALSE;
+	}
+	
 }

@@ -2,7 +2,7 @@ package ar.com.larreta.commons;
 
 import java.util.Collection;
 
-import org.apache.log4j.Logger;
+import ar.com.larreta.commons.logger.AppLogger;
 
 
 public interface AppConfigData extends AppObject{
@@ -42,8 +42,8 @@ public interface AppConfigData extends AppObject{
 	public Integer getMessageRefreshTime();
 	public String decryptedPasswordUserMail();
 	public String decryptedMailUser();
-	public Logger getLog();
-	public void setLog(Logger log);
+	public AppLogger getLog();
+	public void setLog(AppLogger log);
 	public Long statisticsStart(String mark);
 	public void statisticsStop(Long id);
 	public String getProperty(String key);

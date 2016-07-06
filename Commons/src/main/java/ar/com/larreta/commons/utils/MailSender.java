@@ -10,13 +10,13 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import ar.com.larreta.commons.AppConfigData;
 import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.logger.AppLogger;
 
 public class MailSender extends JavaMailSenderImpl implements AppObject{
 
@@ -82,11 +82,11 @@ public class MailSender extends JavaMailSenderImpl implements AppObject{
 		return addresses;
 	}
 	
-	public Logger getLog(){
+	public AppLogger getLog(){
 		return appObject.getLog();
 	}
 
-	public void setLog(Logger log){
+	public void setLog(AppLogger log){
 		appObject.setLog(log);
 	}
 	

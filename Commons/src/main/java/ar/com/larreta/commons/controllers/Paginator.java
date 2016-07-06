@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
@@ -17,6 +16,7 @@ import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
+import ar.com.larreta.commons.logger.AppLogger;
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.services.StandardService;
 import ar.com.larreta.commons.services.args.ServiceInfo;
@@ -138,11 +138,11 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 		return datasource;
 	}
 
-	public Logger getLog() {
+	public AppLogger getLog() {
 		return appObject.getLog();
 	}
 
-	public void setLog(Logger log) {
+	public void setLog(AppLogger log) {
 		appObject.setLog(log);
 	}
 

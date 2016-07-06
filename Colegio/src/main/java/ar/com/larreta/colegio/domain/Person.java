@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.SQLDelete;
@@ -29,7 +30,7 @@ public abstract class Person extends ar.com.larreta.commons.domain.Entity {
 	private String name;
 	private String surname;
 	private DocumentType documentType;
-	private Integer documentNumber;
+	private String documentNumber;
 	private Set<PaymentUnit> paymentsThatBenefitMe;
 	private Set<Payment> paymentsMade;
 	
@@ -77,11 +78,21 @@ public abstract class Person extends ar.com.larreta.commons.domain.Entity {
 	}
 	
 	@Basic @Column (name="documentNumber")
-	public Integer getDocumentNumber() {
+	public String getDocumentNumber() {
 		return documentNumber;
 	}
-	public void setDocumentNumber(Integer documentNumber) {
+	public void setDocumentNumber(String documentNumber) {
 		this.documentNumber = documentNumber;
+	}
+	
+	@Transient
+	public String getCompleteName(){
+		return getSurname() + ", " + getName();
+	}
+	
+	@Transient
+	public String getInfo(){
+		return getCompleteName() + "(" + getDocumentType() + ":" + documentNumber + ")";
 	}
 	
 }

@@ -2,12 +2,12 @@ package ar.com.larreta.commons;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
+import ar.com.larreta.commons.logger.AppLogger;
 
 public interface AppObject extends Serializable {
-	public Logger getLog();
+	public AppLogger getLog();
 
-	public void setLog(Logger log);
+	public void setLog(AppLogger log);
 	
 	/**
 	 * Arranca a contabilizar estadisticas

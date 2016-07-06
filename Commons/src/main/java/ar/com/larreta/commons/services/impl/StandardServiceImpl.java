@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -109,6 +108,7 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	}
 
 	
+	@org.springframework.transaction.annotation.Transactional(readOnly=true)
 	public Entity getEntity(Class entityType, Long id){
 		try {
 			return dao.getEntity(entityType, id);
@@ -123,6 +123,7 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 * @param entity
 	 * @return
 	 */
+	@org.springframework.transaction.annotation.Transactional(readOnly=true)
 	public Entity getEntity(Entity entity) {
 		return getEntity(entity.getClass(), entity.getId());
 	}
@@ -133,6 +134,7 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 * @param collection<String>
 	 * @return
 	 */
+	@org.springframework.transaction.annotation.Transactional(readOnly=true)
 	public Entity getEntity(Entity entity, Collection<String> properties) {
 		try {
 			LoadArguments args = new LoadArguments(entity.getClass());
@@ -155,6 +157,7 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	 * @param collection<String>
 	 * @return
 	 */
+	@org.springframework.transaction.annotation.Transactional(readOnly=true)
 	public Entity getEntity(Entity entity, Collection<String> properties, Collection<String> projectedCollections) {
 		try {
 			LoadArguments args = new LoadArguments(entity.getClass());
@@ -164,8 +167,10 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 					args.addProjectedProperties(propertie);
 				}
 			}
-			for(String collection : projectedCollections){
-				args.addProjectedCollectionLeftJoin(collection);
+			if (projectedCollections!=null){
+				for(String collection : projectedCollections){
+					args.addProjectedCollectionLeftJoin(collection);
+				}
 			}
 			return dao.getEntity(args);
 		} catch (Exception e){
@@ -214,7 +219,7 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 		return loadServiceInfo(entityType, firstResult, maxResults, order, filters).getData();
 	}
 	
-	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties){
+	public Collection load(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, Collection<String> lazyProperties){
 		return loadServiceInfo(entityType, firstResult, maxResults, order, filters, lazyProperties).getData();
 	}
 
@@ -245,11 +250,13 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 	}
 
 	@Override
-	public ServiceInfo loadServiceInfo(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, List<String> lazyProperties) {
+	public ServiceInfo loadServiceInfo(Class entityType, Integer firstResult, Integer maxResults, Order order, Map<String, Object> filters, Collection<String> lazyProperties) {
 		try {
 			LoadArguments arguments = new LoadArguments(entityType);
-			for(String field : lazyProperties){
-				arguments.addProjectedPropertiesLeftJoin(field);
+			if (lazyProperties!=null){
+				for(String field : lazyProperties){
+					arguments.addProjectedPropertiesLeftJoin(field);
+				}
 			}
 			arguments.setFirstResult(firstResult);
 			arguments.setMaxResults(maxResults);
@@ -326,5 +333,6 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 		}
 		return max;
 	}
+
 
 }

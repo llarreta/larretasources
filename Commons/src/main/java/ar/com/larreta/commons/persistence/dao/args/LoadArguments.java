@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import ar.com.larreta.commons.persistence.dao.impl.Asc;
 import ar.com.larreta.commons.persistence.dao.impl.Desc;
@@ -31,7 +32,7 @@ public class LoadArguments implements Serializable {
 	private MainEntity mainEntity;
 	private Collection<ProjectedProperty> projectedProperties = new ArrayList<ProjectedProperty>();
 	private Collection<Where> wheres = new ArrayList<Where>();
-	private Collection<JoinedEntity> joins = new ArrayList<JoinedEntity>();
+	private Set<JoinedEntity> joins = new HashSet<JoinedEntity>();
 	private Collection<Order> orders = new ArrayList<Order>();
 	private Integer firstResult;
 	private Integer maxResults;
@@ -106,11 +107,11 @@ public class LoadArguments implements Serializable {
 		this.orders = orders;
 	}
 	
-	public Collection<JoinedEntity> getJoins() {
+	public Set<JoinedEntity> getJoins() {
 		return joins;
 	}
 
-	public void setJoins(Collection<JoinedEntity> joins) {
+	public void setJoins(Set<JoinedEntity> joins) {
 		this.joins = joins;
 	}
 	
@@ -297,6 +298,10 @@ public class LoadArguments implements Serializable {
 	
 	public Boolean containSymbol(String symbol){
 		return symbols.containsValue(symbol);
+	}
+	
+	public Boolean containPropertySymbol(String property){
+		return symbols.containsKey(property);
 	}
 	
 	/**

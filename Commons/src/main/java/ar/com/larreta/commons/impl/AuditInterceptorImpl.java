@@ -2,7 +2,6 @@ package ar.com.larreta.commons.impl;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.AuditInterceptor;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.domain.audit.AuditableEntity;
+import ar.com.larreta.commons.logger.AppLogger;
 import ar.com.larreta.commons.services.AuditService;
 
 @Service(AuditInterceptorImpl.AUDIT_INTERCEPTOR)
@@ -49,12 +49,12 @@ public class AuditInterceptorImpl extends EmptyInterceptor implements AuditInter
 	}
 	
 	@Override
-	public Logger getLog() {
+	public AppLogger getLog() {
 		return appObject.getLog();
 	}
 
 	@Override
-	public void setLog(Logger log) {
+	public void setLog(AppLogger log) {
 		appObject.setLog(log);
 	}
 

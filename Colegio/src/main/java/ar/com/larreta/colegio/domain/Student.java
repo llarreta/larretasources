@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.SQLDelete;
@@ -66,5 +67,9 @@ public class Student extends Person {
 		this.responsibles = responsibles;
 	}
 
-
+	@Override
+	@Transient
+	public String getInfo() {
+		return getCompleteName() + " (" + course + ")";
+	}
 }

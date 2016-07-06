@@ -1,0 +1,19 @@
+insert into [SCHEMMA].level (id, description) values (1, 'Secundario');
+insert into [SCHEMMA].level (id, description) values (2, 'Primario');
+insert into [SCHEMMA].level (id, description) values (3, 'Pre-Escolar');
+insert into [SCHEMMA].level (id, description) values (4, 'Jardin');
+
+insert into [SCHEMMA].year (id, description) values (1, '1');
+insert into [SCHEMMA].year (id, description) values (2, '2');
+insert into [SCHEMMA].year (id, description) values (3, '3');
+insert into [SCHEMMA].year (id, description) values (4, '4');
+insert into [SCHEMMA].year (id, description) values (5, '5');
+insert into [SCHEMMA].year (id, description) values (6, '6');
+insert into [SCHEMMA].year (id, description) values (7, '7');
+
+insert into [SCHEMMA].division (id, description) values (1, 'A');
+insert into [SCHEMMA].division (id, description) values (2, 'B');
+insert into [SCHEMMA].division (id, description) values (3, 'c');
+
+insert into [SCHEMMA].documentType (id, description) values (1, 'DNI');
+insert into [SCHEMMA].documentType (id, description) values (2, 'Cedula');

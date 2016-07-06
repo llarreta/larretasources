@@ -39,7 +39,23 @@ public class ComboBox extends ContainerValued {
 	private String entityType;
 	private String changeListener;
 	private ComboBoxListener changeListenerInstance;
-	
+	private String lazyProperties;
+
+	@Basic
+	public String getLazyProperties() {
+		return lazyProperties;
+	}
+
+
+	public void setLazyProperties(String lazyProperties) {
+		this.lazyProperties = lazyProperties;
+	}
+
+	@Transient
+	public Collection<String> getLazyPropertiesSplitted(){
+		return ScreenUtils.split(lazyProperties);
+	}
+
 	@Basic
 	public String getChangeListener() {
 		return changeListener;
@@ -107,7 +123,7 @@ public class ComboBox extends ContainerValued {
 	@Transient
 	public Object getItems(){
 		try {
-			return AppManager.getInstance().getStandardService().load(ScreenUtils.getClass(getEntityType()));
+			return AppManager.getInstance().getStandardService().load(ScreenUtils.getClass(getEntityType()), null, null, null, null, getLazyPropertiesSplitted());
 		} catch (Exception e){
 			logger.error("Ocurrio un error obteniendo items", e);
 		}

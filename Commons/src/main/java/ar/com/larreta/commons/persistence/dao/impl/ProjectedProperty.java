@@ -3,6 +3,7 @@ package ar.com.larreta.commons.persistence.dao.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,8 @@ import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 
 public class ProjectedProperty extends QueryElement {
 
+	private ProjectedCollection projectedCollection;
+	
 	public ProjectedProperty(LoadArguments args, String name){
 		setArgs(args);
 		setName(name);
@@ -75,7 +78,15 @@ public class ProjectedProperty extends QueryElement {
 	}
 	
 	public void setValue(Entity toSet, Object value) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
-		PropertyUtils.setProperty(toSet, getShortName(), value);
+		try {
+			PropertyUtils.setProperty(toSet, getShortName(), value);
+		} catch (IllegalArgumentException e){
+			// Si ocurre esta excepcion es muy probable que se intente setear una collection oculta en una property normal
+			if (projectedCollection==null){
+				projectedCollection = new ProjectedCollection(getArgs(), getName(), HashSet.class);
+			}
+			projectedCollection.setValue(toSet, value);
+		}
 	}
 
 }

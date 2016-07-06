@@ -9,6 +9,7 @@ import org.primefaces.model.DualListModel;
 import org.springframework.webflow.execution.RequestContext;
 
 import ar.com.larreta.commons.AppObject;
+import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
 import ar.com.larreta.commons.exceptions.PaginatorNotFoundException;
 import ar.com.larreta.commons.services.StandardService;
@@ -38,7 +39,7 @@ public interface StandardController extends AppObject {
 
 	public String getFlowRequestInfo(RequestContext flowRequestContext);
 	
-	public void starting(RequestContext flowRequestContext) throws PaginatorNotFoundException;
+	public void starting(RequestContext flowRequestContext) throws AppException;
 
 	public void initCreate(RequestContext flowRequestContext);
 

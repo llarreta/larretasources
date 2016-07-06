@@ -3,11 +3,10 @@ package ar.com.larreta.commons.threads;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
-
 import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.commons.logger.AppLogger;
 import ar.com.larreta.commons.utils.DateUtils;
 
 public abstract class Thread extends java.lang.Thread implements AppObject{
@@ -125,11 +124,11 @@ public abstract class Thread extends java.lang.Thread implements AppObject{
 	 */
 	protected abstract void restart(Long executeCount, Long interval, Date executeTime);
 
-	public Logger getLog(){
+	public AppLogger getLog(){
 		return appObject.getLog();
 	}
 
-	public void setLog(Logger log){
+	public void setLog(AppLogger log){
 		appObject.setLog(log);
 	}
 	

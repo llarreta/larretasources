@@ -2,8 +2,7 @@ package ar.com.larreta.commons;
 
 import javax.persistence.Transient;
 
-import org.apache.log4j.Logger;
-
+import ar.com.larreta.commons.logger.AppLogger;
 import ar.com.larreta.commons.statistics.StatisticsExecutorManager;
 
 /**
@@ -14,7 +13,7 @@ public class AppObjectImpl implements AppObject {
 	/**
 	 * Logger que permite escribir trazas en nuestra aplicacion
 	 */
-	private transient Logger log;
+	private transient AppLogger log;
 
 	/**
 	 * Manager de estadisticas
@@ -35,9 +34,9 @@ public class AppObjectImpl implements AppObject {
 	}
 
 	@Transient
-	public Logger getLog() {
+	public AppLogger getLog() {
 		if (log==null){
-			log = Logger.getLogger(type);
+			log = new AppLogger(type);
 		}
 		return log;
 	}
@@ -60,7 +59,7 @@ public class AppObjectImpl implements AppObject {
 		statisticsManager.stop(id);
 	}
 	@Override
-	public void setLog(Logger log) {
+	public void setLog(AppLogger log) {
 		this.log = log;
 	}
 }

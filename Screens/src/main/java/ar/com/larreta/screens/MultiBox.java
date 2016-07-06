@@ -38,6 +38,23 @@ public class MultiBox extends ValuedElement {
 	
 	private String entityType;
 	
+	private String lazyProperties;
+
+	@Basic
+	public String getLazyProperties() {
+		return lazyProperties;
+	}
+
+
+	public void setLazyProperties(String lazyProperties) {
+		this.lazyProperties = lazyProperties;
+	}
+
+	@Transient
+	public Collection<String> getLazyPropertiesSplitted(){
+		return ScreenUtils.split(lazyProperties);
+	}
+	
 	@Basic
 	public String getEntityType() {
 		return entityType;
@@ -156,7 +173,8 @@ public class MultiBox extends ValuedElement {
 
 	@Transient
 	public DualListModel getDualListValue(){
-		return getDualListModel(AppManager.getInstance().getStandardService().load(ScreenUtils.getClass(getEntityType())), (Collection) getBindingPropertyValue());
+		return getDualListModel(AppManager.getInstance().getStandardService().load(ScreenUtils.getClass(getEntityType()), null, null, null, null, getLazyPropertiesSplitted()), 
+				(Collection) getBindingPropertyValue());
 	}
 	
 	public void setDualListValue(DualListModel dualListModel){

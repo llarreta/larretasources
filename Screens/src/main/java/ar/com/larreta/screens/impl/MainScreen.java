@@ -45,9 +45,12 @@ public abstract class MainScreen extends CommonsScreen {
 	@Override
 	public ScreenElement getBody() {
 		Form form = new Form();
+
+		form.add(0, new Label(getEntityClassShortName() + "." + getTitleAction() + ".Title"));
+		
 		table = new Table();
 		table.setId(screenConstantIds.getIdentifier(getEntityClassShortName() + "MainTable"));
-		form.add(0, table);
+		form.add(1, table);
 		
 		makeColumns();
 	
@@ -58,8 +61,12 @@ public abstract class MainScreen extends CommonsScreen {
 		return form;
 	}
 
+	protected String getTitleAction() {
+		return "Main";
+	}
+	
 	protected void putCreateButton(Form form) {
-		form.add(1, new SubmitButton("create", "ui-icon-plusthick", "app.create", getCreateScreenId()));
+		form.add(2, new SubmitButton("create", "ui-icon-plusthick", "app.create", getCreateScreenId()));
 	}
 
 	protected abstract void makeColumns();

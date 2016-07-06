@@ -1,9 +1,13 @@
 package ar.com.larreta.commons.persistence.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -70,12 +74,20 @@ public abstract class LoadDAOImpl extends AppObjectImpl implements LoadDao {
 		
 		LoadArguments args = new LoadArguments(type);
 		
-		Query query = makeQuery(args);
+		QueryMaked queryMaked = makeQuery(args);
+		List list = execute(queryMaked);
+		ResultProcessor processor = new ResultProcessor(list, args);
+		return processor.getEntities();
+	}
+
+	private List execute(QueryMaked queryMaked) {
+		Query query = queryMaked.getQuery();
+		
+		getLog().hql(queryMaked.getHql(), queryMaked.getValues());
 		
 		//Seteamos los valores retornados
 		List list = query.list();
-		ResultProcessor processor = new ResultProcessor(list, args);
-		return processor.getEntities();
+		return list;
 	}
 	
 	/**
@@ -89,10 +101,9 @@ public abstract class LoadDAOImpl extends AppObjectImpl implements LoadDao {
 	 */
 	public Collection load(LoadArguments args){
 		args.splitProperties();
-		Query query = makeQuery(args);
-		
-		//Seteamos los valores retornados
-		List list = query.list();
+
+		QueryMaked queryMaked = makeQuery(args);
+		List list = execute(queryMaked);
 		ResultProcessor processor = new ResultProcessor(list, args);
 		return processor.getEntities();
 	}
@@ -105,7 +116,8 @@ public abstract class LoadDAOImpl extends AppObjectImpl implements LoadDao {
 	 * @return
 	 */
 	public Long count(CountArguments args){
-		Query query = makeQuery(args);
+		QueryMaked queryMaked = makeQuery(args);
+		Query query = queryMaked.getQuery();
 		return (Long) query.uniqueResult();
 	}
 	
@@ -120,13 +132,14 @@ public abstract class LoadDAOImpl extends AppObjectImpl implements LoadDao {
 	 * @param splitter
 	 * @return
 	 */
-	public Query makeQuery(LoadArguments args) {
+	public QueryMaked makeQuery(LoadArguments args) {
 		StringBuilder hql = makeHQL(args);
 		
 		Query query = getQuery(args, hql);
 		
-		addWhereValues(args, query);
-		return query;
+		Collection values = addWhereValues(args, query);
+		
+		return new QueryMaked(hql.toString(), values, query);
 	}
 	
 	/**
@@ -182,7 +195,13 @@ public abstract class LoadDAOImpl extends AppObjectImpl implements LoadDao {
 	 * @param hql
 	 */
 	protected void addJoinedEntities(LoadArguments args, StringBuilder hql) {
-		Iterator<JoinedEntity> itJoined = args.getJoins().iterator();
+		List<JoinedEntity> ordererElements = new ArrayList<JoinedEntity>(args.getJoins());
+		Collections.sort(ordererElements, new Comparator<JoinedEntity>() {
+			public int compare(JoinedEntity elementA, JoinedEntity elementB) {
+				return elementA.getName().compareTo(elementB.getName());
+			}
+		});
+		Iterator<JoinedEntity> itJoined = ordererElements.iterator();
 		while (itJoined.hasNext()) {
 			JoinedEntity join = (JoinedEntity) itJoined.next();
 			hql.append(join.getHQL());
@@ -268,14 +287,19 @@ public abstract class LoadDAOImpl extends AppObjectImpl implements LoadDao {
 	 * @return
 	 */
 	public Query getQuery(LoadArguments args,	StringBuilder hql) {
-		Query query = getSessionFactory().getCurrentSession().createQuery(hql.toString());
-		if (args.getFirstResult()!=null){
-			query.setFirstResult(args.getFirstResult());
+		try {
+			Query query = getSessionFactory().getCurrentSession().createQuery(hql.toString());
+			if (args.getFirstResult()!=null){
+				query.setFirstResult(args.getFirstResult());
+			}
+			if (args.getMaxResults()!=null){
+				query.setMaxResults(args.getMaxResults());
+			}
+			return query;
+		} catch (Exception e){
+			getLog().error("No fue posible construir la query para:\n" + hql, e);
 		}
-		if (args.getMaxResults()!=null){
-			query.setMaxResults(args.getMaxResults());
-		}
-		return query;
+		return null;
 	}
 	
 	/**
@@ -283,14 +307,17 @@ public abstract class LoadDAOImpl extends AppObjectImpl implements LoadDao {
 	 * @param wheres
 	 * @param query
 	 */
-	protected void addWhereValues(LoadArguments args, Query query) {
+	protected Collection addWhereValues(LoadArguments args, Query query) {
+		Collection values = new ArrayList();
 		if ((args.getWheres()!=null) && (!args.getWheres().isEmpty())){
 			Iterator<Where> it = args.getWheres().iterator();
 			while (it.hasNext()) {
 				Where where = (Where) it.next();
+				values.add(where.getValue());
 				where.setQueryValue(query);
 			}
 		}
+		return values;
 	}
 
 }

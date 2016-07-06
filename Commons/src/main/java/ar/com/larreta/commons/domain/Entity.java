@@ -29,6 +29,19 @@ public abstract class Entity implements Serializable {
 	
 	protected Long id;
 	protected Date deleted;
+	
+	public static final Long TWO_IDS_PK = getFactor(2);
+	public static final Long THREE_IDS_PK = getFactor(3);
+	
+	public static Long getFactor(Integer parts){
+		Integer divParts = 19/parts;
+		Long index = new Long(1);
+		while(divParts>=0){
+			index *= 10;
+			divParts--;
+		}
+		return index;
+	}
 
 	@Id
 	public Long getId() {
@@ -58,7 +71,7 @@ public abstract class Entity implements Serializable {
 
 	@Override
 	public boolean equals(Object object) {
-		if (getEntityClassName().equals(MainEntity.getEntityName(object.getClass()))) {
+		if ((object!=null) && (getEntityClassName().equals(MainEntity.getEntityName(object.getClass())))) {
 			Entity entity = (Entity) object;
 			return entity.getId().equals(getId());
 		}
@@ -78,17 +91,6 @@ public abstract class Entity implements Serializable {
 	@Transient
 	public String getEntityClassName(){
 		return MainEntity.getEntityName(this.getClass());
-	}
-	
-	@Deprecated
-	public static Long getIndexFactor(Integer parts){
-		Integer divParts = 19/parts;
-		Long index = new Long(1);
-		while(divParts>=0){
-			index *= 10;
-			divParts--;
-		}
-		return index;
 	}
 	
 	/**

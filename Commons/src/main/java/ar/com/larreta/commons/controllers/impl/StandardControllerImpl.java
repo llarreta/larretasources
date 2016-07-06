@@ -171,7 +171,7 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 	}
 	
 	@GenericExecution
-	public void starting(RequestContext flowRequestContext) throws PaginatorNotFoundException{
+	public void starting(RequestContext flowRequestContext) throws AppException{
 		
 		varsAssign(flowRequestContext);
 		getLog().info("starting:" + getFlowRequestInfo(flowRequestContext));

@@ -5,7 +5,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -63,14 +62,12 @@ public class ContainedElement extends ar.com.larreta.commons.domain.Entity {
 	}
 
 	// Se sobrescriben los dos metodos siguientes para que determine que son iguales mediante los dos elementos que componen la relacion
-	//FIXME: Ir por el lado del composite id
 	@Transient
 	@Override
 	public Long getId() {
 		try {
 			if (id==null && container!=null && element!=null){
-				Long indexFactor = ar.com.larreta.commons.domain.Entity.getIndexFactor(2);
-				id = (container.getId() * indexFactor) + element.getId(); 
+				id = (container.getId() * TWO_IDS_PK) + element.getId(); 
 			}
 			return id;
 		} catch (Exception e){
