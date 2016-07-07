@@ -87,6 +87,14 @@ CREATE TABLE [SCHEMMA].language (
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE [SCHEMMA].fileCopy (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	fromField VARCHAR(255),
+	toField VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
 ALTER TABLE [SCHEMMA].hasProfiles
 ADD CONSTRAINT fk_user_in_hasProfiles
 FOREIGN KEY (idUser)

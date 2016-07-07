@@ -13,7 +13,9 @@ insert into [SCHEMMA].year (id, description) values (7, '7');
 
 insert into [SCHEMMA].division (id, description) values (1, 'A');
 insert into [SCHEMMA].division (id, description) values (2, 'B');
-insert into [SCHEMMA].division (id, description) values (3, 'c');
+insert into [SCHEMMA].division (id, description) values (3, 'C');
 
 insert into [SCHEMMA].documentType (id, description) values (1, 'DNI');
 insert into [SCHEMMA].documentType (id, description) values (2, 'Cedula');
+
+insert into [SCHEMMA].course (id, idLevel, idYear, idDivision) values (1, 1, 1, 1);

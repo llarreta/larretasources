@@ -1,10 +1,9 @@
 package ar.com.larreta.commons.threads;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
 
@@ -26,13 +25,12 @@ public class SaveThread extends Thread {
 	
 	private static final Long DELTA_INTERVAL = DateUtils.ONE_SECOND;
 	private static final Long MAX_INTERVAL = DateUtils.ONE_MINUTE;
-	private static final String STANDARD_SERVICE = "standardService";
 	
 	private static SaveThread INSTANCE;
 	
 	private StandardService service;
 
-	private static Map<Long, Entity> entities = new ConcurrentHashMap<Long, Entity>();
+	private static Collection<Entity> entities = new ArrayList<Entity>();
 
 	public SaveThread(){
 		super(DELTA_INTERVAL, null);
@@ -49,18 +47,21 @@ public class SaveThread extends Thread {
 	
 	public StandardService getService() {
 		if ((service==null) && (AppManager.getInstance()!=null)){
-			service = (StandardService) AppManager.getInstance().getBean(STANDARD_SERVICE);
+			service = (StandardService) AppManager.getInstance().getStandardService();
 		}
 		return service;
 	}
 
 	
 	public static void addEntity(Entity entity){
-		if (entity!=null){
-			entities.put(entity.getId(), entity);
-			INSTANCE.shortenInterval();
+		synchronized (SaveThread.class){
+			if (entity!=null){
+				entities.add(entity);
+				INSTANCE.shortenInterval();
+			}
 		}
 	}
+	
 
 	public void shortenInterval() {
 		if (interval>DateUtils.ONE_SECOND){
@@ -75,36 +76,35 @@ public class SaveThread extends Thread {
 	}
 	
 	@Override
-	//FIXME: Actualizar el lockApp
 	protected void execute() {
+		Collection entitiesPersisted = new ArrayList();
 		synchronized (SaveThread.class) {
 			Entity entity = null;
 			Long key = null;
 			try {
-				if (!entities.isEmpty()){
-					
-					Set<Long> keys = entities.keySet();
-					if (keys!=null){
-						Iterator<Long> itKeys = keys.iterator();
-						while (itKeys.hasNext()) {
-							key = (Long) itKeys.next();
-							entity = entities.get(key);
-							if (getService()!=null){
-								getService().save(entity);
-								entities.remove(key);
-							}
-							shortenInterval();
+				if ((!entities.isEmpty()) && (getService()!=null) && (AppManager.getInstance().getAppConfig().getLockApp()!=null)){
+					Iterator<Entity> it = entities.iterator();
+					while (it.hasNext()) {
+						if (getService()!=null){
+							entity = it.next();
+							entitiesPersisted.add(entity);
+							getService().saveOrUpdate(entities);
 						}
+						// acotamos el intervalo o frecuencia de ejecucion de este thread
+						shortenInterval();
 					}
 				} else {
-					//Grabamos la info de lockeo
-					LockAppInitializer.writeLockApp(this);
 					// estiramos el intervalo o frecuencia de ejecucion de este thread
 					enlargeInterval();
 				}
+				//Grabamos la info de lockeo
+				LockAppInitializer.writeLockApp(this);
 			} catch (Exception e){
-				getLog().error(AppException.getStackTrace(e));
-				entities.remove(entity.getId());
+				getLog().error("Ocurrio un error al intentar almacenar (ID:" + entity.getId() + ") :" + entity.getClass().getName(), e);
+				// Se borra para q no siga ocurriendo el error
+				entities.remove(entity);
+			} finally {
+				entities.removeAll(entitiesPersisted);
 			}
 		}
 	}

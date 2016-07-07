@@ -5,6 +5,7 @@
 	<!-- Application Loggers -->
 	<logger name="ar.com.larreta">
 		<level value="DEBUG" />
+		<appender-ref ref="generalAppenderAsync" />
 	</logger>
 	
 	<logger name="hqlLogger">
@@ -25,6 +26,11 @@
 	<logger name="errorLogger">
 		<level value="DEBUG" />
 		<appender-ref ref="errorAppenderAsync" />
+	</logger>
+	
+	<logger name="copyLogger">
+		<level value="DEBUG" />
+		<appender-ref ref="copyAppenderAsync" />
 	</logger>	
 
 	<!-- Hibernate Loggers -->
@@ -81,7 +87,7 @@
 	
 	<!-- Root Logger -->
 	<root>
-		<priority value="ERROR" />
+		<priority value="DEBUG" />
 		<appender-ref ref="generalAppenderAsync" />
 		<appender-ref ref="consoleAppenderAsync" />
 	</root>
@@ -107,6 +113,9 @@
  	</appender>
  	<appender name="errorAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
 	    <appender-ref ref="errorAppender" /> 
+ 	</appender> 
+ 	<appender name="copyAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="copyAppender" /> 
  	</appender> 	
 
 	<!-- Appenders -->
@@ -116,6 +125,17 @@
         </layout>
 	</appender>
 
+	<appender class="org.apache.log4j.RollingFileAppender" name="copyAppender">
+        <param name="Append"				value="true" />
+        <param name="File"					value="\\log\\${contextPath}\\copy.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
+    
 	<appender class="org.apache.log4j.RollingFileAppender" name="errorAppender">
         <param name="Append"				value="true" />
         <param name="File"					value="\\log\\${contextPath}\\error.log" />

@@ -75,6 +75,7 @@ public class LockAppInitializer extends GenericServlet {
 	public static void writeLockApp(AppObject appObject){
 		LockApp lockApp = getLockApp();
 		if(lockApp!=null){
+			lockApp.setLastDate(new Date());
 			writeText(appObject, lockApp.getPath(), lockApp.toString());
 		}
 	}

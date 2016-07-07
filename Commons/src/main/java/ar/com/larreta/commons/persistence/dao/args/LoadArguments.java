@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +30,7 @@ import ar.com.larreta.commons.persistence.exceptions.UnreportedEntityException;
  */
 public class LoadArguments implements Serializable {
 
+	private static final String DOT = ".";
 	private MainEntity mainEntity;
 	private Collection<ProjectedProperty> projectedProperties = new ArrayList<ProjectedProperty>();
 	private Collection<Where> wheres = new ArrayList<Where>();
@@ -129,6 +131,22 @@ public class LoadArguments implements Serializable {
 	private void setWheres(Collection<Where> wheres) {
 		this.wheres = wheres;
 	}
+	
+	/**
+	 * Retorna verdadero si la propiedad q intenta utilizarse ya esta incluida 
+	 * @param name
+	 * @return
+	 */
+	private Boolean isProjectedPropertiesExist(String name){
+		Iterator<ProjectedProperty> it = projectedProperties.iterator();
+		while (it.hasNext()) {
+			ProjectedProperty projectedProperty = (ProjectedProperty) it.next();
+			if ((projectedProperty.getName().indexOf(name + DOT)>=0) || (projectedProperty.getName().equals(name))){
+				return Boolean.TRUE;
+			}
+		}
+		return Boolean.FALSE;
+	}
 
 	/**
 	 * Agrega una propiedad projectada
@@ -137,8 +155,10 @@ public class LoadArguments implements Serializable {
 	 * @return
 	 */
 	public LoadArguments addProjectedProperties(String name){
-		ProjectedProperty projectedProperty = new ProjectedProperty(this, name);
-		projectedProperties.add(projectedProperty);
+		if (!isProjectedPropertiesExist(name)){
+			ProjectedProperty projectedProperty = new ProjectedProperty(this, name);
+			projectedProperties.add(projectedProperty);
+		}
 		return this;
 	}
 	
@@ -149,8 +169,10 @@ public class LoadArguments implements Serializable {
 	 * @return
 	 */
 	public LoadArguments addProjectedPropertiesLeftJoin(String name){
-		ProjectedProperty projectedProperty = new ProjectedProperty(this, name, true);
-		projectedProperties.add(projectedProperty);
+		if (!isProjectedPropertiesExist(name)){
+			ProjectedProperty projectedProperty = new ProjectedProperty(this, name, true);
+			projectedProperties.add(projectedProperty);
+		}
 		return this;
 	}
 	
@@ -161,8 +183,10 @@ public class LoadArguments implements Serializable {
 	 * @return
 	 */
 	public LoadArguments addProjectedCollection(String name){
-		ProjectedProperty projectedProperty = new ProjectedCollection(this, name, HashSet.class);
-		projectedProperties.add(projectedProperty);
+		if (!isProjectedPropertiesExist(name)){
+			ProjectedProperty projectedProperty = new ProjectedCollection(this, name, HashSet.class);
+			projectedProperties.add(projectedProperty);
+		}
 		return this;
 	}
 	
@@ -173,8 +197,10 @@ public class LoadArguments implements Serializable {
 	 * @return
 	 */
 	public LoadArguments addProjectedCollectionLeftJoin(String name){
-		ProjectedProperty projectedProperty = new ProjectedCollection(this, name, HashSet.class, Boolean.TRUE);
-		projectedProperties.add(projectedProperty);
+		if (!isProjectedPropertiesExist(name)){
+			ProjectedProperty projectedProperty = new ProjectedCollection(this, name, HashSet.class, Boolean.TRUE);
+			projectedProperties.add(projectedProperty);
+		}
 		return this;
 	}
 	

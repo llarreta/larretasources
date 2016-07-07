@@ -15,12 +15,15 @@ public class AppLogger implements Serializable {
 	private static final String MAIL = "mailLogger";
 	private static final String BD_INITIALIZER = "bdInitializeLogger";
 	private static final String ERROR = "errorLogger";
+	private static final String COPY = "copyLogger";
+	
 	
 	private Logger commons;
 	private Logger hqlLogger = Logger.getLogger(HQL);;
 	private Logger mailLogger = Logger.getLogger(MAIL);
 	private Logger bdInitializerLogger = Logger.getLogger(BD_INITIALIZER);
 	private Logger errorLogger = Logger.getLogger(ERROR);
+	private Logger copyLogger = Logger.getLogger(COPY);
 
 	public AppLogger(Class type) {
 		commons = Logger.getLogger(type);
@@ -58,6 +61,11 @@ public class AppLogger implements Serializable {
 	public void mail(Object message) {
 		debug(message);
 		mailLogger.info(message);
+	}
+	
+	public void copy(Object message) {
+		debug(message);
+		copyLogger.info(message);
 	}
 
 
