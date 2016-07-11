@@ -47,31 +47,33 @@ public class FilesFrameworksInitializer extends GenericServlet {
 				FileCopy fileCopy = new FileCopy();
 				fileCopy.setFrom(key);
 				fileCopy.setTo(value);
-				service.getEntity(fileCopy, "from");
+				FileCopy previous = (FileCopy) service.getEntity(fileCopy, "from");
 				
-				String path = getServletContext().getRealPath(value);
-				
-				appObject.getLog().copy("Copiando:" + key + ", a la siguiente ruta:" + path);
-				
-				Path pathObject = Paths.get(path);
-				try {
-					Files.copy(
-						resolver.getResources(key)[0].getInputStream(), 
-						pathObject, 
-						StandardCopyOption.REPLACE_EXISTING);
-					createDir = Boolean.TRUE;
-					SaveThread.addEntity(fileCopy);
-				} catch (IOException e) {
-					if (createDir){
-						String dirPath = path.substring(0, path.lastIndexOf(File.separator));
-						File file = new File(dirPath);
-						file.mkdirs();
-						createDir = Boolean.FALSE;
-						process(key, value);
-					} else {
-						appObject.getLog().error("Ocurrio un error copiando archivos", e);
+				if (previous==null){
+					String path = getServletContext().getRealPath(value);
+					
+					appObject.getLog().copy("Copiando:" + key + ", a la siguiente ruta:" + path);
+					
+					Path pathObject = Paths.get(path);
+					try {
+						Files.copy(
+							resolver.getResources(key)[0].getInputStream(), 
+							pathObject, 
+							StandardCopyOption.REPLACE_EXISTING);
+						createDir = Boolean.TRUE;
+						SaveThread.addEntity(fileCopy);
+					} catch (IOException e) {
+						if (createDir){
+							String dirPath = path.substring(0, path.lastIndexOf(File.separator));
+							File file = new File(dirPath);
+							file.mkdirs();
+							createDir = Boolean.FALSE;
+							process(key, value);
+						} else {
+							appObject.getLog().error("Ocurrio un error copiando archivos", e);
+						}
 					}
-				} 
+				}
 			}
 		});
 		

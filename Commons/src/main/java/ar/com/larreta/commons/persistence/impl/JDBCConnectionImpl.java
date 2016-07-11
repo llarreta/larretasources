@@ -44,20 +44,25 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.commons.AppConfigData;
+import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.AppState;
+import ar.com.larreta.commons.domain.ParametricEntity;
+import ar.com.larreta.commons.domain.ScriptInitialized;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.impl.AppConfigDataImpl;
 import ar.com.larreta.commons.persistence.IEAction;
 import ar.com.larreta.commons.persistence.JDBCConnection;
 import ar.com.larreta.commons.persistence.NamedParameterStatement;
+import ar.com.larreta.commons.services.StandardService;
+import ar.com.larreta.commons.threads.SaveThread;
 import ar.com.larreta.commons.utils.Zipper;
 
 /**
  * Wrapper de connection, para establecer una conexion JDBC pura
  */
 @Component(JDBCConnectionImpl.JDBC_CONNECTION)
-@DependsOn(AppConfigDataImpl.APP_CONFIG_DATA)
+@DependsOn({AppConfigDataImpl.APP_CONFIG_DATA})
 public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection {
 	
 	private static final String TEXT_FILE_ENCODING = "text.file.encoding";
@@ -115,14 +120,29 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 						createSchema();
 					}
 					
-					//Creamos las tablas necesarias
+					//Ejecutamos los scripts de inicializacion de base de datos
 					Collection<String> scripts = appConfigData.getDatabaseInitializeScripts();
 					Iterator<String> itScripts = scripts.iterator();
 					while (itScripts.hasNext()) {
 						String actualScript = (String) itScripts.next();
-						InputStream inputStream = getInputStream(actualScript);
-						InputStreamReader inputStreamReader = new InputStreamReader(inputStream, appConfigData.getProperty(TEXT_FILE_ENCODING));
-						runScript(inputStreamReader);	
+						
+						ResultSet resultSet = null;
+						if (!appConfigData.getDatabaseInitializeDropSchemma()){
+							PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM " + appConfigData.getDatabaseURLSchemma() + ".scriptInitialized WHERE description = ?");
+							statement.setString(1, actualScript);
+							resultSet = statement.executeQuery();
+						}
+
+						
+						if ((appConfigData.getDatabaseInitializeDropSchemma()) || (resultSet!=null && !resultSet.next())){
+							InputStream inputStream = getInputStream(actualScript);
+							InputStreamReader inputStreamReader = new InputStreamReader(inputStream, appConfigData.getProperty(TEXT_FILE_ENCODING));
+							runScript(inputStreamReader);	
+							ScriptInitialized scriptInitialized = new ScriptInitialized();
+							scriptInitialized.setDescription(actualScript);
+							SaveThread.addEntity(scriptInitialized);
+						}
+					
 					}
 				}
 			} else {

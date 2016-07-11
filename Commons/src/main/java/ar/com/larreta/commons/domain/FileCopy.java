@@ -28,17 +28,4 @@ public class FileCopy extends ar.com.larreta.commons.domain.Entity {
 		this.to = to;
 	}
 
-	/*@Override
-	public boolean equals(Object object) {
-		if (object instanceof FileCopy) {
-			FileCopy toCompare = (FileCopy) object;
-			return toCompare.getFrom().equals(getFrom());
-		}
-		return Boolean.FALSE;
-	}
-	
-	@Override
-	public int hashCode() {
-		return getFrom().hashCode();
-	}*/
 }

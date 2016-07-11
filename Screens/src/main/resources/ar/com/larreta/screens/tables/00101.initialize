@@ -245,6 +245,13 @@ CREATE TABLE [SCHEMMA].ajax (
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE [SCHEMMA].saverExecuted (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
 ALTER TABLE [SCHEMMA].ajax
 ADD CONSTRAINT fk_screenElement_in_ajax
 FOREIGN KEY (id)

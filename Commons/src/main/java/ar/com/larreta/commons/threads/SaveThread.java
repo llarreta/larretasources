@@ -57,7 +57,9 @@ public class SaveThread extends Thread {
 		synchronized (SaveThread.class){
 			if (entity!=null){
 				entities.add(entity);
-				INSTANCE.shortenInterval();
+				if (INSTANCE!=null){
+					INSTANCE.shortenInterval();
+				}
 			}
 		}
 	}
@@ -80,7 +82,6 @@ public class SaveThread extends Thread {
 		Collection entitiesPersisted = new ArrayList();
 		synchronized (SaveThread.class) {
 			Entity entity = null;
-			Long key = null;
 			try {
 				if ((!entities.isEmpty()) && (getService()!=null) && (AppManager.getInstance().getAppConfig().getLockApp()!=null)){
 					Iterator<Entity> it = entities.iterator();
