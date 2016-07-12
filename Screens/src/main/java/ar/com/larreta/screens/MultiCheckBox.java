@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.event.FacesEvent;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -23,25 +22,20 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import ar.com.larreta.commons.AppManager;
-import ar.com.larreta.commons.controllers.StandardController;
 import ar.com.larreta.commons.faces.EntityConverter;
-import ar.com.larreta.screens.impl.ComboBoxListener;
 
 @Entity
-@Table(name = "comboBox")
-@DiscriminatorValue(value = "comboBox")
+@Table(name = "multiCheckBox")
+@DiscriminatorValue(value = "multiCheckBox")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class ComboBox extends ContainerValued {
+public class MultiCheckBox extends ContainerValued {
 
-	private static Logger logger = Logger.getLogger(ComboBox.class);
+	private static Logger logger = Logger.getLogger(MultiCheckBox.class);
 	
-	private Set<ComboBoxItem> individualItems;
+	private Set<CheckBoxItem> individualItems;
 	private String entityType;
 	private String lazyProperties;
 	
-	private String changeListener;
-	private ComboBoxListener changeListenerInstance;
-
 	@Basic
 	public String getLazyProperties() {
 		return lazyProperties;
@@ -57,30 +51,11 @@ public class ComboBox extends ContainerValued {
 		return ScreenUtils.split(lazyProperties);
 	}
 
-	@Basic
-	public String getChangeListener() {
-		return changeListener;
-	}
-
-
-	public void setChangeListener(String changeListener) {
-		this.changeListener = changeListener;
-	}
-	
 	@Transient
-	public ComboBoxListener getChangeListenerInstance() {
-		if ((changeListenerInstance==null) && (!StringUtils.isEmpty(changeListener))){
-			changeListenerInstance = (ComboBoxListener) ScreenUtils.getObject(changeListener);
-		}
-		return changeListenerInstance;
-	}
-
-
-	@Transient
-	public Collection<ComboBoxItem> getOrdererIndividualItems(){
-		List<ComboBoxItem> ordererElements = new ArrayList<ComboBoxItem>(getIndividualItems());
-		Collections.sort(ordererElements, new Comparator<ComboBoxItem>() {
-			public int compare(ComboBoxItem elementA, ComboBoxItem elementB) {
+	public Collection<CheckBoxItem> getOrdererIndividualItems(){
+		List<CheckBoxItem> ordererElements = new ArrayList<CheckBoxItem>(getIndividualItems());
+		Collections.sort(ordererElements, new Comparator<CheckBoxItem>() {
+			public int compare(CheckBoxItem elementA, CheckBoxItem elementB) {
 				return elementA.getOrder().compareTo(elementB.getOrder());
 			}
 		});
@@ -88,20 +63,20 @@ public class ComboBox extends ContainerValued {
 	}
 
 	
-	@OneToMany (mappedBy="comboBox", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=ComboBoxItem.class)
-	public Set<ComboBoxItem> getIndividualItems() {
+	@OneToMany (mappedBy="multiCheckBox", fetch=FetchType.EAGER, cascade=CascadeType.ALL, targetEntity=CheckBoxItem.class)
+	public Set<CheckBoxItem> getIndividualItems() {
 		return individualItems;
 	}
-	public void setIndividualItems(Set<ComboBoxItem> individualItems) {
+	public void setIndividualItems(Set<CheckBoxItem> individualItems) {
 		this.individualItems = individualItems;
 	}
 	
-	public void addComboBoxItem(ComboBoxItem comboBoxItem){
+	public void addComboBoxItem(CheckBoxItem checkBoxItem){
 		if (individualItems==null){
-			individualItems = new HashSet<ComboBoxItem>();
+			individualItems = new HashSet<CheckBoxItem>();
 		}
-		comboBoxItem.setComboBox(this);
-		individualItems.add(comboBoxItem);
+		checkBoxItem.setMultiCheckBox(this);
+		individualItems.add(checkBoxItem);
 	}
 	
 	@Basic
@@ -135,10 +110,6 @@ public class ComboBox extends ContainerValued {
 	@Transient
 	public Boolean getIsItemsValueExist(){
 		return !StringUtils.isEmpty(getEntityType());
-	}
-	
-	public void change(FacesEvent facesEvent, StandardController controller){
-		getChangeListenerInstance().process(facesEvent, controller, this);
 	}
 	
 }

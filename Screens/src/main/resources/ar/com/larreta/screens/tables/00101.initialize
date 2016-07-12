@@ -173,7 +173,6 @@ CREATE TABLE [SCHEMMA].label (
 
 CREATE TABLE [SCHEMMA].input (
 	id BIGINT NOT NULL,
-	binding VARCHAR(255),
 	value VARCHAR(255),
 	PRIMARY KEY (ID)
 );
@@ -251,6 +250,50 @@ CREATE TABLE [SCHEMMA].saverExecuted (
 	description VARCHAR(255),
 	PRIMARY KEY (ID)
 );
+
+CREATE TABLE [SCHEMMA].checkBox (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].checkBoxItem (
+	id BIGINT NOT NULL,
+	orderIndex BIGINT,
+	value VARCHAR(255),
+	itemLabel VARCHAR(255),
+	noSelectionOption VARCHAR(255),
+	idMultiCheckBox BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].multiCheckBox (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	entityType VARCHAR(255),
+	lazyProperties VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE [SCHEMMA].multiCheckBox
+ADD CONSTRAINT fk_screenElement_in_multiCheckBox
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].checkBoxItem
+ADD CONSTRAINT fk_screenElement_in_checkBoxItem
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].checkBoxItem
+ADD CONSTRAINT fk_multiCheckBox_in_checkBoxItem
+FOREIGN KEY (idMultiCheckBox)
+REFERENCES [SCHEMMA].multiCheckBox(id);
+
+ALTER TABLE [SCHEMMA].checkBox
+ADD CONSTRAINT fk_screenElement_in_checkBox
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].ajax
 ADD CONSTRAINT fk_screenElement_in_ajax

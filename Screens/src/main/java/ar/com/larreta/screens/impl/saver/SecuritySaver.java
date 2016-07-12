@@ -34,6 +34,7 @@ public class SecuritySaver extends ABMSaver {
 
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
+		index = screen.addCheckBox(index, "app.securityAvaiable",		 	"avaiable");
 		index = screen.addInput(index, "app.loginPage",				 	"loginPage");
 		index = screen.addInput(index, "app.loginProcessingUrl", 		"loginProcessingUrl");
 		index = screen.addInput(index, "app.defaultSuccessUrl", 		"defaultSuccessUrl");

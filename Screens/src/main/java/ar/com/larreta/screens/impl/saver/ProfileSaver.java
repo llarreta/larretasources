@@ -17,7 +17,8 @@ public class ProfileSaver extends ParametricEntitySaver {
 	protected void makeBody(CreateScreen screen) {
 		super.makeBody(screen);
 		Integer index = 0;
-		index = screen.addMultiBox(index, "app.roles.avaiables", "app.roles.assigned", "roles", Role.class.getName(), "description");
+		index = screen.addMultiCheckBox(index,  "app.roles.avaiables", "roles", Role.class.getName());
+		//index = screen.addMultiBox(index, "app.roles.avaiables", "app.roles.assigned", "roles", Role.class.getName(), "description");
 	}
 
 	@Override

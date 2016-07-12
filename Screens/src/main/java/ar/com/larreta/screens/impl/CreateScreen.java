@@ -1,11 +1,13 @@
 package ar.com.larreta.screens.impl;
 
+import ar.com.larreta.screens.CheckBox;
 import ar.com.larreta.screens.ComboBox;
 import ar.com.larreta.screens.ComboBoxItem;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Input;
 import ar.com.larreta.screens.Label;
 import ar.com.larreta.screens.MultiBox;
+import ar.com.larreta.screens.MultiCheckBox;
 import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.Password;
 import ar.com.larreta.screens.ScreenElement;
@@ -86,6 +88,12 @@ public abstract class CreateScreen extends CommonsScreen {
 		return index;
 	}
 	
+	public Integer addCheckBox(Integer index, String labelText, String dataViewSelectedProperty) {
+		body.add(index++, new Label(labelText));
+		body.add(index++, new CheckBox(DATA_VIEW_SELECTED, dataViewSelectedProperty));
+		return index;
+	}
+	
 	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType) {
 		return addCombo(index, labelText, dataViewSelectedProperty, entityType, null);
 	}
@@ -103,13 +111,28 @@ public abstract class CreateScreen extends CommonsScreen {
 		body.add(index++, comboBox);
 		return index;
 	}
+
+	public Integer addMultiCheckBox(Integer index, String labelText, String dataViewSelectedProperty, String entityType) {
+		return addMultiCheckBox(index, labelText, dataViewSelectedProperty, entityType, null);
+	}
+	
+	public Integer addMultiCheckBox(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties) {
+		body.add(index++, new Label(labelText));
+		MultiCheckBox multiCheckBox = new MultiCheckBox();
+		multiCheckBox.setBindingObject(DATA_VIEW_SELECTED);
+		multiCheckBox.setBindingProperty(dataViewSelectedProperty);
+		multiCheckBox.setEntityType(entityType);
+		multiCheckBox.setLazyProperties(lazyProperties);
+		body.add(index++, multiCheckBox);
+		return index;
+	}
+	
 	
 	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, String entityType, String propertyItemLabel){
 		return addMultiBox(index, sourceCaption, targetCaption, dataViewSelectedProperty, entityType, propertyItemLabel, null);
 	}
 
-	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption,
-			String dataViewSelectedProperty, String entityType, String propertyItemLabel, String lazyProperties) {
+	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, String entityType, String propertyItemLabel, String lazyProperties) {
 		addNewBody(1);
 		
 		MultiBox multiBox = new MultiBox();
