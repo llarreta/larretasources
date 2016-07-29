@@ -62,7 +62,6 @@ public class ScreenUtils {
 			exp = messaging(exp);
 			//FIXME: Evaluar solo la expresion entre lo que se abre y lo que se cierra
 			if (exp.indexOf(OPEN_EXP)>=0){
-				FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), exp , Object.class);
 				return  FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), exp , Object.class);
 			}
 		}

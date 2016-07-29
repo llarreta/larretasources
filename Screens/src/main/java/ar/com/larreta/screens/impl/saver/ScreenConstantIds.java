@@ -14,7 +14,8 @@ public class ScreenConstantIds extends AppObjectImpl{
 
 	public Map<String, Long> ids = new HashMap<String, Long>();
 	
-	private Long index=new Long(0);
+	//FIXME: Externalizar este valor para que pueda ser manipulable desde configuracion
+	private Long index=new Long(-99999);
 
 	public Long getIdentifier(String key){
 		synchronized (ScreenConstantIds.class) {

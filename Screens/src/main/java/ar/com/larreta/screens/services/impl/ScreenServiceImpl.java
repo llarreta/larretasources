@@ -1,7 +1,7 @@
 package ar.com.larreta.screens.services.impl;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
@@ -15,18 +15,21 @@ public class ScreenServiceImpl extends StandardServiceImpl implements ScreensSer
 	public static final String SCREEN_SERVICE = "screenService";
 	
 	//FIXME: Tener la precaucion de que este mapa no sobrecargue la memoria // Revisar porque falla por concurrencia este hash 
-	private Map<Long, Screen> screens = new ConcurrentHashMap<Long, Screen>();
+	private Map<Long, Screen> screens = new HashMap<Long, Screen>();
 
 	public Screen getScreen(Long id) {
-		Screen screen = screens.get(id);
-		if (screen==null){
-			screen = new Screen();
-			screen.setId(id);
-			screen = (Screen) getEntity(screen);
+		Screen screen = null;
+		synchronized (ScreenServiceImpl.class) {
+			screen = screens.get(id);
 			if (screen==null){
-				getLog().info("No se encontro Screen(" + id + ").");
+				screen = new Screen();
+				screen.setId(id);
+				screen = (Screen) getEntity(screen);
+				if (screen==null){
+					getLog().info("No se encontro Screen(" + id + ").");
+				}
+				screens.put(id, screen);
 			}
-			screens.put(id, screen);
 		}
 		return screen;
 		

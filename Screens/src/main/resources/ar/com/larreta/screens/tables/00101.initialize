@@ -48,6 +48,7 @@ CREATE TABLE [SCHEMMA].columntag (
 	headerText VARCHAR(255),
 	sortBy VARCHAR(255),
 	width VARCHAR(255),
+	idFilterMatchMode BIGINT,
 	PRIMARY KEY (ID)
 );
 
@@ -274,6 +275,21 @@ CREATE TABLE [SCHEMMA].multiCheckBox (
 	lazyProperties VARCHAR(255),
 	PRIMARY KEY (ID)
 );
+
+CREATE TABLE [SCHEMMA].filterMatchMode (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	description VARCHAR(255),
+	type VARCHAR(255),
+	valueType VARCHAR(255),
+	entityClass VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE [SCHEMMA].columnTag
+ADD CONSTRAINT fk_filterMatchMode_in_columnTag
+FOREIGN KEY (idFilterMatchMode)
+REFERENCES [SCHEMMA].filterMatchMode(id);
 
 ALTER TABLE [SCHEMMA].multiCheckBox
 ADD CONSTRAINT fk_screenElement_in_multiCheckBox

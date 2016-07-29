@@ -47,6 +47,9 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	private static final String TWO_POINTS = ":";
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
 	
+	public static final String DEFAULT_LANGUAGE = "default.language";
+	public static final String DEFAULT_COUNTRY = "default.country";
+	
 	public static final String DB_INITIALIZE_STOPONERROR = "db.initialize.stoponerror";
 	
 	private static final String PROPERTY_NAME_DATABASE_URL_PREFIX = "db.url.prefix";
@@ -111,6 +114,14 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 		iterateResources.start();
 	}
 	
+	public String getDefaultLanguage(){
+		return getProperty(DEFAULT_LANGUAGE);
+	}
+	
+	public String getDefaultCountry(){
+		return getProperty(DEFAULT_COUNTRY);
+	}
+	
 	public String getDeployPath(){
 		return getProperty(DEPLOY_PATH);
 	}
@@ -146,10 +157,13 @@ public class AppConfigDataImpl extends Properties implements AppConfigData{
 	}
 	
 	public String getDatabaseURL(){
+		return getDatabaseURLForAdmin() + BAR +	getDatabaseURLSchemma();
+	}
+	
+	public String getDatabaseURLForAdmin(){
 		return getDatabaseURLPrefix() + 
 				getDatabaseURLDomain() +
-				TWO_POINTS + getDatabaseURLPort() + BAR +
-				getDatabaseURLSchemma();
+				TWO_POINTS + getDatabaseURLPort();
 	}
 
 	public String getDatabaseURLSchemma() {

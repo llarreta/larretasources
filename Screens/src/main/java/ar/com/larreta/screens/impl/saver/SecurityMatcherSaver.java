@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.commons.domain.AuthenticatedSecurityMatcher;
+import ar.com.larreta.commons.domain.Country;
 import ar.com.larreta.commons.domain.ParametricEntity;
 import ar.com.larreta.commons.domain.PermitAllSecurityMatcher;
 import ar.com.larreta.commons.domain.Role;
@@ -11,6 +12,7 @@ import ar.com.larreta.commons.domain.RolesSecurityMatcher;
 import ar.com.larreta.commons.domain.SecurityMatcher;
 import ar.com.larreta.screens.Ajax;
 import ar.com.larreta.screens.Attribute;
+import ar.com.larreta.screens.Column;
 import ar.com.larreta.screens.ComboBox;
 import ar.com.larreta.screens.ComboBoxItem;
 import ar.com.larreta.screens.Label;
@@ -67,7 +69,7 @@ public class SecurityMatcherSaver extends ABMSaver {
 
 	@Override
 	protected void makeColumn(MainScreen screen) {
-		screen.getTable().addColumn(0, screen.getColumnWithLabelProperty("pattern", 	"app.pattern", 	"tableElement.pattern",  	"40%"));
+		screen.getTable().addColumn(0, screen.getColumnWithContainsFilter("pattern", 	"app.pattern", 	"tableElement.pattern",  	"40%"));
 		screen.getTable().addColumn(1, screen.getColumnWithLabelProperty("securityMatcherType", 	"app.securityMatcherType", 	"tableElement.securityMatcherType",  	"40%"));
 	}
 	

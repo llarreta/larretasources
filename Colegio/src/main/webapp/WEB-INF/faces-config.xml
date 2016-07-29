@@ -8,7 +8,7 @@
 		<message-bundle>JsfMessageResources</message-bundle>
 		
 		<resource-bundle>
-			<base-name>ar.com.larreta.mensajes.mensajes</base-name>
+			<base-name>ar.com.larreta.commons.resources.ResourceBundle</base-name>
 			<var>msg</var>
 	   </resource-bundle>
 	   

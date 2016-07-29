@@ -24,6 +24,7 @@ import ar.com.larreta.commons.persistence.dao.args.CountArguments;
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.persistence.dao.args.MaxArguments;
 import ar.com.larreta.commons.persistence.dao.impl.StandardDAOImpl;
+import ar.com.larreta.commons.persistence.dao.impl.Whereable;
 import ar.com.larreta.commons.services.StandardService;
 import ar.com.larreta.commons.services.args.ServiceInfo;
 
@@ -241,12 +242,34 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 			LoadArguments arguments = new LoadArguments(entityType);
 			arguments.setFirstResult(firstResult);
 			arguments.setMaxResults(maxResults);
+			addOrder(order, arguments);
+			addFilters(filters, arguments);
 			Collection data = dao.load(arguments);
 			return new ServiceInfo(arguments, data);
 		} catch (Exception e){
 			getLog().error("Ocurrio un error en el loadServiceInfo", e);
 		}
 		return null;
+	}
+
+	private void addFilters(Map<String, Object> filters, LoadArguments arguments) {
+		if (filters!=null){
+			Iterator it = filters.values().iterator();
+			while (it.hasNext()) {
+				Whereable whereable = (Whereable) it.next();
+				arguments.addWhere(whereable.toWhere(arguments));
+			}
+		}
+	}
+
+	private void addOrder(Order order, LoadArguments arguments) {
+		if (order!=null){
+			if (order.isAscending()){
+				arguments.addAscOrder(order.getPropertyName());
+			} else {
+				arguments.addDescOrder(order.getPropertyName());
+			}
+		}
 	}
 
 	@Override
@@ -258,6 +281,8 @@ public class StandardServiceImpl extends AppObjectImpl implements StandardServic
 					arguments.addProjectedPropertiesLeftJoin(field);
 				}
 			}
+			addOrder(order, arguments);
+			addFilters(filters, arguments);
 			arguments.setFirstResult(firstResult);
 			arguments.setMaxResults(maxResults);
 			Collection data = dao.load(arguments);

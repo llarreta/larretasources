@@ -7,7 +7,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
-     <p:dataTable 	id="#{element.idValue}"
+     <p:dataTable 	id="#{element.idValue}" widgetVar="#{element.idValue}Var"
          selectionMode="#{element.selectionMode}"
          rows="#{element.rows}"
          paginator="#{element.paginator}" lazy="#{element.lazy}"
@@ -18,13 +18,12 @@
  				 var="tableElement"  selection="#{dataView.selected}"
      	 value="#{element.valueEvaluated}"
      >   
+     
+     	<p:ajax event="sort" 		listener="#{controller.onSort}" />
+     	<p:ajax event="filter" 		listener="#{controller.onFilter}"/>
+     
      	<c:forEach var="column" items="#{element.ordererElements}">
-     		<p:column headerText="#{column.headerTextEvaluated}" sortBy="#{column.sortBy}" width="#{column.width}">
-     			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
-					<ui:param name="elementValue" value="#{tableElement}" />
-					<ui:param name="elements" value="#{column.ordererElements}" />
-			 	</ui:include> 	
-     		</p:column>
+	     	<ui:include src="/WEB-INF/flows/screen/Column#{column.filter}.xhtml" />
      	</c:forEach>
      </p:dataTable>
 </html>

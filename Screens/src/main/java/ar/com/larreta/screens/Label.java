@@ -15,15 +15,14 @@ public class Label extends ValuedElement {
 		setBindingProperty("value");
 	}
 	
-	public Label(String value, String styleClass){
-		this();
-		setValue(value);
+	public Label(String messageValue, String styleClass){
+		this(messageValue);
 		setStyleClass(styleClass);
 	}
 	
-	public Label(String value){
+	public Label(String messageValue){
 		this();
-		setValue(value);
+		setMessageValue(messageValue);
 	}
 	
 }

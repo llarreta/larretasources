@@ -28,9 +28,12 @@ public class ResourceBundle extends java.util.ResourceBundle {
 			locale = viewRoot.getLocale();
 		}
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		if (externalContext!=null){
+		if (externalContext!=null && locale == null){
 			locale = externalContext.getRequestLocale();
 		}
+		locale = getService().validate(locale);
+		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+		FacesContext.getCurrentInstance().getApplication().setDefaultLocale(getService().getDefaultLocale());
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package ar.com.larreta.commons.controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,26 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	private LoadArguments arguments;
 	private List<String> lazyProperties = new ArrayList<String>();
 	
+	private String sortField;
+	
+	private Map<String, Object> filters = new HashMap<String, Object>();
+	
+	public void putFilter(String key, Object filter){
+		filters.put(key, filter);
+	}
+	
+	public void removeFilter(String key){
+		filters.remove(key);
+	}
+	
+	public String getSortField() {
+		return sortField;
+	}
+
+	public void setSortField(String sortField) {
+		this.sortField = sortField;
+	}
+
 	public void setLazyProperties(List<String> lazyProperties) {
 		this.lazyProperties = lazyProperties;
 	}
@@ -115,9 +136,11 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	@Override
 	public List<Entity> load(int first, int pageSize, List<SortMeta> multiSortMeta, Map<String, Object> filters) {
 		try {
+			filters = putFilters(filters);
 			ServiceInfo serviceInfo = getService().loadServiceInfo(getEntityClass(), first, pageSize, null, filters, lazyProperties);
 			datasource = new ArrayList<Entity>(serviceInfo.getData());
 			arguments = serviceInfo.getArguments();
+			refresh();
 			alertLoadListeners(datasource);
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));		
@@ -128,14 +151,28 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	@Override
 	public List<Entity> load(int first, int pageSize, String sortField,	SortOrder sortOrder, Map<String, Object> filters) {
 		try {
+			if (this.sortField!=null){
+				sortField = this.sortField;
+			}
+			filters = putFilters(filters);
 			ServiceInfo serviceInfo = getService().loadServiceInfo(getEntityClass(), first, pageSize, getOrder(sortOrder, sortField), filters, lazyProperties);
 			datasource = new ArrayList<Entity>(serviceInfo.getData());
 			arguments = serviceInfo.getArguments();
+			refresh();
 			alertLoadListeners(datasource);
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
 		return datasource;
+	}
+
+	private Map<String, Object> putFilters(Map<String, Object> filters) {
+		if (filters==null){
+			filters = new HashMap<>();
+		}
+		filters.putAll(this.filters);
+		filters.remove("bindingProperty");
+		return filters;
 	}
 
 	public AppLogger getLog() {
@@ -172,4 +209,5 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	public Class getEntityClass(){
 		return getDataView().getController().getEntityClass();
 	}
+
 }

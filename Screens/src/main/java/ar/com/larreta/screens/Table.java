@@ -10,6 +10,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
+import org.primefaces.event.data.SortEvent;
 
 import ar.com.larreta.commons.controllers.Paginator;
 
@@ -215,5 +216,4 @@ public class Table extends StandardContainer {
 		this.currentPageReportTemplate = currentPageReportTemplate;
 	}
 
-	
 }

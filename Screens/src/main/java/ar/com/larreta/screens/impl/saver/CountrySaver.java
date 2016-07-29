@@ -16,7 +16,7 @@ public class CountrySaver extends ParametricEntitySaver {
 	@Override
 	protected void makeColumn(MainScreen screen) {
 		super.makeColumn(screen);
-		screen.getTable().addColumn(0, screen.getColumnWithLabelProperty("abbreviation", 	"app.abbreviation", 	"tableElement.abbreviation",  	"40%"));
+		screen.getTable().addColumn(0, screen.getColumnWithContainsFilter("abbreviation", 	"app.abbreviation", 	"tableElement.abbreviation",  	"40%"));
 	}
 	
 	protected void makeBody(CreateScreen screen) {

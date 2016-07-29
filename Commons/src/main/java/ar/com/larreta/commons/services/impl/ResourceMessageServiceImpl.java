@@ -41,6 +41,7 @@ public class ResourceMessageServiceImpl extends LocaleServiceImpl implements Res
 						.addWhereEqual("language.abbreviation", language)
 						.addWhereEqual("key", key);
 					Collection<ResourceMessage> resources = dao.load(args);
+					
 					if (resources!=null && !resources.isEmpty()){
 						ResourceMessage resourceMessage = resources.iterator().next();
 						message = resourceMessage.getTextString();
@@ -57,6 +58,7 @@ public class ResourceMessageServiceImpl extends LocaleServiceImpl implements Res
 						resourceMessage.setTextString(key);
 						save(resourceMessage);
 					}
+					
 					return key;
 			 }
 			return message;

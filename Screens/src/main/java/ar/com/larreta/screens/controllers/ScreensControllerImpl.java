@@ -2,20 +2,28 @@ package ar.com.larreta.screens.controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EventObject;
 
+import javax.faces.component.UIComponentBase;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.primefaces.component.column.Column;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.data.FilterEvent;
+import org.primefaces.event.data.SortEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.webflow.execution.RequestContext;
 
+import ar.com.larreta.commons.controllers.Paginator;
 import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
-import ar.com.larreta.commons.exceptions.PaginatorNotFoundException;
 import ar.com.larreta.commons.views.DataView;
+import ar.com.larreta.screens.FilterMatchMode;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;
@@ -197,5 +205,49 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 		} catch (Exception e) {
 			getLog().error("Ocurrio un error onEvent", e);
 		} 
+	}
+	
+	public void onFilterValueChange(ValueChangeEvent valueChangeEvent){
+		Object value = valueChangeEvent.getNewValue();
+		UIComponentBase component = (UIComponentBase) valueChangeEvent.getSource();
+		Column column = (Column) component.getParent();
+		DataTable dataTable = (DataTable) column.getParent();
+		Table table = (Table) screen.getSearchMap().recursiveFind(dataTable.getId());
+		Paginator paginator = (Paginator) table.getValueEvaluated();
+		ar.com.larreta.screens.Column columnData = (ar.com.larreta.screens.Column) screen.getSearchMap().recursiveFind(column.getId());
+
+		FilterMatchMode filterMatchMode = columnData.getFilterMatchMode();
+		filterMatchMode.setValue(value);
+
+		if (value!=null && !StringUtils.EMPTY.equals(value)){
+			paginator.putFilter(filterMatchMode.getDescription(), filterMatchMode);	
+		} else {
+			paginator.removeFilter(filterMatchMode.getDescription());
+		}
+	}
+	
+	public void onFilter(FilterEvent filterEvent){
+		DataTable dataTable = (DataTable) filterEvent.getSource();
+	}
+	
+	public void onSort(SortEvent sortEvent){
+		Column column = (Column) sortEvent.getSortColumn();
+		ar.com.larreta.screens.Column columnData = (ar.com.larreta.screens.Column) screen.getSearchMap().recursiveFind(column.getId());
+		
+		Paginator paginator = getPaginator(sortEvent);
+
+		paginator.setSortField(columnData.getSortBy());
+	}
+
+	private Paginator getPaginator(EventObject eventObject) {
+		Table table = getTable(eventObject);
+		Paginator paginator = (Paginator) table.getValueEvaluated();
+		return paginator;
+	}
+
+	private Table getTable(EventObject eventObject) {
+		DataTable dataTable = (DataTable) eventObject.getSource();
+		Table table = (Table) screen.getSearchMap().recursiveFind(dataTable.getId());
+		return table;
 	}
 }

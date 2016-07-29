@@ -118,6 +118,13 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 						dropSchema();
 						//Generamos nuevamente el esquema
 						createSchema();
+						//Creamos el usuario
+						createUser();
+						//Asignamos permisos al usuario creado
+						grantUser("SELECT");
+						grantUser("DELETE");
+						grantUser("INSERT");
+						grantUser("UPDATE");
 					}
 					
 					//Ejecutamos los scripts de inicializacion de base de datos
@@ -171,7 +178,7 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 				//STEP 1: Register JDBC driver
 				Class.forName(appConfigData.getDatabaseDriver());
 				//STEP 2: Open a connection
-				connection = DriverManager.getConnection(appConfigData.getDatabaseURL(),
+				connection = DriverManager.getConnection(appConfigData.getDatabaseURLForAdmin(),
 															appConfigData.getDatabaseAdminUsername(),
 															appConfigData.getDatabaseAdminPassword());			
 			} catch (Exception e){
@@ -187,6 +194,24 @@ public class JDBCConnectionImpl extends AppObjectImpl implements JDBCConnection 
 		File sqlFile = getDump();
 		zipper.zipSingleFile(sqlFile, appConfigData.getDatabaseDumpDirectory() + File.separator + EXPORT + System.currentTimeMillis() + ZIP);
 		sqlFile.delete();
+	}
+
+	public void grantUser(String grantType){
+		try {
+			executeSimpleQuery("GRANT " + grantType + " ON " + appConfigData.getDatabaseURLSchemma() + ".* TO '" 
+								+ appConfigData.getDatabaseUsername() +"'@'" + appConfigData.getDatabaseURLDomain() + "'");
+		} catch (SQLException e) {
+			getLog().error(AppException.getStackTrace(e));
+		}
+	}
+	
+	public void createUser(){
+		try {
+			executeSimpleQuery("CREATE USER IF NOT EXISTS '" + appConfigData.getDatabaseUsername() +"'@'" + appConfigData.getDatabaseURLDomain() 
+									+ "' IDENTIFIED BY '" + appConfigData.getDatabasePassword() + "'");
+		} catch (SQLException e) {
+			getLog().error(AppException.getStackTrace(e));
+		}
 	}
 	
 	public void dropSchema(){

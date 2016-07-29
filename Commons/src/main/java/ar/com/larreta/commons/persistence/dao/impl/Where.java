@@ -9,7 +9,7 @@ public abstract class Where extends QueryElement {
 
 	private String operator;
 	private Object value;
-	private String alias = StringUtils.EMPTY;
+	protected String alias = StringUtils.EMPTY;
 
 	public Where(LoadArguments args, String field, String operator, Object value){
 		this.args = args;

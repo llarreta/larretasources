@@ -20,6 +20,7 @@ public interface AppConfigData extends AppObject{
 	public String getDatabaseAdminUsername();
 	public String getDatabaseDriver();
 	public String getDatabaseURL();
+	public String getDatabaseURLForAdmin();
 	public String getDatabaseURLSchemma();
 	public String getDatabaseURLPort();
 	public String getDatabaseURLDomain();
@@ -49,4 +50,6 @@ public interface AppConfigData extends AppObject{
 	public String getProperty(String key);
 	public Object get(Object key);
 	public String getDeployPath();
+	public String getDefaultLanguage();
+	public String getDefaultCountry();
 }

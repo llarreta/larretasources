@@ -29,25 +29,25 @@ public class SubmitButton extends Button {
 		ajax = Boolean.FALSE;
 	}
 	
-	public SubmitButton(String action, String icon, String value) {
+	public SubmitButton(String action, String icon, String messageValue) {
 		this();
 		setAction(action);
 		setIcon(icon);
-		setValue(value);
+		setMessageValue(messageValue);
 	}
 	
-	public SubmitButton(String action, String icon, String value, Boolean inmediate) {
-		this(action, icon, value);
+	public SubmitButton(String action, String icon, String messageValue, Boolean inmediate) {
+		this(action, icon, messageValue);
 		setInmediate(inmediate);
 	}
 	
-	public SubmitButton(String action, String icon, String value, Long nextScreenId) {
-		this(action, icon, value);
+	public SubmitButton(String action, String icon, String messageValue, Long nextScreenId) {
+		this(action, icon, messageValue);
 		setNextScreenId(nextScreenId);
 	}
 
-	public SubmitButton(String action, String icon, String value, Long nextScreenId, Boolean inmediate) {
-		this(action, icon, value);
+	public SubmitButton(String action, String icon, String messageValue, Long nextScreenId, Boolean inmediate) {
+		this(action, icon, messageValue);
 		setNextScreenId(nextScreenId);
 		setInmediate(inmediate);
 	}

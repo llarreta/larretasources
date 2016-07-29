@@ -85,6 +85,26 @@ public abstract class MainScreen extends CommonsScreen {
 		
 		return column;
 	}
+	
+	@Transient
+	public Column getColumnWithContainsFilter(String property, String header, String sort, String width){
+		Column column = getColumnWithLabelProperty(property, header, sort, width);
+		column.setContainsFilter(property);
+		return column;
+	}
+	
+	@Transient
+	public Column getColumnWithExactFilter(String property, String header, String sort, String width, String entityFilter){
+		return getColumnWithExactFilter(property, header, sort, width, entityFilter, property);
+	}
+
+	@Transient
+	public Column getColumnWithExactFilter(String property, String header, String sort, String width,
+			String entityFilter, String filterProperty) {
+		Column column = getColumnWithLabelProperty(property, header, sort, width);
+		column.setExactFilter(filterProperty, entityFilter);
+		return column;
+	}
 
 	@Transient
 	public Column getColumnWithButtons(String update){

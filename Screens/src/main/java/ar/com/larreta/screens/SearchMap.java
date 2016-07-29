@@ -15,6 +15,7 @@ import ar.com.larreta.screens.exceptions.NotUniqueObjectException;
  */
 public class SearchMap extends AppObjectImpl {
 
+	private Map<String, ScreenElement> elementsByIdValue = new HashMap<String, ScreenElement>();
 	private Map<Long, ScreenElement> elementsById = new HashMap<Long, ScreenElement>();
 	private Map<Class, Map<Long, ScreenElement>> elementsByClasses = new HashMap<Class, Map<Long,ScreenElement>>();
 	private Collection<Container> containers = new ArrayList<Container>();
@@ -33,11 +34,12 @@ public class SearchMap extends AppObjectImpl {
 	public void add(ScreenElement element) throws NotUniqueObjectException{
 		ScreenElement old = recursiveFind(element.getId());
 		if (old!=null && old!=element){
-			getLog().error("Se encontro objeto identico con id:" + old.getIdValue());
+			getLog().error("Se encontro objeto identico con id:" + element.getIdValue() + ", old:" + old.getIdValue());
 			throw new NotUniqueObjectException();
 		}
-		
+
 		elementsById.put(element.getId(), element);
+		elementsByIdValue.put(element.getIdValue(), element);
 
 		Map<Long, ScreenElement> elementsByClass = elementsByClasses.get(element.getClass());
 		if (elementsByClass==null){
@@ -51,6 +53,16 @@ public class SearchMap extends AppObjectImpl {
 		}
 	}
 
+	/**
+ 	 * Busca un ScreenElement en el Container actual
+	 * mediante el identificador pasado por parametro
+	 * @param idValue
+	 * @return
+	 */
+	public ScreenElement find(String idValue){
+		return elementsByIdValue.get(idValue);
+	}
+	
 	/**
 	 * Busca un ScreenElement en el Container actual
 	 * mediante el identificador pasado por parametro
@@ -74,6 +86,25 @@ public class SearchMap extends AppObjectImpl {
 		}
 		return null;
 	}
+	
+	/**
+	 *  Busca un ScreenElement en el Container actual
+	 *  mediante el identificador pasado por parametro
+	 *  de manera recursiva en todos los contenedores
+	 *  que estan incluidos en este
+	 * @param idValue
+	 * @return
+	 */
+	public ScreenElement recursiveFind(String idValue){
+		ScreenElement element = find(idValue);
+		Iterator<Container> it = containers.iterator();
+		while ((element==null) && (it.hasNext())) {
+			Container container = (Container) it.next();
+			element = container.getSearchMap().recursiveFind(idValue);
+		}
+		return element;
+	}
+
 	
 	/**
 	 *  Busca un ScreenElement en el Container actual

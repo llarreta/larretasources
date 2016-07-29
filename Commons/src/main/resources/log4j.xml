@@ -7,7 +7,7 @@
 		<level value="DEBUG" />
 		<appender-ref ref="generalAppenderAsync" />
 	</logger>
-	
+
 	<logger name="hqlLogger">
 		<level value="DEBUG" />
 		<appender-ref ref="hqlAppenderAsync" />
@@ -116,7 +116,7 @@
  	</appender> 
  	<appender name="copyAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
 	    <appender-ref ref="copyAppender" /> 
- 	</appender> 	
+ 	</appender>
 
 	<!-- Appenders -->
 	<appender class="org.apache.log4j.ConsoleAppender" name="consoleAppender">
@@ -126,7 +126,7 @@
 	</appender>
 
 	<appender class="org.apache.log4j.RollingFileAppender" name="copyAppender">
-        <param name="Append"				value="true" />
+        <param name="Append"				value="false" />
         <param name="File"					value="\\log\\${contextPath}\\copy.log" />
         <param name="Threshold"				value="ALL" />
         <param name="MaxFileSize"			value="100MB" />
@@ -135,9 +135,9 @@
             <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
         </layout>
     </appender>
-    
+
 	<appender class="org.apache.log4j.RollingFileAppender" name="errorAppender">
-        <param name="Append"				value="true" />
+        <param name="Append"				value="false" />
         <param name="File"					value="\\log\\${contextPath}\\error.log" />
         <param name="Threshold"				value="ALL" />
         <param name="MaxFileSize"			value="100MB" />
@@ -148,7 +148,7 @@
     </appender>
 
 	<appender class="org.apache.log4j.RollingFileAppender" name="bdInitializeAppender">
-        <param name="Append"				value="true" />
+        <param name="Append"				value="false" />
         <param name="File"					value="\\log\\${contextPath}\\bd\\bdInitialize.log" />
         <param name="Threshold"				value="ALL" />
         <param name="MaxFileSize"			value="100MB" />
@@ -159,7 +159,7 @@
     </appender>
 
 	<appender class="org.apache.log4j.RollingFileAppender" name="hibernateAppender">
-        <param name="Append"				value="true" />
+        <param name="Append"				value="false" />
         <param name="File"					value="\\log\\${contextPath}\\bd\\hibernate.log" />
         <param name="Threshold"				value="ALL" />
         <param name="MaxFileSize"			value="100MB" />
@@ -170,7 +170,7 @@
     </appender>
 	
 	<appender class="org.apache.log4j.RollingFileAppender" name="generalAppender">
-        <param name="Append"				value="true" />
+        <param name="Append"				value="false" />
         <param name="File"					value="\\log\\${contextPath}\\app.log" />
         <param name="Threshold"				value="ALL" />
         <param name="MaxFileSize"			value="100MB" />
@@ -181,7 +181,7 @@
     </appender>
     
 	<appender class="org.apache.log4j.RollingFileAppender" name="hqlAppender">
-        <param name="Append"				value="true" />
+        <param name="Append"				value="false" />
         <param name="File"					value="\\log\\${contextPath}\\bd\\hql.log" />
         <param name="Threshold"				value="ALL" />
         <param name="MaxFileSize"			value="100MB" />
@@ -192,7 +192,7 @@
     </appender>
         
 	<appender class="org.apache.log4j.RollingFileAppender" name="mailAppender">
-        <param name="Append"				value="true" />
+        <param name="Append"				value="false" />
         <param name="File"					value="\\log\\${contextPath}\\mail\\mail.log" />
         <param name="Threshold"				value="ALL" />
         <param name="MaxFileSize"			value="100MB" />
