@@ -1,0 +1,38 @@
+<xs:schema xmlns:tns="http://dtvla.com/Annexs/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://dtvla.com/Annexs/">
+  <xs:element name="getAnnexIBSCustomerCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IBSCustomerCode" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getAnnexIBSCustomerCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="getAnnexIBSCustomerCodeResult" nillable="true" type="tns:AnnexDTO"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AnnexDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="file" nillable="true" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AnnexDTO" nillable="true" type="tns:AnnexDTO"/>
+  <xs:element name="requiredAnnexIBSCustomerCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IBSCustomerCode" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="requiredAnnexIBSCustomerCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="requiredAnnexIBSCustomerCodeResult" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

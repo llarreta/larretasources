@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="co.com.directv.sdii.model.pojo.WoCrewAssigments" table="WORK_ORDER_CREW_ASSIGMENTS" lazy="false">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">SEQ_WO_CREW_ASSIGMENTS</param>
+            </generator>
+        </id>
+        <many-to-one name="woId" class="co.com.directv.sdii.model.pojo.WorkOrder" fetch="select" lazy="false" >
+            <column name="WO_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="crewId" class="co.com.directv.sdii.model.pojo.Crew" fetch="select" lazy="false" >
+            <column name="CREW_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+         <property name="crewAssigmentDate" type="timestamp">
+            <column name="CREW_ASSIGNMENT_DATE" sql-type="timestamp" not-null="true" />
+        </property>
+        <property name="isActive" type="java.lang.String">
+            <column name="IS_ACTIVE" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

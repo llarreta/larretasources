@@ -1,0 +1,701 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:custint-v1-0="http://directvla.com/schema/businessdomain/CustomerInterfaceManagement/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0">
+<documentation>
+        <abstractWSDL>http://esbcol.directvla.com.co:80/soa-infra/services/DTVLA-Services/CustomerInterfaceManagement-Service!1.8.1/CustomerInterfaceManagement.wsdl</abstractWSDL>
+    </documentation>
+  <types>
+    <plnk:partnerLinkType name="GetCustomerInquiriesByCriteriaAsync">
+            <plnk:role name="Async">
+                <plnk:portType name="tns:Async"/>
+            </plnk:role>
+            <plnk:role name="CallBack">
+                <plnk:portType name="tns:CallBack"/>
+            </plnk:role>
+        </plnk:partnerLinkType>
+<xsd:schema xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:custint-v1-0="http://directvla.com/schema/businessdomain/CustomerInterfaceManagement/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/CustomerInterfaceManagement/v1-0">
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="schema6.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="schema2.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema3.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema5.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="schema1.xsd"/>
+            
+  <xsd:complexType name="AddCustomerInquiry">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustInq" type="customerbd-v1-0:CustomerInquiry"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Reason" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="AddCustomerInquiryResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="customerInquiryKey" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="AddCustomerInquiryRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="AddCustomerInquiry" type="custint-v1-0:AddCustomerInquiry"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="AddCustomerInquiryResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="AddCustomerInquiryResult" type="custint-v1-0:AddCustomerInquiryResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="AddCustomerInquiryException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="EditCustomerInquiry">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustInq" type="customerbd-v1-0:CustomerInquiry"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Response" type="commonbd-v1-0:Response"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Reason" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="EditCustomerInquiryRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="EditCustomerInquiry" type="custint-v1-0:EditCustomerInquiry"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EditCustomerInquiryResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EditCustomerInquiryException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerInquiriesByDays">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Days" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInquiriesByDaysResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element minOccurs="0" name="customerinquiries" type="customerbd-v1-0:CustomerInquiryCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerInquiriesByDaysRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesByDays" type="custint-v1-0:GetCustomerInquiriesByDays"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesByDaysResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesByDaysResult" type="custint-v1-0:GetCustomerInquiriesByDaysResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesByDaysException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerInquiries">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="RegNr" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInquiriesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element minOccurs="0" name="customerinquiries" type="customerbd-v1-0:CustomerInquiryCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerInquiriesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiries" type="custint-v1-0:GetCustomerInquiries"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesResult" type="custint-v1-0:GetCustomerInquiriesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerInquiriesByCriteria">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Criterias" type="commonbd-v1-0:CriteriaSpecification"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInquiriesByCriteriaResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element minOccurs="0" name="customerinquiries" type="customerbd-v1-0:CustomerInquiryCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerInquiriesByCriteriaRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesByCriteria" type="custint-v1-0:GetCustomerInquiriesByCriteria"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesByCriteriaResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesByCriteriaResult" type="custint-v1-0:GetCustomerInquiriesByCriteriaResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesByCriteriaException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+        
+</xsd:schema>
+  </types>
+  <message name="EditCustomerInquiryException">
+    <part element="custint-v1-0:EditCustomerInquiryException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesByCriteriaException">
+    <part element="custint-v1-0:GetCustomerInquiriesByCriteriaException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesException">
+    <part element="custint-v1-0:GetCustomerInquiriesException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesByCriteriaRequest">
+    <part element="custint-v1-0:GetCustomerInquiriesByCriteriaRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesRequest">
+    <part element="custint-v1-0:GetCustomerInquiriesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesByDaysRequest">
+    <part element="custint-v1-0:GetCustomerInquiriesByDaysRequest" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerInquiryRequest">
+    <part element="custint-v1-0:AddCustomerInquiryRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesByDaysResponse">
+    <part element="custint-v1-0:GetCustomerInquiriesByDaysResponse" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerInquiryException">
+    <part element="custint-v1-0:AddCustomerInquiryException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesResponse">
+    <part element="custint-v1-0:GetCustomerInquiriesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesByDaysException">
+    <part element="custint-v1-0:GetCustomerInquiriesByDaysException" name="parameter">
+    </part>
+  </message>
+  <message name="EditCustomerInquiryResponse">
+    <part element="custint-v1-0:EditCustomerInquiryResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesByCriteriaResponse">
+    <part element="custint-v1-0:GetCustomerInquiriesByCriteriaResponse" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerInquiryResponse">
+    <part element="custint-v1-0:AddCustomerInquiryResponse" name="parameter">
+    </part>
+  </message>
+  <message name="EditCustomerInquiryRequest">
+    <part element="custint-v1-0:EditCustomerInquiryRequest" name="parameter">
+    </part>
+  </message>
+  <portType name="CallBack">
+    <operation name="GetCustomerInquiriesByCriteriaCallBack">
+      <input message="tns:GetCustomerInquiriesByCriteriaResponse">
+    </input>
+    </operation>
+    <operation name="GetCustomerInquiriesByCriteriaExcedptionCallBack">
+      <input message="tns:GetCustomerInquiriesByCriteriaException">
+    </input>
+    </operation>
+  </portType>
+  <portType name="CustomerInterfaceManagement_pt">
+    <operation name="AddCustomerInquiry">
+      <input message="tns:AddCustomerInquiryRequest">
+    </input>
+      <output message="tns:AddCustomerInquiryResponse">
+    </output>
+      <fault message="tns:AddCustomerInquiryException" name="AddCustomerInquiryException">
+    </fault>
+    </operation>
+    <operation name="EditCustomerInquiry">
+      <input message="tns:EditCustomerInquiryRequest">
+    </input>
+      <output message="tns:EditCustomerInquiryResponse">
+    </output>
+      <fault message="tns:EditCustomerInquiryException" name="EditCustomerInquiryException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInquiries">
+      <input message="tns:GetCustomerInquiriesRequest">
+    </input>
+      <output message="tns:GetCustomerInquiriesResponse">
+    </output>
+      <fault message="tns:GetCustomerInquiriesException" name="GetCustomerInquiriesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInquiriesByCriteria">
+      <input message="tns:GetCustomerInquiriesByCriteriaRequest">
+    </input>
+      <output message="tns:GetCustomerInquiriesByCriteriaResponse">
+    </output>
+      <fault message="tns:GetCustomerInquiriesByCriteriaException" name="GetCustomerInquiriesByCriteriaException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInquiriesByDays">
+      <input message="tns:GetCustomerInquiriesByDaysRequest">
+    </input>
+      <output message="tns:GetCustomerInquiriesByDaysResponse">
+    </output>
+      <fault message="tns:GetCustomerInquiriesByDaysException" name="GetCustomerInquiriesByDaysException">
+    </fault>
+    </operation>
+  </portType>
+  <portType name="Async">
+    <operation name="GetCustomerInquiriesByCriteriaAsync">
+      <input message="tns:GetCustomerInquiriesByCriteriaRequest">
+    </input>
+    </operation>
+  </portType>
+  <binding name="AsyncSOAP11Binding" type="tns:Async">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetCustomerInquiriesByCriteriaAsync">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0/GetCustomerInquiriesByCriteriaAsync" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <binding name="CustomerInterfaceManagement_ptSOAP11Binding" type="tns:CustomerInterfaceManagement_pt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="AddCustomerInquiry">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0/AddCustomerInquiry" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="AddCustomerInquiryException">
+        <soap:fault name="AddCustomerInquiryException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="EditCustomerInquiry">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0/EditCustomerInquiry" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="EditCustomerInquiryException">
+        <soap:fault name="EditCustomerInquiryException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInquiries">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0/GetCustomerInquiries" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInquiriesException">
+        <soap:fault name="GetCustomerInquiriesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInquiriesByCriteria">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0/GetCustomerInquiriesByCriteria" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInquiriesByCriteriaException">
+        <soap:fault name="GetCustomerInquiriesByCriteriaException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInquiriesByDays">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0/GetCustomerInquiriesByDays" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInquiriesByDaysException">
+        <soap:fault name="GetCustomerInquiriesByDaysException" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <binding name="CallBackSOAP11Binding" type="tns:CallBack">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetCustomerInquiriesByCriteriaCallBack">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0/GetCustomerInquiriesByCriteriaCallBack" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+    <operation name="GetCustomerInquiriesByCriteriaExcedptionCallBack">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/CustomerInterfaceManagement/v1-0/GetCustomerInquiriesByCriteriaExcedptionCallBack" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <service name="CallBack">
+    <port binding="tns:CallBackSOAP11Binding" name="CallBackPort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/CustomerInterfaceManagement-Service/CustomerInterfaceManagment"/>
+    </port>
+  </service>
+  <service name="CustomerInterfaceManagement_pt">
+    <port binding="tns:CustomerInterfaceManagement_ptSOAP11Binding" name="CustomerInterfaceManagement_ptPort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/CustomerInterfaceManagement-Service/CustomerInterfaceManagment"/>
+    </port>
+  </service>
+  <service name="Async">
+    <port binding="tns:AsyncSOAP11Binding" name="AsyncPort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/CustomerInterfaceManagement-Service/CustomerInterfaceManagment"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="CustomerInterfaceManagement">
+        <plnk:role name="CustomerInterfaceManagement_pt">
+            <plnk:portType name="tns:CustomerInterfaceManagement_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

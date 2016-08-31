@@ -1,0 +1,300 @@
+<xsd:schema targetNamespace="http://directvla.com/schema/businessdomain/customer/v1-0" elementFormDefault="qualified" xmlns="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0">
+    <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="XMLSchema_486898953.xsd"/>
+    <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="XMLSchema_549618649.xsd"/>
+    <xsd:complexType name="Customer">
+        <xsd:complexContent>
+            <xsd:extension base="commonbd-v1-0:PartyRole">
+                <xsd:sequence>
+                    <xsd:element name="ID" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="customerRank" type="xsd:long" minOccurs="0"/>
+                    <xsd:element name="CustomerAccountList" type="CustomerAccountCollection" minOccurs="0"/>
+                    <xsd:element name="IndividualRole" minOccurs="0" maxOccurs="1" type="commonbd-v1-0:Individual"/>
+                    <xsd:element name="BusinessUnitId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+                    <xsd:element name="magazines" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="CustomerType" type="Customer"/>
+    <xsd:complexType name="CustomerAccount">
+        <xsd:sequence>
+            <xsd:element name="ID" minOccurs="0" type="xsd:string" maxOccurs="1"/>
+            <xsd:element name="CustomerKey" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="name" minOccurs="0" type="xsd:string" maxOccurs="1"/>
+            <xsd:element name="status" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="type" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="CustomerExemptedFromTaxesVia" minOccurs="0" maxOccurs="1" type="CustomerAccountTaxExemptionCollection"/>
+            <xsd:element name="CustomerAccountChargeSumBalanceCollection" minOccurs="0" maxOccurs="1" type="CustomerAccountChargeSumBalanceCollection"/>
+            <xsd:element name="BillSpecifiedBy" type="CustomerBillingCycleSpecificationCollection" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="MethodOfPayment" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="InvoiceDeliveryMethod" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="DunningLevel" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="InvoicingProfile" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="DueIn" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="CreditCardCollection" type="commonbd-v1-0:CreditCardCollection" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="FirstNextBillDate" maxOccurs="1" minOccurs="0" type="xsd:dateTime"/>
+            <xsd:element name="BankCode" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="BankAccountNumber" minOccurs="0" type="xsd:string" maxOccurs="1"/>
+            <xsd:element name="BankBranch" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="ProxyCode" minOccurs="0" type="xsd:string" maxOccurs="1"/>
+            <xsd:element name="ReferenceNumber" minOccurs="0" type="xsd:string" maxOccurs="1"/>
+            <xsd:element name="LastPaymentDate" type="xsd:dateTime" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="TotalDue" maxOccurs="1" minOccurs="0" type="xsd:decimal"/>
+            <xsd:element name="DisconnectionDate" maxOccurs="1" minOccurs="0" type="xsd:dateTime"/>
+            <xsd:element name="DaysToDisconnectionDate" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="ParentCustomerAccountId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="HasBeenApplied" maxOccurs="1" minOccurs="0" type="xsd:decimal"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerAccountChargeSumBalance">
+        <xsd:sequence>
+            <xsd:element name="validFor" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="customerAccountChargeSum" minOccurs="1" maxOccurs="1" type="commonbd-v1-0:Money"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerAccountChargeSumBalanceCollection">
+        <xsd:sequence minOccurs="1">
+            <xsd:element name="CustomerAccountChargeSumBalance" type="CustomerAccountChargeSumBalance" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="CustomerAccountChargeSumBalanceCollectionType" type="CustomerAccountChargeSumBalanceCollection"/>
+    <xsd:complexType name="CustomerBillingCycleSpecification">
+        <xsd:sequence>
+            <xsd:element name="billingDateShift" type="xsd:int"/>
+            <xsd:element name="chargeDateOffSet" type="xsd:int"/>
+            <xsd:element name="creditDateOffSet" type="xsd:int"/>
+            <xsd:element name="description" type="xsd:string"/>
+            <xsd:element name="mailingDateOffset" type="xsd:int"/>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="paymentDueDateOffset" type="xsd:int"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerBillingCycleSpecificationCollection">
+        <xsd:sequence minOccurs="1">
+            <xsd:element name="CustomerBillingCycleSpecification" type="CustomerBillingCycleSpecification" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerAccountTaxExemption">
+        <xsd:sequence>
+            <xsd:element name="issuingJurisdiction" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="certificateNumber" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="validFor" minOccurs="1" maxOccurs="1" type="commonbd-v1-0:TimePeriod"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerAccountTaxExemptionCollection">
+        <xsd:sequence minOccurs="1">
+            <xsd:element name="CustomerAccountTaxExemption" type="CustomerAccountTaxExemption" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerInquiry">
+        <xsd:complexContent>
+            <xsd:extension base="commonbd-v1-0:BusinessInteraction">
+                <xsd:sequence>
+                    <xsd:element name="initiatedByName" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+                    <xsd:element name="InvolvesCreation" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+                    <xsd:element name="InvolvesCreationName" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+                    <xsd:element name="WorkOrderId" minOccurs="0" maxOccurs="1" type="xsd:int"/>
+                    <xsd:element name="CommercialProductId" type="xsd:int" maxOccurs="1" minOccurs="0"/>
+                    <xsd:element name="ShippingOrderId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+                    <xsd:element name="StampDate" maxOccurs="1" minOccurs="0" type="xsd:dateTime"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerAccountCollection">
+        <xsd:sequence>
+            <xsd:element name="CustomerAccount" type="CustomerAccount" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerInquiryCollection">
+        <xsd:sequence>
+            <xsd:element name="CustomerInquiry" maxOccurs="unbounded" minOccurs="0" type="CustomerInquiry"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerCollection">
+        <xsd:sequence>
+            <xsd:element name="Customer" maxOccurs="unbounded" minOccurs="0" type="Customer"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Invoice">
+        <xsd:sequence>
+            <xsd:element name="ID" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="AmountApplied" type="xsd:decimal" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="AmountPaid" type="xsd:decimal" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="AmountPaidFromOtherInvoice" type="xsd:decimal" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="Balance" type="xsd:decimal" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="BalanceBroughtForward" type="xsd:decimal" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="CreateDate" type="xsd:dateTime" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="DueDate" type="xsd:dateTime" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="InvoiceDate" type="xsd:dateTime" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="TotalAmount" type="xsd:decimal" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="InvoiceNumber" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="InvoiceText" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="NewCharges" type="xsd:decimal" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="Status" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="FinancialAccountID" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="FinancialTransactionsCollection" maxOccurs="1" type="FinancialTransactionCollection" minOccurs="0"/>
+            <xsd:element name="MethodOfPayment" type="commonbd-v1-0:Category" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="DunningLevel" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="InvoiceDeliveryMethod" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="InvoicingProfile" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="DueIn" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="ExternalInvoiceNumber" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="ExternalReferenceNumber" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="FinancialStatus" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="Pending" maxOccurs="1" minOccurs="0" type="xsd:boolean"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="InvoiceCollection">
+        <xsd:sequence>
+            <xsd:element name="Invoices" maxOccurs="unbounded" minOccurs="0" type="Invoice"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Entity">
+        <xsd:sequence>
+            <xsd:element name="ID" maxOccurs="1" type="xsd:int"/>
+            <xsd:element name="Type" maxOccurs="1" type="xsd:int"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="PaymentTransaction">
+        <xsd:complexContent>
+            <xsd:extension base="FinancialTransaction">
+                <xsd:sequence/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ChargeTransaction">
+        <xsd:complexContent>
+            <xsd:extension base="FinancialTransaction">
+                <xsd:sequence/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="FinancialTransaction">
+        <xsd:sequence>
+            <xsd:element name="AmountExcludingTax" type="commonbd-v1-0:Money" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="AmountIncludingTax" type="commonbd-v1-0:Money" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="AppearedOnInvoice" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="BankDate" maxOccurs="1" minOccurs="0" type="xsd:dateTime"/>
+            <xsd:element name="BaseAmount" type="commonbd-v1-0:Money" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="Comments" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="CreateDate" maxOccurs="1" minOccurs="0" type="xsd:dateTime"/>
+            <xsd:element name="CreatedByEventId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="CreatedByUserId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="CustomerKey" type="xsd:int" maxOccurs="1"/>
+            <xsd:element name="Entity" type="Entity" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="FinancialAccountID" type="xsd:int" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="FinancialBatchCode" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="FinancialBatchID" type="xsd:int" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="HistoryNumber" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="ID" type="xsd:int" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="InvoiceLineText" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="LedgerAccount" type="commonbd-v1-0:Category" maxOccurs="1"/>
+            <xsd:element name="MarketSegmentId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="OriginalAmount" type="commonbd-v1-0:Money" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="PaidForInvoice" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="Period" type="commonbd-v1-0:TimePeriod" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="ProductId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="ReceiptNumber" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="Reference" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="ReversedTransactionId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="Taxes" maxOccurs="1" minOccurs="0" type="FinancialTransactionTaxesCollection"/>
+            <xsd:element name="TransactionSubType" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="TransactionType" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="AssociatedProduct" maxOccurs="1" minOccurs="0" type="productbd-v1-0:Product"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FinancialTransactionCollection">
+        <xsd:sequence>
+            <xsd:element name="FinancialTransactions" maxOccurs="unbounded" minOccurs="0" type="FinancialTransaction"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FinancialTransactionTax">
+        <xsd:sequence>
+            <xsd:element name="Amount" type="commonbd-v1-0:Money"/>
+            <xsd:element name="Type" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FinancialTransactionTaxesCollection">
+        <xsd:sequence>
+            <xsd:element name="Items" type="FinancialTransactionTax" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerHistoryEvent">
+        <xsd:sequence>
+            <xsd:element name="CustomerKey" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="ID" minOccurs="0" maxOccurs="1" type="xsd:int"/>
+            <xsd:element name="UserNr" minOccurs="0" maxOccurs="1" type="xsd:int"/>
+            <xsd:element name="UserKey" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="UserName" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="Event" minOccurs="0" maxOccurs="1" type="commonbd-v1-0:Category"/>
+            <xsd:element name="Reason" minOccurs="0" maxOccurs="1" type="commonbd-v1-0:Category"/>
+            <xsd:element name="ProductId" minOccurs="0" maxOccurs="1" type="xsd:int"/>
+            <xsd:element name="CreateDatetime" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+            <xsd:element name="RealDate" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerHistoryEventCollection">
+        <xsd:sequence>
+            <xsd:element name="CustomerHistoryEventItem" minOccurs="0" maxOccurs="unbounded" type="CustomerHistoryEvent" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerNote">
+        <xsd:sequence>
+            <xsd:element name="CustomerKey" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="ID" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="Body" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="Category" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="CompletionStage" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:Category"/>
+            <xsd:element name="CreateDate" maxOccurs="1" minOccurs="0" type="xsd:dateTime"/>
+            <xsd:element name="CreatedByUserKey" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="ActionUserKey" type="xsd:int" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="Extended" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="CreatedByUserName" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="ActionUserName" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerNoteCollection">
+        <xsd:sequence>
+            <xsd:element name="CustomerNotes" maxOccurs="unbounded" minOccurs="0" type="CustomerNote"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LedgerAccount">
+        <xsd:complexContent>
+            <xsd:extension base="commonbd-v1-0:Category">
+                <xsd:sequence>
+                    <xsd:element name="ReverseLedgerAccountId" type="xsd:int" minOccurs="0"/>
+                    <xsd:element name="Code" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+                    <xsd:element name="Type" maxOccurs="1" minOccurs="0" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="LedgerAccountCollection">
+        <xsd:sequence>
+            <xsd:element name="LedgerAccount" maxOccurs="unbounded" minOccurs="0" type="LedgerAccount"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerSchedule">
+        <xsd:sequence>
+            <xsd:element name="ID" minOccurs="0" maxOccurs="1" type="xsd:int"/>
+            <xsd:element name="CreateDatetime" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+            <xsd:element name="CustomerKey" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="Description" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+            <xsd:element name="Entity" minOccurs="0" maxOccurs="1" type="Entity"/>
+            <xsd:element name="Event" minOccurs="0" maxOccurs="1" type="commonbd-v1-0:Category"/>
+            <xsd:element name="ExecuteDatetime" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+            <xsd:element name="Message" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="ParentId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+            <xsd:element name="Product" minOccurs="0" maxOccurs="1" type="commonbd-v1-0:Category"/>
+            <xsd:element name="Reason" minOccurs="0" maxOccurs="1" type="commonbd-v1-0:Category"/>
+            <xsd:element name="Status" type="commonbd-v1-0:Category" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="User" type="commonbd-v1-0:Category" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CustomerScheduleCollection">
+        <xsd:sequence>
+            <xsd:element name="CustomerSchedules" type="CustomerSchedule" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

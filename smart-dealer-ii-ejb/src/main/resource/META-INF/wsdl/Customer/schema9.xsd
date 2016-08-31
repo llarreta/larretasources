@@ -1,0 +1,187 @@
+<xs:schema xmlns:ns0="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" xmlns:ns1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:ns2="http://ibs.entriq.net/" xmlns:tns="http://ibs.entriq.net/Core" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ibs.entriq.net/Core">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" schemaLocation="schema2.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" schemaLocation="schema7.xsd"/>
+  <xs:import namespace="http://ibs.entriq.net/" schemaLocation="schema1.xsd"/>
+  <xs:complexType name="CacheControlHeader">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="CacheLevel" type="ns0:CacheControlLevels"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CacheControlHeader" nillable="true" type="tns:CacheControlHeader"/>
+  <xs:element name="GetPermissions">
+    <xs:complexType>
+      <xs:sequence/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPermissionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetPermissionsResult" nillable="true" type="ns1:ArrayOfstring"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SystemFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ExceptionType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SystemFault" nillable="true" type="tns:SystemFault"/>
+  <xs:complexType name="AuthenticationFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthenticationFault" nillable="true" type="tns:AuthenticationFault"/>
+  <xs:complexType name="IBSFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ExceptionId" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IBSFault" nillable="true" type="tns:IBSFault"/>
+  <xs:complexType name="PermissionFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PermissionList" nillable="true" type="ns1:ArrayOfstring"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PermissionFault" nillable="true" type="tns:PermissionFault"/>
+  <xs:element name="GetRules">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="methodName" nillable="true" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRulesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetRulesResult" nillable="true" type="tns:RuleCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="RuleCollection">
+    <xs:sequence>
+      <xs:element xmlns:q4="http://ibs.entriq.net/" maxOccurs="unbounded" minOccurs="0" name="Rule" nillable="true" type="ns2:Rule"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RuleCollection" nillable="true" type="tns:RuleCollection"/>
+  <xs:element name="GetVersion">
+    <xs:complexType>
+      <xs:sequence/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVersionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetVersionResult" nillable="true" type="tns:ServiceVersion"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ServiceVersion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Build" type="xs:int"/>
+      <xs:element minOccurs="0" name="Copyright" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Major" type="xs:int"/>
+      <xs:element minOccurs="0" name="Minor" type="xs:int"/>
+      <xs:element minOccurs="0" name="ModuleName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Revision" type="xs:int"/>
+      <xs:element minOccurs="0" name="RuntimeVersion" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServiceVersion" nillable="true" type="tns:ServiceVersion"/>
+  <xs:complexType name="ChangeCriteria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeCriteria" nillable="true" type="tns:ChangeCriteria"/>
+  <xs:complexType name="CriteriaCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CriteriaTree" nillable="true" type="tns:CriteriaTree"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfCriteria"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CriteriaCollection" nillable="true" type="tns:CriteriaCollection"/>
+  <xs:complexType name="CriteriaTree">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LeftChild" nillable="true" type="tns:CriteriaTree"/>
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="Operator" nillable="true" type="ns0:Operator"/>
+      <xs:element minOccurs="0" name="PropertyItem" nillable="true" type="tns:PropertyItem"/>
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="Relationship" nillable="true" type="ns0:Relationship"/>
+      <xs:element minOccurs="0" name="RightChild" nillable="true" type="tns:CriteriaTree"/>
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:anyType"/>
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="ValueOption" nillable="true" type="ns0:CriteriaValueOptions"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CriteriaTree" nillable="true" type="tns:CriteriaTree"/>
+  <xs:complexType name="PropertyItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ColumnName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PropertyName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TableName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PropertyItem" nillable="true" type="tns:PropertyItem"/>
+  <xs:complexType name="ArrayOfCriteria">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Criteria" nillable="true" type="tns:Criteria"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCriteria" nillable="true" type="tns:ArrayOfCriteria"/>
+  <xs:complexType name="Criteria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string"/>
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="Operator" type="ns0:Operator"/>
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string"/>
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="ValueOption" nillable="true" type="ns0:CriteriaValueOptions"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Criteria" nillable="true" type="tns:Criteria"/>
+  <xs:complexType name="Op">
+    <xs:complexContent>
+      <xs:extension base="tns:CriteriaCollection">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Op" nillable="true" type="tns:Op"/>
+  <xs:complexType name="PageCriteria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="PageSize" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PageCriteria" nillable="true" type="tns:PageCriteria"/>
+  <xs:complexType name="SortCriteriaCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfSortCriteria"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SortCriteriaCollection" nillable="true" type="tns:SortCriteriaCollection"/>
+  <xs:complexType name="ArrayOfSortCriteria">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SortCriteria" nillable="true" type="tns:SortCriteria"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSortCriteria" nillable="true" type="tns:ArrayOfSortCriteria"/>
+  <xs:complexType name="SortCriteria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string"/>
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="SortDirection" type="ns0:SortDirections"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SortCriteria" nillable="true" type="tns:SortCriteria"/>
+</xs:schema>

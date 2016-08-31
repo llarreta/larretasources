@@ -1,0 +1,247 @@
+<xsd:schema xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/schema/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns1="http://ibs.entriq.net/Distributors" xmlns:ns2="http://ibs.entriq.net/Logistics" xmlns:ns3="http://ibs.entriq.net/Workforce" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:sprms-v1-0="http://directvla.com/schema/businessdomain/SPRMSupportAndReadiness/v1-0" xmlns:tns="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/SPRMSupportAndReadiness/v1-0">
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="schema2.xsd"/>
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="schema4.xsd"/>
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema6.xsd"/>
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema5.xsd"/>
+  <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="schema3.xsd"/>
+  <xsd:element name="PartyRole" type="commonbd-v1-0:PartyRole"/>
+  <xsd:complexType name="AssignServiceProviderWorkOrder">
+    <xsd:sequence>
+      <xsd:element name="CustomerKey" type="xsd:string"/>
+      <xsd:element name="ServiceType" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AssignServiceProviderWorkOrderResult">
+    <xsd:sequence>
+      <xsd:element name="ServiceProviderId" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AssignServiceProviderWorkOrderRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+        <xsd:element name="AssignServiceProviderWorkOrder" type="sprms-v1-0:AssignServiceProviderWorkOrder"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="AssignServiceProviderWorkOrderResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+        <xsd:element name="AssignServiceProviderWorkOrderResult" type="sprms-v1-0:AssignServiceProviderWorkOrderResult"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="AssignServiceProviderWorkOrderException">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="entityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="MoveResourceToStockHandler">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="stockHandlerFrom" type="commonbd-v1-0:FunctionOrProcessProvider"/>
+      <xsd:element minOccurs="0" name="customerFrom" type="customerbd-v1-0:Customer"/>
+      <xsd:element name="stockHandlerTo" type="commonbd-v1-0:FunctionOrProcessProvider"/>
+      <xsd:element name="movementCategory" type="commonbd-v1-0:MovementCategoryType"/>
+      <xsd:element name="physicalResource" type="commonbd-v1-0:PhysicalResource"/>
+      <xsd:element minOccurs="0" name="physicalResourceAssociated" type="commonbd-v1-0:PhysicalResource"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="MoveResourceToStockHandlerRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+        <xsd:element name="MoveResourceToStockHandler" type="sprms-v1-0:MoveResourceToStockHandler"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="MoveResourceToStockHandlerResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="MoveResourceToStockHandlerException">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="GetDealerInfo">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="DealerKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="DealerCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="DealerDepotCode" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="GetDealerInfoResult">
+    <xsd:sequence>
+      <xsd:element name="Cust" type="customerbd-v1-0:Customer"/>
+      <xsd:element minOccurs="0" name="isDistributor" type="xsd:boolean"/>
+      <xsd:element name="isServiceProvider" type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="isStockHandler" type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="isPrincipal" type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="dealerCode" type="xsd:string"/>
+      <xsd:element name="depotCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="parentDealerCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="parentDepotCode" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GetDealerInfoRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+        <xsd:element name="GetDealerInfo" type="sprms-v1-0:GetDealerInfo"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetDealerInfoResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+        <xsd:element name="GetDealerInfoResult" type="sprms-v1-0:GetDealerInfoResult"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetDealerInfoException">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="GetDealerCodes">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="DealerKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="DealerCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="DealerDepotCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="DealerTypes" type="sprms-v1-0:DealerTypesCollection"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DealerTypesCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DealerType" nillable="true" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="GetDealerCodesResult">
+    <xsd:sequence>
+      <xsd:element name="DealerCodesList" type="commonbd-v1-0:DealerCodesCollection"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GetDealerCodesRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+        <xsd:element name="GetDealerCodes" type="sprms-v1-0:GetDealerCodes"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetDealerCodesResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+        <xsd:element name="GetDealerCodesResult" type="sprms-v1-0:GetDealerCodesResult"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetDealerCodesException">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ReceiveReturnedPhysicalResource">
+    <xsd:sequence>
+      <xsd:element name="stockHandlerId" type="xsd:int"/>
+      <xsd:element name="physicalResourceSerialNumber" type="xsd:string"/>
+      <xsd:element name="ReasonId" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="ReceiveReturnedPhysicalResourceRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+        <xsd:element name="ReceiveReturnedPhysicalResource" type="sprms-v1-0:ReceiveReturnedPhysicalResource"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="ReceiveReturnedPhysicalResourceResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="ReceiveReturnedPhysicalResourceException">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

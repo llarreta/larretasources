@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="co.com.directv.sdii.model.pojo.AdjustmentModification" table="ADJUSTMENT_MODIFICATIONS" >
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">SEQ_ADJUSTMENT_MODIFICATIONS</param>
+            </generator>
+        </id>
+        <many-to-one name="adjustment" class="co.com.directv.sdii.model.pojo.Adjustment" fetch="select" lazy="false">
+            <column name="ADJUSTMENT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="adjustmentStatus" class="co.com.directv.sdii.model.pojo.AdjustmentStatus" fetch="select" lazy="false">
+            <column name="ADJUSTMENT_STATUS_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="modificationDate" type="java.util.Date">
+            <column name="MODIFICATION_DATE" not-null="true" />
+        </property>
+        
+         <many-to-one name="userModification" class="co.com.directv.sdii.model.pojo.User" fetch="select" lazy="false">
+            <column name="USER_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        
+    </class>
+</hibernate-mapping>

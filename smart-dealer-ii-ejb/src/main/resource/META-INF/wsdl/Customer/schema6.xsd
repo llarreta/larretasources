@@ -1,0 +1,482 @@
+<xsd:schema xmlns:crm-common="http://directvla.com/schema/crm/common/v1" xmlns:viewFacade="http://ibs.entriq.net/ViewFacade" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/crm/common/v1">
+  <xsd:import namespace="http://ibs.entriq.net/ViewFacade" schemaLocation="schema8.xsd"/>
+  <xsd:complexType name="RequestMetadataType">
+    <xsd:sequence>
+      <xsd:element name="requestID" type="crm-common:RequestIDType"/>
+      <xsd:element name="sourceID" type="crm-common:SourceIDType"/>
+      <xsd:element minOccurs="0" name="validate" type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="debug" type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ResponseMetadataType">
+    <xsd:sequence>
+      <xsd:element name="requestID" type="crm-common:RequestIDType"/>
+      <xsd:element name="timeStamp" type="crm-common:TimeStampType"/>
+      <xsd:element minOccurs="0" name="boxUsage" type="crm-common:BoxUsageType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="RequestIDType">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="SourceIDType">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="CodeType">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="MessageType">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="BoxUsageType">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="TimeStampType">
+    <xsd:restriction base="xsd:dateTime"/>
+  </xsd:simpleType>
+  <xsd:complexType name="EntityValue">
+    <xsd:sequence/>
+  </xsd:complexType>
+  <xsd:complexType name="TimePeriod">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="startDateTime" nillable="true" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="endDateTime" nillable="true" type="xsd:dateTime"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PlaceValue">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:EntityValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="validFor" nillable="true" type="crm-common:TimePeriod"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="GeographicPlaceValue">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:PlaceValue">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="GeographicAddressValue">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:GeographicPlaceValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="country" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="stateOrProvince" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="UrbanPropertyAddressValue">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:GeographicAddressValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="streetNrFirst" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="streetNrFirstSuffix" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="streetNrLast" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="streetNrLastSuffix" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="streetName" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="streetType" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="streetSuffix" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="locality" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="municipality" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="postCode" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="geoCode" type="crm-common:Category"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ContactMedium">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="validFor" type="crm-common:TimePeriod"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="EmailContact">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:ContactMedium">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="eMailAddress" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="eMailProtocol" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="TelephoneNumber">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:ContactMedium">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="number" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="type" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="FaxNumber">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:ContactMedium">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="number" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="type" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="BusinessInteraction">
+    <xsd:sequence>
+      <xsd:element name="CustomerKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ID" type="xsd:string"/>
+      <xsd:element name="interactionDate" type="xsd:dateTime"/>
+      <xsd:element name="description" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="interactionDateComplete" type="xsd:dateTime"/>
+      <xsd:element name="interactionStatus" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="Involves" type="xsd:string"/>
+      <xsd:element name="Type" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="interactionLocationKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="CharacteristicValue" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ReferencesId" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="actionTaken" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="InvolvesName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Language">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="dialectCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="dialectName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Address">
+    <xsd:sequence>
+      <xsd:element name="CustomerKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="id" type="xsd:string"/>
+      <xsd:element name="country" type="xsd:string"/>
+      <xsd:element name="stateOrProvince" type="xsd:string"/>
+      <xsd:element name="streetName" type="xsd:string"/>
+      <xsd:element name="streetType" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="city" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="streetNrFirst" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="streetNrLast" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="streetSufix" type="xsd:string"/>
+      <xsd:element name="postcode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="validFor" type="crm-common:TimePeriod"/>
+      <xsd:element minOccurs="0" name="ElementInvolves" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="locality" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="careOfName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="geoCode" type="crm-common:Category"/>
+      <xsd:element minOccurs="0" name="additionalAttribute2" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Customer">
+    <xsd:sequence>
+      <xsd:element name="ID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="customerStatus" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="customerRank" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="customerClass" type="xsd:int"/>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ContactableVia" type="crm-common:ContactMediumCollection"/>
+      <xsd:element minOccurs="0" name="IndividualRole" type="crm-common:Individual"/>
+      <xsd:element minOccurs="0" name="pin" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerCrm">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:Customer">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ContactableViaTelephones" type="crm-common:ContactMediumCollection"/>
+          <xsd:element minOccurs="0" name="ContactableViaEmails" type="crm-common:ContactMediumCollection"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerAccount">
+    <xsd:sequence>
+      <xsd:element name="CustomerKey" type="xsd:string"/>
+      <xsd:element name="ID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="accountType" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="accountStatus" type="xsd:string"/>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="CustomerExemptedFromTaxesVia" type="crm-common:CustomerAccountTaxExemptionCollection"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomerAccountChargeSumBalanceCollection" type="crm-common:CustomerAccountChargeSumBalance"/>
+      <xsd:element minOccurs="0" name="MethodOfPayment" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerAccountCrm">
+    <xsd:sequence>
+      <xsd:element name="CustomerKey" type="xsd:string"/>
+      <xsd:element name="ID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="accountType" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="accountStatus" type="xsd:string"/>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="CustomerExemptedFromTaxesVia" type="crm-common:CustomerAccountTaxExemptionCollection"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomerAccountChargeSumBalanceCollection" type="crm-common:CustomerAccountChargeSumBalance"/>
+      <xsd:element minOccurs="0" name="MethodOfPayment" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="NotYetDue" type="crm-common:Money"/>
+      <xsd:element minOccurs="0" name="LastInvoiced" type="crm-common:Money"/>
+      <xsd:element minOccurs="0" name="TotalAmountOverdue" type="crm-common:Money"/>
+      <xsd:element minOccurs="0" name="TotalFinancialAccountBalance" type="crm-common:Money"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerInquiry">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:BusinessInteraction">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="InvolvesCreation" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="InvolvesCreationName" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="WorkOrderId" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="SerialNumber" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="CustomerProductId" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerWorkOrder">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:BusinessInteraction">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="requestedDeliveryDate" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="possibleDeliveryDate" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="WorkOrderComprisedOf" type="crm-common:CustomerWorkOrderItemCollection"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InquiryResponse">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:BusinessInteraction"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerWorkOrderItem">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="action" type="xsd:string"/>
+      <xsd:element name="quantity" type="crm-common:Quantity"/>
+      <xsd:element minOccurs="0" name="BusinessInteractionItemReferences" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="BusinessInteractionItemInvolvesService" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="BusinessInteractionItemInvolvesResource" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="BusinessInteractionItemInvolvesResourceSpecification" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="BusinessInteractionItemInvolvesServiceSpecification" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="BusinessInteractionItemInvolves" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="BusinessInteractionItemInvolvesProductSpecification" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="BusinessInteractionItemInvolvesProduct" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="WorkOrderItemReferences" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerHistoryEvent">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="CustomerKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ID" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="UserNr" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="UserKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="UserName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="EventNr" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="ReasonNr" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="ProductId" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="ProductName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="CreateDatetime" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="RealDate" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="EventName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ReasonName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerAccountTaxExemption">
+    <xsd:sequence>
+      <xsd:element name="issuingJurisdiction" type="xsd:string"/>
+      <xsd:element name="certificateNumber" type="xsd:string"/>
+      <xsd:element name="validFor" type="crm-common:TimePeriod"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerInquiriesCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomerInquiry" nillable="true" type="crm-common:CustomerInquiry"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerWorkOrderCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomerWorkOrder" nillable="true" type="crm-common:CustomerWorkOrder"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerWorkOrderItemCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomerWorkOrderItem" nillable="true" type="crm-common:CustomerWorkOrderItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerHistoryEventCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CustomerHistoryEventItem" nillable="true" type="crm-common:CustomerHistoryEvent"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ContactMediumCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="ContactMediumItem" nillable="true" type="crm-common:ContactMedium"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerAccountTaxExemptionCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="exemptions" nillable="true" type="crm-common:CustomerAccountTaxExemption"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Product">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Individual">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="gender" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="placeOfBirth" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="nationality" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="maritalStatus" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="aliveDuring" type="crm-common:TimePeriod"/>
+      <xsd:element minOccurs="0" name="countryOfBirthKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="IndividualINamedUsing" type="crm-common:IndividualINamedCollection"/>
+      <xsd:element minOccurs="0" name="IndividualIdentifiedBy" type="crm-common:IndividualIdentifiedByCollection"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IndividualIName">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="formattedName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="legalName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="aristocraticTitle" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="formOfAddress" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="generation" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="givenNames" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="preferredGivenName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="middleNames" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="familyNamePrefix" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="familyNames" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="familyGeneration" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="qualifications" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IndividualIdentification">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="issueDate" type="xsd:date"/>
+      <xsd:element minOccurs="0" name="scan" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="validFor" type="crm-common:TimePeriod"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="NationalIdentityCardIdentification">
+    <xsd:complexContent>
+      <xsd:extension base="crm-common:IndividualIdentification">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="cardNr" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerProduct">
+    <xsd:sequence>
+      <xsd:element name="CustomerKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ProductKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="productStatus" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="productStatusName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="productSerialNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="deviceModel" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="contractStartDatetime" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="ID" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="financeOptionId" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="financeOptionName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="productName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="technicalProductName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="deviceModelName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="productCategory" type="crm-common:ProductCategory"/>
+      <xsd:element minOccurs="0" name="deviceExternalNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="CaReferenceNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ProvisionedDevices" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ProvisionedDevicesRelated" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="Price" type="crm-common:Money"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ProductCategory">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="description" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerProductCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="product" nillable="true" type="crm-common:CustomerProduct"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IndividualINamedCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="names" nillable="true" type="crm-common:IndividualIName"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="IndividualIdentifiedByCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="identified" nillable="true" type="crm-common:NationalIdentityCardIdentification"/>
+      <xsd:element minOccurs="0" name="Language" type="crm-common:Language"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="GenericResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="response" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CommandStatusResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="response" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="deviceID" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="smartCardNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="commandDate" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="reason" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="userName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="responseMessage" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="commandStatus" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="RID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="MessageTracking" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ListOfCommandStatusType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="CommandStatus" type="crm-common:CommandStatusResponse"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="CommandStatus" type="crm-common:CommandStatusResponse"/>
+  <xsd:complexType name="Quantity">
+    <xsd:sequence>
+      <xsd:element name="amount" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="units" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Money">
+    <xsd:sequence>
+      <xsd:element name="amount" type="xsd:decimal"/>
+      <xsd:element name="units" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerAccountChargeSumBalance">
+    <xsd:sequence>
+      <xsd:element name="validFor" type="xsd:string"/>
+      <xsd:element name="customerAccountChargeSum" type="crm-common:Money"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CustomerAccountChargeSumBalanceCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="exemptions" nillable="true" type="crm-common:CustomerAccountChargeSumBalance"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AgreemendDetailViewExt">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="viewFacade:AgreementDetailView">
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="ProductCategory" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="Category">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="id" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="name" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CategoryCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Items" type="crm-common:Category"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

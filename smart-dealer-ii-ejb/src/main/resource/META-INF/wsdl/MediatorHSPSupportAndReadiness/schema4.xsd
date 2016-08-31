@@ -1,0 +1,101 @@
+<xsd:schema xmlns:Q1="commonex-v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:eventlst-v1-0="http://directvla.com/contract/businessdomain/EventListener/v1-0" xmlns:ns1="http://dtvla.com/Annexs/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://directvla.com/contract/businessdomain/HSPSupportAndReadiness/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/contract/businessdomain/HSPSupportAndReadiness/v1-0">
+  <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="schema1.xsd"/>
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema3.xsd"/>
+  <xsd:element name="getAnnexIBSCustomerCodeRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+        <xsd:element name="getAnnexIBSCustomerCode" type="tns:getAnnexIBSCustomerCodeType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="getAnnexIBSCustomerCodeResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+        <xsd:element name="getAnnexIBSCustomerCode" type="tns:getAnnexIBSCustomerCodeResponseType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="requiredAnnexIBSCustomerCodeRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+        <xsd:element name="requiredAnnexIBSCustomerCode" type="tns:requiredAnnexIBSCustomerCodeType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="requiredAnnexIBSCustomerCodeResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+        <xsd:element name="requiredAnnexIBSCustomerCode" type="tns:requiredAnnexIBSCustomerCodeResponseType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="getAnnexIBSCustomerCodeFault" type="tns:getAnnexIBSCustomerCodeFault"/>
+  <xsd:element name="requiredAnnexIBSCustomerCodeFault" type="tns:requiredAnnexIBSCustomerCodeFault"/>
+  <xsd:complexType name="AnnexDTO">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="type" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="name" type="xsd:string"/>
+      <xsd:element name="file" type="xsd:base64Binary"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getAnnexIBSCustomerCodeFault">
+    <xsd:choice>
+      <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+      <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+      <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+      <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+      <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+      <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+      <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+      <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+      <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+      <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+      <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+      <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+      <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:complexType name="requiredAnnexIBSCustomerCodeFault">
+    <xsd:choice>
+      <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+      <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+      <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+      <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+      <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+      <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+      <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+      <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+      <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+      <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+      <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+      <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+      <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+    </xsd:choice>
+  </xsd:complexType>
+  <xsd:complexType name="getAnnexIBSCustomerCodeType">
+    <xsd:sequence>
+      <xsd:element name="IBSCustomerCode" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="serviceId" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="requiredAnnexIBSCustomerCodeType">
+    <xsd:sequence>
+      <xsd:element name="IBSCustomerCode" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="serviceId" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getAnnexIBSCustomerCodeResponseType">
+    <xsd:sequence>
+      <xsd:element name="out" type="tns:AnnexDTO"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="requiredAnnexIBSCustomerCodeResponseType">
+    <xsd:sequence>
+      <xsd:element name="requiredAnnex" type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="co.com.directv.sdii.model.pojo.IbsContactReason" table="IBS_CONTACT_REASONS" >
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">SEQ_IBS_CONTACT_REASONS</param>
+            </generator>
+        </id>
+        <property name="code" type="java.lang.String">
+            <column name="code" length="10" not-null="true" />
+        </property>     
+        <property name="name" type="java.lang.String">
+            <column name="name" length="100" not-null="true" />
+        </property>
+        <many-to-one name="country" class="co.com.directv.sdii.model.pojo.Country" fetch="select" lazy="false">
+            <column name="country_id" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="category" type="java.lang.String">
+            <column name="category" length="100" not-null="true" />
+        </property>
+        <property name="subCategory" type="java.lang.String">
+            <column name="sub_category" length="100" not-null="true" />
+        </property>
+        <property name="isReclaim" type="java.lang.String">
+            <column name="is_reclaim" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

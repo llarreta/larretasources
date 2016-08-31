@@ -1,0 +1,17 @@
+<xs:schema xmlns:tns="http://ibs.entriq.net/Security" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ibs.entriq.net/Security">
+  <xs:complexType name="AuthenticationHeader">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClientName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ClientProof" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Culture" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Dsn" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExternalAgent" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Proof" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ServerTime" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthenticationHeader" nillable="true" type="tns:AuthenticationHeader"/>
+</xs:schema>

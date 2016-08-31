@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report246" language="groovy" printOrder="Horizontal" pageWidth="4000" pageHeight="99999999" orientation="Landscape" columnWidth="3960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.callouts" value="##Thu Mar 10 08:54:46 COT 2011"/>
+	<property name="ireport.zoom" value="1.210000000000001"/>
+	<property name="ireport.x" value="3864"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Bold" isDefault="false" fontName="Arial" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Italic" isDefault="false" fontName="Arial" fontSize="12" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="woCode" class="java.lang.String">
+		<fieldDescription><![CDATA[woCode]]></fieldDescription>
+	</field>
+	<field name="customerCode" class="java.lang.String">
+		<fieldDescription><![CDATA[customerCode]]></fieldDescription>
+	</field>
+	<field name="customerName" class="java.lang.String">
+		<fieldDescription><![CDATA[customerName]]></fieldDescription>
+	</field>
+	<field name="customerTypeName" class="java.lang.String">
+		<fieldDescription><![CDATA[customerTypeName]]></fieldDescription>
+	</field>
+	<field name="saleDealerName" class="java.lang.String">
+		<fieldDescription><![CDATA[dealerName]]></fieldDescription>
+	</field>
+	<field name="saleDealerDepot" class="java.lang.String">
+		<fieldDescription><![CDATA[depotCode]]></fieldDescription>
+	</field>
+	<field name="woStateName" class="java.lang.String">
+		<fieldDescription><![CDATA[woStateName]]></fieldDescription>
+	</field>
+	<field name="ibs6StateName" class="java.lang.String">
+		<fieldDescription><![CDATA[ibs6StateName]]></fieldDescription>
+	</field>
+	<field name="reasonName" class="java.lang.String">
+		<fieldDescription><![CDATA[reason]]></fieldDescription>
+	</field>
+	<field name="technology" class="java.lang.String">
+		<fieldDescription><![CDATA[model]]></fieldDescription>
+	</field>
+	<field name="creationDate" class="java.util.Date">
+		<fieldDescription><![CDATA[creationDate]]></fieldDescription>
+	</field>
+	<field name="importDate" class="java.util.Date">
+		<fieldDescription><![CDATA[importDate]]></fieldDescription>
+	</field>
+	<field name="agendationDate" class="java.util.Date">
+		<fieldDescription><![CDATA[assignDealerDate]]></fieldDescription>
+	</field>
+	<field name="serviceHoursName" class="java.lang.String">
+		<fieldDescription><![CDATA[jornada]]></fieldDescription>
+	</field>
+	<field name="jornadaDate" class="java.util.Date">
+		<fieldDescription><![CDATA[jornadaDate]]></fieldDescription>
+	</field>
+	<field name="woProgrammingDate" class="java.util.Date">
+		<fieldDescription><![CDATA[woRealizationDate]]></fieldDescription>
+	</field>
+	<field name="woRealizationDate" class="java.util.Date">
+		<fieldDescription><![CDATA[woRealizationDate]]></fieldDescription>
+	</field>
+	<field name="finalizationDate" class="java.util.Date">
+		<fieldDescription><![CDATA[finalizationDate]]></fieldDescription>
+	</field>
+	<field name="woDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[woDescription]]></fieldDescription>
+	</field>
+	<field name="woAction" class="java.lang.String">
+		<fieldDescription><![CDATA[woAction]]></fieldDescription>
+	</field>
+	<field name="serviceTypeName" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceTypeName]]></fieldDescription>
+	</field>
+	<field name="serviceTypeCode" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceTypeCode]]></fieldDescription>
+	</field>
+	<field name="serviceCode" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceCode]]></fieldDescription>
+	</field>
+	<field name="serviceName" class="java.lang.String">
+		<fieldDescription><![CDATA[serviceName]]></fieldDescription>
+	</field>
+	<field name="assignDealerName" class="java.lang.String">
+		<fieldDescription><![CDATA[assignDealer]]></fieldDescription>
+	</field>
+	<field name="assignDealerDepotCode" class="java.lang.String">
+		<fieldDescription><![CDATA[assignDealerCode]]></fieldDescription>
+	</field>
+	<field name="postalCodeCode" class="java.lang.String">
+		<fieldDescription><![CDATA[postalCodeCode]]></fieldDescription>
+	</field>
+	<field name="stateName" class="java.lang.String">
+		<fieldDescription><![CDATA[stateName]]></fieldDescription>
+	</field>
+	<field name="cityName" class="java.lang.String">
+		<fieldDescription><![CDATA[cityName]]></fieldDescription>
+	</field>
+	<field name="responsableDoc" class="java.lang.String">
+		<fieldDescription><![CDATA[responsableDoc]]></fieldDescription>
+	</field>
+	<field name="responsableName" class="java.lang.String">
+		<fieldDescription><![CDATA[responsableName]]></fieldDescription>
+	</field>
+	<field name="crewHelperNames" class="java.lang.String">
+		<fieldDescription><![CDATA[helpers]]></fieldDescription>
+	</field>
+	<field name="lastThreeReasons" class="java.lang.String">
+		<fieldDescription><![CDATA[lastThreeReasons]]></fieldDescription>
+	</field>
+	<field name="customerPhone" class="java.lang.String">
+		<fieldDescription><![CDATA[customerPhone]]></fieldDescription>
+	</field>
+	<field name="customerAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[customerAddress]]></fieldDescription>
+	</field>
+	<field name="contDecos" class="java.lang.String">
+		<fieldDescription><![CDATA[contDecos]]></fieldDescription>
+	</field>
+	<field name="previousVisits" class="java.lang.String">
+		<fieldDescription><![CDATA[previousVisits]]></fieldDescription>
+	</field>
+	<field name="observationCompany" class="java.lang.String">
+		<fieldDescription><![CDATA[observationCompany]]></fieldDescription>
+	</field>
+	<field name="retiredIRDSeries" class="java.lang.String">
+		<fieldDescription><![CDATA[retiredIRDSeries]]></fieldDescription>
+	</field>
+	<field name="retiredSCSeries" class="java.lang.String">
+		<fieldDescription><![CDATA[retiredSCSeries]]></fieldDescription>
+	</field>
+	<field name="installedIRDSeries" class="java.lang.String">
+		<fieldDescription><![CDATA[installedIRDSeries]]></fieldDescription>
+	</field>
+	<field name="installedSCSeries" class="java.lang.String">
+		<fieldDescription><![CDATA[installedSCSeries]]></fieldDescription>
+	</field>
+	<field name="dispatcher" class="java.lang.String">
+		<fieldDescription><![CDATA[dispatcher]]></fieldDescription>
+	</field>
+	<field name="loginDispatcher" class="java.lang.String">
+		<fieldDescription><![CDATA[loginDispatcher]]></fieldDescription>
+	</field>
+	<field name="ibsTechnical" class="java.lang.String">
+		<fieldDescription><![CDATA[ibsTechnical]]></fieldDescription>
+	</field>
+	<field name="zoneTypeName" class="java.lang.String">
+		<fieldDescription><![CDATA[zoneTypeName]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="32">
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="0" y="0" width="80" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_wo_num}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="670" y="0" width="76" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_ibs_state}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2983" y="0" width="69" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_postal_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1915" y="0" width="110" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_atention_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2025" y="0" width="110" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_ending_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1485" y="0" width="110" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_publishing_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2230" y="0" width="95" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_wo_desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2325" y="0" width="57" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_action}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="153" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_client}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3155" y="0" width="84" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_city}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3052" y="0" width="103" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_dept}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1375" y="0" width="110" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_creation_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="226" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_client_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="445" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_seller}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="518" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_seller_depot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2896" y="0" width="87" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_installer_company}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2755" y="0" width="141" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_depot_installer_company}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3533" y="0" width="104" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_crew_responsible}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3339" y="0" width="97" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_responsible_document}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3637" y="0" width="90" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_crew_aux}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2609" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_service_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2503" y="0" width="106" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_service_category_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2382" y="0" width="121" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_service_category}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2682" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_service_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="591" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_hsp_state}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3907" y="0" width="120" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_last_reason}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="80" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_client_ibs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1705" y="0" width="100" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_programming_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1805" y="0" width="110" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_programming_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="746" y="0" width="76" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_reason}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="822" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_element_model}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1595" y="0" width="110" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_allocation_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="299" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_phones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="372" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="2135" y="0" width="95" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_enterprise_observation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3727" y="0" width="90" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_dispatcher_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1059" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_ird_serial_withdrawn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="901" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_decos_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="980" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_previous_visits}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1138" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_sc_serial_withdrawn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1217" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_ird_serial_installed}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1296" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_sc_serial_installed}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3817" y="0" width="90" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_dispatcher_user}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3436" y="0" width="97" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_employee_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="3239" y="0" width="100" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woe_perimeter}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="94" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="80" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{woCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2983" y="0" width="69" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{postalCodeCode}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="1915" y="0" width="110" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{woRealizationDate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="2025" y="0" width="110" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{finalizationDate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="1485" y="0" width="110" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{importDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2230" y="0" width="95" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{woDescription}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2325" y="0" width="57" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{woAction}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="153" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customerName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3155" y="0" width="84" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cityName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3052" y="0" width="103" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{stateName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="1375" y="0" width="110" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{creationDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="226" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customerTypeName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="445" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{saleDealerName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="518" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{saleDealerDepot}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2896" y="0" width="87" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{assignDealerName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2755" y="0" width="141" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{assignDealerDepotCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3533" y="0" width="104" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{responsableName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3339" y="0" width="97" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{responsableDoc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3637" y="0" width="90" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{crewHelperNames}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2609" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serviceCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2503" y="0" width="106" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serviceTypeCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2382" y="0" width="121" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serviceTypeName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2682" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serviceName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="591" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{woStateName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="670" y="0" width="76" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ibs6StateName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3907" y="0" width="120" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lastThreeReasons}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="80" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customerCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1705" y="0" width="100" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serviceHoursName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="1805" y="0" width="110" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{jornadaDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="746" y="0" width="76" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{reasonName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="822" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{technology}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="1595" y="0" width="110" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{agendationDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="299" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customerPhone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="372" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customerAddress}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="901" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{contDecos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="980" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{previousVisits}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1059" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{retiredIRDSeries}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1138" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{retiredSCSeries}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1217" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{installedIRDSeries}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1296" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{installedSCSeries}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2135" y="0" width="95" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{observationCompany}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3727" y="0" width="90" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dispatcher}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3817" y="0" width="90" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{loginDispatcher}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3436" y="0" width="97" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ibsTechnical}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3239" y="0" width="100" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{zoneTypeName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

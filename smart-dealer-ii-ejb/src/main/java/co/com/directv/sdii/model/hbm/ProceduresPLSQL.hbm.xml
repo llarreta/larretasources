@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	
+	<sql-query name="moveWarehouseElements" callable="true">
+		<return-scalar column="ESTADO" type="java.lang.String" />
+		<return-scalar column="DETALLE" type="java.lang.String" />
+		{ call PKG_WAREHOUSE_ELEMENT.VALIDA_ELEMENTOS(?,:P_ID_REMISION,:P_BODEGA_ORIGEN,:P_BODEGA_DESTINO,:P_TIPO_MOV_ENTRADA,:P_TIPO_MOV_SALIDA,:P_STATUS_LAST,:P_STATUS_HIST,:P_STATUS_PENDING,:P_TYPE_COMUNICATION_HSP_TO_IBS,:P_DOCUMENT_CLASS,:P_COUNTRY_ID,:P_PROCESS_CODE,:P_IS_MANAGEMENT,:P_MOV_CMD_NO_CONFIG_CODE,:P_USER_ID) }			 		
+	</sql-query>
+
+</hibernate-mapping>

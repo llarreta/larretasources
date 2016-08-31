@@ -1,0 +1,700 @@
+<definitions targetNamespace="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:servicecaa-v1-0="http://directvla.com/schema/businessdomain/ServiceConfigurationAndActivation/v1-0" xmlns:ns1="http://ibs.entriq.net/Security" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:tns="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/contract/crm/customer/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+    <documentation>
+        <abstractWSDL>http://esb-sist.dtvla.com:80/soa-infra/services/DTVLA-Services/ServiceConfigurationAndActivation-Service!1.4.4/ServiceConfigurationAndActivation.wsdl</abstractWSDL>
+    </documentation>
+    <plnk:partnerLinkType name="ActivateCustomerProduct">
+        <plnk:role name="ServiceConfigurationAndActivation_pt">
+            <plnk:portType name="tns:ServiceConfigurationAndActivation_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="ServiceConfigurationAndActivation">
+        <plnk:role name="ServiceConfigurationAndActivation_pt">
+            <plnk:portType name="tns:ServiceConfigurationAndActivation_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <types>
+        <xsd:schema targetNamespace="http://directvla.com/schema/businessdomain/ServiceConfigurationAndActivation/v1-0" elementFormDefault="qualified">
+            <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="XMLSchema_-972841412.xsd"/>
+            <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="XMLSchema_549618649.xsd"/>
+            <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="XMLSchema_486898953.xsd"/>
+            <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="XMLSchema_41588590.xsd"/>
+            <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="XMLSchema_2141684617.xsd"/>
+            <xsd:complexType name="OrderPayPerView">
+                <xsd:sequence>
+                    <xsd:element name="CustomerKey" maxOccurs="1" type="xsd:string"/>
+                    <xsd:element name="Resource" type="commonbd-v1-0:PhysicalResource" maxOccurs="1"/>
+                    <xsd:element name="Event" maxOccurs="1" type="productbd-v1-0:Product"/>
+                    <xsd:element name="ReasonId" maxOccurs="1" type="xsd:int"/>
+                    <xsd:element name="ReasonIdAdditional" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OrderPayPerViewResult">
+                <xsd:sequence>
+                    <xsd:element name="OrderEventId" maxOccurs="1" type="xsd:int"/>
+                    <xsd:element name="OrderEventPrice" type="commonbd-v1-0:Money" maxOccurs="1" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="OrderPayPerViewRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" maxOccurs="1" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="OrderPayPerView" maxOccurs="1" type="servicecaa-v1-0:OrderPayPerView"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="OrderPayPerViewResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType" maxOccurs="1"/>
+                        <xsd:element name="OrderPayPerViewResult" type="servicecaa-v1-0:OrderPayPerViewResult" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ArrayOfCommands" type="servicecaa-v1-0:arrayOfCommands"/>
+            <xsd:complexType name="arrayOfCommands">
+                <xsd:sequence>
+                    <xsd:element name="commands" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="OrderPayPerViewException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="AddActivation">
+                <xsd:sequence>
+                    <xsd:element name="WorkOrderKey" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="Serials" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="ValidTechnicalProducts" maxOccurs="unbounded" minOccurs="0" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="AddActivationByShippingOrder">
+                <xsd:sequence>
+                    <xsd:element name="ShippingOrderId" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+                    <xsd:element name="Serials" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="ValidTechnicalProducts" maxOccurs="unbounded" minOccurs="0" type="xsd:string"/>
+                    <xsd:element name="ReasonId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="LinkProducts">
+                <xsd:sequence>
+                    <xsd:element name="NewSmartCard" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+                    <xsd:element name="OldSmartCard" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="false"/>
+                    <xsd:element name="Reason" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+                    <xsd:element name="CustomerKey" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="LinkProductsRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="LinkProducts" type="servicecaa-v1-0:LinkProducts"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="LinkProductsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="AddActivation" type="servicecaa-v1-0:AddActivation"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationByShippingOrderRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="AddActivationByShippingOrder" type="servicecaa-v1-0:AddActivationByShippingOrder"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationByShippingOrderResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="LinkProductsException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationByShippingOrderException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="AddActivationByProcess">
+                <xsd:sequence>
+                    <xsd:element name="ProcessName" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation>Indicar si es Trio, Wimax, Normal</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="WorkOrderId" type="xsd:int" maxOccurs="1"/>
+                    <xsd:element name="ShippingOrderId" type="xsd:int"/>
+                    <xsd:element name="IRDSerialNumber" maxOccurs="1" minOccurs="1" type="xsd:string"/>
+                    <xsd:element name="SmartCardSerialNumber" maxOccurs="1" minOccurs="1" type="xsd:string"/>
+                    <xsd:element name="ActionTaken" type="xsd:string" maxOccurs="1"/>
+                    <xsd:element name="ReasonIdShippingOrder" type="xsd:int"/>
+                    <xsd:element name="StockHandlerId" maxOccurs="1" minOccurs="0" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="AddActivationByProcessRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="AddActivationByProcess" type="servicecaa-v1-0:AddActivationByProcess"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationByProcessResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationByProcessException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="AddActivationPrepaid">
+                <xsd:sequence>
+                    <xsd:element name="CustomerKey" type="xsd:string"/>
+                    <xsd:element name="WorkOrderId" type="xsd:int" maxOccurs="1"/>
+                    <xsd:element name="ShippingOrderId" type="xsd:int"/>
+                    <xsd:element name="Resources" type="commonbd-v1-0:PhysicalResourceCollection"/>
+                    <xsd:element name="InstallationType" type="xsd:int"/>
+                    <xsd:element name="InstalationPlace" type="xsd:int"/>
+                    <xsd:element name="SignalPower" type="xsd:int"/>
+                    <xsd:element name="InstallationEasy" type="xsd:int"/>
+                    <xsd:element name="Antenna" type="xsd:int"/>
+                    <xsd:element name="CP" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="AddActivationPrepaidRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="AddActivationPrepaid" type="servicecaa-v1-0:AddActivationPrepaid"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationPrepaidResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddActivationPrepaidException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="ActivateCustomerProduct">
+                <xsd:sequence>
+                    <xsd:element name="CustomerKey" type="xsd:string"/>
+                    <xsd:element name="ProductId" type="xsd:int" maxOccurs="1"/>
+                    <xsd:element name="ReasonId" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ActivateCustomerProductRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="ActivateCustomerProduct" type="servicecaa-v1-0:ActivateCustomerProduct"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ActivateCustomerProductResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ActivateCustomerProductException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="CancelOrderedEvent">
+                <xsd:sequence>
+                    <xsd:element name="OrderedEventId" maxOccurs="1" type="xsd:int"/>
+                    <xsd:element name="ReasonId" maxOccurs="1" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="CancelOrderedEventRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" maxOccurs="1" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="CancelOrderedEvent" maxOccurs="1" type="servicecaa-v1-0:CancelOrderedEvent"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CancelOrderedEventResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CancelOrderedEventException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="StringCollection" type="servicecaa-v1-0:StringCollection"/>
+            <xsd:complexType name="StringCollection">
+                <xsd:sequence>
+                    <xsd:element name="Value" maxOccurs="unbounded" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="CofigurationParams">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Commands" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="EstadosCustomer" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="EstadosWorkOrder" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="MainFinancialOptions" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="MirrorsFinancialOptions" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="TecnologiasRecursoIRD" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="TecnologiasRecursoSC" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="TiposWorkOrder" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="ValidaEstadoShippingOrder" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="ValidarCB_Method" type="servicecaa-v1-0:StringCollection" minOccurs="0"/>
+                        <xsd:element name="WorkOrderServicesIdMain" maxOccurs="1" minOccurs="0" type="servicecaa-v1-0:StringCollection"/>
+                        <xsd:element name="WorkOrderServicesIdMirror" maxOccurs="1" minOccurs="0" type="servicecaa-v1-0:StringCollection"/>
+                        <xsd:element name="ValidaTipoShippingOrder" maxOccurs="1" minOccurs="0" type="servicecaa-v1-0:StringCollection"/>
+                        <xsd:element name="ProductStatusAtCustomer" maxOccurs="1" minOccurs="0" type="servicecaa-v1-0:StringCollection"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="ActivateService">
+                <xsd:sequence>
+                    <xsd:element name="CustomerKey" type="xsd:string"/>
+                    <xsd:element name="WorkOrderKey" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="NewResourcesSerialNumber" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                    <xsd:element name="ReplacedResourcesSerialNumber" maxOccurs="unbounded" minOccurs="0" type="xsd:string"/>
+                    <xsd:element name="RelatedResourcesSerialNumber" maxOccurs="unbounded" minOccurs="0" type="xsd:string"/>
+                    <xsd:element name="TechnicianKey" type="xsd:string"/>
+                    <xsd:element name="ProductKey" minOccurs="0" type="xsd:int"/>
+                    <xsd:element name="FullfilmentServiceCode" minOccurs="0" type="xsd:string" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ActivateServiceRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="ActivateServiceOrder" type="servicecaa-v1-0:ActivateService"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ActivateServiceResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ActivateServiceException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+    <message name="ActivateServiceRequest">
+        <part name="parameter" element="servicecaa-v1-0:ActivateServiceRequest"/>
+    </message>
+    <message name="ActivateServiceResponse">
+        <part name="parameter" element="servicecaa-v1-0:ActivateServiceResponse"/>
+    </message>
+    <message name="ActivateServiceException">
+        <part name="parameter" element="servicecaa-v1-0:ActivateServiceException"/>
+    </message>
+    <message name="AddActivationRequest">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationRequest"/>
+    </message>
+    <message name="AddActivationResponse">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationResponse"/>
+    </message>
+    <message name="AddActivationException">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationException"/>
+    </message>
+    <message name="AddActivationByProcessRequest">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationByProcessRequest"/>
+    </message>
+    <message name="AddActivationByProcessResponse">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationByProcessResponse"/>
+    </message>
+    <message name="AddActivationByProcessException">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationByProcessException"/>
+    </message>
+    <message name="AddActivationByShippingOrderRequest">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationByShippingOrderRequest"/>
+    </message>
+    <message name="AddActivationByShippingOrderResponse">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationByShippingOrderResponse"/>
+    </message>
+    <message name="AddActivationByShippingOrderException">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationByShippingOrderException"/>
+    </message>
+    <message name="AddActivationPrepaidRequest">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationPrepaidRequest"/>
+    </message>
+    <message name="AddActivationPrepaidResponse">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationPrepaidResponse"/>
+    </message>
+    <message name="AddActivationPrepaidException">
+        <part name="parameter" element="servicecaa-v1-0:AddActivationPrepaidException"/>
+    </message>
+    <message name="CancelOrderedEventRequest">
+        <part name="parameter" element="servicecaa-v1-0:CancelOrderedEventRequest"/>
+    </message>
+    <message name="CancelOrderedEventResponse">
+        <part name="parameter" element="servicecaa-v1-0:CancelOrderedEventResponse"/>
+    </message>
+    <message name="CancelOrderedEventException">
+        <part name="parameter" element="servicecaa-v1-0:CancelOrderedEventException"/>
+    </message>
+    <message name="OrderPayPerViewRequest">
+        <part name="parameter" element="servicecaa-v1-0:OrderPayPerViewRequest"/>
+    </message>
+    <message name="OrderPayPerViewResponse">
+        <part name="parameter" element="servicecaa-v1-0:OrderPayPerViewResponse"/>
+    </message>
+    <message name="OrderPayPerViewException">
+        <part name="parameter" element="servicecaa-v1-0:OrderPayPerViewException"/>
+    </message>
+    <message name="ActivateCustomerProductRequest">
+        <part name="parameter" element="servicecaa-v1-0:ActivateCustomerProductRequest"/>
+    </message>
+    <message name="ActivateCustomerProductResponse">
+        <part name="parameter" element="servicecaa-v1-0:ActivateCustomerProductResponse"/>
+    </message>
+    <message name="ActivateCustomerProductException">
+        <part name="parameter" element="servicecaa-v1-0:ActivateCustomerProductException"/>
+    </message>
+    <message name="LinkProductsRequest">
+        <part name="parameter" element="servicecaa-v1-0:LinkProductsRequest"/>
+    </message>
+    <message name="LinkProductsResponse">
+        <part name="parameter" element="servicecaa-v1-0:LinkProductsResponse"/>
+    </message>
+    <message name="LinkProductsException">
+        <part name="parameter" element="servicecaa-v1-0:LinkProductsException"/>
+    </message>
+    <portType name="ServiceConfigurationAndActivation_pt">
+        <operation name="ActivateService">
+            <input message="tns:ActivateServiceRequest"/>
+            <output message="tns:ActivateServiceResponse"/>
+            <fault name="ActivateServiceException" message="tns:ActivateServiceException"/>
+        </operation>
+        <operation name="AddActivation">
+            <input message="tns:AddActivationRequest"/>
+            <output message="tns:AddActivationResponse"/>
+            <fault name="AddActivationException" message="tns:AddActivationException"/>
+        </operation>
+        <operation name="AddActivationByProcess">
+            <input message="tns:AddActivationByProcessRequest"/>
+            <output message="tns:AddActivationByProcessResponse"/>
+            <fault name="AddActivationByProcessException" message="tns:AddActivationByProcessException"/>
+        </operation>
+        <operation name="AddActivationByShippingOrder">
+            <input message="tns:AddActivationByShippingOrderRequest"/>
+            <output message="tns:AddActivationByShippingOrderResponse"/>
+            <fault name="AddActivationByShippingOrderException" message="tns:AddActivationByShippingOrderException"/>
+        </operation>
+        <operation name="AddActivationPrepaid">
+            <input message="tns:AddActivationPrepaidRequest"/>
+            <output message="tns:AddActivationPrepaidResponse"/>
+            <fault name="AddActivationPrepaidException" message="tns:AddActivationPrepaidException"/>
+        </operation>
+        <operation name="CancelOrderedEvent">
+            <input message="tns:CancelOrderedEventRequest"/>
+            <output message="tns:CancelOrderedEventResponse"/>
+            <fault name="CancelOrderedEventException" message="tns:CancelOrderedEventException"/>
+        </operation>
+        <operation name="OrderPayPerView">
+            <input message="tns:OrderPayPerViewRequest"/>
+            <output message="tns:OrderPayPerViewResponse"/>
+            <fault name="OrderPayPerViewException" message="tns:OrderPayPerViewException"/>
+        </operation>
+        <operation name="ActivateCustomerProduct">
+            <input message="tns:ActivateCustomerProductRequest"/>
+            <output message="tns:ActivateCustomerProductResponse"/>
+            <fault name="ActivateCustomerProductException" message="tns:ActivateCustomerProductException"/>
+        </operation>
+        <operation name="LinkProducts">
+            <input message="tns:LinkProductsRequest"/>
+            <output message="tns:LinkProductsResponse"/>
+            <fault name="LinkProductsException" message="tns:LinkProductsException"/>
+        </operation>
+    </portType>
+    <binding name="ServiceConfigurationAndActivation_ptSOAP11Binding" type="tns:ServiceConfigurationAndActivation_pt">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="AddActivation">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/AddActivation"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="AddActivationException">
+                <soap:fault name="AddActivationException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="AddActivationByShippingOrder">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/AddActivationByShippingOrder"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="AddActivationByShippingOrderException">
+                <soap:fault name="AddActivationByShippingOrderException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="OrderPayPerView">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/OrderPayPerView"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="OrderPayPerViewException">
+                <soap:fault name="OrderPayPerViewException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="AddActivationByProcess">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/AddActivationByProcess"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="AddActivationByProcessException">
+                <soap:fault name="AddActivationByProcessException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="AddActivationPrepaid">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/AddActivationPrepaid"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="AddActivationPrepaidException">
+                <soap:fault name="AddActivationPrepaidException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="ActivateCustomerProduct">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/ActivateCustomerProduct"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="ActivateCustomerProductException">
+                <soap:fault name="ActivateCustomerProductException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="LinkProducts">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/LinkProducts"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="LinkProductsException">
+                <soap:fault name="LinkProductsException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="CancelOrderedEvent">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/CancelOrderedEvent"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="CancelOrderedEventException">
+                <soap:fault name="CancelOrderedEventException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="ActivateService">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ServiceConfigurationAndActivation/v1-0/ActivateService"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="ActivateServiceException">
+                <soap:fault name="ActivateServiceException" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="ServiceConfigurationAndActivation_pt">
+        <port name="ServiceConfigurationAndActivation_ptPort" binding="tns:ServiceConfigurationAndActivation_ptSOAP11Binding">
+            <soap:address location="http://rgsuatsoa.dtvla.com:80/soa-infra/services/DTVLA-Services/ServiceConfigurationAndActivation-Service/ServiceConfigurationAndActivation"/>
+        </port>
+    </service>
+</definitions>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="workorder_reportEc2_subrep_telephones" language="groovy" pageWidth="300" pageHeight="100" columnWidth="300" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="TELEP_CODE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FAX_CODE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[4]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MOBILE_CODE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[2]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TELEPHWORK_CODE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[5]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="mediaCode" class="java.lang.String">
+		<fieldDescription><![CDATA[mediaContactType.mediaCode]]></fieldDescription>
+	</field>
+	<field name="mediaName" class="java.lang.String">
+		<fieldDescription><![CDATA[mediaContactType.mediaName]]></fieldDescription>
+	</field>
+	<field name="mediaContactValue" class="java.lang.String">
+		<fieldDescription><![CDATA[mediaContactValue]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="188" height="9">
+					<printWhenExpression><![CDATA[$F{mediaCode}.equals( $P{TELEP_CODE} )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mediaContactValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="9">
+					<printWhenExpression><![CDATA[$F{mediaCode}.equals( $P{TELEP_CODE} )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mediaName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="9" width="100" height="9">
+					<printWhenExpression><![CDATA[$F{mediaCode}.equals( $P{MOBILE_CODE} )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mediaName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="18" width="100" height="9">
+					<printWhenExpression><![CDATA[$F{mediaCode}.equals( $P{TELEPHWORK_CODE} )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mediaName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="9" width="188" height="9">
+					<printWhenExpression><![CDATA[$F{mediaCode}.equals( $P{MOBILE_CODE} )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mediaContactValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="18" width="188" height="9">
+					<printWhenExpression><![CDATA[$F{mediaCode}.equals( $P{TELEPHWORK_CODE} )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mediaContactValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="27" width="100" height="9"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mediaName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="27" width="188" height="9"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{mediaContactValue}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

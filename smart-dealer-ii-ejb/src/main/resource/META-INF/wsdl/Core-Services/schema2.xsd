@@ -1,0 +1,100 @@
+<xsd:schema xmlns:crm-common="http://directvla.com/schema/crm/common/v1-1" xmlns:crm-exception="http://directvla.com/schema/crm/exception/v1-1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/crm/exception/v1-1">
+  <xsd:import namespace="http://directvla.com/schema/crm/common/v1-1" schemaLocation="schema1.xsd"/>
+  <xsd:complexType name="EntityAlreadyExistsException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="EntityNotFoundException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="EntityInUseException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InternalErrorException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="MissingParameterException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidParameterValueException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidQueryParameterException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidRequestException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidResponseException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidSecurityTokenException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="AccessDeniedException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ServiceUnavailabbleException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="OperationNotYetImplementedException">
+    <xsd:complexContent>
+      <xsd:extension base="crm-exception:BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="BaseException">
+    <xsd:sequence>
+      <xsd:element name="code" type="crm-common:CodeType"/>
+      <xsd:element name="message" type="crm-common:MessageType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

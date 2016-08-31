@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="plantilla" pageWidth="595" pageHeight="842" columnWidth="585" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="147"/>
+	<property name="ireport.y" value="0"/>
+	<style name="bordered" isDefault="false" fill="Solid">
+		<pen lineColor="#000000"/>
+	</style>
+	<parameter name="PV_TITLE" class="java.lang.String"/>
+	<parameter name="PV_RESPONSIBLE" class="java.lang.String"/>
+	<parameter name="PV_CODE" class="java.lang.String"/>
+	<parameter name="PV_CI" class="java.lang.String"/>
+	<parameter name="PV_DATA" class="java.lang.String"/>
+	<field name="jobCard" class="java.lang.String"/>
+	<field name="client" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="meridian" class="java.lang.String"/>
+	<field name="serviceType" class="java.lang.String"/>
+	<field name="arriveHour" class="java.lang.String"/>
+	<field name="departureHour" class="java.lang.String"/>
+	<field name="end" class="java.lang.String"/>
+	<field name="comments" class="java.lang.String"/>
+	<title>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement x="3" y="3" width="582" height="32"/>
+			</rectangle>
+			<textField>
+				<reportElement x="101" y="10" width="340" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PV_TITLE}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="3" y="35" width="582" height="20"/>
+			</rectangle>
+			<line>
+				<reportElement x="451" y="35" width="1" height="20"/>
+			</line>
+			<textField>
+				<reportElement x="6" y="37" width="57" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_responsible}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="37" width="105" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_document_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="37" width="27" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="37" width="144" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PV_RESPONSIBLE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="37" width="95" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PV_CODE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="490" y="37" width="79" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PV_DATA}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="3" y="58" width="582" height="23" backcolor="#CCCCCC"/>
+			</rectangle>
+			<textField>
+				<reportElement x="6" y="59" width="37" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_wo_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="59" width="45" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_client}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="58" width="93" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="59" width="88" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="62" width="46" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_agend_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="59" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_wo_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="59" width="50" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_arrival_hour}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="406" y="59" width="50" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_departure_hour}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="456" y="59" width="128" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{vistem_observations}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="bordered" stretchType="RelativeToTallestObject" x="43" y="3" width="45" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{client}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="88" y="3" width="93" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="181" y="3" width="88" height="20"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Double">
+					<font fontName="Arial" size="6" isBold="false" isItalic="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="269" y="3" width="46" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{meridian}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="315" y="3" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serviceType}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="3" width="50" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="406" y="3" width="50" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="456" y="3" width="128" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="bordered" stretchType="RelativeToTallestObject" x="6" y="3" width="37" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6" isBold="true" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{jobCard}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

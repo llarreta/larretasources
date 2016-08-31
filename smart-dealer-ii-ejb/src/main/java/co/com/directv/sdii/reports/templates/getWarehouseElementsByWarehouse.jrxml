@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report246" language="groovy" printOrder="Horizontal" pageWidth="1850" pageHeight="99999999" columnWidth="1810" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.callouts" value="##Thu Mar 10 08:54:46 COT 2011"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="928"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Bold" isDefault="false" fontName="Arial" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Italic" isDefault="false" fontName="Arial" fontSize="12" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<field name="dealerIdCompany" class="java.lang.Long"/>
+	<field name="dealerNameCompany" class="java.lang.String"/>
+	<field name="dealerNameBranch" class="java.lang.String"/>
+	<field name="dealerIdBranch" class="java.lang.Long"/>
+	<field name="crewId" class="java.lang.Long"/>
+	<field name="isResponsibleOut" class="java.lang.String"/>
+	<field name="whTypeId" class="java.lang.Long"/>
+	<field name="whTypeCode" class="java.lang.String"/>
+	<field name="whTypeName" class="java.lang.String"/>
+	<field name="whId" class="java.lang.Long"/>
+	<field name="whCode" class="java.lang.String"/>
+	<field name="whName" class="java.lang.String"/>
+	<field name="elementModelId" class="java.lang.Long"/>
+	<field name="modelName" class="java.lang.String"/>
+	<field name="modelCode" class="java.lang.String"/>
+	<field name="typeElementId" class="java.lang.Long"/>
+	<field name="typeElementCode" class="java.lang.String"/>
+	<field name="typeElementName" class="java.lang.String"/>
+	<field name="initialQuantity" class="java.lang.Double"/>
+	<field name="inQuantity" class="java.lang.Double"/>
+	<field name="outQuantity" class="java.lang.Double"/>
+	<field name="actualQuantity" class="java.lang.Double"/>
+	<field name="elementId" class="java.lang.Long"/>
+	<field name="serialCode" class="java.lang.String"/>
+	<field name="rid" class="java.lang.String"/>
+	<field name="serialCodeLinked" class="java.lang.String"/>
+	<field name="movTypeId" class="java.lang.String"/>
+	<field name="movClass" class="java.lang.String"/>
+	<field name="movTypeName" class="java.lang.String"/>
+	<field name="movementDateIn" class="java.util.Date"/>
+	<field name="movementDateOut" class="java.util.Date"/>
+	<field name="minWarehouseElementId" class="java.lang.Long"/>
+	<field name="maxWarehouseElementId" class="java.lang.Long"/>
+	<field name="age" class="java.lang.String"/>
+	<columnHeader>
+		<band height="32">
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="0" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_company}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="150" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_branch}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="450" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_crew}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="300" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_warehouse_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="750" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_model_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="600" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_location}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="900" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_element_type_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1200" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_rid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1350" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_serial_linked}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1500" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1650" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_age}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="1050" y="0" width="150" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebw_serial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dealerNameCompany}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="150" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dealerNameBranch}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="300" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{whTypeName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="450" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{isResponsibleOut}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="900" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{typeElementCode} + " / " + $F{typeElementName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="750" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{modelCode} + " / " + $F{modelName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="1200" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rid}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="1650" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{age}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="1500" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{actualQuantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="1350" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serialCodeLinked}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="600" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{whName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="1050" y="0" width="150" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serialCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

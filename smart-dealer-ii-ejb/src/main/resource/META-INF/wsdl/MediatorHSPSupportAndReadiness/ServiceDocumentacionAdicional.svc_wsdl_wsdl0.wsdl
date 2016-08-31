@@ -1,0 +1,55 @@
+<wsdl:definitions xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:q1="http://schemas.datacontract.org/2004/07/com.dtvla.Annexs" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://dtvla.com/Annexs/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dtvla.com/Annexs/">
+  <wsdl:types>
+<xsd:schema xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:q1="http://schemas.datacontract.org/2004/07/com.dtvla.Annexs" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://dtvla.com/Annexs/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dtvla.com/Annexs/Imports">
+            
+  <xsd:import namespace="http://dtvla.com/Annexs/" schemaLocation="schema2.xsd"/>
+            
+  <xsd:import namespace="http://schemas.datacontract.org/2004/07/com.dtvla.Annexs" schemaLocation="schema10.xsd"/>
+            
+  <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" schemaLocation="schema7.xsd"/>
+        
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AnnexsSOAP_getAnnexIBSCustomerCode_GetAnnexIBSCustomerCodeFaultFault_FaultMessage">
+    <wsdl:part element="q1:GetAnnexIBSCustomerCodeFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AnnexsSOAP_requiredAnnexIBSCustomerCode_OutputMessage">
+    <wsdl:part element="tns:requiredAnnexIBSCustomerCodeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AnnexsSOAP_getAnnexIBSCustomerCode_InputMessage">
+    <wsdl:part element="tns:getAnnexIBSCustomerCode" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AnnexsSOAP_requiredAnnexIBSCustomerCode_RequiredAnnexIBSCustomerCodeFaultFault_FaultMessage">
+    <wsdl:part element="q1:RequiredAnnexIBSCustomerCodeFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AnnexsSOAP_requiredAnnexIBSCustomerCode_InputMessage">
+    <wsdl:part element="tns:requiredAnnexIBSCustomerCode" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AnnexsSOAP_getAnnexIBSCustomerCode_OutputMessage">
+    <wsdl:part element="tns:getAnnexIBSCustomerCodeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AnnexsSOAP">
+    <wsdl:operation name="getAnnexIBSCustomerCode">
+      <wsdl:input message="tns:AnnexsSOAP_getAnnexIBSCustomerCode_InputMessage" wsaw:Action="http://dtvla.com/Annexs/AnnexsSOAP/getAnnexIBSCustomerCode">
+    </wsdl:input>
+      <wsdl:output message="tns:AnnexsSOAP_getAnnexIBSCustomerCode_OutputMessage" wsaw:Action="http://dtvla.com/Annexs/AnnexsSOAP/getAnnexIBSCustomerCodeResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:AnnexsSOAP_getAnnexIBSCustomerCode_GetAnnexIBSCustomerCodeFaultFault_FaultMessage" name="GetAnnexIBSCustomerCodeFaultFault" wsaw:Action="http://dtvla.com/Annexs/AnnexsSOAP/getAnnexIBSCustomerCodeGetAnnexIBSCustomerCodeFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="requiredAnnexIBSCustomerCode">
+      <wsdl:input message="tns:AnnexsSOAP_requiredAnnexIBSCustomerCode_InputMessage" wsaw:Action="http://dtvla.com/Annexs/AnnexsSOAP/requiredAnnexIBSCustomerCode">
+    </wsdl:input>
+      <wsdl:output message="tns:AnnexsSOAP_requiredAnnexIBSCustomerCode_OutputMessage" wsaw:Action="http://dtvla.com/Annexs/AnnexsSOAP/requiredAnnexIBSCustomerCodeResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:AnnexsSOAP_requiredAnnexIBSCustomerCode_RequiredAnnexIBSCustomerCodeFaultFault_FaultMessage" name="RequiredAnnexIBSCustomerCodeFaultFault" wsaw:Action="http://dtvla.com/Annexs/AnnexsSOAP/requiredAnnexIBSCustomerCodeRequiredAnnexIBSCustomerCodeFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="getHistoryElementsByCustomerIBSCodeDocTypeIdAndDocNumber" language="groovy" pageWidth="878" pageHeight="99999999" orientation="Landscape" columnWidth="838" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="customerCode" class="java.lang.String"/>
+	<field name="buildingCode" class="java.lang.String"/>
+	<field name="postalCodeCity" class="java.lang.String"/>
+	<field name="woAddress" class="java.lang.String"/>
+	<field name="woCode" class="java.lang.String"/>
+	<field name="typeElement" class="java.lang.String"/>
+	<field name="unitName" class="java.lang.String"/>
+	<field name="lote" class="java.lang.String"/>
+	<field name="actualQuantity" class="java.lang.Double"/>
+	<field name="modelName" class="java.lang.String"/>
+	<field name="serialCode" class="java.lang.String"/>
+	<field name="rid" class="java.lang.String"/>
+	<field name="serialCodeLinked" class="java.lang.String"/>
+	<field name="registrationDateIn" class="java.util.Date"/>
+	<field name="registrationDateOut" class="java.util.Date"/>
+	<field name="movementCausal" class="java.lang.String"/>
+	<field name="typeDocument" class="java.lang.String"/>
+	<field name="typeElementCode" class="java.lang.String"/>
+	<field name="typeElementName" class="java.lang.String"/>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="6" y="0" width="70" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_input_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="76" y="0" width="70" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_output_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="146" y="0" width="70" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_serial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="216" y="0" width="70" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_rid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="286" y="0" width="70" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_linked_serial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="356" y="0" width="102" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_element_type_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="568" y="0" width="130" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_document_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="698" y="0" width="70" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_movement_cause}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="768" y="0" width="70" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="458" y="0" width="110" height="32" forecolor="#FFFFFF" backcolor="#3366FF"/>
+				<textElement textAlignment="Center" markup="none">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{gwebcis_element_type}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="6" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{registrationDateIn}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="76" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{registrationDateOut}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="146" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serialCode}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="216" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{rid}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="286" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serialCodeLinked}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="458" y="0" width="110" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{typeElementName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="568" y="0" width="130" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{typeDocument}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="698" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{movementCausal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="768" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{actualQuantity}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="356" y="0" width="102" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{typeElementCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

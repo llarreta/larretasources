@@ -1,0 +1,675 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/schema/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns1="http://ibs.entriq.net/Distributors" xmlns:ns2="http://ibs.entriq.net/Logistics" xmlns:ns3="http://ibs.entriq.net/Workforce" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:sprms-v1-0="http://directvla.com/schema/businessdomain/SPRMSupportAndReadiness/v1-0" xmlns:tns="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0">
+<documentation>
+        <abstractWSDL>http://esbcol.directvla.com.co:80/soa-infra/services/DTVLA-Services/SPRMSupportAndReadiness-Service!3.4.2/SPRMSupportAndReadiness.wsdl</abstractWSDL>
+    </documentation>
+  <types>
+<xsd:schema xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/schema/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns1="http://ibs.entriq.net/Distributors" xmlns:ns2="http://ibs.entriq.net/Logistics" xmlns:ns3="http://ibs.entriq.net/Workforce" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:sprms-v1-0="http://directvla.com/schema/businessdomain/SPRMSupportAndReadiness/v1-0" xmlns:tns="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/SPRMSupportAndReadiness/v1-0">
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="schema2.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="schema4.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema6.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema5.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="schema3.xsd"/>
+            
+  <xsd:element name="PartyRole" type="commonbd-v1-0:PartyRole"/>
+            
+  <xsd:complexType name="AssignServiceProviderWorkOrder">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="ServiceType" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="AssignServiceProviderWorkOrderResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="ServiceProviderId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="AssignServiceProviderWorkOrderRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="AssignServiceProviderWorkOrder" type="sprms-v1-0:AssignServiceProviderWorkOrder"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="AssignServiceProviderWorkOrderResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="AssignServiceProviderWorkOrderResult" type="sprms-v1-0:AssignServiceProviderWorkOrderResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="AssignServiceProviderWorkOrderException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="MoveResourceToStockHandler">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="stockHandlerFrom" type="commonbd-v1-0:FunctionOrProcessProvider"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="customerFrom" type="customerbd-v1-0:Customer"/>
+                    
+      <xsd:element maxOccurs="1" name="stockHandlerTo" type="commonbd-v1-0:FunctionOrProcessProvider"/>
+                    
+      <xsd:element maxOccurs="1" name="movementCategory" type="commonbd-v1-0:MovementCategoryType"/>
+                    
+      <xsd:element maxOccurs="1" name="physicalResource" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="physicalResourceAssociated" type="commonbd-v1-0:PhysicalResource"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="MoveResourceToStockHandlerRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="MoveResourceToStockHandler" type="sprms-v1-0:MoveResourceToStockHandler"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="MoveResourceToStockHandlerResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="MoveResourceToStockHandlerException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetDealerInfo">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="DealerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="DealerCode" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="DealerDepotCode" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetDealerInfoResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Cust" type="customerbd-v1-0:Customer"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="isDistributor" type="xsd:boolean"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="isServiceProvider" type="xsd:boolean"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="isStockHandler" type="xsd:boolean"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="isPrincipal" type="xsd:boolean"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="dealerCode" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="depotCode" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="parentDealerCode" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="parentDepotCode" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetDealerInfoRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetDealerInfo" type="sprms-v1-0:GetDealerInfo"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetDealerInfoResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetDealerInfoResult" type="sprms-v1-0:GetDealerInfoResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetDealerInfoException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetDealerCodes">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="DealerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="DealerCode" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="DealerDepotCode" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="DealerTypes" type="sprms-v1-0:DealerTypesCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="DealerTypesCollection">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="DealerType" nillable="true" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetDealerCodesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="DealerCodesList" type="commonbd-v1-0:DealerCodesCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetDealerCodesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetDealerCodes" type="sprms-v1-0:GetDealerCodes"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetDealerCodesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetDealerCodesResult" type="sprms-v1-0:GetDealerCodesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetDealerCodesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="ReceiveReturnedPhysicalResource">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="stockHandlerId" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="physicalResourceSerialNumber" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="ReceiveReturnedPhysicalResourceRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="ReceiveReturnedPhysicalResource" type="sprms-v1-0:ReceiveReturnedPhysicalResource"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ReceiveReturnedPhysicalResourceResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ReceiveReturnedPhysicalResourceException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+        
+</xsd:schema>
+  </types>
+  <message name="AssignServiceProviderWorkOrderRequest">
+    <part element="sprms-v1-0:AssignServiceProviderWorkOrderRequest" name="parameter">
+    </part>
+  </message>
+  <message name="ReceiveReturnedPhysicalResourceException">
+    <part element="sprms-v1-0:ReceiveReturnedPhysicalResourceException" name="parameter">
+    </part>
+  </message>
+  <message name="ReceiveReturnedPhysicalResourceRequest">
+    <part element="sprms-v1-0:ReceiveReturnedPhysicalResourceRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetDealerInfoResponse">
+    <part element="sprms-v1-0:GetDealerInfoResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetDealerCodesException">
+    <part element="sprms-v1-0:GetDealerCodesException" name="parameter">
+    </part>
+  </message>
+  <message name="AssignServiceProviderWorkOrderException">
+    <part element="sprms-v1-0:AssignServiceProviderWorkOrderException" name="parameter">
+    </part>
+  </message>
+  <message name="GetDealerInfoException">
+    <part element="sprms-v1-0:GetDealerInfoException" name="parameter">
+    </part>
+  </message>
+  <message name="MoveResourceToStockHandlerResponse">
+    <part element="sprms-v1-0:MoveResourceToStockHandlerResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetDealerCodesResponse">
+    <part element="sprms-v1-0:GetDealerCodesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetDealerInfoRequest">
+    <part element="sprms-v1-0:GetDealerInfoRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetDealerCodesRequest">
+    <part element="sprms-v1-0:GetDealerCodesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="ReceiveReturnedPhysicalResourceResponse">
+    <part element="sprms-v1-0:ReceiveReturnedPhysicalResourceResponse" name="parameter">
+    </part>
+  </message>
+  <message name="AssignServiceProviderWorkOrderResponse">
+    <part element="sprms-v1-0:AssignServiceProviderWorkOrderResponse" name="parameter">
+    </part>
+  </message>
+  <message name="MoveResourceToStockHandlerException">
+    <part element="sprms-v1-0:MoveResourceToStockHandlerException" name="parameter">
+    </part>
+  </message>
+  <message name="MoveResourceToStockHandlerRequest">
+    <part element="sprms-v1-0:MoveResourceToStockHandlerRequest" name="parameter">
+    </part>
+  </message>
+  <portType name="SPRMSupportAndReadiness_pt">
+    <operation name="AssignServiceProviderWorkOrder">
+      <input message="tns:AssignServiceProviderWorkOrderRequest">
+    </input>
+      <output message="tns:AssignServiceProviderWorkOrderResponse">
+    </output>
+      <fault message="tns:AssignServiceProviderWorkOrderException" name="AssignServiceProviderWorkOrderException">
+    </fault>
+    </operation>
+    <operation name="MoveResourceToStockHandler">
+      <input message="tns:MoveResourceToStockHandlerRequest">
+    </input>
+      <output message="tns:MoveResourceToStockHandlerResponse">
+    </output>
+      <fault message="tns:MoveResourceToStockHandlerException" name="MoveResourceToStockHandlerException">
+    </fault>
+    </operation>
+    <operation name="ReceiveReturnedPhysicalResource">
+      <input message="tns:ReceiveReturnedPhysicalResourceRequest">
+    </input>
+      <output message="tns:ReceiveReturnedPhysicalResourceResponse">
+    </output>
+      <fault message="tns:ReceiveReturnedPhysicalResourceException" name="ReceiveReturnedPhysicalResourceException">
+    </fault>
+    </operation>
+    <operation name="GetDealerInfo">
+      <input message="tns:GetDealerInfoRequest">
+    </input>
+      <output message="tns:GetDealerInfoResponse">
+    </output>
+      <fault message="tns:GetDealerInfoException" name="GetDealerInfoException">
+    </fault>
+    </operation>
+    <operation name="GetDealerCodes">
+      <input message="tns:GetDealerCodesRequest">
+    </input>
+      <output message="tns:GetDealerCodesResponse">
+    </output>
+      <fault message="tns:GetDealerCodesException" name="GetDealerCodesException">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="SPRMSupportAndReadiness_ptSOAP11Binding" type="tns:SPRMSupportAndReadiness_pt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="AssignServiceProviderWorkOrder">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0/AssignServiceProviderWorkOrder" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="AssignServiceProviderWorkOrderException">
+        <soap:fault name="AssignServiceProviderWorkOrderException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="MoveResourceToStockHandler">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0/MoveResourceToStockHandler" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="MoveResourceToStockHandlerException">
+        <soap:fault name="MoveResourceToStockHandlerException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetDealerInfo">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0/GetDealerInfo" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetDealerInfoException">
+        <soap:fault name="GetDealerInfoException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetDealerCodes">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0/GetDealerCodes" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetDealerCodesException">
+        <soap:fault name="GetDealerCodesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="ReceiveReturnedPhysicalResource">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/SPRMSupportAndReadiness/v1-0/ReceiveReturnedPhysicalResource" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="ReceiveReturnedPhysicalResourceException">
+        <soap:fault name="ReceiveReturnedPhysicalResourceException" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="SPRMSupportAndReadiness_pt">
+    <port binding="tns:SPRMSupportAndReadiness_ptSOAP11Binding" name="SPRMSupportAndReadiness_ptPort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/SPRMSupportAndReadiness-Service/SPRMSupportAndReadiness"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="GetDealerInfo">
+        <plnk:role name="SPRMSupportAndReadiness_pt">
+            <plnk:portType name="tns:SPRMSupportAndReadiness_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,100 @@
+<xsd:schema xmlns="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/util/commonexceptions/v1-0">
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema14.xsd"/>
+  <xsd:complexType name="EntityAlreadyExistsException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="EntityNotFoundException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="EntityInUseException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InternalErrorException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="MissingParameterException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidParameterValueException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidQueryParameterException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidRequestException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidResponseException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvalidSecurityTokenException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="AccessDeniedException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ServiceUnavailableException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="OperationNotYetImplementedException">
+    <xsd:complexContent>
+      <xsd:extension base="BaseException">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="BaseException">
+    <xsd:sequence>
+      <xsd:element name="code" type="commondt-v1-0:CodeType"/>
+      <xsd:element name="message" type="commondt-v1-0:MessageType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

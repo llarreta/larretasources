@@ -1,0 +1,1969 @@
+<wsdl:definitions xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:q1="http://ibs.entriq.net/Core" xmlns:q211="http://ibs.entriq.net/Security" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://ibs.entriq.net/ViewFacade" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ibs.entriq.net/ViewFacade">
+  <wsdl:types>
+<xsd:schema xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:q1="http://ibs.entriq.net/Core" xmlns:q211="http://ibs.entriq.net/Security" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://ibs.entriq.net/ViewFacade" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ibs.entriq.net/ViewFacade/Imports">
+            
+  <xsd:import namespace="http://ibs.entriq.net/Core" schemaLocation="schema11.xsd"/>
+            
+  <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" schemaLocation="schema3.xsd"/>
+            
+  <xsd:import namespace="http://ibs.entriq.net/Security" schemaLocation="schema8.xsd"/>
+            
+  <xsd:import namespace="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" schemaLocation="schema5.xsd"/>
+            
+  <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" schemaLocation="schema1.xsd"/>
+            
+  <xsd:import namespace="http://ibs.entriq.net/" schemaLocation="schema4.xsd"/>
+            
+  <xsd:import namespace="http://ibs.entriq.net/ViewFacade" schemaLocation="schema13.xsd"/>
+        
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunHistoryView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRelationView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRules_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetStockTakeView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetVersion_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferDefinitionView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunHistoryView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CacheControlHeader_Message">
+    <wsdl:part element="q1:CacheControlHeader" name="CacheControlHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPeriodizationRunView_InputMessage">
+    <wsdl:part element="tns:GetPeriodizationRunView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetJsonValueObjects_OutputMessage">
+    <wsdl:part element="tns:GetJsonValueObjectsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementDetailView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactAdvancedSearchView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetGeoLocationView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetWorkOrderView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementView_OutputMessage">
+    <wsdl:part element="tns:GetSettlementViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankImportView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetVersion_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDeviceView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAnonymizationLogView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDistributorAddressView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnlinkedDocumentView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferView_InputMessage">
+    <wsdl:part element="tns:GetOfferView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetStockTakeView_InputMessage">
+    <wsdl:part element="tns:GetStockTakeView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDepositView_InputMessage">
+    <wsdl:part element="tns:GetDepositView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialAccountView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAssociateView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialTransactionView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnlinkedDocumentView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPaymentBatchView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBatchView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCDRImportQueueView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOrderedEventView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunHistoryView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRelationView_OutputMessage">
+    <wsdl:part element="tns:GetRelationViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetQueueView_InputMessage">
+    <wsdl:part element="tns:GetQueueView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetValidAddressAdvancedSearchView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNonserializedStockView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankInvoiceExportView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialTransactionView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankInvoiceExportView_OutputMessage">
+    <wsdl:part element="tns:GetBankInvoiceExportViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDeviceView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnlinkedDocumentView_InputMessage">
+    <wsdl:part element="tns:GetUnlinkedDocumentView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetStockTakeView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetValidAddressAdvancedSearchView_OutputMessage">
+    <wsdl:part element="tns:GetValidAddressAdvancedSearchViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferDefinitionView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetQueueView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNoteView_InputMessage">
+    <wsdl:part element="tns:GetNoteView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLetterView_InputMessage">
+    <wsdl:part element="tns:GetLetterView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNoteView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetStockTakeView_OutputMessage">
+    <wsdl:part element="tns:GetStockTakeViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetGeoLocationView_InputMessage">
+    <wsdl:part element="tns:GetGeoLocationView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementDetailView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAnonymizationLogView_InputMessage">
+    <wsdl:part element="tns:GetAnonymizationLogView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactAdvancedSearchView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPermissions_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDistributorAddressView_OutputMessage">
+    <wsdl:part element="tns:GetDistributorAddressViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNonserializedStockView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetJsonValueObjects_InputMessage">
+    <wsdl:part element="tns:GetJsonValueObjects" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunHistoryView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPaymentBatchView_InputMessage">
+    <wsdl:part element="tns:GetPaymentBatchView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLinkedDocumentView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactAdvancedSearchView_OutputMessage">
+    <wsdl:part element="tns:GetContactAdvancedSearchViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSerializedStockView_InputMessage">
+    <wsdl:part element="tns:GetSerializedStockView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementView_InputMessage">
+    <wsdl:part element="tns:GetAgreementView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBatchView_InputMessage">
+    <wsdl:part element="tns:GetBatchView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetVersion_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDistributorAddressView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferDefinitionView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankInvoiceExportView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetJsonValueObjects_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDistributorAddressView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNoteView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetWorkOrderView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunHistoryView_InputMessage">
+    <wsdl:part element="tns:GetInvoiceRunHistoryView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnmatchedEvents_InputMessage">
+    <wsdl:part element="tns:GetUnmatchedEvents" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferView_OutputMessage">
+    <wsdl:part element="tns:GetOfferViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetHistoryView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunHistoryView_OutputMessage">
+    <wsdl:part element="tns:GetSettlementRunHistoryViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnmatchedEvents_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetHistoryView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAnonymizationLogView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSerializedStockView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCDRImportQueueView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDistributorView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRules_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCDRImportQueueView_OutputMessage">
+    <wsdl:part element="tns:GetCDRImportQueueViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetKeywordView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementView_InputMessage">
+    <wsdl:part element="tns:GetSettlementView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementDetailView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCDRImportQueueView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialAccountView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNonserializedStockView_InputMessage">
+    <wsdl:part element="tns:GetNonserializedStockView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLoSDetailView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialAccountView_OutputMessage">
+    <wsdl:part element="tns:GetFinancialAccountViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunHistoryView_InputMessage">
+    <wsdl:part element="tns:GetSettlementRunHistoryView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLoSDetailView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDepositView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPhoneNumberInventoryView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLetterView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDepositView_OutputMessage">
+    <wsdl:part element="tns:GetDepositViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPaymentBatchView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetScheduleView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPaymentBatchView_OutputMessage">
+    <wsdl:part element="tns:GetPaymentBatchViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRelationView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetValidAddressAdvancedSearchView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnmatchedEvents_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetShippingOrderView_InputMessage">
+    <wsdl:part element="tns:GetShippingOrderView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNoteView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPeriodizationRunView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferDefinitionView_OutputMessage">
+    <wsdl:part element="tns:GetOfferDefinitionViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankInvoiceExportView_InputMessage">
+    <wsdl:part element="tns:GetBankInvoiceExportView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPhoneNumberInventoryView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDeviceView_InputMessage">
+    <wsdl:part element="tns:GetCustomerDeviceView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOrderedEventView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankImportView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPhoneNumberInventoryView_OutputMessage">
+    <wsdl:part element="tns:GetPhoneNumberInventoryViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactAdvancedSearchView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCDRImportQueueView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetHistoryView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialAccountView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetEventCallbackView_OutputMessage">
+    <wsdl:part element="tns:GetEventCallbackViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunHistoryView_OutputMessage">
+    <wsdl:part element="tns:GetInvoiceRunHistoryViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDistributorView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetScheduleView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLetterView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunHistoryView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRules_OutputMessage">
+    <wsdl:part element="q1:GetRulesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunView_OutputMessage">
+    <wsdl:part element="tns:GetSettlementRunViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBatchView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLinkedDocumentView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPermissions_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnmatchedEvents_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetScheduleView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBatchView_OutputMessage">
+    <wsdl:part element="tns:GetBatchViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetGeoLocationView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetGeoLocationView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetKeywordView_InputMessage">
+    <wsdl:part element="tns:GetKeywordView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLetterView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetQueueView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLoSDetailView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferDefinitionView_InputMessage">
+    <wsdl:part element="tns:GetOfferDefinitionView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceView_OutputMessage">
+    <wsdl:part element="tns:GetInvoiceViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetScheduleView_InputMessage">
+    <wsdl:part element="tns:GetScheduleView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetShippingOrderView_OutputMessage">
+    <wsdl:part element="tns:GetShippingOrderViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetKeywordView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOrderedEventView_InputMessage">
+    <wsdl:part element="tns:GetOrderedEventView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLoSDetailView_InputMessage">
+    <wsdl:part element="tns:GetLoSDetailView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDistributorView_OutputMessage">
+    <wsdl:part element="tns:GetCustomerDistributorViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLinkedDocumentView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPaymentBatchView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNonserializedStockView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPermissions_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetKeywordView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNoteView_OutputMessage">
+    <wsdl:part element="tns:GetNoteViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialAccountView_InputMessage">
+    <wsdl:part element="tns:GetFinancialAccountView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialTransactionView_InputMessage">
+    <wsdl:part element="tns:GetFinancialTransactionView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDeviceView_OutputMessage">
+    <wsdl:part element="tns:GetCustomerDeviceViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunHistoryView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceView_InputMessage">
+    <wsdl:part element="tns:GetInvoiceView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnlinkedDocumentView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetWorkOrderView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOrderedEventView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAssociateView_InputMessage">
+    <wsdl:part element="tns:GetAssociateView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankInvoiceExportView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOrderedEventView_OutputMessage">
+    <wsdl:part element="tns:GetOrderedEventViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetValidAddressAdvancedSearchView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAssociateView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPermissions_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPeriodizationRunView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSerializedStockView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetWorkOrderView_OutputMessage">
+    <wsdl:part element="tns:GetWorkOrderViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunHistoryView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDistributorAddressView_InputMessage">
+    <wsdl:part element="tns:GetDistributorAddressView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetEventCallbackView_InputMessage">
+    <wsdl:part element="tns:GetEventCallbackView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetEventCallbackView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetWorkOrderView_InputMessage">
+    <wsdl:part element="tns:GetWorkOrderView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBatchView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetQueueView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPaymentBatchView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetShippingOrderView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPeriodizationRunView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAssociateView_OutputMessage">
+    <wsdl:part element="tns:GetAssociateViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnmatchedEvents_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetShippingOrderView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLoSDetailView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetQueueView_OutputMessage">
+    <wsdl:part element="tns:GetQueueViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetKeywordView_OutputMessage">
+    <wsdl:part element="tns:GetKeywordViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetEventCallbackView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnlinkedDocumentView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetStockTakeView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDistributorView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPhoneNumberInventoryView_InputMessage">
+    <wsdl:part element="tns:GetPhoneNumberInventoryView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetScheduleView_OutputMessage">
+    <wsdl:part element="tns:GetScheduleViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankInvoiceExportView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOrderedEventView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankImportView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetEventCallbackView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLoSDetailView_OutputMessage">
+    <wsdl:part element="tns:GetLoSDetailViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetValidAddressAdvancedSearchView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDistributorAddressView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferDefinitionView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementView_OutputMessage">
+    <wsdl:part element="tns:GetAgreementViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetHistoryView_OutputMessage">
+    <wsdl:part element="tns:GetHistoryViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetOfferView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPeriodizationRunView_OutputMessage">
+    <wsdl:part element="tns:GetPeriodizationRunViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetVersion_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetWorkOrderView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankImportView_InputMessage">
+    <wsdl:part element="tns:GetBankImportView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRelationView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetJsonValueObjects_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetVersion_OutputMessage">
+    <wsdl:part element="q1:GetVersionResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetStockTakeView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetJsonValueObjects_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactView_OutputMessage">
+    <wsdl:part element="tns:GetContactViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLetterView_OutputMessage">
+    <wsdl:part element="tns:GetLetterViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementDetailView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSerializedStockView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnlinkedDocumentView_OutputMessage">
+    <wsdl:part element="tns:GetUnlinkedDocumentViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDepositView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRules_InputMessage">
+    <wsdl:part element="q1:GetRules" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAssociateView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetShippingOrderView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetQueueView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetKeywordView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDistributorView_InputMessage">
+    <wsdl:part element="tns:GetCustomerDistributorView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAssociateView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDepositView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactAdvancedSearchView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLinkedDocumentView_OutputMessage">
+    <wsdl:part element="tns:GetLinkedDocumentViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNonserializedStockView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetHistoryView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLetterView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLinkedDocumentView_InputMessage">
+    <wsdl:part element="tns:GetLinkedDocumentView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetValidAddressAdvancedSearchView_InputMessage">
+    <wsdl:part element="tns:GetValidAddressAdvancedSearchView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunHistoryView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPermissions_OutputMessage">
+    <wsdl:part element="q1:GetPermissionsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDeviceView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetGeoLocationView_OutputMessage">
+    <wsdl:part element="tns:GetGeoLocationViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactAdvancedSearchView_InputMessage">
+    <wsdl:part element="tns:GetContactAdvancedSearchView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAnonymizationLogView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDistributorView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRules_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSettlementRunView_InputMessage">
+    <wsdl:part element="tns:GetSettlementRunView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetJsonValueObjects_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSerializedStockView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRules_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialAccountView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetVersion_InputMessage">
+    <wsdl:part element="q1:GetVersion" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCustomerDeviceView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNoteView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementDetailView_OutputMessage">
+    <wsdl:part element="tns:GetAgreementDetailViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPhoneNumberInventoryView_IBSFaultFault_FaultMessage">
+    <wsdl:part element="q1:IBSFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankImportView_OutputMessage">
+    <wsdl:part element="tns:GetBankImportViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRelationView_InputMessage">
+    <wsdl:part element="tns:GetRelationView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAgreementDetailView_InputMessage">
+    <wsdl:part element="tns:GetAgreementDetailView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunView_OutputMessage">
+    <wsdl:part element="tns:GetInvoiceRunViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetUnmatchedEvents_OutputMessage">
+    <wsdl:part element="tns:GetUnmatchedEventsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBankImportView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetShippingOrderView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AuthHeader_Message">
+    <wsdl:part element="q211:AuthenticationHeader" name="AuthenticationHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPeriodizationRunView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialTransactionView_OutputMessage">
+    <wsdl:part element="tns:GetFinancialTransactionViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetSerializedStockView_OutputMessage">
+    <wsdl:part element="tns:GetSerializedStockViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetHistoryView_InputMessage">
+    <wsdl:part element="tns:GetHistoryView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetLinkedDocumentView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialTransactionView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetGeoLocationView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetContactView_InputMessage">
+    <wsdl:part element="tns:GetContactView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetNonserializedStockView_OutputMessage">
+    <wsdl:part element="tns:GetNonserializedStockViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetRelationView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPhoneNumberInventoryView_AuthenticationFaultFault_FaultMessage">
+    <wsdl:part element="q1:AuthenticationFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetDepositView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetFinancialTransactionView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetInvoiceRunView_InputMessage">
+    <wsdl:part element="tns:GetInvoiceRunView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetScheduleView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetBatchView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetPermissions_InputMessage">
+    <wsdl:part element="q1:GetPermissions" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAnonymizationLogView_OutputMessage">
+    <wsdl:part element="tns:GetAnonymizationLogViewResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetCDRImportQueueView_InputMessage">
+    <wsdl:part element="tns:GetCDRImportQueueView" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetEventCallbackView_SystemFaultFault_FaultMessage">
+    <wsdl:part element="q1:SystemFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IViewFacadeService_GetAnonymizationLogView_PermissionFaultFault_FaultMessage">
+    <wsdl:part element="q1:PermissionFault" name="detail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IViewFacadeService">
+    <wsdl:operation name="GetPermissions">
+      <wsdl:input message="tns:IViewFacadeService_GetPermissions_InputMessage" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetPermissions">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetPermissions_OutputMessage" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetPermissionsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetPermissions_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetPermissionsPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPermissions_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetPermissionsAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPermissions_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetPermissionsSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPermissions_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetPermissionsIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetRules">
+      <wsdl:input message="tns:IViewFacadeService_GetRules_InputMessage" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetRules">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetRules_OutputMessage" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetRulesResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetRules_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetRulesPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetRules_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetRulesAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetRules_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetRulesIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetRules_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetRulesSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:IViewFacadeService_GetVersion_InputMessage" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetVersion">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetVersion_OutputMessage" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetVersionResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetVersion_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetVersionPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetVersion_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetVersionAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetVersion_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetVersionSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetVersion_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/Core/IAsmCommon/GetVersionIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSerializedStockView">
+      <wsdl:input message="tns:IViewFacadeService_GetSerializedStockView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSerializedStockView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetSerializedStockView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSerializedStockViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetSerializedStockView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSerializedStockViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSerializedStockView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSerializedStockViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSerializedStockView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSerializedStockViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSerializedStockView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSerializedStockViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockTakeView">
+      <wsdl:input message="tns:IViewFacadeService_GetStockTakeView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetStockTakeView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetStockTakeView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetStockTakeViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetStockTakeView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetStockTakeViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetStockTakeView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetStockTakeViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetStockTakeView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetStockTakeViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetStockTakeView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetStockTakeViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetNonserializedStockView">
+      <wsdl:input message="tns:IViewFacadeService_GetNonserializedStockView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNonserializedStockView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetNonserializedStockView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNonserializedStockViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetNonserializedStockView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNonserializedStockViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetNonserializedStockView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNonserializedStockViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetNonserializedStockView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNonserializedStockViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetNonserializedStockView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNonserializedStockViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetGeoLocationView">
+      <wsdl:input message="tns:IViewFacadeService_GetGeoLocationView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetGeoLocationView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetGeoLocationView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetGeoLocationViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetGeoLocationView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetGeoLocationViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetGeoLocationView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetGeoLocationViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetGeoLocationView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetGeoLocationViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetGeoLocationView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetGeoLocationViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentBatchView">
+      <wsdl:input message="tns:IViewFacadeService_GetPaymentBatchView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPaymentBatchView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetPaymentBatchView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPaymentBatchViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetPaymentBatchView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPaymentBatchViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPaymentBatchView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPaymentBatchViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPaymentBatchView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPaymentBatchViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPaymentBatchView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPaymentBatchViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnmatchedEvents">
+      <wsdl:input message="tns:IViewFacadeService_GetUnmatchedEvents_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnmatchedEvents">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetUnmatchedEvents_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnmatchedEventsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetUnmatchedEvents_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnmatchedEventsPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetUnmatchedEvents_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnmatchedEventsAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetUnmatchedEvents_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnmatchedEventsIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetUnmatchedEvents_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnmatchedEventsSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetContactAdvancedSearchView">
+      <wsdl:input message="tns:IViewFacadeService_GetContactAdvancedSearchView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactAdvancedSearchView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetContactAdvancedSearchView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactAdvancedSearchViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetContactAdvancedSearchView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactAdvancedSearchViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetContactAdvancedSearchView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactAdvancedSearchViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetContactAdvancedSearchView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactAdvancedSearchViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetContactAdvancedSearchView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactAdvancedSearchViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLinkedDocumentView">
+      <wsdl:input message="tns:IViewFacadeService_GetLinkedDocumentView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLinkedDocumentView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetLinkedDocumentView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLinkedDocumentViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetLinkedDocumentView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLinkedDocumentViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLinkedDocumentView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLinkedDocumentViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLinkedDocumentView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLinkedDocumentViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLinkedDocumentView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLinkedDocumentViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnlinkedDocumentView">
+      <wsdl:input message="tns:IViewFacadeService_GetUnlinkedDocumentView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnlinkedDocumentView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetUnlinkedDocumentView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnlinkedDocumentViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetUnlinkedDocumentView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnlinkedDocumentViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetUnlinkedDocumentView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnlinkedDocumentViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetUnlinkedDocumentView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnlinkedDocumentViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetUnlinkedDocumentView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetUnlinkedDocumentViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAssociateView">
+      <wsdl:input message="tns:IViewFacadeService_GetAssociateView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAssociateView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetAssociateView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAssociateViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetAssociateView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAssociateViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAssociateView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAssociateViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAssociateView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAssociateViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAssociateView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAssociateViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoneNumberInventoryView">
+      <wsdl:input message="tns:IViewFacadeService_GetPhoneNumberInventoryView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPhoneNumberInventoryView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetPhoneNumberInventoryView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPhoneNumberInventoryViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetPhoneNumberInventoryView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPhoneNumberInventoryViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPhoneNumberInventoryView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPhoneNumberInventoryViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPhoneNumberInventoryView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPhoneNumberInventoryViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPhoneNumberInventoryView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPhoneNumberInventoryViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidAddressAdvancedSearchView">
+      <wsdl:input message="tns:IViewFacadeService_GetValidAddressAdvancedSearchView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetValidAddressAdvancedSearchView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetValidAddressAdvancedSearchView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetValidAddressAdvancedSearchViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetValidAddressAdvancedSearchView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetValidAddressAdvancedSearchViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetValidAddressAdvancedSearchView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetValidAddressAdvancedSearchViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetValidAddressAdvancedSearchView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetValidAddressAdvancedSearchViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetValidAddressAdvancedSearchView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetValidAddressAdvancedSearchViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAnonymizationLogView">
+      <wsdl:input message="tns:IViewFacadeService_GetAnonymizationLogView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAnonymizationLogView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetAnonymizationLogView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAnonymizationLogViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetAnonymizationLogView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAnonymizationLogViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAnonymizationLogView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAnonymizationLogViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAnonymizationLogView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAnonymizationLogViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAnonymizationLogView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAnonymizationLogViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLoSDetailView">
+      <wsdl:input message="tns:IViewFacadeService_GetLoSDetailView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLoSDetailView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetLoSDetailView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLoSDetailViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetLoSDetailView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLoSDetailViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLoSDetailView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLoSDetailViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLoSDetailView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLoSDetailViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLoSDetailView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLoSDetailViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCDRImportQueueView">
+      <wsdl:input message="tns:IViewFacadeService_GetCDRImportQueueView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCDRImportQueueView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetCDRImportQueueView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCDRImportQueueViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetCDRImportQueueView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCDRImportQueueViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCDRImportQueueView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCDRImportQueueViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCDRImportQueueView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCDRImportQueueViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCDRImportQueueView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCDRImportQueueViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetJsonValueObjects">
+      <wsdl:input message="tns:IViewFacadeService_GetJsonValueObjects_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetJsonValueObjects">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetJsonValueObjects_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetJsonValueObjectsResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetJsonValueObjects_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetJsonValueObjectsPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetJsonValueObjects_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetJsonValueObjectsAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetJsonValueObjects_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetJsonValueObjectsIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetJsonValueObjects_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetJsonValueObjectsSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetContactView">
+      <wsdl:input message="tns:IViewFacadeService_GetContactView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetContactView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetContactView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetContactView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetContactView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetContactView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetContactViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetShippingOrderView">
+      <wsdl:input message="tns:IViewFacadeService_GetShippingOrderView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetShippingOrderView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetShippingOrderView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetShippingOrderViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetShippingOrderView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetShippingOrderViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetShippingOrderView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetShippingOrderViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetShippingOrderView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetShippingOrderViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetShippingOrderView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetShippingOrderViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoryView">
+      <wsdl:input message="tns:IViewFacadeService_GetHistoryView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetHistoryView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetHistoryView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetHistoryViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetHistoryView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetHistoryViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetHistoryView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetHistoryViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetHistoryView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetHistoryViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetHistoryView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetHistoryViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkOrderView">
+      <wsdl:input message="tns:IViewFacadeService_GetWorkOrderView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetWorkOrderView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetWorkOrderView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetWorkOrderViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetWorkOrderView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetWorkOrderViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetWorkOrderView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetWorkOrderViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetWorkOrderView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetWorkOrderViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetWorkOrderView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetWorkOrderViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfferView">
+      <wsdl:input message="tns:IViewFacadeService_GetOfferView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetOfferView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetOfferView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOfferView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOfferView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOfferView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetDepositView">
+      <wsdl:input message="tns:IViewFacadeService_GetDepositView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDepositView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetDepositView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDepositViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetDepositView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDepositViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetDepositView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDepositViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetDepositView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDepositViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetDepositView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDepositViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistributorAddressView">
+      <wsdl:input message="tns:IViewFacadeService_GetDistributorAddressView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDistributorAddressView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetDistributorAddressView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDistributorAddressViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetDistributorAddressView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDistributorAddressViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetDistributorAddressView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDistributorAddressViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetDistributorAddressView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDistributorAddressViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetDistributorAddressView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetDistributorAddressViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerDeviceView">
+      <wsdl:input message="tns:IViewFacadeService_GetCustomerDeviceView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDeviceView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetCustomerDeviceView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDeviceViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetCustomerDeviceView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDeviceViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCustomerDeviceView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDeviceViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCustomerDeviceView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDeviceViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCustomerDeviceView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDeviceViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgreementView">
+      <wsdl:input message="tns:IViewFacadeService_GetAgreementView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetAgreementView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetAgreementView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAgreementView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAgreementView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAgreementView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetFinancialAccountView">
+      <wsdl:input message="tns:IViewFacadeService_GetFinancialAccountView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialAccountView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetFinancialAccountView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialAccountViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetFinancialAccountView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialAccountViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetFinancialAccountView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialAccountViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetFinancialAccountView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialAccountViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetFinancialAccountView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialAccountViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywordView">
+      <wsdl:input message="tns:IViewFacadeService_GetKeywordView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetKeywordView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetKeywordView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetKeywordViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetKeywordView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetKeywordViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetKeywordView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetKeywordViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetKeywordView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetKeywordViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetKeywordView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetKeywordViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetNoteView">
+      <wsdl:input message="tns:IViewFacadeService_GetNoteView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNoteView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetNoteView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNoteViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetNoteView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNoteViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetNoteView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNoteViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetNoteView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNoteViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetNoteView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetNoteViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetScheduleView">
+      <wsdl:input message="tns:IViewFacadeService_GetScheduleView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetScheduleView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetScheduleView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetScheduleViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetScheduleView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetScheduleViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetScheduleView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetScheduleViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetScheduleView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetScheduleViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetScheduleView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetScheduleViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetEventCallbackView">
+      <wsdl:input message="tns:IViewFacadeService_GetEventCallbackView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetEventCallbackView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetEventCallbackView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetEventCallbackViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetEventCallbackView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetEventCallbackViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetEventCallbackView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetEventCallbackViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetEventCallbackView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetEventCallbackViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetEventCallbackView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetEventCallbackViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationView">
+      <wsdl:input message="tns:IViewFacadeService_GetRelationView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetRelationView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetRelationView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetRelationViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetRelationView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetRelationViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetRelationView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetRelationViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetRelationView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetRelationViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetRelationView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetRelationViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetFinancialTransactionView">
+      <wsdl:input message="tns:IViewFacadeService_GetFinancialTransactionView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialTransactionView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetFinancialTransactionView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialTransactionViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetFinancialTransactionView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialTransactionViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetFinancialTransactionView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialTransactionViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetFinancialTransactionView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialTransactionViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetFinancialTransactionView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetFinancialTransactionViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgreementDetailView">
+      <wsdl:input message="tns:IViewFacadeService_GetAgreementDetailView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementDetailView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetAgreementDetailView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementDetailViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetAgreementDetailView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementDetailViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAgreementDetailView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementDetailViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAgreementDetailView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementDetailViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetAgreementDetailView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetAgreementDetailViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderedEventView">
+      <wsdl:input message="tns:IViewFacadeService_GetOrderedEventView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOrderedEventView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetOrderedEventView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOrderedEventViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetOrderedEventView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOrderedEventViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOrderedEventView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOrderedEventViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOrderedEventView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOrderedEventViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOrderedEventView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOrderedEventViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceView">
+      <wsdl:input message="tns:IViewFacadeService_GetInvoiceView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetInvoiceView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceRunHistoryView">
+      <wsdl:input message="tns:IViewFacadeService_GetInvoiceRunHistoryView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunHistoryView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetInvoiceRunHistoryView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunHistoryViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceRunHistoryView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunHistoryViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceRunHistoryView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunHistoryViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceRunHistoryView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunHistoryViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceRunHistoryView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunHistoryViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankImportView">
+      <wsdl:input message="tns:IViewFacadeService_GetBankImportView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankImportView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetBankImportView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankImportViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetBankImportView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankImportViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBankImportView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankImportViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBankImportView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankImportViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBankImportView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankImportViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLetterView">
+      <wsdl:input message="tns:IViewFacadeService_GetLetterView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLetterView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetLetterView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLetterViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetLetterView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLetterViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLetterView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLetterViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLetterView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLetterViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetLetterView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetLetterViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInvoiceRunView">
+      <wsdl:input message="tns:IViewFacadeService_GetInvoiceRunView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetInvoiceRunView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceRunView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceRunView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceRunView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetInvoiceRunView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetInvoiceRunViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerDistributorView">
+      <wsdl:input message="tns:IViewFacadeService_GetCustomerDistributorView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDistributorView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetCustomerDistributorView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDistributorViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetCustomerDistributorView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDistributorViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCustomerDistributorView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDistributorViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCustomerDistributorView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDistributorViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetCustomerDistributorView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetCustomerDistributorViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfferDefinitionView">
+      <wsdl:input message="tns:IViewFacadeService_GetOfferDefinitionView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferDefinitionView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetOfferDefinitionView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferDefinitionViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetOfferDefinitionView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferDefinitionViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOfferDefinitionView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferDefinitionViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOfferDefinitionView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferDefinitionViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetOfferDefinitionView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetOfferDefinitionViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetBatchView">
+      <wsdl:input message="tns:IViewFacadeService_GetBatchView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBatchView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetBatchView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBatchViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetBatchView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBatchViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBatchView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBatchViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBatchView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBatchViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBatchView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBatchViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeriodizationRunView">
+      <wsdl:input message="tns:IViewFacadeService_GetPeriodizationRunView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPeriodizationRunView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetPeriodizationRunView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPeriodizationRunViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetPeriodizationRunView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPeriodizationRunViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPeriodizationRunView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPeriodizationRunViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPeriodizationRunView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPeriodizationRunViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetPeriodizationRunView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetPeriodizationRunViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankInvoiceExportView">
+      <wsdl:input message="tns:IViewFacadeService_GetBankInvoiceExportView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankInvoiceExportView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetBankInvoiceExportView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankInvoiceExportViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetBankInvoiceExportView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankInvoiceExportViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBankInvoiceExportView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankInvoiceExportViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBankInvoiceExportView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankInvoiceExportViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetBankInvoiceExportView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetBankInvoiceExportViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetQueueView">
+      <wsdl:input message="tns:IViewFacadeService_GetQueueView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetQueueView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetQueueView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetQueueViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetQueueView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetQueueViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetQueueView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetQueueViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetQueueView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetQueueViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetQueueView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetQueueViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementView">
+      <wsdl:input message="tns:IViewFacadeService_GetSettlementView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetSettlementView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementRunView">
+      <wsdl:input message="tns:IViewFacadeService_GetSettlementRunView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetSettlementRunView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementRunView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementRunView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementRunView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunViewIBSFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementRunView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunViewSystemFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementRunHistoryView">
+      <wsdl:input message="tns:IViewFacadeService_GetSettlementRunHistoryView_InputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunHistoryView">
+    </wsdl:input>
+      <wsdl:output message="tns:IViewFacadeService_GetSettlementRunHistoryView_OutputMessage" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunHistoryViewResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementRunHistoryView_PermissionFaultFault_FaultMessage" name="PermissionFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunHistoryViewPermissionFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementRunHistoryView_AuthenticationFaultFault_FaultMessage" name="AuthenticationFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunHistoryViewAuthenticationFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementRunHistoryView_SystemFaultFault_FaultMessage" name="SystemFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunHistoryViewSystemFaultFault">
+    </wsdl:fault>
+      <wsdl:fault message="tns:IViewFacadeService_GetSettlementRunHistoryView_IBSFaultFault_FaultMessage" name="IBSFaultFault" wsaw:Action="http://ibs.entriq.net/ViewFacade/IViewFacadeService/GetSettlementRunHistoryViewIBSFaultFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

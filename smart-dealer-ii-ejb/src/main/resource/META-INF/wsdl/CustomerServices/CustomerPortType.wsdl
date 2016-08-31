@@ -1,0 +1,2604 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/contract/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns1="http://ibs.entriq.net/Security" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/crm/customer/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://directvla.com/contract/crm/customer/v1-0">
+<documentation>
+        <abstractWSDL>http://esbcol.directvla.com.co:80/soa-infra/services/DTVLA-Services/Customer-Service!1.0/customer.wsdl</abstractWSDL>
+    </documentation>
+  <types>
+<xsd:schema xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/contract/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns1="http://ibs.entriq.net/Security" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/crm/customer/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/contract/crm/customer/v1-0">
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="schema3.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="schema6.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema2.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema5.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="schema4.xsd"/>
+            
+  <xsd:complexType name="GetInvoice">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetInvoiceResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="Invoice" type="commonbd-v1-0:Invoice"/>
+                    
+      <xsd:element maxOccurs="1" name="Terminated" type="xsd:boolean"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="EquipmentRequest">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="CustomerId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element name="AgreementId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element name="FinancialAccountId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element name="TypeId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element name="StockHandlerId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element name="FinanceOptionId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element name="AgreeementDetailId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element name="ShipByDate" nillable="false" type="xsd:dateTime"/>
+                    
+      <xsd:element name="ReasonId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="unbounded" name="ProductosId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="SerialNumberSC" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="unbounded" minOccurs="1" name="SerialNumberIRD" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="LedgerAccount" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="BaseAmount" type="commonbd-v1-0:Money"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="EquipmentRequestResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="RespShippingOrderId" nillable="false" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="FinancialAnalysis">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="ReferenceNr" nillable="true">
+                        
+        <xsd:simpleType>
+                            
+          <xsd:restriction base="xsd:int">
+                                
+            <xsd:minInclusive value="1"/>
+                            
+          </xsd:restriction>
+                        
+        </xsd:simpleType>
+                    
+      </xsd:element>
+                    
+      <xsd:element name="creditCardNumber" nillable="true" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="FinancialAnalysisResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="mensaje" nillable="false" type="xsd:boolean"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomersByCreditCard">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CreditCardNumber" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomersByCreditCardResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="CustomerList" type="customerbd-v1-0:CustomerCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInfo">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInfoResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="Customer" type="customerbd-v1-0:Customer"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="Activation" type="xsd:dateTime"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="Old" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomersByIdentification">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerIdentification" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomersByIdentificationResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="CustomerList" type="customerbd-v1-0:CustomerCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerAddresses">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="Params" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerAddressesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="customer" type="customerbd-v1-0:Customer"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerCharacteristics">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerCharacteristicsResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="CharacteristicsList" type="commonbd-v1-0:CharacteristicsCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInquiries">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInquiriesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="InquiriesList" type="customerbd-v1-0:CustomerInquiryCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerProducts">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey">
+                        
+        <xsd:simpleType>
+                            
+          <xsd:restriction base="xsd:string">
+                                
+            <xsd:pattern value="[0-9]+"/>
+                            
+          </xsd:restriction>
+                        
+        </xsd:simpleType>
+                    
+      </xsd:element>
+                    
+      <xsd:element maxOccurs="1" name="Linked" type="xsd:boolean"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="Params" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerProductsResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ProductList" type="productbd-v1-0:ProductCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetFinancialInfo">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="codClient" type="xsd:long"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="accountNumber" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetFinancialInfoResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="account" type="customerbd-v1-0:Customer"/>
+                    
+      <xsd:element name="invoice" type="commonbd-v1-0:Invoice"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetFinancialInfoCRMResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="account" type="customerbd-v1-0:Customer"/>
+                    
+      <xsd:element minOccurs="0" name="TotalFinancialAccountBalance" type="xsd:decimal"/>
+                    
+      <xsd:element minOccurs="0" name="NotYetDue" type="xsd:decimal"/>
+                    
+      <xsd:element minOccurs="0" name="LastInvoiced" type="xsd:decimal"/>
+                    
+      <xsd:element minOccurs="0" name="TotalAmountOverdue" type="xsd:decimal"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerResources">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="Params" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerResourcesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ResourcesList" type="commonbd-v1-0:PhysicalResourceCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="DeleteCustomerSchedule">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="DeleteCustomerScheduleResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="status" type="xsd:boolean"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="ReauthorizeCustomerResources">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="Resource" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" name="Reason" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="ReauthorizeCustomerResourcesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="EndOk" nillable="false" type="xsd:boolean"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="CreateShippingOrder">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustShippingOrder" type="commonbd-v1-0:ShippingOrder"/>
+                    
+      <xsd:element maxOccurs="1" name="Reason" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="AgreementId" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="FinancialAccountId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="CreateShippingOrderResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="ShipingOrderId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="CreateCustomerPayment">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                    
+      <xsd:element name="Payment" type="customerbd-v1-0:PaymentTransaction"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="CreateCustomerPaymentResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="RespTransactionId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="CreateShippingOrderRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="CreateShippingOrder" type="crm-customer-v1-0:CreateShippingOrder"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CreateShippingOrderResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="CreateShippingOrderResult" type="crm-customer-v1-0:CreateShippingOrderResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CreateCustomerPaymentRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="CreateCustomerPayment" type="crm-customer-v1-0:CreateCustomerPayment"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CreateCustomerPaymentResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="CreateCustomerPaymentResult" type="crm-customer-v1-0:CreateCustomerPaymentResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetInvoiceRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetInvoice" type="crm-customer-v1-0:GetInvoice"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetInvoiceResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetInvoiceResult" type="crm-customer-v1-0:GetInvoiceResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomersByCreditCardRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomersByCreditCard" type="crm-customer-v1-0:GetCustomersByCreditCard"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomersByCreditCardResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomersByCreditCardResult" type="crm-customer-v1-0:GetCustomersByCreditCardResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInfoRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInfo" type="crm-customer-v1-0:GetCustomerInfo"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ReauthorizeCustomerResourcesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="ReauthorizeCustomerResources" type="crm-customer-v1-0:ReauthorizeCustomerResources"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ReauthorizeCustomerResourcesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="ReauthorizeCustomerResourcesResult" type="crm-customer-v1-0:ReauthorizeCustomerResourcesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInfoResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInfoResult" type="crm-customer-v1-0:GetCustomerInfoResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomersByIdentificationRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomersByIdentification" type="crm-customer-v1-0:GetCustomersByIdentification"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomersByIdentificationResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomersByIdentificationResult" type="crm-customer-v1-0:GetCustomersByIdentificationResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerAddressesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerAddresses" type="crm-customer-v1-0:GetCustomerAddresses"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerAddressesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerAddressesResult" type="crm-customer-v1-0:GetCustomerAddressesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerCharacteristicsRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerCharacteristics" type="crm-customer-v1-0:GetCustomerCharacteristics"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerCharacteristicsResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerCharacteristicsResult" type="crm-customer-v1-0:GetCustomerCharacteristicsResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiries" type="crm-customer-v1-0:GetCustomerInquiries"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesResult" type="crm-customer-v1-0:GetCustomerInquiriesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerProductsRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerProducts" type="crm-customer-v1-0:GetCustomerProducts"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerProductsResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerProductsResult" type="crm-customer-v1-0:GetCustomerProductsResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetFinancialInfoRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetFinancialInfo" type="crm-customer-v1-0:GetFinancialInfo"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetFinancialInfoResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetFinancialInfoResult" type="crm-customer-v1-0:GetFinancialInfoResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerResourcesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerResources" type="crm-customer-v1-0:GetCustomerResources"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerResourcesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerResourcesResult" type="crm-customer-v1-0:GetCustomerResourcesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetFinancialInfoCRMRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetFinancialInfo" type="crm-customer-v1-0:GetFinancialInfo"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetFinancialInfoCRMResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetFinancialInfoCRMResult" type="crm-customer-v1-0:GetFinancialInfoCRMResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="DeleteCustomerScheduleRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="DeleteCustomerSchedule" type="crm-customer-v1-0:DeleteCustomerSchedule"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="DeleteCustomerScheduleResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="DeleteCustomerScheduleResult" type="crm-customer-v1-0:DeleteCustomerScheduleResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CreateShippingOrderException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CreateCustomerPaymentException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetInvoiceException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ReauthorizeCustomerResourcesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerDebtException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInfoException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerAddressesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerCharacteristicsException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerProductsException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetFinancialInfoException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerResourcesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomersByCreditCardException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomersByIdentificationException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetFinancialInfoCRMException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="DeleteCustomerScheduleException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="FinancialAnalysisException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="FinancialAnalysisRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="FinancialAnalysis" type="crm-customer-v1-0:FinancialAnalysis"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="FinancialAnalysisResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="FinancialAnalysisResult" type="crm-customer-v1-0:FinancialAnalysisResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerSchedules">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerId" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="CreatedDate" type="commonbd-v1-0:TimePeriod"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ExecuteDate" type="commonbd-v1-0:TimePeriod"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="Entity" type="customerbd-v1-0:Entity"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="EventId" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ReasonId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerSchedulesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerScheduleCollection" type="customerbd-v1-0:CustomerScheduleCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerSchedulesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="commonex-v1-0:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerSchedulesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerSchedules" type="crm-customer-v1-0:GetCustomerSchedules"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerSchedulesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerSchedulesResult" type="crm-customer-v1-0:GetCustomerSchedulesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+        
+</xsd:schema>
+  </types>
+  <message name="GetCustomerAddressesResponse">
+    <part element="tns:GetCustomerAddressesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerResourcesException">
+    <part element="tns:GetCustomerResourcesException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerResourcesResponse">
+    <part element="tns:GetCustomerResourcesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetFinancialInfoCRMRequest">
+    <part element="tns:GetFinancialInfoCRMRequest" name="parameter">
+    </part>
+  </message>
+  <message name="CreateShippingOrderRequest">
+    <part element="tns:CreateShippingOrderRequest" name="parameter">
+    </part>
+  </message>
+  <message name="DeleteCustomerScheduleException">
+    <part element="tns:DeleteCustomerScheduleException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerCharacteristicsException">
+    <part element="tns:GetCustomerCharacteristicsException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerProductsRequest">
+    <part element="tns:GetCustomerProductsRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomersByCreditCardResponse">
+    <part element="tns:GetCustomersByCreditCardResponse" name="parameter">
+    </part>
+  </message>
+  <message name="FinancialAnalysisResponse">
+    <part element="tns:FinancialAnalysisResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerProductsResponse">
+    <part element="tns:GetCustomerProductsResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesException">
+    <part element="tns:GetCustomerInquiriesException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerSchedulesRequest">
+    <part element="tns:GetCustomerSchedulesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerSchedulesException">
+    <part element="tns:GetCustomerSchedulesException" name="parameter">
+    </part>
+  </message>
+  <message name="CreateShippingOrderException">
+    <part element="tns:CreateShippingOrderException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomersByIdentificationResponse">
+    <part element="tns:GetCustomersByIdentificationResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInfoException">
+    <part element="tns:GetCustomerInfoException" name="parameter">
+    </part>
+  </message>
+  <message name="CreateCustomerPaymentException">
+    <part element="tns:CreateCustomerPaymentException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomersByCreditCardRequest">
+    <part element="tns:GetCustomersByCreditCardRequest" name="parameter">
+    </part>
+  </message>
+  <message name="ReauthorizeCustomerResourcesRequest">
+    <part element="tns:ReauthorizeCustomerResourcesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetFinancialInfoRequest">
+    <part element="tns:GetFinancialInfoRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetFinancialInfoCRMResponse">
+    <part element="tns:GetFinancialInfoCRMResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerAddressesRequest">
+    <part element="tns:GetCustomerAddressesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerCharacteristicsRequest">
+    <part element="tns:GetCustomerCharacteristicsRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetInvoiceException">
+    <part element="tns:GetInvoiceException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerSchedulesResponse">
+    <part element="tns:GetCustomerSchedulesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="ReauthorizeCustomerResourcesResponse">
+    <part element="tns:ReauthorizeCustomerResourcesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInfoRequest">
+    <part element="tns:GetCustomerInfoRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetInvoiceResponse">
+    <part element="tns:GetInvoiceResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetInvoiceRequest">
+    <part element="tns:GetInvoiceRequest" name="parameter">
+    </part>
+  </message>
+  <message name="FinancialAnalysisRequest">
+    <part element="tns:FinancialAnalysisRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetFinancialInfoException">
+    <part element="tns:GetFinancialInfoException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesRequest">
+    <part element="tns:GetCustomerInquiriesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerAddressesException">
+    <part element="tns:GetCustomerAddressesException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesResponse">
+    <part element="tns:GetCustomerInquiriesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="DeleteCustomerScheduleResponse">
+    <part element="tns:DeleteCustomerScheduleResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomersByIdentificationException">
+    <part element="tns:GetCustomersByIdentificationException" name="parameter">
+    </part>
+  </message>
+  <message name="GetFinancialInfoResponse">
+    <part element="tns:GetFinancialInfoResponse" name="parameter">
+    </part>
+  </message>
+  <message name="ReauthorizeCustomerResourcesException">
+    <part element="tns:ReauthorizeCustomerResourcesException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInfoResponse">
+    <part element="tns:GetCustomerInfoResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerProductsException">
+    <part element="tns:GetCustomerProductsException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomersByCreditCardException">
+    <part element="tns:GetCustomersByCreditCardException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerCharacteristicsResponse">
+    <part element="tns:GetCustomerCharacteristicsResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerResourcesRequest">
+    <part element="tns:GetCustomerResourcesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="DeleteCustomerScheduleRequest">
+    <part element="tns:DeleteCustomerScheduleRequest" name="parameter">
+    </part>
+  </message>
+  <message name="FinancialAnalysisException">
+    <part element="tns:FinancialAnalysisException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomersByIdentificationRequest">
+    <part element="tns:GetCustomersByIdentificationRequest" name="parameter">
+    </part>
+  </message>
+  <message name="CreateCustomerPaymentRequest">
+    <part element="tns:CreateCustomerPaymentRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetFinancialInfoCRMException">
+    <part element="tns:GetFinancialInfoCRMException" name="parameter">
+    </part>
+  </message>
+  <message name="CreateCustomerPaymentResponse">
+    <part element="tns:CreateCustomerPaymentResponse" name="parameter">
+    </part>
+  </message>
+  <message name="CreateShippingOrderResponse">
+    <part element="tns:CreateShippingOrderResponse" name="parameter">
+    </part>
+  </message>
+  <portType name="CustomerPortType">
+    <operation name="GetInvoice">
+      <input message="tns:GetInvoiceRequest">
+    </input>
+      <output message="tns:GetInvoiceResponse">
+    </output>
+      <fault message="tns:GetInvoiceException" name="GetInvoiceException">
+    </fault>
+    </operation>
+    <operation name="CreateCustomerPayment">
+      <input message="tns:CreateCustomerPaymentRequest">
+    </input>
+      <output message="tns:CreateCustomerPaymentResponse">
+    </output>
+      <fault message="tns:CreateCustomerPaymentException" name="CreateCustomerPaymenttException">
+    </fault>
+    </operation>
+    <operation name="CreateShippingOrder">
+      <input message="tns:CreateShippingOrderRequest">
+    </input>
+      <output message="tns:CreateShippingOrderResponse">
+    </output>
+      <fault message="tns:CreateShippingOrderException" name="CreateShippingOrderException">
+    </fault>
+    </operation>
+    <operation name="GetCustomersByCreditCard">
+      <input message="tns:GetCustomersByCreditCardRequest">
+    </input>
+      <output message="tns:GetCustomersByCreditCardResponse">
+    </output>
+      <fault message="tns:GetCustomersByCreditCardException" name="GetCustomersByCreditCardException">
+    </fault>
+    </operation>
+    <operation name="GetCustomersByIdentification">
+      <input message="tns:GetCustomersByIdentificationRequest">
+    </input>
+      <output message="tns:GetCustomersByIdentificationResponse">
+    </output>
+      <fault message="tns:GetCustomersByIdentificationException" name="GetCustomersByIdentificationException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInfo">
+      <input message="tns:GetCustomerInfoRequest">
+    </input>
+      <output message="tns:GetCustomerInfoResponse">
+    </output>
+      <fault message="tns:GetCustomerInfoException" name="GetCustomerInfoException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerAddresses">
+      <input message="tns:GetCustomerAddressesRequest">
+    </input>
+      <output message="tns:GetCustomerAddressesResponse">
+    </output>
+      <fault message="tns:GetCustomerAddressesException" name="GetCustomerAddressesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerCharacteristics">
+      <input message="tns:GetCustomerCharacteristicsRequest">
+    </input>
+      <output message="tns:GetCustomerCharacteristicsResponse">
+    </output>
+      <fault message="tns:GetCustomerCharacteristicsException" name="GetCustomerCharacteristicsException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInquiries">
+      <input message="tns:GetCustomerInquiriesRequest">
+    </input>
+      <output message="tns:GetCustomerInquiriesResponse">
+    </output>
+      <fault message="tns:GetCustomerInquiriesException" name="GetCustomerInquiriesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerProducts">
+      <input message="tns:GetCustomerProductsRequest">
+    </input>
+      <output message="tns:GetCustomerProductsResponse">
+    </output>
+      <fault message="tns:GetCustomerProductsException" name="GetCustomerProductsException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerFinancialInfo">
+      <input message="tns:GetFinancialInfoRequest">
+    </input>
+      <output message="tns:GetFinancialInfoResponse">
+    </output>
+      <fault message="tns:GetFinancialInfoException" name="GetFinancialInfoException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerResources">
+      <input message="tns:GetCustomerResourcesRequest">
+    </input>
+      <output message="tns:GetCustomerResourcesResponse">
+    </output>
+      <fault message="tns:GetCustomerResourcesException" name="GetCustomerResourcesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerFinancialInfoCRM">
+      <input message="tns:GetFinancialInfoCRMRequest">
+    </input>
+      <output message="tns:GetFinancialInfoCRMResponse">
+    </output>
+      <fault message="tns:GetFinancialInfoCRMException" name="GetCustomerFinancialInfoCRMException">
+    </fault>
+    </operation>
+    <operation name="DeleteCustomerSchedule">
+      <input message="tns:DeleteCustomerScheduleRequest">
+    </input>
+      <output message="tns:DeleteCustomerScheduleResponse">
+    </output>
+      <fault message="tns:DeleteCustomerScheduleException" name="DeleteCustomerScheduleException">
+    </fault>
+    </operation>
+    <operation name="GetFinancialAnalysis">
+      <input message="tns:FinancialAnalysisRequest">
+    </input>
+      <output message="tns:FinancialAnalysisResponse">
+    </output>
+      <fault message="tns:FinancialAnalysisException" name="FinancialAnalysisException">
+    </fault>
+    </operation>
+    <operation name="ReauthorizeCustomerResources">
+      <input message="tns:ReauthorizeCustomerResourcesRequest">
+    </input>
+      <output message="tns:ReauthorizeCustomerResourcesResponse">
+    </output>
+      <fault message="tns:ReauthorizeCustomerResourcesException" name="ReauthorizeCustomerResourcesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerSchedules">
+      <input message="tns:GetCustomerSchedulesRequest">
+    </input>
+      <output message="tns:GetCustomerSchedulesResponse">
+    </output>
+      <fault message="tns:GetCustomerSchedulesException" name="GetCustomerSchedulesException">
+    </fault>
+    </operation>
+  </portType>
+  <portType name="CustomerPortTypeSecure">
+    <operation name="GetInvoice">
+      <input message="tns:GetInvoiceRequest">
+    </input>
+      <output message="tns:GetInvoiceResponse">
+    </output>
+      <fault message="tns:GetInvoiceException" name="GetInvoiceException">
+    </fault>
+    </operation>
+    <operation name="CreateCustomerPayment">
+      <input message="tns:CreateCustomerPaymentRequest">
+    </input>
+      <output message="tns:CreateCustomerPaymentResponse">
+    </output>
+      <fault message="tns:CreateCustomerPaymentException" name="CreateCustomerPaymenttException">
+    </fault>
+    </operation>
+    <operation name="CreateShippingOrder">
+      <input message="tns:CreateShippingOrderRequest">
+    </input>
+      <output message="tns:CreateShippingOrderResponse">
+    </output>
+      <fault message="tns:CreateShippingOrderException" name="CreateShippingOrderException">
+    </fault>
+    </operation>
+    <operation name="GetCustomersByCreditCard">
+      <input message="tns:GetCustomersByCreditCardRequest">
+    </input>
+      <output message="tns:GetCustomersByCreditCardResponse">
+    </output>
+      <fault message="tns:GetCustomersByCreditCardException" name="GetCustomersByCreditCardException">
+    </fault>
+    </operation>
+    <operation name="GetCustomersByIdentification">
+      <input message="tns:GetCustomersByIdentificationRequest">
+    </input>
+      <output message="tns:GetCustomersByIdentificationResponse">
+    </output>
+      <fault message="tns:GetCustomersByIdentificationException" name="GetCustomersByIdentificationException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInfo">
+      <input message="tns:GetCustomerInfoRequest">
+    </input>
+      <output message="tns:GetCustomerInfoResponse">
+    </output>
+      <fault message="tns:GetCustomerInfoException" name="GetCustomerInfoException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerAddresses">
+      <input message="tns:GetCustomerAddressesRequest">
+    </input>
+      <output message="tns:GetCustomerAddressesResponse">
+    </output>
+      <fault message="tns:GetCustomerAddressesException" name="GetCustomerAddressesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerCharacteristics">
+      <input message="tns:GetCustomerCharacteristicsRequest">
+    </input>
+      <output message="tns:GetCustomerCharacteristicsResponse">
+    </output>
+      <fault message="tns:GetCustomerCharacteristicsException" name="GetCustomerCharacteristicsException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInquiries">
+      <input message="tns:GetCustomerInquiriesRequest">
+    </input>
+      <output message="tns:GetCustomerInquiriesResponse">
+    </output>
+      <fault message="tns:GetCustomerInquiriesException" name="GetCustomerInquiriesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerProducts">
+      <input message="tns:GetCustomerProductsRequest">
+    </input>
+      <output message="tns:GetCustomerProductsResponse">
+    </output>
+      <fault message="tns:GetCustomerProductsException" name="GetCustomerProductsException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerFinancialInfo">
+      <input message="tns:GetFinancialInfoRequest">
+    </input>
+      <output message="tns:GetFinancialInfoResponse">
+    </output>
+      <fault message="tns:GetFinancialInfoException" name="GetFinancialInfoException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerResources">
+      <input message="tns:GetCustomerResourcesRequest">
+    </input>
+      <output message="tns:GetCustomerResourcesResponse">
+    </output>
+      <fault message="tns:GetCustomerResourcesException" name="GetCustomerResourcesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerFinancialInfoCRM">
+      <input message="tns:GetFinancialInfoCRMRequest">
+    </input>
+      <output message="tns:GetFinancialInfoCRMResponse">
+    </output>
+      <fault message="tns:GetFinancialInfoCRMException" name="GetCustomerFinancialInfoCRMException">
+    </fault>
+    </operation>
+    <operation name="DeleteCustomerSchedule">
+      <input message="tns:DeleteCustomerScheduleRequest">
+    </input>
+      <output message="tns:DeleteCustomerScheduleResponse">
+    </output>
+      <fault message="tns:DeleteCustomerScheduleException" name="DeleteCustomerScheduleException">
+    </fault>
+    </operation>
+    <operation name="GetFinancialAnalysis">
+      <input message="tns:FinancialAnalysisRequest">
+    </input>
+      <output message="tns:FinancialAnalysisResponse">
+    </output>
+      <fault message="tns:FinancialAnalysisException" name="FinancialAnalysisException">
+    </fault>
+    </operation>
+    <operation name="ReauthorizeCustomerResources">
+      <input message="tns:ReauthorizeCustomerResourcesRequest">
+    </input>
+      <output message="tns:ReauthorizeCustomerResourcesResponse">
+    </output>
+      <fault message="tns:ReauthorizeCustomerResourcesException" name="ReauthorizeCustomerResourcesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerSchedules">
+      <input message="tns:GetCustomerSchedulesRequest">
+    </input>
+      <output message="tns:GetCustomerSchedulesResponse">
+    </output>
+      <fault message="tns:GetCustomerSchedulesException" name="GetCustomerSchedulesException">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="CustomerPortTypeSOAP11Binding" type="tns:CustomerPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetInvoice">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetInvoice" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetInvoiceException">
+        <soap:fault name="GetInvoiceException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="CreateCustomerPayment">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/CreateCustomerPayment" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="CreateCustomerPaymenttException">
+        <soap:fault name="CreateCustomerPaymenttException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="CreateShippingOrder">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/CreateShippingOrder" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="CreateShippingOrderException">
+        <soap:fault name="CreateShippingOrderException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomersByCreditCard">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomersByCreditCard" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomersByCreditCardException">
+        <soap:fault name="GetCustomersByCreditCardException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomersByIdentification">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomersByIdentification" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomersByIdentificationException">
+        <soap:fault name="GetCustomersByIdentificationException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInfo">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerInfo" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInfoException">
+        <soap:fault name="GetCustomerInfoException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerAddresses">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerAddresses" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerAddressesException">
+        <soap:fault name="GetCustomerAddressesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerCharacteristics">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerCharacteristics" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerCharacteristicsException">
+        <soap:fault name="GetCustomerCharacteristicsException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInquiries">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerInquiries" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInquiriesException">
+        <soap:fault name="GetCustomerInquiriesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerProducts">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerProducts" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerProductsException">
+        <soap:fault name="GetCustomerProductsException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerFinancialInfo">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerFinancialInfo" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetFinancialInfoException">
+        <soap:fault name="GetFinancialInfoException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerResources">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerResources" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerResourcesException">
+        <soap:fault name="GetCustomerResourcesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerFinancialInfoCRM">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerFinancialInfoCRM" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerFinancialInfoCRMException">
+        <soap:fault name="GetCustomerFinancialInfoCRMException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="DeleteCustomerSchedule">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/DeleteCustomerSchedule" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="DeleteCustomerScheduleException">
+        <soap:fault name="DeleteCustomerScheduleException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetFinancialAnalysis">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetFinancialAnalysis" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="FinancialAnalysisException">
+        <soap:fault name="FinancialAnalysisException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="ReauthorizeCustomerResources">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/ReauthorizeCustomerResources" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="ReauthorizeCustomerResourcesException">
+        <soap:fault name="ReauthorizeCustomerResourcesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerSchedules">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerSchedules" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerSchedulesException">
+        <soap:fault name="GetCustomerSchedulesException" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <binding name="CustomerPortTypeSecureSOAP11Binding" type="tns:CustomerPortTypeSecure">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetInvoice">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetInvoice" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetInvoiceException">
+        <soap:fault name="GetInvoiceException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="CreateCustomerPayment">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/CreateCustomerPayment" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="CreateCustomerPaymenttException">
+        <soap:fault name="CreateCustomerPaymenttException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="CreateShippingOrder">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/CreateShippingOrder" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="CreateShippingOrderException">
+        <soap:fault name="CreateShippingOrderException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomersByCreditCard">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomersByCreditCard" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomersByCreditCardException">
+        <soap:fault name="GetCustomersByCreditCardException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomersByIdentification">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomersByIdentification" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomersByIdentificationException">
+        <soap:fault name="GetCustomersByIdentificationException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInfo">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerInfo" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInfoException">
+        <soap:fault name="GetCustomerInfoException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerAddresses">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerAddresses" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerAddressesException">
+        <soap:fault name="GetCustomerAddressesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerCharacteristics">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerCharacteristics" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerCharacteristicsException">
+        <soap:fault name="GetCustomerCharacteristicsException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInquiries">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerInquiries" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInquiriesException">
+        <soap:fault name="GetCustomerInquiriesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerProducts">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerProducts" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerProductsException">
+        <soap:fault name="GetCustomerProductsException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerFinancialInfo">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerFinancialInfo" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetFinancialInfoException">
+        <soap:fault name="GetFinancialInfoException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerResources">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerResources" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerResourcesException">
+        <soap:fault name="GetCustomerResourcesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerFinancialInfoCRM">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerFinancialInfoCRM" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerFinancialInfoCRMException">
+        <soap:fault name="GetCustomerFinancialInfoCRMException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="DeleteCustomerSchedule">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/DeleteCustomerSchedule" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="DeleteCustomerScheduleException">
+        <soap:fault name="DeleteCustomerScheduleException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetFinancialAnalysis">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetFinancialAnalysis" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="FinancialAnalysisException">
+        <soap:fault name="FinancialAnalysisException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="ReauthorizeCustomerResources">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/ReauthorizeCustomerResources" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="ReauthorizeCustomerResourcesException">
+        <soap:fault name="ReauthorizeCustomerResourcesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerSchedules">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1-0/GetCustomerSchedules" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerSchedulesException">
+        <soap:fault name="GetCustomerSchedulesException" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="CustomerPortType">
+    <port binding="tns:CustomerPortTypeSOAP11Binding" name="CustomerPortTypePort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/Customer-Service/CustomerServices"/>
+    </port>
+  </service>
+  <service name="CustomerPortTypeSecure">
+    <port binding="tns:CustomerPortTypeSecureSOAP11Binding" name="CustomerPortTypeSecurePort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/Customer-Service/CustomerServices"/>
+    </port>
+  </service>
+</definitions>

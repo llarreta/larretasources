@@ -1,0 +1,367 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<!-- a SessionFactory instance listed as /jndi/name -->
+    <session-factory>
+        <!-- properties -->
+        <!-- <property name="hibernate.connection.datasource">jdbc/SmartDealerII</property> -->
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+        <property name="show_sql">false</property>
+		
+		<!-- Cache
+		<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+ 		<property name="hibernate.cache.use_structured_entries">true</property> -->
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<!-- <property name="hibernate.cache.provider_configuration_file_resource_path">/properties/ehcache.xml</property> -->
+		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</property>
+		
+		<!-- Inicio configuración para auditoría parte 1 -->
+		<property name="org.hibernate.envers.audit_table_suffix">_AU</property> 
+		<property name="org.hibernate.envers.revision_field_name">REV</property> 
+		<property name="org.hibernate.envers.revision_type_field_name">REVTYPE</property>
+		<!-- Fin configuración para auditoría parte 1 -->
+		
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.CMTTransactionFactory</property>
+        <property name="hibernate.transaction.manager_lookup_class">org.hibernate.transaction.WeblogicTransactionManagerLookup</property>        
+        <property name="hibernate.order_updates">true</property>
+        
+        <!-- mapping files -->
+        
+        <!-- Inicio ejecucion procedimientos en BD Oracle -->
+		<mapping resource="co/com/directv/sdii/model/hbm/ProceduresPLSQL.hbm.xml" />
+        
+        <!--Dealers-->
+        <mapping resource="co/com/directv/sdii/model/hbm/VehicleType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/EmployeeVehicle.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/DealerStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/DealerType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Employee.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Training.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/MembershipType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Crew.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/DealerMediaContact.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/MediaContactType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CrewStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ContactType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/TrainingType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/EmployeeRetirement.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Eps.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/City.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/EmployeeRol.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Country.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Vehicle.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/EmployeeStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/EmployeeMediaContact.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/DocumentType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ContractType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Arp.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Pension.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/State.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Position.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CrewType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CrewOff.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/VehicleStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/EmployeeCrew.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ChannelType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Dealer.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/PostalCode.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ZoneType.hbm.xml" />
+        <!--Config-->
+        <mapping resource="co/com/directv/sdii/model/hbm/SkillType.hbm.xml" />        
+        <mapping resource="co/com/directv/sdii/model/hbm/WoType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Service.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/AllianceFile.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkorderStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Customer.hbm.xml" />        
+        <mapping resource="co/com/directv/sdii/model/hbm/OptimusStatusEvent.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/OptimusStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/OptimusStatusHistory.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/OptimusDeclineWoHistory.hbm.xml" />                      
+        <mapping resource="co/com/directv/sdii/model/hbm/CustomerAgreementType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Skill.hbm.xml" />       
+        <mapping resource="co/com/directv/sdii/model/hbm/ShippingOrder.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ResponsibleArea.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkOrder.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkOrderMark.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkOrderWorkOrderMark.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkorderCSRStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkOrderCSR.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ComercialProduct.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ServiceStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Program.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ProgramStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Ibs6Status.hbm.xml" />   
+        <mapping resource="co/com/directv/sdii/model/hbm/IbsContact.hbm.xml" />    
+        <mapping resource="co/com/directv/sdii/model/hbm/IbsContactReason.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkorderReason.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WoStatusHistory.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ServiceHourStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CustomerMediaContact.hbm.xml" />
+        
+        <mapping resource="co/com/directv/sdii/model/hbm/CustomerType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CustomerCategory.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CustomerClassType.hbm.xml" />
+        
+        <mapping resource="co/com/directv/sdii/model/hbm/ShippingOrderType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WoAssignment.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ServiceHour.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CustomerTitle.hbm.xml" />        
+        <mapping resource="co/com/directv/sdii/model/hbm/ServiceCategory.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/AllianceCompany.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkOrderService.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/Alliance.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CustomerClass.hbm.xml" />        
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkOrderAgenda.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkorderReasonCategory.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ParameterType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ShippingOrderStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/RequiredServiceElement.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/SystemParameter.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkorderReasonType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/ServiceType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WoServiceStatus.hbm.xml"/>
+        <mapping resource="co/com/directv/sdii/model/hbm/AttentionStatus.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WoAttentionStatus.hbm.xml" />
+        <!-- Core  -->
+		<mapping resource="co/com/directv/sdii/model/hbm/SpearRuleStatus.hbm.xml" />		
+		<mapping resource="co/com/directv/sdii/model/hbm/Category.hbm.xml" />		
+		<mapping resource="co/com/directv/sdii/model/hbm/Contact.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ContactConfiguration.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ContactStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/InputMethod.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/WoManagmentElement.hbm.xml" />
+		
+		<!-- Seguridad -->
+		<mapping resource="co/com/directv/sdii/model/hbm/Profile.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/User.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/MenuItem.hbm.xml" />		
+		<mapping resource="co/com/directv/sdii/model/hbm/Menu.hbm.xml" />		
+		<mapping resource="co/com/directv/sdii/model/hbm/Rol.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/RoleType.hbm.xml" />
+		<!-- Auditoría -->
+		<mapping resource="co/com/directv/sdii/audit/hbm/AuditLog.hbm.xml" />
+		<!-- Manejo de errores -->
+		<mapping resource="co/com/ig/common/error/hbm/ErrorMessage.hbm.xml" />
+		<mapping resource="co/com/ig/common/error/hbm/ErrorCategory.hbm.xml" />		
+		<mapping resource="co/com/ig/common/error/hbm/ErrorMessageReason.hbm.xml" />
+		<mapping resource="co/com/ig/common/error/hbm/ErrorReason.hbm.xml" />
+		
+		<mapping resource="co/com/directv/sdii/model/hbm/AllocatorEventMaster.hbm.xml" />	
+		<mapping resource="co/com/directv/sdii/model/hbm/AllocatorEvent.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/Delivery.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/EmailType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/FileDetailProcess.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/FileStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/FileType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ProcessStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ShippingOrderElement.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/UploadFile.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/UploadFileParam.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/WoCrewAssigments.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/WoLoad.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/WoLoadDetail.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/WoProgramAssigments.hbm.xml" />
+		
+		<!-- Stock -->		
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/Adjustment.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/AdjustmentElements.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/AdjustmentStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/AdjustmentElementsStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/AdjustmentType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/AdjustmentModification.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/DocumentClass.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/Element.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ElementBrand.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ElementClass.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ElementModel.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ElementStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ElementType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/IbsElementStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ImpLogConfirmation.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ImpLogModification.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ImpLogModificationType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ImportLog.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ImportLogInconsistency.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ImportLogItem.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ImportLogStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/InconsistencyStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/InconsistencyType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ItemStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MassiveMovement.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MassiveMovementDealer.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MeasureUnit.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MovCmdConfig.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MovCmdLog.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MovCmdQueue.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MovCmdStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MovElementProcess.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/MovementType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/NotSerialized.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/NotSerPartialRetirement.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/RecordStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/RefConfirmation.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/Reference.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ReferenceElementItem.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ReferenceModification.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ReferenceModType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ReferenceStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/RefInconsistency.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/RefIncStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/RefIncType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/RefQuantityControlItem.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/RefRecieveData.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/ReportedElement.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/Serialized.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/SpecialComment.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/Supplier.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/TransferReason.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/TransportCompany.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/Warehouse.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WarehouseElement.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WarehouseElementStock.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WarehouseType.hbm.xml" />
+		
+		<mapping resource="co/com/directv/sdii/model/hbm/LoadFile.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/LoadFileType.hbm.xml" />
+		<!-- Módulo de black berry -->
+		<mapping resource="co/com/directv/sdii/model/hbm/EmployeeDevices.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DeviceBrand.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ServiceProvider.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DeviceModel.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/MobileDevice.hbm.xml" />
+		
+		<!-- Módulo de KPI -->
+		<mapping resource="co/com/directv/sdii/model/hbm/Indicators.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/KpiGoals.hbm.xml" />
+		
+		<!-- Zona horaria -->
+		<mapping resource="co/com/directv/sdii/model/hbm/SdiiTimeZone.hbm.xml" />
+		
+		<!-- Estado civil de empleado -->
+		<mapping resource="co/com/directv/sdii/model/hbm/MaritalStatus.hbm.xml" />
+		<!-- Nivel de educacion de empleado -->
+		<mapping resource="co/com/directv/sdii/model/hbm/EducationLevel.hbm.xml" />
+		
+		<!-- relacion entre tipo de servicio y tipo de WO -->
+		<mapping resource="co/com/directv/sdii/model/hbm/TypeServiceWorkOrders.hbm.xml" />
+		
+		<!-- Tabla para mapeo de acordeon para consultas por agrupacion por vencimiento -->
+		<mapping resource="co/com/directv/sdii/model/hbm/ExpirationGrouping.hbm.xml" />
+		
+		<!-- Tabla wo pdf annex -->
+		<mapping resource="co/com/directv/sdii/model/hbm/WoPdfAnnex.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/WoPdfElementTypeNotSerialized.hbm.xml" />
+		
+		<!-- Tabla para mapear la tecnologia de elementos -->
+		<mapping resource="co/com/directv/sdii/model/hbm/Technology.hbm.xml" />
+		
+		<!-- Tabla para detalles de SO -->
+		<mapping resource="co/com/directv/sdii/model/hbm/ShippingOrderDetail.hbm.xml" />
+		
+		<!-- Customer -->
+        <mapping resource="co/com/directv/sdii/model/hbm/IbsMediaContactType.hbm.xml" />
+		
+		<!-- Inicio mapping para el módulo del asignador -->		
+		<mapping resource="co/com/directv/sdii/model/hbm/AuditExternalSystemSchedule.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerCustomerTypesWoutPc.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/HistoDealerBuilding.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/SkillConfiguration.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/HistoDealerServiceSubCatWithPc.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/CoverageType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ServiceTypeWarranty.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerServiceSubCategory.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/HistoDealerCoverage.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerBulding.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/SaleChannelSeller.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/HistoDealerServiceSubCategory.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/Building.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerCoverage.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerServiceSubCategoryWithPc.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerWeekCapacity.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerDetail.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/Domain.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/HistoDealerWeekCapacity.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/SkillEvaluationType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/HistoDealerCustTypeWoutPc.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ServiceAreWarranty.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/SaleChanel.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/SaleChannelInstaller.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ServiceSuperCategory.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/SkillModeType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerCapacity.hbm.xml" />	
+		<mapping resource="co/com/directv/sdii/model/hbm/KpiConfiguration.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/KpiType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/KpiCalculationType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/Kpi.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/KpiResult.hbm.xml" />
+		<!-- Fin mapping para el módulo del asignador -->
+		<mapping resource="co/com/directv/sdii/model/hbm/WoProcessSource.hbm.xml" />
+    	
+    	<!-- Inicio configuración para auditoría parte 2 -->
+	    <mapping resource="co/com/directv/sdii/model/hbm/SdiiRevEntity.hbm.xml" />
+	    
+	    <mapping resource="co/com/directv/sdii/model/hbm/stock/EventIbs.hbm.xml" />
+	    <mapping resource="co/com/directv/sdii/model/hbm/stock/EventReasonIbs.hbm.xml" />
+	    <mapping resource="co/com/directv/sdii/model/hbm/stock/ReasonIbs.hbm.xml" />
+	    
+	    <!--SchedulerTask-->
+	    <mapping resource="co/com/directv/sdii/model/hbm/SchedulerTaskDetailsStatus.hbm.xml" />
+	    <mapping resource="co/com/directv/sdii/model/hbm/SchedulerTaskDetails.hbm.xml" />
+	    <mapping resource="co/com/directv/sdii/model/hbm/SchedulerTaskStatus.hbm.xml" />
+	    <mapping resource="co/com/directv/sdii/model/hbm/SchedulerTaskTypes.hbm.xml" />
+	    <mapping resource="co/com/directv/sdii/model/hbm/SchedulerTask.hbm.xml" />
+	      
+		<!-- Ftp configurations -->
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/FtpConfiguration.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ShippingOrderIbsElementModel.hbm.xml"/>
+		
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WoInfoEsbNotificationType.hbm.xml"/>
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WoInfoEsbParentDate.hbm.xml"/>
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WoInfoEsbService.hbm.xml"/>
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WoInfoEsbServiceLog.hbm.xml"/>
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WoInfoEsbState.hbm.xml"/>
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/WoInfoEsbType.hbm.xml"/>
+
+		<!-- Req-0096 - Requerimiento Consolidado Asignador - Nueva pantalla de Configuración de Dealers -->
+		<mapping resource="co/com/directv/sdii/model/hbm/BusinessArea.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerConfCustomerType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerConfiguration.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerConfService.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/DealerConfCoverage.hbm.xml" />
+		
+		
+		                   
+		<!-- configuración envers 1.0.0 -->
+		
+		<!-- configuracion de  -->
+		<!-- configuración envers 1.0.0 -->
+		<mapping resource="co/com/directv/sdii/model/hbm/ScheduleReport.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ScheduleReportLog.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ScheduleReportPeriodType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ScheduleReportStatus.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ScheduleReportType.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/ScheduleReportParameter.hbm.xml" />
+		
+		<mapping resource="co/com/directv/sdii/model/hbm/CustomerAddresses.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/AddressType.hbm.xml" />
+		
+		<mapping resource="co/com/directv/sdii/model/hbm/stock/PorccessLinkClientSerialLog.hbm.xml" />
+
+		<!-- Req-0096 - Requerimiento Consolidado Asignador / Automatizacion, Relacion de Edificios para Asignacion de Work Orders -->
+		<mapping resource="co/com/directv/sdii/model/hbm/BuildingAddresses.hbm.xml" />
+		
+		<mapping resource="co/com/directv/sdii/model/hbm/DispatchWorkOrderLog.hbm.xml" />
+
+		
+		
+		
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert"/>
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>
+		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete"/>
+		<!-- Fin configuración para auditoría parte 2 -->
+		
+		
+    
+    </session-factory>
+</hibernate-configuration>

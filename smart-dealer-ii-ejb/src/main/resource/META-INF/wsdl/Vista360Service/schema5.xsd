@@ -1,0 +1,8 @@
+<xsd:schema xmlns="http://directvla.com/schema/businessdomain/CRMSupportAndReadiness/v1-0" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/CRMSupportAndReadiness/v1-0">
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema7.xsd"/>
+  <xsd:complexType name="GetCustomerCharacteristicsResult">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="CharacteristicsList" type="commonbd-v1-0:CharacteristicsCollection"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

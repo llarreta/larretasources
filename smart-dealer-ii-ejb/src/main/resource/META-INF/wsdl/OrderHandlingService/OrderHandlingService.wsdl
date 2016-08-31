@@ -1,0 +1,1144 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/contract/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:orderh-v1-0="http://directvla.com/schema/businessdomain/OrderHandling/v1-0" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/businessdomain/OrderHandling/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://directvla.com/contract/businessdomain/OrderHandling/v1-0">
+<documentation>
+        <abstractWSDL>http://esbcol.directvla.com.co:80/soa-infra/services/DTVLA-Services/OrderHandling-Services!1.2.3/OrderHandling.wsdl</abstractWSDL>
+    </documentation>
+  <types>
+<xsd:schema xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/contract/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:orderh-v1-0="http://directvla.com/schema/businessdomain/OrderHandling/v1-0" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/businessdomain/OrderHandling/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/OrderHandling/v1-0">
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="schema6.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="schema5.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema4.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema2.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="schema3.xsd"/>
+            
+  <xsd:complexType name="EquipmentRequest">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" nillable="false" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="AgreementKey" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="FinancialAccountKey" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="OrderTypeId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="StockhandlerId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="FinanceOptionId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="Product" nillable="false" type="productbd-v1-0:Product"/>
+                    
+      <xsd:element maxOccurs="1" name="ShipOrderByDate" nillable="false" type="xsd:dateTime"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdOrder" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="OrderProducts" nillable="false" type="productbd-v1-0:ProductCollection"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Resources" nillable="false" type="commonbd-v1-0:PhysicalResourceCollection"/>
+                    
+      <xsd:element maxOccurs="1" name="Payment" type="customerbd-v1-0:PaymentTransaction"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="EquipmentRequestResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="OrderID" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="EquipmentRequestRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetEquipmentRequest" type="orderh-v1-0:EquipmentRequest"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EquipmentRequestResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetEquipmentRequestResult" type="orderh-v1-0:EquipmentRequestResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EquipmentRequestException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="CreateShippingOrder">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustShippingOrder" type="commonbd-v1-0:ShippingOrder"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonId" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="AgreementId" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="FinancialAccountId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="CreateShippingOrderResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="ShippingOrderId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="CreateShippingOrderRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="CreateShippingOrder" type="orderh-v1-0:CreateShippingOrder"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CreateShippingOrderResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="CreateShippingOrderResult" type="orderh-v1-0:CreateShippingOrderResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CreateShippingOrderException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="EditShippingOrder">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="ShippingOrder" type="commonbd-v1-0:ShippingOrder"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="EditShippingOrderRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="EditShippingOrder" type="orderh-v1-0:EditShippingOrder"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EditShippingOrderResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EditShippingOrderException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="ApproveShippingOrder">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="ShippingOrder" type="commonbd-v1-0:ShippingOrder"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="ApproveShippingOrderRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="ApproveShippingOrder" type="orderh-v1-0:ApproveShippingOrder"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ApproveShippingOrderResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ApproveShippingOrderException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetShippingOrderLines">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="ShippingOrderId" nillable="false" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetShippingOrderLinesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="OrderLines" type="productbd-v1-0:ProductCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetShippingOrderLinesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetShippingOrderLines" type="orderh-v1-0:GetShippingOrderLines"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetShippingOrderLinesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetShippingOrderLinesResult" type="orderh-v1-0:GetShippingOrderLinesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetShippingOrderLinesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetShippingOrder">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="ShippingOrderId" nillable="false" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetShippingOrderResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="ShippingOrder" type="commonbd-v1-0:ShippingOrder"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetShippingOrderRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetShippingOrder" type="orderh-v1-0:GetShippingOrder"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetShippingOrderResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetShippingOrderResult" type="orderh-v1-0:GetShippingOrderResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetShippingOrderException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetShippingOrderLinesByProductId">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="ShippingOrderId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ProductId" nillable="false" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetShippingOrderLinesByProductIdResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="OrderLines" type="productbd-v1-0:ProductCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetShippingOrderLinesByProductIdRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetShippingOrderLinesByProductId" type="orderh-v1-0:GetShippingOrderLinesByProductId"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetShippingOrderLinesByProductIdResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetShippingOrderLinesByProductIdResult" type="orderh-v1-0:GetShippingOrderLinesByProductIdResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetShippingOrderLinesByProductIdException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetShippingOrdersByCustomerId">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" nillable="false" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetShippingOrdersByCustomerIdResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="ShippingOrders" type="commonbd-v1-0:ShippingOrderCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetShippingOrdersByCustomerIdRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetShippingOrdersByCustomerId" type="orderh-v1-0:GetShippingOrdersByCustomerId"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetShippingOrdersByCustomerIdResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetShippingOrdersByCustomerIdResult" type="orderh-v1-0:GetShippingOrdersByCustomerIdResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetShippingOrdersByCustomerIdException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="CloseShippingOrder">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="ShippingOrderId" type="xsd:int"/>
+                    
+      <xsd:element name="ClosingType" type="orderh-v1-0:CloseShippingOrderType"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="CloseShippingOrderRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="CloseShippingOrder" type="orderh-v1-0:CloseShippingOrder"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CloseShippingOrderResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="CloseShippingOrderException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:simpleType name="CloseShippingOrderType">
+                
+    <xsd:restriction base="xsd:string">
+                    
+      <xsd:enumeration value="Cancel"/>
+                    
+      <xsd:enumeration value="Reject"/>
+                
+    </xsd:restriction>
+            
+  </xsd:simpleType>
+        
+</xsd:schema>
+  </types>
+  <message name="GetShippingOrderResponse">
+    <part element="orderh-v1-0:GetShippingOrderResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrderException">
+    <part element="orderh-v1-0:GetShippingOrderException" name="parameter">
+    </part>
+  </message>
+  <message name="CreateShippingOrderResponse">
+    <part element="orderh-v1-0:CreateShippingOrderResponse" name="parameter">
+    </part>
+  </message>
+  <message name="ApproveShippingOrderException">
+    <part element="orderh-v1-0:ApproveShippingOrderException" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrderLinesByProductIdException">
+    <part element="orderh-v1-0:GetShippingOrderLinesByProductIdException" name="parameter">
+    </part>
+  </message>
+  <message name="EquipmentRequestResponse">
+    <part element="orderh-v1-0:EquipmentRequestResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrderLinesRequest">
+    <part element="orderh-v1-0:GetShippingOrderLinesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrderLinesResponse">
+    <part element="orderh-v1-0:GetShippingOrderLinesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="ApproveShippingOrderRequest">
+    <part element="orderh-v1-0:ApproveShippingOrderRequest" name="parameter">
+    </part>
+  </message>
+  <message name="EditShippingOrderResponse">
+    <part element="orderh-v1-0:EditShippingOrderResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrdersByCustomerIdRequest">
+    <part element="orderh-v1-0:GetShippingOrdersByCustomerIdRequest" name="parameter">
+    </part>
+  </message>
+  <message name="EquipmentRequestRequest">
+    <part element="orderh-v1-0:EquipmentRequestRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrderLinesException">
+    <part element="orderh-v1-0:GetShippingOrderLinesException" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrdersByCustomerIdResponse">
+    <part element="orderh-v1-0:GetShippingOrdersByCustomerIdResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrderLinesByProductIdResponse">
+    <part element="orderh-v1-0:GetShippingOrderLinesByProductIdResponse" name="parameter">
+    </part>
+  </message>
+  <message name="CreateShippingOrderException">
+    <part element="orderh-v1-0:CreateShippingOrderException" name="parameter">
+    </part>
+  </message>
+  <message name="CloseShippingOrderRequest">
+    <part element="orderh-v1-0:CloseShippingOrderRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrderRequest">
+    <part element="orderh-v1-0:GetShippingOrderRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrderLinesByProductIdRequest">
+    <part element="orderh-v1-0:GetShippingOrderLinesByProductIdRequest" name="parameter">
+    </part>
+  </message>
+  <message name="EditShippingOrderRequest">
+    <part element="orderh-v1-0:EditShippingOrderRequest" name="parameter">
+    </part>
+  </message>
+  <message name="CloseShippingOrderResponse">
+    <part element="orderh-v1-0:CloseShippingOrderResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetShippingOrdersByCustomerIdException">
+    <part element="orderh-v1-0:GetShippingOrdersByCustomerIdException" name="parameter">
+    </part>
+  </message>
+  <message name="EditShippingOrderException">
+    <part element="orderh-v1-0:EditShippingOrderException" name="parameter">
+    </part>
+  </message>
+  <message name="CloseShippingOrderException">
+    <part element="orderh-v1-0:CloseShippingOrderException" name="parameter">
+    </part>
+  </message>
+  <message name="CreateShippingOrderRequest">
+    <part element="orderh-v1-0:CreateShippingOrderRequest" name="parameter">
+    </part>
+  </message>
+  <message name="ApproveShippingOrderResponse">
+    <part element="orderh-v1-0:ApproveShippingOrderResponse" name="parameter">
+    </part>
+  </message>
+  <message name="EquipmentRequestException">
+    <part element="orderh-v1-0:EquipmentRequestException" name="parameter">
+    </part>
+  </message>
+  <portType name="OrderHandling_pt">
+    <operation name="ApproveShippingOrder">
+      <input message="tns:ApproveShippingOrderRequest">
+    </input>
+      <output message="tns:ApproveShippingOrderResponse">
+    </output>
+      <fault message="tns:ApproveShippingOrderException" name="ApproveShippingOrderException">
+    </fault>
+    </operation>
+    <operation name="CloseShippingOrder">
+      <input message="tns:CloseShippingOrderRequest">
+    </input>
+      <output message="tns:CloseShippingOrderResponse">
+    </output>
+      <fault message="tns:CloseShippingOrderException" name="CloseShippingOrderException">
+    </fault>
+    </operation>
+    <operation name="CreateShippingOrder">
+      <input message="tns:CreateShippingOrderRequest">
+    </input>
+      <output message="tns:CreateShippingOrderResponse">
+    </output>
+      <fault message="tns:CreateShippingOrderException" name="CreateShippingOrderException">
+    </fault>
+    </operation>
+    <operation name="EditShippingOrder">
+      <input message="tns:EditShippingOrderRequest">
+    </input>
+      <output message="tns:EditShippingOrderResponse">
+    </output>
+      <fault message="tns:EditShippingOrderException" name="EditShippingOrderException">
+    </fault>
+    </operation>
+    <operation name="EquipmentRequest">
+      <input message="tns:EquipmentRequestRequest">
+    </input>
+      <output message="tns:EquipmentRequestResponse">
+    </output>
+      <fault message="tns:EquipmentRequestException" name="EquipmentRequestException">
+    </fault>
+    </operation>
+    <operation name="GetShippingOrder">
+      <input message="tns:GetShippingOrderRequest">
+    </input>
+      <output message="tns:GetShippingOrderResponse">
+    </output>
+      <fault message="tns:GetShippingOrderException" name="GetShippingOrderException">
+    </fault>
+    </operation>
+    <operation name="GetShippingOrderLines">
+      <input message="tns:GetShippingOrderLinesRequest">
+    </input>
+      <output message="tns:GetShippingOrderLinesResponse">
+    </output>
+      <fault message="tns:GetShippingOrderLinesException" name="GetShippingOrderLinesException">
+    </fault>
+    </operation>
+    <operation name="GetShippingOrderLinesByProductId">
+      <input message="tns:GetShippingOrderLinesByProductIdRequest">
+    </input>
+      <output message="tns:GetShippingOrderLinesByProductIdResponse">
+    </output>
+      <fault message="tns:GetShippingOrderLinesByProductIdException" name="GetShippingOrderLinesByProductIdException">
+    </fault>
+    </operation>
+    <operation name="GetShippingOrdersByCustomerId">
+      <input message="tns:GetShippingOrdersByCustomerIdRequest">
+    </input>
+      <output message="tns:GetShippingOrdersByCustomerIdResponse">
+    </output>
+      <fault message="tns:GetShippingOrdersByCustomerIdException" name="GetShippingOrdersByCustomerIdException">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="OrderHandling_ptSOAP11Binding" type="tns:OrderHandling_pt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="CreateShippingOrder">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/CreateShippingOrder" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="CreateShippingOrderException">
+        <soap:fault name="CreateShippingOrderException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="EditShippingOrder">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/EditShippingOrder" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="EditShippingOrderException">
+        <soap:fault name="EditShippingOrderException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="EquipmentRequest">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/EquipmentRequest" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="EquipmentRequestException">
+        <soap:fault name="EquipmentRequestException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="ApproveShippingOrder">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/ApproveShippingOrder" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="ApproveShippingOrderException">
+        <soap:fault name="ApproveShippingOrderException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetShippingOrderLines">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/GetShippingOrderLines" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetShippingOrderLinesException">
+        <soap:fault name="GetShippingOrderLinesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetShippingOrder">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/GetShippingOrder" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetShippingOrderException">
+        <soap:fault name="GetShippingOrderException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetShippingOrderLinesByProductId">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/GetShippingOrderLinesByProductId" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetShippingOrderLinesByProductIdException">
+        <soap:fault name="GetShippingOrderLinesByProductIdException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetShippingOrdersByCustomerId">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/GetShippingOrdersByCustomerId" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetShippingOrdersByCustomerIdException">
+        <soap:fault name="GetShippingOrdersByCustomerIdException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="CloseShippingOrder">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/OrderHandling/v1-0/CloseShippingOrder" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="CloseShippingOrderException">
+        <soap:fault name="CloseShippingOrderException" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="OrderHandlingService">
+    <port binding="tns:OrderHandling_ptSOAP11Binding" name="OrderHandling_pt_pt">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/OrderHandling-Services/OrderHandlingService"/>
+    </port>
+  </service>
+</definitions>

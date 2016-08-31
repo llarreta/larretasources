@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="SmartDealerApp"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/dtv/sdii/logs/dev/SmartDealerApp.log" />
+		<param name="ImmediateFlush" value="true"/>
+		<param name="append" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d %-5p %C.%M(%L)===> %m%n" />
+		</layout>
+	</appender>	
+	<appender name="SmartDealerESB"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/dtv/sdii/logs/dev/SmartDealerESB.log" />
+		<param name="ImmediateFlush" value="true"/>
+		<param name="append" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d %-5p %C.%M(%L)===> %m%n" />
+		</layout>
+	</appender>
+	<appender name="SmartDealerQuartz"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/dtv/sdii/logs/dev/SmartDealerQuartz.log" />
+		<param name="ImmediateFlush" value="true"/>
+		<param name="append" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d %-5p %C.%M(%L)===> %m%n" />
+		</layout>
+	</appender>
+	<appender name="SmartDealerHibernate"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/dtv/sdii/logs/dev/SmartDealerHibernate.log" />
+		<param name="ImmediateFlush" value="true"/>
+		<param name="append" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d %-5p %C.%M(%L)===> %m%n" />
+		</layout>
+	</appender>
+	<appender name="SmartDealerJMS"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/dtv/sdii/logs/dev/SmartDealerJMS.log" />
+		<param name="ImmediateFlush" value="true"/>
+		<param name="append" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd-a"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d %-5p %C.%M(%L)===> %m%n" />
+		</layout>
+	</appender>
+	<appender name="Consola" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d %-5p %C.%M(%L)===> %m%n" />
+		</layout>
+	</appender>
+	<category name="co.com.directv.sdii.assign">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerApp" />
+	</category>
+	<category name="co.com.directv.sdii.ejb.business">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerApp" />
+	</category>
+	<category name="co.com.directv.sdii.facade">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerApp" />
+	</category>	
+	<category name="co.com.directv.sdii.persistence">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerApp" />
+	</category>
+	<category name="co.com.intergrupo.ldap.services">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerApp" />
+	</category>	
+	<category name="co.com.directv.sdii.rules">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerApp" />
+	</category>
+	<category name="co.com.directv.sdii.common.locator">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerApp" />
+	</category>
+	<category name="co.com.directv.sdii.common.util">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerApp" />
+	</category>
+	<category name="org.quartz.ee.servlet">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerQuartz" />
+	</category>
+	<category name="co.com.directv.sdii.jobs">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerQuartz" />
+	</category>	
+	<category name="org.hibernate.jdbc">
+		<priority value="error" />
+		<appender-ref ref="SmartDealerHibernate" />
+	</category>
+	<category name="co.com.directv.sdii.mdb">
+		<priority value="debug" />
+		<appender-ref ref="SmartDealerJMS" />
+	</category>
+	<root>
+		<priority value="error" />
+		<appender-ref ref="Consola" />
+	</root>
+</log4j:configuration>

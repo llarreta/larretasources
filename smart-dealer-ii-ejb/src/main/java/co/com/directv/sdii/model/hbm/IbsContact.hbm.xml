@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="co.com.directv.sdii.model.pojo.IbsContact" table="IBS_CONTACTS" >
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">SEQ_IBS_CONTACTS</param>
+            </generator>
+        </id>
+        <property name="ibsContactCode" type="java.lang.String">
+            <column name="ibs_contact_code" length="100" not-null="true" />
+        </property>     
+        <many-to-one name="customer" class="co.com.directv.sdii.model.pojo.Customer" fetch="select" lazy="false">
+            <column name="customer_id" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="workOrder" class="co.com.directv.sdii.model.pojo.WorkOrder" fetch="select" lazy="false">
+            <column name="work_order_id" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="contactStatus" class="co.com.directv.sdii.model.pojo.ContactStatus" fetch="select" lazy="false">
+            <column name="contact_status_id" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="ibsContactReason" class="co.com.directv.sdii.model.pojo.IbsContactReason" fetch="select" lazy="false">
+            <column name="ibs_contact_reason_id" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="country" class="co.com.directv.sdii.model.pojo.Country" fetch="select" lazy="false">
+            <column name="country_id" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="description" type="java.lang.String">
+            <column name="description" length="1000"/>
+        </property>
+        <property name="creationDate" type="java.util.Date">
+            <column name="creation_date"/>
+        </property>
+        <property name="characteristicValue" type="java.lang.String">
+            <column name="characteristic_value" length="10"/>
+        </property>
+        <property name="userName" type="java.lang.String">
+            <column name="user_name" length="30"/>
+        </property>
+        <property name="actionTaken" type="java.lang.String">
+            <column name="action_taken" length="1000"/>
+        </property>
+    </class>
+</hibernate-mapping>

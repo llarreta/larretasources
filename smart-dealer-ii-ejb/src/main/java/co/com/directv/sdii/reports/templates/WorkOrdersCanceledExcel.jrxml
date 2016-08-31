@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report246" language="groovy" printOrder="Horizontal" pageWidth="4000" pageHeight="99999999" orientation="Landscape" columnWidth="3960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.callouts" value="##Thu Mar 10 08:54:46 COT 2011"/>
+	<property name="ireport.zoom" value="1.210000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Bold" isDefault="false" fontName="Arial" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Italic" isDefault="false" fontName="Arial" fontSize="12" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="woCode" class="java.lang.String">
+		<fieldDescription><![CDATA[woCode]]></fieldDescription>
+	</field>
+	<field name="woDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[woDescription]]></fieldDescription>
+	</field>
+	<field name="woCreationDate" class="java.util.Date">
+		<fieldDescription><![CDATA[woCreationDate]]></fieldDescription>
+	</field>
+	<field name="woCancelationDate" class="java.util.Date">
+		<fieldDescription><![CDATA[woCancelationDate]]></fieldDescription>
+	</field>
+	<field name="serviceHourName" class="java.lang.String"/>
+	<field name="dealerCode" class="java.lang.String">
+		<fieldDescription><![CDATA[dealerCode]]></fieldDescription>
+	</field>
+	<field name="dealerName" class="java.lang.String"/>
+	<field name="customerCode" class="java.lang.String">
+		<fieldDescription><![CDATA[customerCode]]></fieldDescription>
+	</field>
+	<field name="customerName" class="java.lang.String">
+		<fieldDescription><![CDATA[customerName]]></fieldDescription>
+	</field>
+	<field name="crewResponsibleName" class="java.lang.String">
+		<fieldDescription><![CDATA[crewResponsibleName]]></fieldDescription>
+	</field>
+	<field name="cancelationDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[cancelationDescription]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="32">
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="0" y="0" width="80" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_wo_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="695" y="0" width="120" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_crew_responsible}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="153" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_creation_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="226" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_cancellation_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="470" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_dealer_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="543" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_ibs_client}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="616" y="0" width="79" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_client_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="80" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="815" y="0" width="92" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_observations}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="299" y="0" width="98" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_programming_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Arial_Bold" mode="Opaque" x="397" y="0" width="73" height="32" forecolor="#FFFFFF" backcolor="#000FFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{woce_dealer_code}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="80" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{woCode}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="153" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{woCreationDate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="226" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{woCancelationDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="470" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dealerName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="543" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customerCode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="616" y="0" width="79" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customerName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="695" y="0" width="120" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{crewResponsibleName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="80" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{woDescription}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="815" y="0" width="92" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cancelationDescription}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="299" y="0" width="98" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serviceHourName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="397" y="0" width="73" height="20">
+					<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dealerCode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

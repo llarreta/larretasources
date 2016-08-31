@@ -1,0 +1,14 @@
+<xsd:schema xmlns="http://directvla.com/schema/context/common/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/context/common/v1-0">
+  <xsd:complexType name="ConnectionContext">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="countryID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="systemID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="systemURL" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="userID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="userPROOF" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="systemDSN" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="systemVersion" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="iso3code" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

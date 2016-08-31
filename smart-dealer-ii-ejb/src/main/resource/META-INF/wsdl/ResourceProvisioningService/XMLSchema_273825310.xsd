@@ -1,0 +1,119 @@
+<xsd:schema xmlns="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" targetNamespace="http://directvla.com/schema/businessdomain/product/v1-0" elementFormDefault="qualified">
+	<xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="XMLSchema_211105614.xsd"/>
+	<xsd:complexType name="Product">
+		<xsd:sequence>
+			<xsd:element name="productKey" type="xsd:string"/>
+			<xsd:element name="ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="CustomerKey" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="code" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="description" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="productStatus" type="ProductStatus" minOccurs="0"/>
+			<xsd:element name="validFor" type="commonbd-v1-0:TimePeriod" minOccurs="0"/>
+			<xsd:element name="productCategory" type="ProductCategory" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="productPrice" type="xsd:long" minOccurs="0"/>
+			<xsd:element name="contractStartDatetime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="contractEndDatetime" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="financeOption" type="commonbd-v1-0:Category" minOccurs="0"/>
+			<xsd:element name="contractPeriod" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="financialAccountID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="agreement" type="commonbd-v1-0:Agreement" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="marketSegment" type="commonbd-v1-0:Category" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="warrantyEndDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ProductHasPhysicalResources" type="commonbd-v1-0:PhysicalResourceCollection" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ProductPriceCollection" type="ProductPriceCollection" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ProductCharacteristicValueCollection" type="ProductCharacteristicValueCollection" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="vendor" type="commonbd-v1-0:Vendor" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="commissionOption" type="commonbd-v1-0:Category" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductCollection">
+		<xsd:sequence>
+			<xsd:element name="Product" type="Product" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductCategory">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="type" type="commonbd-v1-0:Category" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductStatus">
+		<xsd:complexContent>
+			<xsd:extension base="commonbd-v1-0:Category">
+				<xsd:sequence>
+					<xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ProductPriceCollection">
+		<xsd:sequence>
+			<xsd:element name="ProductPrice" type="ProductPrice" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductPrice">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="validFor" type="commonbd-v1-0:TimePeriod" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductCharacteristicValue">
+		<xsd:sequence>
+			<xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="validFor" type="commonbd-v1-0:TimePeriod" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ProductSpecCharacteristic" type="ProductSpecCharacteristic" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductSpecCharacteristic">
+		<xsd:sequence>
+			<xsd:element name="ID" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="unique" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="valueType" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="minCardinality" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="maxCardinality" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="extensible" type="xsd:boolean" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="derivationFormula" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="validFor" type="commonbd-v1-0:TimePeriod" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ProductSpecCharRelationship" type="ProductSpecCharacteristic" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductCharacteristicValueCollection">
+		<xsd:sequence>
+			<xsd:element name="ProductCharValue" type="ProductCharacteristicValue" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="ProductType" type="Product"/>
+	<xsd:element name="Product" type="Product"/>
+	<xsd:complexType name="ProductOffer">
+		<xsd:sequence>
+			<xsd:element name="ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="validFor" type="commonbd-v1-0:TimePeriod" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CustomerProductOffer">
+		<xsd:sequence>
+			<xsd:element name="ID" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="CustomerKey" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="validFor" type="commonbd-v1-0:TimePeriod" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="Product" type="Product" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="ProductOffer" type="ProductOffer" minOccurs="0" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CustomerProductOfferCollection">
+		<xsd:sequence>
+			<xsd:element name="CustomerProductOffer" type="CustomerProductOffer" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductOfferCollection">
+		<xsd:sequence>
+			<xsd:element name="ProductOffer" type="ProductOffer" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

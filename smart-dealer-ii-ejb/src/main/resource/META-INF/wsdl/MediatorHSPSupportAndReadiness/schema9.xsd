@@ -1,0 +1,88 @@
+<xsd:schema xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v2-0="http://directvla.com/schema/util/commondatatypes/v2-0" xmlns:eventlst-v1-0="http://directvla.com/contract/businessdomain/EventListener/v1-0" xmlns:ns1="http://dtvla.com/Annexs/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://directvla.com/contract/businessdomain/EventListener/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/contract/businessdomain/EventListener/v1-0">
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema6.xsd"/>
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v2-0" schemaLocation="schema11.xsd"/>
+  <xsd:element name="DispatchWorkOrderRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="RequestMetadata" type="commondt-v2-0:RequestMetadataType"/>
+        <xsd:element name="DispatchWorkOrder" type="tns:DispatchWorkOrder"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="DispatchWorkOrder">
+    <xsd:sequence>
+      <xsd:element name="WorkOrderCollection" type="commonbd-v1-0:WorkOrderCollection"/>
+      <xsd:element name="Technician" type="commonbd-v1-0:TelecomTechnician"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="DispatchWorkOrderResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="responseMetadata" type="commondt-v2-0:ResponseMetadataType"/>
+        <xsd:element name="DispatchWorkOrderResult" type="tns:DispatchWorkOrderResult"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="DispatchWorkOrderResult">
+    <xsd:sequence>
+      <xsd:element name="WorkOrderResultCollection" type="tns:WorkOrderResultCollection"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="WithdrawWorkOrderFromTechnicianRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="RequestMetadata" type="commondt-v2-0:RequestMetadataType"/>
+        <xsd:element name="WithdrawWorkOrderFromTechnician" type="tns:WithdrawWorkOrderFromTechnician"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="WithdrawWorkOrderFromTechnician">
+    <xsd:sequence>
+      <xsd:element name="WorkOrderCollection" type="commonbd-v1-0:WorkOrderCollection"/>
+      <xsd:element name="Technician" type="commonbd-v1-0:TelecomTechnician"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="WithdrawWorkOrderFromTechnicianResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="responseMetadata" type="commondt-v2-0:ResponseMetadataType"/>
+        <xsd:element name="WithdrawWorkOrderFromTechnicianResult" type="tns:WithdrawWorkOrderFromTechnicianResult"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="WithdrawWorkOrderFromTechnicianResult">
+    <xsd:sequence>
+      <xsd:element name="WorkOrderResultCollection" type="tns:WorkOrderResultCollection"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="WorkOrderResultCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkOrderResultItem" type="tns:WorkOrderResultItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="WorkOrderResultItem">
+    <xsd:sequence>
+      <xsd:element name="WorkOrder" type="commonbd-v1-0:WorkOrder"/>
+      <xsd:element name="Technician" type="commonbd-v1-0:TelecomTechnician"/>
+      <xsd:element name="SharedApplicationCollection" type="tns:SharedApplicationCollection"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SharedApplicationCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SharedApplicationItem" type="tns:SharedApplicationItem"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SharedApplicationItem">
+    <xsd:sequence>
+      <xsd:element name="ApplicationCode" type="xsd:string"/>
+      <xsd:element name="Status" type="tns:Status"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="Status">
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:int"/>
+      <xsd:element minOccurs="0" name="Message" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SharedApplicationItem" type="tns:SharedApplicationItem"/>
+</xsd:schema>

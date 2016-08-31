@@ -1,0 +1,623 @@
+<definitions targetNamespace="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:tns="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0" xmlns:crm-customer-v1-0="http://directvla.com/contract/crm/customer/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:resourcep-v1-0="http://directvla.com/schema/businessdomain/ResourceProvisioning/v1-0" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+    <documentation>
+        <abstractWSDL>http://esb-sist.dtvla.com:80/soa-infra/services/DTVLA-Services/ResourceProvisioning-Service!1.2.0/ResourceProvisioning.wsdl</abstractWSDL>
+    </documentation>
+    <plnk:partnerLinkType name="GetUpgradeDowngrade">
+        <plnk:role name="ResourceProvisioning_pt">
+            <plnk:portType name="tns:ResourceProvisioning_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="ResourceProvisioning_pt_PL">
+        <plnk:role name="ResourceProvisioning_pt_Role">
+            <plnk:portType name="tns:ResourceProvisioning_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <types>
+        <xsd:schema targetNamespace="http://directvla.com/schema/businessdomain/ResourceProvisioning/v1-0" elementFormDefault="qualified">
+            <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="XMLSchema_-1248634751.xsd"/>
+            <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="XMLSchema_273825310.xsd"/>
+            <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="XMLSchema_211105614.xsd"/>
+            <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="XMLSchema_-234204749.xsd"/>
+            <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="XMLSchema_1865891278.xsd"/>
+            <xsd:complexType name="RemoveAdditionalEquipment">
+                <xsd:sequence>
+                    <xsd:element name="CustomerKey" nillable="false" type="xsd:string" maxOccurs="1"/>
+                    <xsd:element name="ProductIdCancelProduct" type="xsd:int" maxOccurs="1"/>
+                    <xsd:element name="ReasonIdCancelProduct" maxOccurs="1" type="xsd:string"/>
+                    <xsd:element name="ServiceTypeId" maxOccurs="1" nillable="false" type="xsd:string"/>
+                    <xsd:element name="ServiceProviderId" maxOccurs="1" type="xsd:int" nillable="false"/>
+                    <xsd:element name="ReasonId" maxOccurs="1" type="xsd:int"/>
+                    <xsd:element name="ServiceId" maxOccurs="1" nillable="false" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="RemoveAdditionalEquipmentResult">
+                <xsd:sequence>
+                    <xsd:element name="WorkOrderId" maxOccurs="1" nillable="false" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="RemoveAdditionalEquipmentRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="RemoveAdditionalEquipment" maxOccurs="1" type="resourcep-v1-0:RemoveAdditionalEquipment"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="RemoveAdditionalEquipmentResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" maxOccurs="1" type="commondt-v1-0:ResponseMetadataType"/>
+                        <xsd:element name="RemoveAdditionalEquipmentResult" maxOccurs="1" type="resourcep-v1-0:RemoveAdditionalEquipmentResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="RemoveAdditionalEquipmentException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="AddIRDChanges">
+                <xsd:sequence>
+                    <xsd:element name="WorkOrderID" type="xsd:int" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="previousSerials" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                    <xsd:element name="newSerials" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+                    <xsd:element name="ReasonIdNew" maxOccurs="1" minOccurs="1" type="xsd:int"/>
+                    <xsd:element name="ReasonIdOld" type="xsd:int" maxOccurs="1" minOccurs="1"/>
+                    <xsd:element name="StockhandlerId" maxOccurs="1" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="AddIRDChangesRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="AddIRDChanges" type="resourcep-v1-0:AddIRDChanges"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddIRDChangesResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AddIRDChangesException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="UpdateResourceStatus">
+                <xsd:sequence>
+                    <xsd:element name="stockHandler" type="commonbd-v1-0:FunctionOrProcessProvider" maxOccurs="1"/>
+                    <xsd:element name="movementCategory" maxOccurs="1" type="commonbd-v1-0:MovementCategoryType"/>
+                    <xsd:element name="physicalResource" type="commonbd-v1-0:PhysicalResource" maxOccurs="1"/>
+                    <xsd:element name="physicalResourceAssociated" maxOccurs="1" minOccurs="0" type="commonbd-v1-0:PhysicalResource"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="UpdateResourceStatusRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType" maxOccurs="1"/>
+                        <xsd:element name="UpdateResourceStatus" maxOccurs="1" type="resourcep-v1-0:UpdateResourceStatus"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="UpdateResourceStatusResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType" maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="UpdateResourceStatusException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="GetPhysicalResource">
+                <xsd:sequence>
+                    <xsd:element name="SerialNumber" maxOccurs="1" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="GetPhysicalResourceResult">
+                <xsd:sequence>
+                    <xsd:element name="PhysicalResource" type="commonbd-v1-0:PhysicalResource" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="GetPhysicalResourceRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType" maxOccurs="1"/>
+                        <xsd:element name="GetPhysicalResource" maxOccurs="1" type="resourcep-v1-0:GetPhysicalResource"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetPhysicalResourceResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType" maxOccurs="1"/>
+                        <xsd:element name="GetPhysicalResourceResult" maxOccurs="1" type="resourcep-v1-0:GetPhysicalResourceResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetPhysicalResourceException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="LinkPhysicalResourceToAnother">
+                <xsd:sequence>
+                    <xsd:element name="PhysicalResourceSmartcard" nillable="false" type="xsd:string" maxOccurs="1"/>
+                    <xsd:element name="PhysicalResourceIRD" type="xsd:string" maxOccurs="1"/>
+                    <xsd:element name="ReasonId" maxOccurs="1" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="LinkPhysicalResourceToAnotherResult">
+                <xsd:sequence>
+                    <xsd:element name="LinkId" maxOccurs="1" nillable="false" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="LinkPhysicalResourceToAnotherRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        <xsd:element name="LinkPhysicalResourceToAnother" maxOccurs="1" type="resourcep-v1-0:LinkPhysicalResourceToAnother"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="LinkPhysicalResourceToAnotherResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" maxOccurs="1" type="commondt-v1-0:ResponseMetadataType"/>
+                        <xsd:element name="LinkPhysicalResourceToAnotherResult" maxOccurs="1" type="resourcep-v1-0:LinkPhysicalResourceToAnotherResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="LinkPhysicalResourceToAnotherException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="GetPhysicalResourcesByCriteria">
+                <xsd:sequence>
+                    <xsd:element name="Criterias" maxOccurs="1" type="commonbd-v1-0:CriteriaSpecification"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="GetPhysicalResourcesByCriteriaResult">
+                <xsd:sequence>
+                    <xsd:element name="PhysicalResources" type="commonbd-v1-0:PhysicalResourceCollection" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="GetPhysicalResourcesByCriteriaRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType" maxOccurs="1"/>
+                        <xsd:element name="GetPhysicalResourcesByCriteria" maxOccurs="1" type="resourcep-v1-0:GetPhysicalResourcesByCriteria"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetPhysicalResourcesByCriteriaResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType" maxOccurs="1"/>
+                        <xsd:element name="GetPhysicalResourcesByCriteriaResult" maxOccurs="1" type="resourcep-v1-0:GetPhysicalResourcesByCriteriaResult"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetPhysicalResourcesByCriteriaException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="idList">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="xsd:string" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="id" type="xsd:string"/>
+            <xsd:element name="GetSwopsRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType" maxOccurs="1"/>
+                        <xsd:element name="GetSwops" maxOccurs="1" type="resourcep-v1-0:GetSwopsType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="GetSwopsType">
+                <xsd:sequence>
+                    <xsd:element name="CreateDatetime" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+                    <xsd:element name="CustomerKey" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="GetSwopsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType" maxOccurs="1" minOccurs="0"/>
+                        <xsd:element name="ListOfProducts" maxOccurs="1" minOccurs="0" type="resourcep-v1-0:ListOfProductsType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="ErrorType">
+                <xsd:sequence>
+                    <xsd:element name="Product" minOccurs="0" maxOccurs="unbounded" type="resourcep-v1-0:ProductType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ListOfProductsType">
+                <xsd:sequence>
+                    <xsd:element name="Product" minOccurs="0" maxOccurs="unbounded" type="resourcep-v1-0:ProductType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ProductType">
+                <xsd:sequence>
+                    <xsd:element name="CustomerHistoryEvent" minOccurs="0" maxOccurs="1" type="customerbd-v1-0:CustomerHistoryEvent"/>
+                    <xsd:element name="PhysicalResource" minOccurs="1" maxOccurs="1" type="commonbd-v1-0:PhysicalResource"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="GetSwopsException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetUpgradeDowngradeRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RequestMetadata" type="commondt-v1-0:RequestMetadataType" maxOccurs="1"/>
+                        <xsd:element name="GetUpgradeDowngrade" maxOccurs="1" type="resourcep-v1-0:GetUpgradeDowngradeType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="GetUpgradeDowngradeType">
+                <xsd:sequence>
+                    <xsd:element name="CreateDatetime" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+                    <xsd:element name="CustomerKey" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="GetUpgradeDowngradeResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType" maxOccurs="1" minOccurs="0"/>
+                        <xsd:element name="ListOfProducts" maxOccurs="1" minOccurs="0" type="resourcep-v1-0:ListOfProductsType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetUpgradeDowngradeException">
+                <xsd:complexType>
+                    <xsd:choice>
+                        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    </xsd:choice>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+    <message name="AddIRDChangesRequest">
+        <part name="parameter" element="resourcep-v1-0:AddIRDChangesRequest"/>
+    </message>
+    <message name="AddIRDChangesResponse">
+        <part name="parameter" element="resourcep-v1-0:AddIRDChangesResponse"/>
+    </message>
+    <message name="AddIRDChangesException">
+        <part name="parameter" element="resourcep-v1-0:AddIRDChangesException"/>
+    </message>
+    <message name="GetPhysicalResourceRequest">
+        <part name="parameter" element="resourcep-v1-0:GetPhysicalResourceRequest"/>
+    </message>
+    <message name="GetPhysicalResourceResponse">
+        <part name="parameter" element="resourcep-v1-0:GetPhysicalResourceResponse"/>
+    </message>
+    <message name="GetPhysicalResourceException">
+        <part name="parameter" element="resourcep-v1-0:GetPhysicalResourceException"/>
+    </message>
+    <message name="GetPhysicalResourcesByCriteriaRequest">
+        <part name="parameter" element="resourcep-v1-0:GetPhysicalResourcesByCriteriaRequest"/>
+    </message>
+    <message name="GetPhysicalResourcesByCriteriaResponse">
+        <part name="parameter" element="resourcep-v1-0:GetPhysicalResourcesByCriteriaResponse"/>
+    </message>
+    <message name="GetPhysicalResourcesByCriteriaException">
+        <part name="parameter" element="resourcep-v1-0:GetPhysicalResourcesByCriteriaException"/>
+    </message>
+    <message name="LinkPhysicalResourceToAnotherRequest">
+        <part name="parameter" element="resourcep-v1-0:LinkPhysicalResourceToAnotherRequest"/>
+    </message>
+    <message name="LinkPhysicalResourceToAnotherResponse">
+        <part name="parameter" element="resourcep-v1-0:LinkPhysicalResourceToAnotherResponse"/>
+    </message>
+    <message name="LinkPhysicalResourceToAnotherException">
+        <part name="parameter" element="resourcep-v1-0:LinkPhysicalResourceToAnotherException"/>
+    </message>
+    <message name="RemoveAdditionalEquipmentRequest">
+        <part name="parameter" element="resourcep-v1-0:RemoveAdditionalEquipmentRequest"/>
+    </message>
+    <message name="RemoveAdditionalEquipmentResponse">
+        <part name="parameter" element="resourcep-v1-0:RemoveAdditionalEquipmentResponse"/>
+    </message>
+    <message name="RemoveAdditionalEquipmentException">
+        <part name="parameter" element="resourcep-v1-0:RemoveAdditionalEquipmentException"/>
+    </message>
+    <message name="UpdateResourceStatusRequest">
+        <part name="parameter" element="resourcep-v1-0:UpdateResourceStatusRequest"/>
+    </message>
+    <message name="UpdateResourceStatusResponse">
+        <part name="parameter" element="resourcep-v1-0:UpdateResourceStatusResponse"/>
+    </message>
+    <message name="UpdateResourceStatusException">
+        <part name="parameter" element="resourcep-v1-0:UpdateResourceStatusException"/>
+    </message>
+    <message name="GetSwopsRequest">
+        <part name="parameter" element="resourcep-v1-0:GetSwopsRequest"/>
+    </message>
+    <message name="GetSwopsResponse">
+        <part name="parameter" element="resourcep-v1-0:GetSwopsResponse"/>
+    </message>
+    <message name="GetSwopsException">
+        <part name="parameter" element="resourcep-v1-0:GetSwopsException"/>
+    </message>
+    <message name="GetUpgradeDowngradeRequest">
+        <part name="parameter" element="resourcep-v1-0:GetUpgradeDowngradeRequest"/>
+    </message>
+    <message name="GetUpgradeDowngradeResponse">
+        <part name="parameter" element="resourcep-v1-0:GetUpgradeDowngradeResponse"/>
+    </message>
+    <message name="GetUpgradeDowngradeException">
+        <part name="parameter" element="resourcep-v1-0:GetUpgradeDowngradeException"/>
+    </message>
+    <portType name="ResourceProvisioning_pt">
+        <operation name="AddIRDChanges">
+            <input message="tns:AddIRDChangesRequest"/>
+            <output message="tns:AddIRDChangesResponse"/>
+            <fault name="AddIRDChangesException" message="tns:AddIRDChangesException"/>
+        </operation>
+        <operation name="GetPhysicalResource">
+            <input message="tns:GetPhysicalResourceRequest"/>
+            <output message="tns:GetPhysicalResourceResponse"/>
+            <fault name="GetPhysicalResourceException" message="tns:GetPhysicalResourceException"/>
+        </operation>
+        <operation name="GetPhysicalResourcesByCriteria">
+            <input message="tns:GetPhysicalResourcesByCriteriaRequest"/>
+            <output message="tns:GetPhysicalResourcesByCriteriaResponse"/>
+            <fault name="GetPhysicalResourcesByCriteriaException" message="tns:GetPhysicalResourcesByCriteriaException"/>
+        </operation>
+        <operation name="LinkPhysicalResourceToAnother">
+            <input message="tns:LinkPhysicalResourceToAnotherRequest"/>
+            <output message="tns:LinkPhysicalResourceToAnotherResponse"/>
+            <fault name="LinkPhysicalResourceToAnotherException" message="tns:LinkPhysicalResourceToAnotherException"/>
+        </operation>
+        <operation name="RemoveAdditionalEquipment">
+            <input message="tns:RemoveAdditionalEquipmentRequest"/>
+            <output message="tns:RemoveAdditionalEquipmentResponse"/>
+            <fault name="RemoveAdditionalEquipmentException" message="tns:RemoveAdditionalEquipmentException"/>
+        </operation>
+        <operation name="UpdateResourceStatus">
+            <input message="tns:UpdateResourceStatusRequest"/>
+            <output message="tns:UpdateResourceStatusResponse"/>
+            <fault name="UpdateResourceStatusException" message="tns:UpdateResourceStatusException"/>
+        </operation>
+        <operation name="GetSwops">
+            <input message="tns:GetSwopsRequest"/>
+            <output message="tns:GetSwopsResponse"/>
+            <fault name="GetSwopsException" message="tns:GetSwopsException"/>
+        </operation>
+        <operation name="GetUpgradeDowngrade">
+            <input message="tns:GetUpgradeDowngradeRequest"/>
+            <output message="tns:GetUpgradeDowngradeResponse"/>
+            <fault name="GetUpgradeDowngradeException" message="tns:GetUpgradeDowngradeException"/>
+        </operation>
+    </portType>
+    <binding name="ResourceProvisioning_ptSOAP11Binding" type="tns:ResourceProvisioning_pt">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="AddIRDChanges">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0/AddIRDChanges"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="AddIRDChangesException">
+                <soap:fault name="AddIRDChangesException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="GetPhysicalResourcesByCriteria">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0/GetPhysicalResourcesByCriteria"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="GetPhysicalResourcesByCriteriaException">
+                <soap:fault name="GetPhysicalResourcesByCriteriaException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="GetPhysicalResource">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0/GetPhysicalResource"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="GetPhysicalResourceException">
+                <soap:fault name="GetPhysicalResourceException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="LinkPhysicalResourceToAnother">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0/LinkPhysicalResourceToAnother"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="LinkPhysicalResourceToAnotherException">
+                <soap:fault name="LinkPhysicalResourceToAnotherException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="RemoveAdditionalEquipment">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0/RemoveAdditionalEquipment"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="RemoveAdditionalEquipmentException">
+                <soap:fault name="RemoveAdditionalEquipmentException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="UpdateResourceStatus">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0/UpdateResourceStatus"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="UpdateResourceStatusException">
+                <soap:fault name="UpdateResourceStatusException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="GetSwops">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0/GetSwops"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="GetSwopsException">
+                <soap:fault name="GetSwopsException" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="GetUpgradeDowngrade">
+            <soap:operation style="document" soapAction="http://directvla.com/contract/businessdomain/ResourceProvisioning/v1-0/GetUpgradeDowngrade"/>
+            <input>
+                <soap:body use="literal" parts="parameter"/>
+            </input>
+            <output>
+                <soap:body use="literal" parts="parameter"/>
+            </output>
+            <fault name="GetUpgradeDowngradeException">
+                <soap:fault name="GetUpgradeDowngradeException" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="ResourceProvicioningService">
+        <port name="ResourceProvisioning_pt_pt" binding="tns:ResourceProvisioning_ptSOAP11Binding">
+            <soap:address location="http://rgsuatsoa.dtvla.com:80/soa-infra/services/DTVLA-Services/ResourceProvisioning-Service/ResourceProvisioningService"/>
+        </port>
+    </service>
+</definitions>

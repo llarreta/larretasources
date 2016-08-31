@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- 
+	aharker
+-->
+<hibernate-mapping>
+    <class name="co.com.directv.sdii.model.pojo.PorccessLinkClientSerialLog" table="PROCESS_LINK_CLIENT_SERIAL_LGS" lazy="false">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="sequence">
+            	 <param name="sequence">SEQ_PRCSS_LNK_CLNT_SERIAL_LGS</param>
+            </generator>
+        </id>
+        
+        <many-to-one name="workOrder" class="co.com.directv.sdii.model.pojo.WorkOrder" fetch="select" lazy="false">
+            <column name="WORK_ORDER_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+
+        <property name="principalSerial" type="java.lang.String">
+            <column name="PRINCIPAL_SERIAL" length="50" not-null="true" />
+        </property>
+        <property name="linkedSerial" type="java.lang.String">
+            <column name="LINKED_SERIAL" length="50" not-null="true" />
+        </property>
+        <property name="logMessage" type="java.lang.String">
+            <column name="LOG_MESSAGE" length="4000" not-null="true" />
+        </property>
+        <property name="dateLog" type="timestamp">
+            <column name="DATE_LOG" not-null="false" />
+        </property>
+    </class>
+</hibernate-mapping>

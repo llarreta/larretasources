@@ -1,0 +1,72 @@
+<xsd:schema xmlns="http://directvla.com/schema/util/commondatatypes/v2-0" xmlns:tns="http://directvla.com/schema/util/commondatatypes/v2-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/util/commondatatypes/v2-0">
+  <xsd:element name="ReceiveMessage" nillable="true" type="ReceiveMessage"/>
+  <xsd:complexType name="ReceiveMessage">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="_Priority" type="xsd:string"/>
+      <xsd:element name="_UseCaseData" nillable="true" type="xsd:string"/>
+      <xsd:element name="_XMLDoc" nillable="true" type="DataArea"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DataArea">
+    <xsd:sequence>
+      <xsd:element name="_DataArea" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="RequestMetadata" type="RequestMetadataType"/>
+  <xsd:element name="ResponseMetadata" type="ResponseMetadataType"/>
+  <xsd:complexType name="RequestMetadataType">
+    <xsd:sequence>
+      <xsd:element name="requestID" type="xsd:string"/>
+      <xsd:element name="systemID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="sourceID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="userID" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="validate" type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="debug" type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="userProof" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="userApp" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="boxUsage" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="executionToken" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="auditData" type="AuditDataType"/>
+      <xsd:element name="sender" type="SenderType"/>
+      <xsd:element minOccurs="0" name="target" type="TargetType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SenderType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="integrationCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="timestamp" type="xsd:date"/>
+      <xsd:element name="country" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="name" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="type" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="milestone" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="businessScope" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="instanceId" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ecId" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="TargetType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="integrationCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="country" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="name" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="type" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AuditDataType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="sourceUser" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="serviceUser" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="sourceApp" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ResponseMetadataType">
+    <xsd:sequence>
+      <xsd:element name="requestMetadata" type="RequestMetadataType"/>
+      <xsd:element minOccurs="0" name="returnCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="returnMessage" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="returnType" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="returnTrace" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="timestamp" type="xsd:date"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

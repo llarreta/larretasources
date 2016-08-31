@@ -1,0 +1,149 @@
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/com.dtvla.Annexs" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/com.dtvla.Annexs">
+  <xs:complexType name="GetAnnexIBSCustomerCodeFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccessDeniedException" nillable="true" type="tns:AccessDeniedException"/>
+      <xs:element minOccurs="0" name="EntityAlreadyExistsException" nillable="true" type="tns:EntityAlreadyExistsException"/>
+      <xs:element minOccurs="0" name="EntityInUseException" nillable="true" type="tns:EntityInUseException"/>
+      <xs:element minOccurs="0" name="EntityNotFoundException" nillable="true" type="tns:EntityNotFoundException"/>
+      <xs:element minOccurs="0" name="InternalErrorException" nillable="true" type="tns:InternalErrorException"/>
+      <xs:element minOccurs="0" name="InvalidParameterValueException" nillable="true" type="tns:InvalidParameterValueException"/>
+      <xs:element minOccurs="0" name="InvalidQueryParameterException" nillable="true" type="tns:InvalidQueryParameterException"/>
+      <xs:element minOccurs="0" name="InvalidRequestException" nillable="true" type="tns:InvalidRequestException"/>
+      <xs:element minOccurs="0" name="InvalidResponseException" nillable="true" type="tns:InvalidResponseException"/>
+      <xs:element minOccurs="0" name="InvalidSecurityTokenException" nillable="true" type="tns:InvalidSecurityTokenException"/>
+      <xs:element minOccurs="0" name="MissingParameterException" nillable="true" type="tns:MissingParameterException"/>
+      <xs:element minOccurs="0" name="OperationNotYetImplementedException" nillable="true" type="tns:OperationNotYetImplementedException"/>
+      <xs:element minOccurs="0" name="ServiceUnavailableException" nillable="true" type="tns:ServiceUnavailableException"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetAnnexIBSCustomerCodeFault" nillable="true" type="tns:GetAnnexIBSCustomerCodeFault"/>
+  <xs:complexType name="AccessDeniedException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AccessDeniedException" nillable="true" type="tns:AccessDeniedException"/>
+  <xs:complexType name="BaseException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="message" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseException" nillable="true" type="tns:BaseException"/>
+  <xs:complexType name="EntityAlreadyExistsException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EntityAlreadyExistsException" nillable="true" type="tns:EntityAlreadyExistsException"/>
+  <xs:complexType name="EntityInUseException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EntityInUseException" nillable="true" type="tns:EntityInUseException"/>
+  <xs:complexType name="EntityNotFoundException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EntityNotFoundException" nillable="true" type="tns:EntityNotFoundException"/>
+  <xs:complexType name="InternalErrorException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InternalErrorException" nillable="true" type="tns:InternalErrorException"/>
+  <xs:complexType name="InvalidParameterValueException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InvalidParameterValueException" nillable="true" type="tns:InvalidParameterValueException"/>
+  <xs:complexType name="InvalidQueryParameterException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InvalidQueryParameterException" nillable="true" type="tns:InvalidQueryParameterException"/>
+  <xs:complexType name="InvalidRequestException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InvalidRequestException" nillable="true" type="tns:InvalidRequestException"/>
+  <xs:complexType name="InvalidResponseException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InvalidResponseException" nillable="true" type="tns:InvalidResponseException"/>
+  <xs:complexType name="InvalidSecurityTokenException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="InvalidSecurityTokenException" nillable="true" type="tns:InvalidSecurityTokenException"/>
+  <xs:complexType name="MissingParameterException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MissingParameterException" nillable="true" type="tns:MissingParameterException"/>
+  <xs:complexType name="OperationNotYetImplementedException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="OperationNotYetImplementedException" nillable="true" type="tns:OperationNotYetImplementedException"/>
+  <xs:complexType name="ServiceUnavailableException">
+    <xs:complexContent>
+      <xs:extension base="tns:BaseException">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ServiceUnavailableException" nillable="true" type="tns:ServiceUnavailableException"/>
+  <xs:complexType name="RequiredAnnexIBSCustomerCodeFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccessDeniedException" nillable="true" type="tns:AccessDeniedException"/>
+      <xs:element minOccurs="0" name="EntityAlreadyExistsException" nillable="true" type="tns:EntityAlreadyExistsException"/>
+      <xs:element minOccurs="0" name="EntityInUseException" nillable="true" type="tns:EntityInUseException"/>
+      <xs:element minOccurs="0" name="EntityNotFoundException" nillable="true" type="tns:EntityNotFoundException"/>
+      <xs:element minOccurs="0" name="InternalErrorException" nillable="true" type="tns:InternalErrorException"/>
+      <xs:element minOccurs="0" name="InvalidParameterValueException" nillable="true" type="tns:InvalidParameterValueException"/>
+      <xs:element minOccurs="0" name="InvalidQueryParameterException" nillable="true" type="tns:InvalidQueryParameterException"/>
+      <xs:element minOccurs="0" name="InvalidRequestException" nillable="true" type="tns:InvalidRequestException"/>
+      <xs:element minOccurs="0" name="InvalidResponseException" nillable="true" type="tns:InvalidResponseException"/>
+      <xs:element minOccurs="0" name="InvalidSecurityTokenException" nillable="true" type="tns:InvalidSecurityTokenException"/>
+      <xs:element minOccurs="0" name="MissingParameterException" nillable="true" type="tns:MissingParameterException"/>
+      <xs:element minOccurs="0" name="OperationNotYetImplementedException" nillable="true" type="tns:OperationNotYetImplementedException"/>
+      <xs:element minOccurs="0" name="ServiceUnavailableException" nillable="true" type="tns:ServiceUnavailableException"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RequiredAnnexIBSCustomerCodeFault" nillable="true" type="tns:RequiredAnnexIBSCustomerCodeFault"/>
+</xs:schema>

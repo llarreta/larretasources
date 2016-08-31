@@ -1,0 +1,948 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-common-v1-0="http://directvla.com/schema/crm/common/v1" xmlns:crm-customer-v1-0="http://directvla.com/contract/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:servicepm-v1-0="http://directvla.com/schema/businessdomain/ServiceProblemManagement/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0">
+<documentation>
+        <abstractWSDL>http://esbcol.directvla.com.co:80/soa-infra/services/DTVLA-Services/ServiceProblemManagement-Services!2.3.0/ServiceProblemManagement.wsdl</abstractWSDL>
+    </documentation>
+  <types>
+<xsd:schema xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:crm-common-v1-0="http://directvla.com/schema/crm/common/v1" xmlns:crm-customer-v1-0="http://directvla.com/contract/crm/customer/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:productbd-v1-0="http://directvla.com/schema/businessdomain/product/v1-0" xmlns:servicepm-v1-0="http://directvla.com/schema/businessdomain/ServiceProblemManagement/v1-0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/ServiceProblemManagement/v1-0">
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="schema3.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/product/v1-0" schemaLocation="schema5.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema1.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema6.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="schema2.xsd"/>
+            
+  <xsd:complexType name="SolveError764">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="PhysicalResourceSC" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" name="PhysicalResourceIRD" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="CustomerInquiry" type="customerbd-v1-0:CustomerInquiry"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ReasonIdCustomerInquiry" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="SolveError764Request">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="SolveError764" type="servicepm-v1-0:SolveError764"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="SolveError764Response">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="SolveError764Exception">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="BeginTechnicalService">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" nillable="false" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="AgreementKey" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ProductIdOld" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ProductIdNew" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdOldProduct" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdNewProduct" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="Resource" nillable="false" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element name="ReasonIdDisconnect" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="CurrentStatusIdDisconnect" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ServiceTypeId" nillable="false" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="ServiceProviderId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ProblemDescription" nillable="false" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="ServiceDateTime" type="xsd:dateTime"/>
+                    
+      <xsd:element maxOccurs="1" name="ServiceId" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonWorkOrder" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="BeginTechnicalServiceResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="WorkOrderId" nillable="false" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="ResourceChangeDamaged">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="OldDecoderResource" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" name="NewDecoderResource" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" name="OldSmartcardResource" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" name="NewSmartcardResource" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" name="StockhandlerId" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdNewChange" type="xsd:int"/>
+                    
+      <xsd:element name="ReasonIdOldChange" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ReasonIdNewChangeSmartcard" type="xsd:int"/>
+                    
+      <xsd:element minOccurs="0" name="ReasonIdOldChangeSmartcard" type="xsd:int"/>
+                    
+      <xsd:element name="WorkOrder" type="commonbd-v1-0:WorkOrder"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdWorkOrderEdit" type="xsd:string"/>
+                    
+      <xsd:element name="ReasonIdWorkOrderComplete" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="EndTechnicalService">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" nillable="false" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="AgreementKey" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ProductIdOld" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ProductIdNew" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdOldProduct" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdNewProduct" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="CurrentStatusIdReconnect" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdReconnect" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="WorkOrderId" nillable="false" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" name="ReasonIdComplete" nillable="false" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="ActionTaken" nillable="false" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="Resource" nillable="false" type="commonbd-v1-0:PhysicalResource"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="SolveError711">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="Resource" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="CustomerInquiry" type="customerbd-v1-0:CustomerInquiry"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ReasonIdCustomerInquiry" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="TempCommand">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="command" nillable="true" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="TempCommands" type="servicepm-v1-0:TempCommand"/>
+            
+  <xsd:element name="BeginTechnicalServiceRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="BeginTechnicalService" type="servicepm-v1-0:BeginTechnicalService"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="BeginTechnicalServiceResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="BeginTechnicalServiceResult" type="servicepm-v1-0:BeginTechnicalServiceResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="BeginTechnicalServiceException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ResourceChangeDamagedRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="ResourceChangeDamaged" type="servicepm-v1-0:ResourceChangeDamaged"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ResourceChangeDamagedResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="ResourceChangeDamagedException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EndTechnicalServiceRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="EndTechnicalService" type="servicepm-v1-0:EndTechnicalService"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EndTechnicalServiceResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EndTechnicalServiceException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="SolveError711Request">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="SolveError711" type="servicepm-v1-0:SolveError711"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="SolveError711Response">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="SolveError711Exception">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="SolveError721">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="CustomerKey" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="Resource" type="commonbd-v1-0:PhysicalResource"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="CustomerInquiry" type="customerbd-v1-0:CustomerInquiry"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ReasonIdCustomerInquiry" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="SolveError721Request">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="SolveError721" type="servicepm-v1-0:SolveError721"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="SolveError721Response">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="ResponseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="SolveError721Exception">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+        
+</xsd:schema>
+  </types>
+  <message name="SolveError721Request">
+    <part element="servicepm-v1-0:SolveError721Request" name="parameter">
+    </part>
+  </message>
+  <message name="SolveError721Response">
+    <part element="servicepm-v1-0:SolveError721Response" name="parameter">
+    </part>
+  </message>
+  <message name="BeginTechnicalServiceException">
+    <part element="servicepm-v1-0:BeginTechnicalServiceException" name="parameter">
+    </part>
+  </message>
+  <message name="EndTechnicalServiceException">
+    <part element="servicepm-v1-0:EndTechnicalServiceException" name="parameter">
+    </part>
+  </message>
+  <message name="SolveError764Response">
+    <part element="servicepm-v1-0:SolveError764Response" name="parameter">
+    </part>
+  </message>
+  <message name="SolveError721Exception">
+    <part element="servicepm-v1-0:SolveError721Exception" name="parameter">
+    </part>
+  </message>
+  <message name="ResourceChangeDamagedRequest">
+    <part element="servicepm-v1-0:ResourceChangeDamagedRequest" name="parameter">
+    </part>
+  </message>
+  <message name="ResourceChangeDamagedResponse">
+    <part element="servicepm-v1-0:ResourceChangeDamagedResponse" name="parameter">
+    </part>
+  </message>
+  <message name="BeginTechnicalServiceRequest">
+    <part element="servicepm-v1-0:BeginTechnicalServiceRequest" name="parameter">
+    </part>
+  </message>
+  <message name="EndTechnicalServiceResponse">
+    <part element="servicepm-v1-0:EndTechnicalServiceResponse" name="parameter">
+    </part>
+  </message>
+  <message name="EndTechnicalServiceRequest">
+    <part element="servicepm-v1-0:EndTechnicalServiceRequest" name="parameter">
+    </part>
+  </message>
+  <message name="SolveError711Request">
+    <part element="servicepm-v1-0:SolveError711Request" name="parameter">
+    </part>
+  </message>
+  <message name="BeginTechnicalServiceResponse">
+    <part element="servicepm-v1-0:BeginTechnicalServiceResponse" name="parameter">
+    </part>
+  </message>
+  <message name="ResourceChangeDamagedException">
+    <part element="servicepm-v1-0:ResourceChangeDamagedException" name="parameter">
+    </part>
+  </message>
+  <message name="SolveError764Exception">
+    <part element="servicepm-v1-0:SolveError764Exception" name="parameter">
+    </part>
+  </message>
+  <message name="SolveError711Response">
+    <part element="servicepm-v1-0:SolveError711Response" name="parameter">
+    </part>
+  </message>
+  <message name="SolveError764Request">
+    <part element="servicepm-v1-0:SolveError764Request" name="parameter">
+    </part>
+  </message>
+  <message name="SolveError711Exception">
+    <part element="servicepm-v1-0:SolveError711Exception" name="parameter">
+    </part>
+  </message>
+  <portType name="ServiceProblemManagement_pt">
+    <operation name="BeginTechnicalService">
+      <input message="tns:BeginTechnicalServiceRequest">
+    </input>
+      <output message="tns:BeginTechnicalServiceResponse">
+    </output>
+      <fault message="tns:BeginTechnicalServiceException" name="BeginTechnicalServiceException">
+    </fault>
+    </operation>
+    <operation name="EndTechnicalService">
+      <input message="tns:EndTechnicalServiceRequest">
+    </input>
+      <output message="tns:EndTechnicalServiceResponse">
+    </output>
+      <fault message="tns:EndTechnicalServiceException" name="EndTechnicalServiceException">
+    </fault>
+    </operation>
+    <operation name="ResourceChangeDamaged">
+      <input message="tns:ResourceChangeDamagedRequest">
+    </input>
+      <output message="tns:ResourceChangeDamagedResponse">
+    </output>
+      <fault message="tns:ResourceChangeDamagedException" name="ResourceChangeDamagedException">
+    </fault>
+    </operation>
+    <operation name="SolveError711">
+      <input message="tns:SolveError711Request">
+    </input>
+      <output message="tns:SolveError711Response">
+    </output>
+      <fault message="tns:SolveError711Exception" name="SolveError711Exception">
+    </fault>
+    </operation>
+    <operation name="SolveError764">
+      <input message="tns:SolveError764Request">
+    </input>
+      <output message="tns:SolveError764Response">
+    </output>
+      <fault message="tns:SolveError764Exception" name="SolveError764Exception">
+    </fault>
+    </operation>
+    <operation name="SolveError721">
+      <input message="tns:SolveError721Request">
+    </input>
+      <output message="tns:SolveError721Response">
+    </output>
+      <fault message="tns:SolveError721Exception" name="SolveError721Exception">
+    </fault>
+    </operation>
+  </portType>
+  <portType name="ServiceProblemManagement_ptsecure">
+    <operation name="BeginTechnicalService">
+      <input message="tns:BeginTechnicalServiceRequest">
+    </input>
+      <output message="tns:BeginTechnicalServiceResponse">
+    </output>
+      <fault message="tns:BeginTechnicalServiceException" name="BeginTechnicalServiceException">
+    </fault>
+    </operation>
+    <operation name="EndTechnicalService">
+      <input message="tns:EndTechnicalServiceRequest">
+    </input>
+      <output message="tns:EndTechnicalServiceResponse">
+    </output>
+      <fault message="tns:EndTechnicalServiceException" name="EndTechnicalServiceException">
+    </fault>
+    </operation>
+    <operation name="ResourceChangeDamaged">
+      <input message="tns:ResourceChangeDamagedRequest">
+    </input>
+      <output message="tns:ResourceChangeDamagedResponse">
+    </output>
+      <fault message="tns:ResourceChangeDamagedException" name="ResourceChangeDamagedException">
+    </fault>
+    </operation>
+    <operation name="SolveError764">
+      <input message="tns:SolveError764Request">
+    </input>
+      <output message="tns:SolveError764Response">
+    </output>
+      <fault message="tns:SolveError764Exception" name="SolveError764Exception">
+    </fault>
+    </operation>
+    <operation name="SolveError711">
+      <input message="tns:SolveError711Request">
+    </input>
+      <output message="tns:SolveError711Response">
+    </output>
+      <fault message="tns:SolveError711Exception" name="SolveError711Exception">
+    </fault>
+    </operation>
+    <operation name="SolveError721">
+      <input message="tns:SolveError721Request">
+    </input>
+      <output message="tns:SolveError721Response">
+    </output>
+      <fault message="tns:SolveError721Exception" name="SolveError721Exception">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="ServiceProblemManagement_ptsecureSOAP11Binding" type="tns:ServiceProblemManagement_ptsecure">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="BeginTechnicalService">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/BeginTechnicalService" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="BeginTechnicalServiceException">
+        <soap:fault name="BeginTechnicalServiceException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="EndTechnicalService">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/EndTechnicalService" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="EndTechnicalServiceException">
+        <soap:fault name="EndTechnicalServiceException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="SolveError764">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/SolveError764" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="SolveError764Exception">
+        <soap:fault name="SolveError764Exception" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="ResourceChangeDamaged">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/ResourceChangeDamaged" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="ResourceChangeDamagedException">
+        <soap:fault name="ResourceChangeDamagedException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="SolveError711">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/SolveError711" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="SolveError711Exception">
+        <soap:fault name="SolveError711Exception" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="SolveError721">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/SolveError721" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="SolveError721Exception">
+        <soap:fault name="SolveError721Exception" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <binding name="ServiceProblemManagement_ptSOAP11Binding" type="tns:ServiceProblemManagement_pt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="BeginTechnicalService">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/BeginTechnicalService" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="BeginTechnicalServiceException">
+        <soap:fault name="BeginTechnicalServiceException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="EndTechnicalService">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/EndTechnicalService" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="EndTechnicalServiceException">
+        <soap:fault name="EndTechnicalServiceException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="ResourceChangeDamaged">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/ResourceChangeDamaged" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="ResourceChangeDamagedException">
+        <soap:fault name="ResourceChangeDamagedException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="SolveError711">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/SolveError711" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="SolveError711Exception">
+        <soap:fault name="SolveError711Exception" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="SolveError764">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/SolveError764" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="SolveError764Exception">
+        <soap:fault name="SolveError764Exception" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="SolveError721">
+      <soap:operation soapAction="http://directvla.com/contract/businessdomain/ServiceProblemManagement/v1-0/SolveError721" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="SolveError721Exception">
+        <soap:fault name="SolveError721Exception" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="ServiceProblemManagement_pt">
+    <port binding="tns:ServiceProblemManagement_ptSOAP11Binding" name="ServiceProblemManagement_ptPort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/ServiceProblemManagement-Services/ServiceProblemManagement"/>
+    </port>
+  </service>
+  <service name="ServiceProblemManagement_ptsecure">
+    <port binding="tns:ServiceProblemManagement_ptsecureSOAP11Binding" name="ServiceProblemManagement_ptsecurePort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/ServiceProblemManagement-Services/ServiceProblemManagement"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="BeginTechnicalService">
+        <plnk:role name="ServiceProblemManagement_pt">
+            <plnk:portType name="tns:ServiceProblemManagement_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="SolveError764">
+        <plnk:role name="ServiceProblemManagement_pt">
+            <plnk:portType name="tns:ServiceProblemManagement_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

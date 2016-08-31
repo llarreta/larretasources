@@ -1,0 +1,14 @@
+<xsd:schema xmlns="http://directvla.com/schema/businessdomain/ManageBillingEvents/v1-0" xmlns:customerbd-v1-0="http://directvla.com/schema/businessdomain/customer/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/ManageBillingEvents/v1-0">
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/customer/v1-0" schemaLocation="schema6.xsd"/>
+  <xsd:complexType name="GetCustomerFinancialInfoResult">
+    <xsd:sequence>
+      <xsd:element name="customer" type="customerbd-v1-0:Customer"/>
+      <xsd:element name="invoice" type="customerbd-v1-0:Invoice"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="GetCustomerLastInvoiceResult">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Invoice" type="customerbd-v1-0:Invoice"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

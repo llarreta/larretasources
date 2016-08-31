@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workOrder xmlns="http://directvla.com/schema/crm/common/v1-1">
+	<ID>1329331</ID>
+	<interactionDate>2012-11-28T18:31:32</interactionDate>
+	<description>BANCO RUMIÃ‘AHUI CTA. AHORROS</description>
+	<interactionDateComplete>0001-01-01T00:00:00</interactionDateComplete>
+	<interactionStatus>9</interactionStatus>
+	<initiatedBy>ESALESEC - e-Sales Ecuador</initiatedBy>
+	<requestedDeliveryDate>2012-11-30T14:59:59</requestedDeliveryDate>
+	<possibleDeliveryDate>2012-11-30T14:59:59</possibleDeliveryDate>
+	<ServiceList>
+		<Service>
+			<serviceKey>1721707</serviceKey>
+			<code>IB01</code>
+			<description>BANCO RUMIÃ‘AHUI CTA. AHORROS</description>
+			<productSerialNumber></productSerialNumber>
+			<serviceType>
+				<serviceTypeCode>100</serviceTypeCode>
+			</serviceType>
+			<workOrderKey>1329331</workOrderKey>
+		</Service>
+	</ServiceList>
+	<customer>
+		<AddressList>
+			<UrbanPropertyAddress>
+				<addressCode>101419407</addressCode>
+			</UrbanPropertyAddress>
+		</AddressList>
+		<ID>12277677</ID>
+		<customerRank>N</customerRank>
+		<IndividualRole>
+			<IndividualIdentification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="NationalIdentityCardIdentification">
+				<scan>1</scan>
+				<cardNr>1712330222</cardNr>
+			</IndividualIdentification>
+		</IndividualRole>
+	</customer>
+	<dealerId>10770810</dealerId>
+	<dealerISalesd>10770810</dealerISalesd>
+	<action>.243903791//Ricardo tec tv futuro guayaquil solicita ingresa de
+		series 000259500932 T26LAM517TEFBV se procede //am</action>
+	<code>1</code>
+	<historyCodeEventId>110980379</historyCodeEventId>
+	<isAppointment>true</isAppointment>
+	<GeographicArea>
+		<Country>
+			<Iso2Code xmlns:crm-common="http://directvla.com/schema/crm/common/v1-1"
+				xmlns:ns0="http://directvla.com/schema/crm/customer/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">EC
+			</Iso2Code>
+		</Country>
+		<State>
+			<code>9</code>
+		</State>
+		<PostCode>
+			<code xmlns:crm-common="http://directvla.com/schema/crm/common/v1-1"
+				xmlns:ns0="http://directvla.com/schema/crm/customer/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">091100
+			</code>
+		</PostCode>
+	</GeographicArea>
+	<workingTime>0.0</workingTime>
+	<workorderStatusByActualStatusId>9</workorderStatusByActualStatusId>
+	<ShippingOrder>
+		<ID>991941</ID>
+		<interactionDate>2012-11-28T18:31:31</interactionDate>
+		<description>BANCO RUMIÃ‘AHUI CTA. AHORROS</description>
+		<interactionDateComplete>2012-11-30T14:01:07</interactionDateComplete>
+		<interactionStatus>5</interactionStatus>
+		<shippingOrderKey>10</shippingOrderKey>
+		<ProductList>
+			<Product>
+				<productKey>2748773</productKey>
+				<name>IRD</name>
+				<code>2748773</code>
+				<description>IRD</description>
+				<productStatus>10</productStatus>
+				<productSerialNumber>000259500932</productSerialNumber>
+				<modelKey>28</modelKey>
+				<Type>2</Type>
+			</Product>
+			<Product>
+				<productKey>2748774</productKey>
+				<name>IRD</name>
+				<code>2748774</code>
+				<description>IRD</description>
+				<productStatus>10</productStatus>
+				<productSerialNumber>T26LAM517TEFBV</productSerialNumber>
+				<modelKey>70</modelKey>
+				<Type>1</Type>
+			</Product>
+			<Product>
+				<productKey>2748775</productKey>
+				<name>KIT DTV Residencia Principal</name>
+				<code>2748775</code>
+				<description>KIT DTV Residencia Principal</description>
+				<productStatus>15</productStatus>
+				<productSerialNumber></productSerialNumber>
+				<modelKey>7</modelKey>
+				<Type>5</Type>
+			</Product>
+			<Product>
+				<productKey>2748776</productKey>
+				<name>KIT DTV Residencia Principal</name>
+				<code>2748776</code>
+				<description>KIT DTV Residencia Principal</description>
+				<productStatus>15</productStatus>
+				<productSerialNumber></productSerialNumber>
+				<modelKey>4</modelKey>
+				<Type>48</Type>
+			</Product>
+		</ProductList>
+		<SoldBy>21753</SoldBy>
+		<ShippingMethodKey>1</ShippingMethodKey>
+		<contractNumber></contractNumber>
+		<contractCode></contractCode>
+	</ShippingOrder>
+</workOrder>

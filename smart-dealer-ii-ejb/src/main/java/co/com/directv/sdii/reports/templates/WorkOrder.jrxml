@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="plantilla" pageWidth="595" pageHeight="842" columnWidth="585" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5">
+
+	<parameter name="P_TITULO" class="java.lang.String"/>
+	<parameter name="P_SUBTITULO" class="java.lang.String"/>
+
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="235" splitType="Stretch">
+			<textField>
+				<reportElement x="413" y="23" width="157" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Long"><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="60"/>
+	</pageFooter>
+</jasperReport>

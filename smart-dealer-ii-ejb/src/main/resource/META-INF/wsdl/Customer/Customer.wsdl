@@ -1,0 +1,1738 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:crm-common="http://directvla.com/schema/crm/common/v1" xmlns:crm-customer="http://directvla.com/schema/crm/customer/v1" xmlns:crm-exception="http://directvla.com/schema/crm/exception/v1" xmlns:ns1="http://ibs.entriq.net/Customers" xmlns:ns2="http://ibs.entriq.net/Security" xmlns:ns3="http://ibs.entriq.net/ViewFacade" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/crm/customer/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://directvla.com/contract/crm/customer/v1">
+<documentation>
+        <abstractWSDL>http://esbcol.directvla.com.co:80/soa-infra/services/DTVLA-Services/crm-assurance!2.0.0/customer.wsdl</abstractWSDL>
+    </documentation>
+  <types>
+<xsd:schema xmlns="http://directvla.com/schema/crm/customer/v1" xmlns:crm-common="http://directvla.com/schema/crm/common/v1" xmlns:crm-customer="http://directvla.com/schema/crm/customer/v1" xmlns:crm-exception="http://directvla.com/schema/crm/exception/v1" xmlns:ns1="http://ibs.entriq.net/Customers" xmlns:ns2="http://ibs.entriq.net/Security" xmlns:ns3="http://ibs.entriq.net/ViewFacade" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/crm/customer/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/crm/customer/v1">
+            
+  <xsd:import namespace="http://directvla.com/schema/crm/common/v1" schemaLocation="schema6.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/crm/exception/v1" schemaLocation="schema3.xsd"/>
+            
+  <xsd:complexType name="AddCustomerAddress">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Cust" type="crm-common:Customer"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustAddr" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Reason" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="AddCustomerAddressResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="customerAddressKey" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="AddCustomerAddressRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element name="AddCustomerAddress" type="crm-customer:AddCustomerAddress"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="AddCustomerAddressResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="AddCustomerAddressResult" type="crm-customer:AddCustomerAddressResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="AddCustomerAddressException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="AddCustomerInquiry">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustInq" type="crm-common:CustomerInquiry"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Reason" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="AddCustomerInquiryResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="customerInquiryKey" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="AddCustomerInquiryRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element name="AddCustomerInquiry" type="crm-customer:AddCustomerInquiry"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="AddCustomerInquiryResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="AddCustomerInquiryResult" type="crm-customer:AddCustomerInquiryResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="AddCustomerInquiryException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="EditCustomerInquiry">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustInqr" type="crm-common:CustomerInquiry"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Response" type="crm-common:InquiryResponse"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Reason" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="EditCustomerInquiryRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element name="EditCustomerInquiry" type="crm-customer:EditCustomerInquiry"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EditCustomerInquiryResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EditCustomerInquiryException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="EditCustomer">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Cust" type="crm-common:Customer"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustAccount" type="crm-common:CustomerAccount"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="CustAddress" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Reason" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="ReasonStatus" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="ReasonType" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="ReasonAddress" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="EditCustomerRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element name="EditCustomer" type="crm-customer:EditCustomer"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EditCustomerResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="EditCustomerException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerInquiriesByDays">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Cust" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Days" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInquiriesByDaysResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element minOccurs="0" name="customerinquiries" type="crm-common:CustomerInquiriesCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerInquiriesByDaysRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesByDays" type="crm-customer:GetCustomerInquiriesByDays"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesByDaysResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesByDaysResult" type="crm-customer:GetCustomerInquiriesByDaysResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesByDaysException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerInquiries">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Cust" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="RegNr" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerInquiriesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element minOccurs="0" name="contacts" type="crm-common:CustomerInquiriesCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerInquiriesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiries" type="crm-customer:GetCustomerInquiries"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerInquiriesResult" type="crm-customer:GetCustomerInquiriesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerInquiriesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerHistoryEvent">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Cust" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Days" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Event" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerHistoryEventResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element minOccurs="0" name="customerhistories" type="crm-common:CustomerHistoryEventCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerHistoryEventRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element name="GetCustomerHistoryEvent" type="crm-customer:GetCustomerHistoryEvent"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerHistoryEventResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerHistoryEventResult" type="crm-customer:GetCustomerHistoryEventResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerHistoryEventException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerHistory">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Cust" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Days" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerHistoryResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element minOccurs="0" name="customerhistories" type="crm-common:CustomerHistoryEventCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerHistoryRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerHistory" type="crm-customer:GetCustomerHistory"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerHistoryResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerHistoryResult" type="crm-customer:GetCustomerHistoryResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerHistoryException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomer">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustomerNr" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="customer" type="crm-common:Customer"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="account" type="crm-common:CustomerAccount"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="address" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="billingAddress" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="shippingAddress" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ClassName" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomer" type="crm-customer:GetCustomer"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerResult" type="crm-customer:GetCustomerResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerByNames">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="FirstName" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" name="SurName" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerByNamesResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="customers" type="crm-common:Customer"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerByNamesRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerByNames" type="crm-customer:GetCustomerByNames"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerByNamesResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerByNamesResult" type="crm-customer:GetCustomerByNamesResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerByNamesException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerCrm">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustomerNr" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerCrmResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="customer" type="crm-common:CustomerCrm"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="account" type="crm-common:CustomerAccountCrm"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="address" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="billingAddress" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="shippingAddress" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="ClassName" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerCrmRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerCrm" type="crm-customer:GetCustomerCrm"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerCrmResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerCrmResult" type="crm-customer:GetCustomerCrmResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerCrmException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerByIdentification">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" name="Identification" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerByIdentificationResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="customers" type="crm-common:Customer"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerByIdentificationRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerByIdentification" type="crm-customer:GetCustomerByIdentification"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerByIdentificationResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerByIdentificationResult" type="crm-customer:GetCustomerByIdentificationResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerByIdentificationException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetCustomerBySerialNumber">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="SerialNumber" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="GetCustomerBySerialNumberResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="customer" type="crm-common:CustomerCrm"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="account" type="crm-common:CustomerAccountCrm"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="address" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="billingAddress" type="crm-common:Address"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="shippingAddress" type="crm-common:Address"/>
+                    
+      <xsd:element name="SerialNumber" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetCustomerBySerialNumberRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetCustomerBySerialNumber" type="crm-customer:GetCustomerBySerialNumber"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerBySerialNumberResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetCustomerBySerialNumberResult" type="crm-customer:GetCustomerBySerialNumberResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetCustomerBySerialNumberException">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+        
+</xsd:schema>
+  </types>
+  <message name="GetCustomerInquiriesByDaysRequest">
+    <part element="crm-customer:GetCustomerInquiriesByDaysRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerByIdentificationResponse">
+    <part element="crm-customer:GetCustomerByIdentificationResponse" name="parameter">
+    </part>
+  </message>
+  <message name="EditCustomerInquiryException">
+    <part element="crm-customer:EditCustomerInquiryException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerByIdentificationRequest">
+    <part element="crm-customer:GetCustomerByIdentificationRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerResponse">
+    <part element="crm-customer:GetCustomerResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerCrmRequest">
+    <part element="crm-customer:GetCustomerCrmRequest" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerAddressResponse">
+    <part element="crm-customer:AddCustomerAddressResponse" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerAddressRequest">
+    <part element="crm-customer:AddCustomerAddressRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerHistoryEventResponse">
+    <part element="crm-customer:GetCustomerHistoryEventResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerHistoryException">
+    <part element="crm-customer:GetCustomerHistoryException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerBySerialNumberResponse">
+    <part element="crm-customer:GetCustomerBySerialNumberResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerBySerialNumberException">
+    <part element="crm-customer:GetCustomerBySerialNumberException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerException">
+    <part element="crm-customer:GetCustomerException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerByNamesRequest">
+    <part element="crm-customer:GetCustomerByNamesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerHistoryEventRequest">
+    <part element="crm-customer:GetCustomerHistoryEventRequest" name="parameter">
+    </part>
+  </message>
+  <message name="EditCustomerResponse">
+    <part element="crm-customer:EditCustomerResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerBySerialNumberRequest">
+    <part element="crm-customer:GetCustomerBySerialNumberRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerHistoryEventException">
+    <part element="crm-customer:GetCustomerHistoryEventException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesRequest">
+    <part element="crm-customer:GetCustomerInquiriesRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesResponse">
+    <part element="crm-customer:GetCustomerInquiriesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerHistoryRequest">
+    <part element="crm-customer:GetCustomerHistoryRequest" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerInquiryRequest">
+    <part element="crm-customer:AddCustomerInquiryRequest" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerInquiryException">
+    <part element="crm-customer:AddCustomerInquiryException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesByDaysResponse">
+    <part element="crm-customer:GetCustomerInquiriesByDaysResponse" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerAddressException">
+    <part element="crm-customer:AddCustomerAddressException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerHistoryResponse">
+    <part element="crm-customer:GetCustomerHistoryResponse" name="parameter">
+    </part>
+  </message>
+  <message name="EditCustomerRequest">
+    <part element="crm-customer:EditCustomerRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerCrmException">
+    <part element="crm-customer:GetCustomerCrmException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesException">
+    <part element="crm-customer:GetCustomerInquiriesException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerRequest">
+    <part element="crm-customer:GetCustomerRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerByIdentificationException">
+    <part element="crm-customer:GetCustomerByIdentificationException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerCrmResponse">
+    <part element="crm-customer:GetCustomerCrmResponse" name="parameter">
+    </part>
+  </message>
+  <message name="AddCustomerInquiryResponse">
+    <part element="crm-customer:AddCustomerInquiryResponse" name="parameter">
+    </part>
+  </message>
+  <message name="EditCustomerInquiryRequest">
+    <part element="crm-customer:EditCustomerInquiryRequest" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerByNamesResponse">
+    <part element="crm-customer:GetCustomerByNamesResponse" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerInquiriesByDaysException">
+    <part element="crm-customer:GetCustomerInquiriesByDaysException" name="parameter">
+    </part>
+  </message>
+  <message name="GetCustomerByNamesException">
+    <part element="crm-customer:GetCustomerByNamesException" name="parameter">
+    </part>
+  </message>
+  <message name="EditCustomerException">
+    <part element="crm-customer:EditCustomerException" name="parameter">
+    </part>
+  </message>
+  <message name="EditCustomerInquiryResponse">
+    <part element="crm-customer:EditCustomerInquiryResponse" name="parameter">
+    </part>
+  </message>
+  <portType name="ptCallBack">
+    <operation name="GetCustomerCrmCallBack">
+      <input message="tns:GetCustomerCrmResponse">
+    </input>
+    </operation>
+    <operation name="GetCustomerInquiriesByDaysCallBack">
+      <input message="tns:GetCustomerInquiriesByDaysResponse">
+    </input>
+    </operation>
+    <operation name="GetCustomerCrmException">
+      <input message="tns:GetCustomerCrmException">
+    </input>
+    </operation>
+    <operation name="GetCustomerInquiriesByDaysException">
+      <input message="tns:GetCustomerInquiriesByDaysException">
+    </input>
+    </operation>
+  </portType>
+  <portType name="ptAsync">
+    <operation name="GetCustomerCrm">
+      <input message="tns:GetCustomerCrmRequest">
+    </input>
+    </operation>
+    <operation name="GetCustomerInquiriesByDays">
+      <input message="tns:GetCustomerInquiriesByDaysRequest">
+    </input>
+    </operation>
+  </portType>
+  <portType name="ptCustomer">
+    <operation name="AddCustomerAddress">
+      <input message="tns:AddCustomerAddressRequest" name="AddCustomerAddressRequest">
+    </input>
+      <output message="tns:AddCustomerAddressResponse" name="AddCustomerAddressResponse">
+    </output>
+      <fault message="tns:AddCustomerAddressException" name="AddCustomerAddressException">
+    </fault>
+    </operation>
+    <operation name="AddCustomerInquiry">
+      <input message="tns:AddCustomerInquiryRequest" name="AddCustomerInquiryRequest">
+    </input>
+      <output message="tns:AddCustomerInquiryResponse" name="AddCustomerInquiryResponse">
+    </output>
+      <fault message="tns:AddCustomerInquiryException" name="AddCustomerInquiryException">
+    </fault>
+    </operation>
+    <operation name="EditCustomer">
+      <input message="tns:EditCustomerRequest" name="EditCustomerRequest">
+    </input>
+      <output message="tns:EditCustomerResponse" name="EditCustomerResponse">
+    </output>
+      <fault message="tns:EditCustomerException" name="EditCustomerException">
+    </fault>
+    </operation>
+    <operation name="EditCustomerInquiry">
+      <input message="tns:EditCustomerInquiryRequest" name="EditCustomerInquiryRequest">
+    </input>
+      <output message="tns:EditCustomerInquiryResponse" name="EditCustomerInquiryResponse">
+    </output>
+      <fault message="tns:EditCustomerInquiryException" name="EditCustomerInquiryException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInquiries">
+      <input message="tns:GetCustomerInquiriesRequest" name="GetCustomerInquiriesRequest">
+    </input>
+      <output message="tns:GetCustomerInquiriesResponse" name="GetCustomerInquiriesResponse">
+    </output>
+      <fault message="tns:GetCustomerInquiriesException" name="GetCustomerInquiriesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerInquiriesByDays">
+      <input message="tns:GetCustomerInquiriesByDaysRequest" name="GetCustomerInquiriesByDaysRequest">
+    </input>
+      <output message="tns:GetCustomerInquiriesByDaysResponse" name="GetCustomerInquiriesByDaysResponse">
+    </output>
+      <fault message="tns:GetCustomerInquiriesByDaysException" name="GetCustomerInquiriesByDaysException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerHistory">
+      <input message="tns:GetCustomerHistoryRequest" name="GetCustomerHistoryRequest">
+    </input>
+      <output message="tns:GetCustomerHistoryResponse" name="GetCustomerHistoryResponse">
+    </output>
+      <fault message="tns:GetCustomerHistoryException" name="GetCustomerHistoryException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerHistoryEvent">
+      <input message="tns:GetCustomerHistoryEventRequest" name="GetCustomerHistoryEventRequest">
+    </input>
+      <output message="tns:GetCustomerHistoryEventResponse" name="GetCustomerHistoryEventResponse">
+    </output>
+      <fault message="tns:GetCustomerHistoryEventException" name="GetCustomerHistoryEventException">
+    </fault>
+    </operation>
+    <operation name="GetCustomer">
+      <input message="tns:GetCustomerRequest" name="GetCustomerRequest">
+    </input>
+      <output message="tns:GetCustomerResponse" name="GetCustomerResponse">
+    </output>
+      <fault message="tns:GetCustomerException" name="GetCustomerException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerByNames">
+      <input message="tns:GetCustomerByNamesRequest" name="GetCustomerByNamesRequest">
+    </input>
+      <output message="tns:GetCustomerByNamesResponse" name="GetCustomerByNamesResponse">
+    </output>
+      <fault message="tns:GetCustomerByNamesException" name="GetCustomerByNamesException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerBySerialNumber">
+      <input message="tns:GetCustomerBySerialNumberRequest" name="GetCustomerBySerialNumberRequest">
+    </input>
+      <output message="tns:GetCustomerBySerialNumberResponse" name="GetCustomerBySerialNumberResponse">
+    </output>
+      <fault message="tns:GetCustomerBySerialNumberException" name="GetCustomerBySerialNumberException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerCrm">
+      <input message="tns:GetCustomerCrmRequest" name="GetCustomerCrmRequest">
+    </input>
+      <output message="tns:GetCustomerCrmResponse" name="GetCustomerCrmResponse">
+    </output>
+      <fault message="tns:GetCustomerCrmException" name="GetCustomerCrmException">
+    </fault>
+    </operation>
+    <operation name="GetCustomerByIdentification">
+      <input message="tns:GetCustomerByIdentificationRequest" name="GetCustomerByIdentificationRequest">
+    </input>
+      <output message="tns:GetCustomerByIdentificationResponse" name="GetCustomerByIdentificationResponse">
+    </output>
+      <fault message="tns:GetCustomerByIdentificationException" name="GetCustomerByIdentificationException">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="ptCustomerAsyncSOAP11Binding" type="tns:ptAsync">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetCustomerCrm">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerCrm" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+    <operation name="GetCustomerInquiriesByDays">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerInquiriesByDays" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <binding name="ptCustomerSOAP11Binding" type="tns:ptCustomer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="AddCustomerAddress">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/AddCustomerAddress" style="document"/>
+      <input name="AddCustomerAddressRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="AddCustomerAddressResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="AddCustomerAddressException">
+        <soap:fault name="AddCustomerAddressException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="AddCustomerInquiry">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/AddCustomerInquiry" style="document"/>
+      <input name="AddCustomerInquiryRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="AddCustomerInquiryResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="AddCustomerInquiryException">
+        <soap:fault name="AddCustomerInquiryException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="EditCustomer">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/EditCustomer" style="document"/>
+      <input name="EditCustomerRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="EditCustomerResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="EditCustomerException">
+        <soap:fault name="EditCustomerException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="EditCustomerInquiry">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/EditCustomerInquiry" style="document"/>
+      <input name="EditCustomerInquiryRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="EditCustomerInquiryResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="EditCustomerInquiryException">
+        <soap:fault name="EditCustomerInquiryException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInquiries">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerInquiries" style="document"/>
+      <input name="GetCustomerInquiriesRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerInquiriesResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInquiriesException">
+        <soap:fault name="GetCustomerInquiriesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerInquiriesByDays">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerInquiriesByDays" style="document"/>
+      <input name="GetCustomerInquiriesByDaysRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerInquiriesByDaysResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerInquiriesByDaysException">
+        <soap:fault name="GetCustomerInquiriesByDaysException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerHistory">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerHistory" style="document"/>
+      <input name="GetCustomerHistoryRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerHistoryResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerHistoryException">
+        <soap:fault name="GetCustomerHistoryException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerHistoryEvent">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerHistoryEvent" style="document"/>
+      <input name="GetCustomerHistoryEventRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerHistoryEventResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerHistoryEventException">
+        <soap:fault name="GetCustomerHistoryEventException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomer">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomer" style="document"/>
+      <input name="GetCustomerRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerException">
+        <soap:fault name="GetCustomerException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerByNames">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerByNames" style="document"/>
+      <input name="GetCustomerByNamesRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerByNamesResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerByNamesException">
+        <soap:fault name="GetCustomerByNamesException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerBySerialNumber">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerBySerialNumber" style="document"/>
+      <input name="GetCustomerBySerialNumberRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerBySerialNumberResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerBySerialNumberException">
+        <soap:fault name="GetCustomerBySerialNumberException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerCrm">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerCrm" style="document"/>
+      <input name="GetCustomerCrmRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerCrmResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerCrmException">
+        <soap:fault name="GetCustomerCrmException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="GetCustomerByIdentification">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerByIdentification" style="document"/>
+      <input name="GetCustomerByIdentificationRequest">
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+      <output name="GetCustomerByIdentificationResponse">
+        <soap:body parts="parameter" use="literal"/>
+      </output>
+      <fault name="GetCustomerByIdentificationException">
+        <soap:fault name="GetCustomerByIdentificationException" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <binding name="ptCallBackSOAP11Binding" type="tns:ptCallBack">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetCustomerCrmCallBack">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerCrmCallBack" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+    <operation name="GetCustomerInquiriesByDaysCallBack">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerInquiriesByDaysCallBack" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+    <operation name="GetCustomerCrmException">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerCrmException" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+    <operation name="GetCustomerInquiriesByDaysException">
+      <soap:operation soapAction="http://directvla.com/contract/crm/customer/v1/GetCustomerInquiriesByDaysException" style="document"/>
+      <input>
+        <soap:body parts="parameter" use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <service name="ptCallBack">
+    <port binding="tns:ptCallBackSOAP11Binding" name="ptCallBackPort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/crm-assurance/Customer"/>
+    </port>
+  </service>
+  <service name="ptCustomerAsync">
+    <port binding="tns:ptCustomerAsyncSOAP11Binding" name="ptCustomerAsyncPort">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/crm-assurance/Customer"/>
+    </port>
+  </service>
+  <service name="Customer">
+    <port binding="tns:ptCustomerSOAP11Binding" name="ptCustomer_pt">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/crm-assurance/Customer"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="CustomerAsyncPL">
+        <plnk:role name="ptCallBack">
+            <plnk:portType name="tns:ptCallBack"/>
+        </plnk:role>
+        <plnk:role name="ptAsync">
+            <plnk:portType name="tns:ptAsync"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

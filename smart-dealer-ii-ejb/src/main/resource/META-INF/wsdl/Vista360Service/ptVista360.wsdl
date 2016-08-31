@@ -1,0 +1,183 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:crm-common="http://directvla.com/schema/crm/common/v1" xmlns:crm-commonbusiness="http://directvla.com/schema/crm/commonbusiness/v1" xmlns:crm-customer="http://directvla.com/schema/crm/customer/v1" xmlns:crm-exception="http://directvla.com/schema/crm/exception/v1" xmlns:crm-product="http://directvla.com/schema/crm/product/v1" xmlns:crm-vista360="http://directvla.com/schema/crm/vista360/v1" xmlns:crmsar-v1-0="http://directvla.com/schema/businessdomain/CRMSupportAndReadiness/v1-0" xmlns:ns1="http://ibs.entriq.net/Customers" xmlns:ns2="http://ibs.entriq.net/Security" xmlns:ns3="http://ibs.entriq.net/ViewFacade" xmlns:ns4="http://schemas.oracle.com/bpel/extension" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/crm/vista360/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://directvla.com/contract/crm/vista360/v1">
+<documentation>
+        <abstractWSDL>http://esbcol.directvla.com.co:80/soa-infra/services/DTVLA-Services/crm-assurance!2.0.0/vista360.wsdl</abstractWSDL>
+    </documentation>
+  <import location="RuntimeFault.wsdl" namespace="http://schemas.oracle.com/bpel/extension">
+    </import>
+  <types>
+<xsd:schema xmlns="http://directvla.com/schema/crm/vista360/v1" xmlns:crm-common="http://directvla.com/schema/crm/common/v1" xmlns:crm-commonbusiness="http://directvla.com/schema/crm/commonbusiness/v1" xmlns:crm-customer="http://directvla.com/schema/crm/customer/v1" xmlns:crm-exception="http://directvla.com/schema/crm/exception/v1" xmlns:crm-product="http://directvla.com/schema/crm/product/v1" xmlns:crm-vista360="http://directvla.com/schema/crm/vista360/v1" xmlns:crmsar-v1-0="http://directvla.com/schema/businessdomain/CRMSupportAndReadiness/v1-0" xmlns:managebe-v1-0="http://directvla.com/schema/businessdomain/ManageBillingEvents/v1-0" xmlns:ns1="http://ibs.entriq.net/Customers" xmlns:ns2="http://ibs.entriq.net/Security" xmlns:ns3="http://ibs.entriq.net/ViewFacade" xmlns:ns4="http://schemas.oracle.com/bpel/extension" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://directvla.com/contract/crm/vista360/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/crm/vista360/v1">
+            
+  <xsd:import namespace="http://directvla.com/schema/crm/common/v1" schemaLocation="schema1.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/crm/exception/v1" schemaLocation="schema11.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/crm/customer/v1" schemaLocation="schema8.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/crm/commonbusiness/v1" schemaLocation="schema10.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/crm/product/v1" schemaLocation="schema12.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/CRMSupportAndReadiness/v1-0" schemaLocation="schema5.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/ManageBillingEvents/v1-0" schemaLocation="schema13.xsd"/>
+            
+  <xsd:complexType name="GetVista360Result">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="GetCustomerCrmResult" type="crm-customer:GetCustomerCrmResult"/>
+                    
+      <xsd:element name="GetCustomerProductByStatusResult" type="crm-product:GetCustomerProductByStatusResult"/>
+                    
+      <xsd:element name="GetCustomerWorkOrderByStatusResult" type="crm-commonbusiness:GetCustomerWorkOrderByStatusResult"/>
+                    
+      <xsd:element maxOccurs="1" name="GetCustomerInquiriesByDaysResult" type="crm-customer:GetCustomerInquiriesByDaysResult"/>
+                    
+      <xsd:element name="GetCustomerCharacteristicsResult" type="crmsar-v1-0:GetCustomerCharacteristicsResult"/>
+                    
+      <xsd:element name="GetCustomerFinancialInfoResult" type="managebe-v1-0:GetCustomerFinancialInfoResult"/>
+                    
+      <xsd:element name="GetCustomerLastInvoiceResult" type="managebe-v1-0:GetCustomerLastInvoiceResult"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="GetVista360Request">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="requestMetadata" type="crm-common:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="GetVista360" type="crm-vista360:GetVista360"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetVista360Response">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+                        
+        <xsd:element name="GetVista360Result" type="crm-vista360:GetVista360Result"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="GetVista360Exception">
+                
+    <xsd:complexType>
+                    
+      <xsd:choice>
+                        
+        <xsd:element name="EntityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+                        
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+                        
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+                        
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+                        
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+                        
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+                        
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+                        
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+                        
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+                        
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+                        
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+                        
+        <xsd:element name="ServiceUnavailableException" type="crm-exception:ServiceUnavailabbleException"/>
+                        
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+                    
+      </xsd:choice>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="GetVista360">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="CustomerNr" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Days" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Status" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="StatusWorkOrder" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="Page" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+        
+</xsd:schema>
+  </types>
+  <message name="GetVista360Exception">
+    <part element="crm-vista360:GetVista360Exception" name="parameter">
+    </part>
+  </message>
+  <message name="GetVista360Request">
+    <part element="crm-vista360:GetVista360Request" name="parameter">
+    </part>
+  </message>
+  <message name="GetVista360Response">
+    <part element="crm-vista360:GetVista360Response" name="parameter">
+    </part>
+  </message>
+  <portType name="ptVista360">
+    <operation name="GetVista360">
+      <input message="tns:GetVista360Request" name="GetVista360Request">
+    </input>
+      <output message="tns:GetVista360Response" name="GetVista360Response">
+    </output>
+      <fault message="tns:GetVista360Exception" name="GetVista360Exception">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="ptVista360SOAP11Binding" type="tns:ptVista360">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetVista360">
+      <soap:operation soapAction="http://directvla.com/contract/crm/vista360/v1/GetVista360" style="document"/>
+      <input name="GetVista360Request">
+        <soap:body namespace="http://directvla.com/contract/crm/vista360/v1" use="literal"/>
+      </input>
+      <output name="GetVista360Response">
+        <soap:body namespace="http://directvla.com/contract/crm/vista360/v1" use="literal"/>
+      </output>
+      <fault name="GetVista360Exception">
+        <soap:fault encodingStyle="" name="GetVista360Exception" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="ptVista360">
+    <port binding="tns:ptVista360SOAP11Binding" name="ptVista360Port">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/crm-assurance/Vista360Service"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="Vista360PL">
+        <plnk:role name="Vista360PR">
+            <plnk:portType name="tns:ptVista360"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

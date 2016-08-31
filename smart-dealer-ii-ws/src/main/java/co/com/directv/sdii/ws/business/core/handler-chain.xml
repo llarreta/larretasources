@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+  <handler-chain>
+  	  <handler-chain-name>HandlerChain</handler-chain-name>
+      <handler>
+     		<handler-name>SoapHandlerBusinessWS</handler-name> 
+            <handler-class>co.com.directv.sdii.ws.handler.SoapHandlerBusinessWS</handler-class>
+      </handler>      
+  </handler-chain>   
+</handler-chains>

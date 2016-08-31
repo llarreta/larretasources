@@ -1,0 +1,492 @@
+<wsdl:definitions xmlns:eventlst-v1-0="http://directvla.com/contract/businessdomain/EventListener/v1-0" xmlns:ns1="http://dtvla.com/Annexs/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://directvla.com/contract/businessdomain/HSPSupportAndReadiness/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://directvla.com/contract/businessdomain/HSPSupportAndReadiness/v1-0">
+<wsdl:documentation>
+        <abstractWSDL>http://esbcol.directvla.com.co:80/soa-infra/services/DTVLA-Services/HSPSupportAndReadiness-Service!3.0.0/HSPSupportAndReadiness.wsdl</abstractWSDL>
+    </wsdl:documentation>
+  <wsdl:import location="ServiceDocumentacionAdicional.svc_wsdl_wsdl0.wsdl" namespace="http://dtvla.com/Annexs/">
+    </wsdl:import>
+  <wsdl:types>
+<xsd:schema xmlns:Q1="commonex-v1-0" xmlns:commondt-v1-0="http://directvla.com/schema/util/commondatatypes/v1-0" xmlns:commonex-v1-0="http://directvla.com/schema/util/commonexceptions/v1-0" xmlns:eventlst-v1-0="http://directvla.com/contract/businessdomain/EventListener/v1-0" xmlns:ns1="http://dtvla.com/Annexs/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://directvla.com/contract/businessdomain/HSPSupportAndReadiness/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/contract/businessdomain/HSPSupportAndReadiness/v1-0">
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commonexceptions/v1-0" schemaLocation="schema1.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v1-0" schemaLocation="schema3.xsd"/>
+            
+  <xsd:element name="getAnnexIBSCustomerCodeRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="getAnnexIBSCustomerCode" type="tns:getAnnexIBSCustomerCodeType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="getAnnexIBSCustomerCodeResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="getAnnexIBSCustomerCode" type="tns:getAnnexIBSCustomerCodeResponseType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="requiredAnnexIBSCustomerCodeRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="requestMetadata" type="commondt-v1-0:RequestMetadataType"/>
+                        
+        <xsd:element name="requiredAnnexIBSCustomerCode" type="tns:requiredAnnexIBSCustomerCodeType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="requiredAnnexIBSCustomerCodeResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v1-0:ResponseMetadataType"/>
+                        
+        <xsd:element name="requiredAnnexIBSCustomerCode" type="tns:requiredAnnexIBSCustomerCodeResponseType"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:element name="getAnnexIBSCustomerCodeFault" type="tns:getAnnexIBSCustomerCodeFault"/>
+            
+  <xsd:element name="requiredAnnexIBSCustomerCodeFault" type="tns:requiredAnnexIBSCustomerCodeFault"/>
+            
+  <xsd:complexType name="AnnexDTO">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="type" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="name" type="xsd:string"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="file" type="xsd:base64Binary"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="getAnnexIBSCustomerCodeFault">
+                
+    <xsd:choice>
+                    
+      <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                    
+      <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                    
+      <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                    
+      <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                    
+      <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                    
+      <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                    
+      <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                    
+      <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                    
+      <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                    
+      <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                    
+      <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                    
+      <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                    
+      <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                
+    </xsd:choice>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="requiredAnnexIBSCustomerCodeFault">
+                
+    <xsd:choice>
+                    
+      <xsd:element name="EntityAlreadyExistsException" type="commonex-v1-0:EntityAlreadyExistsException"/>
+                    
+      <xsd:element name="EntityNotFoundException" type="commonex-v1-0:EntityNotFoundException"/>
+                    
+      <xsd:element name="EntityInUseException" type="commonex-v1-0:EntityInUseException"/>
+                    
+      <xsd:element name="InternalErrorException" type="commonex-v1-0:InternalErrorException"/>
+                    
+      <xsd:element name="MissingParameterException" type="commonex-v1-0:MissingParameterException"/>
+                    
+      <xsd:element name="InvalidParameterValueException" type="commonex-v1-0:InvalidParameterValueException"/>
+                    
+      <xsd:element name="InvalidQueryParameterException" type="commonex-v1-0:InvalidQueryParameterException"/>
+                    
+      <xsd:element name="InvalidRequestException" type="commonex-v1-0:InvalidRequestException"/>
+                    
+      <xsd:element name="InvalidResponseException" type="commonex-v1-0:InvalidResponseException"/>
+                    
+      <xsd:element name="InvalidSecurityTokenException" type="commonex-v1-0:InvalidSecurityTokenException"/>
+                    
+      <xsd:element name="AccessDeniedException" type="commonex-v1-0:AccessDeniedException"/>
+                    
+      <xsd:element name="ServiceUnavailableException" type="commonex-v1-0:ServiceUnavailableException"/>
+                    
+      <xsd:element name="OperationNotYetImplementedException" type="commonex-v1-0:OperationNotYetImplementedException"/>
+                
+    </xsd:choice>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="getAnnexIBSCustomerCodeType">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="IBSCustomerCode" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="serviceId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="requiredAnnexIBSCustomerCodeType">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="IBSCustomerCode" type="xsd:int"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="0" name="serviceId" type="xsd:int"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="getAnnexIBSCustomerCodeResponseType">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="out" type="tns:AnnexDTO"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="requiredAnnexIBSCustomerCodeResponseType">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="requiredAnnex" type="xsd:boolean"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+        
+</xsd:schema>
+<xsd:schema xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:commondt-v2-0="http://directvla.com/schema/util/commondatatypes/v2-0" xmlns:eventlst-v1-0="http://directvla.com/contract/businessdomain/EventListener/v1-0" xmlns:ns1="http://dtvla.com/Annexs/" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://directvla.com/contract/businessdomain/EventListener/v1-0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://directvla.com/contract/businessdomain/EventListener/v1-0">
+            
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema6.xsd"/>
+            
+  <xsd:import namespace="http://directvla.com/schema/util/commondatatypes/v2-0" schemaLocation="schema11.xsd"/>
+            
+  <xsd:element name="DispatchWorkOrderRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v2-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="DispatchWorkOrder" type="tns:DispatchWorkOrder"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="DispatchWorkOrder">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkOrderCollection" type="commonbd-v1-0:WorkOrderCollection"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Technician" type="commonbd-v1-0:TelecomTechnician"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="DispatchWorkOrderResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v2-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" minOccurs="1" name="DispatchWorkOrderResult" type="tns:DispatchWorkOrderResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="DispatchWorkOrderResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkOrderResultCollection" type="tns:WorkOrderResultCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="WithdrawWorkOrderFromTechnicianRequest">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element maxOccurs="1" name="RequestMetadata" type="commondt-v2-0:RequestMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" name="WithdrawWorkOrderFromTechnician" type="tns:WithdrawWorkOrderFromTechnician"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="WithdrawWorkOrderFromTechnician">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkOrderCollection" type="commonbd-v1-0:WorkOrderCollection"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Technician" type="commonbd-v1-0:TelecomTechnician"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="WithdrawWorkOrderFromTechnicianResponse">
+                
+    <xsd:complexType>
+                    
+      <xsd:sequence>
+                        
+        <xsd:element name="responseMetadata" type="commondt-v2-0:ResponseMetadataType"/>
+                        
+        <xsd:element maxOccurs="1" minOccurs="1" name="WithdrawWorkOrderFromTechnicianResult" type="tns:WithdrawWorkOrderFromTechnicianResult"/>
+                    
+      </xsd:sequence>
+                
+    </xsd:complexType>
+            
+  </xsd:element>
+            
+  <xsd:complexType name="WithdrawWorkOrderFromTechnicianResult">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkOrderResultCollection" type="tns:WorkOrderResultCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="WorkOrderResultCollection">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkOrderResultItem" type="tns:WorkOrderResultItem"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="WorkOrderResultItem">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="WorkOrder" type="commonbd-v1-0:WorkOrder"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="Technician" type="commonbd-v1-0:TelecomTechnician"/>
+                    
+      <xsd:element maxOccurs="1" minOccurs="1" name="SharedApplicationCollection" type="tns:SharedApplicationCollection"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="SharedApplicationCollection">
+                
+    <xsd:sequence>
+                    
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="SharedApplicationItem" type="tns:SharedApplicationItem"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="SharedApplicationItem">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="ApplicationCode" type="xsd:string"/>
+                    
+      <xsd:element name="Status" type="tns:Status"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:complexType name="Status">
+                
+    <xsd:sequence>
+                    
+      <xsd:element name="Code" type="xsd:int"/>
+                    
+      <xsd:element minOccurs="0" name="Message" type="xsd:string"/>
+                
+    </xsd:sequence>
+            
+  </xsd:complexType>
+            
+  <xsd:element name="SharedApplicationItem" type="tns:SharedApplicationItem"/>
+        
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="requiredAnnexIBSCustomerCodeResponse">
+    <wsdl:part element="tns:requiredAnnexIBSCustomerCodeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAnnexIBSCustomerCodeFault">
+    <wsdl:part element="tns:getAnnexIBSCustomerCodeFault" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAnnexIBSCustomerCodeRequest">
+    <wsdl:part element="tns:getAnnexIBSCustomerCodeRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DispatchWorkOrderRequest">
+    <wsdl:part element="eventlst-v1-0:DispatchWorkOrderRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAnnexIBSCustomerCodeResponse">
+    <wsdl:part element="tns:getAnnexIBSCustomerCodeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="requiredAnnexIBSCustomerCodeFault">
+    <wsdl:part element="tns:requiredAnnexIBSCustomerCodeFault" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="WithdrawWorkOrderFromTechnicianRequest">
+    <wsdl:part element="eventlst-v1-0:WithdrawWorkOrderFromTechnicianRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="requiredAnnexIBSCustomerCodeRequest">
+    <wsdl:part element="tns:requiredAnnexIBSCustomerCodeRequest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HSPSupportAndReadiness_pt">
+    <wsdl:operation name="getAnnexIBSCustomerCode">
+      <wsdl:input message="tns:getAnnexIBSCustomerCodeRequest" name="getAnnexIBSCustomerCodeRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getAnnexIBSCustomerCodeResponse" name="getAnnexIBSCustomerCodeResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:getAnnexIBSCustomerCodeFault" name="getAnnexIBSCustomerCodeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="requiredAnnexIBSCustomerCode">
+      <wsdl:input message="tns:requiredAnnexIBSCustomerCodeRequest" name="requiredAnnexIBSCustomerCodeRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:requiredAnnexIBSCustomerCodeResponse" name="requiredAnnexIBSCustomerCodeResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:requiredAnnexIBSCustomerCodeFault" name="requiredAnnexIBSCustomerCodeFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DispatchWorkOrder">
+      <wsdl:input message="tns:DispatchWorkOrderRequest" name="DispatchWorkOrderRequest">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawWorkOrderFromTechnician">
+      <wsdl:input message="tns:WithdrawWorkOrderFromTechnicianRequest" name="WithdrawWorkOrderFromTechnicianRequest">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HSPSupportAndReadiness_ptSOAP" type="tns:HSPSupportAndReadiness_pt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getAnnexIBSCustomerCode">
+      <soap:operation soapAction="http://dtvla.com/Annexs/getAnnexIBSCustomerCode"/>
+      <wsdl:input name="getAnnexIBSCustomerCodeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAnnexIBSCustomerCodeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="getAnnexIBSCustomerCodeFault">
+        <soap:fault name="getAnnexIBSCustomerCodeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="requiredAnnexIBSCustomerCode">
+      <soap:operation soapAction="http://dtvla.com/Annexs/requiredAnnexIBSCustomerCode"/>
+      <wsdl:input name="requiredAnnexIBSCustomerCodeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="requiredAnnexIBSCustomerCodeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="requiredAnnexIBSCustomerCodeFault">
+        <soap:fault name="requiredAnnexIBSCustomerCodeFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DispatchWorkOrder">
+      <soap:operation soapAction="urn:#DispatchWorkOrder"/>
+      <wsdl:input name="DispatchWorkOrderRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="WithdrawWorkOrderFromTechnician">
+      <soap:operation soapAction="urn:#WithdrawWorkOrderFromTechnician"/>
+      <wsdl:input name="WithdrawWorkOrderFromTechnicianRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HSPSupportAndReadiness">
+    <wsdl:port binding="tns:HSPSupportAndReadiness_ptSOAP" name="HSPSupportAndReadiness_ptSOAP">
+      <soap:address location="http://COPRODSOA.dtvla.com:80/soa-infra/services/DTVLA-Services/HSPSupportAndReadiness-Service/MediatorHSPSupportAndReadiness_ep"/>
+    </wsdl:port>
+  </wsdl:service>
+    <plnk:partnerLinkType name="HSPSupportAndReadiness">
+        <plnk:role name="HSPSupportAndReadiness_role">
+            <plnk:portType name="tns:HSPSupportAndReadiness_pt"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+</wsdl:definitions>

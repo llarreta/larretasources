@@ -1,0 +1,2612 @@
+<xs:schema xmlns:ns0="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" xmlns:ns1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:tns="http://ibs.entriq.net/ViewFacade" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ibs.entriq.net/ViewFacade">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" schemaLocation="schema16.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" schemaLocation="schema3.xsd"/>
+  <xs:element name="GetSerializedStockView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSerializedStockViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetSerializedStockViewResult" nillable="true" type="tns:SerializedStockViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SerializedStockViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfSerializedStockView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SerializedStockViewCollection" nillable="true" type="tns:SerializedStockViewCollection"/>
+  <xs:complexType name="ArrayOfSerializedStockView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SerializedStockView" nillable="true" type="tns:SerializedStockView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSerializedStockView" nillable="true" type="tns:ArrayOfSerializedStockView"/>
+  <xs:complexType name="SerializedStockView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinanceOptionName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinanceoptionId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ModelId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ModelName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Quantity" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StockhandlerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TechnicalProductName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SerializedStockView" nillable="true" type="tns:SerializedStockView"/>
+  <xs:element name="GetStockTakeView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockTakeViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStockTakeViewResult" nillable="true" type="tns:StockTakeViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="StockTakeViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfStockTakeView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockTakeViewCollection" nillable="true" type="tns:StockTakeViewCollection"/>
+  <xs:complexType name="ArrayOfStockTakeView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="StockTakeView" nillable="true" type="tns:StockTakeView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStockTakeView" nillable="true" type="tns:ArrayOfStockTakeView"/>
+  <xs:complexType name="StockTakeView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CloseDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinanceAcctId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ResultDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="SerializedQuantityAdded" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="SerializedQuantityFound" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="SerializedQuantityMissing" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="SerializedQuantityRecovered" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="SerializedQuantityTotal" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusIdName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StockHandlerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StockTakeDate" nillable="true" type="xs:dateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockTakeView" nillable="true" type="tns:StockTakeView"/>
+  <xs:element name="GetNonserializedStockView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNonserializedStockViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetNonserializedStockViewResult" nillable="true" type="tns:NonserializedStockViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="NonserializedStockViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfNonserializedStockView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NonserializedStockViewCollection" nillable="true" type="tns:NonserializedStockViewCollection"/>
+  <xs:complexType name="ArrayOfNonserializedStockView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="NonserializedStockView" nillable="true" type="tns:NonserializedStockView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNonserializedStockView" nillable="true" type="tns:ArrayOfNonserializedStockView"/>
+  <xs:complexType name="NonserializedStockView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CurrnetQuantity" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ModelId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ModelIdDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StockHandlerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TechnicalProduct" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TechnicalProductName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NonserializedStockView" nillable="true" type="tns:NonserializedStockView"/>
+  <xs:element name="GetGeoLocationView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGeoLocationViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetGeoLocationViewResult" nillable="true" type="tns:GeoLocationViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="GeoLocationViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfGeoLocationView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GeoLocationViewCollection" nillable="true" type="tns:GeoLocationViewCollection"/>
+  <xs:complexType name="ArrayOfGeoLocationView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="GeoLocationView" nillable="true" type="tns:GeoLocationView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGeoLocationView" nillable="true" type="tns:ArrayOfGeoLocationView"/>
+  <xs:complexType name="GeoLocationView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Bigcity" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Countryname" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Housenumberalphafrom" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Housenumberalphato" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Housenumberfrom" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Housenumberto" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Postalcodefrom" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Postalcodeto" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Provincename" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Smallcity" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Streetname" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GeoLocationView" nillable="true" type="tns:GeoLocationView"/>
+  <xs:element name="GetPaymentBatchView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentBatchViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPaymentBatchViewResult" nillable="true" type="tns:PaymentBatchViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PaymentBatchViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfPaymentBatchView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaymentBatchViewCollection" nillable="true" type="tns:PaymentBatchViewCollection"/>
+  <xs:complexType name="ArrayOfPaymentBatchView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PaymentBatchView" nillable="true" type="tns:PaymentBatchView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPaymentBatchView" nillable="true" type="tns:ArrayOfPaymentBatchView"/>
+  <xs:complexType name="PaymentBatchView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArDocuemntSubTypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ArDocumentSubTypeId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="BankImportFormat" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="BankImportId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="BatchCurrency" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="BookedAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="DateCreated" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="DateSuspended" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinanceBatchId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="FinanceBatchName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LastRcptNumberInBatch" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="NotYetBookedAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="NumberBooked" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ReceiptNumberingScheme" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StockHandlerFinAccId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StockHandlerToDebit" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="XmlFileName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaymentBatchView" nillable="true" type="tns:PaymentBatchView"/>
+  <xs:element name="GetUnmatchedEvents">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnmatchedEventsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUnmatchedEventsResult" nillable="true" type="tns:UnmatchedEventViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UnmatchedEventViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfUnmatchedEventView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnmatchedEventViewCollection" nillable="true" type="tns:UnmatchedEventViewCollection"/>
+  <xs:complexType name="ArrayOfUnmatchedEventView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="UnmatchedEventView" nillable="true" type="tns:UnmatchedEventView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUnmatchedEventView" nillable="true" type="tns:ArrayOfUnmatchedEventView"/>
+  <xs:complexType name="UnmatchedEventView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CallBackDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CallBackId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DevicePerAgreementDetailId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Duplicate" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Entitlement2" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Entitlement3" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EventDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="EventExternalId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EventRecorded" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="EventScheduleId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventTitleid" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="OrderDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="OrderedEventType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnmatchedEventView" nillable="true" type="tns:UnmatchedEventView"/>
+  <xs:element name="GetContactAdvancedSearchView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="request" nillable="true" type="tns:ContactSearchRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ContactSearchRequest">
+    <xs:complexContent>
+      <xs:extension base="ns0:BaseQueryRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CheckAllowedStockHandlersForUserId" nillable="true" type="xs:int"/>
+          <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ContactSearchRequest" nillable="true" type="tns:ContactSearchRequest"/>
+  <xs:element name="GetContactAdvancedSearchViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetContactAdvancedSearchViewResult" nillable="true" type="tns:ContactAdvancedSearchViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ContactAdvancedSearchViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfContactAdvancedSearchView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContactAdvancedSearchViewCollection" nillable="true" type="tns:ContactAdvancedSearchViewCollection"/>
+  <xs:complexType name="ArrayOfContactAdvancedSearchView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ContactAdvancedSearchView" nillable="true" type="tns:ContactAdvancedSearchView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfContactAdvancedSearchView" nillable="true" type="tns:ArrayOfContactAdvancedSearchView"/>
+  <xs:complexType name="ContactAdvancedSearchView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ActionTaken" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="AllocatedToUserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="AllocatedToUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CategoryId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CategoryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CountryId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CountryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreatedByUserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CreatedByUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerStatusId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerStatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerTypeId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerTypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="IsStockHandlerValidForUser" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="LastModifiedUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MethodId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MethodName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="OrderId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProblemDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="SecondSubCategoryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StampDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SubCategoryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="WorkOrderId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContactAdvancedSearchView" nillable="true" type="tns:ContactAdvancedSearchView"/>
+  <xs:element name="GetLinkedDocumentView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLinkedDocumentViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetLinkedDocumentViewResult" nillable="true" type="tns:LinkedDocumentViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="LinkedDocumentViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfLinkedDocumentView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LinkedDocumentViewCollection" nillable="true" type="tns:LinkedDocumentViewCollection"/>
+  <xs:complexType name="ArrayOfLinkedDocumentView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="LinkedDocumentView" nillable="true" type="tns:LinkedDocumentView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLinkedDocumentView" nillable="true" type="tns:ArrayOfLinkedDocumentView"/>
+  <xs:complexType name="LinkedDocumentView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DocumentId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DocumentIdentifier" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DocumentLinkId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DocumentStorageId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DocumentStorageName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EntityType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EntityTypeDesc" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LinkedToEntityId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LinkedDocumentView" nillable="true" type="tns:LinkedDocumentView"/>
+  <xs:element name="GetUnlinkedDocumentView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnlinkedDocumentViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUnlinkedDocumentViewResult" nillable="true" type="tns:UnlinkedDocumentViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UnlinkedDocumentViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfUnlinkedDocumentView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnlinkedDocumentViewCollection" nillable="true" type="tns:UnlinkedDocumentViewCollection"/>
+  <xs:complexType name="ArrayOfUnlinkedDocumentView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="UnlinkedDocumentView" nillable="true" type="tns:UnlinkedDocumentView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUnlinkedDocumentView" nillable="true" type="tns:ArrayOfUnlinkedDocumentView"/>
+  <xs:complexType name="UnlinkedDocumentView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DocumentId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DocumentIdentifier" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DocumentLinkId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DocumentStorageId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DocumentStorageName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EntityType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EntityTypeDesc" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LinkedToEntityId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnlinkedDocumentView" nillable="true" type="tns:UnlinkedDocumentView"/>
+  <xs:element name="GetAssociateView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociateViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAssociateViewResult" nillable="true" type="tns:AssociateViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AssociateViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfAssociateView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AssociateViewCollection" nillable="true" type="tns:AssociateViewCollection"/>
+  <xs:complexType name="ArrayOfAssociateView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="AssociateView" nillable="true" type="tns:AssociateView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAssociateView" nillable="true" type="tns:ArrayOfAssociateView"/>
+  <xs:complexType name="AssociateView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Active" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="AssociateType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EmailAddr" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MobilePhone" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="WorkPhone" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AssociateView" nillable="true" type="tns:AssociateView"/>
+  <xs:element name="GetPhoneNumberInventoryView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhoneNumberInventoryViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPhoneNumberInventoryViewResult" nillable="true" type="tns:PhoneNumberInventoryViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PhoneNumberInventoryViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfPhoneNumberInventoryView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PhoneNumberInventoryViewCollection" nillable="true" type="tns:PhoneNumberInventoryViewCollection"/>
+  <xs:complexType name="ArrayOfPhoneNumberInventoryView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PhoneNumberInventoryView" nillable="true" type="tns:PhoneNumberInventoryView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPhoneNumberInventoryView" nillable="true" type="tns:ArrayOfPhoneNumberInventoryView"/>
+  <xs:complexType name="PhoneNumberInventoryView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PortStatus" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PortStatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PortedInDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Rank" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="RankName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PhoneNumberInventoryView" nillable="true" type="tns:PhoneNumberInventoryView"/>
+  <xs:element name="GetValidAddressAdvancedSearchView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetValidAddressAdvancedSearchViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetValidAddressAdvancedSearchViewResult" nillable="true" type="tns:ValidAddressAdvancedSearchViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ValidAddressAdvancedSearchViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfValidAddressAdvancedSearchView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ValidAddressAdvancedSearchViewCollection" nillable="true" type="tns:ValidAddressAdvancedSearchViewCollection"/>
+  <xs:complexType name="ArrayOfValidAddressAdvancedSearchView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ValidAddressAdvancedSearchView" nillable="true" type="tns:ValidAddressAdvancedSearchView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfValidAddressAdvancedSearchView" nillable="true" type="tns:ArrayOfValidAddressAdvancedSearchView"/>
+  <xs:complexType name="ValidAddressAdvancedSearchView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BigCity" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CountryKey" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CountryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FlatOrApartment" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="HouseNumberAlpha" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="HouseNumberNumeric" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ProvinceKey" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ProvinceName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SmallCity" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ValidAddressAdvancedSearchView" nillable="true" type="tns:ValidAddressAdvancedSearchView"/>
+  <xs:element name="GetAnonymizationLogView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAnonymizationLogViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAnonymizationLogViewResult" nillable="true" type="tns:AnonymizationLogViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AnonymizationLogViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfAnonymizationLogView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AnonymizationLogViewCollection" nillable="true" type="tns:AnonymizationLogViewCollection"/>
+  <xs:complexType name="ArrayOfAnonymizationLogView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="AnonymizationLogView" nillable="true" type="tns:AnonymizationLogView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAnonymizationLogView" nillable="true" type="tns:ArrayOfAnonymizationLogView"/>
+  <xs:complexType name="AnonymizationLogView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreateDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="RuleGroupId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="RuleGroupName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AnonymizationLogView" nillable="true" type="tns:AnonymizationLogView"/>
+  <xs:element name="GetLoSDetailView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLoSDetailViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetLoSDetailViewResult" nillable="true" type="tns:LoSDetailViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="LoSDetailViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfLoSDetailView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LoSDetailViewCollection" nillable="true" type="tns:LoSDetailViewCollection"/>
+  <xs:complexType name="ArrayOfLoSDetailView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="LoSDetailView" nillable="true" type="tns:LoSDetailView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLoSDetailView" nillable="true" type="tns:ArrayOfLoSDetailView"/>
+  <xs:complexType name="LoSDetailView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Customerid" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LineAttribute" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LineNumber" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Linestatus" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Phonenumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Phonenumbertype" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Rateplan" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LoSDetailView" nillable="true" type="tns:LoSDetailView"/>
+  <xs:element name="GetCDRImportQueueView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDRImportQueueViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCDRImportQueueViewResult" nillable="true" type="tns:CDRImportQueueViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CDRImportQueueViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfCDRImportQueueView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CDRImportQueueViewCollection" nillable="true" type="tns:CDRImportQueueViewCollection"/>
+  <xs:complexType name="ArrayOfCDRImportQueueView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="CDRImportQueueView" nillable="true" type="tns:CDRImportQueueView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCDRImportQueueView" nillable="true" type="tns:ArrayOfCDRImportQueueView"/>
+  <xs:complexType name="CDRImportQueueView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="DuplicatedCount" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FailedCount" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ImportDateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ImportFilePath" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SucceededCount" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CDRImportQueueView" nillable="true" type="tns:CDRImportQueueView"/>
+  <xs:element name="GetJsonValueObjects">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJsonValueObjectsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetJsonValueObjectsResult" nillable="true" type="tns:JsonValueObjects"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="JsonValueObjects">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Items" nillable="true" type="ns1:ArrayOfanyType"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JsonValueObjects" nillable="true" type="tns:JsonValueObjects"/>
+  <xs:element name="GetContactView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetContactViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetContactViewResult" nillable="true" type="tns:ContactViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ContactViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfContactView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContactViewCollection" nillable="true" type="tns:ContactViewCollection"/>
+  <xs:complexType name="ArrayOfContactView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ContactView" nillable="true" type="tns:ContactView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfContactView" nillable="true" type="tns:ArrayOfContactView"/>
+  <xs:complexType name="ContactView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ActionTaken" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="AllocatedToUserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="AllocatedToUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CategoryId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CategoryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreatedByUserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CreatedByUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LastModifiedByUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MethodId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MethodName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="OrderId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProblemDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="SecondSubCategoryId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SecondSubCategoryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StampDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SubCategoryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="WorkOrderId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContactView" nillable="true" type="tns:ContactView"/>
+  <xs:element name="GetShippingOrderView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShippingOrderViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetShippingOrderViewResult" nillable="true" type="tns:ShippingOrderViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ShippingOrderViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfShippingOrderView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShippingOrderViewCollection" nillable="true" type="tns:ShippingOrderViewCollection"/>
+  <xs:complexType name="ArrayOfShippingOrderView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ShippingOrderView" nillable="true" type="tns:ShippingOrderView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShippingOrderView" nillable="true" type="tns:ArrayOfShippingOrderView"/>
+  <xs:complexType name="ShippingOrderView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AllowChangeOrder" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="AllowChangeOrderText" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Comments" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreateDateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="MethodId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="MethodName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="OldStatusId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ParentOrderId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Reference" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ShipByDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ShipFromStockhandlerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ShipFromStockhandlerName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ShipToAddressId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ShipToPartyId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ShipToPartyName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ShipToPostalCode" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ShippedDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TypeId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShippingOrderView" nillable="true" type="tns:ShippingOrderView"/>
+  <xs:element name="GetHistoryView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHistoryViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetHistoryViewResult" nillable="true" type="tns:HistoryViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="HistoryViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfHistoryView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HistoryViewCollection" nillable="true" type="tns:HistoryViewCollection"/>
+  <xs:complexType name="ArrayOfHistoryView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="HistoryView" nillable="true" type="tns:HistoryView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHistoryView" nillable="true" type="tns:ArrayOfHistoryView"/>
+  <xs:complexType name="HistoryView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreateDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EntityId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EntityType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProductName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RealDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ReasonName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RequestedByEntityId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="RequestedByTypeId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="RequestedByUser" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HistoryView" nillable="true" type="tns:HistoryView"/>
+  <xs:element name="GetWorkOrderView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWorkOrderViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetWorkOrderViewResult" nillable="true" type="tns:WorkOrderViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="WorkOrderViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfWorkOrderView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WorkOrderViewCollection" nillable="true" type="tns:WorkOrderViewCollection"/>
+  <xs:complexType name="ArrayOfWorkOrderView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="WorkOrderView" nillable="true" type="tns:WorkOrderView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkOrderView" nillable="true" type="tns:ArrayOfWorkOrderView"/>
+  <xs:complexType name="WorkOrderView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionTaken" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ActualHours" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="AddressId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="AgreementId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="AssociateId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CompletedDateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerOrderId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ExpirationDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="OutageNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PreviousWorkOrderId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProblemDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RegisteredDateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ServiceDateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ServiceProviderId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ServiceTypeId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ServiceTypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StockhandlerId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WorkOrderView" nillable="true" type="tns:WorkOrderView"/>
+  <xs:element name="GetOfferView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfferViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOfferViewResult" nillable="true" type="tns:OfferViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OfferViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfOfferView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OfferViewCollection" nillable="true" type="tns:OfferViewCollection"/>
+  <xs:complexType name="ArrayOfOfferView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="OfferView" nillable="true" type="tns:OfferView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOfferView" nillable="true" type="tns:ArrayOfOfferView"/>
+  <xs:complexType name="OfferView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Active" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="AgreementDetailId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="AgreementId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ApplyToLevel" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CommercialProudctName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="OfferDefinitionId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="OfferDefinitionName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OfferView" nillable="true" type="tns:OfferView"/>
+  <xs:element name="GetDepositView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDepositViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDepositViewResult" nillable="true" type="tns:DepositViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DepositViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfDepositView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DepositViewCollection" nillable="true" type="tns:DepositViewCollection"/>
+  <xs:complexType name="ArrayOfDepositView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="DepositView" nillable="true" type="tns:DepositView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDepositView" nillable="true" type="tns:ArrayOfDepositView"/>
+  <xs:complexType name="DepositView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="CommercialProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CommercialProductName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreateDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LedgerAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LedgerAccountName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DepositView" nillable="true" type="tns:DepositView"/>
+  <xs:element name="GetDistributorAddressView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDistributorAddressViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDistributorAddressViewResult" nillable="true" type="tns:DistributorAddressesViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="DistributorAddressesViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfDistributorAddressesView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DistributorAddressesViewCollection" nillable="true" type="tns:DistributorAddressesViewCollection"/>
+  <xs:complexType name="ArrayOfDistributorAddressesView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="DistributorAddressesView" nillable="true" type="tns:DistributorAddressesView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDistributorAddressesView" nillable="true" type="tns:ArrayOfDistributorAddressesView"/>
+  <xs:complexType name="DistributorAddressesView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BigCity" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerFirstName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerSurname" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DistributorId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="HouseNumber" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="HouseNumberAlphanumeric" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ValidAddressId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DistributorAddressesView" nillable="true" type="tns:DistributorAddressesView"/>
+  <xs:element name="GetCustomerDeviceView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCustomerDeviceViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCustomerDeviceViewResult" nillable="true" type="tns:CustomerDeviceViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CustomerDeviceViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfCustomerDeviceView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CustomerDeviceViewCollection" nillable="true" type="tns:CustomerDeviceViewCollection"/>
+  <xs:complexType name="ArrayOfCustomerDeviceView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="CustomerDeviceView" nillable="true" type="tns:CustomerDeviceView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCustomerDeviceView" nillable="true" type="tns:ArrayOfCustomerDeviceView"/>
+  <xs:complexType name="CustomerDeviceView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgreementDetailId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CommercialProductName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceLinkDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="DeviceLocationComment" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DeviceNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DevicePerProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceStatusId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceStatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EventSettingId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExternalId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="IsCurrent" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Model" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ModelDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ModelId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PairedExternalId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PairedProductId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PreferredModel" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PreferredModelId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="SerialNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TechnicalProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TechnicalProductName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ValidAddressId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CustomerDeviceView" nillable="true" type="tns:CustomerDeviceView"/>
+  <xs:element name="GetAgreementView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAgreementViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAgreementViewResult" nillable="true" type="tns:AgreementViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AgreementViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfAgreementView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AgreementViewCollection" nillable="true" type="tns:AgreementViewCollection"/>
+  <xs:complexType name="ArrayOfAgreementView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="AgreementView" nillable="true" type="tns:AgreementView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAgreementView" nillable="true" type="tns:ArrayOfAgreementView"/>
+  <xs:complexType name="AgreementView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountManagerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="AgreementAddressId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ChargePeriodId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ContractEndDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ContractNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ContractPeriodId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ContractStartDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DistributorId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DistributorName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LinkToContract" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MarketSegmentId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="MarketSegmentName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NumberOfUnits" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="NumberOfUnits2" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PurchaseOrderNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SalesPersonId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ServiceAddressId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StockHandlerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StockHandlerName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TypeId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UnitOfMeasurementId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UnitOfMeasurementName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UnitOfMeasurementName2" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AgreementView" nillable="true" type="tns:AgreementView"/>
+  <xs:element name="GetFinancialAccountView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFinancialAccountViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetFinancialAccountViewResult" nillable="true" type="tns:FinancialAccountViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="FinancialAccountViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfFinancialAccountView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FinancialAccountViewCollection" nillable="true" type="tns:FinancialAccountViewCollection"/>
+  <xs:complexType name="ArrayOfFinancialAccountView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="FinancialAccountView" nillable="true" type="tns:FinancialAccountView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFinancialAccountView" nillable="true" type="tns:ArrayOfFinancialAccountView"/>
+  <xs:complexType name="FinancialAccountView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Balance" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CurrencyId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CurrencyName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerReferenceNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DueInId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DueInName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DunningLevelId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DunningLevelName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceDeliveryMethodId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceDeliveryMethodName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoicingMethodName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoicingProfileId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="IsDefault" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="IsFinalInvoice" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="IsSuspendInvoicing" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="LastInvoicedDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="MethodOfPaymentId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MethodOfPaymentName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NextInvoiceText" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ParentFinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProxyCodeId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ProxyCodeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SuspendInvoicingDueDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="TypeId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FinancialAccountView" nillable="true" type="tns:FinancialAccountView"/>
+  <xs:element name="GetKeywordView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetKeywordViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetKeywordViewResult" nillable="true" type="tns:KeywordViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="KeywordViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfKeywordView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="KeywordViewCollection" nillable="true" type="tns:KeywordViewCollection"/>
+  <xs:complexType name="ArrayOfKeywordView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="KeywordView" nillable="true" type="tns:KeywordView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfKeywordView" nillable="true" type="tns:ArrayOfKeywordView"/>
+  <xs:complexType name="KeywordView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AllowedKeywordId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Attribute" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CountValue" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DateValue" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="KeytypesId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="KeywordType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="KeywordView" nillable="true" type="tns:KeywordView"/>
+  <xs:element name="GetNoteView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNoteViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetNoteViewResult" nillable="true" type="tns:NoteViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="NoteViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfNoteView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NoteViewCollection" nillable="true" type="tns:NoteViewCollection"/>
+  <xs:complexType name="ArrayOfNoteView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="NoteView" nillable="true" type="tns:NoteView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNoteView" nillable="true" type="tns:ArrayOfNoteView"/>
+  <xs:complexType name="NoteView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionUserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ActionUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CategoryId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CategoryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompletionStageId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompletionStageName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CreatedByUserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CreatedByUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NoteView" nillable="true" type="tns:NoteView"/>
+  <xs:element name="GetScheduleView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetScheduleViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetScheduleViewResult" nillable="true" type="tns:ScheduleViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ScheduleViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfScheduleView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ScheduleViewCollection" nillable="true" type="tns:ScheduleViewCollection"/>
+  <xs:complexType name="ArrayOfScheduleView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="ScheduleView" nillable="true" type="tns:ScheduleView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfScheduleView" nillable="true" type="tns:ArrayOfScheduleView"/>
+  <xs:complexType name="ScheduleView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CommercialProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CommercialProductName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EntityId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EntityName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EntityType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExecuteDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="IsEditable" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="ReasonId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ReasonName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ScheduleView" nillable="true" type="tns:ScheduleView"/>
+  <xs:element name="GetEventCallbackView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEventCallbackViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetEventCallbackViewResult" nillable="true" type="tns:EventCallbackViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="EventCallbackViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfEventCallbackView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EventCallbackViewCollection" nillable="true" type="tns:EventCallbackViewCollection"/>
+  <xs:complexType name="ArrayOfEventCallbackView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="EventCallbackView" nillable="true" type="tns:EventCallbackView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEventCallbackView" nillable="true" type="tns:ArrayOfEventCallbackView"/>
+  <xs:complexType name="EventCallbackView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CallbackDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CreateDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Customerid" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceSerialNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EventCallbackMethodId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventCallbackPhone" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="HostId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="HostName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="NumEventsOrdered" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="NumRetryCallback" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="OtherCallbackInfo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SetTopBoxDeviceId" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EventCallbackView" nillable="true" type="tns:EventCallbackView"/>
+  <xs:element name="GetRelationView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRelationViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetRelationViewResult" nillable="true" type="tns:RelationViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="RelationViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfRelationView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RelationViewCollection" nillable="true" type="tns:RelationViewCollection"/>
+  <xs:complexType name="ArrayOfRelationView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="RelationView" nillable="true" type="tns:RelationView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRelationView" nillable="true" type="tns:ArrayOfRelationView"/>
+  <xs:complexType name="RelationView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CustomerIdFrom" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerIdTo" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerNameFrom" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerNameTo" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TypeId" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RelationView" nillable="true" type="tns:RelationView"/>
+  <xs:element name="GetFinancialTransactionView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFinancialTransactionViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetFinancialTransactionViewResult" nillable="true" type="tns:FinancialTransactionViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="FinancialTransactionViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfFinancialTransactionView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FinancialTransactionViewCollection" nillable="true" type="tns:FinancialTransactionViewCollection"/>
+  <xs:complexType name="ArrayOfFinancialTransactionView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="FinancialTransactionView" nillable="true" type="tns:FinancialTransactionView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFinancialTransactionView" nillable="true" type="tns:ArrayOfFinancialTransactionView"/>
+  <xs:complexType name="FinancialTransactionView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AmtExclTax" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="AmtInclTax" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="AppearedOnInvoiceNumber" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="ApprdOnInvoiceId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="BankDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="BaseAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="BusinessUnitDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="BusinessUnitId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CreateDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CreatedByEvent" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CreatedByUserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CreatedByUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CurrencyId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CurrencyMnemonic" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EntityId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EntityType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExternalTaxAreaId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExternalTransactionId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="FinanceBatchId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="HistoryId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InternalComment" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceLineText" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceRunId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="IsPending" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="LedgerAccountDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LedgerAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ListPriceAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="ListPriceConditionId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ListPriceTypeName" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="MarketSegmentId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="MarketSegmentName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ModelId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="NumberOfUnits" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="OriginalAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="OriginalCurrencyId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PaidForAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PaidForCustomerName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PaidForInformation" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PaidForInvoiceId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PaymentRefNum" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PeriodFrom" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="PeriodTo" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="PeriodizationRunId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PriceAdjustDefId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ReceiptNumber" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="ReversedTransId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TaxAmt1" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TaxAmt2" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TaxAmt3" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TaxType1" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TaxType2" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TaxType3" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TransactionSubType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TransactionType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TransferAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UserKey" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FinancialTransactionView" nillable="true" type="tns:FinancialTransactionView"/>
+  <xs:element name="GetAgreementDetailView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAgreementDetailViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAgreementDetailViewResult" nillable="true" type="tns:AgreementDetailViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="AgreementDetailViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfAgreementDetailView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AgreementDetailViewCollection" nillable="true" type="tns:AgreementDetailViewCollection"/>
+  <xs:complexType name="ArrayOfAgreementDetailView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="AgreementDetailView" nillable="true" type="tns:AgreementDetailView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAgreementDetailView" nillable="true" type="tns:ArrayOfAgreementDetailView"/>
+  <xs:complexType name="AgreementDetailView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgreementId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="BusinessUnitName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ChargePeriod" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ChargeUntilDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CommProductName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CommercialProductId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CommercialProductName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ContractEndDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ContractPeriodName" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ContractStartDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinanceOptionName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="MarketSegmentName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ProvisionedDevices" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SalesPersonFullName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AgreementDetailView" nillable="true" type="tns:AgreementDetailView"/>
+  <xs:element name="GetOrderedEventView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrderedEventViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOrderedEventViewResult" nillable="true" type="tns:OrderedEventViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OrderedEventViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfOrderedEventView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrderedEventViewCollection" nillable="true" type="tns:OrderedEventViewCollection"/>
+  <xs:complexType name="ArrayOfOrderedEventView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="OrderedEventView" nillable="true" type="tns:OrderedEventView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrderedEventView" nillable="true" type="tns:ArrayOfOrderedEventView"/>
+  <xs:complexType name="OrderedEventView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CountTwdsDiscountRule" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CurrencyDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceAgreementDetailId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceSerialNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DiscountRuleApplied" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="EventCallbackId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EventPriceTierId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventScheduleId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EventStartDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="EventTitle" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="IsDuplicateRecord" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="OrderedDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="OrderedEventType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UnmatchedEventId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrderedEventView" nillable="true" type="tns:OrderedEventView"/>
+  <xs:element name="GetInvoiceView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInvoiceViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetInvoiceViewResult" nillable="true" type="tns:InvoiceViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InvoiceViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfInvoiceView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceViewCollection" nillable="true" type="tns:InvoiceViewCollection"/>
+  <xs:complexType name="ArrayOfInvoiceView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="InvoiceView" nillable="true" type="tns:InvoiceView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInvoiceView" nillable="true" type="tns:ArrayOfInvoiceView"/>
+  <xs:complexType name="InvoiceView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AmountApplied" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="AmountPaid" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="AmountPaidFromOtherInv" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="ArDocumentSubTypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ArDocumentTypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Balance" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="BalanceBroughtForward" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CurrencyTypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DisputeStatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DueDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="DueInId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DueInName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DunningLevelId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DunningLevelName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExternalInvoiceNr" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExternalRefNr" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InstallmentPlanId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InstallmentPlanName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="InvoiceDeliveryMethodId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceNumber" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceRunId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceRunName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceText" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoicingProfileId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="IsDeviation" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="IsPending" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="LateFeeStatus" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MethodOfDeliveryName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MethodOfPaymentName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="MopId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NewCharges" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="StatusId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TotalAmount" nillable="true" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceView" nillable="true" type="tns:InvoiceView"/>
+  <xs:element name="GetInvoiceRunHistoryView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInvoiceRunHistoryViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetInvoiceRunHistoryViewResult" nillable="true" type="tns:InvoiceRunHistoryViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InvoiceRunHistoryViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfInvoiceRunHistoryView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceRunHistoryViewCollection" nillable="true" type="tns:InvoiceRunHistoryViewCollection"/>
+  <xs:complexType name="ArrayOfInvoiceRunHistoryView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="InvoiceRunHistoryView" nillable="true" type="tns:InvoiceRunHistoryView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInvoiceRunHistoryView" nillable="true" type="tns:ArrayOfInvoiceRunHistoryView"/>
+  <xs:complexType name="InvoiceRunHistoryView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RunDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="RunType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="SetupId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UserFullName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceRunHistoryView" nillable="true" type="tns:InvoiceRunHistoryView"/>
+  <xs:element name="GetBankImportView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBankImportViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetBankImportViewResult" nillable="true" type="tns:BankImportViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BankImportViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfBankImportView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BankImportViewCollection" nillable="true" type="tns:BankImportViewCollection"/>
+  <xs:complexType name="ArrayOfBankImportView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="BankImportView" nillable="true" type="tns:BankImportView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBankImportView" nillable="true" type="tns:ArrayOfBankImportView"/>
+  <xs:complexType name="BankImportView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActTotalPaymentAmt" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="ActTotalPayments" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="AutoCrPaymntsBankImport" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="BankImportFormatId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ErrorDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FormatName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="HashCode" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LedgerAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LedgerAccountName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PaymentBatchId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PaymentCreateFinish" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="PaymentCreateStart" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="RunDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TotalPaymentAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TotalPayments" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalRejectedPayments" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalRejectedPaymentsAmt" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TotalUnmatchedAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="TotalUnmatchedPayments" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UploadFinish" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="UploadStart" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="XmlFileName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BankImportView" nillable="true" type="tns:BankImportView"/>
+  <xs:element name="GetLetterView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLetterViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetLetterViewResult" nillable="true" type="tns:LetterViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="LetterViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfLetterView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LetterViewCollection" nillable="true" type="tns:LetterViewCollection"/>
+  <xs:complexType name="ArrayOfLetterView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="LetterView" nillable="true" type="tns:LetterView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLetterView" nillable="true" type="tns:ArrayOfLetterView"/>
+  <xs:complexType name="LetterView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CategoryEntityId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CategoryEntityType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CreateDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="DeviceId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EmailSubject" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExternalRefid" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FaxNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LetterFolderId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LetterFolderName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LetterPrinterId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LetterTemplateId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LetterTemplateName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LettersCategoryId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="NoOfCopies" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="OutputDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="OutputDestination" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="OutputDestinationName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SmsNumber" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LetterView" nillable="true" type="tns:LetterView"/>
+  <xs:element name="GetInvoiceRunView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetInvoiceRunViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetInvoiceRunViewResult" nillable="true" type="tns:InvoiceRunViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="InvoiceRunViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfInvoiceRunView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceRunViewCollection" nillable="true" type="tns:InvoiceRunViewCollection"/>
+  <xs:complexType name="ArrayOfInvoiceRunView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="InvoiceRunView" nillable="true" type="tns:InvoiceRunView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInvoiceRunView" nillable="true" type="tns:ArrayOfInvoiceRunView"/>
+  <xs:complexType name="InvoiceRunView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CheckForDeviations" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="InvoiceMessageDesc" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceMessageId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceNumberGroupId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceNumberGroupName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoicingProfileId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoicingProfileName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LastPerformedInvoiceRunId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TotalAmountOfInvoicerun" nillable="true" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InvoiceRunView" nillable="true" type="tns:InvoiceRunView"/>
+  <xs:element name="GetCustomerDistributorView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCustomerDistributorViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCustomerDistributorViewResult" nillable="true" type="tns:CustomerDistributorViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CustomerDistributorViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfCustomerDistributorView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CustomerDistributorViewCollection" nillable="true" type="tns:CustomerDistributorViewCollection"/>
+  <xs:complexType name="ArrayOfCustomerDistributorView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="CustomerDistributorView" nillable="true" type="tns:CustomerDistributorView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCustomerDistributorView" nillable="true" type="tns:ArrayOfCustomerDistributorView"/>
+  <xs:complexType name="CustomerDistributorView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddressId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="DisplayInList" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="IsActive" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NetCode" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TypeId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CustomerDistributorView" nillable="true" type="tns:CustomerDistributorView"/>
+  <xs:element name="GetOfferDefinitionView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOfferDefinitionViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOfferDefinitionViewResult" nillable="true" type="tns:OfferDefinitionViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OfferDefinitionViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfOfferDefinitionView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OfferDefinitionViewCollection" nillable="true" type="tns:OfferDefinitionViewCollection"/>
+  <xs:complexType name="ArrayOfOfferDefinitionView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="OfferDefinitionView" nillable="true" type="tns:OfferDefinitionView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOfferDefinitionView" nillable="true" type="tns:ArrayOfOfferDefinitionView"/>
+  <xs:complexType name="OfferDefinitionView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Active" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="ApplyToLevel" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="BusinessCampaignId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="BusinessCampaignName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ChargeType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ChargeTypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CurrencyName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="GiveAutoAtCapture" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InactivatePriceAdjust" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="LinkedToProduct" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LinkedToProductName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LongDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="OfferDefinitionType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="OfferDefinitionTypeName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PriceAdjustDefId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PriceAdjustDefName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PriceAdjustType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PriceAdjustValue" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="ProductAppliedTo" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProductAppliedToName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ProductCombination" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ProductCombinationName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="SwitchOnDateFmla" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="SwitchOnDateFmlaName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SwitchToOfferDefId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OfferDefinitionView" nillable="true" type="tns:OfferDefinitionView"/>
+  <xs:element name="GetBatchView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBatchViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetBatchViewResult" nillable="true" type="tns:BatchViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BatchViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfBatchView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BatchViewCollection" nillable="true" type="tns:BatchViewCollection"/>
+  <xs:complexType name="ArrayOfBatchView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="BatchView" nillable="true" type="tns:BatchView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBatchView" nillable="true" type="tns:ArrayOfBatchView"/>
+  <xs:complexType name="BatchView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Active" nillable="true" type="xs:short"/>
+      <xs:element minOccurs="0" name="ActiveName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CreateDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Enable" nillable="true" type="xs:short"/>
+      <xs:element minOccurs="0" name="EnableName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExecutionCount" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinalrunDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InitialrunDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="LastexecuteDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NextexecuteDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ScheduleExecutionCountLimit" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ScheduleInterval" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ScheduleOffset" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ScheduleRecordId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="ScheduleType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SkipMinutes" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BatchView" nillable="true" type="tns:BatchView"/>
+  <xs:element name="GetPeriodizationRunView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPeriodizationRunViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPeriodizationRunViewResult" nillable="true" type="tns:PeriodizationRunViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PeriodizationRunViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfPeriodizationRunView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PeriodizationRunViewCollection" nillable="true" type="tns:PeriodizationRunViewCollection"/>
+  <xs:complexType name="ArrayOfPeriodizationRunView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PeriodizationRunView" nillable="true" type="tns:PeriodizationRunView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPeriodizationRunView" nillable="true" type="tns:ArrayOfPeriodizationRunView"/>
+  <xs:complexType name="PeriodizationRunView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlwaysUseCurrentPeriod" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="CurrentPeriod" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="DueDateFrom" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="DueDateTo" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FirstFinancialMonthDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="FtCreationDateFrom" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="FtCreationDateTo" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="IncludeFinTransTypes" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceDateFrom" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="InvoiceDateTo" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="InvoiceStatusId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SplitLedgaccPercentAlloc" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="StartDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusDatetime" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PeriodizationRunView" nillable="true" type="tns:PeriodizationRunView"/>
+  <xs:element name="GetBankInvoiceExportView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBankInvoiceExportViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetBankInvoiceExportViewResult" nillable="true" type="tns:BankInvoiceExportViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="BankInvoiceExportViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfBankInvoiceExportView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BankInvoiceExportViewCollection" nillable="true" type="tns:BankInvoiceExportViewCollection"/>
+  <xs:complexType name="ArrayOfBankInvoiceExportView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="BankInvoiceExportView" nillable="true" type="tns:BankInvoiceExportView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBankInvoiceExportView" nillable="true" type="tns:ArrayOfBankInvoiceExportView"/>
+  <xs:complexType name="BankInvoiceExportView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AssumePayments" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="BranchName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CommissionPercent1" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CommissionPercent2" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompanyAccountLongName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompanyAccountNumber" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompanyAccountShortName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompanyBankName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompanyBranchName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompanyIdBank" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CompanyNumberBank" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ErrorDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ExportFinish" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ExportStart" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FileLocation" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FileType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FirstFtId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceMemo1" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceMemo2" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceMemo3" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceMemo4" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="InvoiceMemo5" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LastFtId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LedgerAccountId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="NumFtCreated" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PaymentCreateFinish" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="PaymentCreateStart" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="RunName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RunType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="SetupId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SortByPostalCode" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TotalExpInvoices" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalInvAmount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="XmlFileName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BankInvoiceExportView" nillable="true" type="tns:BankInvoiceExportView"/>
+  <xs:element name="GetQueueView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetQueueViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetQueueViewResult" nillable="true" type="tns:QueueViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="QueueViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfQueueView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QueueViewCollection" nillable="true" type="tns:QueueViewCollection"/>
+  <xs:complexType name="ArrayOfQueueView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="QueueView" nillable="true" type="tns:QueueView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfQueueView" nillable="true" type="tns:ArrayOfQueueView"/>
+  <xs:complexType name="QueueView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActiveEnding" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ActiveStarting" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="GroupId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TotalEntries" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalResults" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QueueView" nillable="true" type="tns:QueueView"/>
+  <xs:element name="GetSettlementView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSettlementViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetSettlementViewResult" nillable="true" type="tns:SettlementViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SettlementViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfSettlementView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SettlementViewCollection" nillable="true" type="tns:SettlementViewCollection"/>
+  <xs:complexType name="ArrayOfSettlementView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SettlementView" nillable="true" type="tns:SettlementView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSettlementView" nillable="true" type="tns:ArrayOfSettlementView"/>
+  <xs:complexType name="SettlementView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Amount" nillable="true" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="CurrencyMnemonic" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="CustomerInformation" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="FinancialAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="FinancialTransactionId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="InvoiceText" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LedgerAccountDescription" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="LedgerAccountId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="NumberOfUnits" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PayeeId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="PostDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="PriceAdjustmentDefinitionId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Rejected" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="SalespersonId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="SettlementDefDes" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SettlementRunName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SettlementType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SettlementUserName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UsedByCpId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UsedByCpName" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SettlementView" nillable="true" type="tns:SettlementView"/>
+  <xs:element name="GetSettlementRunView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSettlementRunViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetSettlementRunViewResult" nillable="true" type="tns:SettlementRunViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SettlementRunViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfSettlementRunView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SettlementRunViewCollection" nillable="true" type="tns:SettlementRunViewCollection"/>
+  <xs:complexType name="ArrayOfSettlementRunView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SettlementRunView" nillable="true" type="tns:SettlementRunView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSettlementRunView" nillable="true" type="tns:ArrayOfSettlementRunView"/>
+  <xs:complexType name="SettlementRunView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CheckDeviations" nillable="true" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="LastSettlementRunId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="PerformDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="PostDateFrom" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="PostDateTo" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="SettlementDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="SettlementNumGroup" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="SettlementType" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="TotalAmount" nillable="true" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SettlementRunView" nillable="true" type="tns:SettlementRunView"/>
+  <xs:element name="GetSettlementRunHistoryView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/PayMedia.ApplicationServices.SharedContracts" minOccurs="0" name="request" nillable="true" type="ns0:BaseQueryRequest"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSettlementRunHistoryViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetSettlementRunHistoryViewResult" nillable="true" type="tns:SettlementRunHistoryViewCollection"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SettlementRunHistoryViewCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeNumber" type="xs:long"/>
+      <xs:element minOccurs="0" name="HasChanged" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfSettlementRunHistoryView"/>
+      <xs:element minOccurs="0" name="More" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="Page" type="xs:int"/>
+      <xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SettlementRunHistoryViewCollection" nillable="true" type="tns:SettlementRunHistoryViewCollection"/>
+  <xs:complexType name="ArrayOfSettlementRunHistoryView">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="SettlementRunHistoryView" nillable="true" type="tns:SettlementRunHistoryView"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSettlementRunHistoryView" nillable="true" type="tns:ArrayOfSettlementRunHistoryView"/>
+  <xs:complexType name="SettlementRunHistoryView">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Extended" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="RunDate" nillable="true" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="RunType" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="SetupId" nillable="true" type="xs:int"/>
+      <xs:element minOccurs="0" name="UserFullName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SettlementRunHistoryView" nillable="true" type="tns:SettlementRunHistoryView"/>
+</xs:schema>

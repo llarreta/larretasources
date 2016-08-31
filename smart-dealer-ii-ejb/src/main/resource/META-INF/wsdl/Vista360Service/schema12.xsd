@@ -1,0 +1,144 @@
+<xsd:schema xmlns:crm-common="http://directvla.com/schema/crm/common/v1" xmlns:crm-commonbusiness="http://directvla.com/schema/crm/commonbusiness/v1" xmlns:crm-exception="http://directvla.com/schema/crm/exception/v1" xmlns:crm-product="http://directvla.com/schema/crm/product/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/crm/product/v1">
+  <xsd:import namespace="http://directvla.com/schema/crm/common/v1" schemaLocation="schema1.xsd"/>
+  <xsd:import namespace="http://directvla.com/schema/crm/exception/v1" schemaLocation="schema11.xsd"/>
+  <xsd:complexType name="AddCustomerAccountProductInvolvement">
+    <xsd:sequence>
+      <xsd:element name="CustomerKey" type="xsd:string"/>
+      <xsd:element name="Product" type="crm-common:Product"/>
+      <xsd:element name="Reason" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AddCustomerAccountProductInvolvementResult">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="customerAccountProductInvolvementKey" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AddCustomerAccountProductInvolvementRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+        <xsd:element name="AddCustomerAccountProductInvolvement" type="crm-product:AddCustomerAccountProductInvolvement"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="AddCustomerAccountProductInvolvementResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+        <xsd:element name="AddCustomerAccountProductInvolvementResult" type="crm-product:AddCustomerAccountProductInvolvementResult"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="AddCustomerAccountProductInvolvementException">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="AddCustomerAccountProductInvolvementWithResource">
+    <xsd:sequence>
+      <xsd:element name="ProductInvolvement" type="crm-common:CustomerProduct"/>
+      <xsd:element name="Product" type="crm-common:Product"/>
+      <xsd:element name="Reason" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="AddCustomerAccountProductInvolvementWithResourceResult">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="customerAccountProductInvolvementKey" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="AddCustomerAccountProductInvolvementWithResourceRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+        <xsd:element name="AddCustomerAccountProductInvolvementWithResource" type="crm-product:AddCustomerAccountProductInvolvementWithResource"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="AddCustomerAccountProductInvolvementWithResourceResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+        <xsd:element name="AddCustomerAccountProductInvolvementWithResourceResult" type="crm-product:AddCustomerAccountProductInvolvementWithResourceResult"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="AddCustomerAccountProductInvolvementWithResourceException">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="GetCustomerProductByStatus">
+    <xsd:sequence>
+      <xsd:element name="Cust" type="xsd:string"/>
+      <xsd:element name="Status" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="GetCustomerProductByStatusResult">
+    <xsd:sequence>
+      <xsd:element name="products" type="crm-common:CustomerProductCollection"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="GetCustomerProductByStatusRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="requestMetadata" type="crm-common:RequestMetadataType"/>
+        <xsd:element name="GetCustomerProductByStatus" type="crm-product:GetCustomerProductByStatus"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetCustomerProductByStatusResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="responseMetadata" type="crm-common:ResponseMetadataType"/>
+        <xsd:element name="GetCustomerProductByStatusResult" type="crm-product:GetCustomerProductByStatusResult"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetCustomerProductByStatusException">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="entityAlreadyExistsException" type="crm-exception:EntityAlreadyExistsException"/>
+        <xsd:element name="EntityNotFoundException" type="crm-exception:EntityNotFoundException"/>
+        <xsd:element name="EntityInUseException" type="crm-exception:EntityInUseException"/>
+        <xsd:element name="InternalErrorException" type="crm-exception:InternalErrorException"/>
+        <xsd:element name="MissingParameterException" type="crm-exception:MissingParameterException"/>
+        <xsd:element name="InvalidParameterValueException" type="crm-exception:InvalidParameterValueException"/>
+        <xsd:element name="InvalidQueryParameterException" type="crm-exception:InvalidQueryParameterException"/>
+        <xsd:element name="InvalidRequestException" type="crm-exception:InvalidRequestException"/>
+        <xsd:element name="InvalidResponseException" type="crm-exception:InvalidResponseException"/>
+        <xsd:element name="InvalidSecurityTokenException" type="crm-exception:InvalidSecurityTokenException"/>
+        <xsd:element name="AccessDeniedException" type="crm-exception:AccessDeniedException"/>
+        <xsd:element name="ServiceUnavailabbleException" type="crm-exception:ServiceUnavailabbleException"/>
+        <xsd:element name="OperationNotYetImplementedException" type="crm-exception:OperationNotYetImplementedException"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

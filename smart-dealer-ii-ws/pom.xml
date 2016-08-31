@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.dtvla</groupId>
+		<artifactId>hsp</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<groupId>com.dtvla</groupId>
+	<artifactId>smart-dealer-ii-ws</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>smart-dealer-ii-ws</name>
+
+	<properties>
+		<servlet.api.version>2.5</servlet.api.version>
+		<jetty.version>6.1.26</jetty.version>
+		<jetty.port>8081</jetty.port>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>weblogic</groupId>
+			<artifactId>wlfullclient</artifactId>
+			<version>10.3.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.dtvla</groupId>
+			<artifactId>smart-dealer-ii-ejb</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.jws</groupId>
+			<artifactId>jsr181-api</artifactId>
+			<version>1.0-MR1</version>
+		</dependency>
+	</dependencies>
+
+</project>

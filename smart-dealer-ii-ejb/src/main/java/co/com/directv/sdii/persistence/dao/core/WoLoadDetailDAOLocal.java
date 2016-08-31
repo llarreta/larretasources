@@ -1,0 +1,82 @@
+package co.com.directv.sdii.persistence.dao.core;
+
+import java.util.List;
+
+import javax.ejb.Local;
+
+import co.com.directv.sdii.exceptions.DAOSQLException;
+import co.com.directv.sdii.exceptions.DAOServiceException;
+import co.com.directv.sdii.model.pojo.WoLoadDetail;
+
+/**
+ * 
+ * Interface Local para la gestión del CRUD de la
+ * Entidad Category
+ * 
+ * Fecha de Creación: Dic 3, 2010
+ * @author jjimenezh <a href="mailto:jjimenezh@intergrupo.com">e-mail</a>
+ * @version 1.0
+ * 
+ * @see
+ */
+@Local
+public interface WoLoadDetailDAOLocal {
+
+	/**
+	 * Metodo:  persiste la información de un WoLoadDetail
+	 * @param obj objeto que encapsula la información de un WoLoadDetail
+	 * @throws DAOServiceException en caso de error al ejecutar la operación
+	 * @throws DAOSQLException en caso de error al ejecutar la operación
+	 * @author
+	 */
+	public void createWoLoadDetail(WoLoadDetail obj) throws DAOServiceException, DAOSQLException;
+	
+	/**
+	 * Metodo: actualiza la información de un WoLoadDetail
+	 * @param obj objeto que encapsula la información de un WoLoadDetail
+	 * @throws DAOServiceException en caso de error al ejecutar la operación
+	 * @throws DAOSQLException en caso de error al ejecutar la operación
+	 * @author
+	 */
+	public void updateWoLoadDetail(WoLoadDetail obj) throws DAOServiceException, DAOSQLException;
+	
+	/**
+	 * Metodo: Borra de la persistencia la información de un WoLoadDetail
+	 * @param obj información del WoLoadDetail a ser borrado
+	 * @throws DAOServiceException en caso de error al tratar de ejecutar la operación
+	 * @throws DAOSQLException en caso de error al tratar de ejecutar la operación
+	 * @author
+	 */
+	public void deleteWoLoadDetail(WoLoadDetail obj) throws DAOServiceException, DAOSQLException;
+	
+	/**
+	 * Metodo: Obtiene la información de un WoLoadDetail por su identificador
+	 * @param id identificador del WoLoadDetail a ser consultado
+	 * @return objeto con la información del WoLoadDetail dado su identificador, nulo en caso que no se encuentre
+	 * @throws DAOServiceException en caso de error al tratar de ejecutar la operación
+	 * @throws DAOSQLException en caso de error al tratar de ejecutar la operación
+	 * @author
+	 */
+	public WoLoadDetail getWoLoadDetailByID(Long id) throws DAOServiceException, DAOSQLException;
+	
+	/**
+	 * Metodo: Obtiene la información de todos los WoLoadDetail almacenados en la persistencia
+	 * @return Lista con los WoLoadDetail existentes, una lista vacia en caso que no existan WoLoadDetail en el sistema
+	 * @throws DAOServiceException en caso de error al tratar de ejecutar la operación
+	 * @throws DAOSQLException en caso de error al tratar de ejecutar la operación
+	 * @author
+	 */
+	public List<WoLoadDetail> getWoLoadDetailByWoCode(String woCode, Long countryId) throws DAOServiceException, DAOSQLException;
+
+	/**
+	 * Metodo: Obtiene una lista de los detalles de carga de una work order dado el estado actual
+	 * @param woCode código de la work order
+	 * @param status
+	 * @return
+	 * @throws DAOServiceException
+	 * @throws DAOSQLException
+	 */
+	public List<WoLoadDetail> getWoLoadDetailByWoCodeAndStatus(String woCode, String status, Long countryId)throws DAOServiceException, DAOSQLException;
+
+
+}

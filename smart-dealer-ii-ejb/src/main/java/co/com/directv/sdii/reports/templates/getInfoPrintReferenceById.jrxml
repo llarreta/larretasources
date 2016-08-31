@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="getInfoPrintImportLogById" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="73"/>
+	<subDataset name="dataset1">
+		<field name="title" class="java.lang.String">
+			<fieldDescription><![CDATA[title]]></fieldDescription>
+		</field>
+		<field name="description" class="java.lang.String">
+			<fieldDescription><![CDATA[description]]></fieldDescription>
+		</field>
+		<field name="typeTitle" class="java.lang.String">
+			<fieldDescription><![CDATA[typeTitle]]></fieldDescription>
+		</field>
+		<field name="subTitle" class="java.lang.String">
+			<fieldDescription><![CDATA[subTitle]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="dataset2">
+		<field name="codeTypeElement" class="java.lang.String"/>
+		<field name="typeElement" class="java.lang.String"/>
+		<field name="serialElement" class="java.lang.String"/>
+		<field name="rdiElement" class="java.lang.String"/>
+		<field name="serialElementVinculado" class="java.lang.String"/>
+		<field name="statusElement" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset3">
+		<field name="codeTypeElement" class="java.lang.String"/>
+		<field name="typeElement" class="java.lang.String"/>
+		<field name="amountRemitted" class="java.lang.String"/>
+		<field name="partialConfirmationDate" class="java.lang.String"/>
+		<field name="partialAmount" class="java.lang.String"/>
+		<field name="measureUnit" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset4">
+		<field name="dateModified" class="java.lang.String"/>
+		<field name="userModified" class="java.lang.String"/>
+		<field name="modificationType" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset5">
+		<field name="modificationType" class="java.lang.String"/>
+		<field name="observations" class="java.lang.String"/>
+		<field name="registrationUser" class="java.lang.String"/>
+		<field name="registrationDate" class="java.lang.String"/>
+		<field name="responseInconsistency" class="java.lang.String"/>
+		<field name="responseUser" class="java.lang.String"/>
+		<field name="responseDate" class="java.lang.String"/>
+		<field name="inconsistencyStatus" class="java.lang.String"/>
+	</subDataset>
+	<field name="preLoad" class="java.util.List">
+		<fieldDescription><![CDATA[preLoad]]></fieldDescription>
+	</field>
+	<field name="refPDF" class="java.util.List">
+		<fieldDescription><![CDATA[refPDF]]></fieldDescription>
+	</field>
+	<field name="refPDFnoS" class="java.util.List"/>
+	<field name="refPDFDTOModificationList" class="java.util.List"/>
+	<field name="refPDFDTOInconsistencyList" class="java.util.List"/>
+	<group name="seccion" minHeightToStartNewPage="20">
+		<groupHeader>
+			<band height="1"/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="31" width="555" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_remission}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="2" width="81" height="68"/>
+				<imageExpression class="java.lang.String"><![CDATA["dtvGrayLogo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<componentElement>
+				<reportElement x="13" y="0" width="542" height="37"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{preLoad})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="37" width="542">
+						<textField>
+							<reportElement mode="Opaque" x="13" y="0" width="521" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3366FF">
+								<printWhenExpression><![CDATA[$F{typeTitle}.equals("1")]]></printWhenExpression>
+							</reportElement>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font isBold="true"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="13" y="20" width="251" height="17"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{subTitle}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="264" y="20" width="270" height="17"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{description}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+		<band height="54" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{refPDFnoS}.isEmpty()]]></printWhenExpression>
+			<componentElement>
+				<reportElement x="13" y="35" width="542" height="19" isRemoveLineWhenBlank="true"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset3">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{refPDFnoS})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="19" width="542">
+						<textField>
+							<reportElement x="13" y="0" width="82" height="19" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{codeTypeElement}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="94" y="0" width="145" height="19" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{typeElement}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="239" y="0" width="78" height="19" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{amountRemitted}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="317" y="0" width="91" height="19" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{partialConfirmationDate}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="407" y="0" width="65" height="19" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{partialAmount}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="472" y="0" width="62" height="19" isRemoveLineWhenBlank="true"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{measureUnit}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement mode="Opaque" x="26" y="20" width="82" height="15" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFnoS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_cte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="107" y="20" width="145" height="15" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFnoS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_element_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="252" y="20" width="78" height="15" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFnoS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_amount_remitted}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="330" y="20" width="91" height="15" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFnoS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_partial_confirmation_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="421" y="20" width="65" height="15" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFnoS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_partial_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="26" y="0" width="521" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFnoS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_element_no_serialized}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="486" y="20" width="61" height="15" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFnoS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_measure_unit}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="54">
+			<componentElement>
+				<reportElement x="13" y="35" width="542" height="19"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset2">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{refPDF})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="19" width="542">
+						<textField>
+							<reportElement x="13" y="0" width="79" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{codeTypeElement}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="92" y="0" width="97" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{typeElement}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="189" y="0" width="101" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{serialElement}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="290" y="0" width="88" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{rdiElement}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="378" y="0" width="92" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{serialElementVinculado}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="470" y="0" width="64" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{statusElement}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement mode="Opaque" x="26" y="0" width="521" height="20" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDF}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_element_serialized}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="26" y="20" width="81" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDF}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_cte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="107" y="20" width="95" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDF}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_element_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="202" y="20" width="101" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDF}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_serial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="303" y="20" width="88" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDF}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_rdi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="391" y="20" width="92" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDF}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_serial_link}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="483" y="20" width="64" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDF}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_status}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="54">
+			<componentElement>
+				<reportElement x="13" y="35" width="542" height="19"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset4">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{refPDFDTOModificationList})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="19" width="542">
+						<textField>
+							<reportElement x="13" y="0" width="176" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{dateModified}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="189" y="0" width="165" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{userModified}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="354" y="0" width="180" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{modificationType}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement mode="Opaque" x="26" y="0" width="521" height="20" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOModificationList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_modifications_remission}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="26" y="20" width="176" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOModificationList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_date_modified}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="202" y="20" width="165" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOModificationList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_user_modified}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="367" y="20" width="180" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOModificationList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_modification_type}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="106">
+			<componentElement>
+				<reportElement x="13" y="35" width="542" height="19"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset5">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{refPDFDTOInconsistencyList})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="19" width="542">
+						<textField isStretchWithOverflow="true">
+							<reportElement x="13" y="0" width="45" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{modificationType}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="58" y="0" width="87" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{observations}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="145" y="0" width="71" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{registrationUser}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="216" y="0" width="67" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{registrationDate}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="283" y="0" width="85" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{responseInconsistency}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="368" y="0" width="54" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{responseUser}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="422" y="0" width="58" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{responseDate}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement x="480" y="0" width="54" height="19"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{inconsistencyStatus}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement mode="Opaque" x="26" y="0" width="521" height="20" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_inconsistencies_remission}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="26" y="20" width="45" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_inconsistency_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="71" y="20" width="87" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_observations_inconsistency}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="158" y="20" width="71" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_user_registers_inconsistency}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="229" y="20" width="67" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_date_registration_inconsistency}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="296" y="20" width="85" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_response_inconsistency}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="381" y="20" width="54" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_user_responded_inconsistency}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="435" y="20" width="58" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_registration_date_response_inconsistency}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="493" y="20" width="54" height="15" forecolor="#FFFFFF" backcolor="#3366FF">
+					<printWhenExpression><![CDATA[!$F{refPDFDTOInconsistencyList}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$R{giprbi_status_inconsistency}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="3" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pag "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="535" y="3" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="192" y="0" width="160" height="20"/>
+				<textElement/>
+				<text><![CDATA[https://www.directv.com.co/]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="10" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,40 @@
+<xsd:schema xmlns="http://directvla.com/schema/businessdomain/service/v1-0" xmlns:commonbd-v1-0="http://directvla.com/schema/businessdomain/common/v1-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://directvla.com/schema/businessdomain/service/v1-0">
+  <xsd:import namespace="http://directvla.com/schema/businessdomain/common/v1-0" schemaLocation="schema2.xsd"/>
+  <xsd:complexType name="Service">
+    <xsd:sequence>
+      <xsd:element name="serviceKey" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="name" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="code" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="description" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="productSerialNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="validFor" type="commonbd-v1-0:TimePeriod"/>
+      <xsd:element minOccurs="0" name="isShippingOrderRequired" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="serviceCategory" type="ServiceCategory"/>
+      <xsd:element minOccurs="0" name="serviceType" type="ServiceType"/>
+      <xsd:element minOccurs="0" name="serviceStatus" type="ServiceStatus"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ServiceCategory">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="serviceCategoryCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="serviceCategoryName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ServiceType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="serviceTypeCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="serviceTypeName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ServiceStatus">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="serviceStatusCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="serviceStatusName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ServiceCollection">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Service" type="Service"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
