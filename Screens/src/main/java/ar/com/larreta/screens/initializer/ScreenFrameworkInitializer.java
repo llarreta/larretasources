@@ -48,8 +48,12 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 				saverExecuted = new SaverExecuted();
 				saverExecuted.setDescription(abmSaver.getClass().getName());
 				if (service.getEntity(saverExecuted, ParametricEntity.DESCRIPTION)==null){
-					abmSaver.save();	
-					SaveThread.addEntity(saverExecuted);
+					try {
+						abmSaver.save();	
+						SaveThread.addEntity(saverExecuted);
+					} catch (Exception e){
+						appObject.getLog().error("Ocurrio un error guardando el saver:" + abmSaver.getClass(), e);
+					}
 				}
 			}
 		} catch (Exception e){

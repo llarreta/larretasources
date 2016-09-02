@@ -2,6 +2,8 @@ package ar.com.larreta.screens.impl.saver;
 
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
+import ar.com.larreta.screens.validators.Required;
+import ar.com.larreta.screens.validators.Validator;
 
 public abstract class ParametricEntitySaver extends ABMSaver {
 	
@@ -16,7 +18,7 @@ public abstract class ParametricEntitySaver extends ABMSaver {
 
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
-		index = screen.addInput(index, APP_DESCRIPTION, DESCRIPTION);
+		index = screen.addInput(index, APP_DESCRIPTION, DESCRIPTION, Validator.REQUIRED);
 	}
 	
 	protected void makeColumn(MainScreen screen){

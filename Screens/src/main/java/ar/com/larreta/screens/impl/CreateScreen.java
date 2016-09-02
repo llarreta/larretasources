@@ -13,6 +13,7 @@ import ar.com.larreta.screens.Password;
 import ar.com.larreta.screens.ScreenElement;
 import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.SubmitButton;
+import ar.com.larreta.screens.validators.Validator;
 
 public abstract class CreateScreen extends CommonsScreen {
 
@@ -82,10 +83,16 @@ public abstract class CreateScreen extends CommonsScreen {
 		return index;
 	}
 	
-	public Integer addInput(Integer index, String labelText, String dataViewSelectedProperty) {
+	public Integer addInput(Integer index, String labelText, String dataViewSelectedProperty, Validator validator) {
+		Input input = new Input(DATA_VIEW_SELECTED, dataViewSelectedProperty);
+		input.addValidator(validator);
 		body.add(index++, new Label(labelText));
-		body.add(index++, new Input(DATA_VIEW_SELECTED, dataViewSelectedProperty));
+		body.add(index++, input);
 		return index;
+	}
+	
+	public Integer addInput(Integer index, String labelText, String dataViewSelectedProperty) {
+		return addInput(index, labelText, dataViewSelectedProperty, null);
 	}
 	
 	public Integer addCheckBox(Integer index, String labelText, String dataViewSelectedProperty) {
@@ -93,14 +100,23 @@ public abstract class CreateScreen extends CommonsScreen {
 		body.add(index++, new CheckBox(DATA_VIEW_SELECTED, dataViewSelectedProperty));
 		return index;
 	}
-	
+
 	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType) {
-		return addCombo(index, labelText, dataViewSelectedProperty, entityType, null);
+		return addCombo(index, labelText, dataViewSelectedProperty, entityType, null, null);
+	}
+
+	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType, Validator validator) {
+		return addCombo(index, labelText, dataViewSelectedProperty, entityType, null, validator);
 	}
 
 	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties) {
+		return addCombo(index, labelText, dataViewSelectedProperty, entityType, lazyProperties, null);
+	}
+	
+	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties, Validator validator) {
 		body.add(index++, new Label(labelText));
 		ComboBox comboBox = new ComboBox();
+		comboBox.addValidator(validator);
 		comboBox.setBindingObject(DATA_VIEW_SELECTED);
 		comboBox.setBindingProperty(dataViewSelectedProperty);
 		comboBox.setEntityType(entityType);

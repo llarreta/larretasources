@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import ar.com.larreta.commons.domain.Language;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
+import ar.com.larreta.screens.validators.Required;
+import ar.com.larreta.screens.validators.Validator;
 
 @Component
 public class LanguageSaver extends ParametricEntitySaver {
@@ -22,7 +24,7 @@ public class LanguageSaver extends ParametricEntitySaver {
 	protected void makeBody(CreateScreen screen) {
 		super.makeBody(screen);
 		Integer index = -3;
-		index = screen.addInput(index, "app.abbreviation", "abbreviation");
+		index = screen.addInput(index, "app.abbreviation", "abbreviation", Validator.REQUIRED);
 	}
 
 	@Override

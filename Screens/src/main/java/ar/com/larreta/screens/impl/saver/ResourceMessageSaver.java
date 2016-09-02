@@ -8,6 +8,7 @@ import ar.com.larreta.commons.domain.ResourceMessage;
 import ar.com.larreta.screens.Column;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
+import ar.com.larreta.screens.validators.Validator;
 
 @Component
 public class ResourceMessageSaver extends ABMSaver {
@@ -21,9 +22,9 @@ public class ResourceMessageSaver extends ABMSaver {
 
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
-		index = screen.addCombo(index, "app.country", 		"country", 		Country.class.getName());
-		index = screen.addCombo(index, "app.language", 		"language", 	Language.class.getName());
-		index = screen.addInput(index, "app.key", 			"key");
+		index = screen.addCombo(index, "app.country", 		"country", 		Country.class.getName(), 	Validator.REQUIRED);
+		index = screen.addCombo(index, "app.language", 		"language", 	Language.class.getName(), 	Validator.REQUIRED);
+		index = screen.addInput(index, "app.key", 			"key", 										Validator.REQUIRED);
 		index = screen.addInput(index, "app.text", 			"textString");
 	}
 

@@ -3,6 +3,9 @@ package ar.com.larreta.screens;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
@@ -10,6 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -21,6 +27,8 @@ import org.hibernate.annotations.Where;
 
 import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.screens.impl.saver.ScreenConstantIds;
+import ar.com.larreta.screens.validators.MultiValidator;
+import ar.com.larreta.screens.validators.Validator;
 
 @Entity
 @Table(name = "screenElement")
@@ -50,6 +58,38 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 	@Transient
 	private Boolean initialized = Boolean.FALSE;
 	
+	private Set<Validator> validators;
+	private MultiValidator multiValidator = new MultiValidator(this);
+	
+	@ManyToMany (targetEntity=Validator.class, fetch=FetchType.EAGER,  cascade=CascadeType.ALL)
+	@JoinTable(name = "validatorScreenElement", joinColumns = { @JoinColumn(name = "idScreenElement") }, 
+		inverseJoinColumns = { @JoinColumn(name = "idValidator") })
+	public Set<Validator> getValidators() {
+		return validators;
+	}
+
+	public void setValidators(Set<Validator> validators) {
+		this.validators = validators;
+	}
+	
+	public void addValidator(Validator validator){
+		if (validator!=null){
+			if (validators==null){
+				validators = new HashSet<Validator>();
+			}
+			validators.add(validator);
+		}
+	}
+	
+	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		getValidator().validate(context, component, value);
+	}
+	
+	@Transient
+	public MultiValidator getValidator(){
+		return multiValidator;
+	}
+
 	@OneToMany (mappedBy="element", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=ContainedElement.class)
 	@Where(clause="deleted IS NULL")
 	public Set<ContainedElement> getParents() {

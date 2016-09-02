@@ -27,12 +27,12 @@ public class StudentSaver extends ABMSaver {
 	@Override
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
-		index = screen.addInput(index, "app.colegio.surname", "surname");
-		index = screen.addInput(index, "app.colegio.name", "name");
-		index = screen.addCombo(index, "app.colegio.documentType", 		"documentType", 		DocumentType.class.getName());
-		index = screen.addInput(index, "app.colegio.documentNumber", "documentNumber");
-		index = screen.addCombo(index, "app.colegio.course", 		"course", 		Course.class.getName(), "level,year,division");
-		index = screen.addMultiBox(index, "app.colegio.responsibles.avaiables", "app.colegio.responsibles.assigned", "responsibles", Responsible.class.getName(), "info", "documentType");
+		index = screen.addInput(index, 		"app.colegio.surname", 				"surname");
+		index = screen.addInput(index, 		"app.colegio.name", 				"name");
+		index = screen.addCombo(index, 		"app.colegio.documentType", 		"documentType", 		DocumentType.class.getName());
+		index = screen.addInput(index, 		"app.colegio.documentNumber", 		"documentNumber");
+		index = screen.addCombo(index, 		"app.colegio.course", 				"course", 				Course.class.getName(), 		"level,year,division");
+		index = screen.addMultiBox(index, 	"app.colegio.responsibles.avaiables", "app.colegio.responsibles.assigned", "responsibles", Responsible.class.getName(), "info", "documentType");
 	}
 
 	@Override

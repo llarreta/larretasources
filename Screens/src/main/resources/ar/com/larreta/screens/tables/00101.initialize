@@ -11,6 +11,12 @@ CREATE TABLE [SCHEMMA].screenElement (
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE [SCHEMMA].validatorScreenElement (
+	idScreenElement BIGINT NOT NULL,
+	idValidator BIGINT NOT NULL,
+	PRIMARY KEY (idScreenElement, idValidator)
+);
+
 CREATE TABLE [SCHEMMA].containedElement (
 	id BIGINT NOT NULL,
 	deleted DATETIME,
@@ -285,6 +291,23 @@ CREATE TABLE [SCHEMMA].filterMatchMode (
 	entityClass VARCHAR(255),
 	PRIMARY KEY (ID)
 );
+
+CREATE TABLE [SCHEMMA].validator (
+	id BIGINT NOT NULL,
+	deleted DATETIME,
+	type VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE [SCHEMMA].validatorScreenElement
+ADD CONSTRAINT fk_validator_in_validatorScreenElement
+FOREIGN KEY (idValidator)
+REFERENCES [SCHEMMA].validator(id);
+
+ALTER TABLE [SCHEMMA].validatorScreenElement
+ADD CONSTRAINT fk_screenElement_in_validatorScreenElement
+FOREIGN KEY (idScreenElement)
+REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].columnTag
 ADD CONSTRAINT fk_filterMatchMode_in_columnTag
