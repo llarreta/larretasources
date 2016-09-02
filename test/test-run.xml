@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="soapui" basedir=".">
+
+	<!-- Propiedades -->
+	<property file="build.properties"/>
+	
+	<!-- SoapUI/bin -->
+	<property name="SOAPUI_HOME" location="${soapui.location}" />
+
+	<!-- Archivo de proyecto SoapUI -->
+	<property name="test-project-location" location="${soapui.project.location}" />
+
+	<!-- Junit reports Location -->
+	<property name="reports" location="${build.dir}/junitreports" />
+
+	<target name="run.soapui">
+
+		<echo message="SoapUI location: ${SOAPUI_HOME}" />
+
+		<java fork="true" failonerror="false" classname="com.eviware.soapui.tools.SoapUITestCaseRunner">
+			<arg line="-j -f${reports} -r -s${test.suite} -a ${test-project-location}" />
+			<jvmarg value="-Xms128m" />
+			<jvmarg value="-Xmx1024m" />
+			<jvmarg value="-Dsoapui.properties=soapui.properties" />
+			<jvmarg value="-Dsoapui.home=%SOAPUI_HOME%" />
+			<jvmarg value="-Dsoapui.ext.libraries=${SOAPUI_HOME}/ext" />
+			<jvmarg value="-Dsoapui.ext.listeners=${SOAPUI_HOME}/listeners" />
+			<jvmarg value="-Dsoapui.ext.actions=${SOAPUI_HOME}/actions" />
+			
+			<classpath>
+				<pathelement location="${SOAPUI_HOME}/bin/soapui-4.6.4.jar" />
+				<pathelement location="${SOAPUI_HOME}" />
+				<fileset dir="${SOAPUI_HOME}/lib">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
+</project>
