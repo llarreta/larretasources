@@ -15,13 +15,12 @@ import javax.persistence.Transient;
 import org.primefaces.model.DualListModel;
 
 import ar.com.larreta.commons.AppManager;
-import ar.com.larreta.commons.faces.EntityConverter;
 
 @Entity
 @Table(name = "multiBox")
 @DiscriminatorValue(value = "multiBox")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class MultiBox extends ValuedElement {
+public class MultiBox extends ListSelector {
 
 	private String sourceCaption;
 	private String targetCaption;
@@ -35,40 +34,6 @@ public class MultiBox extends ValuedElement {
 	private Boolean showTargetFilter	= Boolean.FALSE;
 	
 	private String filterMatchMode = "contains";
-	
-	private String entityType;
-	
-	private String lazyProperties;
-
-	@Basic
-	public String getLazyProperties() {
-		return lazyProperties;
-	}
-
-
-	public void setLazyProperties(String lazyProperties) {
-		this.lazyProperties = lazyProperties;
-	}
-
-	@Transient
-	public Collection<String> getLazyPropertiesSplitted(){
-		return ScreenUtils.split(lazyProperties);
-	}
-	
-	@Basic
-	public String getEntityType() {
-		return entityType;
-	}
-	public void setEntityType(String entityType) {
-		this.entityType = entityType;
-	}
-	
-	@Transient
-	public EntityConverter getConverter(){
-			EntityConverter converter = new EntityConverter();
-			converter.setEntityClass(ScreenUtils.getClass(getEntityType()));
-			return converter;
-	}
 	
 	@Basic
 	public Boolean getShowSourceControls() {

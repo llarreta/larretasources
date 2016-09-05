@@ -25,6 +25,7 @@ import ar.com.larreta.commons.services.impl.ResourceMessageServiceImpl;
 public abstract class Validator extends ar.com.larreta.commons.domain.Entity implements javax.faces.validator.Validator, ClientValidator {
 	
 	public static final Validator REQUIRED = new Required();
+	public static final Validator LIST_SELECTOR_REQUIRED = new ListSelectorRequired();
 
 	protected ResourceMessageService resourceMessageService = (ResourceMessageService) AppManager.getInstance().getBean(ResourceMessageServiceImpl.RESOURCE_MESSAGE_SERVICE);
 	

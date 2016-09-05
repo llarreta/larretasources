@@ -1,6 +1,7 @@
 package ar.com.larreta.screens;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -12,15 +13,15 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "checkBoxItem")
-@DiscriminatorValue(value = "checkBoxItem")
+@Table(name = "listSelectorItem")
+@DiscriminatorValue(value = "listSelectorItem")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class CheckBoxItem extends ValuedElement {
-	
+public class ListSelectorItem extends ValuedElement {
+
 	private Long order;
 	private String itemLabel;
 	private String noSelectionOption;
-	private MultiCheckBox multiCheckBox;
+	private ListSelector listSelector;
 
 	@Basic @Column(name="orderIndex")
 	public Long getOrder() {
@@ -33,13 +34,13 @@ public class CheckBoxItem extends ValuedElement {
 		this.order = order;
 	}
 	
-	@ManyToOne (fetch=FetchType.EAGER, targetEntity=MultiCheckBox.class)
-	@JoinColumn (name="idMultiCheckBox")
-	public MultiCheckBox getMultiCheckBox() {
-		return multiCheckBox;
+	@ManyToOne (targetEntity=ListSelector.class, fetch=FetchType.EAGER,  cascade=CascadeType.ALL)
+	@JoinColumn (name="idListSelector")
+	public ListSelector getListSelector() {
+		return listSelector;
 	}
-	public void setMultiCheckBox(MultiCheckBox multiCheckBox) {
-		this.multiCheckBox = multiCheckBox;
+	public void setListSelector(ListSelector listSelector) {
+		this.listSelector = listSelector;
 	}
 	
 	@Basic
@@ -62,6 +63,5 @@ public class CheckBoxItem extends ValuedElement {
 	public void setNoSelectionOption(String noSelectionOption) {
 		this.noSelectionOption = noSelectionOption;
 	}
-	
-	
+
 }

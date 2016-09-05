@@ -8,12 +8,11 @@ import ar.com.larreta.commons.domain.ParametricEntity;
 import ar.com.larreta.commons.domain.PermitAllSecurityMatcher;
 import ar.com.larreta.commons.domain.Role;
 import ar.com.larreta.commons.domain.RolesSecurityMatcher;
-import ar.com.larreta.commons.domain.SecurityMatcher;
 import ar.com.larreta.screens.Ajax;
 import ar.com.larreta.screens.Attribute;
 import ar.com.larreta.screens.ComboBox;
-import ar.com.larreta.screens.ComboBoxItem;
 import ar.com.larreta.screens.Label;
+import ar.com.larreta.screens.ListSelectorItem;
 import ar.com.larreta.screens.MultiBox;
 import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.ScreenUtils;
@@ -69,9 +68,9 @@ public class MessageSaver extends ABMSaver {
 		ComboBox comboBox = new ComboBox();
 		comboBox.setBindingObject(createScreen.DATA_VIEW_SELECTED);
 		comboBox.setBindingProperty("securityMatcherType");
-		comboBox.addComboBoxItem(getComboBoxItem(comboBox, AuthenticatedSecurityMatcher.AUTHENTICATED, "securityMatcher.authenticated", 1));
-		comboBox.addComboBoxItem(getComboBoxItem(comboBox, PermitAllSecurityMatcher.PERMIT_ALL, "securityMatcher.permitAll", 2));
-		comboBox.addComboBoxItem(getComboBoxItem(comboBox, RolesSecurityMatcher.ROLES, "securityMatcher.roles", 3));
+		comboBox.addItem(getComboBoxItem(comboBox, AuthenticatedSecurityMatcher.AUTHENTICATED, "securityMatcher.authenticated", 1));
+		comboBox.addItem(getComboBoxItem(comboBox, PermitAllSecurityMatcher.PERMIT_ALL, "securityMatcher.permitAll", 2));
+		comboBox.addItem(getComboBoxItem(comboBox, RolesSecurityMatcher.ROLES, "securityMatcher.roles", 3));
 		
 		comboBox.setChangeListener(SecurityMatcherTypeListener.class.getName());
 		
@@ -93,11 +92,11 @@ public class MessageSaver extends ABMSaver {
 		comboBox.add(order, attribute);
 	}
 
-	protected ComboBoxItem getComboBoxItem(ComboBox comboBox, String value, String message, Integer order) {
-		ComboBoxItem item = new ComboBoxItem();
+	protected ListSelectorItem getComboBoxItem(ComboBox comboBox, String value, String message, Integer order) {
+		ListSelectorItem item = new ListSelectorItem();
 		item.setValue(value);
 		item.setItemLabel(ScreenUtils.generateMessage(message));
-		item.setComboBox(comboBox);
+		item.setListSelector(comboBox);
 		item.setOrder(order);
 		return item;
 	}

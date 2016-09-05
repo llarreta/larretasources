@@ -2,10 +2,10 @@ package ar.com.larreta.screens.impl;
 
 import ar.com.larreta.screens.CheckBox;
 import ar.com.larreta.screens.ComboBox;
-import ar.com.larreta.screens.ComboBoxItem;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Input;
 import ar.com.larreta.screens.Label;
+import ar.com.larreta.screens.ListSelectorItem;
 import ar.com.larreta.screens.MultiBox;
 import ar.com.larreta.screens.MultiCheckBox;
 import ar.com.larreta.screens.PanelGrid;
@@ -77,10 +77,16 @@ public abstract class CreateScreen extends CommonsScreen {
 		return "preCreate";
 	}
 
-	public Integer addPassword(Integer index, String labelText, String dataViewSelectedProperty) {
+	public Integer addPassword(Integer index, String labelText, String dataViewSelectedProperty, Validator validator) {
+		Password password = new Password(DATA_VIEW_SELECTED, dataViewSelectedProperty);
+		password.addValidator(validator);
 		body.add(index++, new Label(labelText));
-		body.add(index++, new Password(DATA_VIEW_SELECTED, dataViewSelectedProperty));
+		body.add(index++, password);
 		return index;
+	}
+	
+	public Integer addPassword(Integer index, String labelText, String dataViewSelectedProperty) {
+		return addPassword(index, labelText, dataViewSelectedProperty, null);
 	}
 	
 	public Integer addInput(Integer index, String labelText, String dataViewSelectedProperty, Validator validator) {
@@ -122,19 +128,24 @@ public abstract class CreateScreen extends CommonsScreen {
 		comboBox.setEntityType(entityType);
 		comboBox.setLazyProperties(lazyProperties);
 		
-		comboBox.addComboBoxItem(getVoidItem());
+		comboBox.addItem(getVoidItem());
 		
 		body.add(index++, comboBox);
 		return index;
 	}
 
 	public Integer addMultiCheckBox(Integer index, String labelText, String dataViewSelectedProperty, String entityType) {
-		return addMultiCheckBox(index, labelText, dataViewSelectedProperty, entityType, null);
+		return addMultiCheckBox(index, labelText, dataViewSelectedProperty, entityType, null, null);
 	}
 	
-	public Integer addMultiCheckBox(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties) {
+	public Integer addMultiCheckBox(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties){
+		return addMultiCheckBox(index, labelText, dataViewSelectedProperty, entityType, lazyProperties, null) ;
+	}
+	
+	public Integer addMultiCheckBox(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties, Validator validator) {
 		body.add(index++, new Label(labelText));
 		MultiCheckBox multiCheckBox = new MultiCheckBox();
+		multiCheckBox.addValidator(validator);
 		multiCheckBox.setBindingObject(DATA_VIEW_SELECTED);
 		multiCheckBox.setBindingProperty(dataViewSelectedProperty);
 		multiCheckBox.setEntityType(entityType);
@@ -172,11 +183,11 @@ public abstract class CreateScreen extends CommonsScreen {
 	}
 	
 
-	protected ComboBoxItem getVoidItem() {
-		ComboBoxItem comboBoxItem = new ComboBoxItem();
-		comboBoxItem.setItemLabel(ScreenUtils.generateMessage("app.selection.void"));
-		comboBoxItem.setNoSelectionOption(Boolean.TRUE.toString());
-		return comboBoxItem;
+	protected ListSelectorItem getVoidItem() {
+		ListSelectorItem item = new ListSelectorItem();
+		item.setItemLabel(ScreenUtils.generateMessage("app.selection.void"));
+		item.setNoSelectionOption(Boolean.TRUE.toString());
+		return item;
 	}
 	
 	

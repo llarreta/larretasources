@@ -7,20 +7,22 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
 	<h:panelGrid columns="2">
-		<p:selectOneMenu 	id="#{element.idValue}" 			value="#{element.bindingPropertyValue}" 
-							styleClass="${element.styleClass}" 	converter="#{element.converter}" 
-							validator="#{element.validate}"
+		<p:selectOneMenu 			
+							id="#{element.idValue}" 			
+							value="#{element.bindingPropertyValue}"			var="listElement"
+							validator="#{element.validate}"					converter="#{element.converter}" 
+							styleClass="#{element.styleClass}" 	
 		>
-			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
-				<ui:param name="elements" value="#{element.ordererElements}" />
-			</ui:include>	
-			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
-				<ui:param name="elements" value="#{element.ordererIndividualItems}" />
-			</ui:include>
-			<c:if test="#{element.isItemsValueExist}">
+				<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+					<ui:param name="elements" value="#{element.ordererElements}" />
+				</ui:include>	
+				<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+					<ui:param name="elements" value="#{element.ordererIndividualItems}" />
+				</ui:include>
+				<c:if test="#{element.isItemsValueExist}">
 		        	<f:selectItems value="#{element.items}" />
 		       </c:if>
-		   </p:selectOneMenu>
+		</p:selectOneMenu>
 		   <p:message for="#{element.idValue}" display="icon" />
 	</h:panelGrid>
 </html>

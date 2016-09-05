@@ -6,6 +6,7 @@ import ar.com.larreta.commons.domain.Profile;
 import ar.com.larreta.commons.domain.User;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
+import ar.com.larreta.screens.validators.Validator;
 
 @Component
 public class UserSaver extends ABMSaver {
@@ -22,9 +23,9 @@ public class UserSaver extends ABMSaver {
 
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
-		index = screen.addInput(index, "app.nick", 				"nick");
-		index = screen.addPassword(index, "app.password", 		"password");
-		index = screen.addInput(index, "app.email", 			"email");
+		index = screen.addInput(index, "app.nick", 				"nick",				Validator.REQUIRED);
+		index = screen.addPassword(index, "app.password", 		"password", 		Validator.REQUIRED);
+		index = screen.addInput(index, "app.email", 			"email",			Validator.REQUIRED);
 		index = screen.addMultiBox(index, "app.profiles.avaiables", "app.profiles.assigned", "profiles", Profile.class.getName(), "description");
 	}
 

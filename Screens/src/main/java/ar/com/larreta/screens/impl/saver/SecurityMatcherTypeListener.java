@@ -8,17 +8,17 @@ import ar.com.larreta.commons.domain.AuthenticatedSecurityMatcher;
 import ar.com.larreta.commons.domain.PermitAllSecurityMatcher;
 import ar.com.larreta.commons.domain.RolesSecurityMatcher;
 import ar.com.larreta.commons.domain.SecurityMatcher;
-import ar.com.larreta.screens.ComboBox;
 import ar.com.larreta.screens.Label;
+import ar.com.larreta.screens.ListSelector;
 import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.controllers.ScreensControllerImpl;
-import ar.com.larreta.screens.impl.ComboBoxListener;
+import ar.com.larreta.screens.impl.ListSelectorListener;
 
-public class SecurityMatcherTypeListener implements ComboBoxListener {
+public class SecurityMatcherTypeListener implements ListSelectorListener {
 
-	public void process(FacesEvent facesEvent, StandardController controller, ComboBox comboBox) {
+	public void process(FacesEvent facesEvent, StandardController controller, ListSelector comboBox) {
 		ScreensControllerImpl screensControllerImpl = (ScreensControllerImpl) controller;
 		Screen screen = screensControllerImpl.getScreen();
 		
