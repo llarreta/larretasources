@@ -9,6 +9,7 @@ import ar.com.larreta.colegio.domain.Year;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
 import ar.com.larreta.screens.impl.saver.ABMSaver;
+import ar.com.larreta.screens.validators.Validator;
 
 @Component
 public class CourseSaver extends ABMSaver {
@@ -21,9 +22,9 @@ public class CourseSaver extends ABMSaver {
 	@Override
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
-		index = screen.addCombo(index, "app.colegio.level", 		"level", 		Level.class.getName());
-		index = screen.addCombo(index, "app.colegio.year", 			"year", 		Year.class.getName());
-		index = screen.addCombo(index, "app.colegio.division", 		"division", 	Division.class.getName());
+		index = screen.addCombo(index, "app.colegio.level", 		"level", 		Level.class.getName(), 		Validator.REQUIRED);
+		index = screen.addCombo(index, "app.colegio.year", 			"year", 		Year.class.getName(), 		Validator.REQUIRED);
+		index = screen.addCombo(index, "app.colegio.division", 		"division", 	Division.class.getName(), 	Validator.REQUIRED);
 		
 	}
 

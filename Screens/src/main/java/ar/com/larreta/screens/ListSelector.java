@@ -106,7 +106,8 @@ public abstract class ListSelector extends ContainerValued {
 	@Transient
 	public Object getItems(){
 		try {
-			return AppManager.getInstance().getStandardService().load(ScreenUtils.getClass(getEntityType()), null, null, null, null, getLazyPropertiesSplitted());
+			Object items = AppManager.getInstance().getStandardService().load(ScreenUtils.getClass(getEntityType()), null, null, null, null, getLazyPropertiesSplitted());
+			return items;
 		} catch (Exception e){
 			logger.error("Ocurrio un error obteniendo items", e);
 		}

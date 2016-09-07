@@ -8,6 +8,7 @@ import ar.com.larreta.colegio.domain.Student;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
 import ar.com.larreta.screens.impl.saver.ABMSaver;
+import ar.com.larreta.screens.validators.Validator;
 
 @Component
 public class ResponsibleSaver extends ABMSaver {
@@ -26,10 +27,10 @@ public class ResponsibleSaver extends ABMSaver {
 	@Override
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
-		index = screen.addInput(index, "app.colegio.surname", "surname");
-		index = screen.addInput(index, "app.colegio.name", "name");
-		index = screen.addCombo(index, "app.colegio.documentType", 		"documentType", 		DocumentType.class.getName());
-		index = screen.addInput(index, "app.colegio.documentNumber", "documentNumber");
+		index = screen.addInput(index, "app.colegio.surname", "surname", Validator.REQUIRED);
+		index = screen.addInput(index, "app.colegio.name", "name", Validator.REQUIRED);
+		index = screen.addCombo(index, "app.colegio.documentType", 		"documentType", 		DocumentType.class.getName(), Validator.REQUIRED);
+		index = screen.addInput(index, "app.colegio.documentNumber", "documentNumber", Validator.REQUIRED);
 		index = screen.addInput(index, "app.colegio.cbu", "cbu");
 		index = screen.addInput(index, "app.colegio.cuil", "cuil");
 		index = screen.addMultiBox(index, "app.colegio.students.avaiables", "app.colegio.students.assigned", "students", Student.class.getName(), "info", "course,course.level,course.year,course.division");
