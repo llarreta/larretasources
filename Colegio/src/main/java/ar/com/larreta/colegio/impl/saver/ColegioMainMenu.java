@@ -9,6 +9,7 @@ import ar.com.larreta.colegio.domain.DocumentType;
 import ar.com.larreta.colegio.domain.Level;
 import ar.com.larreta.colegio.domain.PaymentDirection;
 import ar.com.larreta.colegio.domain.PaymentEntity;
+import ar.com.larreta.colegio.domain.Product;
 import ar.com.larreta.colegio.domain.ProductGroup;
 import ar.com.larreta.colegio.domain.Responsible;
 import ar.com.larreta.colegio.domain.Student;
@@ -39,6 +40,7 @@ public class ColegioMainMenu extends MainMenu {
 		colegioConfig.add(index++, new MenuItem("app.colegio.paymentEntity", 		APP_SCREEN_URL + getMainScreenClass(PaymentEntity.class), 		MENU_ITEM_DEFAULT_STYLE));
 		colegioConfig.add(index++, new MenuItem("app.colegio.productGroup", 		APP_SCREEN_URL + getMainScreenClass(ProductGroup.class), 		MENU_ITEM_DEFAULT_STYLE));
 		colegioConfig.add(index++, new MenuItem("app.colegio.course", 				APP_SCREEN_URL + getMainScreenClass(Course.class), 				MENU_ITEM_DEFAULT_STYLE));
+		colegioConfig.add(index++, new MenuItem("app.colegio.product",				APP_SCREEN_URL + getMainScreenClass(Product.class), 			MENU_ITEM_DEFAULT_STYLE));
 		add(index++, colegioConfig);
 
 		add(index++, 				new MenuItem("app.colegio.responsible", 		APP_SCREEN_URL + getMainScreenClass(Responsible.class), 		MENU_ITEM_DEFAULT_STYLE));

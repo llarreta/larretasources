@@ -3,6 +3,7 @@ package ar.com.larreta.screens.controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventObject;
+import java.util.HashSet;
 
 import javax.faces.component.UIComponentBase;
 import javax.faces.event.FacesEvent;
@@ -20,6 +21,7 @@ import org.springframework.webflow.execution.RequestContext;
 
 import ar.com.larreta.commons.controllers.Paginator;
 import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
+import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
 import ar.com.larreta.commons.views.DataView;
@@ -131,7 +133,13 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 		try {
 			if (screen.getIsLazyProperties()){
 				DataView dataView = getDataView();
-				dataView.setSelected(getService().getEntity(dataView.getSelected(), screen.getLazyPropertiesSplitted(), screen.getLazyCollectionsSplitted()));
+				Collection properties = screen.getLazyPropertiesSplitted();
+				Collection collections = screen.getLazyCollectionsSplitted();
+				Entity entity = getService().getEntity(dataView.getSelected(), properties, collections);
+				
+				entity = reducingFilters(dataView, properties, collections, entity);
+				
+				dataView.setSelected(entity);
 			}
 		} catch (Exception e){
 			getLog().error("Ocurrio un error obteniendo entidad a actualizar", e);
@@ -140,6 +148,25 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 		super.initUpdate(flowRequestContext);
 		
 		callListener(flowRequestContext, screen.getInitActionListener());
+	}
+
+	private Entity reducingFilters(DataView dataView, Collection properties, Collection collections, Entity entity)
+			throws NotServiceAssignedException {
+		while (entity==null){
+			getLog().info("Se intento traer la entidad " + dataView.getSelected().getPersistEntityName() + "(" 
+							+ dataView.getSelected().getId()+"), sin exito.");
+			if ((collections!=null) && (collections.size()>0)){
+				collections = new HashSet(collections);
+				Object toCut = collections.toArray()[collections.size()-1];
+				collections.remove(toCut);
+			} else if ((properties!=null) && (properties.size()>0)){
+				properties = new HashSet(properties);
+				Object toCut = properties.toArray()[properties.size()-1];
+				properties.remove(toCut);
+			}
+			entity = getService().getEntity(dataView.getSelected(), properties, collections);
+		}
+		return entity;
 	}
 
 	@Override

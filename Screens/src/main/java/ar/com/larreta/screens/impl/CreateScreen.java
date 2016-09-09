@@ -155,14 +155,27 @@ public abstract class CreateScreen extends CommonsScreen {
 	}
 	
 	
-	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, String entityType, String propertyItemLabel){
-		return addMultiBox(index, sourceCaption, targetCaption, dataViewSelectedProperty, entityType, propertyItemLabel, null);
+	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, 
+								String entityType, String propertyItemLabel){
+		return addMultiBox(index, sourceCaption, targetCaption, dataViewSelectedProperty, entityType, propertyItemLabel, null, null);
+	}
+	
+	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, 
+								String entityType, String propertyItemLabel, Validator validator){
+		return addMultiBox(index, sourceCaption, targetCaption, dataViewSelectedProperty, entityType, propertyItemLabel, null, validator);
 	}
 
-	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, String entityType, String propertyItemLabel, String lazyProperties) {
+	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, 
+			String entityType, String propertyItemLabel, String lazyProperties) {
+		return addMultiBox(index, sourceCaption, targetCaption, dataViewSelectedProperty, entityType, propertyItemLabel, lazyProperties, null);
+	}
+	
+	public Integer addMultiBox(Integer index, String sourceCaption, String targetCaption, String dataViewSelectedProperty, 
+								String entityType, String propertyItemLabel, String lazyProperties, Validator validator) {
 		addNewBody(1);
 		
 		MultiBox multiBox = new MultiBox();
+		multiBox.addValidator(validator);
 		multiBox.setSourceCaption(sourceCaption);
 		multiBox.setTargetCaption(targetCaption);
 		multiBox.setEntityType(entityType);

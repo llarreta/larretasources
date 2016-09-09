@@ -1,5 +1,7 @@
 package ar.com.larreta.screens;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -144,6 +146,10 @@ public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity
 			Object toBinding = getBindingObjectInstance();
 			if (toBinding!=null){
 				try {
+					if (value instanceof Object[]) {
+						value = new HashSet(Arrays.asList((Object[]) value));
+						
+					}
 					PropertyUtils.setProperty(toBinding, getBindingProperty(), value);
 				} catch (Exception e){
 					LOGGER.error("Ocurrio un error en el set binding", e);

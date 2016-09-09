@@ -19,6 +19,7 @@ import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
+import ar.com.larreta.screens.validators.Validator;
 
 @Component
 public class SecurityMatcherSaver extends ABMSaver {
@@ -75,7 +76,7 @@ public class SecurityMatcherSaver extends ABMSaver {
 	protected void makeBody(CreateScreen screen) {
 		Integer index = -1;
 
-		index = screen.addInput(index, "app.pattern", "pattern");
+		index = screen.addInput(index, "app.pattern", "pattern", Validator.REQUIRED);
 		
 		PanelGrid panelGridAuthenticated = new PanelGrid(2);
 		PanelGrid panelGridPermitAll = new PanelGrid(2);
@@ -98,6 +99,7 @@ public class SecurityMatcherSaver extends ABMSaver {
 		panelGridPermitAll.add(new Label("app.securityMatcher.permitall.description"));
 		
 		MultiBox multiBox = new MultiBox();
+		multiBox.addValidator(Validator.LIST_SELECTOR_REQUIRED);
 		multiBox.setSourceCaption("app.securityMatcher.roles.avaiables");
 		multiBox.setTargetCaption("app.securityMatcher.roles.selected");
 		multiBox.setEntityType(Role.class.getName());

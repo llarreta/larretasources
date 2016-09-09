@@ -15,8 +15,7 @@ public class ResponsibleSaver extends ABMSaver {
 
 	public ResponsibleSaver() {
 		super();
-		updateScreen.setLazyProperties("documentType,students.course,students.course.level,students.course.year,students.course.division");
-		//updateScreen.setLazyCollections("students");
+		updateScreen.setLazyProperties("documentType,students.course.level,students.course.year,students.course.division");
 	}
 
 	@Override
@@ -33,7 +32,8 @@ public class ResponsibleSaver extends ABMSaver {
 		index = screen.addInput(index, "app.colegio.documentNumber", "documentNumber", Validator.REQUIRED);
 		index = screen.addInput(index, "app.colegio.cbu", "cbu");
 		index = screen.addInput(index, "app.colegio.cuil", "cuil");
-		index = screen.addMultiBox(index, "app.colegio.students.avaiables", "app.colegio.students.assigned", "students", Student.class.getName(), "info", "course,course.level,course.year,course.division");
+		index = screen.addMultiBox(index, "app.colegio.students.avaiables", "app.colegio.students.assigned", "students", 
+										Student.class.getName(), "info", "course,course.level,course.year,course.division");
 	}
 
 	@Override

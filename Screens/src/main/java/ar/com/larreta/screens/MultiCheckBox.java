@@ -14,6 +14,9 @@ import org.apache.log4j.Logger;
 public class MultiCheckBox extends ListSelector {
 
 	private static Logger logger = Logger.getLogger(MultiCheckBox.class);
-	
+
+	public void setBindingPropertyValue(Object value){
+		super.setBindingPropertyValue(value);
+	}
 	
 }

@@ -154,7 +154,12 @@ public class MultiBox extends ListSelector {
 	 * @return
 	 */
 	private DualListModel getDualListModel(Collection setSource, Collection setTarget) {
-		List target = new ArrayList(getNotNullSet(setTarget));
+		List target = null;
+		try {
+			target = new ArrayList(getNotNullSet(setTarget));
+		} catch(Exception e){
+			target = new ArrayList();
+		}
 		List source = new ArrayList(getNotNullSet(setSource));
 		if (target!=null){
 			source.removeAll(target);

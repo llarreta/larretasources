@@ -26,7 +26,8 @@ public class UserSaver extends ABMSaver {
 		index = screen.addInput(index, "app.nick", 				"nick",				Validator.REQUIRED);
 		index = screen.addPassword(index, "app.password", 		"password", 		Validator.REQUIRED);
 		index = screen.addInput(index, "app.email", 			"email",			Validator.REQUIRED);
-		index = screen.addMultiBox(index, "app.profiles.avaiables", "app.profiles.assigned", "profiles", Profile.class.getName(), "description");
+		index = screen.addMultiBox(index, "app.profiles.avaiables", "app.profiles.assigned", "profiles", 
+										Profile.class.getName(), "description", Validator.LIST_SELECTOR_REQUIRED);
 	}
 
 	@Override
