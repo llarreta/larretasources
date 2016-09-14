@@ -26,9 +26,6 @@
 <h:body>
 		
 		<f:loadBundle var="msg" basename="ar.com.larreta.commons.resources.ResourceBundle"  />
-		
-		<input class="menu-control"  type="number" value="0" style="display:none;"/>
-		<input class="menu-root-control"  type="number" value="0" style="display:none;"/>
 	
 		<h:panelGroup id="bodyPanel" layout="block">
 		
@@ -55,13 +52,6 @@
 		        <h:outputText value="Aguarde un momento, por favor..." style="white-space: nowrap;"/>  
 		    </h:panelGrid>  
 		</pe:blockUI>
-	
-		<p:outputPanel autoUpdate="true">
-			<h:outputScript name="smartraceJquery.js" library="smarttrace/jQuery"/>
-		</p:outputPanel>
-		
-		<h:outputScript name="left-menu.js" library="smarttrace/jQuery"/>
-		<h:outputScript name="root-menu.js" library="smarttrace/jQuery"/>
 
 </h:body>
 </f:view>
