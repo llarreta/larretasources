@@ -42,6 +42,10 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	
 	private Map<String, Object> filters = new HashMap<String, Object>();
 	
+	public Paginator(){
+		super();
+	}
+	
 	public void putFilter(String key, Object filter){
 		filters.put(key, filter);
 	}

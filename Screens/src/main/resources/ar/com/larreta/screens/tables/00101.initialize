@@ -46,6 +46,9 @@ CREATE TABLE [SCHEMMA].tabletag (
 	emptyMessage VARCHAR(255),
 	currentPageReportTemplate VARCHAR(255),
 	lazyProperties VARCHAR(255),
+	onstart VARCHAR(255),
+	oncomplete VARCHAR(255),
+	onclick VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -122,6 +125,9 @@ CREATE TABLE [SCHEMMA].button (
 	inmediate TINYINT(1),
 	nextScreenId BIGINT,
 	buttonType VARCHAR(255),
+	onstart VARCHAR(255),
+	oncomplete VARCHAR(255),
+	onclick VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 
@@ -140,6 +146,7 @@ CREATE TABLE [SCHEMMA].menuItem (
 	id BIGINT NOT NULL,
 	value VARCHAR(255) NOT NULL,
 	url VARCHAR(255) NOT NULL,
+	onclick VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 

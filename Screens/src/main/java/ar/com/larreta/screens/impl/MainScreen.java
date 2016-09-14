@@ -3,7 +3,7 @@ package ar.com.larreta.screens.impl;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.screens.AjaxButton;
 import ar.com.larreta.screens.Attribute;
@@ -157,12 +157,14 @@ public abstract class MainScreen extends CommonsScreen {
 		yesButton.setStyleClass("ui-confirmdialog-yes");
 		yesButton.setIcon("ui-icon-check");
 		yesButton.setButtonType("button");
+		yesButton.setOnclick(StringUtils.EMPTY);
 		
 		SubmitButton noButton = new SubmitButton();
 		noButton.setMessageValue("app.no");
 		noButton.setStyleClass("ui-confirmdialog-no");
 		noButton.setIcon("ui-icon-close");
 		noButton.setButtonType("button");
+		noButton.setOnclick(StringUtils.EMPTY);
 		
 		confirm.add(0, yesButton);
 		confirm.add(1, noButton);

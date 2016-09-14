@@ -27,6 +27,7 @@ public class SubmitButton extends Button {
 	public SubmitButton() {
 		super();
 		ajax = Boolean.FALSE;
+		onclick = "PF('blockUI').block()";
 	}
 	
 	public SubmitButton(String action, String icon, String messageValue) {

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import ar.com.larreta.commons.domain.Entity;
 
-
+@Deprecated
 public class LoginDataView extends DataView implements Serializable {
 
 	public static final String LOGIN_DATA_VIEW = "loginDataView";

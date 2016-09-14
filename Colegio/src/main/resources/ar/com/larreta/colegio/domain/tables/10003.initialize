@@ -1,0 +1,666 @@
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (1,
+             NULL,
+             1,
+             1,
+             'app.titleApp',
+             0x436F6C6567696F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (2,
+             NULL,
+             1,
+             1,
+             'app.description',
+             0x4465736372697063696F6E);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (3,
+             NULL,
+             1,
+             1,
+             'app.login.confirm',
+             0x436F6E6669726D6172);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (920,
+             NULL,
+             1,
+             1,
+             'app.preferences',
+             0x507265666572656E63696173);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (921,
+             NULL,
+             1,
+             1,
+             'app.generalMenu',
+             0x4D656E752047656E6572616C);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (922,
+             NULL,
+             1,
+             1,
+             'app.language',
+             0x4C656E6775616A65);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (923,
+             NULL,
+             1,
+             1,
+             'app.country',
+             0x50616973);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (924,
+             NULL,
+             1,
+             1,
+             'app.resourceMessage',
+             0x4D656E73616A657320646573706C656761646F73);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (925,
+             NULL,
+             1,
+             1,
+             'app.usersMenu',
+             0x5573756172696F73);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (926,
+             NULL,
+             1,
+             1,
+             'app.role',
+             0x526F6C);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (927,
+             NULL,
+             1,
+             1,
+             'app.profile',
+             0x50657266696C);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (928,
+             NULL,
+             1,
+             1,
+             'app.user',
+             0x5573756172696F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (929,
+             NULL,
+             1,
+             1,
+             'app.securityMenu',
+             0x536567757269646164);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (930,
+             NULL,
+             1,
+             1,
+             'app.security',
+             0x536567757269646164);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (931,
+             NULL,
+             1,
+             1,
+             'app.securityMatcher',
+             0x436F696E636964656E6369617320646520736567757269646164);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (932,
+             NULL,
+             1,
+             1,
+             'app.message',
+             0x4D656E73616A65);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (933,
+             NULL,
+             1,
+             1,
+             'app.colegioConfigMenu',
+             0x436F6E6669677572616369F36E);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (934,
+             NULL,
+             1,
+             1,
+             'app.colegio.documentType',
+             0x5469706F20646520646F63756D656E746F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (935,
+             NULL,
+             1,
+             1,
+             'app.colegio.division',
+             0x4469766973696F6E);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (936,
+             NULL,
+             1,
+             1,
+             'app.colegio.level',
+             0x4E6976656C);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (937,
+             NULL,
+             1,
+             1,
+             'app.colegio.year',
+             0x41F16F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (938,
+             NULL,
+             1,
+             1,
+             'app.colegio.paymentDirection',
+             0x44697265636369F36E2064656C207061676F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (939,
+             NULL,
+             1,
+             1,
+             'app.colegio.paymentEntity',
+             0x456E74696461642064656C207061676F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (940,
+             NULL,
+             1,
+             1,
+             'app.colegio.productGroup',
+             0x477275706F2064656C2070726F647563746F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (941,
+             NULL,
+             1,
+             1,
+             'app.colegio.course',
+             0x437572736F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (942,
+             NULL,
+             1,
+             1,
+             'app.colegio.product',
+             0x50726F647563746F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (943,
+             NULL,
+             1,
+             1,
+             'app.colegio.responsible',
+             0x526573706F6E7361626C65);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (944,
+             NULL,
+             1,
+             1,
+             'app.colegio.student',
+             0x416C756D6E6F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (945,
+             NULL,
+             1,
+             1,
+             'loggin.labelRights',
+             0x546F646F73206C6F73206465726563686F732072657365727661646F73);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+        VALUES (
+                  946,
+                  NULL,
+                  1,
+                  1,
+                  'app.blockUI.message',
+                  0x4167756172646520756E206D6F6D656E746F20706F72206661766F72202E2E2E);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (947,
+             NULL,
+             1,
+             1,
+             'app.confirmRemove',
+             0x6170702E636F6E6669726D52656D6F7665);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (948,
+             NULL,
+             1,
+             1,
+             'app.confirm',
+             0x6170702E636F6E6669726D);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (949,
+             NULL,
+             1,
+             1,
+             'Language.Main.Title',
+             0x4C616E67756167652E4D61696E2E5469746C65);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (950,
+             NULL,
+             1,
+             1,
+             'datatable.de',
+             0x646174617461626C652E6465);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (951,
+             NULL,
+             1,
+             1,
+             'app.abbreviation',
+             0x6170702E616262726576696174696F6E);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (952,
+             NULL,
+             1,
+             1,
+             'app.modify',
+             0x6170702E6D6F64696679);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (953,
+             NULL,
+             1,
+             1,
+             'app.yes',
+             0x6170702E796573);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (954,
+             NULL,
+             1,
+             1,
+             'app.no',
+             0x6170702E6E6F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (955,
+             NULL,
+             1,
+             1,
+             'app.create',
+             0x6170702E637265617465);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (956,
+             NULL,
+             1,
+             1,
+             'Language.Create.Title',
+             0x4C616E67756167652E4372656174652E5469746C65);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (957,
+             NULL,
+             1,
+             1,
+             'app.back',
+             0x566F6C766572);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (960,
+             NULL,
+             1,
+             1,
+             'Language.Update.Title',
+             0x41637475616C697A616369F36E206465206C656E6775616A65);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (961,
+             NULL,
+             1,
+             1,
+             'Country.Main.Title',
+             0x4C69737461646F20646520706169736573);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (962,
+             NULL,
+             1,
+             1,
+             'Country.Create.Title',
+             0x437265616369F36E20646520706169736573);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (964,
+             NULL,
+             1,
+             1,
+             'Country.Update.Title',
+             0x41637475616C697A616369F36E20646520706169736573);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+        VALUES (
+                  965,
+                  NULL,
+                  1,
+                  1,
+                  'ResourceMessage.Main.Title',
+                  0x4C69737461646F206465206D656E73616A6573206120646573706C65676172);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (966,
+             NULL,
+             1,
+             1,
+             'app.selection.void',
+             0x53656C656363696F6E65202E2E2E);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (967,
+             NULL,
+             1,
+             1,
+             'app.key',
+             0x4B6579);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+     VALUES (968,
+             NULL,
+             1,
+             1,
+             'app.text',
+             0x546578746F);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+        VALUES (
+                  969,
+                  NULL,
+                  1,
+                  1,
+                  'ResourceMessage.Create.Title',
+                  0x437265616369F36E206465206D656E73616A65206120646573706C65676172);
+
+INSERT INTO [SCHEMMA].resourcemessage(id,
+                            deleted,
+                            `idCountry`,
+                            `idLanguage`,
+                            `keyValue`,
+                            `text`)
+        VALUES (
+                  971,
+                  NULL,
+                  1,
+                  1,
+                  'ResourceMessage.Update.Title',
+                  0x41637475616C697A616369F36E206465206D656E73616A65206120646573706C65676172);

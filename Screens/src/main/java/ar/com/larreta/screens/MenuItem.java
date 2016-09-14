@@ -18,6 +18,7 @@ public class MenuItem extends ScreenElement implements MenuElement{
 	private DefaultMenuItem menuItem;
 	private String value;
 	private String url;
+	private String onclick = "PF('blockUI').block()";
 
 	public MenuItem(){}
 	
@@ -35,9 +36,20 @@ public class MenuItem extends ScreenElement implements MenuElement{
 			menuItem.setValue(getValueEvaluated());
 			menuItem.setUrl(url);
 			menuItem.setStyleClass(getStyleClass());
+			menuItem.setOnclick(onclick);
 		}
 		return menuItem;
 	}
+	
+	@Basic
+	public String getOnclick() {
+		return onclick;
+	}
+
+	public void setOnclick(String onclick) {
+		this.onclick = onclick;
+	}
+
 	public void setMenuItem(DefaultMenuItem menuItem) {
 		this.menuItem = menuItem;
 	}

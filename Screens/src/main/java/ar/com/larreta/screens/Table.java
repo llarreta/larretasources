@@ -10,7 +10,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
-import org.primefaces.event.data.SortEvent;
 
 import ar.com.larreta.commons.controllers.Paginator;
 
@@ -31,6 +30,36 @@ public class Table extends StandardContainer {
 	private String emptyMessage = ScreenUtils.generateExpression("msg['datatable.sindatos']");
 	private String currentPageReportTemplate = "{currentPage} #{msg['datatable.de']} {totalPages}";
 	private String lazyProperties;
+	protected String onstart = "PF('blockUI').block()";;
+	protected String oncomplete = "PF('blockUI').unblock()";;
+	protected String onclick;
+
+	@Basic
+	public String getOnstart() {
+		return onstart;
+	}
+
+	public void setOnstart(String onstart) {
+		this.onstart = onstart;
+	}
+
+	@Basic
+	public String getOncomplete() {
+		return oncomplete;
+	}
+
+	public void setOncomplete(String oncomplete) {
+		this.oncomplete = oncomplete;
+	}
+
+	@Basic
+	public String getOnclick() {
+		return onclick;
+	}
+
+	public void setOnclick(String onclick) {
+		this.onclick = onclick;
+	}
 
 	public ScreenElement findInColumn(Integer column, Long id){
 		Integer index = 0;
@@ -108,8 +137,10 @@ public class Table extends StandardContainer {
 	}
 
 	@Transient
+	//FIXME: Revisar porque se invoca varias veces a este metodo, para disminuirlo y mejorar la perfomance
 	public Object getValueEvaluated(){
 		Object valueEvaluated = ScreenUtils.evaluate(getValue());
+		
 		if (!StringUtils.isEmpty(lazyProperties) && (valueEvaluated instanceof Paginator)){
 			((Paginator)valueEvaluated).setLazyProperties(ScreenUtils.split(lazyProperties));
 		}

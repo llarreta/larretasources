@@ -94,6 +94,7 @@ public class LoginControllerImpl extends StandardControllerImpl implements Login
 	}
 	
 
+	//FIXME: Este metodo tiene que seguir estando?
 	public void addLoginError(RequestContext context) {
 		addMessage(SIGNIN, NICK, "Error!", "Nick o Password incorrecto.", FacesMessage.SEVERITY_ERROR);
 		addMessage(SIGNIN, PASSWORD, "Error!", "Nick o Password incorrecto.", FacesMessage.SEVERITY_ERROR);

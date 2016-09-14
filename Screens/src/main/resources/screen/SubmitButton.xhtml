@@ -11,7 +11,9 @@
 						action="forward"							type="#{element.buttonType}"
 						value="#{element.bindingPropertyValue}" 
 						icon="#{element.icon}" 						styleClass="#{element.styleClass}"
-						ajax="#{element.ajax}" 						immediate="#{element.inmediate}">
+						ajax="#{element.ajax}" 						immediate="#{element.inmediate}"
+						onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"    onclick="#{element.onclick}"
+						>
 		
 		<f:setPropertyActionListener target="#{dataView.forward}" value="#{element.actionEvaluated}"/>
 		<f:setPropertyActionListener target="#{dataView.nextScreenId}" value="#{element.nextScreenId}"/>

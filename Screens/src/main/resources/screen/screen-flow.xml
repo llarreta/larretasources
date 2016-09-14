@@ -7,10 +7,6 @@
 	<var name="controller" 			class="ar.com.larreta.screens.controllers.ScreensControllerImpl" />
 	<var name="dataView" 			class="ar.com.larreta.commons.views.DataView" />
 	
-	<on-start>
-        <set name="controller.dataView" value="dataView" />
-    </on-start>
-
 	<action-state id="starting" parent="crud-flow#starting" />
 	<view-state id="start"  	parent="crud-flow#start"  		view="screen.xhtml" />
 	<view-state id="updateView" parent="crud-flow#updateView" 	view="screen.xhtml" />
