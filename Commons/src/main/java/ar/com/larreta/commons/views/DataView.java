@@ -23,8 +23,6 @@ public class DataView extends AppObjectImpl {
 	
 	protected Entity selected;
 	
-	protected Paginator paginator;
-	
 	private StandardController controller;
 	
 	private String forward;
@@ -33,8 +31,14 @@ public class DataView extends AppObjectImpl {
 
 	public DataView() {
 		super();
-		paginator = newPaginator();
-		paginator.setDataView(this);
+	}
+	
+	public StandardController getController() {
+		return controller;
+	}
+
+	public void setController(StandardController controller) {
+		this.controller = controller;
 	}
 	
 	public String getNextScreenId() {
@@ -51,18 +55,6 @@ public class DataView extends AppObjectImpl {
 
 	public void setForward(String forward) {
 		this.forward = forward;
-	}
-
-	protected Paginator newPaginator() {
-		return new Paginator();
-	}
-	
-	public StandardController getController() {
-		return controller;
-	}
-
-	public void setController(StandardController controller) {
-		this.controller = controller;
 	}
 
 	public Date getNow(){
@@ -82,14 +74,9 @@ public class DataView extends AppObjectImpl {
 	}
 	
 	public Paginator getPaginator() throws PaginatorNotFoundException {
-		if (paginator==null){
-			throw new PaginatorNotFoundException();
-		}
+		Paginator paginator = SessionUtils.getAuthentication().getInfo().getPaginator(controller.getEntityClass());
+		paginator.setDataView(this);
 		return paginator;
-	}
-
-	public void setPaginator(Paginator paginator) {
-		this.paginator = paginator;
 	}
 
 	public Entity getSelected() {

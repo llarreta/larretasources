@@ -1,7 +1,6 @@
 package ar.com.larreta.commons.views;
 
 import org.primefaces.model.DualListModel;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.com.larreta.commons.controllers.UsersPaginator;
 import ar.com.larreta.commons.domain.Entity;
@@ -9,6 +8,7 @@ import ar.com.larreta.commons.domain.Profile;
 import ar.com.larreta.commons.domain.User;
 import ar.com.larreta.commons.exceptions.PaginatorNotFoundException;
 
+@Deprecated
 public class UserDataView extends DataView {
 	
 	private DualListModel<Profile> profiles;
@@ -17,11 +17,6 @@ public class UserDataView extends DataView {
 		return (UsersPaginator) super.getPaginator();
 	}
 
-	@Autowired
-	public void setPaginator(UsersPaginator paginator) {
-		super.setPaginator(paginator);
-	}
-	
 	@Override
 	public User getSelected() {
 		return (User) super.getSelected();

@@ -19,7 +19,33 @@ public abstract class Button extends ValuedElement {
 	private Boolean inmediate = Boolean.FALSE;
 	private Confirm confirm;
 	private String buttonType;
-
+	protected String onstart;
+	protected String oncomplete;
+	protected String onclick;
+	
+	@Basic
+	public String getOnclick() {
+		return onclick;
+	}
+	public void setOnclick(String onclick) {
+		this.onclick = onclick;
+	}
+	
+	@Basic
+	public String getOnstart() {
+		return onstart;
+	}
+	public void setOnstart(String onstart) {
+		this.onstart = onstart;
+	}
+	
+	@Basic
+	public String getOncomplete() {
+		return oncomplete;
+	}
+	public void setOncomplete(String oncomplete) {
+		this.oncomplete = oncomplete;
+	}
 	@Basic
 	public String getButtonType() {
 		return buttonType;

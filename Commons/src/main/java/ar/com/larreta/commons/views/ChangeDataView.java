@@ -2,6 +2,7 @@ package ar.com.larreta.commons.views;
 
 import ar.com.larreta.commons.domain.Entity;
 
+@Deprecated
 public class ChangeDataView extends DataView {
 	
 	private String lastPassword;

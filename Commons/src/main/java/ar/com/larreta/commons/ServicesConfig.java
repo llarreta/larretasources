@@ -1,11 +1,7 @@
 package ar.com.larreta.commons;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-
-import ar.com.larreta.commons.domain.Profile;
-import ar.com.larreta.commons.services.StandardService;
 
 //FIXME: Ver si aun es necesaria esta clase
 @Configuration

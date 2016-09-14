@@ -29,6 +29,7 @@ import ar.com.larreta.screens.FilterMatchMode;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;
+import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.Table;
 import ar.com.larreta.screens.exceptions.ScreenNotFoundException;
 import ar.com.larreta.screens.impl.ScreenListener;
@@ -75,7 +76,8 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 
 	private Long getScreenId(RequestContext flowRequestContext) {
 		Long screenId = null;
-		if (getDataView().getNextScreenId()!=null){
+		
+		if ((dataView!=null)&&(dataView.getNextScreenId()!=null)){
 			screenId = new Long(getDataView().getNextScreenId());
 		}
 		if (screenId==null){
@@ -91,13 +93,10 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 		return screen;
 	}
 	
-	public Screen getScreen(RequestContext flowRequestContext) {
+	public Screen assignScreen(RequestContext flowRequestContext) {
 		try {
 			screen = (Screen) getService().getScreen(getScreenId(flowRequestContext));
 			flowRequestContext.getFlowScope().put(SCREEN_REF, screen); 
-			if (!StringUtils.isEmpty(screen.getEntityClass())){
-				setEntityClass(getClass().getClassLoader().loadClass(screen.getEntityClass()));
-			}
 		} catch (Exception e){
 			getLog().error("Ocurrio un error", e);
 		}
@@ -106,29 +105,39 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 
 	@Override
 	public void starting(RequestContext flowRequestContext) throws AppException {
-
-		getScreen(flowRequestContext);
+		assignScreen(flowRequestContext);
+		super.starting(flowRequestContext);
 		
 		if (screen==null){
 			throw new ScreenNotFoundException();
 		}
 		
 		screen.getSearchMap().recursiveFind(Form.class);
-		
-		super.starting(flowRequestContext);
 		callListener(flowRequestContext, screen.getInitActionListener());
+	}
+	
+	
+	@Override
+	protected void assignEntityClass(RequestContext flowRequestContext) {
+		try {
+			if ((screen!=null)&&(!StringUtils.isEmpty(screen.getEntityClass()))){
+				setEntityClass(getClass().getClassLoader().loadClass(screen.getEntityClass()));
+			}
+		} catch (Exception e){
+			getLog().error("Ocurrio un error", e);
+		}
 	}
 
 	@Override
 	public void initCreate(RequestContext flowRequestContext) {
-		getScreen(flowRequestContext);
+		assignScreen(flowRequestContext);
 		super.initCreate(flowRequestContext);
 		callListener(flowRequestContext, screen.getInitActionListener());
 	}
 
 	@Override
 	public void initUpdate(RequestContext flowRequestContext) {
-		getScreen(flowRequestContext);
+		assignScreen(flowRequestContext);
 		
 		try {
 			if (screen.getIsLazyProperties()){

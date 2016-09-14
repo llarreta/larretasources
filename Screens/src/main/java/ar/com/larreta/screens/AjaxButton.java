@@ -37,6 +37,8 @@ public class AjaxButton extends Button {
 	public AjaxButton() {
 		super();
 		ajax = Boolean.TRUE;
+		onstart = "PF('blockUI').block()";
+		oncomplete = "PF('blockUI').unblock()";
 	}
 
 	@Basic

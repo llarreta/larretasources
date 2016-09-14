@@ -14,7 +14,6 @@ public class ProductSaver extends ParametricEntitySaver {
 
 	public ProductSaver() {
 		super();
-		mainScreen.setLazyProperties("productGroup");
 	}
 
 	@Override
@@ -32,6 +31,7 @@ public class ProductSaver extends ParametricEntitySaver {
 	@Override
 	protected void makeColumn(MainScreen screen) {
 		super.makeColumn(screen);
+		screen.getTable().setLazyProperties("productGroup");
 		screen.getTable().addColumn(1, screen.getColumnWithLabelProperty("productGroup", 		"app.colegio.productGroup", 		"tableElement.productGroup", 		"40%"));
 	}
 

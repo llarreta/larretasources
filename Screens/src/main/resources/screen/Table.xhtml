@@ -17,10 +17,11 @@
 	     currentPageReportTemplate="#{element.currentPageReportTemplateEvaluated}"
  				 var="tableElement"  selection="#{dataView.selected}"
      	 value="#{element.valueEvaluated}"
+     	 
      >   
-     
-     	<p:ajax event="sort" 		listener="#{controller.onSort}" />
-     	<p:ajax event="filter" 		listener="#{controller.onFilter}"/>
+    	<p:ajax event="page" 											onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"/>
+     	<p:ajax event="sort" 		listener="#{controller.onSort}" 	onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"/>
+     	<p:ajax event="filter" 		listener="#{controller.onFilter}" 	onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"/>
      
      	<c:forEach var="column" items="#{element.ordererElements}">
 	     	<ui:include src="/WEB-INF/flows/screen/Column#{column.filter}.xhtml" />

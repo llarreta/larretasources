@@ -21,6 +21,7 @@ import org.springframework.webflow.execution.RequestContext;
 import ar.com.larreta.commons.AppConfigData;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.aspects.GenericExecution;
+import ar.com.larreta.commons.controllers.Paginator;
 import ar.com.larreta.commons.controllers.StandardController;
 import ar.com.larreta.commons.domain.Entity;
 import ar.com.larreta.commons.exceptions.AppException;
@@ -28,6 +29,7 @@ import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
 import ar.com.larreta.commons.exceptions.PaginatorNotFoundException;
 import ar.com.larreta.commons.services.StandardService;
 import ar.com.larreta.commons.services.impl.StandardServiceImpl;
+import ar.com.larreta.commons.utils.SessionUtils;
 import ar.com.larreta.commons.views.DataView;
 
 public class StandardControllerImpl extends AppObjectImpl implements StandardController {
@@ -172,7 +174,6 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 	
 	@GenericExecution
 	public void starting(RequestContext flowRequestContext) throws AppException{
-		
 		varsAssign(flowRequestContext);
 		getLog().info("starting:" + getFlowRequestInfo(flowRequestContext));
 		DataView dataView = getDataView();
@@ -180,6 +181,8 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 			if ((dataView!=null) && (dataView.getPaginator()!=null)){
 					dataView.getPaginator().refresh();
 			}
+		} catch (PaginatorNotFoundException e) {
+			//No hacemos nada ya que puede ocurrir que una pantalla no tenga paginador
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
@@ -192,8 +195,19 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 	 * @param flowRequestContext
 	 */
 	protected void varsAssign(RequestContext flowRequestContext) {
+		
 		dataView = (DataView) flowRequestContext.getFlowScope().get(DataView.DATA_VIEW);
 		dataView.setController(this);
+		
+		assignEntityClass(flowRequestContext);
+		
+		/*if (entityClass!=null){
+			Paginator paginator = SessionUtils.getAuthentication().getInfo().getPaginator(entityClass);
+			dataView.setPaginator(paginator);
+		}*/
+	}
+
+	protected void assignEntityClass(RequestContext flowRequestContext) {
 		Object objectEntityClass = flowRequestContext.getFlowScope().get(ENTITY);
 		if (objectEntityClass!=null){
 			entityClass = objectEntityClass.getClass();

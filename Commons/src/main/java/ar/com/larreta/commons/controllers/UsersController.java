@@ -7,17 +7,18 @@ import org.springframework.webflow.execution.RequestContext;
 
 import ar.com.larreta.commons.controllers.impl.StandardControllerImpl;
 import ar.com.larreta.commons.domain.Profile;
-import ar.com.larreta.commons.domain.User;
 import ar.com.larreta.commons.exceptions.AppException;
 import ar.com.larreta.commons.exceptions.NotServiceAssignedException;
 import ar.com.larreta.commons.views.UserDataView;
 
+//FIXME: Revisar si cayo en deshuso
+@Deprecated
 public class UsersController extends StandardControllerImpl {
 	
 	public UsersController() {
 		super();
 		try {
-			setEntityClass(User.class);
+			//setEntityClass(User.class);
 		} catch (Exception e) {
 			getLog().error(AppException.getStackTrace(e));
 		}
