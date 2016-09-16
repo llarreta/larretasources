@@ -38,6 +38,8 @@ import co.com.directv.sdii.model.dto.ActivityBacklogResponseDTO;
 import co.com.directv.sdii.model.dto.AuxTechnicianDetailsDTO;
 import co.com.directv.sdii.model.dto.DispacherProductivityDTO;
 import co.com.directv.sdii.model.dto.MonthlyActivityResponseDTO;
+import co.com.directv.sdii.model.dto.ReportCrewMovementsDTO;
+import co.com.directv.sdii.model.dto.ReportWorkOrderCrewAttentionDTO;
 import co.com.directv.sdii.model.dto.ReportWorkOrderRejectionAndFileResponseDTO;
 import co.com.directv.sdii.model.dto.ReportWorkOrderRejectionDTO;
 import co.com.directv.sdii.model.dto.ReportWorkOrderRejectionFilterDTO;
@@ -63,6 +65,7 @@ import co.com.directv.sdii.persistence.dao.config.WorkOrderCSRDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderDAOLocal;
 import co.com.directv.sdii.persistence.dao.core.ReportsCoreDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.CountriesDAOLocal;
+import co.com.directv.sdii.persistence.dao.dealers.CrewsDAOLocal;
 import co.com.directv.sdii.persistence.dao.security.UserDAOLocal;
 import co.com.directv.sdii.reports.dto.FileResponseDTO;
 
@@ -99,6 +102,10 @@ public class ReportsCoreBusiness extends BusinessBase implements ReportsCoreBusi
 	
 	@EJB(name="MailSenderLocal", beanInterface=MailSenderLocal.class)
 	private MailSenderLocal mailSenderLocal;
+	
+	//REQ inactivación de técnico - Rerpote de movimiento de cuadrillas
+	@EJB(name="CrewsDAOLocal", beanInterface=CrewsDAOLocal.class)
+	private CrewsDAOLocal crewsDAO;
 	
     /**
      * Default constructor. 
@@ -1325,6 +1332,180 @@ public class ReportsCoreBusiness extends BusinessBase implements ReportsCoreBusi
 			throw super.manageException(ex);
 		} finally {
 			log.debug("== Termina generateReport/ReportGeneratorBusinessBean ==");
+		}
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    private void populateCrewMovements (ReportsParameterInputDTO request) throws BusinessException{
+    	log.debug("== Inicia populateCrewMovements/ReportCoreBusiness ==");
+    	try{
+    		
+    		boolean needOtherCall = true;
+			int page = 0;
+			int pageSize = request.getPageSize();
+			String nameFile=null;
+			
+			ReportCrewMovementsDTO reportCrewmovementsDTO = new ReportCrewMovementsDTO();
+			if (request.getBeginDate() != null) 
+				reportCrewmovementsDTO.setMovementDateIn(request.getBeginDate());
+			
+			if (request.getEndDate() != null)
+				reportCrewmovementsDTO.setMovementDateOut(request.getEndDate());
+    		
+			List<String> columnNames = new ArrayList<String>();
+			columnNames.add(ApplicationTextEnum.CREW_ID.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.DEALER_NAME.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.DEALER_MAIN.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.EMPLOYES_CREW.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.DOCUMENT_NUMBER.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.RESPONSABLE_CREW.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.ROL_EMPLOYEES.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.CREATION_CREW.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.DATE_ACTIVATION_CREW.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.DATE_MODIFICATION_CREW.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.NEW_EMPLOYEE_CREW.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.DOCUMENT_NUMBER_NEW_EMPLOYEE.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.NEW_RESPONSIBLE_CREW.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.ROL_NEW_EMPLOYEE.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.LOCATION_CODE.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.CREW_STATUS.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.VEHICLE_PLATE.getApplicationTextValue());
+			//columnNames.add("Nombre del conductor del vehiculo");
+			columnNames.add(ApplicationTextEnum.BRAND.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.MODEL_VEHICLE.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.COLOR_VEHICLE.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.STATUS_VEHICLE.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.TYPE_VEHICE.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.CAPACITY_LOAD.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.CAPACITY_PERSONS.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.DATE_CREATION_VEHICLE.getApplicationTextValue());
+			
+			List<String> fieldNames = new ArrayList<String>();
+			fieldNames.add("idCrew");
+			fieldNames.add("dealerName");
+			fieldNames.add("dealerMain");
+			fieldNames.add("membersCrew");
+			fieldNames.add("documentNumber");
+			fieldNames.add("responsibleCrew");
+			fieldNames.add("roleEmployeesCrew");
+			fieldNames.add("creationCrew");
+			fieldNames.add("crewActivationDate");
+			fieldNames.add("crewMofificationDate");
+			fieldNames.add("newEmployee");
+			fieldNames.add("documentNumberNewEmployee");
+			fieldNames.add("newResponsibleCrew");
+			fieldNames.add("rolNewEmployee");
+			fieldNames.add("locationVinculateCode");
+			fieldNames.add("statusCrew");
+			fieldNames.add("plateVehicle");
+			//fieldNames.add("nameDriverVehicle");
+			fieldNames.add("brandVehicle");
+			fieldNames.add("modelVehicle");
+			fieldNames.add("colorVehicle");
+			fieldNames.add("statusVehicle");
+			fieldNames.add("typeVehicle");
+			fieldNames.add("loadCapacity");
+			fieldNames.add("peopleCapacity");
+			fieldNames.add("creationVehicleDate");
+
+			
+			while(needOtherCall){
+				RequestCollectionInfo ri = new RequestCollectionInfo();
+				ri.setPageIndex(page+1);
+				ri.setPageSize(pageSize);
+				if(pageSize<=0){
+					ri=null;
+				}
+				//getCrewMovements
+				List<ReportCrewMovementsDTO> dataList = crewsDAO.getCrewMovements(request.getCountryId(), request.getDateNow(), ri, reportCrewmovementsDTO);
+				if(dataList== null || dataList.isEmpty() || dataList.size()<pageSize){
+					needOtherCall = false;
+				}
+				nameFile=UtilsBusiness.generateCsv(dataList,fieldNames,columnNames,page, nameFile);
+				++page;
+			}
+			String nameFileResponse = "report"+nameFile;
+			String fileType = "";
+			nameFileResponse+=".csv";
+			fileType = "text/plain";
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("_yyyy_MM_dd_HH_mm");
+			request.setFileResponseDTO(UtilsBusiness.generateResponseFromNameFileTempCsv(nameFileResponse, request.getNameFileResponse()+formatoFecha.format(request.getDateNow())+".csv", fileType) );
+
+		} catch (Throwable ex) {
+			log.error("== Error al tratar de ejecutar la operación populateCrewMovements/ReportCoreBusiness");
+			throw super.manageException(ex);
+		} finally {
+			log.debug("== Termina populateCrewMovements/ReportCoreBusiness ==");
+		}
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    private void populateWorkOrdersTechnicial (ReportsParameterInputDTO request) throws BusinessException{
+    	log.debug("== Inicia populateWorkOrdersTechnicial/ReportCoreBusiness ==");
+    	try{
+    		    		
+    		boolean needOtherCall = true;
+			int page = 0;
+			int pageSize = request.getPageSize();
+			String nameFile=null;
+			
+			ReportWorkOrderCrewAttentionDTO reportWorkOrderCrewAttentionDTO = new ReportWorkOrderCrewAttentionDTO();
+			if (request.getBeginDate() != null) 
+				reportWorkOrderCrewAttentionDTO.setMovementDateIn(request.getBeginDate());
+			
+			if (request.getEndDate() != null)
+				reportWorkOrderCrewAttentionDTO.setMovementDateOut(request.getEndDate());
+
+			
+			List<String> columnNames = new ArrayList<String>();			
+			columnNames.add(ApplicationTextEnum.DEALER_NAME.getApplicationTextValue());			
+			columnNames.add(ApplicationTextEnum.DEALER_MAIN.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.WO.getApplicationTextValue());			
+			columnNames.add(ApplicationTextEnum.CREW_ID.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.EMPLOYES_CREW.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.TECHNICIAL_ATTENTION_WO.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.DOCUMENT_NUMBER.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.IBS_TECHNICIAL.getApplicationTextValue());
+			columnNames.add(ApplicationTextEnum.ATTENTION_DATE.getApplicationTextValue());
+			
+			List<String> fieldNames = new ArrayList<String>();
+			fieldNames.add("dealerName");
+			fieldNames.add("dealerMain");
+			fieldNames.add("woCode");
+			fieldNames.add("crewId");
+			fieldNames.add("employeesCrew");
+			fieldNames.add("responsibleCrew");
+			fieldNames.add("documentNumber");
+			fieldNames.add("ibsTechnicial");
+			fieldNames.add("attentionDate");
+			
+			while (needOtherCall) {
+				RequestCollectionInfo ri = new RequestCollectionInfo();
+				ri.setPageIndex(page + 1);
+				ri.setPageSize(pageSize);
+				if (pageSize <= 0) {
+					ri = null;
+				}
+				
+				List<ReportWorkOrderCrewAttentionDTO> dataList = woDao.getWorkOrderAttentionReport(request.getCountryId(), request.getDateNow(), ri, reportWorkOrderCrewAttentionDTO);
+				if(dataList== null || dataList.isEmpty() || dataList.size()<pageSize){
+					needOtherCall = false;
+				}
+				nameFile=UtilsBusiness.generateCsv(dataList,fieldNames,columnNames,page, nameFile);
+				++page;
+			}
+			String nameFileResponse = "report"+nameFile;
+			String fileType = "";
+			nameFileResponse+=".csv";
+			fileType = "text/plain";
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("_yyyy_MM_dd_HH_mm");
+			request.setFileResponseDTO(UtilsBusiness.generateResponseFromNameFileTempCsv(nameFileResponse, request.getNameFileResponse()+formatoFecha.format(request.getDateNow())+".csv", fileType) );
+
+		} catch (Throwable ex) {
+			log.error("== Error al tratar de ejecutar la operación populateWorkOrdersTechnicial/ReportCoreBusiness");
+			throw super.manageException(ex);
+		} finally {
+			log.debug("== Termina populateWorkOrdersTechnicial/ReportCoreBusiness ==");
 		}
     }
     

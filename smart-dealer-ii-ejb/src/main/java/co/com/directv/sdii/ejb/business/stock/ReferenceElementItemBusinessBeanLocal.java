@@ -1,5 +1,6 @@
 package co.com.directv.sdii.ejb.business.stock;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -8,7 +9,9 @@ import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.model.dto.MassiveMovementBetweenWareHouseDTO;
 import co.com.directv.sdii.model.dto.collection.ReferenceElementItemsDTO;
 import co.com.directv.sdii.model.pojo.ItemStatus;
+import co.com.directv.sdii.model.pojo.RecordStatus;
 import co.com.directv.sdii.model.pojo.Reference;
+import co.com.directv.sdii.model.pojo.ReferenceStatus;
 import co.com.directv.sdii.model.pojo.User;
 import co.com.directv.sdii.model.pojo.collection.ElementMixedResponse;
 import co.com.directv.sdii.model.pojo.collection.ReferenceElementItemsResponse;
@@ -331,6 +334,11 @@ public interface ReferenceElementItemBusinessBeanLocal {
 	public void addElementNotSerialized(
 			List<ReferenceElementItemVO> listElementNotSerializedToAdd,
 			Long referenceID, Long userId) throws BusinessException;
+	
+	public void addElementNotSerializedMassive(
+			List<ReferenceElementItemVO> listElementNotSerializedToAdd,
+			Long referenceID, User user,ItemStatus[] itemStatusNotSerialized,ReferenceStatus[] refStatus
+			,RecordStatus[] recordStatusU,RecordStatus[] recordStatusH) throws BusinessException;
 
 	/**
 	 * 
@@ -395,4 +403,6 @@ public interface ReferenceElementItemBusinessBeanLocal {
 	public void addElementSerialized(String serialCode, String serialCodeLinked, 
 			Long ref, User user) throws BusinessException;
  
+	public void addElementSerializedMassive(String serialCode, String serialCodeLinked, 
+			Long ref, User user, HashMap<String, Reference> mapaReferencias, ReferenceStatus[] refStatus, ItemStatus[] itemStatus) throws BusinessException;
 }

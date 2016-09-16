@@ -42,6 +42,7 @@ public class WorkOrderVO extends WorkOrder implements Serializable {
 	private boolean tieneServiceHour;
 	private boolean tieneLastService;
 	private ServiceHourVO jornada;
+	private String reasonCode;
 	
 	public WoAssignmentVO getWorkOrderAssignment() {
 		return workOrderAssignment;
@@ -152,6 +153,14 @@ public class WorkOrderVO extends WorkOrder implements Serializable {
 
 	public void setJornada(ServiceHourVO jornada) {
 		this.jornada = jornada;
+	}
+	
+	public String getReasonCode() {
+		return reasonCode;
+	}
+
+	public void setReasonCode(String reasonCode) {
+		this.reasonCode = reasonCode;
 	}
 	
 	public String toXLSString(){

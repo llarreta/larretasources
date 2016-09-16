@@ -56,6 +56,8 @@ public interface UserDAOLocal {
 	 * @author jjimenezh
 	 */
 	public User getUserById(Long userId)throws DAOServiceException, DAOSQLException;
+	
+	public User getUserByIdMassive(Long userId)throws DAOServiceException, DAOSQLException;
 
 	/**
 	 * Metodo: Obtiene la información de un usuario dado el identificador del registro en la persistencia

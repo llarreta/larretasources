@@ -154,5 +154,7 @@ public abstract class Constantes {
      */
     public static final String BASE_NAME_REPORT = "baseNameReport";
     
+    public static final int BATCH_INSERT_SIZE = 1000;
+    
 }
 

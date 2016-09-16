@@ -15,7 +15,7 @@ import co.com.directv.sdii.model.vo.VehicleStatusVO;
  * Facade para la gestion de las operaciones del CRUD
  * de la entidad VehicleStatus 
  * 
- * Fecha de CreaciÃ³n: Mar 8, 2010
+ * Fecha de Creación: Mar 8, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

@@ -109,6 +109,53 @@ public class AdjustmentElementsStatusDAO extends BaseDao implements AdjustmentEl
         }
     }
     
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public AdjustmentElementsStatus getAdjustmentElementsStatusByCodeMAssive(String code) throws DAOServiceException, DAOSQLException {
+        log.debug("== Inicio getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO ==");
+        Session session = super.getSession();
+
+        try {
+        	StringBuffer stringQuery = new StringBuffer();
+        	stringQuery.append("from ");
+        	stringQuery.append(AdjustmentElementsStatus.class.getName());
+        	stringQuery.append(" entity where entity.code = :code");
+        	Query query = session.createQuery(stringQuery.toString());
+            query.setString("code", code);
+
+            return (AdjustmentElementsStatus) query.uniqueResult();
+
+        } catch (Throwable ex){
+			log.error("== Error == getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO");
+			throw this.manageException(ex);
+		} finally {
+            log.debug("== Termina getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO ==");
+        }
+    }
+    
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public AdjustmentElementsStatus getAdjustmentElementsStatusByCodeRequired(String code) throws DAOServiceException, DAOSQLException {
+        log.debug("== Inicio getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO ==");
+        Session session = super.getSession();
+
+        try {
+        	StringBuffer stringQuery = new StringBuffer();
+        	stringQuery.append("from ");
+        	stringQuery.append(AdjustmentElementsStatus.class.getName());
+        	stringQuery.append(" entity where entity.code = :code");
+        	Query query = session.createQuery(stringQuery.toString());
+            query.setString("code", code);
+
+            return (AdjustmentElementsStatus) query.uniqueResult();
+
+        } catch (Throwable ex){
+			log.error("== Error == getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO");
+			throw this.manageException(ex);
+		} finally {
+            log.debug("== Termina getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO ==");
+        }
+    }
+    
     /* (non-Javadoc)
      * @see co.com.directv.sdii.persistence.dao.stock.AdjustmentElementsStatusDAOLocal#getAllAdjustmentElementsStatus()
      */
@@ -131,5 +178,29 @@ public class AdjustmentElementsStatusDAO extends BaseDao implements AdjustmentEl
             log.debug("== Termina getAllAdjustmentElementsStatus/AdjustmentElementsStatusDAO ==");
         }
     }
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public AdjustmentElementsStatus getAdjustmentElementsStatusByCodeMassive(String code) throws DAOServiceException, DAOSQLException {
+        log.debug("== Inicio getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO ==");
+        Session session = super.getSession();
+
+        try {
+        	StringBuffer stringQuery = new StringBuffer();
+        	stringQuery.append("from ");
+        	stringQuery.append(AdjustmentElementsStatus.class.getName());
+        	stringQuery.append(" entity where entity.code = :code");
+        	Query query = session.createQuery(stringQuery.toString());
+            query.setString("code", code);
+
+            return (AdjustmentElementsStatus) query.uniqueResult();
+
+        } catch (Throwable ex){
+			log.error("== Error == getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO");
+			throw this.manageException(ex);
+		} finally {
+            log.debug("== Termina getAdjustmentElementsStatusByCode/AdjustmentElementsStatusDAO ==");
+        }
+	}
 
 }

@@ -5,13 +5,13 @@ package co.com.directv.sdii.ejb.business.file.impl.stock;
 
 import javax.ejb.Local;
 
-import co.com.directv.sdii.ejb.business.file.IBasicFileProcessor;
+import co.com.directv.sdii.ejb.business.file.IBasicFileProcessorMassive;
 
 /**
  * @author ialessan
  *
  */
 @Local
-public interface FileProcessorConfirmItemsLoadMassiveReferenceLocal extends IBasicFileProcessor{
+public interface FileProcessorConfirmItemsLoadMassiveReferenceLocal extends IBasicFileProcessorMassive{
 
 }

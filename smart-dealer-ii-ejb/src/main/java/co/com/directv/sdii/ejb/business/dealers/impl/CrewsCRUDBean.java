@@ -25,29 +25,38 @@ import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.model.pojo.Crew;
+import co.com.directv.sdii.model.pojo.CrewMovement;
 import co.com.directv.sdii.model.pojo.CrewOff;
 import co.com.directv.sdii.model.pojo.CrewStatus;
+import co.com.directv.sdii.model.pojo.Dealer;
 import co.com.directv.sdii.model.pojo.Employee;
 import co.com.directv.sdii.model.pojo.EmployeeCrew;
 import co.com.directv.sdii.model.pojo.EmployeeCrewId;
 import co.com.directv.sdii.model.pojo.EmployeeRol;
 import co.com.directv.sdii.model.pojo.SystemParameter;
+import co.com.directv.sdii.model.pojo.User;
 import co.com.directv.sdii.model.pojo.Warehouse;
 import co.com.directv.sdii.model.pojo.WoAssignment;
+import co.com.directv.sdii.model.vo.AdjustmentVO;
 import co.com.directv.sdii.model.vo.CrewOffVO;
 import co.com.directv.sdii.model.vo.CrewVO;
 import co.com.directv.sdii.model.vo.EmployeeCrewVO;
 import co.com.directv.sdii.model.vo.EmployeeVO;
+import co.com.directv.sdii.model.vo.ReferenceVO;
 import co.com.directv.sdii.model.vo.UserVO;
+import co.com.directv.sdii.persistence.dao.config.CrewMovementDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.SystemParameterDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WoAssignmentDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.CrewStatusDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.CrewsDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.CrewsOffDAOLocal;
+import co.com.directv.sdii.persistence.dao.dealers.DealersDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.EmployeeDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.EmployeesCrewDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.impl.CrewsOffDAO;
 import co.com.directv.sdii.persistence.dao.security.UserDAOLocal;
+import co.com.directv.sdii.persistence.dao.stock.AdjustmentDAOLocal;
+import co.com.directv.sdii.persistence.dao.stock.ReferenceDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.WarehouseDAOLocal;
 import co.com.directv.sdii.rules.BusinessRuleValidationManager;
 
@@ -100,6 +109,21 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 	
 	@EJB(name="UserDAOLocal", beanInterface=UserDAOLocal.class)
 	private UserDAOLocal userDAO;
+	
+    @EJB(name="ReferenceDAOLocal", beanInterface=ReferenceDAOLocal.class)
+    private ReferenceDAOLocal daoReference;
+	
+    @EJB(name="AdjustmentDAOLocal", beanInterface=AdjustmentDAOLocal.class)
+    private AdjustmentDAOLocal daoAdjustment;
+
+    @EJB(name="CrewMovementDAOLocal", beanInterface=CrewMovementDAOLocal.class)
+    private CrewMovementDAOLocal crewMovementDAO;
+
+    @EJB(name="DealersDAOLocal", beanInterface=DealersDAOLocal.class)
+    private DealersDAOLocal dealersDAO;
+    
+	@EJB(name="CrewsDAOLocal", beanInterface=CrewsDAOLocal.class)
+	private CrewsDAOLocal crewsDAO;
 	
 	private final static Logger log = UtilsBusiness.getLog4J(CrewsCRUDBean.class);
 
@@ -403,7 +427,7 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 					if (description == null || description.equals("")) {
 						throw new BusinessException(ErrorBusinessMessages.DEALERS_DE014.getCode(),ErrorBusinessMessages.DEALERS_DE014.getMessage());
 					}
-					validateCrewAssignment(obj.getId());
+					validateCrewAssignment(obj.getId(),true);
 					CrewsOffDAO crewOffDAO = new CrewsOffDAO();
 					CrewOff newCrewOff = new CrewOff(obj, new Date(),description);
 					crewOffDAO.createCrewOff(newCrewOff);
@@ -495,6 +519,156 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 		}
 	}
 
+	
+	public void registerModificationsCrewForReport(CrewVO obj, UserVO userVO, Boolean isNewResponsible, Employee employeeNewResponsibleForCrew, List<Employee> employeesOldsCrew) throws BusinessException {
+		try {
+			log.debug("== Inicia registerModificationsCrewForReport/CrewsCRUDBean ==");			
+			CrewMovement crewMovement = new CrewMovement();		
+			crewMovement.setIdCrew(obj.getId());
+			crewMovement.setUserId(UtilsBusiness.copyObject(User.class, userVO));
+			crewMovement.setIdVehicle(obj.getVehicle());
+			crewMovement.setStatusCrew(obj.getCrewStatus().getStatusName());
+			crewMovement.setCrewMoficationDate(new Date());
+			crewMovement.setCreationCrew(obj.getInitDate());
+			crewMovement.setCrewActivationDate(obj.getInitDate());
+			
+			List<Warehouse> wareHouses = daoWarehouse.getWarehousesByCrewId(obj.getId());
+			
+			for(Warehouse wh: wareHouses){
+				if (wh.getWarehouseType().getWhTypeCode().equals(CodesBusinessEntityEnum.WAREHOUSE_TYPE_S01.getCodeEntity())) {
+					crewMovement.setLocationVinculateCode(wh.getWhCode());
+				}
+			}
+			
+			if (isNewResponsible) {
+				crewMovement.setNewResponsibleCrew(employeeNewResponsibleForCrew.getFirstName()+", "+ employeeNewResponsibleForCrew.getLastName());
+			}else {
+				crewMovement.setNewResponsibleCrew("");
+			}
+						
+			//campos compa�ia y compañia principal
+			Dealer dealer = dealersDAO.getDealerByID(obj.getDealer().getId());
+			crewMovement.setDealerName(dealer.getDealerName());
+			if (dealer.getDealer() == null) {
+				crewMovement.setDealerMain(dealer.getDealerName());
+			}else {
+				crewMovement.setDealerMain(dealer.getDealer().getDealerName());
+			}
+
+			String membersCrew ="";
+			String rolMembersCrew="";
+			String documentNumberMembersCrew="";
+			Integer flag = 1;
+			//miembros de la cuadrilla
+			
+			// si no hay nuevo empleado inicializo los campos
+			crewMovement.setNewEmployee("");
+			crewMovement.setRolNewEmployee("");
+			crewMovement.setDocumentNumberNewEmployee("");	
+			
+			for (EmployeeCrewVO employeeCrew : obj.getEmployeesCrew()) {
+				
+				for (Employee employee : employeesOldsCrew) {
+					if (employee.getId().equals(employeeCrew.getId().getEmployeeId())) {
+						flag = 0;
+						membersCrew = membersCrew + employee.getFirstName() + ", " + employee.getLastName() + "; ";
+						rolMembersCrew = rolMembersCrew + employeeCrew.getEmployeeRol().getRolName() + "; ";
+						documentNumberMembersCrew = documentNumberMembersCrew + employee.getDocumentNumber() + "; ";
+						if (employeeCrew.getIsResponsible().equals(CodesBusinessEntityEnum.EMPLOYEE_CREW_RESPONSABLE.getCodeEntity())) {
+							crewMovement.setResponsibleCrew(employee.getFirstName() +", "+ employee.getLastName());
+						}
+						break;
+					}
+				}
+				if(flag == 1 ){
+					Employee employee = daoEmployee.getEmployeeByID(employeeCrew.getId().getEmployeeId());
+					crewMovement.setDocumentNumberNewEmployee(employee.getDocumentNumber());
+					crewMovement.setRolNewEmployee(employeeCrew.getEmployeeRol().getRolName());
+					crewMovement.setNewEmployee(employee.getFirstName() +", "+ employee.getLastName());
+					flag = 0;
+				}
+				flag = 1;
+			}
+			
+			crewMovement.setMembersCrew(membersCrew);
+			crewMovement.setRoleEmployeesCrew(rolMembersCrew);
+			crewMovement.setDocumentNumber(documentNumberMembersCrew);
+			
+			crewMovementDAO.createCrewMovement(crewMovement);
+		} catch (Exception ex) {
+			log.debug("== Error al tratar de ejecutar la operación registerModificationsCrewForReport/CrewsCRUDBean ==",ex);
+			throw this.manageException(ex);
+		} finally {
+			log.debug("== Termina registerModificationsCrewForReport/CrewsCRUDBean ==");
+		}
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void detachedEmployeeCrew(CrewVO obj, EmployeeCrewVO employeeCrew , UserVO user) throws BusinessException{
+		log.debug("== Inicia detachedEmployeeCrew/CrewsCRUDBean ==");		
+		try{
+			
+			if (obj == null) {
+				log.debug(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+				throw new BusinessException(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(),ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+			}
+			if (employeeCrew == null) {
+				log.debug(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+				throw new BusinessException(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(),ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+			}
+			
+			//consultar los empleados responsables antes de la modificación
+			List<Employee> employeesOldsCrew = this.daoEmployeeCrew.getAllEmployeeCrewByCrewId(obj.getId());
+			
+			//pregunto si es el colaborador es técnico
+			//if (employeeCrew.getEmployeeRol().getRolCode().equals(CodesBusinessEntityEnum.CREW_ROL_TECNICIAN.getCodeEntity())){
+			if (employeeCrew.getIsResponsible().equals(CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity())){
+				//T-2 valido que no tenga ninguna WO asiganda en estados diferentes a Cancelada o Finalizada
+				validateCrewAssignment(obj.getId(),false);
+				//T-3  
+				//valido que no tenga ninguna Remisión en estado distinta de Recepcionada
+				validateCrewReferenecesPendings(obj.getId());				
+				//valido que no tenga ningun Ajuste en estado distinto de Procesada o Autorizada
+				validateCrewAdjustmentsPendings(obj.getId());
+				//T-1 pregunto si es responsable de la cuadrilla
+				validateIsResponsibleCrew(employeeCrew);
+				//encaso de cumplir las tres reglas desasocio el colaborador
+				daoEmployeeCrew.deleteEmployeeCrewsByEmployeeId(employeeCrew.getEmployee().getId());
+			}else{
+				//valido que no tenga ninguna WO asiganda en estados diferentes a Cancelada o Finalizada
+				validateCrewAssignment(obj.getId(),false);
+				//encaso de cumplir las tres reglas desasocio el colaborador
+				daoEmployeeCrew.deleteEmployeeCrewsByEmployeeId(employeeCrew.getEmployee().getId());
+				}
+			
+			//se guarda las modificaciones de las cuadrilas
+			this.registerModificationsCrewForReport(obj,user , false, null, employeesOldsCrew);
+			
+		} catch (Throwable ex) {
+			log.debug("== Error al tratar de ejecutar la operación detachedEmployeeCrew/CrewsCRUDBean ==",ex);
+			throw this.manageException(ex);
+		} finally {
+			log.debug("== Termina detachedEmployeeCrew/CrewsCRUDBean ==");
+		}
+	}
+	
+	public void validateIsResponsibleCrew(EmployeeCrewVO employeeCrew) throws BusinessException {
+		log.debug("== Inicia validateIsResponsibleCrew/CrewsCRUDBean ==");
+		try{
+			
+			if( employeeCrew.getIsResponsible().equals(CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity()) ){
+				throw new BusinessException(ErrorBusinessMessages.DEALERS_DE020.getCode(),ErrorBusinessMessages.DEALERS_DE020.getMessage());
+			}
+			
+		} catch (Throwable ex) {
+			log.debug("== Error al tratar de ejecutar la operación validateIsResponsibleCrew/CrewsCRUDBean ==",ex);
+			throw this.manageException(ex);
+		} finally {
+			log.debug("== Termina validateIsResponsibleCrew/CrewsCRUDBean ==");
+		}
+	}
+	
 	/**
 	 * 
 	 * Metodo: Valida que la cuadrilla no se encuentre a WO en estado Asignadas,
@@ -506,7 +680,7 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 	 *             <tipo> <descripcion>
 	 * @author jnova
 	 */
-	public void validateCrewAssignment(Long crewID) throws BusinessException {
+	public void validateCrewAssignment(Long crewID, boolean isInactivateCrew) throws BusinessException {
 		log.debug("== Inicia validateCrewAssignment/CrewsCRUDBean ==");
 		try {
 			// Se valida que la cuadrilla no se encuentre asignada a ninguna WO
@@ -537,9 +711,18 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 				Object params[] = { StringUtils.removeEnd(sb.toString(), ",") };
 				List<String> list = new ArrayList<String>();
 				list.add((String) params[0]);
-				throw new BusinessException(ErrorBusinessMessages.DEALERS_DE015
-						.getCode(), ErrorBusinessMessages.DEALERS_DE015
-						.getMessage(params), list);
+				
+				//desasociar técnico
+				String errorBusinessMessagesCode = "";
+				String errorBusinessMessages = "";
+				if(isInactivateCrew == true){
+					errorBusinessMessagesCode = ErrorBusinessMessages.DEALERS_DE015.getCode();
+					errorBusinessMessages = ErrorBusinessMessages.DEALERS_DE015.getMessage(params);
+				}else{
+					errorBusinessMessagesCode = ErrorBusinessMessages.DEALERS_DE018.getCode();
+					errorBusinessMessages = ErrorBusinessMessages.DEALERS_DE018.getMessage(params);
+				}
+				throw new BusinessException(errorBusinessMessagesCode, errorBusinessMessages, list);
 			}
 		} catch (Throwable ex) {
 			log
@@ -552,6 +735,91 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 		}
 	}
 
+	/**
+	 * 
+	 * Metodo: Valida que la cuadrilla no teng Remisiones sin autorizar
+	 * 
+	 * @param crewID
+	 *            Identificador de la cuadrilla que se va a validar
+	 * @throws BusinessException
+	 *             <tipo> <descripcion>
+	 * @author jnova
+	 */
+	public void validateCrewReferenecesPendings(Long crewID) throws BusinessException {
+		log.debug("== Inicia validateCrewRefernecePending/CrewsCRUDBean ==");
+		try {
+			// Se valida que la cuadrilla no se encuentre con remisiones pendientes de autorizar
+			
+			List<String> statusCodes = new ArrayList<String>();
+
+			statusCodes.add(CodesBusinessEntityEnum.ITEM_STATUS_RECEPTED.getCodeEntity());
+							
+			List<ReferenceVO> references = UtilsBusiness.convertList(this.daoReference.getReferencesByCrewIdAndDistinctReferneceStatus(statusCodes, crewID), ReferenceVO.class);		
+				
+			if ( references != null  && !references.isEmpty() ){
+				StringBuilder sb = new StringBuilder();
+				for (ReferenceVO reference : references){
+					sb.append(reference.getId());
+					sb.append(",");
+				}
+				Object parametros[] = { StringUtils.removeEnd(sb.toString(), ",") };
+				List<String> list = new ArrayList<String>();
+				list.add((String) parametros[0]);
+								
+				throw new BusinessException(ErrorBusinessMessages.DEALERS_DE019.getCode(), ErrorBusinessMessages.DEALERS_DE019.getMessage(parametros), list);
+			}
+		} catch (Throwable ex) {
+			log.debug("== Error al tratar de ejecutar la operación validateCrewAssignment/CrewsCRUDBean ==", ex);
+			throw this.manageException(ex);
+		} finally {
+			log.debug("== Termina validateCrewRefernecePending/CrewsCRUDBean ==");
+		}
+	}
+
+	/**
+	 * 
+	 * Metodo: Valida que la cuadrilla no tenga ajustes con estados distintos a Procesado o Autorizado
+	 * 
+	 * @param crewID
+	 *            Identificador de la cuadrilla que se va a validar
+	 * @throws BusinessException
+	 *             <tipo> <descripcion>
+	 * @author jnova
+	 */
+	public void validateCrewAdjustmentsPendings(Long crewID) throws BusinessException {
+		log.debug("== Inicia validateCrewRefernecePending/CrewsCRUDBean ==");
+		try {
+			// Se valida que la cuadrilla no tenga ajustes pendientes de autorizar
+			
+			List<String> adStatuss = new ArrayList<String>();
+
+			adStatuss.add(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_PROCESS.getCodeEntity());
+			adStatuss.add(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_AUTHORIZED.getCodeEntity());				
+			
+			List<AdjustmentVO> adjustments =  UtilsBusiness.convertList(this.daoAdjustment.getAdjustmentsByCrewIdAndDistinctAdjustmentStatus(adStatuss, crewID), AdjustmentVO.class);		
+				
+			if (adjustments != null && !adjustments.isEmpty()) {
+				StringBuilder sb = new StringBuilder();
+				for (AdjustmentVO adjustment : adjustments) {
+					sb.append(adjustment.getId());
+					sb.append(",");
+				}
+				Object parametros[] = { StringUtils.removeEnd(sb.toString(), ",") };
+				List<String> list = new ArrayList<String>();
+				list.add((String) parametros[0]);
+
+				throw new BusinessException(ErrorBusinessMessages.DEALERS_DE021.getCode(),ErrorBusinessMessages.DEALERS_DE021
+								.getMessage(parametros), list);
+			}
+			
+		} catch (Throwable ex) {
+			log.debug("== Error al tratar de ejecutar la operación validateCrewAssignment/CrewsCRUDBean ==", ex);
+			throw this.manageException(ex);
+		} finally {
+			log.debug("== Termina validateCrewRefernecePending/CrewsCRUDBean ==");
+		}
+	}
+	
 	/**
 	 * Desactiva una cuadrilla y coloca en el log el detalle de la desactivacion
 	 * 

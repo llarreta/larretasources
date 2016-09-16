@@ -54,7 +54,7 @@ public interface TrayReportsBusinessLocal {
 	 * @throws BusinessException <tipo> <descripcion>
 	 * @author
 	 */
-	public List<ReportWorkOrderDTO> getReportWorkOrderDTOWorkOrdersForReport(WorkOrderResponse daoResponse,Long countryId) throws BusinessException;
+	public List<ReportWorkOrderDTO> getReportWorkOrderDTOWorkOrdersForReport(WorkOrderResponse daoResponse,Long countryId,Long idUsuario) throws BusinessException;
 	
 	/**
 	 * 

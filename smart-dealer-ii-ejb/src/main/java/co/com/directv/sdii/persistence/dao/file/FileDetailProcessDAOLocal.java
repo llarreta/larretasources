@@ -49,4 +49,6 @@ public interface FileDetailProcessDAOLocal {
      * @throws DAOSQLException 
      */	
 	public void save(FileDetailProcess transientInstance) throws DAOServiceException, DAOSQLException;
+
+	public void save(List<FileDetailProcess> fileDetailProcess) throws DAOServiceException, DAOSQLException;
 }

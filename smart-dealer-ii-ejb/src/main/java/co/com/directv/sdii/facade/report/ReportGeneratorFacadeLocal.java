@@ -227,4 +227,8 @@ public interface ReportGeneratorFacadeLocal {
 	public FileResponseDTO getWareHouseElementsActualByCustomer(
 			WareHouseElementClientFilterRequestDTO request)
 			throws BusinessException;
+	
+	//  Reque exportar planilla tecnico excel
+	public FileResponseDTO generateCrewWorkOrdersExcel(Long countryId, List<Long> workOrderIds , List<Long> crewId) throws BusinessException;
+
 }

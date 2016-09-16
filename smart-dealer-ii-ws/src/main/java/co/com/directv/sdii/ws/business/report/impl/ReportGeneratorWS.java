@@ -206,4 +206,10 @@ public class ReportGeneratorWS implements IReportGeneratorWS {
 			WorkOrderCanceledFilterDTO filter) throws BusinessException {
 		return workOrderCancelFacadeLocal.getCanceledWorkOrdersReport(filter);
 	}
+	// Req export planilla tecnico excel
+	@Override
+	public FileResponseDTO generateCrewWorkOrdersExcel(Long countryId, List<Long> workOrderIds, List<Long> crewIds)throws BusinessException {
+		return reportGeneratorFacade.generateCrewWorkOrdersExcel(countryId, workOrderIds,crewIds);
+	}
+
 }

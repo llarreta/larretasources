@@ -25,7 +25,6 @@ import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.exceptions.PropertiesException;
 import co.com.directv.sdii.facade.assign.AssignmentConfigurationFacadeBeanLocal;
 import co.com.directv.sdii.model.pojo.Dealer;
-import co.com.directv.sdii.model.pojo.DealerConfiguration;
 import co.com.directv.sdii.model.pojo.PostalCode;
 import co.com.directv.sdii.model.vo.BusinessAreaVO;
 import co.com.directv.sdii.model.vo.CustomerCategoryVO;
@@ -210,5 +209,4 @@ public class DealerConfCoverageFileProcessor extends BasicFileProcessor implemen
 	public boolean validateFile() throws BusinessException {
 		return true;
 	}
-
 }

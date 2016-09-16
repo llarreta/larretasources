@@ -3,9 +3,9 @@ package co.com.directv.sdii.reports.dto;
 
 /**
  * 
- * Clase encargada de mapear la información que se va a mostrar en el archivo xls de las bandejas 
+ * Clase encargada de mapear la informacion que se va a mostrar en el archivo xls de las bandejas 
  * 
- * Fecha de Creación: 13/07/2011
+ * Fecha de Creacion: 13/07/2011
  * @author jnova <a href="mailto:jnova@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

@@ -185,10 +185,33 @@ public class ElementTypeDAO extends BaseDao implements ElementTypeDAOLocal {
         }
 	}
     
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<ElementType> getElementsTypeByCode(List<String> codes)throws DAOServiceException, DAOSQLException {
+    	log.debug("== Inicia getElementTypeByCode/ElementTypeDAO ==");
+        Session session = super.getSession();
+
+        try {
+        	StringBuffer stringQuery = new StringBuffer();
+        	stringQuery.append("from ");
+        	stringQuery.append(ElementType.class.getName());
+        	stringQuery.append(" et where upper(et.typeElementCode) IN(:anEtCodes)");
+        	Query query = session.createQuery(stringQuery.toString());
+            query.setParameterList("anEtCodes", codes);
+            return (List<ElementType>)query.list();
+        } catch (Throwable ex){
+			log.error("== Error getElementTypeByCode/ElementTypeDAO ==");
+			throw this.manageException(ex);
+		} finally {
+            log.debug("== Termina getElementTypeByCode/ElementTypeDAO ==");
+        }
+	}
+    
     /* (non-Javadoc)
 	 * @see co.com.directv.sdii.persistence.dao.stock.ElementTypeDAOLocal#getElementTypeByCode(java.lang.String)
 	 */
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	public List<ElementType> getElementTypeByMeasureUnitID(Long measureUnitID)throws DAOServiceException, DAOSQLException {
     	log.debug("== Inicia getElementTypeByMeasureUnitID/ElementTypeDAO ==");
         Session session = super.getSession();
@@ -525,6 +548,7 @@ public class ElementTypeDAO extends BaseDao implements ElementTypeDAOLocal {
 	/* (non-Javadoc)
 	 * @see co.com.directv.sdii.persistence.dao.stock.ElementTypeDAOLocal#getElementTypesByElementModelIdAndAllStatusPage(java.lang.Long, java.lang.String, co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public ElementTypeResponse getElementTypesByElementModelIdAndAllStatusPage(
@@ -593,6 +617,7 @@ public class ElementTypeDAO extends BaseDao implements ElementTypeDAOLocal {
 	/* (non-Javadoc)
 	 * @see co.com.directv.sdii.persistence.dao.stock.ElementTypeDAOLocal#getElementTypesByPrepaidIdAndActiveStatusPage(java.lang.String, co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public ElementTypeResponse getElementTypesByPrepaidIdAndActiveStatusPage(
 			String prepaid, RequestCollectionInfo requestCollInfo)
@@ -647,6 +672,7 @@ public class ElementTypeDAO extends BaseDao implements ElementTypeDAOLocal {
 
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ElementType> getElementTypeByElementModelAndIsSerialized(
 			String elementModelCode, boolean isSerialized)
@@ -678,6 +704,7 @@ public class ElementTypeDAO extends BaseDao implements ElementTypeDAOLocal {
         }
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ElementType> getElementTypeByWarehouseIdAndElementModelId(Long warehouseId,Long elementModelId)
 			throws DAOServiceException, DAOSQLException {
@@ -743,6 +770,7 @@ public class ElementTypeDAO extends BaseDao implements ElementTypeDAOLocal {
 
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ElementType> getElementTypeBySerorNotSerAndPrepaidorNotPrepaid(
 			String isPrepaid, String isSerialized) throws DAOServiceException,

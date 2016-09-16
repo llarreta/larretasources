@@ -262,6 +262,7 @@ public enum ApplicationTextEnum {
 	REFERRALS("referrals"),
 	LOCATIONS("locations"),
 	EXIST_CLIENT("exist_client"),
+	VISITS("visits"),
 	
 	//ReportGeneratorInventoryModule01BusinessBean
 	INVENTORY_MOVEMENTS("inventory_movements"),
@@ -518,7 +519,31 @@ public enum ApplicationTextEnum {
 	TYPE_DOCUMENT("type_document"),
 	DOCUMENT_NUMBER("document_number"),
     
-	TRY_TO_CONTACT("try_to_contact");
+	TRY_TO_CONTACT("try_to_contact"),
+	
+	//report Wo technicial
+	DEALER_MAIN("dealer_main"),
+	EMPLOYES_CREW("employees_crew"),
+	TECHNICIAL_ATTENTION_WO("technicial_attention_wo"),
+	IBS_TECHNICIAL("ibs_technicial"),
+	
+	//report crew movement
+	ROL_EMPLOYEES("rol_employess"),
+	CREATION_CREW("creation_crew"),
+	DATE_ACTIVATION_CREW("date_activation_crew"),
+	DATE_MODIFICATION_CREW("date_modification_crew"),
+	NEW_EMPLOYEE_CREW("new_employee_crew"),
+	DOCUMENT_NUMBER_NEW_EMPLOYEE("document_number_new_employee"),
+	NEW_RESPONSIBLE_CREW("new_responsible_crew"),
+	ROL_NEW_EMPLOYEE("rol_new_employee"),
+	CREW_STATUS("crew_status"),
+	MODEL_VEHICLE("model_vehicle"),
+	COLOR_VEHICLE("color_vehicle"),
+	STATUS_VEHICLE("status_vehicle"),
+	TYPE_VEHICE("type_vehicle"),
+	CAPACITY_LOAD("capacity_load"),
+	CAPACITY_PERSONS("capacity_persons"),
+	DATE_CREATION_VEHICLE("date_creation_vehicle");
 	
     private String applicationTextKey;
    

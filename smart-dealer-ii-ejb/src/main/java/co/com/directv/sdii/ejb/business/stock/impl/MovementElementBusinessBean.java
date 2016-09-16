@@ -10,15 +10,18 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
 import co.com.directv.sdii.common.enumerations.ErrorBusinessMessages;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.ejb.business.BusinessBase;
+import co.com.directv.sdii.ejb.business.stock.AdjustmentHelperBusinessBeanLocal;
 import co.com.directv.sdii.ejb.business.stock.MovementConfigBusinessBeanLocal;
 import co.com.directv.sdii.ejb.business.stock.MovementElementBusinessBeanLocal;
 import co.com.directv.sdii.exceptions.BusinessException;
+
 import co.com.directv.sdii.model.dto.MovementElementDTO;
 import co.com.directv.sdii.model.pojo.Adjustment;
 import co.com.directv.sdii.model.pojo.DocumentClass;
@@ -39,6 +42,8 @@ import co.com.directv.sdii.model.pojo.WarehouseElement;
 import co.com.directv.sdii.model.pojo.WorkOrder;
 import co.com.directv.sdii.model.vo.MovCmdQueueVO;
 import co.com.directv.sdii.model.vo.WarehouseVO;
+import co.com.directv.sdii.persistence.dao.stock.AdjustmentDAOLocal;
+import co.com.directv.sdii.persistence.dao.stock.AdjustmentStatusDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.ElementTypeDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.MovCmdConfigDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.MovCmdStatusDAOLocal;
@@ -94,6 +99,16 @@ public class MovementElementBusinessBean extends BusinessBase implements Movemen
     @EJB(name="ElementTypeDAOLocal", beanInterface=ElementTypeDAOLocal.class)
 	private ElementTypeDAOLocal daoElementType;
     
+	@EJB(name="AdjustmentDAOLocal", beanInterface=AdjustmentDAOLocal.class)
+    private AdjustmentDAOLocal daoAdjustment;
+	
+    @EJB(name = "AdjustmentHelperBusinessBeanLocal", beanInterface = AdjustmentHelperBusinessBeanLocal.class)
+	private AdjustmentHelperBusinessBeanLocal adjustmentHelperBusinessBean;
+    
+    @EJB(name="AdjustmentStatusDAOLocal", beanInterface=AdjustmentStatusDAOLocal.class)
+    private AdjustmentStatusDAOLocal daoAdjustmentStatus;
+	
+    
     private final static Logger log = UtilsBusiness.getLog4J(MovementElementBusinessBean.class);
 
 
@@ -129,7 +144,7 @@ public class MovementElementBusinessBean extends BusinessBase implements Movemen
 			//Se realiza la validación que exista el tipo de movimiento de salida
 			dto.setMovTypeCodeS(validateMovementType(dto.getMovTypeCodeS()));
 
-			//Se realiza la validación que exista el estado del registro último			
+			//Se realiza la validación que exista el estado del registro último
 			dto.setRecordStatusU(validateRecordStatus(dto.getRecordStatusU(), CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity()));
 
 			// Se realiza la validación que exista el estado del registro histórico
@@ -159,10 +174,8 @@ public class MovementElementBusinessBean extends BusinessBase implements Movemen
 			    this.moveSerializedElementBetweenWarehouse(dtoLinked);
 			}
 			
-			
 		} catch(Throwable ex){
-			log.error("== Error al tratar de ejecutar la operación moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
-			throw this.manageException(ex);
+			log.error("== Error al tratar de ejecutar la operación moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");				throw this.manageException(ex);
 		} finally{
 			log.debug("== Termina moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
 		}
@@ -893,6 +906,228 @@ public class MovementElementBusinessBean extends BusinessBase implements Movemen
 				}
 			}
 			
+			//Se consultan los estados de la cola de IBS
+			List<MovCmdStatus> movCmdStatusList= null;
+			movCmdStatusList = daoMovCmdStatus.findByProperty(MovCmdStatusDAO.CMD_STATUS_CODE, CodesBusinessEntityEnum.MOV_CMD_STATUS_NO_CONFIG.getCodeEntity());
+			UtilsBusiness.assertNotEmpty(movCmdStatusList, ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getCode(), ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getMessage());
+			
+			movCmdStatusList = daoMovCmdStatus.findByProperty(MovCmdStatusDAO.CMD_STATUS_CODE, CodesBusinessEntityEnum.MOV_CMD_STATUS_PENDING.getCodeEntity());
+			UtilsBusiness.assertNotEmpty(movCmdStatusList, ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getCode(), ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getMessage());
+			
+			this.fillStatusQueue(dto);
+			
+			dto.setRecordStatusU(recordStatusU);
+			dto.setRecordStatusH(recordStatusH);
+			dto.setMovTypeCodeE(movementTypeE);
+			dto.setMovTypeCodeS(movementTypeS);
+			return dto;
+		} catch(Throwable ex){
+			log.error("== Error al tratar de ejecutar la operación moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+			throw this.manageException(ex);
+		} finally{
+			log.debug("== Termina moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+		}
+		
+	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public MovementElementDTO fillMovementTypeAndRecordStatusMassive(String movementTypeCodeE, String movementTypeCodeS)
+			throws BusinessException {
+		log.debug("== Inicia moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+		
+		//UtilsBusiness.assertNotNull(dto.getMovTypeCodeS().getId(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+		MovementElementDTO dto = null;
+		MovementType movementTypeE = null;
+		MovementType movementTypeS = null;
+		RecordStatus recordStatusU = null;
+		RecordStatus recordStatusH = null;
+		try {
+			dto = new MovementElementDTO();
+			
+			// Se realiza la validación que exista el estado del registro último
+			recordStatusU = daoRecordStatus.getRecordStatusByCode(CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity());
+			if(recordStatusU == null){
+				throw new BusinessException(ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getCode(),ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getMessage());
+			}
+			
+			// Se realiza la validación que exista el estado del registro histórico
+			recordStatusH = daoRecordStatus.getRecordStatusByCode(CodesBusinessEntityEnum.RECORD_STATUS_HISTORIC.getCodeEntity());
+			if (recordStatusH == null){
+				throw new BusinessException(ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getCode(),ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getMessage());
+			}
+			
+			// Se realiza la validación que exista el tipo de movimiento de entrada
+			if(movementTypeCodeE!=null && !movementTypeCodeE.isEmpty()){
+				movementTypeE = daoMovementType.getMovementTypeByCode(movementTypeCodeE);
+				if(movementTypeE == null){
+					throw new BusinessException(ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getCode(),ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getMessage());
+				}
+			}
+			
+			// Se realiza la validación que exista el tipo de movimiento de salida
+			if(movementTypeCodeS!=null && !movementTypeCodeS.isEmpty()){
+				movementTypeS = daoMovementType.getMovementTypeByCode(movementTypeCodeS);
+				if (movementTypeS == null){
+					throw new BusinessException(ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getCode(),ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getMessage());
+				}
+			}
+			
+			//Se consultan los estados de la cola de IBS
+			List<MovCmdStatus> movCmdStatusList= null;
+			movCmdStatusList = daoMovCmdStatus.findByProperty(MovCmdStatusDAO.CMD_STATUS_CODE, CodesBusinessEntityEnum.MOV_CMD_STATUS_NO_CONFIG.getCodeEntity());
+			UtilsBusiness.assertNotEmpty(movCmdStatusList, ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getCode(), ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getMessage());
+			
+			movCmdStatusList = daoMovCmdStatus.findByProperty(MovCmdStatusDAO.CMD_STATUS_CODE, CodesBusinessEntityEnum.MOV_CMD_STATUS_PENDING.getCodeEntity());
+			UtilsBusiness.assertNotEmpty(movCmdStatusList, ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getCode(), ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getMessage());
+			
+			this.fillStatusQueue(dto);
+			
+			dto.setRecordStatusU(recordStatusU);
+			dto.setRecordStatusH(recordStatusH);
+			dto.setMovTypeCodeE(movementTypeE);
+			dto.setMovTypeCodeS(movementTypeS);
+			return dto;
+		} catch(Throwable ex){
+			log.error("== Error al tratar de ejecutar la operación moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+			throw this.manageException(ex);
+		} finally{
+			log.debug("== Termina moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+		}
+		
+	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void fillData(String movementTypeCodeE, String movementTypeCodeS, MovementType movementTypeE, 
+			MovementType movementTypeS, RecordStatus recordStatusU, RecordStatus recordStatusH) throws BusinessException{
+		
+		MovementType movementTypeETmp = null;
+		MovementType movementTypeSTmp = null;
+		RecordStatus recordStatusUTmp = null;
+		RecordStatus recordStatusHTmp = null;
+		
+		try {
+			recordStatusUTmp = daoRecordStatus.getRecordStatusByCode(CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity());
+			if(recordStatusUTmp == null){
+				throw new BusinessException(ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getCode(),ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getMessage());
+			} else {
+				BeanUtils.copyProperties(recordStatusU, recordStatusUTmp);
+			}
+			
+			recordStatusHTmp = daoRecordStatus.getRecordStatusByCode(CodesBusinessEntityEnum.RECORD_STATUS_HISTORIC.getCodeEntity());
+			if (recordStatusHTmp == null){
+				throw new BusinessException(ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getCode(),ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getMessage());
+			} else {
+				BeanUtils.copyProperties(recordStatusH, recordStatusHTmp);
+			}
+
+			if(movementTypeCodeE!=null && !movementTypeCodeE.isEmpty()){
+				movementTypeETmp = daoMovementType.getMovementTypeByCode(movementTypeCodeE);
+				if(movementTypeETmp == null){
+					throw new BusinessException(ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getCode(),ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getMessage());
+				} else {
+					BeanUtils.copyProperties(movementTypeE, movementTypeETmp);
+				}
+			}
+			
+			if(movementTypeCodeS!=null && !movementTypeCodeS.isEmpty()){
+				movementTypeSTmp = daoMovementType.getMovementTypeByCode(movementTypeCodeS);
+				if (movementTypeSTmp == null){
+					throw new BusinessException(ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getCode(),ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getMessage());
+				} else {
+					BeanUtils.copyProperties(movementTypeS, movementTypeSTmp);
+				}
+			}
+			
+		} catch(Throwable ex){
+			log.error("== Error al tratar de ejecutar la operación moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+			throw this.manageException(ex);
+		} finally{
+			log.debug("== Termina moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+		}
+		
+		
+	}
+	
+	@Override
+	public MovementElementDTO fillMovementTypeAndRecordStatusMassive(String movementTypeCodeE, String movementTypeCodeS,RecordStatus[] recordStatusU,RecordStatus[] recordStatusH)
+			throws BusinessException {
+		log.debug("== Inicia moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+		
+		//UtilsBusiness.assertNotNull(dto.getMovTypeCodeS().getId(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+		MovementElementDTO dto = null;
+		MovementType movementTypeE = null;
+		MovementType movementTypeS = null;
+		try {
+			dto = new MovementElementDTO();
+			
+			// Se realiza la validación que exista el estado del registro último
+			if(recordStatusU[0] == null){
+				recordStatusU[0] = daoRecordStatus.getRecordStatusByCode(CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity());
+			}
+			if(recordStatusU[0] == null){
+				throw new BusinessException(ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getCode(),ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getMessage());
+			}
+			
+			// Se realiza la validación que exista el estado del registro histórico
+			if(recordStatusH[0] == null){
+				recordStatusH[0] = daoRecordStatus.getRecordStatusByCode(CodesBusinessEntityEnum.RECORD_STATUS_HISTORIC.getCodeEntity());
+			}
+			if (recordStatusH[0] == null){
+				throw new BusinessException(ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getCode(),ErrorBusinessMessages.RECORD_STATUS_NOT_EXIST.getMessage());
+			}
+			
+			// Se realiza la validación que exista el tipo de movimiento de entrada
+			if(movementTypeCodeE!=null && !movementTypeCodeE.isEmpty()){
+				movementTypeE = daoMovementType.getMovementTypeByCode(movementTypeCodeE);
+				if(movementTypeE == null){
+					throw new BusinessException(ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getCode(),ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getMessage());
+				}
+			}
+			
+			// Se realiza la validación que exista el tipo de movimiento de salida
+			if(movementTypeCodeS!=null && !movementTypeCodeS.isEmpty()){
+				movementTypeS = daoMovementType.getMovementTypeByCode(movementTypeCodeS);
+				if (movementTypeS == null){
+					throw new BusinessException(ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getCode(),ErrorBusinessMessages.MOVEMENT_TYPE_NOT_EXIST.getMessage());
+				}
+			}
+			
+			//Se consultan los estados de la cola de IBS
+			List<MovCmdStatus> movCmdStatusList= null;
+			movCmdStatusList = daoMovCmdStatus.findByProperty(MovCmdStatusDAO.CMD_STATUS_CODE, CodesBusinessEntityEnum.MOV_CMD_STATUS_NO_CONFIG.getCodeEntity());
+			UtilsBusiness.assertNotEmpty(movCmdStatusList, ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getCode(), ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getMessage());
+			
+			movCmdStatusList = daoMovCmdStatus.findByProperty(MovCmdStatusDAO.CMD_STATUS_CODE, CodesBusinessEntityEnum.MOV_CMD_STATUS_PENDING.getCodeEntity());
+			UtilsBusiness.assertNotEmpty(movCmdStatusList, ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getCode(), ErrorBusinessMessages.MOV_CMD_STATUS_NOT_EXIST.getMessage());
+			
+			this.fillStatusQueue(dto);
+			
+			dto.setRecordStatusU(recordStatusU[0]);
+			dto.setRecordStatusH(recordStatusH[0]);
+			dto.setMovTypeCodeE(movementTypeE);
+			dto.setMovTypeCodeS(movementTypeS);
+			return dto;
+		} catch(Throwable ex){
+			log.error("== Error al tratar de ejecutar la operación moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+			throw this.manageException(ex);
+		} finally{
+			log.debug("== Termina moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+		}
+		
+	}
+	
+	@Override
+	public MovementElementDTO fillMovementTypeAndRecordStatusMassive(MovementType movementTypeE, MovementType movementTypeS, RecordStatus recordStatusU, RecordStatus recordStatusH)
+			throws BusinessException {
+		log.debug("== Inicia moveSerializedElementBetweenWarehouse/MovementElementBusinessBean ==");
+		
+		MovementElementDTO dto = null;
+
+		try {
+			dto = new MovementElementDTO();
+									
 			//Se consultan los estados de la cola de IBS
 			List<MovCmdStatus> movCmdStatusList= null;
 			movCmdStatusList = daoMovCmdStatus.findByProperty(MovCmdStatusDAO.CMD_STATUS_CODE, CodesBusinessEntityEnum.MOV_CMD_STATUS_NO_CONFIG.getCodeEntity());

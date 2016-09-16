@@ -1,5 +1,6 @@
 package co.com.directv.sdii.ejb.business.stock.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
@@ -24,9 +25,7 @@ import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.exceptions.PropertiesException;
-import co.com.directv.sdii.model.pojo.ElementModel;
 import co.com.directv.sdii.model.pojo.ElementType;
-import co.com.directv.sdii.model.pojo.collection.ElementResponse;
 import co.com.directv.sdii.model.pojo.collection.ElementTypeResponse;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
 import co.com.directv.sdii.model.vo.ElementTypeVO;
@@ -247,11 +246,9 @@ public class ElementTypeBusinessBean extends BusinessBase implements
 			if ( persistedElementType.getIsActive().equals(CodesBusinessEntityEnum.ELEMENT_TYPE_STATUS_ACTIVE.getCodeEntity())
 					 && obj.getIsActive().equals(CodesBusinessEntityEnum.ELEMENT_TYPE_STATUS_INACTIVE.getCodeEntity()) ) {
 				// 1) Validar que el modelo asociado no se encuentre activo
-				ElementModel modelTmp = elementModelBusiness
-						.getElementModelByID(obj.getElementModel().getId());
+					elementModelBusiness.getElementModelByID(obj.getElementModel().getId());
 				// 2) Validar que no existan elementos asociados al tipo
-				ElementResponse resTmp = elementBusiness
-						.getElementsByElementType(obj, null);
+					elementBusiness.getElementsByElementType(obj, null);
 				
 				//issue:64173, Si hay elementos relacionados en alguna bodega, no se debe permitir modificación del tipo de elemento
 				if( areThereElementsOfTypeInAnyWarehouse(obj.getId()) ) {					
@@ -285,6 +282,7 @@ public class ElementTypeBusinessBean extends BusinessBase implements
 		return countElement>0;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean isElementTypeOfClassDecoOrSmartcard(ElementTypeVO elementTypeVO) throws PropertiesException, DAOServiceException, DAOSQLException {
 		boolean isElementTypeOfClassDecoOrSmartcard = false;
 		
@@ -363,7 +361,34 @@ public class ElementTypeBusinessBean extends BusinessBase implements
 			throw this.manageException(ex);
 		} finally {
 			log
-					.info("== Termina getElementTypeByCode/ElementTypeBusinessBean ==");
+					.debug("== Termina getElementTypeByCode/ElementTypeBusinessBean ==");
+		}
+	}
+
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+	public List<ElementTypeVO> getElementsTypeByCode(List<String> listaElementTypeCode)
+			throws BusinessException {
+		log.debug("== Inicia getElementTypeByCode/ElementTypeBusinessBean ==");
+		try {
+			List<ElementType> objPojo = daoElementType.getElementsTypeByCode(listaElementTypeCode);
+			if (objPojo == null) {
+				return null;
+			}
+			
+			List<ElementTypeVO> objVo = new ArrayList<ElementTypeVO>(); 
+			for(ElementType eAux : objPojo){
+				objVo.add( UtilsBusiness.copyObject(ElementTypeVO.class,eAux));
+			}
+			return objVo;
+		} catch (Throwable ex) {
+			log
+					.debug(
+							"== Error al tratar de ejecutar la operación getElementTypeByCode/ElementTypeBusinessBean ==",
+							ex);
+			throw this.manageException(ex);
+		} finally {
+			log
+					.debug("== Termina getElementTypeByCode/ElementTypeBusinessBean ==");
 		}
 	}
 

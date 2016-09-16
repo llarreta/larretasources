@@ -3,11 +3,13 @@ package co.com.directv.sdii.ejb.business.core.tray.impl;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -55,6 +57,9 @@ import co.com.directv.sdii.model.pojo.WoCrewAssigments;
 import co.com.directv.sdii.model.pojo.WoStatusHistory;
 import co.com.directv.sdii.model.pojo.WorkOrder;
 import co.com.directv.sdii.model.pojo.WorkOrderAgenda;
+import co.com.directv.sdii.model.pojo.WorkOrderExport;
+import co.com.directv.sdii.model.pojo.WorkOrderExportData;
+import co.com.directv.sdii.model.pojo.WorkOrderExportDataId;
 import co.com.directv.sdii.model.pojo.WorkorderStatus;
 import co.com.directv.sdii.model.pojo.collection.WorkOrderResponse;
 import co.com.directv.sdii.model.vo.CustomerClassTypeVO;
@@ -73,6 +78,8 @@ import co.com.directv.sdii.persistence.dao.config.WoAssignmentDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WoStatusHistoryDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderAgendaDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderDAOLocal;
+import co.com.directv.sdii.persistence.dao.config.WorkOrderExportDAOLocal;
+import co.com.directv.sdii.persistence.dao.config.WorkOrderExportDataDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderServiceDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkorderStatusDAOLocal;
 import co.com.directv.sdii.persistence.dao.core.ContactDAOLocal;
@@ -114,6 +121,12 @@ public class TrayReportsBusiness extends BusinessBase implements
 
 	@EJB(name = "WorkOrderDAOLocal", beanInterface = WorkOrderDAOLocal.class)
 	private WorkOrderDAOLocal workOrderDAO;
+	
+	@EJB(name = "WorkOrderDAOExportLocal", beanInterface = WorkOrderExportDAOLocal.class)
+	private WorkOrderExportDAOLocal workOrderExportDAO;
+	
+	@EJB(name = "WorkOrderDAOExportDataLocal", beanInterface = WorkOrderExportDataDAOLocal.class)
+	private WorkOrderExportDataDAOLocal workOrderExportDataDAO;
 
 	@EJB(name = "DocumentTypesCRUDBeanLocal", beanInterface = DocumentTypesCRUDBeanLocal.class)
 	private DocumentTypesCRUDBeanLocal documentTypesCRUD;
@@ -192,7 +205,6 @@ public class TrayReportsBusiness extends BusinessBase implements
 	 * #getWorkorderDetailForPdf(co.com.directv
 	 * .sdii.model.dto.WorkOrderFilterTrayDTO)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public ArrayList<WorkOrderTrayForPdfDTO> getWorkorderDetailForPdf(
@@ -232,9 +244,9 @@ public class TrayReportsBusiness extends BusinessBase implements
 					}
 				}
 			}
-			Iterator iterator = map.entrySet().iterator();
+			Iterator<Entry<String, List<WorkOrder>>> iterator = map.entrySet().iterator();
 			while (iterator.hasNext()) {
-				Map.Entry entry = (Map.Entry) iterator.next();
+				Map.Entry<String, List<WorkOrder>> entry = (Map.Entry<String, List<WorkOrder>>) iterator.next();
 				workOrderTrayList.add(this.fillWorkOrderDetailForPdf(
 						(List<WorkOrder>) entry.getValue(), countryId));
 			}
@@ -767,7 +779,7 @@ public class TrayReportsBusiness extends BusinessBase implements
 	 *            <tipo> <descripcion>
 	 * @author jnova
 	 */
-	private void fillEmptyCustomerResources(WorkOrderTrayForPdfDTO dto) {
+	/*private void fillEmptyCustomerResources(WorkOrderTrayForPdfDTO dto) {
 		List<CustomerResourcesDTO> list = new ArrayList<CustomerResourcesDTO>();
 		for (int i = 0; i < 3; i++) {
 			CustomerResourcesDTO obj = new CustomerResourcesDTO();
@@ -777,7 +789,7 @@ public class TrayReportsBusiness extends BusinessBase implements
 		}
 		dto.setCustomerResourcesLeft(list);
 		dto.setCustomerResourcesRight(list);
-	}
+	}*/
 
 	/**
 	 * 
@@ -1189,7 +1201,7 @@ public class TrayReportsBusiness extends BusinessBase implements
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<ReportWorkOrderDTO> getReportWorkOrderDTOWorkOrdersForReport(
-			WorkOrderResponse daoResponse, Long countryId)
+			WorkOrderResponse daoResponse, Long countryId,Long idUsuario)
 			throws BusinessException {
 
 		List<ReportWorkOrderDTO> response = null;
@@ -1203,8 +1215,7 @@ public class TrayReportsBusiness extends BusinessBase implements
 			}
 
 			// Envio de listado de wordorders a exportar
-			response.addAll(this.fillWorkOrderInformationForReport(listaIDs,
-					countryId));
+			response.addAll(this.fillWorkOrderInformationForReport(listaIDs,countryId,idUsuario));
 		}
 
 		return response;
@@ -1283,7 +1294,7 @@ public class TrayReportsBusiness extends BusinessBase implements
 				List<Dealer> dealers = dealersDAO.getAllDealersByCountryId(
 						filter.getCountryId(), null, null);
 				if (dealers != null && !dealers.isEmpty()) {
-        			for(Dealer d : dealers){
+        			for(@SuppressWarnings("unused") Dealer d : dealers){
         				//filter.getDealersIds().add( d.getId() );
         				// en el query del reporte reemplazamos los ids por una subquery 
         				filter.getDealersIds().add( new Long(-1) ); 
@@ -1394,7 +1405,6 @@ public class TrayReportsBusiness extends BusinessBase implements
 			if (realizedStatus != null)
 				woStatusIds.add(realizedStatus.getId());
 
-			List<ReportWorkOrderDTO> response = new ArrayList<ReportWorkOrderDTO>();
 			WorkOrderResponse daoResponse = new WorkOrderResponse();
 			List<Object[]> workOrdersIds = new ArrayList<Object[]>();
 			daoResponse.setWorkOrdersIds(workOrdersIds);
@@ -1581,7 +1591,6 @@ public class TrayReportsBusiness extends BusinessBase implements
 			if (rejectedStatus != null)
 				woStatusIds.add(rejectedStatus.getId());
 
-			List<ReportWorkOrderDTO> response = new ArrayList<ReportWorkOrderDTO>();
 			WorkOrderResponse daoResponse = new WorkOrderResponse();
 			List<Object[]> workOrdersIds = new ArrayList<Object[]>();
 			daoResponse.setWorkOrdersIds(workOrdersIds);
@@ -1697,8 +1706,6 @@ public class TrayReportsBusiness extends BusinessBase implements
 			if (pendingStatus != null)
 				woStatusIds.add(pendingStatus.getId());
 
-			List<ReportWorkOrderDTO> response = new ArrayList<ReportWorkOrderDTO>();
-
 			WorkOrderResponse daoResponse = new WorkOrderResponse();
 			List<Object[]> workOrdersIds = new ArrayList<Object[]>();
 			daoResponse.setWorkOrdersIds(workOrdersIds);
@@ -1753,7 +1760,7 @@ public class TrayReportsBusiness extends BusinessBase implements
 	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<ReportWorkOrderDTO> fillWorkOrderInformationForReport(
-			List<Long> woIDs, Long countryId) throws BusinessException {
+			List<Long> woIDs, Long countryId, Long idUsuario) throws BusinessException {
 		log.debug("== Inicia fillWorkOrderInformationForReport/TrayWorkOrderManagmentBusinessBean ==");
 
 		try {
@@ -1869,8 +1876,6 @@ public class TrayReportsBusiness extends BusinessBase implements
 			List<TechnologyVO> technologies = this.technologyBusinessBean
 					.getAllIRDTechnologies();
 
-			long initTime = System.currentTimeMillis();
-
 			this.doWorkOrderByIDReport(woIDs, isViewCustomerDocument,
 					isViewCustomerMail, response, aSysdate, activeStatus,
 					anIsResponsible, anIsNotResponsible, statusActiva,
@@ -1885,11 +1890,30 @@ public class TrayReportsBusiness extends BusinessBase implements
 					mediaContactTypeTelephWorkCode, mediaContactTypeMobileCode,
 					mediaContactTypeMail, mediaContactTypeFax,
 					codeUserControlTower, activeWorkOrderMark,
-					codeRequiredcontractMark, technologies);
+					codeRequiredcontractMark, technologies,idUsuario);
 			
-			long endTime = System.currentTimeMillis();
-			System.out.println("Tiempo de Consulta : "
-					+ Long.valueOf(endTime - initTime).toString() + "\n");
+			for (ReportWorkOrderDTO wos : response) {
+					
+					// ####!####	
+					//Enmascarado de datos
+					
+					SystemParameter sp = systemParameterDao
+							.getSysParamByCodeAndCountryId(
+									CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK
+											.getCodeEntity(),countryId);
+					String isCustomerMask = sp.getValue();
+					// Se enmascara el numero de documento y el tipo de documento
+					if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity()
+							.equals(isCustomerMask)) {
+						
+						
+					wos.setCustomerDocument(
+								UtilsBusiness.maskString(wos.getCustomerDocument()));
+					}
+					// ####!####
+				    
+				}
+			
 			return response;
 
 		} catch (Throwable ex) {
@@ -1902,8 +1926,6 @@ public class TrayReportsBusiness extends BusinessBase implements
 	
 	
 	// private methods
-	
-	private static final int MAX_PARAMS_PER_QUERY = 2000;
 
 	private void doWorkOrderByIDReport(List<Long> woIDs,
 			boolean isViewCustomerDocument, boolean isViewCustomerMail,
@@ -1925,57 +1947,43 @@ public class TrayReportsBusiness extends BusinessBase implements
 			String mediaContactTypeMobileCode, String mediaContactTypeMail,
 			String mediaContactTypeFax, String codeUserControlTower,
 			String activeWorkOrderMark, String codeRequiredcontractMark,
-			List<TechnologyVO> technologies) throws DAOServiceException,
+			List<TechnologyVO> technologies, Long idUsuario) throws DAOServiceException,
 			DAOSQLException {
 		
 		
-		int i = 0;
-		List<Long> woIDsTemp = new ArrayList<Long>();
-
+		//Generamos los datos para la SubQuery.
+		WorkOrderExport woExp = new WorkOrderExport();
+		woExp.setCreationDate(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		woExp.setIdUsuario(idUsuario);
+		woExp.setNumWo(new Long(woIDs.size()));
+		workOrderExportDAO.createWorkOrderExport(woExp);
+		
+		List<WorkOrderExportData> listaWoExpData = new ArrayList<WorkOrderExportData>();
 		for (Long id : woIDs) {
-
-			woIDsTemp.add(id);
-			i++;
-			if (i > TrayReportsBusiness.MAX_PARAMS_PER_QUERY) {
-				i = 0;
-				response.addAll(this.workOrderDAO.getWorkOrderByIDReport(
-						woIDsTemp, aSysdate, technologies, activeStatus,
-						anIsResponsible, anIsNotResponsible, statusActiva,
-						statusAsignada, statusAgendada, statusReagendada,
-						statusRealizada, statusFinalizada, statusPendiente,
-						statusRechazada, statusCancelada, statusReasignada,
-						recordStatusLast, elementClassDecoder,
-						workOrderTypeService, woStatusWorkOrderTypeChangeHsp,
-						workOrderStatusRealized, woManagmentElementClassDeco,
-						woManagmentElementClassSC, woAttentionRer,
-						woAttentionReu, elementIsSerialized,
-						mediaContactTypeTelepCode,
-						mediaContactTypeTelephWorkCode,
-						mediaContactTypeMobileCode, mediaContactTypeMail,
-						mediaContactTypeFax, codeUserControlTower,
-						isViewCustomerDocument, isViewCustomerMail,
-						activeWorkOrderMark, codeRequiredcontractMark, true));
-				woIDsTemp = new ArrayList<Long>();
-			}
+			WorkOrderExportData woExpData = new WorkOrderExportData();
+			WorkOrderExportDataId idWoData = new WorkOrderExportDataId(woExp.getId(),id);
+			woExpData.setId(idWoData);
+			listaWoExpData.add(woExpData);
 		}
-
-		if (i != 0) {
-			response.addAll(this.workOrderDAO.getWorkOrderByIDReport(woIDsTemp,
-					aSysdate, technologies, activeStatus, anIsResponsible,
-					anIsNotResponsible, statusActiva, statusAsignada,
-					statusAgendada, statusReagendada, statusRealizada,
-					statusFinalizada, statusPendiente, statusRechazada,
-					statusCancelada, statusReasignada, recordStatusLast,
-					elementClassDecoder, workOrderTypeService,
-					woStatusWorkOrderTypeChangeHsp, workOrderStatusRealized,
-					woManagmentElementClassDeco, woManagmentElementClassSC,
-					woAttentionRer, woAttentionReu, elementIsSerialized,
-					mediaContactTypeTelepCode, mediaContactTypeTelephWorkCode,
-					mediaContactTypeMobileCode, mediaContactTypeMail,
-					mediaContactTypeFax, codeUserControlTower,
-					isViewCustomerDocument, isViewCustomerMail,
-					activeWorkOrderMark, codeRequiredcontractMark, true));
-		}
+		workOrderExportDataDAO.createWorkOrderExportData(listaWoExpData);
+		
+		response.addAll(this.workOrderDAO.getWorkOrderByIDReport(
+				aSysdate, technologies, activeStatus,
+				anIsResponsible, anIsNotResponsible, statusActiva,
+				statusAsignada, statusAgendada, statusReagendada,
+				statusRealizada, statusFinalizada, statusPendiente,
+				statusRechazada, statusCancelada, statusReasignada,
+				recordStatusLast, elementClassDecoder,
+				workOrderTypeService, woStatusWorkOrderTypeChangeHsp,
+				workOrderStatusRealized, woManagmentElementClassDeco,
+				woManagmentElementClassSC, woAttentionRer,
+				woAttentionReu, elementIsSerialized,
+				mediaContactTypeTelepCode,
+				mediaContactTypeTelephWorkCode,
+				mediaContactTypeMobileCode, mediaContactTypeMail,
+				mediaContactTypeFax, codeUserControlTower,
+				isViewCustomerDocument, isViewCustomerMail,
+				activeWorkOrderMark, codeRequiredcontractMark, true,woExp.getId()));
 	}
 
 	
@@ -1990,7 +1998,7 @@ public class TrayReportsBusiness extends BusinessBase implements
 	 *             <tipo> <descripcion>
 	 * @author jnova
 	 */
-	private String getManagmentComment(Long woId) throws BusinessException {
+	/*private String getManagmentComment(Long woId) throws BusinessException {
 		log.debug("== Inicia fillFinalizationComment/TrayWorkOrderManagmentBusinessBean ==");
 		try {
 			List<Long> woStatusIds = new ArrayList<Long>();
@@ -2049,7 +2057,7 @@ public class TrayReportsBusiness extends BusinessBase implements
 		} finally {
 			log.debug("== Termina fillFinalizationComment/TrayWorkOrderManagmentBusinessBean ==");
 		}
-	}
+	}*/
 
 	/**
 	 * 

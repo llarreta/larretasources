@@ -1429,7 +1429,7 @@ public class ReferenceBusinessBean extends BusinessBase implements ReferenceBusi
 		ReferenceElementItemsResponse response = daoReferenceElementItem.getReferenceElementItemsByReferenceID(reference.getId(),requestCollInfo);
 		List<ReferenceElementItem> refElements = response.getReferenceElementItems();
 		WarehouseElementVO whElement = null;
-		ReferenceVO referenceVo = UtilsBusiness.copyObject(ReferenceVO.class, reference);
+		UtilsBusiness.copyObject(ReferenceVO.class, reference);
 		//MovementType movType = daoMovementType.getMovementTypeByCode(CodesBusinessEntityEnum.WH_MOVEMENT_TYPE_HIGH.getCodeEntity());
 		for (ReferenceElementItem referenceElementItem : refElements) {
 			whElement = new WarehouseElementVO();
@@ -2018,7 +2018,6 @@ public class ReferenceBusinessBean extends BusinessBase implements ReferenceBusi
 	public void moveElementsBetweenWarehouses(Long whIdSource, Long whIdTarget, List<ReportedElementVO> reportedElementVOs, ReferenceVO reference,ItemStatus itemStatus, boolean isFisrtMovementLessElements, User user, boolean reportIBS) throws BusinessException {
 		
 		Long elementId;
-		String serial;
 		try {
 			
 			Warehouse warehouseSource = daoWarehouse.getWarehouseByID(whIdSource);
@@ -2551,6 +2550,7 @@ public class ReferenceBusinessBean extends BusinessBase implements ReferenceBusi
 	 * @return verdadero si algún elemento de una inconsistencia tiene el estado especificado
 	 * @author wjimenez
 	 */
+	@SuppressWarnings("unused")
 	private boolean areSomeReportedElementsInState(List<ReportedElementVO> reportedElementVOs, String itemStatus) throws BusinessException {
 		try {
 			for (ReportedElementVO reportedElementVO : reportedElementVOs) {
@@ -2579,6 +2579,7 @@ public class ReferenceBusinessBean extends BusinessBase implements ReferenceBusi
 	 * @return verdadero si TODOS los elementos de una inconsistencia tiene el estado especificado
 	 * @author wjimenez
 	 */
+	@SuppressWarnings("unused")
 	private boolean areAllReportedElementsInState(List<ReportedElementVO> reportedElementVOs, String itemStatus) throws BusinessException {
 		
 		try {
@@ -3333,6 +3334,7 @@ public class ReferenceBusinessBean extends BusinessBase implements ReferenceBusi
 	 * (non-Javadoc)
 	 * @see co.com.directv.sdii.ejb.business.stock.ReferenceBusinessBeanLocal#createReferenceByFile(java.lang.Long, java.util.List, java.lang.Long, java.lang.Long, co.com.directv.sdii.model.vo.UserVO)
 	 */
+	@SuppressWarnings("unused")
 	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	public Long createReferenceByFile(List<ReferenceElementItemVO> refElements, Long userId ) throws BusinessException{
 		log.debug("== Inicia createReferenceByFile/ReferenceBusinessBean ==");
@@ -4144,7 +4146,6 @@ public class ReferenceBusinessBean extends BusinessBase implements ReferenceBusi
 						List<ReferenceElementItem> itemsSerialized = this.daoReferenceElementItem.getSerializedReferenceElementItemByReferenceIdSQL(referenceVO.getId());
 						if(itemsSerialized != null && !itemsSerialized.isEmpty()){
 							MovementElementDTO dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(movementTypeCodeE, movementTypeCodeS);
-							String documentClass = CodesBusinessEntityEnum.DOCUMENT_CLASS_REFERENCE.getCodeEntity();
 							WarehouseVO copyWarehouseTransit = UtilsBusiness.copyObject(WarehouseVO.class,  reference.getSourceTransitWh());
 							WarehouseVO copyWarehouseTarget = UtilsBusiness.copyObject(WarehouseVO.class, reference.getWarehouseByTargetWh());
 
@@ -4346,7 +4347,6 @@ public class ReferenceBusinessBean extends BusinessBase implements ReferenceBusi
 					List<ReferenceElementItem> itemsSerialized = this.daoReferenceElementItem.getSerializedReferenceElementItemByReferenceIdSQL(referenceVO.getId());
 					if(itemsSerialized != null && !itemsSerialized.isEmpty()){
 						MovementElementDTO dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(movementTypeCodeE, movementTypeCodeS);
-						String documentClass = CodesBusinessEntityEnum.DOCUMENT_CLASS_REFERENCE.getCodeEntity();
 						WarehouseVO copyWarehouseTransit = UtilsBusiness.copyObject(WarehouseVO.class,  reference.getSourceTransitWh());
 						WarehouseVO copyWarehouseTarget = UtilsBusiness.copyObject(WarehouseVO.class, reference.getTargetTransitWh());
 						
@@ -4679,6 +4679,7 @@ public class ReferenceBusinessBean extends BusinessBase implements ReferenceBusi
 	}
 	
 	
+	@SuppressWarnings("unused")
 	private List<WarehouseElement> getMovementRecordsFromList(List<WarehouseElement> warehouseElementList, Double quantity) throws BusinessException {
 		
 		List<WarehouseElement> warehouseElementListDef = new ArrayList<WarehouseElement>();

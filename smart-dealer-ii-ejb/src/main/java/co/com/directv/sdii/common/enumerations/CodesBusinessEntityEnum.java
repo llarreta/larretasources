@@ -168,6 +168,9 @@ public enum CodesBusinessEntityEnum {
     
     SYSTEM_PARAM_BTB_ELEMENTS_TYPES("sdii_CODE_sys_param_btb_elements_types","sdii_COLUMN_system_param"),
     
+    SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK("sdii_CODE_sys_param_is_customer_info_mask","sdii_COLUMN_system_param"),
+    
+    
     //SKILLS
     SKILL_HCO("sdii_CODE_HCO","sdii_COLUMN_HCO"),
     SKILL_HTS("sdii_CODE_HTS","sdii_COLUMN_HTS"),
@@ -996,6 +999,7 @@ public enum CodesBusinessEntityEnum {
 	REPORT_IMPORT_LOG_NOT_SERIALIZED_ELEMENTS("sdii_CODE_report_import_log_not_serialized_elements","sdii_COLUMN_warehouses_jasper_file"),
 	SDII_JASPER_CORE_PROCES("sdii_jasper_core_proces",""),
 	SDII_JASPER_ALLOCATOR_PROCES("sdii_jasper_allocator_proces",""),
+	VISITS_EXCEL_JASPER_FILE ("sdii_CODE_visits_excel_jasper_file","sdii_COLUMN_visits_excel_jasper_file"),
 	
 	REPORT_ADJUSTMENT_ELEMENTS_SERIALIZED_AUTHORIZATION("sdii_CODE_report_adjustment_elements_serialized_authorization","sdii_COLUMN_warehouses_jasper_file"),
 	REPORT_ADJUSTMENT_ELEMENTS_NOT_SERIALIZED_AUTHORIZATION("sdii_CODE_report_adjustment_elements_not_serialized_authorization","sdii_COLUMN_warehouses_jasper_file"),
@@ -1160,7 +1164,9 @@ public enum CodesBusinessEntityEnum {
 	REPORT_TYPE_CORE_AUXILIAR_EMPLOYEE("sdii_CODE_report_type_core_auxiliar_employee",""),
 	REPORT_PARAMETER_WO_STATUS("sdii_CODE_report_parameter_wo_status",""),
 	
-	
+	//REQxxx - Proceso de inactivación de técnico (Auditoría sobre los movimientos de cuadrillas)
+	REPORT_TYPE_CREW_MOVEMENTS("sdii_CODE_report_type_crew_movements",""),
+	REPORT_TYPE_WO_TECHNICIAL("sdii_CODE_report_type_wo_technicial",""),
 	
 	//CC54 WO pendientes por falta de materiales
 	REPORT_TYPE_CORE_REJECTED_RN_03_WORK_ORDERS("sdii_CODE_report_type_core_wo_pending_lack_materials",""),

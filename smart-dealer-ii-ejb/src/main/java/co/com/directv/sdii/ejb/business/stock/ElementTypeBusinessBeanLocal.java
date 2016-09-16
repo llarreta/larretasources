@@ -75,6 +75,8 @@ public interface ElementTypeBusinessBeanLocal {
 	 */
 	public ElementTypeVO getElementTypeByCode(String code)throws BusinessException;
 	
+	public List<ElementTypeVO> getElementsTypeByCode(List<String> listaElementTypeCode) throws BusinessException;
+	
 	/**
 	 * Metodo: Obtiene el tipo de elemento activos
 	 * @return List<ElementTypeVO> que se encuentran activos; vacio en otro caso

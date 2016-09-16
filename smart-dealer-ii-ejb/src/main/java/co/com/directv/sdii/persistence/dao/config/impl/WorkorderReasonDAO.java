@@ -379,5 +379,36 @@ public class WorkorderReasonDAO extends BaseDao implements WorkorderReasonDAOLoc
         }
 		
 	}
+	
+	//	public List<WorkorderReason> getWorkOrderReasonByCategoryCode(String categoryCode)throws DAOServiceException, DAOSQLException;
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<WorkorderReason> getWorkOrderReasonByCategoryCode(String categoryCode)throws DAOServiceException, DAOSQLException {
+		log.debug("== Inicio getWorkOrderReasonByCategoryCode/DAOWorkorderReasonBean ==");
+        Session session = ConnectionFactory.getSession();
+        List<WorkorderReason> list = null;
+        try {
+            if (session == null) {
+                throw new DAOServiceException(ErrorBusinessMessages.SESSION_NULL.getCode());
+            }
+            StringBuffer stringQuery = new StringBuffer();
+            stringQuery.append("select workorderreason from ");
+            stringQuery.append(WorkorderReason.class.getName() );
+            stringQuery.append(" workorderreason where ");
+            stringQuery.append("workorderreason.workorderReasonCategory.woReasonCategoryCode = :categoryCode ");
+            
+            Query query = session.createQuery(stringQuery.toString());
+            query.setString("categoryCode", categoryCode);
+            list = query.list();
+            return list;
+        } catch (Throwable ex) {
+            log.debug("== Error consultando getWorkOrderReasonByCategoryCode por WorderOorderReasonCategoryCode ==");
+            throw this.manageException(ex);
+        }finally {
+            log.debug("== Termina getWorkOrderReasonByCategoryCode/DAOWorkorderReasonBean ==");
+        }
+		
+	}
+
 
 }

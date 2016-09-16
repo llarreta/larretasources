@@ -2781,9 +2781,7 @@ public final class UtilsBusiness {
 	}
 
 	/**
-	 * Metodo: Obtiene un FileResponseDTO mediante una lista ReportWorkOrderDTO
-	 * utilizando POI
-	 * 
+     * Metodo: Obtiene un FileResponseDTO mediante una lista ReportWorkOrderDTO utilizando POI
 	 * @param wos
 	 * @return
 	 * @throws BusinessException
@@ -2793,31 +2791,26 @@ public final class UtilsBusiness {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 * @throws NoSuchMethodException
-	 * @throws IOException
-	 *             <tipo> <descripcion>
+     * @throws IOException <tipo> <descripcion>
 	 * @author
 	 */
-	public static FileResponseDTO getFileResponseDTOByReportWorkOrderDTOS(
-			List<ReportWorkOrderDTO> wos) throws BusinessException,
-			IllegalArgumentException, SecurityException, PDFException,
-			IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException, IOException {
-
-		FileResponseDTO response = new FileResponseDTO();
-
+    public static FileResponseDTO getFileResponseDTOByReportWorkOrderDTOS(List<ReportWorkOrderDTO> wos) throws BusinessException, IllegalArgumentException, SecurityException, PDFException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, IOException {
+    	
+    	FileResponseDTO response = new FileResponseDTO();
+		
 		List<String> fielNames = new ArrayList<String>();
 		fielNames.add("woCode");
 		fielNames.add("customerCode");
 		fielNames.add("customerDocument");
 		fielNames.add("customerName");
 		fielNames.add("customerTypeName");
-
+		
 		fielNames.add("customerPhoneHome");
 		fielNames.add("customerPhoneWork");
 		fielNames.add("customerCel");
 		fielNames.add("customerMail");
 		fielNames.add("customerFax");
-
+		
 		fielNames.add("customerAddress");
 		fielNames.add("extraIndication");
 		fielNames.add("dealerName");
@@ -2846,8 +2839,8 @@ public final class UtilsBusiness {
 		fielNames.add("woDescription");
 		fielNames.add("woAction");
 		fielNames.add("customerClass");
-		fielNames.add("serialNumber");
-		fielNames.add("linkedSerialNumber");
+	    fielNames.add("serialNumber");
+	    fielNames.add("linkedSerialNumber");
 		fielNames.add("serviceTypeName");
 		fielNames.add("serviceTypeCode");
 		fielNames.add("serviceCode");
@@ -2865,142 +2858,82 @@ public final class UtilsBusiness {
 		fielNames.add("helpers");
 		fielNames.add("dispatcher");
 		fielNames.add("loginDispatcher");
-		fielNames.add("problemDescriptions");
-		fielNames.add("isRequiredContract");
-		fielNames.add("optimusStatus");
-		fielNames.add("optimusStatusDate");
-		fielNames.add("optimusDeclineReason");
-		fielNames.add("optimusDeclineDate");
+	    fielNames.add("problemDescriptions");
+	    fielNames.add("isRequiredContract");
 
-		// fielNames.add("woProgrammingDate");
-
+	    
+//			fielNames.add("woProgrammingDate");
+		
 		List<String> columnNames = new ArrayList<String>();
-		columnNames.add(ApplicationTextEnum.WO.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.CLIENT_IBS
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.CLIENT_DOCUMENT
-				.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.WO.getApplicationTextValue()); 
+		columnNames.add(ApplicationTextEnum.CLIENT_IBS.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.CLIENT_DOCUMENT.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.CLIENT.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.CLIENT_TYPE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.TELEPHONE_HOUSE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.TELEPHONE_OFFICE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.CELL_PHONE
-				.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.CLIENT_TYPE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.TELEPHONE_HOUSE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.TELEPHONE_OFFICE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.CELL_PHONE.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.MAIL.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.FAX.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.ADDRESS.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.ADDITIONAL_INDICATIONS
-				.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.ADDITIONAL_INDICATIONS.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.SELLER.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.DEPOT_SELLER
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.HSP_STATUS
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.IBS_STATUS_CODE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.IBS_STATUS
-				.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.DEPOT_SELLER.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.HSP_STATUS.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.IBS_STATUS_CODE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.IBS_STATUS.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.REASON.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.LAST_MODIFIED_DATE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.ELEMENT_MODEL
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.DECOS_QUANTITY
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.PREVIOUS_VISITS
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.RETIRED_IRD_SERIE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.RETIRED_SC_SERIE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.INSTALLED_IRD_SERIE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.INSTALLED_SC_SERIE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.CREATION_DATE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.PUBLICATION_DATE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.ASSIGNATION_DATE
-				.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.LAST_MODIFIED_DATE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.ELEMENT_MODEL.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.DECOS_QUANTITY.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.PREVIOUS_VISITS.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.RETIRED_IRD_SERIE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.RETIRED_SC_SERIE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.INSTALLED_IRD_SERIE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.INSTALLED_SC_SERIE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.CREATION_DATE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.PUBLICATION_DATE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.ASSIGNATION_DATE.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.CONTACT.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.PROGRAMATION_JOURNEY
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.PROGRAMATION_DATE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.ATTENTION_DATE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.FINALIZATION_DATE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.COMPANY_OBSERVATION
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.WO_DESCRIPTION
-				.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.PROGRAMATION_JOURNEY.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.PROGRAMATION_DATE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.ATTENTION_DATE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.FINALIZATION_DATE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.COMPANY_OBSERVATION.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.WO_DESCRIPTION.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.ACTION.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.CUSTOMER_CLASS
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.SERIAL_NUMBER
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.LINKED_SERIAL_NUMBER
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.SERVICE_CATEGORY
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.SERVICE_CATEGORY_CODE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.SERVICE_CODE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.SERVICE_NAME
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.DEPOT_INSTALLER_COMPANY
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.INSTALLER_COMPANY_CODE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.INSTALLER_COMPANY
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.POSTAL_CODE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.DEPARTMENT
-				.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.CUSTOMER_CLASS.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.SERIAL_NUMBER.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.LINKED_SERIAL_NUMBER.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.SERVICE_CATEGORY.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.SERVICE_CATEGORY_CODE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.SERVICE_CODE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.SERVICE_NAME.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.DEPOT_INSTALLER_COMPANY.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.INSTALLER_COMPANY_CODE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.INSTALLER_COMPANY.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.POSTAL_CODE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.DEPARTMENT.getApplicationTextValue());
 		columnNames.add(ApplicationTextEnum.CITY.getApplicationTextValue());
-		columnNames
-				.add(ApplicationTextEnum.PERIMETER.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.RESPONSABLE_DOCUMENT
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.TECHNICAL_CODE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.RESPONSABLE_CREW
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.AUXILIAR_CREW
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.DISPATCHER_NAME
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.DISPATCHER_USER
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.PROBLEM_DESCRIPTION
-				.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.PERIMETER.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.RESPONSABLE_DOCUMENT.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.TECHNICAL_CODE.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.RESPONSABLE_CREW.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.AUXILIAR_CREW.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.DISPATCHER_NAME.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.DISPATCHER_USER.getApplicationTextValue());
+		columnNames.add(ApplicationTextEnum.PROBLEM_DESCRIPTION.getApplicationTextValue());
 		columnNames.add("Requiere Contrato");
-		columnNames.add(ApplicationTextEnum.OPTIMUS_STATUS
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.OPTIMUS_STATUS_DATE
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.OPTIMUS_DECLINE_REASON
-				.getApplicationTextValue());
-		columnNames.add(ApplicationTextEnum.OPTIMUS_DECLINE_DATE
-				.getApplicationTextValue());
 
 		String uniqueName = generateExcelPOI(wos, fielNames, columnNames, 0);
-		String fileName = "Work_Orders_" + uniqueName + ".xls";
-
+		String fileName = "Work_Orders_"+uniqueName+".xls";
+		
 		DataHandler dh = null;
-		DataSource ds = new FileDataSource(new File(
-				ExcelGenerator.getReportsPathTemp() + fileName));
+		DataSource ds = new FileDataSource(new File(ExcelGenerator.getReportsPathTemp()+fileName));
 		dh = new DataHandler(ds);
 		response.setDataHandler(dh);
 		response.setFileName(fileName);
-
+		
 		return response;
 	}
 
@@ -3167,4 +3100,40 @@ public final class UtilsBusiness {
 
 	}
 
+	// ####!####
+	/**
+	 * A partir de un numero en formato String, lo enmascara con "*" y muestra
+	 * los ultimos tres digitos. Ej : input: 123456789 output: ******789
+	 * 
+	 * @param number
+	 * @return String
+	 */
+
+	public static String maskNumber(String number) {
+		StringBuffer dniMasked = new StringBuffer(number);
+		dniMasked = (StringBuffer) (number.length() > 3 ? dniMasked.replace(0,
+				number.length() - 3,
+				new String(new char[number.length() - 3]).replace("\0", "*"))
+				: new StringBuffer("****"));
+		return dniMasked.toString();
+	}
+	
+	/**
+	 * A partir de String tipo nombre compuesto lo enmascara con "*", 
+	 * solo muestra el ultimo nombre
+	 * Ej:
+	 * input:  Ramiro Lopez
+	 * output: ****** Lopez
+	 * @param name
+	 * @return
+	 */
+	public static String maskString(String name) {
+			StringBuffer nameMasked = new StringBuffer(name);
+			int index=nameMasked.lastIndexOf(" ");
+			nameMasked=index>0?nameMasked.replace(0, nameMasked.lastIndexOf(" "),  "**********"):
+				nameMasked.replace(0, name.length(), new String(new char[name.length()]).replace("\0", "*"));
+			return nameMasked.toString();
+	}
+	//####!####
+	
 }

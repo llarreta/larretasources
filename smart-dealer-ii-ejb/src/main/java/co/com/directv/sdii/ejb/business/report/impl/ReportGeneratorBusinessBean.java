@@ -9,10 +9,14 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
+import java.util.Map;
+import co.com.directv.sdii.model.pojo.WorkOrder;
+import co.com.directv.sdii.model.pojo.WorkOrderAgenda;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.ejb.EJB;
@@ -63,7 +67,10 @@ import co.com.directv.sdii.model.dto.WarehouseInfoDetailDTO;
 import co.com.directv.sdii.model.dto.WarehouseInfoResponseDetailDTO;
 import co.com.directv.sdii.model.dto.WorkOrderFilterTrayDTO;
 import co.com.directv.sdii.model.dto.WorkOrderTrayForPdfDTO;
+import co.com.directv.sdii.model.pojo.Crew;
+import co.com.directv.sdii.model.pojo.Customer;
 import co.com.directv.sdii.model.pojo.DealerMediaContact;
+import co.com.directv.sdii.model.pojo.Employee;
 import co.com.directv.sdii.model.pojo.SystemParameter;
 import co.com.directv.sdii.model.pojo.WoPdfAnnex;
 import co.com.directv.sdii.model.pojo.WoPdfElementTypeNotSerialized;
@@ -81,10 +88,15 @@ import co.com.directv.sdii.model.vo.WorkOrderServiceVO;
 import co.com.directv.sdii.model.vo.WorkOrderWorkOrderMarkVO;
 import co.com.directv.sdii.persistence.dao.config.CustomerMediaContactDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.SystemParameterDAOLocal;
+import co.com.directv.sdii.persistence.dao.config.WorkOrderDAOLocal;
 import co.com.directv.sdii.persistence.dao.core.WoPdfAnnexDAOLocal;
 import co.com.directv.sdii.persistence.dao.core.WoPdfElementTypeNotSerializedDAOLocal;
+import co.com.directv.sdii.persistence.dao.dealers.CrewsDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.DealersMediaContactDAOLocal;
+import co.com.directv.sdii.persistence.dao.dealers.EmployeesCrewDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.WarehouseElementDAOLocal;
+import co.com.directv.sdii.reports.VisitsReportItem;
+import co.com.directv.sdii.reports.VisitsReportItemExcel;
 import co.com.directv.sdii.reports.commands.ICommand;
 import co.com.directv.sdii.reports.commands.ICommandFactory;
 import co.com.directv.sdii.reports.dto.FileResponseDTO;
@@ -166,6 +178,20 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 	//CC053
 	@EJB(name="WarehouseElementDAOLocal", beanInterface=WarehouseElementDAOLocal.class)
 	private WarehouseElementDAOLocal warehouseElementDAO;
+
+	@EJB(name="WorkOrderDAOLocal",beanInterface=WorkOrderDAOLocal.class)
+	private WorkOrderDAOLocal workOrderDAOBean;
+
+	@EJB(name="CrewsDAOLocal", beanInterface=CrewsDAOLocal.class)
+	private CrewsDAOLocal crewsDAO;
+	
+	@EJB(name="SystemParameterDAOLocal", beanInterface=SystemParameterDAOLocal.class)
+	private SystemParameterDAOLocal systemParameterDAO;
+	
+	@EJB(name="EmployeesCrewDAOLocal", beanInterface=EmployeesCrewDAOLocal.class)
+	private EmployeesCrewDAOLocal employeesCrewDAO;
+
+	
 	/*
 	 * (non-Javadoc)
 	 * @see co.com.directv.sdii.ejb.business.report.ReportGeneratorBusinessBeanLocal#getWorkOrdersForReport(co.com.directv.sdii.model.dto.WorkOrderFilterTrayDTO)
@@ -177,8 +203,9 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 		try{
 			
 			Long countryId = filter.getCountryId();
+			Long idUsuario = filter.getUserId();
 			WorkOrderResponse daoResponse = trayReportsBusiness.getWorkOrdersForReport(filter);
-			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId);
+			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId,idUsuario);
 			return UtilsBusiness.getFileResponseDTOByReportWorkOrderDTOS(response);
 			
 		} catch (Throwable ex) {
@@ -200,8 +227,9 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 		try{
 
 			Long countryId = filter.getCountryId();
+			Long idUsuario = filter.getUserId();
 			WorkOrderResponse daoResponse = trayReportsBusiness.getWorkOrdersForReportAttentionFinalization(filter);
-			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId);
+			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId,idUsuario);
 			return UtilsBusiness.getFileResponseDTOByReportWorkOrderDTOS(response);
 
 		} catch (Throwable ex) {
@@ -223,7 +251,7 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 		try{
 
 			WorkOrderResponse daoResponse = trayReportsBusiness.getWorkOrdersForReportAttentionFinalization(woCodes,countryId); 
-			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId);	
+			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId,null);	
 			return UtilsBusiness.getFileResponseDTOByReportWorkOrderDTOS(response);
 
 		} catch (Throwable ex) {
@@ -245,8 +273,9 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 		try{
 
 			Long countryId = filter.getCountryId();
+			Long idUsuario = filter.getUserId();
 			WorkOrderResponse daoResponse = trayReportsBusiness.getWorkOrdersForReportForAllocator(filter);
-			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId);
+			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId,idUsuario);
 			return UtilsBusiness.getFileResponseDTOByReportWorkOrderDTOS(response);
 		
 		} catch (Throwable ex) {
@@ -268,7 +297,7 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 		try{
 
 			WorkOrderResponse daoResponse = trayReportsBusiness.getWorkOrdersForReportForAllocator(woCodes,countryId); 
-			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId);
+			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId,null);
 			return UtilsBusiness.getFileResponseDTOByReportWorkOrderDTOS(response);
 
 		} catch (Throwable ex) {
@@ -290,7 +319,7 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 		try{
 			
 			WorkOrderResponse daoResponse = trayReportsBusiness.getWorkOrdersForReport(woCodes,countryId, userId); 
-			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId);
+			List<ReportWorkOrderDTO> response = trayReportsBusiness.getReportWorkOrderDTOWorkOrdersForReport(daoResponse,countryId,userId);
 			return UtilsBusiness.getFileResponseDTOByReportWorkOrderDTOS(response);
 
 		} catch (Throwable ex) {
@@ -513,7 +542,6 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 	 * @see co.com.directv.sdii.ejb.business.report.ReportGeneratorBusinessBeanLocal#generateReport(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public FileResponseDTO generateReport(String cmd, String args, String fileName, String reportExtension) throws BusinessException {
 		log.debug("== Inicia generateReport/ReportGeneratorBusinessBean ==");
@@ -551,7 +579,6 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 				boolean needOtherCall = true;
 				String originalArgs = args;
 				// Crear el libro de trabajo
-				int initialRow = 1;
 				log.info("va a generar el excel");
 				while(needOtherCall){
 					// Crear las filas en la hoja de trabajo
@@ -565,7 +592,7 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 						
 					args = originalArgs + "pageIndex="+page+";pageSize="+pageSize+";";
 					log.info("va a realizar la consulta del reporte");
-					List dataList = command.execute(args);
+					List<Object> dataList = command.execute(args);
 					if(dataList== null || dataList.isEmpty() || dataList.size()<pageSize){
 						needOtherCall = false;
 					}
@@ -585,7 +612,6 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 					excelGeneratorLocal.populateExcelFile(fieldList,rows, directoryName+"/"+fileName, (page-1));
 					rows.clear();
 					dataList.clear();
-					initialRow+=pageSize;
 					++page;
 				}
 				log.info("genero el excel");
@@ -618,7 +644,7 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 				
 			}else{
 				log.info("va a realizar la consulta del reporte");
-				List dataList = command.execute(args);
+				List<Object> dataList = command.execute(args);
 				log.info("realizo la consulta del reporte");
 				if( reportExtension.contains("xls") ){
 					String[] sheetName = {"Data"};
@@ -782,7 +808,7 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 	 
 	 
 	//Modificado para Requerimiento: CC057
-	private List<String> makePoiParameters(List dataList) {
+	private List<String> makePoiParameters(List<Object> dataList) {
 		List<String> returnValue=new ArrayList<String>();
 		if(dataList!=null && !dataList.isEmpty()){
 			Object item = dataList.get(0);
@@ -804,7 +830,7 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 
 
 	//Modificado para Requerimiento: CC057
-	private List<String> makePoiParametersWarehouseElementsSummariesByFilters(List dataList) {
+	private List<String> makePoiParametersWarehouseElementsSummariesByFilters(List<Object> dataList) {
 		List<String> returnValue=new ArrayList<String>();
 		if(dataList!=null && !dataList.isEmpty()){
 			Object item = dataList.get(0);
@@ -843,16 +869,6 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 			}
 		}
 		return returnValue;
-	}
-
-	private boolean isposibleByPoi(List dataList) {
-		if(dataList!=null && !dataList.isEmpty()){
-			Object item = dataList.get(0);
-			if(item instanceof QuantityWarehouseElementsDTO){
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/*
@@ -1353,4 +1369,123 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 		}
 	}
 
+	
+	/*
+	 * (non-Javadoc)
+	 * @see co.com.directv.sdii.ejb.business.report.ReportGeneratorBusinessBeanLocal#generateCrewWorkOrdersExcel(java.lang.Long, java.util.List , java.util.List)
+	 */
+	@Override
+	public FileResponseDTO generateCrewWorkOrdersExcel(Long countryId, List<Long> workOrderIds, List<Long> crewIds ) throws BusinessException {
+		log.debug("== Termina generateCrewWorkOrdersExcel/ReportGeneratorBusinessBean ==");
+		try{
+			UtilsBusiness.assertNotNull(workOrderIds, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+			UtilsBusiness.assertNotNull(crewIds, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+
+			FileResponseDTO response = new FileResponseDTO();
+			
+			//completar con datos para visita
+			Date now = new Date();
+			String fileName = ApplicationTextEnum.VISITS.getApplicationTextValue() + UtilsBusiness.formatYYYYMMDD(now) + "-" + now.getTime() + ".xls";
+			ByteArrayOutputStream baos = null;
+			
+			//eliminamos los crewId's duplicados
+			Set<Long> crewIdsWithoutDuplicates = new LinkedHashSet<Long>(crewIds);
+
+			//lista que contendra el responsable de la cuadrilla y sus respectivas WO's
+			List<VisitsReportItemExcel> visitsReportItemExcelList = new ArrayList<VisitsReportItemExcel>();
+			
+			//array para almacenar los nombres de las paginas en el excel 
+			String[] sheetNames= new String[crewIds.size()];
+			int i = 0;
+			
+			for ( Long crewId : crewIdsWithoutDuplicates ){
+				i = i + 1;
+				VisitsReportItemExcel visitsReportItemExcel = new VisitsReportItemExcel();
+				//buscamos el técnico responsable de la cuadrilla
+				visitsReportItemExcel.setEmployeeResponsibleCrew(employeesCrewDAO.getEmployeeResponsibleByCrewId(crewId));
+				
+				if(visitsReportItemExcel.getEmployeeResponsibleCrew()==null ){
+					throw new BusinessException(ErrorBusinessMessages.CREW_NOT_RESPONSIBLE_SPECIFIED.getCode() ,"No se encontro ningun empleado responsable de la WorkOrder de los  que tiene ");
+				}
+				
+				Long maxNumberWoPerPdfFile = UtilsBusiness.getNumericSystemParameter(/*utilice el mismo limite que cuando se exporta a PDF*/CodesBusinessEntityEnum.SYSTEM_PARAM_WO_PDF_MAX_WORK_ORDERS_BY_PDF_FILE.getCodeEntity(), countryId, systemParameterDAO);			
+				
+				Map<WorkOrder, WorkOrderAgenda> workOrders = workOrderDAOBean.getWorkOrdersByIdsAndCrewAssignment(workOrderIds, crewId, maxNumberWoPerPdfFile);
+
+				if(workOrders.isEmpty()){
+					log.debug("Se trató de generar la planilla de visitas de varias WO que no están asignadas a la cuadrilla especificada con id: " + crewId);
+					throw new BusinessException(ErrorBusinessMessages.NONE_OF_SELECTED_WORK_ORDERS_ARE_ASSIGNED_TO_SELECTED_CREW.getCode(), ErrorBusinessMessages.NONE_OF_SELECTED_WORK_ORDERS_ARE_ASSIGNED_TO_SELECTED_CREW.getMessage());
+				}
+				
+				List<VisitsReportItem> dataSource = toVisitsReportItemList( workOrders );
+				
+				visitsReportItemExcel.setVisitsReportItems(dataSource);
+				
+				visitsReportItemExcelList.add(visitsReportItemExcel);
+				
+				sheetNames[i -1] = "Responsable "+ i;
+				
+			}
+			
+			//validamos si esta vacio para luego invocar la creación del jasper con varias hojas
+			if( visitsReportItemExcelList != null && !visitsReportItemExcelList.isEmpty() ){
+				baos = excelGenerator.createExcelMultipleSheetStreamWithJasper(visitsReportItemExcelList, null, sheetNames, CodesBusinessEntityEnum.VISITS_EXCEL_JASPER_FILE.getCodeEntity());
+			}
+			if(baos == null){
+				throw new BusinessException(ErrorBusinessMessages.CORE_CR051.getCode(), ErrorBusinessMessages.CORE_CR051.getMessage());
+			}
+			DataSource ds = new  ByteArrayDataSource(baos.toByteArray() , "application/vnd.ms-excel");
+			DataHandler dh = new DataHandler(ds);
+			response.setDataHandler(dh);
+			response.setFileName(fileName);
+			return response;
+		} catch (Throwable e) {
+			log.debug("== Termina generateCrewWorkOrdersExcel/ReportGeneratorBusinessBean ==");
+			throw this.manageException(e);
+		} finally{
+			log.debug("== Termina generateCrewWorkOrdersExcel/ReportGeneratorBusinessBean ==");
+		}
+	}
+	
+	/**
+	 * Convierte una lista de workOrders a una lista de items del reporte con todos los valores formateados
+	 * para que salga en el reporte final como una datasource de pojos
+	 * @param workOrders
+	 * @return Collection<VisitsReportItem>
+	 * @throws PropertiesException 
+	 */
+	private List<VisitsReportItem> toVisitsReportItemList(Map<WorkOrder, WorkOrderAgenda> workOrdersMap) throws PropertiesException{
+		if(workOrdersMap==null || workOrdersMap.size() == 0)
+			return null;
+		
+		List<VisitsReportItem> items = new ArrayList<VisitsReportItem>();
+		Set<WorkOrder> workOrders = workOrdersMap.keySet();
+		WorkOrderAgenda woAgenda = null;
+		
+		for (WorkOrder workOrder : workOrders) {
+			Customer currentCustomer = workOrder.getCustomer();
+			VisitsReportItem visitsReportItem = new VisitsReportItem();
+			visitsReportItem.setAddress(currentCustomer.getCustomeraddress());
+			
+			visitsReportItem.setClient(currentCustomer.getCustomerCode());
+			visitsReportItem.setEnd("");
+			visitsReportItem.setJobCard(workOrder.getWoCode());
+			
+			woAgenda = workOrdersMap.get(workOrder);
+			
+			if(woAgenda != null && woAgenda.getAgendationDate() != null){
+				visitsReportItem.setMeridian(UtilsBusiness.dateToString(woAgenda.getAgendationDate(), UtilsBusiness.DATE_FORMAT_DDMMYYYYHHMMSS));
+				visitsReportItem.setComments(ApplicationTextEnum.CONTACT.getApplicationTextValue()+": " + woAgenda.getContactPerson() + " - "+ApplicationTextEnum.COMMENTS.getApplicationTextValue()+": " + woAgenda.getDescription());
+				visitsReportItem.setArriveHour(UtilsBusiness.dateToString(woAgenda.getServiceHour().getInitTime(), "HH:mm:ss"));
+				visitsReportItem.setDepartureHour(UtilsBusiness.dateToString(woAgenda.getServiceHour().getEndTime(), "HH:mm:ss"));
+			}
+			
+			visitsReportItem.setName(currentCustomer.getFirstName()+" "+currentCustomer.getLastName());
+			visitsReportItem.setServiceType(workOrder.getWoTypeByWoTypeId() == null ? "" : workOrder.getWoTypeByWoTypeId().getWoTypeName());
+			items.add(visitsReportItem);
+		}
+		
+		return items;
+	}
+		
 }

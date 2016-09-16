@@ -228,7 +228,9 @@ public class ScheduleReportBussines extends BusinessBase implements ScheduleRepo
         				|| srvo.getReportType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.REPORT_TYPE_CORE_PRODUCTIVITY_DISPATCHERS.getCodeEntity())
         				|| srvo.getReportType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.REPORT_TYPE_CORE_REJECTED_RN_03_WORK_ORDERS.getCodeEntity())
 						|| srvo.getReportType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.REPORT_TYPE_CORE_SUCCEED_WORK_ORDERS.getCodeEntity())
-						|| srvo.getReportType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.REPORT_TYPE_CORE_AUXILIAR_EMPLOYEE.getCodeEntity())){
+						//REQ Proceso de inactivación de técnico (Auditoría sobre los movimientos de cuadrillas)
+						|| srvo.getReportType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.REPORT_TYPE_CORE_AUXILIAR_EMPLOYEE.getCodeEntity())						|| srvo.getReportType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.REPORT_TYPE_CREW_MOVEMENTS.getCodeEntity())
+						|| srvo.getReportType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.REPORT_TYPE_WO_TECHNICIAL.getCodeEntity())){
         			try{
             			reportsCoreBusinessLocal.generateReport(reportsParameterInputDTO);
             			sendFileByFtp(reportsParameterInputDTO);

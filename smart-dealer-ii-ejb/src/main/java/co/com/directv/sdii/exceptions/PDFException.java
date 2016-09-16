@@ -4,9 +4,9 @@
 package co.com.directv.sdii.exceptions;
 
 /**
- * ExcepciÃ³n lanzada al generar archivos PDF en SmartDealer II.
+ * Excepción lanzada al generar archivos PDF en SmartDealer II.
  * 
- * @author Jimmy VÃ©lez MuÃ±oz
+ * @author Jimmy Vélez Muñoz
  *
  */
 public class PDFException extends BaseException {

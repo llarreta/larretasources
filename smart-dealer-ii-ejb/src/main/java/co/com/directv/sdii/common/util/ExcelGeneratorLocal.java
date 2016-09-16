@@ -1,5 +1,6 @@
 package co.com.directv.sdii.common.util;
 import java.io.ByteArrayOutputStream;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -7,6 +8,8 @@ import javax.ejb.Local;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import co.com.directv.sdii.exceptions.ExcelGenerationException;
+import co.com.directv.sdii.reports.VisitsReportItem;
+import co.com.directv.sdii.reports.VisitsReportItemExcel;
 
 /**
  * Interfaz que define los métodos para generar archivos de excel
@@ -53,7 +56,18 @@ public interface ExcelGeneratorLocal {
 	 * @throws ExcelGenerationException
 	 */
 	public ByteArrayOutputStream createExcelStreamWithJasper(List dataList, List<String> fieldList, String[] sheetName,String command) throws ExcelGenerationException;
-	
+
+	/**
+	 * Method: 
+	 * @param dataList List
+	 * @param fieldList List<String>
+	 * @param sheetName String[]
+	 * @param command String
+	 * @return ByteArrayOutputStream, stream de bytes del reporte generado
+	 * @throws ExcelGenerationException
+	 */
+	public ByteArrayOutputStream createExcelMultipleSheetStreamWithJasper(List<VisitsReportItemExcel> visitsReportItemExcelList/*luego cambiarlo*/, List<String> fieldList, String[] sheetName,String command) throws ExcelGenerationException;
+
 	/**
 	 * Metodo: Genera un outputStream que contiene los archivos pdf generados en la capa ed negocio
 	 * @param dataList	 

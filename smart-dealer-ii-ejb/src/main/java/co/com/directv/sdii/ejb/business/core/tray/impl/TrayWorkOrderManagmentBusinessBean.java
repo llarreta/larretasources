@@ -84,6 +84,7 @@ import co.com.directv.sdii.model.pojo.WoProcessSource;
 import co.com.directv.sdii.model.pojo.WoStatusHistory;
 import co.com.directv.sdii.model.pojo.WorkOrder;
 import co.com.directv.sdii.model.pojo.WorkOrderAgenda;
+import co.com.directv.sdii.model.pojo.WorkOrderCrewAttention;
 import co.com.directv.sdii.model.pojo.WorkOrderService;
 import co.com.directv.sdii.model.pojo.WorkorderStatus;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
@@ -128,6 +129,7 @@ import co.com.directv.sdii.persistence.dao.config.WoAssignmentDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WoStatusHistoryDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WoTypeDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderAgendaDAOLocal;
+import co.com.directv.sdii.persistence.dao.config.WorkOrderCrewAttentionDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderServiceDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkorderStatusDAOLocal;
@@ -275,7 +277,10 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 	private IbsContactBusinessBeanLocal ibsContactBusinessBean;
 	
 	@EJB	
-	private WorkOrderBusinessBeanLocal workOrderBusiness; 
+	private WorkOrderBusinessBeanLocal workOrderBusiness;
+	
+	@EJB(name="WorkOrderCrewAttentionDAOLocal", beanInterface=WorkOrderCrewAttentionDAOLocal.class)
+	private WorkOrderCrewAttentionDAOLocal workOrderCrewAttentionDAO;
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -344,7 +349,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					Long woId = ( (BigDecimal) object[0] ).longValue();
 					woIds.add(woId);
 				}
-				response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds,filterDTO.getUserId()) );
+				response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds, filterDTO.getCountryId(), filterDTO.getUserId()) );
 			}
 		if( requestCollectionInfo != null )
 				this.populatePaginationInfo(response, requestCollectionInfo.getPageSize(), requestCollectionInfo.getPageIndex(), daoResponse.getRowCount(), daoResponse.getTotalRowCount());
@@ -526,6 +531,9 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 			//notificar el cambio de estado solo atendida
 			if ( !request.getWorkOrderFinished() ) {
 				trayHelper.notificarIbsCambioDeEstadoWO( woAttentionDTO );
+				//se registra la atención (con los datos actuales de la cuadrilla) para reporte de WO’s atendidas
+				this.registerAttentionForReport(woAttentionDTO);
+				
 			}		
 
 			//Invoca el componente para realizar la finalizacion			
@@ -559,6 +567,76 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 		}
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	private void registerAttentionForReport(WOAttentionsRequestDTO woAttentionDTO) throws BusinessException{
+		try {
+			log.debug("== Inicia registerAttentionForReport/TrayWorkOrderManagmentBusinessBean ==");		
+			
+			WorkOrderCrewAttention workOrderCrewAttention = new WorkOrderCrewAttention(); 
+			
+			//Código de work Order
+			if(woAttentionDTO.getWorkorderVo().getWoCode().equals(null)){
+				workOrderCrewAttention.setWoCode("");
+			}else{
+				workOrderCrewAttention.setWoCode(woAttentionDTO.getWorkorderVo().getWoCode());
+			}
+			
+			//Fecha de atencion de WO
+			WorkOrder wo = workOrderDAO.getWorkOrderByCode(woAttentionDTO.getWorkorderVo().getWoCode());
+			
+			if (wo.getWoRealizationDate().equals(null)) {
+				workOrderCrewAttention.setAttentionDate(null);
+			} else{
+				workOrderCrewAttention.setAttentionDate(wo.getWoRealizationDate());
+			}
+			
+			//Id de cuadrilla que atendio la Wo
+			WoAssignment woAssignment = woAssignmentDAO.getWorkOrdersCrewActiveAssignment(wo.getId());
+			
+			if (woAssignment.getCrewId().equals(null)) {
+				workOrderCrewAttention.setCrewId(null);
+			} else{
+				workOrderCrewAttention.setCrewId(woAssignment.getCrewId());
+			}
+			
+			//integrantes de la cuadrilla
+			List<EmployeeCrew> employeeCrewList = employeesCrewDAO.getEmployeesCrewByCrewID(woAssignment.getCrewId());
+			String membersCrew = "";
+			
+			for (EmployeeCrew employeeCrew : employeeCrewList) {
+				if (employeeCrew.getIsResponsible().equals("S")) {
+					workOrderCrewAttention.setIbsTechnicial(employeeCrew.getEmployee().getIbsTechnical().toString());
+					workOrderCrewAttention.setDocumentNumber(employeeCrew.getEmployee().getDocumentNumber());
+					workOrderCrewAttention.setResponsibleCrew(employeeCrew.getEmployee().getFirstName() + ", " + employeeCrew.getEmployee().getLastName());
+					membersCrew = membersCrew + workOrderCrewAttention.getResponsibleCrew() + ";";
+					//Nombre del dealer 
+					workOrderCrewAttention.setDealerName(employeeCrew.getCrew().getDealer().getDealerName());
+					//Nombre de compañia principal
+					if (employeeCrew.getCrew().getDealer().getDealer() == null ) {
+						workOrderCrewAttention.setDealerMain(workOrderCrewAttention.getDealerName());
+					} else {
+						workOrderCrewAttention.setDealerMain(employeeCrew.getCrew().getDealer().getDealer().getDealerName());
+					}
+					
+				} else {
+					membersCrew = membersCrew + employeeCrew.getEmployee().getFirstName() + ", " + employeeCrew.getEmployee().getLastName() + "; ";
+				}
+			}
+		
+			//integrantes de la cuadrilla
+			workOrderCrewAttention.setEmployeesCrew(membersCrew);
+			
+			workOrderCrewAttentionDAO.createWorkOrderCrewAttention(workOrderCrewAttention);
+			
+		} catch (Throwable ex) {
+			log.error("== Error al tratar de ejecutar la operación registerAttentionForReport/TrayWorkOrderManagmentBusinessBean");
+			throw super.manageException(ex);
+		} finally {
+			log.debug("== Termina registerAttentionForReport/TrayWorkOrderManagmentBusinessBean ==");
+		}			
+	}
+	
+	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public EnvelopeEncapsulateResponse finalizationWorkOrder(List<TrayWOManagmentDTO> trayRequest) throws BusinessException {
@@ -913,7 +991,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					Long woId = ( (BigDecimal) object[0] ).longValue();
 					woIds.add(woId);
 				}
-				response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds,filter.getUserId()) );
+				response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds, filter.getCountryId(), filter.getUserId()) );
 			}
 			
 			if( requestCollectionInfo != null )
@@ -1428,6 +1506,28 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 				//Se colocan los contact de ibs a la consulta de la wo
 				dto.setIbsContactDTO(ibsContactBusinessBean.getIbsContactDTOByWorkOrderId(woId, filter.getCountryId()));
 				
+				// ####!####	
+				//Enmascarado de datos
+				SystemParameter sp = sysParamDao
+						.getSysParamByCodeAndCountryId(
+								CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK
+										.getCodeEntity(), filter.getCountryId());
+				String isCustomerMask = sp.getValue();
+				// Se enmascara el numero de documento y el tipo de documento
+				if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity()
+						.equals(isCustomerMask)) {
+
+					dto.getCustomerDTO()
+							.getDocumentType()
+							.setDocumentTypeName(
+									UtilsBusiness.maskString(dto
+											.getCustomerDTO().getDocumentType()
+											.getDocumentTypeName()));
+					dto.getCustomerDTO().setDocumentNumber(
+							UtilsBusiness.maskNumber(dto.getCustomerDTO()
+									.getDocumentNumber()));
+				}
+				// ####!####
 				
 			}
 			return dto;
@@ -1540,6 +1640,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 	 * @see co.com.directv.sdii.ejb.business.core.tray.TrayWorkOrderManagmentBusinessLocal#getWorkOrdersInfoByWoIds(java.util.List)
 	 */
 	@Override
+	@Deprecated
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public WorkOrderTrayResponse getWorkOrdersInfoByWoIds(List<Long> woIds) throws BusinessException {
 		log.debug("== Inicia getWorkOrdersInfoByWoIds/TrayWorkOrderManagmentBusinessBean ==");
@@ -1552,7 +1653,8 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					workOrderList.add( fillWorkOrderInformation(woId) );
 				}
 				response.setWorkOrderList(workOrderList);*/
-				response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds) );
+				//Se modifica metodo fillWorkOrderInformationOptimized, por lo que este metodo queda depracado
+				//response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds) );
 			}
 			return response;
 		} catch (Throwable ex) {
@@ -1610,7 +1712,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 	 * @throws BusinessException <tipo> <descripcion>
 	 * @author jnova
 	 */
-	private List<WorkOrderTrayDTO> fillWorkOrderInformationOptimized(List<Long> woIds, Long... idUsuario) throws BusinessException {
+	private List<WorkOrderTrayDTO> fillWorkOrderInformationOptimized(List<Long> woIds, Long countryId, Long... idUsuario) throws BusinessException {
 		log.debug("== Inicia getWorkOrderInformation/TrayWorkOrderManagmentBusinessBean ==");
 		try {
 			List<WorkOrderTrayDTO> dtos = new ArrayList<WorkOrderTrayDTO>();
@@ -1683,6 +1785,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 				dto.setWorkorderStatusVO(workorderStatusVO);
 				
 				/*SECCION PARA DARLE VALOR A LA REASON DE LA WO EN CASO QUE ESTE EN ESTADO PENDIENTE*/
+				/*Req : A partir de la version 7.1.0 se agrego que tambien se muestre la reason para el estado REASIGNADA*/
 				if(row[TrayQueryEnum.WORK_ORDER_REASON_ID.getRowNum()]!=null 
 						&& row[TrayQueryEnum.WORK_ORDER_REASON_CODE.getRowNum()]!=null 
 						&& !row[TrayQueryEnum.WORK_ORDER_REASON_CODE.getRowNum()].toString().equals("")){
@@ -1756,7 +1859,20 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					dto.setAddress(tmp);
 					tmp = ""; 
 					if(row[TrayQueryEnum.CUSTOMER_DOCUMENT_NUMBER.getRowNum()]!=null){
-						tmp = row[TrayQueryEnum.CUSTOMER_DOCUMENT_NUMBER.getRowNum()].toString(); 
+						tmp = row[TrayQueryEnum.CUSTOMER_DOCUMENT_NUMBER.getRowNum()].toString();
+						
+//						####!#### Enmascara datos del cliente.
+						
+						SystemParameter sp = sysParamDao.getSysParamByCodeAndCountryId(
+								CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK.getCodeEntity(), 
+								countryId);
+						String isCustomerMask = sp.getValue();
+						//Verifica si para el pais correspondiente debe enmascarar los datos
+						if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity().equals(
+								isCustomerMask)) {
+							tmp = UtilsBusiness.maskNumber(tmp);
+						}
+//						####!####	
 					} 
 					customer.setDocumentNumber(tmp);
 					tmp = ""; if ( row[TrayQueryEnum.IS_CUSTOMER_MIGRATED.getRowNum()]!=null ){ tmp = row[TrayQueryEnum.IS_CUSTOMER_MIGRATED.getRowNum()].toString(); } customer.setIsMigrated( tmp );
@@ -1851,7 +1967,20 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					dto.setResponsableName(tmp);
 					tmp = ""; 
 					if(row[TrayQueryEnum.RESPONSABLE_DOCUMENT_NUMBER.getRowNum()]!=null){ 
-						tmp = row[TrayQueryEnum.RESPONSABLE_DOCUMENT_NUMBER.getRowNum()].toString(); 
+						tmp = row[TrayQueryEnum.RESPONSABLE_DOCUMENT_NUMBER.getRowNum()].toString();
+						
+//						####!#### Enmascara datos del cliente.
+						
+						SystemParameter sp = sysParamDao.getSysParamByCodeAndCountryId(
+								CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK.getCodeEntity(), 
+								countryId);
+						String isCustomerMask = sp.getValue();
+						//Verifica si para el pais correspondiente debe enmascarar los datos
+						if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity().equals(
+								isCustomerMask)) {
+							tmp = UtilsBusiness.maskNumber(tmp);
+						}
+//						####!####
 					} 
 					dto.setResponsableDocumentNumber(tmp);
 				} else if(row[TrayQueryEnum.PROGRAM_ASSIGNMENT.getRowNum()]!=null && !row[33].toString().equals("")){
@@ -3072,7 +3201,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					
 				}
 				if(existData){
-					response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds,trayRequest.getUserId()) );
+					response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds, trayRequest.getCountryId(), trayRequest.getUserId()) );
 				}
 				
 			}
@@ -3161,7 +3290,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					}
 				}
 				if(existData){
-					response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds, trayRequest.getUserId()) );
+					response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds, trayRequest.getCountryId(), trayRequest.getUserId()) );
 				}
 			}
 			return response.getWorkOrderList();
@@ -3234,7 +3363,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					Long woId = ( (BigDecimal) object[0] ).longValue();
 					woIds.add(woId);
 				}
-				response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds, filter.getUserId()) );
+				response.setWorkOrderList( this.fillWorkOrderInformationOptimized(woIds, filter.getCountryId(), filter.getUserId()) );
 			}
 			if( requestCollectionInfo != null )
 				this.populatePaginationInfo(response, requestCollectionInfo.getPageSize(), requestCollectionInfo.getPageIndex(), daoResponse.getRowCount(), daoResponse.getTotalRowCount());

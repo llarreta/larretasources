@@ -40,4 +40,6 @@ public interface IFileProcessor {
 
 	public void saveFileDetailProcess(FileDetailProcess fileDetailProcess);
 
+	public void saveFileDetailProcessMassive(List<FileDetailProcess> fileDetailProcess);
+
 }

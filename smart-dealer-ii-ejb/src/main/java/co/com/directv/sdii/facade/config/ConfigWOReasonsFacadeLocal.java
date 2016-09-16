@@ -121,4 +121,13 @@ public interface ConfigWOReasonsFacadeLocal {
      */
     public List<ResponsibleAreaVO> getAllResponsibleAreas()throws BusinessException;
     
+    /**
+     * Este método retorna una lista de WORKORDER_REASONS por WORKORDER_REASON_CATEGORY.
+     *
+     * @param category
+     * @return
+     * @throws BusinessException
+     */
+    public List<WorkorderReasonVO> getWorkorderReasonByCategoryCode(String categoryCode) throws BusinessException;
+    
 }

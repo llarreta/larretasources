@@ -169,6 +169,10 @@ public class CrewsWS {
         }
     }
 
+    @WebMethod(operationName = "detachedEmployeeCrew", action = "detachedEmployeeCrew")
+    public void detachedEmployeeCrew(@WebParam(name = "CrewVO") CrewVO obj ,@WebParam(name = "employeeCrew") EmployeeCrewVO employeeCrew, @WebParam(name="user") UserVO user) throws BusinessException{
+        ejbRef.detachedEmployeeCrew(obj, employeeCrew, user);
+    }
     
     /**
      * Metodo: Borra de la persistencia la información de una cuadrila dado el identificador de la misma

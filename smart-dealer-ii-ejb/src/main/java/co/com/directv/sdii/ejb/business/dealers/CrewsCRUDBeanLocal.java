@@ -9,6 +9,7 @@ import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.model.pojo.CrewOff;
 import co.com.directv.sdii.model.vo.CrewOffVO;
 import co.com.directv.sdii.model.vo.CrewVO;
+import co.com.directv.sdii.model.vo.EmployeeCrewVO;
 import co.com.directv.sdii.model.vo.UserVO;
 
 /**
@@ -29,6 +30,7 @@ public interface CrewsCRUDBeanLocal {
 
     public CrewVO getCrewsByID(Long id) throws BusinessException;
 
+    public void detachedEmployeeCrew(CrewVO obj , EmployeeCrewVO employeeCrew, UserVO user) throws BusinessException;
     /**
      * 
      * Metodo: Actualiza una cuadrilla

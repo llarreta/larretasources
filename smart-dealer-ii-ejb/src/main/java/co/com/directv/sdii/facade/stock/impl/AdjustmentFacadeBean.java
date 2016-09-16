@@ -120,8 +120,8 @@ public class AdjustmentFacadeBean implements AdjustmentFacadeBeanLocal {
 
 	@Override
 	public void approvalAllElementsOfAdjustment(AdjustmenElementsRequestDTO request) throws BusinessException {
-		businessAdjustment.approvalAllElementsOfAdjustment(request);
-	}
+			businessAdjustment.approvalAllElementsOfAdjustment(request);
+		}
 	
 	@Override
 	public List<AdjustmentStatusVO> getAllAdjustmentStatus() throws BusinessException {

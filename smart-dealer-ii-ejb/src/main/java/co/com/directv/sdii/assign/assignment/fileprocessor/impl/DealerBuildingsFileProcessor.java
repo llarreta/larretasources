@@ -136,5 +136,4 @@ public class DealerBuildingsFileProcessor extends BasicFileProcessor implements 
 	public boolean validateFile() throws BusinessException {
 		return true;
 	}
-
 }

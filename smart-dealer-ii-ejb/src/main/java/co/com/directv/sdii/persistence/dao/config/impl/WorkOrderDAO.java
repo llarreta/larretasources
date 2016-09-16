@@ -36,6 +36,7 @@ import co.com.directv.sdii.common.enumerations.ErrorBusinessMessages;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
+import co.com.directv.sdii.model.dto.ReportWorkOrderCrewAttentionDTO;
 import co.com.directv.sdii.model.dto.ReportWorkOrdersLastDayDTO;
 import co.com.directv.sdii.model.dto.ReportsComplyAndScheduleAndFileResponseDTO;
 import co.com.directv.sdii.model.dto.ReportsComplyAndScheduleDTO;
@@ -110,7 +111,8 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 	@EJB
 	private TechnologyDAOLocal technologyDAO;
     
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public List<ReportWorkOrdersLastDayDTO> getWorkOrdersForLastDay(Long countryId) throws DAOServiceException, DAOSQLException {
     	List<ReportWorkOrdersLastDayDTO> returnValue=null;
         log.debug("== Inicio getWorkOrdersForLastDay/WorkOrderDAO ==");
@@ -3871,7 +3873,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	public List<WorkOrder> getWorkOrdersByCountryCustomerPostalCodeScheduleDateWOAddress(String countryIso2Code, String ibsCustomerCode, String postalCode, java.util.Date scheduleDate, String woAddressCode, String woAddress)
 			throws DAOServiceException , DAOSQLException  {
-		List listCuadruplas = null ;
+		List<Object> listCuadruplas = null ;
 		List<WorkOrder> listWorkOrders = null ;
 		
 		log.debug("== Inicio getWorkOrdersByCountryCustomerPostalCodeScheduleDateWOAddress/WorkOrderDAO ==");
@@ -4504,9 +4506,8 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
      * (non-Javadoc)
      * @see co.com.directv.sdii.persistence.dao.config.WorkOrderDAOLocal#getWorkOrderByIDReport(java.lang.Long)
      */
-     @SuppressWarnings("unchecked")
      @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-     public List<ReportWorkOrderDTO> getWorkOrderByIDReport(List<Long> woIDs,Timestamp aSysdate,List<TechnologyVO> technologies,
+     public List<ReportWorkOrderDTO> getWorkOrderByIDReport(Timestamp aSysdate,List<TechnologyVO> technologies,
           String activeStatus,
           String anIsResponsible,
           String anIsNotResponsible,
@@ -4540,7 +4541,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
           boolean isViewCustomerMail,
           String activeWorkOrderMark,
           String codeRequiredcontractMark,
-          boolean isBuilding) throws DAOServiceException, DAOSQLException {
+          boolean isBuilding, long idWO) throws DAOServiceException, DAOSQLException {
            
       
            log.debug("== Inicio getWorkOrderByID/WorkOrderDAO ==");
@@ -4757,7 +4758,8 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 		  queryBuffer.append("                         FROM CUSTOMER_MEDIA_CONTACTS CMC  ");
 		  queryBuffer.append("                         INNER JOIN MEDIA_CONTACT_TYPES MCT ON(CMC.CONTACT_TYPE_ID=MCT.ID) "); 
 		  queryBuffer.append("                         WHERE MCT.MEDIA_CODE  =:mediaContactTypeFax AND CMC.CUSTOMER_ID   =cust.ID )),' ') customerFax, ");
-		  queryBuffer.append("         (SELECT /*+ parallel 6 */ COUNT(1) contDecos    "); 
+		  //queryBuffer.append("         (SELECT /*+ parallel 6 */ COUNT(1) contDecos    "); 
+		  queryBuffer.append("         (SELECT COUNT(1) contDecos    ");
 		  queryBuffer.append("          FROM WAREHOUSE_ELEMENTS we   ");
 		  queryBuffer.append("          INNER JOIN WAREHOUSES w ON(w.id=WE.WAREHOUSE_ID)  "); 
 		  queryBuffer.append("          WHERE EXISTS (SELECT 1 FROM RECORD_STATUS R   ");
@@ -4850,7 +4852,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 	      queryBuffer.append("		               INNER JOIN EMPLOYEES emp ");
 	      queryBuffer.append("		               on EMP.id              = EMPLOYEECREW.EMPLOYEE_ID ");
 	      queryBuffer.append("                     WHERE crew.IS_ACTIVE   = :activeStatus ) crewHelpers ON (w.id = crewHelpers.wo_id) ");
-		  queryBuffer.append("          WHERE " + UtilsBusiness.longListToOrInQuery(woIDs, "w.ID") );
+	      queryBuffer.append(" inner join WORK_ORDERS_EXPORT_DATA WOEXDA on (WOEXDA.WO_ID = w.ID and WOEXDA.WORK_ORDERS_EXPORT_ID = :expID ) ");
 		  if (isBuilding){
               queryBufferOrder.append(" ORDER BY w.BUILDING DESC , w.WO_CODE ) datos ");
           }else{
@@ -4861,6 +4863,9 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
           Query query = session.createSQLQuery( queryBufferSelect.toString() + queryBuffer.toString() + queryBufferOrder.toString());
          
           //Parametros
+          
+          query.setParameter("expID", idWO);
+          
           query.setParameter("aSysdate",   aSysdate, Hibernate.TIMESTAMP);
 
           
@@ -5157,7 +5162,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
             queryBuffer.append("	                                               WORK_ORDER_STATUS WS	");
             queryBuffer.append("	                                            ON WS.ID = WSH.WO_STATUS_ID	");
             queryBuffer.append("	                                      WHERE WS.WO_STATE_CODE IN	");
-            queryBuffer.append("	                                               (:statusPending, :statusRejected)	");
+            queryBuffer.append("	                                               (:statusPending, :statusRejected, :statusReassign)	");
             queryBuffer.append("	                                   GROUP BY WSH.WO_ID) T ON (T.WSH_ID=WSH.ID)	");
             queryBuffer.append("	                               	");
             queryBuffer.append("	                               ) HISTORY	");
@@ -5237,6 +5242,8 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
             }
             query.setString("statusPending", CodesBusinessEntityEnum.WORKORDER_STATUS_PENDING.getCodeEntity() );
             query.setString("statusRejected", CodesBusinessEntityEnum.WORKORDER_STATUS_REJECTED.getCodeEntity() );
+            //Reason de reasignación
+            query.setString("statusReassign", CodesBusinessEntityEnum.WORKORDER_STATUS_REASSIGN.getCodeEntity() );
             query.setString("woAssigmentActive", CodesBusinessEntityEnum.WO_ASSIGMENT_STATUS_ACTIVE.getCodeEntity() );
             query.setString("woAgendaActive", CodesBusinessEntityEnum.WORKORDER_AGENDA_STATUS_ACTIVE.getCodeEntity() );
             query.setString("employeeIsResponsable", CodesBusinessEntityEnum.EMPLOYEE_CREW_RESPONSABLE.getCodeEntity() );
@@ -5259,7 +5266,8 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 	 * @see co.com.directv.sdii.persistence.dao.config.WorkOrderDAOLocal#getServiceWithWarranty(java.lang.String, java.lang.Long)
 	 */
 	@Override
-	@TransactionAttribute(TransactionAttributeType.SUPPORTS)	
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+	@SuppressWarnings("rawtypes")
 	public List getServiceWithWarranty(String ibsCustomerCode, Long countryCode) throws DAOServiceException, DAOSQLException {
 		log.debug("== Inicio getServiceWithWarranty/WorkOrderDAO ==");
 		Session session = super.getSession();
@@ -5310,6 +5318,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public ReportsProductivityReportAndFileResponseDTO getReportsProductivityReport(ReportsComplyAndScheduleFilterDTO filter, 
@@ -5455,6 +5464,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 			
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public ReportsPendingServicesByDateAndFileResponseDTO getReportsPendingServicesByDate(ReportsPendingServicesByDateFilterDTO filter, 
@@ -5781,6 +5791,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
         }
 	}
 	
+	@SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	private List<Long> woStatusIdsWithOutCodes(List<String> codes) throws DAOServiceException, DAOSQLException{
 		List<Long> returnValue=null;
@@ -5844,6 +5855,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 	 * @throws DAOSQLException
 	 * @author aharker
 	 */
+	@SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<WorkOrderTrayDTO> getWorkOrdersByStatesAndCustomerAndDealer(List<String> states, List<WorkOrder> wos) throws DAOServiceException, DAOSQLException{
         log.debug("== Inicia getWorkOrdersByStates/WorkOrderDAO ==");
@@ -5871,9 +5883,6 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
             }
             stringQuery.append(" wo.workorderStatusByActualStatusId.woStateCode in ("+stringStates+") ");
             
-            String woIdsString="";
-            String dealerIdsString="";
-            String customerIdsString=""; 
             stringQuery.append(" and ( 1<>1 ");
             String woIds="";
             for(int i=0; i<wos.size(); ++i){
@@ -5883,9 +5892,9 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
             	}
             }
             for(int i=0; i<wos.size(); ++i){
-            	woIdsString+=wos.get(i).getId();
-            	dealerIdsString+=wos.get(i).getDealerId();
-            	customerIdsString+=wos.get(i).getCustomer().getId();
+            	wos.get(i).getId();
+            	wos.get(i).getDealerId();
+            	wos.get(i).getCustomer().getId();
             	stringQuery.append(" or ( ");
             	stringQuery.append(" ( :woId"+i+" is null or ( "+woIds+" ) ) ");
             	stringQuery.append(" and (:dealerId"+i+" is null or wo.dealerId = :dealerId"+i+") ");
@@ -5924,6 +5933,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 	 * @throws DAOSQLException 
 	 * @author aharker
 	 */
+	@SuppressWarnings("unchecked")
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<WorkOrder> getWorkOrdersByStatesAndCustomerAndDealerForPdf(List<String> states, List<WorkOrder> wos) throws DAOServiceException, DAOSQLException{
         log.debug("== Inicia getWorkOrdersByStates/WorkOrderDAO ==");
@@ -5943,9 +5953,6 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
             }
             stringQuery.append(" wo.workorderStatusByActualStatusId.woStateCode in ("+stringStates+") ");
             
-            String woIdsString="";
-            String dealerIdsString="";
-            String customerIdsString=""; 
             stringQuery.append(" and ( 1<>1 ");
             String woIds="";
             for(int i=0; i<wos.size(); ++i){
@@ -5955,9 +5962,9 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
             	}
             }
             for(int i=0; i<wos.size(); ++i){
-            	woIdsString+=wos.get(i).getId();
-            	dealerIdsString+=wos.get(i).getDealerId();
-            	customerIdsString+=wos.get(i).getCustomer().getId();
+            	wos.get(i).getId();
+            	wos.get(i).getDealerId();
+            	wos.get(i).getCustomer().getId();
             	stringQuery.append(" or ( ");
             	stringQuery.append(" ( :woId"+i+" is null or ( "+woIds+" ) ) ");
             	stringQuery.append(" and (:dealerId"+i+" is null or wo.dealerId = :dealerId"+i+") ");
@@ -5986,6 +5993,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 	}
 	
 	//REQ001 - WO Canceladas.
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<WorkOrder> getCanceledWorkOrdersByDealerIdAndDates(Long dealerId, Date fromDate, Date toDate) throws DAOServiceException, DAOSQLException {
 		log.debug("== Inicio getCanceledWorkOrdersByDealerId/WorkOrderDAO ==");
@@ -6016,5 +6024,78 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 		
 	}
 	
+	//REQ inactivar tecnico
+	@Override
+	public List<ReportWorkOrderCrewAttentionDTO> getWorkOrderAttentionReport(Long countryId, Date nowDate, RequestCollectionInfo requestInfo, ReportWorkOrderCrewAttentionDTO reportWorkOrderCrewAttentionDTO) throws DAOSQLException, DAOServiceException {
+		try {
+            log.debug("== Inicio getWorkOrderAttentionReport/ReportsStockDAO ==");
+            Session session = super.getSession();
+            
+			// Fecha Inicio
+			Date movementDateIn = reportWorkOrderCrewAttentionDTO.getMovementDateIn();
+
+			// Fecha Final
+			Date movementDateOut = reportWorkOrderCrewAttentionDTO.getMovementDateOut();
+			
+          //Consulta que retorna el detalle de los elementos
+            StringBuffer stringQuery = new StringBuffer("");
+			
+            stringQuery.append(" SELECT ");
+			stringQuery.append("   WOCA.DEALER_NAME   dealerName, ");
+			stringQuery.append("   WOCA.DEALER  dealerMain, ");
+			stringQuery.append("   WOCA.WO_CODE  woCode, ");
+			stringQuery.append("   WOCA.CREW_ID  crewId, ");
+			stringQuery.append("   WOCA.MEMBERS_CREW	employeesCrew, ");
+			stringQuery.append("   WOCA.NAME_TECHNICIAL_ATTENTION   responsibleCrew, ");
+			stringQuery.append("   WOCA.DOCUMENT_NUMBER	documentNumber, ");
+			stringQuery.append("   WOCA.IBS_TECHNICIAL  ibsTechnicial, ");
+			stringQuery.append("   WOCA.ATTENTION_DATE  attentionDate "); 
+            stringQuery.append(" FROM WORK_ORDER_CREW_ATTENTIONS WOCA ");
+            stringQuery.append("   INNER JOIN WORK_ORDERS W on W.WO_CODE = WOCA.WO_CODE ");
+            stringQuery.append(" WHERE W.COUNTRY_ID = :aCountryId ");
+            stringQuery.append(" AND trunc(WOCA.ATTENTION_DATE) >= trunc(:aMovementDateIn) ");
+            stringQuery.append(" AND trunc(WOCA.ATTENTION_DATE) <= trunc(:aMovementDateOut) ");
+            
+            Query querySQL = session.createSQLQuery(stringQuery.toString())
+        			.addScalar("dealerName")
+        			.addScalar("dealerMain")
+        			.addScalar("woCode")
+        			.addScalar("crewId" , Hibernate.LONG)
+        			.addScalar("employeesCrew")
+        			.addScalar("responsibleCrew")
+        			.addScalar("documentNumber")
+        			.addScalar("ibsTechnicial")
+        			.addScalar("attentionDate" , Hibernate.DATE)       			
+        			.setResultTransformer(Transformers.aliasToBean(ReportWorkOrderCrewAttentionDTO.class));
+            
+            querySQL.setParameter("aCountryId", countryId, Hibernate.LONG);
+            
+            if (movementDateIn != null) {
+            	querySQL.setDate("aMovementDateIn",UtilsBusiness.obtenerPrimeraHoraDia(movementDateIn));
+			}
+			
+			if (movementDateOut != null) {
+				querySQL.setDate("aMovementDateOut",UtilsBusiness.obtenerUltimaHoraDia(movementDateOut));
+			}
+			
+			//querySQL.setString("isResponsible",CodesBusinessEntityEnum.EMPLOYEE_CREW_RESPONSABLE.getCodeEntity());
+			//querySQL.setString("movementType",CodesBusinessEntityEnum.WH_MOVEMENT_TYPE_ENTRY.getCodeEntity());
+					
+          //Paginacion
+        	if(requestInfo != null){		
+	        	querySQL.setFirstResult(requestInfo.getFirstResult());
+	        	querySQL.setMaxResults(requestInfo.getMaxResults());				
+        	}            
+            
+        	List<ReportWorkOrderCrewAttentionDTO> responseList = querySQL.list();
+        	return responseList;
+		} catch (Throwable e) {
+			log.error("== Error consultando en el metodo getWorkOrderAttentionReport/WorkOrderDAO ==");
+			throw this.manageException(e);
+		}finally {
+            log.debug("== Termina getWorkOrderAttentionReport/WorkOrderDAO ==");
+        }
+	 }
+
 }
 

@@ -11,7 +11,7 @@ import co.com.directv.sdii.model.vo.ProgramVO;
  * Interfaz que define las operaciones del componente de 
  * negocio  ProgramFacadeBean
  * 
- * Fecha de CreaciÃ³n: 14/05/2010
+ * Fecha de Creación: 14/05/2010
  * @author jcasas <a href="jcasas@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

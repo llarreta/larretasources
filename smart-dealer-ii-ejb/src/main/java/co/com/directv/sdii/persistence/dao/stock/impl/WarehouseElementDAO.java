@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -4054,6 +4058,67 @@ public class WarehouseElementDAO extends BaseDao implements WarehouseElementDAOL
 			query.setLong("countryId", countryId);
 			return (WarehouseElement) query.uniqueResult();
 
+		} catch (Throwable ex) {
+			log.error("== Error ==");
+			throw this.manageException(ex);
+		} finally {
+			log
+			.debug("== Termina getWarehouseElementBySerialActive/WarehouseElementDAO ==");
+		}
+	}
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see co.com.directv.sdii.persistence.dao.stock.WarehouseElementDAOLocal#getWarehouseElementBySerialActiveMassive(java.lang.String)
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Map<String,WarehouseElement> getWarehouseElementBySerialActiveMassive(Set<String> serialCode,Long countryId)
+			throws DAOServiceException, DAOSQLException {
+		log.debug("== Inicia getWarehouseElementBySerialActive/WarehouseElementDAO ==");
+		Session session = super.getSession();
+
+		try {
+			List<String> listaCodigos = new ArrayList<String>();
+			Map<String,WarehouseElement> lSalida = new HashMap<String,WarehouseElement>();
+
+			StringBuffer stringQuery = new StringBuffer();
+			stringQuery.append("from ");
+			stringQuery.append(WarehouseElement.class.getName());
+			stringQuery.append(" entity where entity.serialized.serialCode IN (:aSerialCodes) and");
+			stringQuery.append(" entity.recordStatus.recordStatusCode = :recordStatus and");
+			stringQuery.append(" entity.serialized.element.country.id = :countryId ");
+			
+			for(String sAux : serialCode){
+				listaCodigos.add(sAux);
+				if(listaCodigos.size() >= 1000){
+					Query query = session.createQuery(stringQuery.toString());
+					query.setParameterList("aSerialCodes", listaCodigos);
+					query.setString("recordStatus", CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity());
+					query.setLong("countryId", countryId);
+					Iterator<WarehouseElement> iAux = query.list().iterator();
+					while (iAux.hasNext()){
+						WarehouseElement wAux = iAux.next();
+						lSalida.put(wAux.getSerialized().getSerialCode(),wAux);
+					}
+					listaCodigos.clear();
+				}
+				
+			}
+			if(!listaCodigos.isEmpty()){
+				Query query = session.createQuery(stringQuery.toString());
+				query.setParameterList("aSerialCodes", listaCodigos);
+				query.setString("recordStatus", CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity());
+				query.setLong("countryId", countryId);
+				Iterator<WarehouseElement> iAux = query.list().iterator();
+				while (iAux.hasNext()){
+					WarehouseElement wAux = iAux.next();
+					lSalida.put(wAux.getSerialized().getSerialCode(),wAux);
+				}
+			}
+			return lSalida;
 		} catch (Throwable ex) {
 			log.error("== Error ==");
 			throw this.manageException(ex);

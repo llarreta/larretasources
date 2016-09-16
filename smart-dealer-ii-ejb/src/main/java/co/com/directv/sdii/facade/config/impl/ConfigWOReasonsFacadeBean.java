@@ -117,5 +117,12 @@ public class ConfigWOReasonsFacadeBean implements ConfigWOReasonsFacadeLocal {
         List<ResponsibleAreaVO> result = business.getAllResponsibleAreas();
         return result;
     }
+    
+    /* (non-Javadoc)
+     * @see co.com.directv.sdii.facade.config.ConfigWOReasonsFacadeLocal#getWorkorderReasonByCategoryCode()
+     */
+    public List<WorkorderReasonVO> getWorkorderReasonByCategoryCode(String categoryCode) throws BusinessException {
+        return business.getWorkorderReasonByCategoryCode(categoryCode);
+    }
 
 }

@@ -69,6 +69,8 @@ public interface AdjustmentStatusDAOLocal {
 	 */
 	public AdjustmentStatus getAdjustmentStatusByCode(String code) throws DAOServiceException, DAOSQLException;
 	
+	public AdjustmentStatus getAdjustmentStatusByCodeMassive(String code) throws DAOServiceException, DAOSQLException;
+	
 	/**
 	 * Metodo: Obtiene la información de todos los AdjustmentStatus almacenados en la persistencia
 	 * @return Lista con los AdjustmentStatus existentes, una lista vacia en caso que no existan AdjustmentStatus en el sistema

@@ -12,7 +12,9 @@ import javax.ejb.Local;
 
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
+import co.com.directv.sdii.model.dto.ReportCrewMovementsDTO;
 import co.com.directv.sdii.model.pojo.Crew;
+import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
 
 /**
  *
@@ -120,5 +122,17 @@ public interface CrewsDAOLocal {
 	 * @author jnova
 	 */
 	public List<Crew> getCrewsByVehicleIdAndCrewStatusCode(Long vehicleId,String crewStatus)throws DAOServiceException, DAOSQLException;
+	
+	//REQ Inactivación de Técnico
+	/**
+	 * Metodo encargado de traer todos los movimentos de la cuadrilla con respecto a cambio de tecnico principal, nuevo/s integrante/s.<br/>
+	 *
+	 * @throws DAOSQLException
+	 * @throws DAOServiceException
+	 * @throws BusinessException <tipo> <descripcion>
+	 * @author jgonzmol
+	 */
+	public List<ReportCrewMovementsDTO> getCrewMovements(Long countryId, Date nowDate, RequestCollectionInfo requestInfo, ReportCrewMovementsDTO reportCrewMovementsDTO) throws DAOSQLException, DAOServiceException;
+
 }
 

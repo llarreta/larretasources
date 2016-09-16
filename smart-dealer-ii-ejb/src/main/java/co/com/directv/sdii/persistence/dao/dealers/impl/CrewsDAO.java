@@ -15,16 +15,20 @@ import javax.ejb.TransactionManagementType;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
 
 import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
+import co.com.directv.sdii.model.dto.ReportCrewMovementsDTO;
 import co.com.directv.sdii.model.pojo.Crew;
 import co.com.directv.sdii.model.pojo.EmployeeCrew;
 import co.com.directv.sdii.model.pojo.WoAssignment;
+import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
 import co.com.directv.sdii.persistence.dao.BaseDao;
 import co.com.directv.sdii.persistence.dao.dealers.CrewsDAOLocal;
 
@@ -721,5 +725,123 @@ public class CrewsDAO extends BaseDao implements CrewsDAOLocal {
         }   finally {
             log.debug("== Termina getCrewsByVehicleIdAndCrewStatusCode/DAOCrewsBean ==");
         }		
-	}	
+	}
+	
+	@Override
+	public List<ReportCrewMovementsDTO> getCrewMovements(Long countryId,
+			Date nowDate, RequestCollectionInfo requestInfo,
+			ReportCrewMovementsDTO reportCrewMovementsDTO)
+			throws DAOSQLException, DAOServiceException {
+		try {
+			log.debug("== Inicio getWorkOrderAttentionReport/ReportsStockDAO ==");
+			Session session = super.getSession();
+
+			// Fecha Inicio
+			Date movementDateIn = reportCrewMovementsDTO.getMovementDateIn();
+
+			// Fecha Final
+			Date movementDateOut = reportCrewMovementsDTO.getMovementDateOut();
+
+			// Consulta que retorna el detalle de los elementos
+			StringBuffer stringQuery = new StringBuffer("");
+
+			stringQuery.append(" SELECT ");
+			stringQuery.append(" CM.CREW_ID   idCrew ,  ");
+			stringQuery.append(" CM.DEALER_NAME   dealerName ,  ");
+			stringQuery.append(" CM.DEALER   dealerMain ,  ");
+			stringQuery.append(" CM.MEMBERS_CREW   membersCrew ,  ");
+			stringQuery.append(" CM.DOCUMENT_NUMBER   documentNumber ,  ");
+			stringQuery.append(" CM.RESPONSIBLE_CREW   responsibleCrew ,  ");
+			stringQuery.append(" CM.ROL_MEMBERS_CREW   roleEmployeesCrew ,  ");
+			stringQuery.append(" CM.CREATION_DATE   creationCrew ,  ");
+			stringQuery.append(" CM.ACTIVATION_CREW_DATE   crewActivationDate ,  ");
+			stringQuery.append(" CM.MODIFICATION_CREW_DATE   crewMofificationDate ,  ");
+			stringQuery.append(" CM.NEW_MEMBER   newEmployee ,  ");
+			stringQuery.append(" CM.DOC_NUMBER_NEW_MEMBER   documentNumberNewEmployee ,  ");
+			stringQuery.append(" CM.NEW_RESPONSIBLE_CREW   newResponsibleCrew ,  ");
+			stringQuery.append(" CM.ROL_NEW_MEMBER   rolNewEmployee ,  ");
+			stringQuery.append(" CM.LOCATION_CODE   locationVinculateCode ,  ");
+			stringQuery.append(" CM.CREW_STATUS   statusCrew ,  ");
+			stringQuery.append(" V.PLATE   plateVehicle ,  ");
+			//stringQuery.append(" CM.   nameDriverVehicle ,  ");
+			stringQuery.append(" V.BRAND   brandVehicle ,  ");
+			stringQuery.append(" V.MODEL   modelVehicle ,  ");
+			stringQuery.append(" V.COLOR   colorVehicle ,  ");
+			stringQuery.append(" VS.STATUS_NAME   statusVehicle ,  ");
+			stringQuery.append(" VT.VEHICLE_TYPE_NAME   typeVehicle ,  ");
+			stringQuery.append(" V.LOAD_CAPACITY   loadCapacity ,  ");
+			stringQuery.append(" V.PEOPLE_CAPACITY   peopleCapacity ,  ");
+			stringQuery.append(" EV.ALLOCATION_DATE   creationVehicleDate   ");
+						
+			stringQuery.append(" FROM CREW_MODIFICATIONS CM ");
+			stringQuery.append(" LEFT JOIN VEHICLES V on V.ID = CM.VEHICLE_ID ");
+			stringQuery.append(" LEFT JOIN VEHICLE_STATUS VS on VS.ID = V.STATUS_ID ");
+			stringQuery.append(" LEFT JOIN VEHICLE_TYPES VT on VT.ID = V.VEHICLE_TYPE_ID ");
+			stringQuery.append(" LEFT JOIN EMPLOYEE_VEHICLES EV on EV.VEHICLE_ID = V.ID ");
+			stringQuery.append(" LEFT JOIN USERS U on U.ID = CM.USER_ID ");			
+		
+			stringQuery.append(" WHERE U.COUNTRY_ID = :aCountryId ");
+			stringQuery.append(" AND trunc(CM.MODIFICATION_CREW_DATE) >= trunc(:aMovementDateIn) ");
+			stringQuery.append(" AND trunc(CM.MODIFICATION_CREW_DATE) <= trunc(:aMovementDateOut) ");
+			stringQuery.append(" ORDER BY CM.MODIFICATION_CREW_DATE DESC");
+			
+			Query querySQL = session
+					.createSQLQuery(stringQuery.toString())
+					.addScalar("idCrew" , Hibernate.LONG)
+					.addScalar("dealerName")
+					.addScalar("dealerMain")
+					.addScalar("membersCrew")
+					.addScalar("documentNumber")
+					.addScalar("responsibleCrew")
+					.addScalar("roleEmployeesCrew")
+					.addScalar("creationCrew" , Hibernate.DATE)
+					.addScalar("crewActivationDate" , Hibernate.DATE)
+					.addScalar("crewMofificationDate" , Hibernate.DATE)
+					.addScalar("newEmployee")
+					.addScalar("documentNumberNewEmployee")
+					.addScalar("newResponsibleCrew")
+					.addScalar("rolNewEmployee")
+					.addScalar("locationVinculateCode")
+					.addScalar("statusCrew")
+					.addScalar("plateVehicle")
+					// .addScalar("nameDriverVehicle")
+					.addScalar("brandVehicle")
+					.addScalar("modelVehicle")
+					.addScalar("colorVehicle")
+					.addScalar("statusVehicle")
+					.addScalar("typeVehicle")
+					.addScalar("loadCapacity" , Hibernate.DOUBLE)
+					.addScalar("peopleCapacity" , Hibernate.LONG)
+					.addScalar("creationVehicleDate", Hibernate.DATE)
+					.setResultTransformer(Transformers.aliasToBean(ReportCrewMovementsDTO.class));
+
+			querySQL.setParameter("aCountryId", countryId, Hibernate.LONG);
+
+			if (movementDateIn != null) {
+				querySQL.setDate("aMovementDateIn",UtilsBusiness.obtenerPrimeraHoraDia(movementDateIn));
+			}
+
+			if (movementDateOut != null) {
+				querySQL.setDate("aMovementDateOut",UtilsBusiness.obtenerUltimaHoraDia(movementDateOut));
+			}
+
+			// querySQL.setString("isResponsible",CodesBusinessEntityEnum.EMPLOYEE_CREW_RESPONSABLE.getCodeEntity());
+			// querySQL.setString("movementType",CodesBusinessEntityEnum.WH_MOVEMENT_TYPE_ENTRY.getCodeEntity());
+
+			// Paginacion
+			if (requestInfo != null) {
+				querySQL.setFirstResult(requestInfo.getFirstResult());
+				querySQL.setMaxResults(requestInfo.getMaxResults());
+			}
+
+			List<ReportCrewMovementsDTO> responseList = querySQL.list();
+			return responseList;
+		} catch (Throwable e) {
+			log.error("== Error consultando en el metodo getWorkOrderAttentionReport/WorkOrderDAO ==");
+			throw this.manageException(e);
+		} finally {
+			log.debug("== Termina getWorkOrderAttentionReport/WorkOrderDAO ==");
+		}
+	}
+
 }

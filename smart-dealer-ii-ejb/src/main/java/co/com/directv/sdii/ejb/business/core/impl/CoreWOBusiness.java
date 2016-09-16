@@ -889,7 +889,12 @@ public class CoreWOBusiness extends BusinessBase implements CoreWOBusinessLocal 
 			if( woReAssignment != null ){
 				//Se almacena la reason de reasignacion
 				isDealerAssign = true;
-				workorderReasonCode = UtilsBusiness.getSystemParameter(CodesBusinessEntityEnum.WORKORDER_REASON_REASSIGNED.getCodeEntity(), workOrderDAOBean.getCountryIdOfWorkOrderId(dto.getWorkorder().getId()), systemParameterDAO);
+				//*****REQ Reason de reasignación
+				if (dto.getWorkorder().getReasonCode() != null){
+					workorderReasonCode = dto.getWorkorder().getReasonCode();
+				}else{
+					workorderReasonCode = UtilsBusiness.getSystemParameter(CodesBusinessEntityEnum.WORKORDER_REASON_REASSIGNED.getCodeEntity(), workOrderDAOBean.getCountryIdOfWorkOrderId(dto.getWorkorder().getId()), systemParameterDAO);
+				}
 				//workorderReasonCode = CodesBusinessEntityEnum.WORKORDER_REASON_REASSIGNED.getCodeEntity();
 				woStatus = workorderStatusDAO.getWorkorderStatusByCode(CodesBusinessEntityEnum.WORKORDER_STATUS_REASSIGN.getCodeEntity());
 			}else{
@@ -1049,7 +1054,7 @@ public class CoreWOBusiness extends BusinessBase implements CoreWOBusinessLocal 
 																		                     reasonCode,
 																		                     null);
 			String ibsHistoryEventCode = manageWorkForceServiceBroker.editCustomerWorkOrder(editCustomerWorkOrderDTO);
-			
+			//String ibsHistoryEventCode = null;// Eliminar esta linea y descomentar la de arriba
 			//Creacion del historico del cambio de estado de la WO
 			//jnova 29/11/2011 en caso que se este asignando no se debe poner reason en wo_status_history
 			WoStatusHistory woStatusHistory = null;
@@ -1706,6 +1711,20 @@ public class CoreWOBusiness extends BusinessBase implements CoreWOBusinessLocal 
 			if(employeeCrew==null ){
 				throw new BusinessException(ErrorBusinessMessages.CREW_NOT_RESPONSIBLE_SPECIFIED.getCode() ,"No se encontro ningun empleado responsable de la WorkOrder de los "+crew.getEmployeesCrew().size()+" que tiene ");
 			}
+			
+//			####!#### Enmascara datos del cliente.
+			
+			SystemParameter sp = systemParameterDAO.getSysParamByCodeAndCountryId(
+					CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK.getCodeEntity(), 
+					crewPojo.getDealer().getPostalCode().getCity().getState().getCountry().getId());
+			String isCustomerMask = sp.getValue();
+			//Verifica si para el pais correspondiente debe enmascarar los datos
+			if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity().equals(
+					isCustomerMask)) {
+				employeeCrew.setDocumentNumber(UtilsBusiness.maskNumber(employeeCrew.getDocumentNumber()));
+			}
+//			####!####
+			
 			return reportsGeneratorLocal.generateCrewWorkOrdersPDF(workOrders, employeeCrew);
 
 		} catch (Throwable ex) {
@@ -4682,6 +4701,22 @@ public class CoreWOBusiness extends BusinessBase implements CoreWOBusinessLocal 
 			}
 			CustomerVO customer = UtilsBusiness.copyObject(CustomerVO.class, customerPojo);
 			fillAditionalCustomerData(customer);
+			
+//			####!#### Enmascara datos del cliente.
+			SystemParameter sp = systemParameterDAO.getSysParamByCodeAndCountryId(
+					CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK
+					.getCodeEntity(), customer.getCountry().getId());
+			String isCustomerMask = sp.getValue();
+			//Verifica si para el pais correspondiente debe enmascarar los datos
+			if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity().equals(
+					isCustomerMask)) {
+					customer.setDocumentNumber(UtilsBusiness
+							.maskNumber(customer.getDocumentNumber()));
+					customer.setDocumentTypeName(UtilsBusiness
+							.maskString(customer.getDocumentTypeName()));
+			}
+//			####!####
+			
 			return customer;
 		} catch (Throwable ex) {
 			log.debug("== Error al tratar de ejecutar la operación getCustomerByWoIdOrWoCode/getWorkOrderReasonByWoStatus");

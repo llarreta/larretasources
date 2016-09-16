@@ -130,5 +130,17 @@ public interface EmployeesCrewDAOLocal {
 	 * @author jnova
 	 */
 	public List<EmployeeCrew> getAllResponsableEmployeeCrewByCountryAndDealerIds(Long countryId,List<Long> dealerIds) throws DAOServiceException, DAOSQLException;
+	
+	/**
+	 * 
+	 * Metodo: Consulta todos los empleados de las cuadrillas por id dela cuadrilla.
+	 * @param crewId
+	 * @return
+	 * @throws DAOServiceException
+	 * @throws DAOSQLException <tipo> <descripcion>
+	 * @author jnova
+	 */
+	public List<Employee> getAllEmployeeCrewByCrewId(Long crewId)throws DAOServiceException, DAOSQLException;
+ 
 
 }

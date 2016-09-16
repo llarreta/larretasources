@@ -185,5 +185,30 @@ public class AdjustmentStatusDAO extends BaseDao implements AdjustmentStatusDAOL
             log.debug("== Termina getAdjustmentStatusByCode/AdjustmentStatusDAO ==");
         }
 	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public AdjustmentStatus getAdjustmentStatusByCodeMassive(String code)
+			throws DAOServiceException, DAOSQLException {
+		log.debug("== Inicio getAdjustmentStatusByCode/AdjustmentStatusDAO ==");
+        Session session = super.getSession();
+
+        try {
+        	StringBuffer stringQuery = new StringBuffer();
+        	stringQuery.append("from ");
+        	stringQuery.append(AdjustmentStatus.class.getName());
+        	stringQuery.append(" entity where entity.code = :code");
+        	Query query = session.createQuery(stringQuery.toString());
+            query.setString("code", code);
+
+            return (AdjustmentStatus) query.uniqueResult();
+
+        } catch (Throwable ex){
+			log.error("== Error ==");
+			throw this.manageException(ex);
+		} finally {
+            log.debug("== Termina getAdjustmentStatusByCode/AdjustmentStatusDAO ==");
+        }
+	}
 
 }

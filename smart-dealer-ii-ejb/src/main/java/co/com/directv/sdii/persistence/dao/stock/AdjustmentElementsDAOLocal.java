@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.model.dto.AdjustmenElementsRequestDTO;
@@ -97,6 +96,9 @@ public interface AdjustmentElementsDAOLocal {
 	
 	public List<AdjustmentElements> getAdjustmentElementsForAuthorization(Long adjustmentId)
 	throws DAOServiceException, DAOSQLException ;
+	
+	public List<AdjustmentElements> getAdjustmentElementsForAuthorizationMassive(Long adjustmentId)
+			throws DAOServiceException, DAOSQLException ;
 
 	/**
 	 * Metodo encargado de contar los elementos de un ajuste por el estado indicado
@@ -118,5 +120,7 @@ public interface AdjustmentElementsDAOLocal {
 	 * @author
 	 */
 	public Object[] countAdjustmentElementsByAllStatus(Long adjustmentId) throws DAOServiceException, DAOSQLException;
+	
+	public Object[] countAdjustmentElementsByAllStatusMassive(Long adjustmentId) throws DAOServiceException, DAOSQLException;
 	
 }

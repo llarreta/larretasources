@@ -269,4 +269,16 @@ public interface IReportGeneratorWS {
 	@WebMethod(operationName = "getCanceledWorkOrdersReport", action = "getCanceledWorkOrdersReport")
 	public FileResponseDTO getCanceledWorkOrdersReport(@WebParam(name = "filter") WorkOrderCanceledFilterDTO filter) throws BusinessException;
 	
+	/**
+	 * Metodo: Genera un reporte excel segun las WO's y Id's seleccionadas
+	 * @param filter filtros de la consulta
+	 * @param
+	 * @param
+	 * @return archivo de resultado de la consulta de work orders canceladas
+	 * @throws BusinessException
+	 * @author Aharker
+	 */
+	@WebMethod(operationName = "generateCrewWorkOrdersExcel", action = "generateCrewWorkOrdersExcel")
+	public FileResponseDTO generateCrewWorkOrdersExcel(@WebParam(name="countryId")Long countryId, @WebParam(name="workOrderIds")List<Long> workOrderIds, @WebParam(name="crewIds")List<Long> crewIds) throws BusinessException;
+
 }

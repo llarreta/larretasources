@@ -33,6 +33,7 @@ import co.com.directv.sdii.model.pojo.Customer;
 import co.com.directv.sdii.model.pojo.CustomerAddresses;
 import co.com.directv.sdii.model.pojo.CustomerMediaContact;
 import co.com.directv.sdii.model.pojo.Serialized;
+import co.com.directv.sdii.model.pojo.SystemParameter;
 import co.com.directv.sdii.model.pojo.Technology;
 import co.com.directv.sdii.model.pojo.User;
 import co.com.directv.sdii.model.vo.CustomerVO;
@@ -41,6 +42,7 @@ import co.com.directv.sdii.persistence.dao.config.CustomerAddressesDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.CustomerDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.CustomerMediaContactDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.Ibs6StatusDAOLocal;
+import co.com.directv.sdii.persistence.dao.config.SystemParameterDAOLocal;
 import co.com.directv.sdii.persistence.dao.security.UserDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.SerializedDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.TechnologyDAOLocal;
@@ -103,6 +105,9 @@ public class CustomerBusinessBean extends BusinessBase implements
 	
 	@EJB(name = "Vista360ServiceBrokerLocal", beanInterface = Vista360ServiceBrokerLocal.class)
 	private Vista360ServiceBrokerLocal vista360ServiceBroker;
+	
+	@EJB(name = "SystemParameterDAOLocal", beanInterface = SystemParameterDAOLocal.class)
+	private SystemParameterDAOLocal sysParamDao;
 	
 	/*
 	 * (non-Javadoc)
@@ -228,6 +233,24 @@ public class CustomerBusinessBean extends BusinessBase implements
 			//Solo es posible consultar clientes que no sean empleados de DTV.
 			if(customerInfoAggregatedDTO.getCustomerInfoDTO().getCustomerVO().getCustType().getCustomerType().getCustomerTypeCode().equalsIgnoreCase(CodesBusinessEntityEnum.CUSTOMER_EMPLOYEE_TYPE.getCodeEntity()) )
 				throw new BusinessException( ErrorBusinessMessages.CUSTOMER_CS001.getCode(),ErrorBusinessMessages.CUSTOMER_CS001.getMessageCode(params),UtilsBusiness.getParametersWS(params));
+			
+			// ####!####
+			// Agregado enmascarado del cliente
+//			customerInfoAggregatedDTO.set
+			SystemParameter sp = sysParamDao
+					.getSysParamByCodeAndCountryCode( 
+							CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK
+									.getCodeEntity(), sourceId);
+			
+			String isCustomerMask = sp.getValue();
+//          Se enmascara el numero de documento y el tipo de documento
+			if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity()
+					.equals(isCustomerMask)) {
+			String cardNumber=customerInfoAggregatedDTO.getCustomerInfoDTO().getCustomerInfoIndividualIdentifiedDTOS().getCardNr();
+			cardNumber=UtilsBusiness.maskNumber(cardNumber);
+			customerInfoAggregatedDTO.getCustomerInfoDTO().getCustomerInfoIndividualIdentifiedDTOS().setCardNr(cardNumber);
+			}
+//          ####!####			
 			
 			return customerInfoAggregatedDTO;
 		} catch (Throwable ex) {
@@ -426,14 +449,33 @@ public class CustomerBusinessBean extends BusinessBase implements
 															  		String documentNumber, 
 															  		String ibsCode,
 															  		Long countryId) throws BusinessException {
-				
+			
+		    List<CustomerVO> clientResponseList = null;
+		
 			log.debug("== Inicia getCustomerByDocTypeIdDocNumberAndIbsCode/CustomerBusinessBean ==");
 			try {
 	
-				return customerDao.getCustomerByDocTypeIdDocNumberAndIbsCode(documentTypeId,
-																				  		documentNumber, 
-																				  		ibsCode,
-																				  		countryId);
+				clientResponseList = customerDao
+						.getCustomerByDocTypeIdDocNumberAndIbsCode(documentTypeId,
+								documentNumber, ibsCode, countryId);
+				
+				SystemParameter sp = sysParamDao.getSysParamByCodeAndCountryId(
+						CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK
+						.getCodeEntity(), countryId);
+				String isCustomerMask = sp.getValue();
+				//Verifica si para el pais correspondiente debe enmascarar los datos o no
+				if (clientResponseList!=null && CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity().equals(
+						isCustomerMask)) {
+					for (CustomerVO customers : clientResponseList) {
+						customers.setDocumentNumber(UtilsBusiness
+								.maskNumber(documentNumber));
+						customers.setDocumentTypeName(UtilsBusiness
+								.maskString(customers.getDocumentTypeName()));
+					}
+				}
+				// ####!#### Enmascarado datos del cliente
+				return clientResponseList;
+				
 			} catch (Throwable ex) {
 				log.error("== Error al tratar de ejecutar la operación getCustomerByDocTypeIdDocNumberAndIbsCode/CustomerBusinessBean",ex);
 				throw super.manageException(ex);

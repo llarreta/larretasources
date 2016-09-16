@@ -4,7 +4,7 @@
 package co.com.directv.sdii.exceptions;
 
 /**
- * ExcepciÃ³n en el cambio de estado de una WorkOrder
+ * Excepción en el cambio de estado de una WorkOrder
  * 
  * 
  * @author Jimmy Velez Munoz

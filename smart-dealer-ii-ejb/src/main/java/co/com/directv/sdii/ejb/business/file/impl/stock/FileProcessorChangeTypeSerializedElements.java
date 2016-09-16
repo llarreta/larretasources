@@ -19,7 +19,6 @@ import co.com.directv.sdii.ejb.business.dealers.CountriesCRUDBeanLocal;
 import co.com.directv.sdii.ejb.business.file.DTO.FileRecordDTO;
 import co.com.directv.sdii.ejb.business.stock.ElementBusinessBeanLocal;
 import co.com.directv.sdii.exceptions.BusinessException;
-import co.com.directv.sdii.exceptions.PropertiesException;
 import co.com.directv.sdii.model.pojo.ElementType;
 import co.com.directv.sdii.model.pojo.FileDetailProcess;
 import co.com.directv.sdii.model.pojo.UploadFileParam;
@@ -265,5 +264,4 @@ public class FileProcessorChangeTypeSerializedElements extends BasicFileProcesso
 	public void setCountry(CountryVO country) {
 		this.country = country;
 	}
-	
 }

@@ -670,4 +670,33 @@ public class EmployeesCrewDAO extends BaseDao implements EmployeesCrewDAOLocal {
         }
 	}
     
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<Employee> getAllEmployeeCrewByCrewId(Long crewId)throws DAOServiceException, DAOSQLException {
+		log.debug("== Inicio getEmployeeResponsibleByCrewId/EmployeesCrewDAO ==");
+        
+        try {
+        	Session session = this.getSession();
+
+            StringBuffer queryBuffer=new StringBuffer();
+            queryBuffer.append("select employeeCrew.employee from ");
+            queryBuffer.append(EmployeeCrew.class.getName());
+            queryBuffer.append(" employeeCrew where employeeCrew.crew.id = :aCrewId ");
+            Query query = session.createQuery(queryBuffer.toString());
+            query.setLong("aCrewId", crewId);
+
+            List<Employee> employeeCrewList = query.list();
+            if(employeeCrewList.isEmpty()){
+            	return null;
+            }
+            
+            return employeeCrewList;            
+        } catch (Throwable ex) {
+            log.debug("== Error en getEmployeeResponsibleByCrewId ==");
+            throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina getEmployeeResponsibleByCrewId/EmployeesCrewDAO ==");
+        }
+	}
+	
 }

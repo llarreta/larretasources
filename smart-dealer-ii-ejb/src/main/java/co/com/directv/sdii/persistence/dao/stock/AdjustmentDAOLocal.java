@@ -11,7 +11,6 @@ import co.com.directv.sdii.model.dto.AdjustmentRequestDTO;
 import co.com.directv.sdii.model.pojo.Adjustment;
 import co.com.directv.sdii.model.pojo.collection.AdjustmentElementsResponse;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
-import co.com.directv.sdii.model.vo.AdjustmentVO;
 
 /**
  * 
@@ -64,6 +63,8 @@ public interface AdjustmentDAOLocal {
 	 */
 	public Adjustment getAdjustmentByID(Long id) throws DAOServiceException, DAOSQLException;
 	
+	public Adjustment getAdjustmentByIDMassive(Long id) throws DAOServiceException, DAOSQLException;
+	
 	/**
 	 * Metodo: Obtiene la información de todos los Adjustment almacenados en la persistencia
 	 * @return Lista con los Adjustment existentes, una lista vacia en caso que no existan Adjustment en el sistema
@@ -94,4 +95,17 @@ public interface AdjustmentDAOLocal {
 	 * @throws BusinessException
 	 */
 	public AdjustmentElementsResponse searchAdjustmentsBySearchParameters(AdjustmentRequestDTO params, RequestCollectionInfo requestCollInfo) throws DAOServiceException, DAOSQLException, BusinessException;
+	
+	/**
+	 * 
+	 * Metodo: Consulta los Adjustment por cuadrilla y estados que no sean los recibidos por parametro
+	 * @param transferReasonId
+	 * @return Lista de Adjusment asociados a la causal pasada por parametro
+	 * @throws DAOServiceException
+	 * @throws DAOSQLException <tipo> <descripcion>
+	 * @author jgonzmol
+	 */
+	public List<Adjustment> getAdjustmentsByCrewIdAndDistinctAdjustmentStatus(List<String> statusCode,
+			Long crewId) throws DAOServiceException, DAOSQLException;
+
 }

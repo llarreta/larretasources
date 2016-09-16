@@ -4,6 +4,8 @@ import javax.ejb.Local;
 
 import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.model.dto.MovementElementDTO;
+import co.com.directv.sdii.model.pojo.MovementType;
+import co.com.directv.sdii.model.pojo.RecordStatus;
 
 /**
  * 
@@ -76,4 +78,15 @@ public interface MovementElementBusinessBeanLocal {
 	 */
 	public MovementElementDTO fillMovementTypeAndRecordStatus(String movementTypeCodeE, String movementTypeCodeS)
 		throws BusinessException;
+	
+	public MovementElementDTO fillMovementTypeAndRecordStatusMassive(String movementTypeCodeE, String movementTypeCodeS)
+			throws BusinessException;
+	
+	public MovementElementDTO fillMovementTypeAndRecordStatusMassive(MovementType movementTypeE, MovementType movementTypeS, RecordStatus recordStatusU, RecordStatus recordStatusH)
+			throws BusinessException;
+	
+	public MovementElementDTO fillMovementTypeAndRecordStatusMassive(String movementTypeCodeE, String movementTypeCodeS,RecordStatus[] recordStatusU,RecordStatus[] recordStatusH)
+			throws BusinessException;
+
+	public void fillData(String movTypeCode, String movTypeCode2, MovementType movementTypeE, MovementType movementTypeS, RecordStatus recordStatusU, RecordStatus recordStatusH)throws BusinessException;
 }

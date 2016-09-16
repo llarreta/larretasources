@@ -186,5 +186,10 @@ public class ClientBasicFileProcessor implements IFileProcessor {
 	public boolean validateFile() throws BusinessException {
 		return true;
 	}
+
+	@Override
+	public void saveFileDetailProcessMassive(List<FileDetailProcess> fileDetailProcess) {
+		//NOT IMPLEMENTED
+	}
 	
 }

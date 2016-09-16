@@ -11,6 +11,7 @@ import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.model.pojo.CrewOff;
 import co.com.directv.sdii.model.vo.CrewOffVO;
 import co.com.directv.sdii.model.vo.CrewVO;
+import co.com.directv.sdii.model.vo.EmployeeCrewVO;
 import co.com.directv.sdii.model.vo.UserVO;
 
 /**
@@ -41,6 +42,16 @@ public interface CrewsFacadeBeanLocal {
      */
     public void updateCrews(CrewVO obj,String description, UserVO user) throws BusinessException;
 
+    /**
+     * 
+     * Metodo: Desasocia un empleado de una cuadrilla
+     * @param obj objeto que encapsula informacion dela cuadrilla
+     * @param employee objeto que encapsula informacion delempleado
+     * @throws BusinessException <tipo> <descripcion>
+     * @author jgonzmol
+     */    
+    public void detachedEmployeeCrew(CrewVO obj , EmployeeCrewVO employeeCrew, UserVO user) throws BusinessException;    
+    
     public void deleteCrews(CrewVO obj) throws BusinessException;
 
     public List<CrewVO> getAllCrews() throws BusinessException;

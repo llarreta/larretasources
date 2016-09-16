@@ -2,6 +2,8 @@ package co.com.directv.sdii.persistence.dao.stock;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -755,6 +757,8 @@ public interface WarehouseElementDAOLocal {
 	 */
 	public WarehouseElement getWarehouseElementBySerialActive(String serialCode,Long countryId) throws DAOServiceException, DAOSQLException;
 
+	
+	public Map<String,WarehouseElement> getWarehouseElementBySerialActiveMassive(Set<String> serialCode,Long countryId) throws DAOServiceException, DAOSQLException;
 	/**
 	 *  Metodo encargado de obtener un objeto de tipo  WarehouseElement del elementId 
 	 * enviado como parametro y que se encuentre activo

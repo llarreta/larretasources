@@ -50,6 +50,8 @@ public interface AdjustmentElementsStatusDAOLocal {
 	 */
 	public AdjustmentElementsStatus getAdjustmentElementsStatusByCode(String code) throws DAOServiceException, DAOSQLException;
 	
+	public AdjustmentElementsStatus getAdjustmentElementsStatusByCodeMassive(String code) throws DAOServiceException, DAOSQLException;
+	
 	/**
 	 * Metodo: Obtiene la información de todos los AdjustmentElementsStatus
 	 * @return Lista con los AdjustmentElementsStatus existentes, una lista vacia en caso que no existan AdjustmentElementsStatus en el sistema
@@ -59,4 +61,5 @@ public interface AdjustmentElementsStatusDAOLocal {
 	 */
     public List<AdjustmentElementsStatus> getAllAdjustmentElementsStatus() throws DAOServiceException, DAOSQLException;
 	
+    public AdjustmentElementsStatus getAdjustmentElementsStatusByCodeRequired(String code) throws DAOServiceException, DAOSQLException;
 }

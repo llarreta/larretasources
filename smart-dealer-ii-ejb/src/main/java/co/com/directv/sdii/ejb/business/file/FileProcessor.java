@@ -253,4 +253,14 @@ public abstract class FileProcessor extends BusinessBase implements IFileProcess
 		}
 	}
 	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void saveFileDetailProcessMassive(List<FileDetailProcess> fileDetailProcess) {
+		try {
+			fileDetailProcessDAO.save(fileDetailProcess);
+		} catch (Exception dse) {
+			log.error(dse);
+		}
+	}
+	
 }

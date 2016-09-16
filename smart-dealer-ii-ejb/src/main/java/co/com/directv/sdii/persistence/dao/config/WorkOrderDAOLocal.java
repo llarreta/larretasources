@@ -10,6 +10,7 @@ import javax.ejb.Local;
 import co.com.directv.sdii.assign.schedule.dto.DealerWorkCapacityCriteria;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
+import co.com.directv.sdii.model.dto.ReportWorkOrderCrewAttentionDTO;
 import co.com.directv.sdii.model.dto.ReportWorkOrdersLastDayDTO;
 import co.com.directv.sdii.model.dto.ReportsComplyAndScheduleAndFileResponseDTO;
 import co.com.directv.sdii.model.dto.ReportsComplyAndScheduleFilterDTO;
@@ -34,7 +35,6 @@ import co.com.directv.sdii.model.pojo.collection.WOByDealerPaginationResponse;
 import co.com.directv.sdii.model.pojo.collection.WOByDealerWorkOrderQBEPaginationResponse;
 import co.com.directv.sdii.model.pojo.collection.WorkOrderResponse;
 import co.com.directv.sdii.model.vo.TechnologyVO;
-import co.com.directv.sdii.model.vo.WorkOrderVO;
 import co.com.directv.sdii.reports.dto.ReportWorkOrderDTO;
 /**
  * 
@@ -875,7 +875,7 @@ public interface WorkOrderDAOLocal {
 	 * @throws DAOSQLException
 	 * @author aquevedo
 	 */
-	public List<ReportWorkOrderDTO> getWorkOrderByIDReport(List<Long> woIDs,Timestamp aSysdate,List<TechnologyVO> technologies,
+	public List<ReportWorkOrderDTO> getWorkOrderByIDReport(Timestamp aSysdate,List<TechnologyVO> technologies,
             String activeStatus,
             String anIsResponsible,
             String anIsNotResponsible,
@@ -909,7 +909,7 @@ public interface WorkOrderDAOLocal {
             boolean isViewCustomerMail,
             String activeWorkOrderMark,
             String codeRequiredcontractMark,
-            boolean isBuilding) throws DAOServiceException, DAOSQLException;
+            boolean isBuilding,long idWO) throws DAOServiceException, DAOSQLException;
 	
 	/**
 	 * Retorna un listado con los resultados del query que genera la informacion necesaria para las bandejas
@@ -930,6 +930,7 @@ public interface WorkOrderDAOLocal {
 	 * @throws DAOSQLException <tipo> <descripcion>
 	 * @author
 	 */
+	@SuppressWarnings("rawtypes")
 	public List getServiceWithWarranty(String ibsCustomerCode, Long countryCode) throws DAOServiceException, DAOSQLException;
 	/**
 	 * @author Aharker
@@ -1022,4 +1023,16 @@ public interface WorkOrderDAOLocal {
 	 */
 	 public List<WorkOrder> getCanceledWorkOrdersByDealerIdAndDates(Long dealerId, Date fromDate, Date toDate) throws DAOServiceException, DAOSQLException;
 
+		//REQ Inactivación de Técnico
+		/**
+		 * Metodo encargado de traer todas las WO que fueron antendidas, con los respectivos datos de la cuadrilla que atendio la cad WO.<br/>
+		 *
+		 * @throws DAOSQLException
+		 * @throws DAOServiceException
+		 * @throws BusinessException <tipo> <descripcion>
+		 * @author jgonzmol
+		 */
+	 public List<ReportWorkOrderCrewAttentionDTO> getWorkOrderAttentionReport(Long countryId, Date nowDate, RequestCollectionInfo requestInfo, ReportWorkOrderCrewAttentionDTO reportWorkOrderCrewAttentionDTO) throws DAOSQLException, DAOServiceException;
+
+	 
 }

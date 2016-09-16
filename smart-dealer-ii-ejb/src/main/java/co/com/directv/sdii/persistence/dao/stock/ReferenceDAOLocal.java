@@ -201,6 +201,30 @@ public interface ReferenceDAOLocal {
 
 	/**
 	 * Metodo: Obtiene la información de los Reference almacenados en la
+	 * persistencia dado un estado distinto y bodegas de entrada y salida segun la cuadrilla
+	 * 
+	 * @param idStatus
+	 *            - Long Identificador del estado de las remisiones
+	 * @param idWhSource
+	 *            - Long Identificador de la bodega de entrada
+	 * @param idWhTarget
+	 *            - Long Identificador de la bodega de salida
+	 * @return List<Reference> correspondiente al estado, bodegas de entrada y
+	 *         salida especificados
+	 * @throws DAOServiceException
+	 *             en caso de error al tratar de ejecutar la consulta de
+	 *             Reference por estado y bodegas de entrada y salida
+	 * @throws DAOSQLException
+	 *             en caso de error al tratar de ejecutar la consulta de
+	 *             Reference por estado y bodegas de entrada y salida
+	 * @author gfandino
+	 */
+	public List<Reference> getReferencesByCrewIdAndDistinctReferneceStatus(List<String> statusCode,
+			Long crewId) throws DAOServiceException,
+			DAOSQLException;
+	
+	/**
+	 * Metodo: Obtiene la información de los Reference almacenados en la
 	 * persistencia dado sus bodegas de entrada y salida
 	 * 
 	 * @param idWhSource

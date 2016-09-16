@@ -25,14 +25,11 @@ import co.com.directv.sdii.model.dto.AdjustmentRequestDTO;
 import co.com.directv.sdii.model.dto.AdjustmentResponseDTO;
 import co.com.directv.sdii.model.pojo.Adjustment;
 import co.com.directv.sdii.model.pojo.AdjustmentElements;
-import co.com.directv.sdii.model.pojo.Crew;
-import co.com.directv.sdii.model.pojo.Serialized;
 import co.com.directv.sdii.model.pojo.collection.AdjustmentElementsResponse;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
 import co.com.directv.sdii.model.vo.AdjustmentVO;
 import co.com.directv.sdii.persistence.dao.BaseDao;
 import co.com.directv.sdii.persistence.dao.stock.AdjustmentDAOLocal;
-import co.com.directv.sdii.persistence.dao.stock.WarehouseDAOLocal;
 
 /**
  * 
@@ -391,6 +388,7 @@ public class AdjustmentDAO extends BaseDao implements AdjustmentDAOLocal {
 				query.setFirstResult(requestCollInfo.getFirstResult());
 				query.setMaxResults(requestCollInfo.getMaxResults());
 			}
+			@SuppressWarnings("unchecked")
 			List<AdjustmentVO> result = (List<AdjustmentVO>) query.list();
 
 			List<AdjustmentResponseDTO> resultDTO = convertToListOfAdjustmentDTO(result);
@@ -496,6 +494,30 @@ public class AdjustmentDAO extends BaseDao implements AdjustmentDAOLocal {
 			log.debug("== Termina getAdjustmentByID/AdjustmentDAO ==");
 		}
 	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public Adjustment getAdjustmentByIDMassive(Long id) throws DAOServiceException,
+			DAOSQLException {
+		log.debug("== Inicio getAdjustmentByID/AdjustmentDAO ==");
+		Session session = super.getSession();
+
+		try {
+			StringBuffer stringQuery = new StringBuffer();
+			stringQuery.append("from ");
+			stringQuery.append(Adjustment.class.getName());
+			stringQuery.append(" entity where entity.id = :anId");
+			Query query = session.createQuery(stringQuery.toString());
+			query.setLong("anId", id);
+
+			return (Adjustment) query.uniqueResult();
+
+		} catch (Throwable ex) {
+			log.error("== Error ==");
+			throw this.manageException(ex);
+		} finally {
+			log.debug("== Termina getAdjustmentByID/AdjustmentDAO ==");
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -561,4 +583,43 @@ public class AdjustmentDAO extends BaseDao implements AdjustmentDAOLocal {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @seeco.com.directv.sdii.persistence.dao.stock.AdjustmentDAOLocal#
+	 * getAllAdjustments()
+	 */
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+	public List<Adjustment> getAdjustmentsByCrewIdAndDistinctAdjustmentStatus(List<String> statusCodes,
+			Long crewId) throws DAOServiceException,
+			DAOSQLException {
+		log.debug("== Inicia getAdjustmentsByCrewIdAndDistinctAdjustmentStatus/AdjustmentDAO ==");
+		Session session = super.getSession();
+
+		try {
+			
+        	StringBuffer stringQuery = new StringBuffer();
+        	stringQuery.append( "select AD from " );
+        	stringQuery.append( Adjustment.class.getName() +" AD, ");
+        	stringQuery.append( AdjustmentElements.class.getName() +" AE ");
+        	stringQuery.append( "where " );
+        	stringQuery.append( "AD.id = AE.adjustment.id " );
+        	stringQuery.append( "and AD.adjustmentStatus.code NOT IN (:aStatusCodes) " );
+        	stringQuery.append( "and ( AE.warehouseSource.crewId.id = :aCrewId " );
+			stringQuery.append( "or AE.warehouseDestination.crewId.id = :aCrewId ) " );
+        	Query query = session.createQuery(stringQuery.toString());
+            query.setParameterList("aStatusCodes", statusCodes);
+            query.setLong("aCrewId", crewId);
+
+            return query.list();
+
+		} catch (Throwable ex) {
+			log.error("== Error ==");
+			throw this.manageException(ex);
+		} finally {
+			log.debug("== Termina getAdjustmentsByCrewIdAndDistinctAdjustmentStatus/AdjustmentDAO ==");
+		}
+	}
+	
 }

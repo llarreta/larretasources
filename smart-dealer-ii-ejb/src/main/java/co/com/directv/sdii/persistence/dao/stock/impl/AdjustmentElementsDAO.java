@@ -159,6 +159,7 @@ public class AdjustmentElementsDAO extends BaseDao implements AdjustmentElements
 
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	public List<AdjustmentElements> getAdjustmentElementsByAdjusmentId(Long idAdjustment)
@@ -182,6 +183,7 @@ public class AdjustmentElementsDAO extends BaseDao implements AdjustmentElements
         }
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	public List<AdjustmentElements> getAdjustmentElementsForAuthorization(Long adjustmentId)
@@ -204,7 +206,40 @@ public class AdjustmentElementsDAO extends BaseDao implements AdjustmentElements
         	query.setString("needAuthorization", CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_PENDING.getCodeEntity());
         	query.setString("needAuthorizationReason", CodesBusinessEntityEnum.MOVEMENT_TYPE_AUTHORIZED_YES.getCodeEntity());
         	
-        	AdjustmentElementCollDTO response = new AdjustmentElementCollDTO();        	
+        	List<AdjustmentElements> adjustmentElements = query.list();
+        	
+        	return adjustmentElements;
+        } catch (Throwable ex){
+			log.error("== Error ==");
+			throw this.manageException(ex);
+		} finally {
+            log.debug("== Termina getAdjustmentElementsForAuthorization/AdjustmentElementsDAO ==");
+        }
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public List<AdjustmentElements> getAdjustmentElementsForAuthorizationMassive(Long adjustmentId)
+	throws DAOServiceException, DAOSQLException {
+		log.debug("== Inicia getAdjustmentElementsForAuthorization/AdjustmentElementsDAO ==");
+        Session session = super.getSession();
+
+        try {
+        	
+        	StringBuffer stringQuery = new StringBuffer();
+        	
+        	stringQuery.append("FROM ");
+        	stringQuery.append(AdjustmentElements.class.getName() + " entity");
+        	stringQuery.append(" WHERE entity.adjustment.id = :adjustmentId AND entity.adjustmentElementsStatus.code = :needAuthorization AND entity.adjustment.transferReason.transferReasonAuthorized = :needAuthorizationReason");
+
+        	
+        	Query query = session.createQuery(stringQuery.toString());
+        	query.setLong("adjustmentId", adjustmentId);
+
+        	query.setString("needAuthorization", CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_PENDING.getCodeEntity());
+        	query.setString("needAuthorizationReason", CodesBusinessEntityEnum.MOVEMENT_TYPE_AUTHORIZED_YES.getCodeEntity());
+        	      	
         	List<AdjustmentElements> adjustmentElements = query.list();
         	
         	return adjustmentElements;
@@ -216,7 +251,7 @@ public class AdjustmentElementsDAO extends BaseDao implements AdjustmentElements
         }
 	}
 
-	
+	@SuppressWarnings("unchecked")
 	@Override
 	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	public AdjustmentElementCollDTO getAdjustmentElementsForAuthorization(
@@ -314,6 +349,52 @@ public class AdjustmentElementsDAO extends BaseDao implements AdjustmentElements
 	@Override
 	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	public Object[] countAdjustmentElementsByAllStatus(Long adjustmentId)
+	throws DAOServiceException, DAOSQLException {
+		log.debug("== Inicia countAdjustmentElementsByStatus/AdjustmentElementsDAO ==");
+        Session session = super.getSession();
+
+        try {
+        	Object[] result;
+        	
+        	StringBuffer stringQuery = new StringBuffer();
+        	
+        	stringQuery.append(" select sum(case when entity.adjustmentElementsStatus.code = :adjustmentElementStatusPending then  ");
+        	stringQuery.append("                 1  ");
+        	stringQuery.append("            else  ");
+        	stringQuery.append("                 0  ");
+        	stringQuery.append("            end), ");
+        	stringQuery.append("        sum(case when entity.adjustmentElementsStatus.code = :adjustmentElementStatusProcess then ");
+        	stringQuery.append("                 1 ");
+        	stringQuery.append("            else ");
+        	stringQuery.append("                 0 ");
+        	stringQuery.append("            end), ");
+        	stringQuery.append("        sum(case when entity.adjustmentElementsStatus.code = :adjustmentElementStatusAuthorized then ");
+        	stringQuery.append("                 1 ");
+        	stringQuery.append("            else ");
+        	stringQuery.append("                 0 ");
+        	stringQuery.append("            end) ");
+        	stringQuery.append(" from AdjustmentElements entity  ");
+        	stringQuery.append(" where entity.adjustment.id = :adjustmentId ");
+        	
+        	Query query = session.createQuery(stringQuery.toString());
+        	query.setLong("adjustmentId", adjustmentId);
+        	query.setString("adjustmentElementStatusPending", CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_PENDING.getCodeEntity());
+        	query.setString("adjustmentElementStatusProcess", CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_PROCESS.getCodeEntity());
+        	query.setString("adjustmentElementStatusAuthorized", CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_AUTHORIZED.getCodeEntity());
+        	result = (Object[]) query.uniqueResult();
+        	
+        	return result;
+        } catch (Throwable ex){
+			log.error("== Error ejecutando countAdjustmentElementsByStatus/AdjustmentElementsDAO ==");
+			throw this.manageException(ex);
+		} finally {
+            log.debug("== Termina countAdjustmentElementsByStatus/AdjustmentElementsDAO ==");
+        }
+	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public Object[] countAdjustmentElementsByAllStatusMassive(Long adjustmentId)
 	throws DAOServiceException, DAOSQLException {
 		log.debug("== Inicia countAdjustmentElementsByStatus/AdjustmentElementsDAO ==");
         Session session = super.getSession();

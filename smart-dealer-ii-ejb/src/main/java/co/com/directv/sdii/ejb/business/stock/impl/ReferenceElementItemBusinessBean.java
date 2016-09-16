@@ -2,6 +2,7 @@ package co.com.directv.sdii.ejb.business.stock.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import co.com.directv.sdii.model.pojo.Element;
 import co.com.directv.sdii.model.pojo.ElementType;
 import co.com.directv.sdii.model.pojo.ItemStatus;
 import co.com.directv.sdii.model.pojo.NotSerialized;
+import co.com.directv.sdii.model.pojo.RecordStatus;
 import co.com.directv.sdii.model.pojo.RefConfirmation;
 import co.com.directv.sdii.model.pojo.Reference;
 import co.com.directv.sdii.model.pojo.ReferenceElementItem;
@@ -1303,7 +1305,6 @@ public class ReferenceElementItemBusinessBean extends BusinessBase implements Re
 	    		if(elements != null && !elements.isEmpty()){
 	    			//Se actualiza el estado del elemento
 	    			Long itemNewStatusId = CodesBusinessEntityEnum.ITEM_STATUS_RECEPTED.getIdEntity(ItemStatus.class.getName());
-	    			ItemStatus itemStatus = new ItemStatus(itemNewStatusId);
 	    			for(ReferenceElementItem item : elements){
 	    				RefConfirmation confirmation = new RefConfirmation();
 						//Obtengo la suma de las confirmacion que se han hecho
@@ -2115,7 +2116,179 @@ public class ReferenceElementItemBusinessBean extends BusinessBase implements Re
         } finally {
             log.debug("== Termina addElementSerialized/ReferenceBusinessBean ==");
         }
+	}
+
+	@Override
+	public void addElementSerializedMassive(	String serialCode, 
+										String serialCodeLinked, 
+										Long referenceID, 
+										User user,
+										HashMap<String, Reference> mapaReferencias,
+										ReferenceStatus[] refStatus,
+										ItemStatus[] itemStatus
+	) throws BusinessException {
+		log.debug("== Inicia addElementSerialized/ReferenceBusinessBean ==");
+	 	UtilsBusiness.assertNotNull(serialCode, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+        UtilsBusiness.assertNotNull(referenceID, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+        
+        try {
+        	
+        	//Consulto el usuario 
+        	//User user = daoUser.getUserById(userId);
+        	if(user == null){
+        		throw new BusinessException(ErrorBusinessMessages.USER_NOT_EXIST.getCode(),	ErrorBusinessMessages.USER_NOT_EXIST.getMessage());
+        	}
+        	
+        	//1) Consulta la remisión
+        	//Consultamos si la referencia esta en el mapa.
+        	Reference ref = mapaReferencias.get(serialCode);
+        	if(ref == null){
+        		ref = this.daoRef.getReferenceByID(referenceID);
+        		mapaReferencias.put(serialCode, ref);
+        	}
+        	
+        	//2 Consulta el estado de la remision /*ialessan IN317430 - Inconsistencia en remisiones*/
+			//Valida que la remision este en confirmado parcial o enviada
+			if(                                                                                        //estado En creacion
+				   ref.getReferenceStatus().getRefStatusCode().equalsIgnoreCase(CodesBusinessEntityEnum.REFERENCE_STATUS_CREATED_PROCESS.getCodeEntity()) 
+				                                                                                      // estado Creada
+				   ||
+				   ref.getReferenceStatus().getRefStatusCode().equalsIgnoreCase(CodesBusinessEntityEnum.REFERENCE_STATUS_CREATED.getCodeEntity() ) ){
+
+        	
+				        	boolean isPrepaid = ref.getIsPrepaidRef().equals(CodesBusinessEntityEnum.REFERENCE_PREPAID.getCodeEntity());
+				            boolean isBetweenDealers =  this.isReferenceBetweenCompany(ref);
+				        	
+				        	Serialized serialized = null;
+				        	Serialized linkedSerialized = null;
+				
+				        	//COSTO 19 - OK
+				        	WarehouseElement warehouseElementSerialized = daoWarehouseElement.getWarehouseElementBySerialActive(serialCode,user.getCountry().getId());
+				        	if(warehouseElementSerialized == null){
+				        		Object params[] = {serialCode};
+								List<String> paramsList = new ArrayList<String>();
+								paramsList.add( serialCode);
+								//Verifica que el elemento con serial digita exista en la bodega
+								throw new BusinessException(ErrorBusinessMessages.STOCK_IN404.getCode(), ErrorBusinessMessages.STOCK_IN404.getMessage(params),paramsList);
+				        	}else{
+				        		//Verifica si el elemento ya se agrego a la remisión
+				        		List<ReferenceElementItem> listaReferenceItems = daoReferenceElementItem.getReferenceElementsByReferenceIdAndSerial(ref.getId(), serialCode);
+				        		if ( listaReferenceItems.size() > 0 ){
+				        			throw new BusinessException(ErrorBusinessMessages.STOCK_IN442.getCode(),ErrorBusinessMessages.STOCK_IN442.getMessage());
+				        		}
+				        		
+				        		//Verifica que el elemento adicionado exista en la bodega origen
+				        		if( !warehouseElementSerialized.getWarehouseId().getId().equals( ref.getWarehouseBySourceWh().getId() ) ){
+				        			throw new BusinessException(ErrorBusinessMessages.STOCK_IN367.getCode(),ErrorBusinessMessages.STOCK_IN367.getMessage());
+				        		}
+				        		
+				        		//Validar si el elemento es del tipo solicitado
+				        		if(isPrepaid){
+				        			if(!warehouseElementSerialized.getSerialized().getElement().getElementType().getElementModel().getIsPrepaidModel().equals(CodesBusinessEntityEnum.ELEMENT_MODEL_IS_PREPAID.getCodeEntity())){
+				        				throw new BusinessException(ErrorBusinessMessages.STOCK_IN436.getCode(),ErrorBusinessMessages.STOCK_IN436.getMessage());
+				            		}
+				        		}else{
+				        			if(!warehouseElementSerialized.getSerialized().getElement().getElementType().getElementModel().getIsPrepaidModel().equals(CodesBusinessEntityEnum.ELEMENT_MODEL_IS_NOT_PREPAID.getCodeEntity())){
+				        				throw new BusinessException(ErrorBusinessMessages.STOCK_IN437.getCode(),ErrorBusinessMessages.STOCK_IN437.getMessage());
+				            		}
+				        		}
+				        		
+				        		
+				        		serialized = warehouseElementSerialized.getSerialized();
+				        		if(serialized.getSerialized()!=null){
+				        			linkedSerialized = serialized.getSerialized();
+				        		}else{
+				        			List<Serialized> listElementLinked = daoSerialized.getLinkedSerializedBySerializedId(serialized.getElementId());
+				        			if(listElementLinked.size()>0){
+				        				linkedSerialized= serialized;
+				        				serialized = listElementLinked.get(0);
+				        			}
+				        		}
+				        	}
+				        	
+				        	//Validar los seriales ingresados por el usuario con respecto a lo encontrado en el sistema
+				        	this.validaSerialLinked(linkedSerialized, serialized, serialCodeLinked);
+				        	
 		
+				        	//3. Consulta el tipo de elemento en el control de cantidades para la remisión
+				        	this.businessRefQuantityControlItem.generateRefQuantiyControls( UtilsBusiness.copyObject(ElementVO.class, serialized.getElement()) , UtilsBusiness.copyObject(ReferenceVO.class, ref),1D);
+				        	//En caso que tenga vinculado lo agrega
+				        	if( linkedSerialized != null){
+				        		//Como es un elemento serializado el vinculado se pone por defecto cantidad 1
+				        		this.businessRefQuantityControlItem.generateRefQuantiyControls( UtilsBusiness.copyObject(ElementVO.class, linkedSerialized.getElement()) , UtilsBusiness.copyObject(ReferenceVO.class, ref),1D);
+				        	}
+				        		
+				        	//5. Se agrega el item a la remisión
+				        	ReferenceElementItemVO refElementVO = new ReferenceElementItemVO();
+				        	if(itemStatus[0] == null){
+				        		itemStatus[0] = this.businessItemStatus.getItemStatusByCode(CodesBusinessEntityEnum.ITEM_STATUS_CREATED.getCodeEntity());
+				        	}
+				        	refElementVO.setItemStatus(itemStatus[0]);
+				        	refElementVO.setElement(serialized.getElement());
+				        	refElementVO.setReference(ref);
+				        	refElementVO.setRefQuantity(new Double(1));
+				        	this.createReferenceElementItem(refElementVO);
+				        	
+				        	//6. Actualizar el estado de la remisión
+				        	if( !ref.getReferenceStatus().getRefStatusCode().equals( CodesBusinessEntityEnum.REFERENCE_STATUS_CREATED.getCodeEntity() ) ){
+				        		//Crea el registro en las modificaciones de remision
+				                this.businessReferenceModification.createReferenceModification( ref.getId() , CodesBusinessEntityEnum.REFERENCE_MODIFICATION_TYPE_CREATED.getCodeEntity(), user.getId());
+				        	}
+				        	if(refStatus[0] == null){
+				        		refStatus[0] = this.businessRefStatus.getReferenceStatusByCode(CodesBusinessEntityEnum.REFERENCE_STATUS_CREATED.getCodeEntity());
+				        	}
+				        	ref.setReferenceStatus(refStatus[0]);
+				        	this.businessRef.updateReference(UtilsBusiness.copyObject(ReferenceVO.class, ref));
+				        	//7. Mover el elemento
+				        	//Se obtiene la bodega de transito de origen
+				        	if( ref != null && ( ref.getSourceTransitWh() == null || ref.getSourceTransitWh().getId().longValue() <= 0 ) ){
+				        		//No se encontro la bodega de transito origen
+								Object[] params = {ref.getWarehouseBySourceWh().getWhCode()};
+								throw new BusinessException(ErrorBusinessMessages.STOCK_IN384.getCode(), ErrorBusinessMessages.STOCK_IN384.getMessage(params));
+				        	}
+				        	
+				        	//Determina si es bodega de talle
+				        	String movementTypeCodeE = getEntryTypeCodeByReference( ref, isBetweenDealers);
+				        	String movementTypeCodeS = getExitTypeCodeByReference( ref, isBetweenDealers);
+				
+				        	//Si no se encontró causal de movimiento
+				        	if(movementTypeCodeE==null || movementTypeCodeS== null){
+				        		throw new BusinessException(ErrorBusinessMessages.STOCK_IN380.getCode(),ErrorBusinessMessages.STOCK_IN380.getMessage());
+				        	}
+				        	/*ElementMovementDTO dtoMovement = null;
+				        	dtoMovement = new ElementMovementDTO(ref.getWarehouseBySourceWh().getId(), ref.getSourceTransitWh().getId(), serialized.getElementId(), movementTypeCodeE, movementTypeCodeS, ref.getId(), CodesBusinessEntityEnum.DOCUMENT_CLASS_REFERENCE.getCodeEntity(), serialized.getSerialCode(), null, false, null,itemStatus); 
+				        	businessWhElement.moveElementToWareHouse(dtoMovement);*/
+				        	MovementElementDTO dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(movementTypeCodeE, movementTypeCodeS);
+							MovementElementDTO dtoMovement = new MovementElementDTO(user, 
+									UtilsBusiness.copyObject(WarehouseVO.class,  ref.getWarehouseBySourceWh()), 
+									UtilsBusiness.copyObject(WarehouseVO.class, ref.getSourceTransitWh()), 
+									serialized, 
+									ref.getId(), 
+									CodesBusinessEntityEnum.DOCUMENT_CLASS_REFERENCE.getCodeEntity(), 
+									dtoGenerics.getMovTypeCodeE(), 
+									dtoGenerics.getMovTypeCodeS(),
+									dtoGenerics.getRecordStatusU(), 
+									dtoGenerics.getRecordStatusH(), 
+									false, 
+									CodesBusinessEntityEnum.PROCESS_CODE_IBS_REFERENCE.getCodeEntity(),
+									dtoGenerics.getMovConfigStatusPending(),
+									dtoGenerics.getMovConfigStatusNoConfig());
+							businessMovementElement.moveSerializedElementBetweenWarehouse(dtoMovement);
+        	}else{	
+				Object params[] = {ref.getId().toString()};		
+				List<String> paramsList = new ArrayList<String>();
+				paramsList.add(ref.getId().toString());
+				throw new BusinessException(	ErrorBusinessMessages.STOCK_IN_ADD_ELE.getCode(), 
+					 		                    ErrorBusinessMessages.STOCK_IN_ADD_ELE.getMessage(params),
+					 		                    paramsList
+        			 		                     );
+	}
+        } catch(Throwable ex){
+        	log.debug("== Error al tratar de ejecutar la operación addElementSerialized/ReferenceBusinessBean ==");
+        	throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina addElementSerialized/ReferenceBusinessBean ==");
+        }
 	}
 	
 	/**
@@ -2232,6 +2405,128 @@ public class ReferenceElementItemBusinessBean extends BusinessBase implements Re
 				            	
 				            	
 				            	MovementElementDTO dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(movementTypeCodeE, movementTypeCodeS);
+								MovementElementDTO dtoMov = new MovementElementDTO(user,
+										UtilsBusiness.copyObject(WarehouseVO.class, reference.getWarehouseBySourceWh()), 
+										UtilsBusiness.copyObject(WarehouseVO.class,  reference.getSourceTransitWh()), 
+										null, 
+										refElementVO.getElement().getElementType().getId(), 
+										null,
+										reference.getId(), 
+										CodesBusinessEntityEnum.DOCUMENT_CLASS_REFERENCE.getCodeEntity(), 
+										dtoGenerics.getMovTypeCodeE(), 
+										dtoGenerics.getMovTypeCodeS(), 
+										dtoGenerics.getRecordStatusU(),
+										dtoGenerics.getRecordStatusH(),
+										refElementVO.getRefQuantityPartial(),
+										dtoGenerics.getMovConfigStatusPending(),
+										dtoGenerics.getMovConfigStatusNoConfig());
+								businessMovementElement.moveNotSerializedElementBetweenWarehouse(dtoMov);
+				        	}
+        	}else{				 
+				Object params[] = {reference.getId().toString()};		
+				List<String> paramsList = new ArrayList<String>();
+				paramsList.add(reference.getId().toString());
+				throw new BusinessException(	ErrorBusinessMessages.STOCK_IN_ADD_ELE.getCode(), 
+					 		                    ErrorBusinessMessages.STOCK_IN_ADD_ELE.getMessage(params),
+					 		                    paramsList
+					 		                     );
+
+				}     	
+        } catch(Throwable ex){
+        	log.debug("== Error al tratar de ejecutar la operación addElementNotSerialized/ReferenceBusinessBean ==");
+        	throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina addElementNotSerialized/ReferenceBusinessBean ==");
+        }
+		
+	}
+
+
+	@Override
+	public void addElementNotSerializedMassive(List<ReferenceElementItemVO> listElementNotSerializedToAdd, 
+										Long referenceID, 
+										User user,
+										ItemStatus[] itemStatusNotSerialized,
+										ReferenceStatus[] refStatus,
+										RecordStatus[] recordStatusU,
+										RecordStatus[] recordStatusH
+    ) throws BusinessException{
+		log.debug("== Inicia addElementNotSerialized/ReferenceBusinessBean ==");
+	 	UtilsBusiness.assertNotNull(listElementNotSerializedToAdd, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+        UtilsBusiness.assertNotNull(referenceID, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+        
+        
+        try {
+        	//1) Consulta
+        	
+        	//Consulto el usuario 
+        	//User user = daoUser.getUserById(userId);
+        	if(user == null){
+        		throw new BusinessException(ErrorBusinessMessages.USER_NOT_EXIST.getCode(),	ErrorBusinessMessages.USER_NOT_EXIST.getMessage());
+        	}
+        	
+        	Reference reference = this.daoRef.getReferenceByID(referenceID);
+        	/*ialessan IN317430 - Inconsistencia en remisiones*/
+        	if(                                                                                        //estado En creacion
+        			reference.getReferenceStatus().getRefStatusCode().equalsIgnoreCase(CodesBusinessEntityEnum.REFERENCE_STATUS_CREATED_PROCESS.getCodeEntity()) 
+					                                                                                      // estado Creada
+					   ||
+					   reference.getReferenceStatus().getRefStatusCode().equalsIgnoreCase(CodesBusinessEntityEnum.REFERENCE_STATUS_CREATED.getCodeEntity() ) ){
+        	
+        	
+				        	boolean isBetweenDealers =  this.isReferenceBetweenCompany(reference);
+				        	
+				        	if(itemStatusNotSerialized[0] == null){
+				        		itemStatusNotSerialized[0] = this.businessItemStatus.getItemStatusByCode(CodesBusinessEntityEnum.ITEM_STATUS_CREATED.getCodeEntity());
+				        	}
+				        	for(ReferenceElementItemVO item: listElementNotSerializedToAdd){
+				        		item.setRefQuantityPartial(item.getRefQuantity());
+				        	}
+				        	listElementNotSerializedToAdd = this.addElementNotSerializedToReference(listElementNotSerializedToAdd, reference, itemStatusNotSerialized[0], null, reference.getWarehouseBySourceWh().getId());
+				        	
+				        	for(ReferenceElementItemVO refElementVO: listElementNotSerializedToAdd){
+				        		
+				        		
+				        		//Agrega control de cantidades si no lo tiene
+				        		this.businessRefQuantityControlItem.generateRefQuantiyControls(UtilsBusiness.copyObject(ElementVO.class, refElementVO.getElement()) , UtilsBusiness.copyObject(ReferenceVO.class, reference),refElementVO.getRefQuantityPartial());
+				        		
+				            	
+				            	
+				            	
+				            	//Actualizar el estado de la remisión
+				            	if(!reference.getReferenceStatus().getRefStatusCode().equals(CodesBusinessEntityEnum.REFERENCE_STATUS_CREATED.getCodeEntity())){
+				            		//Crea el registro en las modificaciones de remision
+				                    this.businessReferenceModification.createReferenceModification(reference.getId() , CodesBusinessEntityEnum.REFERENCE_MODIFICATION_TYPE_CREATED.getCodeEntity(), user.getId());
+				            	}
+				            	
+				            	if(refStatus[0] == null){
+				            		refStatus[0] = this.businessRefStatus.getReferenceStatusByCode(CodesBusinessEntityEnum.REFERENCE_STATUS_CREATED.getCodeEntity());
+				            	}
+				            	reference.setReferenceStatus(refStatus[0]);
+				            	this.businessRef.updateReference(UtilsBusiness.copyObject(ReferenceVO.class, reference));
+				            	//7. Mover el elemento
+				            	//Se obtiene la bodega de transito de origen
+				            	if(reference != null && (reference.getSourceTransitWh() == null || reference.getSourceTransitWh().getId().longValue() <= 0)){
+				            		//No se encontro la bodega de transito origen
+				    				Object[] params = {reference.getWarehouseBySourceWh().getWhCode()};
+				    				throw new BusinessException(ErrorBusinessMessages.STOCK_IN384.getCode(), ErrorBusinessMessages.STOCK_IN384.getMessage(params));
+				            	}
+				            	
+				            	//Determina si es bodega de taller
+				            	String movementTypeCodeE = getEntryTypeCodeByReference(reference, isBetweenDealers);
+				            	String movementTypeCodeS = getExitTypeCodeByReference(reference, isBetweenDealers);
+				
+				            	//Si no se encontró causal de movimiento
+				            	if(movementTypeCodeE==null || movementTypeCodeS== null){
+				            		throw new BusinessException(ErrorBusinessMessages.STOCK_IN380.getCode(),ErrorBusinessMessages.STOCK_IN380.getMessage());
+				            	}
+				            	
+				            	//Realiza el movimiento de los elementos
+				            	/*ElementMovementDTO dtoMovement = new ElementMovementDTO(reference.getWarehouseBySourceWh().getId(), reference.getSourceTransitWh().getId(), refElementVO.getElement().getElementType().getId(), refElementVO.getRefQuantityPartial(), movementTypeCodeE, movementTypeCodeS, false,  reference.getId(), CodesBusinessEntityEnum.DOCUMENT_CLASS_REFERENCE.getCodeEntity());
+				            	businessWhElement.moveNotSerializedElementBetweenWareHouses(dtoMovement);*/
+				            	
+				            	
+				            	MovementElementDTO dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatusMassive(movementTypeCodeE, movementTypeCodeS,recordStatusU,recordStatusH);
 								MovementElementDTO dtoMov = new MovementElementDTO(user,
 										UtilsBusiness.copyObject(WarehouseVO.class, reference.getWarehouseBySourceWh()), 
 										UtilsBusiness.copyObject(WarehouseVO.class,  reference.getSourceTransitWh()), 

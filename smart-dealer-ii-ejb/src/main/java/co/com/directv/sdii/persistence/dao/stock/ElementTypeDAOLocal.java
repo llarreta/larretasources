@@ -243,4 +243,6 @@ public interface ElementTypeDAOLocal {
 			String isPrepaid, String isSerialized) throws  DAOServiceException, DAOSQLException;
 	
 	public List<ElementType> getElementTypesByModelStatusAndIsSerialized(Boolean isSerialized, String elementModelCode,Boolean elementTypeStatus)throws DAOServiceException, DAOSQLException;
+
+	public List<ElementType> getElementsTypeByCode(List<String> listaElementTypeCode) throws DAOServiceException, DAOSQLException;
 }

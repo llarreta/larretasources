@@ -13,6 +13,7 @@ import co.com.directv.sdii.assign.assignment.fileprocessor.DealerDetailsFileProc
 import co.com.directv.sdii.assign.assignment.fileprocessor.DealerServiceSubcatWthPcFileProcessorLocal;
 import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
 import co.com.directv.sdii.ejb.business.file.ClientBasicFileProcessor;
+import co.com.directv.sdii.ejb.business.file.ClientBasicFileProcessorMassive;
 import co.com.directv.sdii.ejb.business.file.IFileProcessor;
 import co.com.directv.sdii.ejb.business.file.IFileProcessorFactory;
 import co.com.directv.sdii.ejb.business.file.impl.stock.FileProcessorChangeTypeSerializedElementsLocal;
@@ -40,6 +41,7 @@ import co.com.directv.sdii.exceptions.BusinessException;
 public class FileProcessorFactory implements IFileProcessorFactory {
 
 	private ClientBasicFileProcessor clientBasicFileProcessor =  new ClientBasicFileProcessor();
+	private ClientBasicFileProcessorMassive clientBasicFileProcessorMassive =  new ClientBasicFileProcessorMassive();
 	
 	@EJB(name="FileProcessorRegisterQASerializedElementsLocal",beanInterface=FileProcessorRegisterQASerializedElementsLocal.class)
 	private FileProcessorRegisterQASerializedElementsLocal fileRegisterQaSerializedProc;
@@ -150,8 +152,8 @@ public class FileProcessorFactory implements IFileProcessorFactory {
         		clientBasicFileProcessor.setRemoteFileProcessor(fileProcessorLoadMassiveSerializedElementsAdjustmentOutputLocal);
         		fileProcessor = clientBasicFileProcessor;
         	}else if (fileType.equals(CodesBusinessEntityEnum.FILE_TYPE_SERIALIZED_ELEMENTS_ADJUSTMENT_TRANSFER.getCodeEntity())){
-        		clientBasicFileProcessor.setRemoteFileProcessor(fileProcessorLoadMassiveSerializedElementsAdjustmentTransferLocal);
-        		fileProcessor = clientBasicFileProcessor;
+        		clientBasicFileProcessorMassive.setRemoteFileProcessor(fileProcessorLoadMassiveSerializedElementsAdjustmentTransferLocal);
+        		fileProcessor = clientBasicFileProcessorMassive;
         	//procesadores para asignador
         	}else if (fileType.equals(CodesBusinessEntityEnum.FILE_TYPE_DEALER_DETAILS.getCodeEntity())){
         		clientBasicFileProcessor.setRemoteFileProcessor(dealerDetailsProc);
@@ -172,8 +174,8 @@ public class FileProcessorFactory implements IFileProcessorFactory {
         		clientBasicFileProcessor.setRemoteFileProcessor(fileProcessorCompareWarehousePhysicalInventorySmartdealer);
         		fileProcessor = clientBasicFileProcessor;
         	} else if (fileType.equals(CodesBusinessEntityEnum.FILE_TYPE_CONFIRM_ELEMENTS_MASSIVE_REFERENCES.getCodeEntity())){
-        		 clientBasicFileProcessor.setRemoteFileProcessor(FileProcessorConfirmItemsLoadMassiveReference);
-                 fileProcessor = clientBasicFileProcessor;
+        		clientBasicFileProcessorMassive.setRemoteFileProcessor(FileProcessorConfirmItemsLoadMassiveReference);
+                 fileProcessor = clientBasicFileProcessorMassive;
         	}else {      		
         		throw new BusinessException("No existe la operacion para el comando que se trata de ejecutar [" + fileType + "]");
         	}

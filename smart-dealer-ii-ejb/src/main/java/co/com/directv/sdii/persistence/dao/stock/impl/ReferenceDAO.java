@@ -301,7 +301,38 @@ public class ReferenceDAO extends BaseDao implements ReferenceDAOLocal {
         }
 	}
 
+	/* (non-Javadoc)
+	 * @see co.com.directv.sdii.persistence.dao.stock.ReferenceDAOLocal#getReferencesByReferenceStatusAndWh(java.lang.Long, java.lang.Long, java.lang.Long)
+	 */
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+	public List<Reference> getReferencesByCrewIdAndDistinctReferneceStatus(
+			List<String> statusCodes, Long crewId)
+			throws DAOServiceException, DAOSQLException {
+		log.debug("== Inicio getReferencesByCrewIdAndDistinctReferneceStatus/ReferenceDAO ==");
+        Session session = super.getSession();
 
+        try {
+        	StringBuffer stringQuery = new StringBuffer();
+        	stringQuery.append("select re ");
+        	stringQuery.append("from ");
+        	stringQuery.append(Reference.class.getName() + " re ");
+        	stringQuery.append("where (re.warehouseBySourceWh.crewId.id = :aCrewId or ");
+        	stringQuery.append(" re.warehouseByTargetWh.crewId.id = :aCrewId) ");
+        	stringQuery.append("and re.referenceStatus.refStatusCode not in (:aStatusCodes) ");
+        	Query query = session.createQuery(stringQuery.toString());
+            query.setParameterList("aStatusCodes", statusCodes);
+            query.setLong("aCrewId", crewId);
+
+            return query.list();
+
+        } catch (Throwable ex){
+			log.error("== Error ==");
+			throw this.manageException(ex);
+		} finally {
+            log.debug("== Termina getReferencesByCrewIdAndDistinctReferneceStatus/ReferenceDAO ==");
+        }
+	}
 
 	/* (non-Javadoc)
 	 * @see co.com.directv.sdii.persistence.dao.stock.ReferenceDAOLocal#getReferencesBySourceAndTargetWareHouse(java.lang.Long, java.lang.Long)

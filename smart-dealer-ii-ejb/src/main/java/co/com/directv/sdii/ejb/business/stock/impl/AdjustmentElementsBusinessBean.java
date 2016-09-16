@@ -15,6 +15,7 @@ import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
 import co.com.directv.sdii.common.enumerations.ErrorBusinessMessages;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.ejb.business.BusinessBase;
+import co.com.directv.sdii.ejb.business.file.data.LoadMassiveSerializedAdjusmentData;
 import co.com.directv.sdii.ejb.business.stock.AdjustmentElementsBusinessBeanLocal;
 import co.com.directv.sdii.ejb.business.stock.ElementBusinessBeanLocal;
 import co.com.directv.sdii.ejb.business.stock.MovementElementBusinessBeanLocal;
@@ -410,6 +411,75 @@ public class AdjustmentElementsBusinessBean extends BusinessBase implements Adju
         	}else{
         		adjustmentElementsStatus = daoAdjustmentElementsStatus.getAdjustmentElementsStatusByCode(CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_PROCESS.getCodeEntity());
         	}
+        	detailRegister.setAdjustmentElementsStatus(adjustmentElementsStatus);
+        	
+        	this.createAdjustmentElements(detailRegister);
+        	
+    		this.executeMovementAdjustmentTransferSerialized(detailRegister,  adjustmentVO.getTransferReason().getTransferReasonAuthorized(), user,warehouseAdjusTransit,dtoGenerics);
+    		
+		} catch(Throwable ex){
+			log.debug("== Error al tratar de ejecutar la operación adjustmentTransferElementSerialized/AdjustmentElementsBusinessBean ==");
+			throw this.manageException(ex);
+		} finally {
+			log.debug("== Termina adjustmentTransferElementSerialized/AdjustmentElementsBusinessBean ==");
+		}
+	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void adjustmentTransferElementSerializedMassive(AdjustmentVO adjustmentVO,
+			AdjustmentElementDTO adjustmentElement, User user, Warehouse warehouseAdjusTransit,MovementElementDTO dtoGenerics,
+			LoadMassiveSerializedAdjusmentData dataAux,AdjustmentElementsStatus adjustmentElementsStatus)
+			throws BusinessException {
+		log.debug("== Inicia adjustmentTransferElementSerialized/AdjustmentElementsBusinessBean ==");
+		try{
+			UtilsBusiness.assertNotNull(adjustmentElement, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+    		UtilsBusiness.assertNotNull(adjustmentElement.getIdWarehouseDestination(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+    		UtilsBusiness.assertNotNull(adjustmentElement.getElementId(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+    		
+        	//Consulto el elemento
+        	WarehouseElement warehouseElementActual = dataAux.getWarehouseElement();
+        	if(warehouseElementActual==null){
+        		throw new BusinessException(ErrorBusinessMessages.ELEMENT_NOT_EXIST.getCode(), ErrorBusinessMessages.ELEMENT_NOT_EXIST.getMessage());
+        	}
+        	
+        	//Valido que el tipo de elemento sea  serializado
+        	if(warehouseElementActual.getSerialized().getElement().getElementType().getIsSerialized().equalsIgnoreCase(CodesBusinessEntityEnum.ELEMENT_IS_NOT_SERIALIZED.getCodeEntity())){
+        		throw new BusinessException(ErrorBusinessMessages.STOCK_IN463.getCode(), ErrorBusinessMessages.STOCK_IN463.getMessage());
+        	}
+        	
+        	
+        	if(adjustmentElement.getIdWarehouse() == null || adjustmentElement.getIdWarehouse().longValue()<=0L){
+        		adjustmentElement.setIdWarehouse(warehouseElementActual.getWarehouseId().getId());
+        	}
+        	
+        	//Validar que el elemento se encuentre en la ubicación origen
+        	if(warehouseElementActual.getWarehouseId().getId().longValue()!=adjustmentElement.getIdWarehouse().longValue()){
+            		Object[] params = {warehouseElementActual.getSerialized().getSerialCode()};
+            		throw new BusinessException(ErrorBusinessMessages.STOCK_IN383.getCode(), ErrorBusinessMessages.STOCK_IN383.getMessage(params));
+            }
+        	
+        	//Consulto la bodega destino
+        	Warehouse warehouseDestination = dataAux.getWarehouseTargetVO();
+        	if(warehouseDestination==null){
+        		throw new BusinessException(ErrorBusinessMessages.WAREHOUSE_DOESNT_EXIST.getCode(),ErrorBusinessMessages.WAREHOUSE_DOESNT_EXIST.getMessage());
+        	}
+        	
+        	
+        	//Valido que no sea la misma bodega
+        	Object[] params = new Object[1];			
+			params[0] = warehouseElementActual.getSerialized().getSerialCode();
+        	if(warehouseDestination.getId().longValue()==warehouseElementActual.getWarehouseId().getId()){
+        		throw new BusinessException(ErrorBusinessMessages.STOCK_IN421.getCode(),ErrorBusinessMessages.STOCK_IN421.getMessage(params),UtilsBusiness.getParametersWS(params) );
+        	}
+        	
+        	//Crea el detalle del elemento
+        	AdjustmentElementsVO detailRegister = new AdjustmentElementsVO();
+        	detailRegister.setAdjustment(adjustmentVO);
+        	detailRegister.setSerialized(warehouseElementActual.getSerialized());
+        	detailRegister.setWarehouseDestination(warehouseDestination);
+        	detailRegister.setWarehouseSource(warehouseElementActual.getWarehouseId());
+        	
         	detailRegister.setAdjustmentElementsStatus(adjustmentElementsStatus);
         	
         	this.createAdjustmentElements(detailRegister);

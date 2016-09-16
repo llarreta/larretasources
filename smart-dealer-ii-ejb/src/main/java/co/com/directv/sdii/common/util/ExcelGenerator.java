@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.ejb.Stateless;
@@ -30,6 +32,8 @@ import co.com.directv.sdii.common.enumerations.ErrorBusinessMessages;
 import co.com.directv.sdii.exceptions.ExcelGenerationException;
 import co.com.directv.sdii.exceptions.PDFException;
 import co.com.directv.sdii.exceptions.PropertiesException;
+import co.com.directv.sdii.reports.VisitsReportItem;
+import co.com.directv.sdii.reports.VisitsReportItemExcel;
 
 /**
  * Session Bean implementation class ExcelGenerator
@@ -213,17 +217,17 @@ public class ExcelGenerator implements ExcelGeneratorLocal {
 
 			//JasperPrint print = JasperFillManager.fillReport(reportConfFile,new HashMap(), new JRBeanCollectionDataSource(dataList));
 			JasperPrint print = JasperFillManager.fillReport(reportConfFile,UtilsBusiness.getReportParams(), new JRBeanCollectionDataSource(dataList));
-			
+						
 			ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
 
 			JRXlsExporter exporterXLS = new JRXlsExporter();
-			exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, print);			
+			exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, print);
 			exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,arrayOutputStream);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET,Boolean.TRUE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND,Boolean.FALSE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN,Boolean.TRUE);
-			
+
 			exporterXLS.exportReport();
 			return arrayOutputStream;
 		} catch (Exception e){
@@ -233,6 +237,59 @@ public class ExcelGenerator implements ExcelGeneratorLocal {
 		    log.debug("== Termina createExcelStreamWithJasper/ExcelGenerator ==");
 		}
 	}
+
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public ByteArrayOutputStream createExcelMultipleSheetStreamWithJasper(List<VisitsReportItemExcel> visitsReportItemExcelList, List<String> fieldList, String[] sheetNames, String command)throws ExcelGenerationException {
+		log.debug("== Inicia createExcelMultipleSheetStreamWithJasper/ExcelGenerator ==");
+		try{
+			if (visitsReportItemExcelList == null || visitsReportItemExcelList.isEmpty()){
+				visitsReportItemExcelList = new ArrayList<VisitsReportItemExcel>();
+				Object object = visitsReportItemExcelList.getClass().getComponentType();
+				visitsReportItemExcelList.add((VisitsReportItemExcel) object);
+			}
+			Date now = new Date();
+			String reportsPath = getReportsPath();
+			String reportConfFile = reportsPath + TEMPLATE_FOLDER + command + REPORT_EXTENSION;			
+			//List<String> sheetNames = new ArrayList<String>();			
+			ArrayList<JasperPrint> list = new  ArrayList<JasperPrint>();
+			
+			for( VisitsReportItemExcel visitsReportItemExcel: visitsReportItemExcelList){
+				
+				Map<String, String> pars = UtilsBusiness.getReportParams();
+			    pars.put("PV_TITLE", "PLANTILLA DE VISITAS");
+			    pars.put("PV_RESPONSIBLE", visitsReportItemExcel.getEmployeeResponsibleCrew().getFirstName()+ " " + visitsReportItemExcel.getEmployeeResponsibleCrew().getLastName());
+			    pars.put("PV_CODE", visitsReportItemExcel.getEmployeeResponsibleCrew().getDocumentNumber());
+			    pars.put("PV_CI", ""+visitsReportItemExcel.getEmployeeResponsibleCrew().getId());
+			    pars.put("PV_DATA", UtilsBusiness.formatDate(now));				
+				JasperPrint print = JasperFillManager.fillReport(reportConfFile ,pars, new JRBeanCollectionDataSource(visitsReportItemExcel.getVisitsReportItems()));
+				list.add(print);
+				
+			}
+			
+			ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+
+			JRXlsExporter exporterXLS = new JRXlsExporter();
+			exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT_LIST,list );
+			exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,arrayOutputStream);
+			exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET,Boolean.TRUE);
+		    exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND,Boolean.FALSE);
+			exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN,Boolean.TRUE);
+			exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.TRUE);
+			exporterXLS.setParameter(JRXlsExporterParameter.SHEET_NAMES, sheetNames);
+			
+			exporterXLS.exportReport();
+			return arrayOutputStream;
+		} catch (Exception e){
+			log.error("== Error generando el archivo de excel == ", e);
+			throw new ExcelGenerationException("== Error createExcelMultipleSheetStreamWithJasper/ExcelGenerator ==", e);
+		} finally {
+		    log.debug("== Termina createExcelMultipleSheetStreamWithJasper/ExcelGenerator ==");
+		}
+	}
+
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -267,7 +324,6 @@ public class ExcelGenerator implements ExcelGeneratorLocal {
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND,Boolean.FALSE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN,Boolean.TRUE);
-			
 			exporterXLS.exportReport();
 			return report;
 		} catch (Exception e){

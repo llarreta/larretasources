@@ -1,5 +1,6 @@
 package co.com.directv.sdii.assign.assignment.fileprocessor.impl;
 
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -152,5 +153,4 @@ public class DealerDetailsFileProcessor extends BasicFileProcessor implements De
 			throw new BusinessException("No se ha parametrizado los valores DEALER_DETAIL_ATTEND_TYPE_EVEN o DEALER_DETAIL_ATTEND_TYPE_ODD.");
 		}
 	}
-	
 }

@@ -371,5 +371,24 @@ public class ConfigWOReasonsBusinessBean extends BusinessBase implements ConfigW
     		}
     	}
     }
+    
+    public List<WorkorderReasonVO> getWorkorderReasonByCategoryCode(String categoryCode) throws BusinessException{
+        log.debug("== Inicia getWorkorderReasonByCategoryCode/ConfigWOReasonsBusinessBean ==");
+        try {
+
+            List<WorkorderReasonVO> voList = UtilsBusiness.convertList(workorderReasonDAO.getWorkOrderReasonByCategoryCode(categoryCode), WorkorderReasonVO.class);           
+            if(voList == null){
+                return null;
+            }
+            
+            return voList;
+
+        } catch (Throwable ex) {
+            log.debug("== Error al tratar de ejecutar la operacion ConfigWOReasonsBusinessBean/getWorkorderReasonByCategoryCode");
+            throw super.manageException(ex);
+        } finally {
+            log.debug("== Termina getWorkorderReasonByCategoryCode/ConfigWOReasonsBusinessBean ==");
+        }
+    }
 
 }

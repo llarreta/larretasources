@@ -153,5 +153,4 @@ public class DealerCoverageFileProcessor extends BasicFileProcessor implements D
 	public boolean validateFile() throws BusinessException {
 		return true;
 	}
-
 }

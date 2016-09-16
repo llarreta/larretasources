@@ -124,6 +124,16 @@ public interface WorkorderReasonDAOLocal {
 	 * @author jnova
 	 */
 	public List<WorkorderReason> getWorkOrderReasonByWoStatusAndBySolveByCI(Long id,String isSolveByCI)throws DAOServiceException, DAOSQLException;
+	
+	/**
+	 * Metodo: Obtiene las WorkorderReasons que se encuentran asociadas a una categoria especifica	 * @param id - Long
+	 * @param String categoryCode
+	 * @return List<WorkorderReason>
+	 * @throws DAOServiceException
+	 * @throws DAOSQLException
+	 * @author jgonzmol
+	 */
+	public List<WorkorderReason> getWorkOrderReasonByCategoryCode(String categoryCode)throws DAOServiceException, DAOSQLException;
 
 
 }

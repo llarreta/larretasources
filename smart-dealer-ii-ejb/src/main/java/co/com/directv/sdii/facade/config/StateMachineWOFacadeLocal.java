@@ -11,7 +11,7 @@ import co.com.directv.sdii.model.vo.WorkOrderVO;
  * operaciones de negocio para la maquina de
  * estados de work orders.
  * 
- * Fecha de CreaciÃ³n: 29/04/2010
+ * Fecha de Creación: 29/04/2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

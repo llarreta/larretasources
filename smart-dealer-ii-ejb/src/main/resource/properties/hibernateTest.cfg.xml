@@ -317,9 +317,9 @@
 		
 		<!-- configuración envers 1.0.0 -->
 		<!--
-		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert"/>
-		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>
-		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete"/>
+		    <listener class="org.jboss.envers.event.VersionsEventListener" type="post-insert"/>
+		    <listener class="org.jboss.envers.event.VersionsEventListener" type="post-update"/>
+		    <listener class="org.jboss.envers.event.VersionsEventListener" type="post-delete"/>
 		-->
 		<!-- Fin configuración para auditoría parte 2 -->
 	</session-factory>

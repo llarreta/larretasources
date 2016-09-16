@@ -17,9 +17,9 @@
 		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</property>
 		
 		<!-- Inicio configuración para auditoría parte 1 -->
-		<property name="org.hibernate.envers.audit_table_suffix">_AU</property> 
-		<property name="org.hibernate.envers.revision_field_name">REV</property> 
-		<property name="org.hibernate.envers.revision_type_field_name">REVTYPE</property>
+		<property name="org.jboss.envers.versionsTableSuffix">_AU</property> 
+		<property name="org.jboss.envers.revisionFieldName">REV</property> 
+		<property name="org.jboss.envers.revisionTypeFieldName">REVTYPE</property>
 		<!-- Fin configuración para auditoría parte 1 -->
 		
 		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.CMTTransactionFactory</property>
@@ -39,6 +39,7 @@
         <mapping resource="co/com/directv/sdii/model/hbm/Employee.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/Training.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/MembershipType.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/CrewMovement.hbm.xml" />        
         <mapping resource="co/com/directv/sdii/model/hbm/Crew.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/DealerMediaContact.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/MediaContactType.hbm.xml" />
@@ -87,6 +88,7 @@
         <mapping resource="co/com/directv/sdii/model/hbm/WorkOrderWorkOrderMark.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/WorkorderCSRStatus.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/WorkOrderCSR.hbm.xml" />
+        <mapping resource="co/com/directv/sdii/model/hbm/WorkOrderCrewAttention.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/ComercialProduct.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/ServiceStatus.hbm.xml" />
         <mapping resource="co/com/directv/sdii/model/hbm/Program.hbm.xml" />
@@ -354,11 +356,13 @@
 		<mapping resource="co/com/directv/sdii/model/hbm/DispatchWorkOrderLog.hbm.xml" />
 
 		
+		<!-- Entitys Export Bandeja -->
+		<mapping resource="co/com/directv/sdii/model/hbm/WorkOrderExport.hbm.xml" />
+		<mapping resource="co/com/directv/sdii/model/hbm/WorkOrderExportData.hbm.xml" />
 		
-		
-		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-insert"/>
-		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-update"/>
-		<listener class="org.hibernate.envers.event.AuditEventListener" type="post-delete"/>
+		<listener class="org.jboss.envers.event.VersionsEventListener" type="post-insert"/>
+		<listener class="org.jboss.envers.event.VersionsEventListener" type="post-update"/>
+		<listener class="org.jboss.envers.event.VersionsEventListener" type="post-delete"/>
 		<!-- Fin configuración para auditoría parte 2 -->
 		
 		

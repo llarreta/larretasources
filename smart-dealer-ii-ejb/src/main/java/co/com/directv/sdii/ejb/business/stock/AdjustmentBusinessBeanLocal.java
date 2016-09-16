@@ -65,6 +65,8 @@ public interface AdjustmentBusinessBeanLocal {
 	 */
 	public AdjustmentVO getAdjustmentByID(Long id) throws BusinessException;
 	
+	public AdjustmentVO getAdjustmentByIDNew(Long id) throws BusinessException;
+	
 	
 	/**
 	 * Metodo: Obtiene la información de todos los AdjustmentVO almacenados en la persistencia

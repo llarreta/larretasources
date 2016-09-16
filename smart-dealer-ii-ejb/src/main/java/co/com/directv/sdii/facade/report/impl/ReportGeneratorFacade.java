@@ -186,4 +186,9 @@ public class ReportGeneratorFacade implements ReportGeneratorFacadeLocal {
 		return reportGeneratorBusinessBean.getWareHouseElementsActualByCustomer(request);
 	}
 
+	@Override
+	public FileResponseDTO generateCrewWorkOrdersExcel(Long countryId, List<Long> workOrderIds , List<Long> crewId)throws BusinessException {
+		return reportGeneratorBusinessBean.generateCrewWorkOrdersExcel(countryId, workOrderIds , crewId);
+	}
+
 }

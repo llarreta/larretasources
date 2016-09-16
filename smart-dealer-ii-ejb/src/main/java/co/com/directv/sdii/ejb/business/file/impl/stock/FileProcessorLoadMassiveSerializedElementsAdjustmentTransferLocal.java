@@ -5,7 +5,7 @@ package co.com.directv.sdii.ejb.business.file.impl.stock;
 
 import javax.ejb.Local;
 
-import co.com.directv.sdii.ejb.business.file.IBasicFileProcessor;
+import co.com.directv.sdii.ejb.business.file.IBasicFileProcessorMassive;
 
 /**
  * 
@@ -19,6 +19,6 @@ import co.com.directv.sdii.ejb.business.file.IBasicFileProcessor;
  * @see
  */
 @Local
-public interface FileProcessorLoadMassiveSerializedElementsAdjustmentTransferLocal extends IBasicFileProcessor{
+public interface FileProcessorLoadMassiveSerializedElementsAdjustmentTransferLocal extends IBasicFileProcessorMassive{
 
 }

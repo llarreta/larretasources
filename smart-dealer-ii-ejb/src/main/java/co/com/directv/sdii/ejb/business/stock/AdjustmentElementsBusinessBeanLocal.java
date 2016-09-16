@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import co.com.directv.sdii.ejb.business.file.data.LoadMassiveSerializedAdjusmentData;
 import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.model.dto.MovementElementDTO;
+import co.com.directv.sdii.model.pojo.AdjustmentElementsStatus;
 import co.com.directv.sdii.model.pojo.ElementType;
 import co.com.directv.sdii.model.pojo.User;
 import co.com.directv.sdii.model.pojo.Warehouse;
@@ -134,5 +136,8 @@ public interface AdjustmentElementsBusinessBeanLocal {
 	 * @throws BusinessException
 	 */
 	public void executeAdjustmentTransferNotSerialized(AdjustmentElementsVO detailRegister, AdjustmentVO adjustmentVO, User user,Warehouse warehouseAdjusTransit,MovementElementDTO dtoGenerics) throws BusinessException;
+
+	void adjustmentTransferElementSerializedMassive(AdjustmentVO adjustmentVO, AdjustmentElementDTO adjustmentElement, User user, Warehouse warehouseAdjusTransit, MovementElementDTO dtoGenerics,
+			LoadMassiveSerializedAdjusmentData dataAux,AdjustmentElementsStatus adjustmentElementsStatus) throws BusinessException;
 	
 }

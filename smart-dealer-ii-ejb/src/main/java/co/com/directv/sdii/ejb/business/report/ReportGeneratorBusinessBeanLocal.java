@@ -228,4 +228,16 @@ public interface ReportGeneratorBusinessBeanLocal {
 			WareHouseElementClientFilterRequestDTO request)
 			throws BusinessException;
 
+	/**
+	 * 
+	 * Metodo: Genera el excel de las workorders enviadas por parametro
+	 * @param countryId
+	 * @param code
+	 * @return FileResponseDTO Objeto que encapsula el archivo junto con el nombre y la extension
+	 * @throws BusinessException <tipo> <descripcion>
+	 * @author jgonzmol
+	 */
+	public FileResponseDTO generateCrewWorkOrdersExcel(Long countryId, List<Long> workOrderIds , List<Long> crewId) throws BusinessException;
+
+	
 }

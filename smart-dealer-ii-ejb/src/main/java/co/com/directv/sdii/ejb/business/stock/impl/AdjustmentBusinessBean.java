@@ -1,7 +1,7 @@
 package co.com.directv.sdii.ejb.business.stock.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -161,6 +161,27 @@ public class AdjustmentBusinessBean extends BusinessBase implements AdjustmentBu
      */
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public AdjustmentVO getAdjustmentByID(Long id) throws BusinessException {
+        log.debug("== Inicia getAdjustmentByID/AdjustmentBusinessBean ==");
+        UtilsBusiness.assertNotNull(id, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
+        try {
+            Adjustment objPojo = daoAdjustment.getAdjustmentByID(id);
+            if (objPojo == null) {
+            	throw new BusinessException(ErrorBusinessMessages.ENTITY_NOT_FOUND.getCode(),ErrorBusinessMessages.ENTITY_NOT_FOUND.getMessage());
+            }
+            return UtilsBusiness.copyObject(AdjustmentVO.class, objPojo);
+        } catch(Throwable ex){
+        	log.debug("== Error al tratar de ejecutar la operación getAdjustmentByID/AdjustmentBusinessBean ==");
+        	throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina getAdjustmentByID/AdjustmentBusinessBean ==");
+        }
+    }
+    
+    /* (non-Javadoc)
+     * @see co.com.directv.sdii.ejb.business.stock.AdjustmentBusinessBeanLocal#getAdjustmentsByID(java.lang.Long)
+     */
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public AdjustmentVO getAdjustmentByIDNew(Long id) throws BusinessException {
         log.debug("== Inicia getAdjustmentByID/AdjustmentBusinessBean ==");
         UtilsBusiness.assertNotNull(id, ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
         try {
@@ -709,15 +730,18 @@ public class AdjustmentBusinessBean extends BusinessBase implements AdjustmentBu
 	}
 	
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void createAdjustmentElementsAuthorization(AdjustmenElementsRequestDTO request) throws BusinessException {
 		log.debug("== Inicia createAdjustmentElementsAuthorization/AdjustmentBusinessBean ==");
+		
+		Adjustment adjustmentPojo = null;
+		AdjustmentStatus previousAdjustStatus = null;
 		try {
 			
 			AdjustmentElements adjustmentElement;
 			MovementElementDTO dtoGenerics;
         	
-			Adjustment adjustmentPojo = daoAdjustment.getAdjustmentByID(request.getAdjustmentId());
+			adjustmentPojo = daoAdjustment.getAdjustmentByID(request.getAdjustmentId());
+			previousAdjustStatus = adjustmentPojo.getAdjustmentStatus();
 			if (!CodesBusinessEntityEnum.ADJUSTMENT_STATUS_AUTHORIZING.getCodeEntity().equals(adjustmentPojo.getAdjustmentStatus().getCode())){
 				
 				//begin - Update status to Authorizing
@@ -781,17 +805,23 @@ public class AdjustmentBusinessBean extends BusinessBase implements AdjustmentBu
 	        		adjustmentStatus = daoAdjustmentStatus.getAdjustmentStatusByCode(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_AUTHORIZED.getCodeEntity());
 	            	adjustmentVO.setAdjustmentStatus(adjustmentStatus);
 	            	adjustmentHelperBusinessBean.updateAdjustment(adjustmentVO,request.getUserId());
-		       	}
+		       	}else{
+	        		//Para que no quede autorizando.
+	        		adjustmentVO.setAdjustmentStatus(previousAdjustStatus);
+	        		adjustmentHelperBusinessBean.updateAdjustment(adjustmentVO,request.getUserId());
+	        	}
 		       	
 			}
 			
         } catch(Throwable ex){
+        	AdjustmentVO adjustmentVO = UtilsBusiness.copyObject(AdjustmentVO.class, adjustmentPojo);
+			adjustmentVO.setAdjustmentStatus(previousAdjustStatus);
+			adjustmentHelperBusinessBean.updateAdjustment(adjustmentVO,request.getUserId());
         	log.debug("== Error al tratar de ejecutar la operación createAdjustmentElementsAuthorization/AdjustmentBusinessBean ==");
         	throw this.manageException(ex);
         } finally {
             log.debug("== Termina createAdjustmentElementsAuthorization/AdjustmentBusinessBean ==");
         }
-		
 	}
 
 	/**
@@ -868,6 +898,73 @@ public class AdjustmentBusinessBean extends BusinessBase implements AdjustmentBu
 		
 	}
 	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	private void createAdjustmentSerializedElementsAuthorizationMassive(
+			AdjustmentElements adjustmentElement, MovementElementDTO dtoGenerics, User user) throws BusinessException {
+		log.debug("== Inicia createAdjustmentSerializedElementsAuthorizationMassive/AdjustmentBusinessBean ==");
+		try {
+			MovementElementDTO dtoMovement;
+	        if(adjustmentElement != null && adjustmentElement.getAdjustment() != null){
+        		if(adjustmentElement.getAdjustmentElementsStatus().getCode()
+        				.equalsIgnoreCase(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_PENDING.getCodeEntity())){
+	
+    				if(adjustmentElement.getAdjustment().getTransferReason().getAdjustmentType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.ADJUSTMENT_TYPE_INPUT.getCodeEntity()) 
+    				   || adjustmentElement.getAdjustment().getTransferReason().getAdjustmentType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.ADJUSTMENT_TYPE_TRANSFER.getCodeEntity())){
+	    							
+						    dtoMovement = new MovementElementDTO(user,
+								UtilsBusiness.copyObject(WarehouseVO.class, warehouseBusinessBean.getWareHouseAdjusmentTransit(user.getCountry().getId())),
+								UtilsBusiness.copyObject(WarehouseVO.class, adjustmentElement.getWarehouseDestination()), 
+								adjustmentElement.getSerialized(), 
+								adjustmentElement.getAdjustment().getId(), 
+								CodesBusinessEntityEnum.DOCUMENT_CLASS_ADJUSTMENT.getCodeEntity(), 
+								dtoGenerics.getMovTypeCodeE(),
+								dtoGenerics.getMovTypeCodeS(),
+								dtoGenerics.getRecordStatusU(),
+								dtoGenerics.getRecordStatusH(),
+								true,
+								CodesBusinessEntityEnum.PROCESS_CODE_IBS_ADJUSMENT.getCodeEntity(),
+								dtoGenerics.getMovConfigStatusPending(),
+								dtoGenerics.getMovConfigStatusNoConfig());
+								    
+					    businessMovementElement.moveSerializedElementBetweenWarehouse(dtoMovement);
+						
+    				}else if(adjustmentElement.getAdjustment().getTransferReason().getAdjustmentType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.ADJUSTMENT_TYPE_OUTPUT.getCodeEntity())){
+
+    					MovementElementDTO dto = new MovementElementDTO(user, 
+    						UtilsBusiness.copyObject(WarehouseVO.class, warehouseBusinessBean.getWareHouseAdjusmentTransit(user.getCountry().getId())), 
+    						adjustmentElement.getSerialized(),
+    						adjustmentElement.getAdjustment().getId(), 
+    						CodesBusinessEntityEnum.DOCUMENT_CLASS_ADJUSTMENT.getCodeEntity(),
+    						dtoGenerics.getMovTypeCodeS(),
+    						dtoGenerics.getRecordStatusU(),
+    						dtoGenerics.getRecordStatusH(), 
+    						true,
+    						CodesBusinessEntityEnum.PROCESS_CODE_IBS_ADJUSMENT.getCodeEntity(),
+    						dtoGenerics.getMovConfigStatusPending(),
+    						dtoGenerics.getMovConfigStatusNoConfig());
+    							
+    					businessMovementElement.deleteSerializedElementInWarehouse(dto);    							
+    				}
+	    					
+    				AdjustmentElementsStatus adjustmentElementsStatus = daoAdjustmentElementsStatus.getAdjustmentElementsStatusByCodeMassive(CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_AUTHORIZED.getCodeEntity());
+    				adjustmentElement.setAdjustmentElementsStatus(adjustmentElementsStatus);
+    				adjustmentElement.setAuthorizedUser(user);
+    				adjustmentElement.setAuthorizationDate(UtilsBusiness.getCurrentTimeZoneDateByUserId(user.getId(), daoUser));
+    				daoAdjustmentElements.updateAdjustmentElements(adjustmentElement);
+
+	    		}else{
+	    			throw new BusinessException(ErrorBusinessMessages.STOCK_IN510.getCode(), ErrorBusinessMessages.STOCK_IN510.getMessage());
+	    		}
+	        }
+			
+        } catch(Throwable ex){
+        	log.debug("== Error al tratar de ejecutar la operación createAdjustmentSerializedElementsAuthorizationMassive/AdjustmentBusinessBean ==");
+        	throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina createAdjustmentSerializedElementsAuthorizationMassive/AdjustmentBusinessBean ==");
+        }
+	}
+	
 	/**
 	 * Metodo encargado de registrar el ajuste para elementos no serializados
 	 * @param adjustmentElement
@@ -940,14 +1037,85 @@ public class AdjustmentBusinessBean extends BusinessBase implements AdjustmentBu
 		
 	}
 	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	private void createAdjustmentNotSerializedElementsAuthorizationMassive(AdjustmentElements adjustmentElement, MovementElementDTO dtoGenerics, User user) throws BusinessException {
+		log.debug("== Inicia createAdjustmentNotSerializedElementsAuthorizationMassive/AdjustmentBusinessBean ==");
+		try {
+			MovementElementDTO dtoMovement;
+        	AdjustmentVO adjustmentVO = UtilsBusiness.copyObject(AdjustmentVO.class, adjustmentElement);
+        	if(adjustmentElement != null && adjustmentElement.getAdjustment() != null){
+        		if(adjustmentElement.getAdjustmentElementsStatus().getCode()
+        				.equalsIgnoreCase(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_PENDING.getCodeEntity())){
+        			
+   					ElementType elementType = adjustmentElement.getNotSerialized().getElement().getElementType();
+ 					if(adjustmentElement.getAdjustment().getTransferReason().getAdjustmentType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.ADJUSTMENT_TYPE_INPUT.getCodeEntity()) 
+ 					   || adjustmentElement.getAdjustment().getTransferReason().getAdjustmentType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.ADJUSTMENT_TYPE_TRANSFER.getCodeEntity())){    						
+    						
+    					dtoMovement = new MovementElementDTO(user,
+    								UtilsBusiness.copyObject(WarehouseVO.class, warehouseBusinessBean.getWareHouseAdjusmentTransit(user.getCountry().getId())), 
+	    							UtilsBusiness.copyObject(WarehouseVO.class, adjustmentElement.getWarehouseDestination()), 
+	    							null,
+	    							elementType.getId(),
+	    							elementType.getTypeElementCode(),
+	    							adjustmentElement.getAdjustment().getId(), 
+	    							CodesBusinessEntityEnum.DOCUMENT_CLASS_ADJUSTMENT.getCodeEntity(), 
+	    							dtoGenerics.getMovTypeCodeE(),
+	    							dtoGenerics.getMovTypeCodeS(),
+	    							dtoGenerics.getRecordStatusU(),
+	    							dtoGenerics.getRecordStatusH(),
+	    							adjustmentElement.getInitialQuantity(),
+	    							dtoGenerics.getMovConfigStatusPending(),
+	    							dtoGenerics.getMovConfigStatusNoConfig());
+	    						
+    					businessMovementElement.moveNotSerializedElementBetweenWarehouse(dtoMovement);
+   					}else if(adjustmentElement.getAdjustment().getTransferReason().getAdjustmentType().getCode().equalsIgnoreCase(CodesBusinessEntityEnum.ADJUSTMENT_TYPE_OUTPUT.getCodeEntity())){
+   						MovementElementDTO dto = new MovementElementDTO(user, 
+   							UtilsBusiness.copyObject(WarehouseVO.class, warehouseBusinessBean.getWareHouseAdjusmentTransit(user.getCountry().getId())), 
+   							null, elementType.getId(), 
+   							null,
+   							adjustmentVO.getId(), 
+   							CodesBusinessEntityEnum.DOCUMENT_CLASS_ADJUSTMENT.getCodeEntity(), 
+   							dtoGenerics.getMovTypeCodeS(), 
+   							dtoGenerics.getRecordStatusU(), 
+   							dtoGenerics.getRecordStatusH(), 
+   							adjustmentElement.getInitialQuantity(),
+   							dtoGenerics.getMovConfigStatusPending(),
+   							dtoGenerics.getMovConfigStatusNoConfig());
+   						
+   						businessMovementElement.deleteNotSerializedElementInWarehouse(dto);    							
+   					}
+   						
+					AdjustmentElementsStatus adjustmentElementsStatus = daoAdjustmentElementsStatus.getAdjustmentElementsStatusByCodeMassive(CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_AUTHORIZED.getCodeEntity());
+					adjustmentElement.setAdjustmentElementsStatus(adjustmentElementsStatus);
+					adjustmentElement.setAuthorizedUser(user);
+					adjustmentElement.setAuthorizationDate(UtilsBusiness.getCurrentTimeZoneDateByUserId(user.getId(), daoUser));
+					daoAdjustmentElements.updateAdjustmentElements(adjustmentElement);   						
+   				}else{
+   					throw new BusinessException(ErrorBusinessMessages.STOCK_IN510.getCode(), ErrorBusinessMessages.STOCK_IN510.getMessage());
+   				}
+       		}
+        } catch(Throwable ex){
+        	log.debug("== Error al tratar de ejecutar la operación createAdjustmentNotSerializedElementsAuthorizationMassive/AdjustmentBusinessBean ==");
+        	throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina createAdjustmentNotSerializedElementsAuthorizationMassive/AdjustmentBusinessBean ==");
+        }
+		
+	}
+	
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public void approvalAllElementsOfAdjustment(AdjustmenElementsRequestDTO request) throws BusinessException {
 		log.debug("== Inicia approvalAllElementsOfAdjustment/AdjustmentBusinessBean ==");
 		UtilsBusiness.assertNotNull(request.getAdjustmentId(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(), ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
-		try {
+				
+        Adjustment adjustment = null;
+        AdjustmentStatus previousAdjustStatus = null;
+        boolean hayExcepcion = false;
+        try {
 			
-			Adjustment adjustment = daoAdjustment.getAdjustmentByID(request.getAdjustmentId());
+			adjustment = daoAdjustment.getAdjustmentByIDMassive(request.getAdjustmentId());
+			previousAdjustStatus = adjustment.getAdjustmentStatus();
 			
 			if (!CodesBusinessEntityEnum.ADJUSTMENT_STATUS_AUTHORIZING.getCodeEntity().equals(adjustment.getAdjustmentStatus().getCode())){
 				
@@ -955,26 +1123,26 @@ public class AdjustmentBusinessBean extends BusinessBase implements AdjustmentBu
 				AdjustmentStatus adjustmentStatus = null;
 				AdjustmentVO adjustmentVO = UtilsBusiness.copyObject(AdjustmentVO.class, adjustment);
 		       	
-				adjustmentStatus = daoAdjustmentStatus.getAdjustmentStatusByCode(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_AUTHORIZING.getCodeEntity());
+				adjustmentStatus = daoAdjustmentStatus.getAdjustmentStatusByCodeMassive(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_AUTHORIZING.getCodeEntity());
 				adjustmentVO.setAdjustmentStatus(adjustmentStatus);
 				adjustmentHelperBusinessBean.updateAdjustment(adjustmentVO,request.getUserId());
 				//end - Update status to Authorizing
 				
 				//continue with the previous logic				
-				User user = daoUser.getUserById(request.getUserId());
+				User user = daoUser.getUserByIdMassive(request.getUserId());
 	        	if(user == null){
 	        		throw new BusinessException(ErrorBusinessMessages.USER_NOT_EXIST.getCode(),	ErrorBusinessMessages.USER_NOT_EXIST.getMessage());
 	        	}    	
-	        	List<AdjustmentElements> responseDB = daoAdjustmentElements.getAdjustmentElementsForAuthorization(request.getAdjustmentId());
+	        	List<AdjustmentElements> responseDB = daoAdjustmentElements.getAdjustmentElementsForAuthorizationMassive(request.getAdjustmentId());
 				
 				MovementElementDTO dtoGenerics = null;
 				if((adjustment.getTransferReason() != null && adjustment.getTransferReason().getMovTypeIn()!=null) && (adjustment.getTransferReason()!=null && adjustment.getTransferReason().getMovTypeOut()!=null)){
-					dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(adjustment.getTransferReason().getMovTypeIn().getMovTypeCode(),
+					dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatusMassive(adjustment.getTransferReason().getMovTypeIn().getMovTypeCode(),
 							adjustment.getTransferReason().getMovTypeOut().getMovTypeCode());				
 				}else if((adjustment.getTransferReason()!=null && adjustment.getTransferReason().getMovTypeOut()!=null)){
-					dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(null, adjustment.getTransferReason().getMovTypeOut().getMovTypeCode());
+					dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatusMassive(null, adjustment.getTransferReason().getMovTypeOut().getMovTypeCode());
 				}else if((adjustment.getTransferReason() != null && adjustment.getTransferReason().getMovTypeIn()!=null)){
-					dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(adjustment.getTransferReason().getMovTypeIn().getMovTypeCode(),
+					dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatusMassive(adjustment.getTransferReason().getMovTypeIn().getMovTypeCode(),
 							CodesBusinessEntityEnum.MOVEMENT_TYPE_WAREHOUSE_TYPE_TRANSIT_OUT.getCodeEntity());				
 				}
 	
@@ -992,46 +1160,73 @@ public class AdjustmentBusinessBean extends BusinessBase implements AdjustmentBu
 					
 				}
 				if(canToApprove && dtoGenerics != null){
-				    Iterator <AdjustmentElements> iterador = responseDB.iterator();  
-				    while (iterador.hasNext()) { 
-				    	AdjustmentElements adjustmentElements = iterador.next();
-				    	if(serialized){
-				    		createAdjustmentSerializedElementsAuthorization(adjustmentElements, dtoGenerics, user);
-					    	//metodo que realiza la aprovacion de serializados			    		
+					for(AdjustmentElements adjustmentElements:responseDB){
+						if(serialized){
+				    		try {
+				    			//Metodo que realiza la aprovacion de serializados
+				    			createAdjustmentSerializedElementsAuthorizationMassive(adjustmentElements, dtoGenerics, user);
+				    		} catch(Exception e) {
+				    			log.error("ERROR AL PROCESAR EL ELEMENTO SERIALIZADO [" + adjustmentElements.getId() + "]:" + e.getMessage(),e);
+				    			if(!hayExcepcion){
+				    				hayExcepcion = true;
+				    			}
+				    		}	    		
 				    	}else{
-				    		createAdjustmentNotSerializedElementsAuthorization(adjustmentElements, dtoGenerics, user);
-					    	//metodo que realiza la aprovacion de NO serializados	
+				    		try{
+				    			//Metodo que realiza la aprovacion de NO serializados
+				    			createAdjustmentNotSerializedElementsAuthorizationMassive(adjustmentElements, dtoGenerics, user);
+				    		}catch(Exception e){
+				    			log.error("ERROR AL PROCESAR EL ELEMENTO NO SERIALIZADO [" + adjustmentElements.getId() + "]:" + e.getMessage(),e);
+				    			if(!hayExcepcion){
+				    				hayExcepcion = true;
+				    			}
+				    		}	
 				    	}
-				    }
+					}
 			       	//consulta la cantidad de elementos por estado para asignar estado al ajuste maestro
 			       	/*
 			       	 * 1. pendientes
 			       	 * 2. procesados
 			       	 * 3. autorizado
 			       	 * */
-			       	Object[] countAllAdjusmentElement = daoAdjustmentElements.countAdjustmentElementsByAllStatus(request.getAdjustmentId());
+			       	Object[] countAllAdjusmentElement = daoAdjustmentElements.countAdjustmentElementsByAllStatusMassive(request.getAdjustmentId());
 			       	Long quantityPending = (Long) countAllAdjusmentElement[0];
 			       	Long quantityAuthorized = (Long) countAllAdjusmentElement[2];
-			       	
-			       				       	
+			       				       				       	
 			       	if(quantityPending > 0L && quantityAuthorized > 0L){
-			       		adjustmentStatus = daoAdjustmentStatus.getAdjustmentStatusByCode(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_PARTIAL_AUTHORIZED.getCodeEntity());
+			       		adjustmentStatus = daoAdjustmentStatus.getAdjustmentStatusByCodeMassive(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_PARTIAL_AUTHORIZED.getCodeEntity());
 			        	adjustmentVO.setAdjustmentStatus(adjustmentStatus);
-			        	updateAdjustment(adjustmentVO,request.getUserId());	       		
+			        	//updateAdjustment(adjustmentVO,request.getUserId());
+			        	adjustmentHelperBusinessBean.updateAdjustment(adjustmentVO,request.getUserId());
 			       	}else if(quantityAuthorized > 0L){
-		        		adjustmentStatus = daoAdjustmentStatus.getAdjustmentStatusByCode(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_AUTHORIZED.getCodeEntity());
+		        		adjustmentStatus = daoAdjustmentStatus.getAdjustmentStatusByCodeMassive(CodesBusinessEntityEnum.ADJUSTMENT_STATUS_AUTHORIZED.getCodeEntity());
 		            	adjustmentVO.setAdjustmentStatus(adjustmentStatus);
-		            	updateAdjustment(adjustmentVO,request.getUserId());        		
+		            	//updateAdjustment(adjustmentVO,request.getUserId());
+		            	adjustmentHelperBusinessBean.updateAdjustment(adjustmentVO,request.getUserId());
+		        	}else{
+		        		//Para que no quede autorizando.
+		        		adjustmentVO.setAdjustmentStatus(previousAdjustStatus);
+		        		adjustmentHelperBusinessBean.updateAdjustment(adjustmentVO,request.getUserId());
 		        	}
+	            	
 				}
 				
 			}
 			
-		}catch(Throwable ex){
+		}catch(Exception  ex){
         	log.debug("== Error al tratar de ejecutar la operación approvalAllElementsOfAdjustment/AdjustmentBusinessBean ==");
-        	throw this.manageException(ex);
+        
+			AdjustmentVO adjustmentVO = UtilsBusiness.copyObject(AdjustmentVO.class, adjustment);
+			adjustmentVO.setAdjustmentStatus(previousAdjustStatus);
+			adjustmentHelperBusinessBean.updateAdjustment(adjustmentVO,request.getUserId());
+		    log.debug("== Error al tratar de ejecutar la operación approvalAllElementsOfAdjustment/AdjustmentBusinessBean cuando se quiso hacer rollback del estado del ajuste ==");
+		    throw this.manageException(ex);
         } finally {
-            log.debug("== Termina approvalAllElementsOfAdjustment/AdjustmentBusinessBean ==");
+        	log.debug("== Termina approvalAllElementsOfAdjustment/AdjustmentBusinessBean con errores. ==");
+            if(hayExcepcion){
+            	BusinessException bex  = new BusinessException(null, "BL49", "Fallaron algunos elementos al autorizar el ajuste.", null);
+				throw this.manageException(bex);
+            }
         }
 	}
 	

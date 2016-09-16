@@ -14,6 +14,7 @@ import co.com.directv.sdii.facade.dealers.CrewsFacadeBeanLocal;
 import co.com.directv.sdii.model.pojo.CrewOff;
 import co.com.directv.sdii.model.vo.CrewOffVO;
 import co.com.directv.sdii.model.vo.CrewVO;
+import co.com.directv.sdii.model.vo.EmployeeCrewVO;
 import co.com.directv.sdii.model.vo.UserVO;
 
 /**
@@ -87,6 +88,10 @@ public class CrewsFacadeBean implements CrewsFacadeBeanLocal {
         businessCrewBean.updateCrews(obj, description, user);
     }
 
+    public void detachedEmployeeCrew(CrewVO obj , EmployeeCrewVO employeeCrew , UserVO user) throws BusinessException{
+        businessCrewBean.detachedEmployeeCrew(obj, employeeCrew, user);
+    }
+    
      /**
      * Metodo: <Descripcion>
      * @param plate - String

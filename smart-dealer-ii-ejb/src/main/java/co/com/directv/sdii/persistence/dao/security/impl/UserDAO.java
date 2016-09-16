@@ -116,6 +116,31 @@ public class UserDAO extends BaseDao implements UserDAOLocal{
             log.debug("== Termina getUserById/UserDAO ==");
         }
 	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public User getUserByIdMassive(Long userId) throws DAOServiceException,
+			DAOSQLException {
+		log.debug("== Inicio getUserById/UserDAO ==");
+        Session session = super.getSession();
+        try {
+        	StringBuffer queryStr = new StringBuffer("from ");
+        	queryStr.append(User.class.getName());
+        	queryStr.append(" usr where usr.id = :anUsrId");
+            Query query = session.createQuery(queryStr.toString());
+            query.setLong("anUsrId", userId);
+            query.setCacheable(true);
+            
+            User result = (User)query.uniqueResult();
+            return result;
+            
+        } catch (Throwable ex) {
+            log.debug("== Error consultando el usuario por id de registro ==");
+            throw super.manageException(ex);
+        } finally {
+            log.debug("== Termina getUserById/UserDAO ==");
+        }
+	}
 
 	/**
 	 * Metodo: Obtiene la información de un usuario dado el identificador del registro en la persistencia
@@ -406,6 +431,7 @@ public class UserDAO extends BaseDao implements UserDAOLocal{
 	 * (non-Javadoc)
 	 * @see co.com.directv.sdii.persistence.dao.security.UserDAOLocal#getUserByRoleTypeCodeAndCountryId(java.lang.String, java.lang.Long)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsersByRoleTypeCodeAndCountryId(String roleTypeCode, Long countryId) throws DAOServiceException, DAOSQLException
 	{

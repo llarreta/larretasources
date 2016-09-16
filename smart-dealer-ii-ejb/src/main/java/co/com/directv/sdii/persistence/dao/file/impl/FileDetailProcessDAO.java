@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import co.com.directv.sdii.common.util.Constantes;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.model.dto.collection.FileDetailProcessCollectionDTO;
@@ -63,6 +64,55 @@ public class FileDetailProcessDAO  extends BaseDao implements FileDetailProcessD
             log.debug("== Termina save/FileDetailProcessDAO ==");
         }		
 		
+	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)	
+	public void save(List<FileDetailProcess> fileDetailProcess)  throws DAOServiceException, DAOSQLException  {
+		Session session = null ;
+		
+		//Obtenemos la sesion
+		try{
+			session = getSession();
+		}catch (Throwable ex) {
+            log.debug("== Error save/FileDetailProcessDAO ==");
+            log.debug("== Termina save/FileDetailProcessDAO ==");
+            throw this.manageException(ex);
+        }
+		
+		//Guardamos todo.
+		int numSaves = 0;
+		for(FileDetailProcess fDetaPros : fileDetailProcess){
+			try{
+				if(fDetaPros == null){
+					log.error("se intentó guardar un FileDetailProcess nulo");
+				}else{
+					session.save(fDetaPros);
+					numSaves++;
+					if(numSaves >= Constantes.BATCH_INSERT_SIZE){
+						numSaves = 0;
+						this.doFlush(session);
+					}
+				}
+			}catch (Throwable ex) {
+				log.error("no fue posible guardar en la base de datos un error en procesamiento de archivo. Causa: " + ex.getMessage());
+				if(fDetaPros != null) {
+					log.error("id archivo con error: " + fDetaPros.getId() != null ? fDetaPros.getId() : "null");
+					log.error(" fila: " + fDetaPros.getFdprow() != null ? fDetaPros.getFdprow() : "null");
+					log.error(" mensaje: " + fDetaPros.getMessage() != null ? fDetaPros.getMessage() : "null");
+				}
+	        }
+		}
+
+		//Flusheamos los cambios.
+        try {
+            this.doFlush(session);
+        }catch (Throwable ex) {
+            log.debug("== Error save/FileDetailProcessDAO ==");
+            throw this.manageException(ex);
+        }finally {
+            log.debug("== Termina save/FileDetailProcessDAO ==");
+        }		
 	}
 	
     /*

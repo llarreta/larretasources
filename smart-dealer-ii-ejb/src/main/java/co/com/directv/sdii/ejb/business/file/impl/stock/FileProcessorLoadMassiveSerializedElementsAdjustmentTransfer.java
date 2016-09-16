@@ -1,8 +1,12 @@
 package co.com.directv.sdii.ejb.business.file.impl.stock;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -19,17 +23,23 @@ import co.com.directv.sdii.common.enumerations.ApplicationTextEnum;
 import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.ejb.business.file.DTO.FileRecordDTO;
+import co.com.directv.sdii.ejb.business.file.data.LoadMassiveSerializedAdjusmentData;
 import co.com.directv.sdii.ejb.business.stock.AdjustmentBusinessBeanLocal;
 import co.com.directv.sdii.ejb.business.stock.AdjustmentElementsBusinessBeanLocal;
 import co.com.directv.sdii.ejb.business.stock.MovementElementBusinessBeanLocal;
 import co.com.directv.sdii.ejb.business.stock.WarehouseBusinessBeanLocal;
 import co.com.directv.sdii.exceptions.BusinessException;
+import co.com.directv.sdii.exceptions.DAOSQLException;
+import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.exceptions.PropertiesException;
 import co.com.directv.sdii.model.dto.MovementElementDTO;
 import co.com.directv.sdii.model.pojo.Adjustment;
+import co.com.directv.sdii.model.pojo.AdjustmentElementsStatus;
 import co.com.directv.sdii.model.pojo.AdjustmentStatus;
 import co.com.directv.sdii.model.pojo.Dealer;
 import co.com.directv.sdii.model.pojo.FileDetailProcess;
+import co.com.directv.sdii.model.pojo.MovementType;
+import co.com.directv.sdii.model.pojo.RecordStatus;
 import co.com.directv.sdii.model.pojo.Serialized;
 import co.com.directv.sdii.model.pojo.TransferReason;
 import co.com.directv.sdii.model.pojo.UploadFileParam;
@@ -39,6 +49,7 @@ import co.com.directv.sdii.model.pojo.WarehouseElement;
 import co.com.directv.sdii.model.vo.AdjustmentVO;
 import co.com.directv.sdii.persistence.dao.dealers.DealersDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.AdjustmentDAOLocal;
+import co.com.directv.sdii.persistence.dao.stock.AdjustmentElementsStatusDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.AdjustmentStatusDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.SerializedDAOLocal;
 import co.com.directv.sdii.persistence.dao.stock.TransferReasonDAOLocal;
@@ -99,6 +110,9 @@ public class FileProcessorLoadMassiveSerializedElementsAdjustmentTransfer extend
     
     @EJB(name="DealersDAOLocal", beanInterface=DealersDAOLocal.class)
     private DealersDAOLocal dAODealers;
+    
+    @EJB(name = "AdjustmentElementsStatusDAOLocal", beanInterface = AdjustmentElementsStatusDAOLocal.class)
+	private AdjustmentElementsStatusDAOLocal daoAdjustmentElementsStatus;
 	
 	private Adjustment adjustment = null;
 	
@@ -243,102 +257,243 @@ public class FileProcessorLoadMassiveSerializedElementsAdjustmentTransfer extend
 	}
 
 
-
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void processRecord(FileRecordDTO fileRecordDTO)
-			throws BusinessException {
-		try{
-			String serialElement = fileRecordDTO.getRowData()[POS_SERIAL_ELEMENT];
-			String codeWarehouseSource = fileRecordDTO.getRowData()[POS_COD_UBICACION_ORIGEN];
-			String codeWarehouseTarget = fileRecordDTO.getRowData()[POS_COD_UBICACION_DESTINO];
-			String serialElementLink = fileRecordDTO.getRowData()[POS_SERIAL_LINK_ELEMENT];
-			
-			WarehouseElement warehouseElement  = warehouseElementDAO.getWarehouseElementBySerialActive(serialElement,this.getUploadFile().getCountry().getId());
-			if(warehouseElement==null){
-				throw new BusinessException("Elemento con serial ["+serialElement+"] no se encuentra en el sistema");
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public List<Object> processRecordMassive(List<FileRecordDTO> fileData) throws BusinessException {
+		List<LoadMassiveSerializedAdjusmentData> listaElementos = new ArrayList<LoadMassiveSerializedAdjusmentData>();
+		Set<String> setSerialElement = new HashSet<String>();
+		Map<String, Warehouse> mapaWareHouses = new HashMap<String, Warehouse>();
+
+		// Validaciones.
+		try {
+			// 1.-Montamos la clase Auxiliar.
+			for (FileRecordDTO fileDataAux : fileData) {
+				LoadMassiveSerializedAdjusmentData dataAux = new LoadMassiveSerializedAdjusmentData(fileDataAux, POS_SERIAL_ELEMENT, POS_COD_UBICACION_ORIGEN, POS_COD_UBICACION_DESTINO, POS_SERIAL_LINK_ELEMENT);
+				listaElementos.add(dataAux);
 			}
-			
-			
-			//Validar si el elemento esta en la bodega que se define en el archivo
-			if(!warehouseElement.getWarehouseId().getWhCode().equalsIgnoreCase(codeWarehouseSource)){
-				
-				throw new BusinessException("Elemento con serial ["+serialElement+"] no se encuentra en la bodega con código ["+codeWarehouseSource+"]");
+
+			// 2.- Creamos aquellos mapas de datos necesarios.
+			for (LoadMassiveSerializedAdjusmentData data : listaElementos) {
+				setSerialElement.add(data.getSerialElement());
 			}
-			
-			//Validar si la ubicacion  esta en el pais correspondiente
-			if(warehouseElement.getWarehouseId().getCountry().getId().longValue()!=adjustment.getCountry().getId().longValue()){
-				throw new BusinessException("La ubicación con código ["+codeWarehouseSource+"] no se encuentra en "+adjustment.getCountry().getCountryName()); 
-			}
-			
-			//Validar que la ubicación origen no sea virtual
-			if(warehouseElement.getWarehouseId().getWarehouseType().getIsVirtual().equalsIgnoreCase(CodesBusinessEntityEnum.WAREHOUSE_TYPE_STATUS_VIRTUAL.getCodeEntity())){
-				throw new BusinessException("El Elemento con serial ["+serialElement+"] no se puede ajustar porque se encuentra en una ubicación de transito ");
-			}
-			
-			//Validar que elemento que esta como principal en el archivo no este siendo vinculado por otro elemento
-			List<Serialized> linkedElementS = daoSerialized.getLinkedSerializedBySerializedId(warehouseElement.getSerialized().getElementId());
-			if(linkedElementS!=null && linkedElementS.size()>0){
-				throw new BusinessException("El elemento que definió como principal en el archivo con serial ["+serialElement+"]  esta siendo vinculado por el elemento ["+linkedElementS.get(0).getSerialCode()+"]");
-			}
-			
-			if(serialElementLink!=null && !serialElementLink.isEmpty()){
-				if(warehouseElement.getSerialized().getSerialized()!=null){
-					if(!warehouseElement.getSerialized().getSerialized().getSerialCode().trim().toUpperCase()
-							.equalsIgnoreCase(serialElementLink.trim().toUpperCase())){
-						throw new BusinessException("El elemento con serial ["+serialElement+"] no se encuentra vinculado con el elemento con serial  ["+serialElementLink+"]");
+
+			// 2.-Buscamos los elementos a partir de los seriales.
+			Map<String, WarehouseElement> lWarehouseElement = this.fillMapElements(setSerialElement);
+
+			// 3.- Asignamos a cada Objeto su elemento de BBDD Y REALIZAMOS
+			// VALIDACIONES.
+			for (LoadMassiveSerializedAdjusmentData sAux : listaElementos) {
+				WarehouseElement wAux = lWarehouseElement.get(sAux.getSerialElement());
+				if (wAux == null) {
+					sAux.setError(true);
+					sAux.setsError("Elemento con serial [" + sAux.getSerialElement() + "] no se encuentra en el sistema");
+				} else {
+					sAux.setWarehouseElement(wAux);
+					// Validar si el elemento esta en la bodega que se define en el archivo
+					if (!wAux.getWarehouseId().getWhCode().equalsIgnoreCase(sAux.getCodeWarehouseSource())) {
+						sAux.setError(true);
+						sAux.setsError("Elemento con serial [" + sAux.getSerialElement() + "] no se encuentra en la bodega con código [" + sAux.getCodeWarehouseSource() + "]");
+					}
+					// Validar si la ubicacion esta en el pais correspondiente
+					if (!sAux.isError() && wAux.getWarehouseId().getCountry().getId().longValue() != adjustment.getCountry().getId().longValue()) {
+						sAux.setError(true);
+						sAux.setsError("La ubicación con código [" + sAux.getCodeWarehouseSource() + "] no se encuentra en " + adjustment.getCountry().getCountryName());
+					}
+
+					// Validar que la ubicación origen no sea virtual
+					if (!sAux.isError() && wAux.getWarehouseId().getWarehouseType().getIsVirtual().equalsIgnoreCase(CodesBusinessEntityEnum.WAREHOUSE_TYPE_STATUS_VIRTUAL.getCodeEntity())) {
+						sAux.setError(true);
+						sAux.setsError("El Elemento con serial [" + sAux.getSerialElement() + "] no se puede ajustar porque se encuentra en una ubicación de transito ");
+					}
+
+					// Validar que elemento que esta como principal en el archivo no este siendo vinculado por otro elemento
+					List<Serialized> linkedElementS = daoSerialized.getLinkedSerializedBySerializedId(wAux.getSerialized().getElementId());
+					if (!sAux.isError() && linkedElementS != null && linkedElementS.size() > 0) {
+						sAux.setError(true);
+						sAux.setsError("El elemento que definió como principal en el archivo con serial [" + sAux.getSerialElement() + "]  esta siendo vinculado por el elemento [" + linkedElementS.get(0).getSerialCode() + "]");
+					}
+
+					if (!sAux.isError() && sAux.getSerialElementLink() != null && !sAux.getSerialElementLink().isEmpty()) {
+						if (wAux.getSerialized().getSerialized() != null) {
+							if (!wAux.getSerialized().getSerialized().getSerialCode().trim().toUpperCase().equalsIgnoreCase(sAux.getSerialElementLink().trim().toUpperCase())) {
+								sAux.setError(true);
+								sAux.setsError("El elemento con serial [" + sAux.getSerialElement() + "] no se encuentra vinculado con el elemento con serial  [" + sAux.getSerialElementLink() + "]");
+							}
+						}
+					}
+
+					// Se valida que exista la ubicación destino y que no sea virtual
+					String sWareHouseTargetCode = sAux.getCodeWarehouseTarget().trim().toUpperCase();
+					 // Si no existe la WareHouse en el mapa se busca.
+					if (!sAux.isError() && !mapaWareHouses.containsValue(sWareHouseTargetCode)) {
+						Warehouse warehouseTargetVO = this.getWarehouseByCodeAndByCountry(sWareHouseTargetCode, adjustment.getCountry().getId().longValue());
+						mapaWareHouses.put(sWareHouseTargetCode, warehouseTargetVO);
+					}
+					Warehouse warehouseTargetVO = mapaWareHouses.get(sWareHouseTargetCode);
+					if (!sAux.isError() && warehouseTargetVO == null) {
+						sAux.setError(true);
+						sAux.setsError("La ubicación destino con código [" + sWareHouseTargetCode + " no existe en el sistema");
+					} else if (!sAux.isError()) {
+						if (warehouseTargetVO.getWarehouseType().getIsVirtual().equalsIgnoreCase(CodesBusinessEntityEnum.WAREHOUSE_TYPE_STATUS_VIRTUAL.getCodeEntity())) {
+							sAux.setError(true);
+							sAux.setsError("El Elemento con serial [" + sAux.getSerialElement() + "] no se puede ajustar porque porque la ubicación destino es de transito ");
+						}
+						try {
+							if (!sAux.isError()) {
+								checkDealerValid(sAux.getWarehouseElement().getWarehouseId().getDealerId(), sAux.getCodeWarehouseSource());
+								checkDealerValid(warehouseTargetVO.getDealerId(), sAux.getCodeWarehouseTarget());
+							}
+						} catch (BusinessException bex) {
+							sAux.setError(true);
+							sAux.setsError(bex.getMessage());
+						}
+
+						// Validar que no sea la misma ubicación
+						if (!sAux.isError() && (sAux.getWarehouseElement().getWarehouseId().getId().longValue() == warehouseTargetVO.getId().longValue())) {
+							sAux.setError(true);
+							sAux.setsError("La ubicación destino no puede ser la misma de la ubicación origen");
+						}
+						
+						if(!sAux.isError()){
+							sAux.setWarehouseTargetVO(warehouseTargetVO);
+						}
 					}
 				}
 			}
-			
-			//Se valida que exista la ubicación destino y que no sea virtual
-			Warehouse warehouseTargetVO = daoWarehouse.getWarehouseByCodeAndByCountry(codeWarehouseTarget.trim().toUpperCase(), adjustment.getCountry().getId().longValue());
-			if(warehouseTargetVO==null){
-				throw new BusinessException("La ubicación destino con código ["+codeWarehouseTarget+" no existe en el sistema");
-			}
-			
-			//Validar que la ubicación destino no sea virtual
-			if(warehouseTargetVO.getWarehouseType().getIsVirtual().equalsIgnoreCase(CodesBusinessEntityEnum.WAREHOUSE_TYPE_STATUS_VIRTUAL.getCodeEntity())){
-				throw new BusinessException("El Elemento con serial ["+serialElement+"] no se puede ajustar porque porque la ubicación destino es de transito ");
-			}
-			
-			checkDealerValid(warehouseElement.getWarehouseId().getDealerId(),codeWarehouseSource);
-			checkDealerValid(warehouseTargetVO.getDealerId(),codeWarehouseTarget);
-			
-			
-			//Validar que no sea la misma ubicación
-			if(warehouseElement.getWarehouseId().getId().longValue() == warehouseTargetVO.getId().longValue()){
-				throw new BusinessException("La ubicación destino no puede ser la misma de la ubicación origen");
-			}
-			
-			
-			AdjustmentElementDTO dto = new AdjustmentElementDTO();
-			dto.setElementId(warehouseElement.getSerialized().getElementId());
-			dto.setSerialCode(warehouseElement.getSerialized().getSerialCode());
-			dto.setIdWarehouse(warehouseElement.getWarehouseId().getId());
-			dto.setIdWarehouseDestination(warehouseTargetVO.getId());		
-			
-			if(this.adjustment != null && (this.adjustment.getId()==null || this.adjustment.getId()<=0L)){
-				Long idAdjustment =  businessAdjustment.createAdjustment(UtilsBusiness.copyObject(AdjustmentVO.class, this.adjustment), this.getUploadFile().getUser().getId());
-				this.adjustment = businessAdjustment.getAdjustmentByID(idAdjustment);
-				if(adjustment.getTransferReason().getTransferReasonAuthorized().equals(CodesBusinessEntityEnum.MOVEMENT_TYPE_AUTHORIZED_NO.getCodeEntity())){
-	        		dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(adjustment.getTransferReason().getMovTypeIn().getMovTypeCode(),
-	        				                                                              adjustment.getTransferReason().getMovTypeOut().getMovTypeCode());
-	        	}else{
-	        		dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatus(CodesBusinessEntityEnum.MOVEMENT_TYPE_WAREHOUSE_TYPE_TRANSIT_IN.getCodeEntity(),
-	        																			  CodesBusinessEntityEnum.MOVEMENT_TYPE_WAREHOUSE_TYPE_TRANSIT_OUT.getCodeEntity());
-	        	}
-			}
-			businessAdjustmentElements.adjustmentTransferElementSerialized(UtilsBusiness.copyObject(AdjustmentVO.class, this.adjustment), dto, this.getUploadFile().getUser(),warehouseAdjusTransit,dtoGenerics);
-			
-			
-		} catch (Throwable t){
+
+		} catch (Throwable t) {
 			log.debug("== Error al tratar de ejecutar la operación validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==", t);
-			throw this.manageException(t);
-		} finally {
 			log.debug("== Termina validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==");
-		}	
+			throw this.manageException(t);
+		}
+
+		//Buscamos en la BBDD los datos comunes.
+		MovementType movementTypeE = new MovementType();
+		MovementType movementTypeS = new MovementType();
+		RecordStatus recordStatusU = new RecordStatus();
+		RecordStatus recordStatusH = new RecordStatus();
+		AdjustmentElementsStatus adjustmentElementsStatus = new AdjustmentElementsStatus();
+		boolean allElementsFailed = false;
+		int nElemFallidos = 0;
 		
+		for (LoadMassiveSerializedAdjusmentData dataAux : listaElementos) {
+			if(dataAux.isError()){
+				nElemFallidos++;
+			}
+		}
+		
+		if(nElemFallidos == listaElementos.size()){
+			allElementsFailed = true;
+		}
+		
+		if(!allElementsFailed){
+			try {
+				
+				if (this.adjustment != null && (this.adjustment.getId() == null || this.adjustment.getId() <= 0L)) {
+					Long idAdjustment = this.createAdjustment(UtilsBusiness.copyObject(AdjustmentVO.class, this.adjustment), this.getUploadFile().getUser().getId());
+					this.adjustment = this.getAdjustmentByID(idAdjustment);
+					if (adjustment.getTransferReason().getTransferReasonAuthorized().equals(CodesBusinessEntityEnum.MOVEMENT_TYPE_AUTHORIZED_NO.getCodeEntity())) {
+						businessMovementElement.fillData(adjustment.getTransferReason().getMovTypeIn().getMovTypeCode(), adjustment.getTransferReason().getMovTypeOut().getMovTypeCode(), movementTypeE, movementTypeS, recordStatusU, recordStatusH);
+					} else {
+						businessMovementElement.fillData(CodesBusinessEntityEnum.MOVEMENT_TYPE_WAREHOUSE_TYPE_TRANSIT_IN.getCodeEntity(), CodesBusinessEntityEnum.MOVEMENT_TYPE_WAREHOUSE_TYPE_TRANSIT_OUT.getCodeEntity(), movementTypeE, movementTypeS, recordStatusU, recordStatusH);
+					}
+					dtoGenerics = businessMovementElement.fillMovementTypeAndRecordStatusMassive(movementTypeE, movementTypeS, recordStatusU, recordStatusH);
+				}
+				
+				//Buscamos los estados.
+				if(adjustment.getTransferReason().getTransferReasonAuthorized().equals(CodesBusinessEntityEnum.MOVEMENT_TYPE_AUTHORIZED_YES.getCodeEntity())){
+	        		adjustmentElementsStatus = this.getAdjustmentElementsStatusByCode(CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_PENDING.getCodeEntity());
+	        	}else{
+	        		adjustmentElementsStatus = this.getAdjustmentElementsStatusByCode(CodesBusinessEntityEnum.ADJUSTMENT_ELEMENTS_STATUS_PROCESS.getCodeEntity());
+	        	}
+			} catch (BusinessException bex) {
+				//Si esto falla se ponen todas como erroneas.
+				for (LoadMassiveSerializedAdjusmentData dataAux : listaElementos) {
+					if(!dataAux.isError()){
+						dataAux.setError(true);
+						dataAux.setsError(bex.getMessage());
+					}
+				}
+			} catch (PropertiesException pex) {
+				log.debug("== Error al tratar de ejecutar la operación validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==", pex);
+				log.debug("== Termina validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==");
+				throw this.manageException(pex);
+			} catch (DAOSQLException dex){
+				log.debug("== Error al tratar de ejecutar la operación validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==", dex);
+				log.debug("== Termina validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==");
+				throw this.manageException(dex);
+			}catch(DAOServiceException dex){
+				log.debug("== Error al tratar de ejecutar la operación validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==", dex);
+				log.debug("== Termina validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==");
+				throw this.manageException(dex);
+			}
+	
+			//Pasadas las validaciones, procedemos a procesar aquellas filas que no tienen errores.
+			try {
+				for (LoadMassiveSerializedAdjusmentData dataAux : listaElementos) {
+					try{
+						if(!dataAux.isError()){
+							processAdjustmentMassive(dataAux,movementTypeE,movementTypeS,recordStatusU,recordStatusH,adjustmentElementsStatus);
+						}
+					}catch(BusinessException bex){
+						dataAux.setError(true);
+						dataAux.setsError(bex.getMessage());
+					}catch(PropertiesException pex){
+						dataAux.setError(true);
+						dataAux.setsError(pex.getMessage());
+					}
+				}
+			} catch (Throwable t) {
+				log.debug("== Error al tratar de ejecutar la operación validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==", t);
+				throw this.manageException(t);
+			} finally {
+				log.debug("== Termina validateFile/FileProcessorLoadMassiveSerializedElementsAdjustmentOutput ==");
+			}
+		}
+		
+		//Mapeamos la salida.
+		List<Object> listaSalida = new ArrayList<Object>();
+		listaSalida.addAll(listaElementos);
+		
+		return listaSalida;
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public AdjustmentElementsStatus getAdjustmentElementsStatusByCode(String sCode) throws DAOServiceException, DAOSQLException {
+		return daoAdjustmentElementsStatus.getAdjustmentElementsStatusByCodeRequired(sCode);
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public Adjustment getAdjustmentByID(Long idAdjustment) throws BusinessException {
+		return businessAdjustment.getAdjustmentByIDNew(idAdjustment);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public Long createAdjustment(AdjustmentVO copyObject, Long id) throws BusinessException {
+		return businessAdjustment.createAdjustment(copyObject, id);
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public Warehouse getWarehouseByCodeAndByCountry(String sWareHouseTargetCode, long longValue) throws DAOServiceException, DAOSQLException {
+		return daoWarehouse.getWarehouseByCodeAndByCountry(sWareHouseTargetCode, adjustment.getCountry().getId().longValue());
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public Map<String, WarehouseElement> fillMapElements(Set<String> setSerialElement) throws DAOServiceException, DAOSQLException{
+		return warehouseElementDAO.getWarehouseElementBySerialActiveMassive(setSerialElement, this.getUploadFile().getCountry().getId());
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void processAdjustmentMassive(LoadMassiveSerializedAdjusmentData dataAux, MovementType movementTypeE, MovementType movementTypeS, 
+			RecordStatus recordStatusU, RecordStatus recordStatusH, AdjustmentElementsStatus adjustmentElementsStatus) throws BusinessException, PropertiesException{
+		AdjustmentElementDTO dto = new AdjustmentElementDTO();
+		dto.setElementId(dataAux.getWarehouseElement().getSerialized().getElementId());
+		dto.setSerialCode(dataAux.getWarehouseElement().getSerialized().getSerialCode());
+		dto.setIdWarehouse(dataAux.getWarehouseElement().getWarehouseId().getId());
+		dto.setIdWarehouseDestination(dataAux.getWarehouseTargetVO().getId());
+
+		businessAdjustmentElements.adjustmentTransferElementSerializedMassive(UtilsBusiness.copyObject(AdjustmentVO.class, this.adjustment), dto,
+				this.getUploadFile().getUser(), warehouseAdjusTransit, dtoGenerics,dataAux,adjustmentElementsStatus);
 	}
 	
 	/**
@@ -392,6 +547,5 @@ public class FileProcessorLoadMassiveSerializedElementsAdjustmentTransfer extend
 	public boolean validateFile() throws BusinessException {
 		return true;
 	}
-
 
 }
