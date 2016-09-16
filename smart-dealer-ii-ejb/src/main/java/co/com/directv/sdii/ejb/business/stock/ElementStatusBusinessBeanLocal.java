@@ -7,7 +7,6 @@ import javax.ejb.Local;
 import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
-import co.com.directv.sdii.exceptions.PropertiesException;
 import co.com.directv.sdii.model.pojo.ElementStatus;
 import co.com.directv.sdii.model.pojo.Warehouse;
 import co.com.directv.sdii.model.vo.ElementStatusVO;

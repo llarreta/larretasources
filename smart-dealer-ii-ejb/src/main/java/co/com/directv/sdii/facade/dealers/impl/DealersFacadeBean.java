@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import co.com.directv.sdii.ejb.business.dealers.DealersCRUDLocal;
-import co.com.directv.sdii.exceptions.BusinessDetailException;
 import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.facade.dealers.DealersFacadeBeanLocal;
 import co.com.directv.sdii.model.dto.DealerInfoRequestDTO;

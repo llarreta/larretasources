@@ -2,7 +2,7 @@ package co.com.directv.sdii.model.pojo;
 
 import java.util.Date;
 
-import org.jboss.envers.Versioned;
+import org.hibernate.envers.Audited;
 
 import co.com.directv.sdii.audit.Auditable;
 
@@ -67,7 +67,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 	}
 
 	// Property accessors
-	@Versioned
+	@Audited
 	public Long getId() {
 		return this.id;
 	}
@@ -117,7 +117,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 		this.postalCode = postalCode;
 	}
 
-	@Versioned
+	@Audited
 	public Long getDealerPriority() {
 		return this.dealerPriority;
 	}
@@ -126,7 +126,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 		this.dealerPriority = dealerPriority;
 	}
 
-	@Versioned
+	@Audited
 	public Date getDateLastChange() {
 		return this.dateLastChange;
 	}
@@ -135,7 +135,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 		this.dateLastChange = dateLastChange;
 	}
 
-	@Versioned
+	@Audited
 	public String getStatus() {
 		return this.status;
 	}
@@ -145,7 +145,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 	}
 
 
-	@Versioned
+	@Audited
 	public Long getDealerId() {
 		return dealerId;
 	}
@@ -154,7 +154,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 		this.dealerId = dealerId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getUserId() {
 		return userId;
 	}
@@ -163,7 +163,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 		this.userId = userId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getCoverageTypeId() {
 		return coverageTypeId;
 	}
@@ -172,7 +172,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 		this.coverageTypeId = coverageTypeId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getCountryId() {
 		return countryId;
 	}
@@ -181,7 +181,7 @@ public class DealerCoverage implements java.io.Serializable,Auditable {
 		this.countryId = countryId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getPostalCodeIds() {
 		return postalCodeIds;
 	}

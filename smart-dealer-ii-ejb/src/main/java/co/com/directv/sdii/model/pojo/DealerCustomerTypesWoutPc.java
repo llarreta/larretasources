@@ -2,7 +2,7 @@ package co.com.directv.sdii.model.pojo;
 
 import java.util.Date;
 
-import org.jboss.envers.Versioned;
+import org.hibernate.envers.Audited;
 
 import co.com.directv.sdii.audit.Auditable;
 import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
@@ -59,7 +59,7 @@ public class DealerCustomerTypesWoutPc implements java.io.Serializable,Auditable
 	}
 
 	// Property accessors
-	@Versioned
+	@Audited
 	public Long getId() {
 		return this.id;
 	}
@@ -101,7 +101,7 @@ public class DealerCustomerTypesWoutPc implements java.io.Serializable,Auditable
 		this.country = country;
 	}
 
-	@Versioned
+	@Audited
 	public Date getDateLastChange() {
 		return this.dateLastChange;
 	}
@@ -110,7 +110,7 @@ public class DealerCustomerTypesWoutPc implements java.io.Serializable,Auditable
 		this.dateLastChange = dateLastChange;
 	}
 
-	@Versioned
+	@Audited
 	public String getStatus() {
 		return this.status;
 	}
@@ -120,7 +120,7 @@ public class DealerCustomerTypesWoutPc implements java.io.Serializable,Auditable
 	}
 
 	
-	@Versioned
+	@Audited
 	public Long getDealerId() {
 		return dealerId;
 	}
@@ -129,7 +129,7 @@ public class DealerCustomerTypesWoutPc implements java.io.Serializable,Auditable
 		this.dealerId = dealerId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getUserId() {
 		return userId;
 	}
@@ -138,7 +138,7 @@ public class DealerCustomerTypesWoutPc implements java.io.Serializable,Auditable
 		this.userId = userId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getCustomerCodeTypeId() {
 		return customerCodeTypeId;
 	}
@@ -147,7 +147,7 @@ public class DealerCustomerTypesWoutPc implements java.io.Serializable,Auditable
 		this.customerCodeTypeId = customerCodeTypeId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getCountryId() {
 		return countryId;
 	}

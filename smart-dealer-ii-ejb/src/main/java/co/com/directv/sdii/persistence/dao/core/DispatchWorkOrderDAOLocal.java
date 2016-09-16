@@ -1,7 +1,5 @@
 package co.com.directv.sdii.persistence.dao.core;
 
-import java.io.InputStream;
-
 import javax.ejb.Local;
 
 import co.com.directv.sdii.exceptions.DAOSQLException;

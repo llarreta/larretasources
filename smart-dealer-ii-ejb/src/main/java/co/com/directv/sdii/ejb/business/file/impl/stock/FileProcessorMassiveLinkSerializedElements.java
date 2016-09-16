@@ -21,7 +21,6 @@ import co.com.directv.sdii.ejb.business.dealers.CountriesCRUDBeanLocal;
 import co.com.directv.sdii.ejb.business.file.DTO.FileRecordDTO;
 import co.com.directv.sdii.ejb.business.stock.ElementBusinessBeanLocal;
 import co.com.directv.sdii.exceptions.BusinessException;
-import co.com.directv.sdii.exceptions.PropertiesException;
 import co.com.directv.sdii.model.pojo.Country;
 import co.com.directv.sdii.model.pojo.FileDetailProcess;
 import co.com.directv.sdii.model.pojo.Serialized;

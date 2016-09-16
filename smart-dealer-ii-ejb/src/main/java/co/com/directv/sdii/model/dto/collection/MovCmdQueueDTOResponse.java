@@ -3,8 +3,6 @@ package co.com.directv.sdii.model.dto.collection;
 import java.io.Serializable;
 import java.util.List;
 
-import co.com.directv.sdii.model.dto.CustomerElementsDTO;
-import co.com.directv.sdii.model.dto.QuantityWarehouseElementsDTO;
 import co.com.directv.sdii.model.pojo.collection.CollectionBase;
 import co.com.directv.sdii.reports.dto.MovCmdQueueDTO;
 

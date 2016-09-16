@@ -2,7 +2,7 @@ package co.com.directv.sdii.model.pojo;
 
 import java.util.Date;
 
-import org.jboss.envers.Versioned;
+import org.hibernate.envers.Audited;
 
 import co.com.directv.sdii.audit.Auditable;
 
@@ -82,7 +82,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 	}
 
 	// Property accessors
-	@Versioned
+	@Audited
 	public Long getId() {
 		return this.id;
 	}
@@ -133,7 +133,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.serviceHour = serviceHour;
 	}
 
-	@Versioned
+	@Audited
 	public Double getMonCapacity() {
 		return this.monCapacity;
 	}
@@ -142,7 +142,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.monCapacity = monCapacity;
 	}
 
-	@Versioned
+	@Audited
 	public Double getTueCapacity() {
 		return this.tueCapacity;
 	}
@@ -151,7 +151,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.tueCapacity = tueCapacity;
 	}
 
-	@Versioned
+	@Audited
 	public Double getWedCapacity() {
 		return this.wedCapacity;
 	}
@@ -160,7 +160,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.wedCapacity = wedCapacity;
 	}
 
-	@Versioned
+	@Audited
 	public Double getThuCapacity() {
 		return this.thuCapacity;
 	}
@@ -169,7 +169,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.thuCapacity = thuCapacity;
 	}
 
-	@Versioned
+	@Audited
 	public Double getFriCapacity() {
 		return this.friCapacity;
 	}
@@ -178,7 +178,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.friCapacity = friCapacity;
 	}
 
-	@Versioned
+	@Audited
 	public Double getSatCapacity() {
 		return this.satCapacity;
 	}
@@ -187,7 +187,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.satCapacity = satCapacity;
 	}
 
-	@Versioned
+	@Audited
 	public Double getSunCapacity() {
 		return this.sunCapacity;
 	}
@@ -196,7 +196,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.sunCapacity = sunCapacity;
 	}
 
-	@Versioned
+	@Audited
 	public Date getDateLastChange() {
 		return this.dateLastChange;
 	}
@@ -206,7 +206,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 	}
 
 	
-	@Versioned
+	@Audited
 	public Long getDealerId() {
 		return dealerId;
 	}
@@ -215,7 +215,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.dealerId = dealerId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getUserId() {
 		return userId;
 	}
@@ -224,7 +224,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.userId = userId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getServiceSuperCategoryId() {
 		return serviceSuperCategoryId;
 	}
@@ -233,7 +233,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.serviceSuperCategoryId = serviceSuperCategoryId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getCountryId() {
 		return countryId;
 	}
@@ -242,7 +242,7 @@ public class DealerWeekCapacity implements java.io.Serializable,Auditable {
 		this.countryId = countryId;
 	}
 
-	@Versioned
+	@Audited
 	public Long getServiceHourId() {
 		return serviceHourId;
 	}

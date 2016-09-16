@@ -1,8 +1,8 @@
 package co.com.directv.sdii.model.pojo;
 
-import org.jboss.envers.RevisionEntity;
-import org.jboss.envers.RevisionNumber;
-import org.jboss.envers.RevisionTimestamp;
+import org.hibernate.envers.RevisionEntity;
+import org.hibernate.envers.RevisionNumber;
+import org.hibernate.envers.RevisionTimestamp;
 
 /**
  * 

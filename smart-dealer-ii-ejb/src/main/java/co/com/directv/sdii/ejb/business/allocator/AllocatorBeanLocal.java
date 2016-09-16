@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.Local;
 
 import co.com.directv.sdii.common.util.UtilsBusiness;
-import co.com.directv.sdii.ejb.business.core.WoInfoEsbServiceBusinessLocal;
 import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.model.vo.AllocatorEventMasterVO;
 import co.com.directv.sdii.model.vo.CountryVO;

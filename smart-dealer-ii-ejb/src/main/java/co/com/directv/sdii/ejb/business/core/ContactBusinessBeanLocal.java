@@ -5,8 +5,6 @@ import java.util.List;
 import javax.ejb.Local;
 
 import co.com.directv.sdii.exceptions.BusinessException;
-import co.com.directv.sdii.exceptions.DAOSQLException;
-import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.model.dto.ContactDTO;
 import co.com.directv.sdii.model.vo.ContactVO;
 

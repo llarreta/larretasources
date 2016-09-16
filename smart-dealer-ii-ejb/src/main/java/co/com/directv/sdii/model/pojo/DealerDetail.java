@@ -1,6 +1,6 @@
 package co.com.directv.sdii.model.pojo;
 
-import org.jboss.envers.Versioned;
+import org.hibernate.envers.Audited;
 
 import co.com.directv.sdii.audit.Auditable;
 
@@ -48,7 +48,7 @@ public class DealerDetail implements java.io.Serializable,Auditable {
 	}
 
 	// Property accessors
-	@Versioned
+	@Audited
 	public Long getDealerId() {
 		return this.dealerId;
 	}
@@ -65,7 +65,7 @@ public class DealerDetail implements java.io.Serializable,Auditable {
 		this.dealer = dealer;
 	}
 
-	@Versioned
+	@Audited
 	public Long getTechnicianWoQtyDay() {
 		return this.technicianWoQtyDay;
 	}
@@ -74,7 +74,7 @@ public class DealerDetail implements java.io.Serializable,Auditable {
 		this.technicianWoQtyDay = technicianWoQtyDay;
 	}
 	
-	@Versioned
+	@Audited
 	public Long getCompanyWoQtyDay() {
 		return this.companyWoQtyDay;
 	}
@@ -83,7 +83,7 @@ public class DealerDetail implements java.io.Serializable,Auditable {
 		this.companyWoQtyDay = companyWoQtyDay;
 	}
 
-	@Versioned	
+	@Audited	
 	public String getAttendBuildings() {
 		return this.attendBuildings;
 	}
@@ -91,7 +91,7 @@ public class DealerDetail implements java.io.Serializable,Auditable {
 	public void setAttendBuildings(String attendBuildings) {
 		this.attendBuildings = attendBuildings;
 	}
-	@Versioned	
+	@Audited	
 	public Long getAudUserId() {
 		return audUserId;
 	}

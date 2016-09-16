@@ -6,9 +6,7 @@ import javax.ejb.Local;
 
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
-import co.com.directv.sdii.model.pojo.Customer;
 import co.com.directv.sdii.model.pojo.CustomerAddresses;
-import co.com.directv.sdii.model.vo.CustomerVO;
 
 /**
  * 

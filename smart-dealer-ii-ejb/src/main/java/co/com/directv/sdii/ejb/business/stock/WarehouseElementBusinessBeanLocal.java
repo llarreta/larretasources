@@ -38,7 +38,6 @@ import co.com.directv.sdii.model.vo.ImportLogInconsistencyVO;
 import co.com.directv.sdii.model.vo.MassiveMovementVO;
 import co.com.directv.sdii.model.vo.NotSerPartialRetirementVO;
 import co.com.directv.sdii.model.vo.NotSerializedVO;
-import co.com.directv.sdii.model.vo.QualityControlNotSerializedVO;
 import co.com.directv.sdii.model.vo.SerializedVO;
 import co.com.directv.sdii.model.vo.UserVO;
 import co.com.directv.sdii.model.vo.WHElementQtySummaryVO;

@@ -2,10 +2,6 @@ package co.com.directv.sdii.model.dto;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import co.com.directv.sdii.model.adapter.UtcTimestampAdapter;
-
 /**
  * 
  * Clase encargada de encapsular la informacion necesaria para mostrar y consultar un ajuste 

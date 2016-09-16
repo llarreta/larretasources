@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import javax.ejb.EJB;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
