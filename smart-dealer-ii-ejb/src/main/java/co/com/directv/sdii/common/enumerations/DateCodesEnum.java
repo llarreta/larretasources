@@ -4,25 +4,25 @@ package co.com.directv.sdii.common.enumerations;
 /**
  * 
  * Clase de tipo Enum que define las constantes para la lista de fechas
- * para consulta de WO del Caso de Uso ADS - 18 - Visualizar Bandeja de Work Orders de la Compañía Instaladora.
+ * para consulta de WO del Caso de Uso ADS - 18 - Visualizar Bandeja de Work Orders de la CompaÃ±Ã­a Instaladora.
  *
  * WO sin Fecha de Agendamiento
- * WO del día de hoy
- * WO un día adelante
- * WO dos día adelante
- * WO tres día adelante
- * WO cuatro día adelante
- * WO cinco día adelante
- * WO seis día adelante
- * WO siete día adelante
- * WO hace más de dos día 
- * WO hace más de siete día 
- * WO hace más de quince día
- * WO hace más de treinta día 
+ * WO del dÃ­a de hoy
+ * WO un dÃ­a adelante
+ * WO dos dÃ­a adelante
+ * WO tres dÃ­a adelante
+ * WO cuatro dÃ­a adelante
+ * WO cinco dÃ­a adelante
+ * WO seis dÃ­a adelante
+ * WO siete dÃ­a adelante
+ * WO hace mÃ¡s de dos dÃ­a 
+ * WO hace mÃ¡s de siete dÃ­a 
+ * WO hace mÃ¡s de quince dÃ­a
+ * WO hace mÃ¡s de treinta dÃ­a 
  * Todas las WO
  * 
- * Fecha de Creación: 05/05/2010
- * @author Jimmy Vélez Muñoz
+ * Fecha de CreaciÃ³n: 05/05/2010
+ * @author Jimmy VÃ©lez MuÃ±oz
  * @version 1.0
  * 
  */
@@ -54,10 +54,10 @@ public enum DateCodesEnum {
     
      /**
      *
-     * Metodo: Retorna el codigo de la enumeración
+     * Metodo: Retorna el codigo de la enumeraciÃ³n
      * 
      * @return String code
-     * @author Jimmy Vélez Muñoz
+     * @author Jimmy VÃ©lez MuÃ±oz
      */
     public String getCode(){
         return this.code;

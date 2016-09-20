@@ -4,9 +4,9 @@
 package co.com.directv.sdii.exceptions;
 
 /**
- * Excepci�n generada por fallos en el env�o de Email.
+ * ExcepciÃÂÃÂ³n generada por fallos en el envÃÂÃÂ­o de Email.
  * 
- * @author Jimmy V�lez Mu�oz
+ * @author Jimmy VÃÂÃÂ©lez MuÃÂÃÂ±oz
  *
  */
 public class EmailMessageException extends BaseException {

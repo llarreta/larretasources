@@ -14,7 +14,7 @@ import co.com.directv.sdii.model.vo.WorkOrderVO;
  * validar el cambio de estado de una
  * work order.
  * 
- * Fecha de Creación: 29/04/2010
+ * Fecha de CreaciÃ³n: 29/04/2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

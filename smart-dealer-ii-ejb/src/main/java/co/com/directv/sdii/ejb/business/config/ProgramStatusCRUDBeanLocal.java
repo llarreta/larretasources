@@ -11,7 +11,7 @@ import co.com.directv.sdii.model.vo.ProgramStatusVO;
  * Interfaz que define las operaciones del componente de 
  * negocio  ProgramStatusCRUDBean
  * 
- * Fecha de Creaci�n: 20/05/2010
+ * Fecha de CreaciÃÂÃÂ³n: 20/05/2010
  * @author jcasas <a href="jcasas@intergrupo.com">e-mail</a>
  * @version 1.0
  */
@@ -20,7 +20,7 @@ public interface ProgramStatusCRUDBeanLocal {
 	
 	/**
 	 * Crea un estado de programa en el sistema
-	 * @param obj Estado de programa que se crear� en el sistema
+	 * @param obj Estado de programa que se crearÃÂÃÂ¡ en el sistema
 	 * @throws BusinessException
 	 */
 	public void createProgramStatus(ProgramStatusVO obj) throws BusinessException;
@@ -36,14 +36,14 @@ public interface ProgramStatusCRUDBeanLocal {
     
     /**
 	 * Actualiza un estado de programa en el sistema
-	 * @param obj Estado de programa que se actualizar� en el sistema
+	 * @param obj Estado de programa que se actualizarÃÂÃÂ¡ en el sistema
 	 * @throws BusinessException
 	 */
     public void updateProgramStatus(ProgramStatusVO obj) throws BusinessException;
 
     /**
 	 * Elimina un estado de programa en el sistema
-	 * @param obj Estado de programa que se eliminar� del sistema
+	 * @param obj Estado de programa que se eliminarÃÂÃÂ¡ del sistema
 	 * @throws BusinessException
 	 */
     public void deleteProgramStatus(ProgramStatusVO obj) throws BusinessException;

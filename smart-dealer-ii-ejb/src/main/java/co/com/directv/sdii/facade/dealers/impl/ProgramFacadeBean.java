@@ -15,7 +15,7 @@ import co.com.directv.sdii.model.vo.ProgramVO;
  * Implementa las operaciones de la entidad de
  * Programs 
  * 
- * Fecha de Creación: 14/05/2010
+ * Fecha de CreaciÃ³n: 14/05/2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
