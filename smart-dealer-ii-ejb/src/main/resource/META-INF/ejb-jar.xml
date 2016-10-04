@@ -47,7 +47,7 @@
         <activation-config-property>
           <activation-config-property-name>messageSelector</activation-config-property-name>
           <activation-config-property-value>
-		    iso3Code='CHI'
+		    iso3Code='COL'
 		  </activation-config-property-value>
         </activation-config-property>
       </activation-config>
