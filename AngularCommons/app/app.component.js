@@ -9,33 +9,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var HEROES = [
-    { id: 11, name: 'Mr. Nice' },
-    { id: 12, name: 'Narco' },
-    { id: 13, name: 'Bombasto' },
-    { id: 14, name: 'Celeritas' },
-    { id: 15, name: 'Magneta' },
-    { id: 16, name: 'RubberMan' },
-    { id: 17, name: 'Dynama' },
-    { id: 18, name: 'Dr IQ' },
-    { id: 19, name: 'Magma' },
-    { id: 20, name: 'Tornado' }
-];
+var hero_service_1 = require('./services/hero.service');
+// Add the RxJS Observable operators we need in this app.
+require('./rxjs-operators');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(heroService) {
+        this.heroService = heroService;
         this.title = "Tour of Heroes";
-        this.heroes = HEROES;
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.getHeroes();
+    };
+    AppComponent.prototype.getHeroes = function () {
+        var _this = this;
+        this.heroService.getHeroes()
+            .subscribe(function (heroes) { return _this.heroes = heroes; }, function (error) { return _this.errorMessage = error; });
+    };
+    AppComponent.prototype.addHero = function (name) {
+        var _this = this;
+        if (!name) {
+            return;
+        }
+        this.heroService.addHero(name)
+            .subscribe(function (hero) { return _this.heroes.push(hero); }, function (error) { return _this.errorMessage = error; });
+    };
     AppComponent.prototype.onSelect = function (hero) {
         this.selectedHero = hero;
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'init-angular-app',
+            providers: [hero_service_1.HeroService],
             templateUrl: 'app/app.component.html',
             styleUrls: ['app/app.component.css']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [hero_service_1.HeroService])
     ], AppComponent);
     return AppComponent;
 }());

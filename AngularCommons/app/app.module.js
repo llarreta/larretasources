@@ -12,6 +12,8 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
+var heroe_detail_component_1 = require('./Components/heroe-detail/heroe-detail.component');
+var http_1 = require('@angular/http');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -19,10 +21,13 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
-                forms_1.FormsModule
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                http_1.JsonpModule
             ],
             declarations: [
-                app_component_1.AppComponent
+                app_component_1.AppComponent,
+                heroe_detail_component_1.HeroDetailComponent,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

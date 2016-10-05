@@ -1,29 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Hero } from "./Entities/heroes";
+import { HeroService } from './services/hero.service';
+import { HeroDetailComponent } from "./Components/heroe-detail/heroe-detail.component.ts";
+// Add the RxJS Observable operators we need in this app.
+import './rxjs-operators';
 
-const HEROES: Hero[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' }
-];
 
 @Component({
   selector: 'init-angular-app',
+  providers: [HeroService] ,
   templateUrl: 'app/app.component.html',
   styleUrls:  ['app/app.component.css']
 })
 
-export class AppComponent { 
-    
+export class AppComponent implements OnInit{ 
+
+    errorMessage : string;
+
+    constructor(private heroService : HeroService){}
+
+    ngOnInit(){
+      this.getHeroes();
+    }
+
+    private getHeroes(){
+      this.heroService.getHeroes()
+                     .subscribe(
+                       heroes => this.heroes = heroes,
+                       error =>  this.errorMessage = <any>error);
+    }
+
+    addHero (name: string) {
+      if (!name) { return; }
+      this.heroService.addHero(name)
+                      .subscribe(
+                        hero  => this.heroes.push(hero),
+                        error =>  this.errorMessage = <any>error);
+    }
+
+
     title: string = "Tour of Heroes";
-    heroes = HEROES;
+    heroes: Hero[];
     selectedHero: Hero;
 
     onSelect(hero: Hero): void {

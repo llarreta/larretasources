@@ -2,13 +2,20 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { AppComponent }  from './app.component';
+import { HeroDetailComponent } from './Components/heroe-detail/heroe-detail.component';
+import { HttpModule, JsonpModule } from '@angular/http';
+
+
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpModule,
+    JsonpModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    HeroDetailComponent,
   ],
   bootstrap: [ AppComponent ]
 })
