@@ -75,7 +75,9 @@ public class DataView extends AppObjectImpl {
 	
 	public Paginator getPaginator() throws PaginatorNotFoundException {
 		Paginator paginator = SessionUtils.getAuthentication().getInfo().getPaginator(controller.getEntityClass());
-		paginator.setDataView(this);
+		if (paginator!=null){
+			paginator.setDataView(this);
+		}
 		return paginator;
 	}
 

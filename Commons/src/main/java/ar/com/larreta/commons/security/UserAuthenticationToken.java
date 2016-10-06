@@ -16,8 +16,13 @@ public class UserAuthenticationToken extends UsernamePasswordAuthenticationToken
 		return info;
 	}
 
+	public UserAuthenticationToken(Object principal, Object credentials,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(principal, credentials, authorities);
+	}
+	
 	public UserAuthenticationToken(User user, Collection<? extends GrantedAuthority> authorities){
-		super(user.getNick(), user.getPassword(), authorities);
+		this(user.getNick(), user.getPassword(), authorities);
 		this.user = user;
 	}
 

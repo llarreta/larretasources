@@ -79,12 +79,13 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	}
 
 	public Entity getRowData(String rowKey) {
-		for (Entity entity : datasource) {
-			if (entity.equals(rowKey)) {
-				return entity;
+		if (datasource!=null){
+			for (Entity entity : datasource) {
+				if (entity.equals(rowKey)) {
+					return entity;
+				}
 			}
 		}
-
 		return null;
 	}
 
