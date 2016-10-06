@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>com.dtvla</groupId>
 		<artifactId>hsp</artifactId>
-		<version>1.0</version>
+		<version>${project.version}</version>
 	</parent>
 
 	<groupId>com.dtvla</groupId>
 	<artifactId>smart-dealer-ii-ejb</artifactId>
-	<version>1.0</version>
+	<version>${project.version}</version>
 	<packaging>ejb</packaging>
 	<name>smart-dealer-ii-ejb</name>
 
@@ -253,6 +253,109 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId> 
+				<version>1.5.3</version>
+				<executions>
+					<execution>
+						<id>ejb-jar.xml</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/target/classes/META-INF/ejb-jar.xml</file>
+							<replacements>
+								<replacement> 
+									<token>%%PAIS%%</token> 
+									<value>${country}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%ISO3CODE%%</token> 
+									<value>${iso3Code}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%MAXBEANS%%</token> 
+									<value>${maxBeans}</value> 
+								</replacement> 
+							</replacements> 
+						</configuration>
+					</execution>
+					<execution>
+						<id>weblogic-ejb-jar.xml</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/target/classes/META-INF/weblogic-ejb-jar.xml</file>
+							<replacements>
+								<replacement> 
+									<token>%%PAIS%%</token> 
+									<value>${country}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%ISO3CODE%%</token> 
+									<value>${iso3Code}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%MAXBEANS%%</token> 
+									<value>${maxBeans}</value> 
+								</replacement> 
+							</replacements> 
+						</configuration>
+					</execution>
+					<execution>
+						<id>applicationSD.properties</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/target/classes/properties/applicationSD.properties</file>
+							<replacements>
+								<replacement> 
+									<token>%%PAIS%%</token> 
+									<value>${country}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%ISO3CODE%%</token> 
+									<value>${iso3Code}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%MAXBEANS%%</token> 
+									<value>${maxBeans}</value> 
+								</replacement> 
+							</replacements> 
+						</configuration>
+					</execution>
+					<execution>
+						<id>EJBRemoteJNDIName.properties</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/target/classes/properties/EJBRemoteJNDIName.properties</file>
+							<replacements>
+								<replacement> 
+									<token>%%PAIS%%</token> 
+									<value>${country}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%ISO3CODE%%</token> 
+									<value>${iso3Code}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%MAXBEANS%%</token> 
+									<value>${maxBeans}</value> 
+								</replacement> 
+							</replacements> 
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ejb-plugin</artifactId>

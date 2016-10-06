@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>com.dtvla</groupId>
 		<artifactId>hsp</artifactId>
-		<version>1.0</version>
+		<version>${project.version}</version>
 	</parent>
 
 	<groupId>com.dtvla</groupId>
 	<artifactId>hsp-ear</artifactId>
-	<version>1.0</version>
+	<version>${project.version}</version>
 	<packaging>ear</packaging>
 	<name>hsp-ear</name>
 
@@ -37,12 +37,12 @@
         </plugins>
     </build>-->
 
-	<properties>
+	<!--<properties>
 		<wls.adminServerHostName>localhost</wls.adminServerHostName>
 		<wls.adminServerPort>7001</wls.adminServerPort>
 		<wls.userId>weblogic</wls.userId>
 		<wls.password>welcome1</wls.password>
-	</properties>
+	</properties>-->
 
 	<build>
 		<finalName>HSP-EAR</finalName>
@@ -59,7 +59,7 @@
                             <groupId>com.dtvla</groupId>
                             <artifactId>smart-dealer-ii-ws</artifactId>
 							<bundleFileName>SmartDealerII-ws.war</bundleFileName>
-							<contextRoot>/SmartDealerII-ws</contextRoot>
+							<contextRoot>/SmartDealerII-ws${country}</contextRoot>
 						</webModule>
                         <ejbModule>
                             <groupId>com.dtvla</groupId>
@@ -83,7 +83,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<name>SmartDealerII</name>
+					<name>HSP-EAR_v${version}</name>
 					<adminServerHostName>${wls.adminServerHostName}</adminServerHostName>
 					<adminServerPort>${wls.adminServerPort}</adminServerPort>
 					<adminServerProtocol>t3</adminServerProtocol>
@@ -110,13 +110,13 @@
 		<dependency>
 			<groupId>com.dtvla</groupId>
 			<artifactId>smart-dealer-ii-ejb</artifactId>
-			<version>1.0</version>
+			<version>${project.version}</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>com.dtvla</groupId>
 			<artifactId>smart-dealer-ii-ws</artifactId>
-			<version>1.0</version>
+			<version>${project.version}</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
