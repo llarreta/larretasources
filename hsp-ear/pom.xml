@@ -83,7 +83,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<name>HSP-EAR_v${version}</name>
+					<name>HSP-EAR_v${version}${country}</name>
 					<adminServerHostName>${wls.adminServerHostName}</adminServerHostName>
 					<adminServerPort>${wls.adminServerPort}</adminServerPort>
 					<adminServerProtocol>t3</adminServerProtocol>
