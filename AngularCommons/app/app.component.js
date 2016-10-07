@@ -9,41 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var hero_service_1 = require('./services/hero.service');
-// Add the RxJS Observable operators we need in this app.
-require('./rxjs-operators');
 var AppComponent = (function () {
-    function AppComponent(heroService) {
-        this.heroService = heroService;
-        this.title = "Tour of Heroes";
+    function AppComponent() {
+        this.title = "Hola app";
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.getHeroes();
-    };
-    AppComponent.prototype.getHeroes = function () {
-        var _this = this;
-        this.heroService.getHeroes()
-            .subscribe(function (heroes) { return _this.heroes = heroes; }, function (error) { return _this.errorMessage = error; });
-    };
-    AppComponent.prototype.addHero = function (name) {
-        var _this = this;
-        if (!name) {
-            return;
-        }
-        this.heroService.addHero(name)
-            .subscribe(function (hero) { return _this.heroes.push(hero); }, function (error) { return _this.errorMessage = error; });
-    };
-    AppComponent.prototype.onSelect = function (hero) {
-        this.selectedHero = hero;
     };
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'init-angular-app',
-            providers: [hero_service_1.HeroService],
+            selector: 'app-commons',
             templateUrl: 'app/app.component.html',
             styleUrls: ['app/app.component.css']
         }), 
-        __metadata('design:paramtypes', [hero_service_1.HeroService])
+        __metadata('design:paramtypes', [])
     ], AppComponent);
     return AppComponent;
 }());

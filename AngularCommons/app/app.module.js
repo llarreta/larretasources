@@ -13,7 +13,9 @@ var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var heroe_detail_component_1 = require('./Components/heroe-detail/heroe-detail.component');
+var heroe_list_component_1 = require('./Components/heroes-list/heroe-list.component');
 var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -22,12 +24,19 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
+                router_1.RouterModule.forRoot([
+                    {
+                        path: 'heroes',
+                        component: heroe_list_component_1.HeroeList
+                    }
+                ]),
                 http_1.HttpModule,
                 http_1.JsonpModule
             ],
             declarations: [
                 app_component_1.AppComponent,
                 heroe_detail_component_1.HeroDetailComponent,
+                heroe_list_component_1.HeroeList
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
