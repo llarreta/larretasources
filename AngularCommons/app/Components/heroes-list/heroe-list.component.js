@@ -20,16 +20,21 @@ var HeroeList = (function () {
     };
     HeroeList.prototype.getHeroes = function () {
         var _this = this;
-        this.heroService.getHeroes()
-            .subscribe(function (heroes) { return _this.heroes = heroes; }, function (error) { return _this.errorMessage = error; });
+        //this.heroService.getHeroes()
+        //               .subscribe(
+        //                 heroes => this.heroes = heroes,
+        //                 error =>  this.errorMessage = <any>error);
+        this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
     };
     HeroeList.prototype.addHero = function (name) {
-        var _this = this;
         if (!name) {
             return;
         }
-        this.heroService.addHero(name)
-            .subscribe(function (hero) { return _this.heroes.push(hero); }, function (error) { return _this.errorMessage = error; });
+        //this.heroService.addHero(name)
+        //                .subscribe(
+        //                  hero  => this.heroes.push(hero),
+        //                  error =>  this.errorMessage = <any>error);
+        //this.heroService.addHeroes().then(heroes => this.heroes = heroes);
     };
     HeroeList.prototype.onSelect = function (hero) {
         this.selectedHero = hero;

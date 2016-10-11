@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
+var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
 var app_component_1 = require('./app.component');
 var heroe_detail_component_1 = require('./Components/heroe-detail/heroe-detail.component');
 var heroe_list_component_1 = require('./Components/heroes-list/heroe-list.component');
-var http_1 = require('@angular/http');
-var router_1 = require('@angular/router');
+var dashboard_component_1 = require('./Components/dashboard/dashboard.component');
+var hero_service_1 = require('./services/hero.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -28,7 +30,20 @@ var AppModule = (function () {
                     {
                         path: 'heroes',
                         component: heroe_list_component_1.HeroeList
-                    }
+                    },
+                    {
+                        path: 'dashboard',
+                        component: dashboard_component_1.DashboardComponent
+                    },
+                    {
+                        path: '',
+                        redirectTo: '/dashboard',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'detail/:id',
+                        component: heroe_detail_component_1.HeroDetailComponent
+                    },
                 ]),
                 http_1.HttpModule,
                 http_1.JsonpModule
@@ -36,7 +51,11 @@ var AppModule = (function () {
             declarations: [
                 app_component_1.AppComponent,
                 heroe_detail_component_1.HeroDetailComponent,
-                heroe_list_component_1.HeroeList
+                heroe_list_component_1.HeroeList,
+                dashboard_component_1.DashboardComponent
+            ],
+            providers: [
+                hero_service_1.HeroService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

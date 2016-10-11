@@ -5,7 +5,7 @@ import { HeroDetailComponent } from "../../Components/heroe-detail/heroe-detail.
 
 @Component({
   selector: 'heroe-list',
-  providers: [HeroService] ,
+  providers: [HeroService],
   templateUrl: 'app/Components/heroes-list/heroe-list.html',
   styleUrls:  ['app/Components/heroes-list/heroe-list.css']
 })
@@ -21,18 +21,20 @@ export class HeroeList implements OnInit{
     }
 
     private getHeroes(){
-      this.heroService.getHeroes()
-                     .subscribe(
-                       heroes => this.heroes = heroes,
-                       error =>  this.errorMessage = <any>error);
+      //this.heroService.getHeroes()
+      //               .subscribe(
+      //                 heroes => this.heroes = heroes,
+      //                 error =>  this.errorMessage = <any>error);
+      this.heroService.getHeroes().then(heroes => this.heroes = heroes);
     }
 
     addHero (name: string) {
       if (!name) { return; }
-      this.heroService.addHero(name)
-                      .subscribe(
-                        hero  => this.heroes.push(hero),
-                        error =>  this.errorMessage = <any>error);
+      //this.heroService.addHero(name)
+      //                .subscribe(
+      //                  hero  => this.heroes.push(hero),
+      //                  error =>  this.errorMessage = <any>error);
+      //this.heroService.addHeroes().then(heroes => this.heroes = heroes);
     }
 
 

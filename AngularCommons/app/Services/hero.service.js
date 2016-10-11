@@ -13,6 +13,7 @@ var http_1 = require('@angular/http');
 var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
+var heroes_1 = require('../Mock/heroes');
 var HeroService = (function () {
     function HeroService(http) {
         this.http = http;
@@ -20,19 +21,21 @@ var HeroService = (function () {
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
     }
+    HeroService.prototype.getHero = function (id) {
+        return this.getHeroes()
+            .then(function (heroes) { return heroes.find(function (hero) { return hero.id === id; }); });
+    };
     HeroService.prototype.getHeroes = function () {
-        return this.http.get("app/Mock/heroes.json")
-            .map(this.extractData)
-            .catch(this.handleError);
+        return Promise.resolve(heroes_1.HEROES);
     };
-    HeroService.prototype.addHero = function (name) {
-        var body = JSON.stringify({ name: name });
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var options = new http_1.RequestOptions({ headers: headers });
-        return this.http.post(this.heroesUrl, body, options)
-            .map(this.extractData)
-            .catch(this.handleError);
-    };
+    //addHero (name: string): Observable<Hero> {
+    //    let body = JSON.stringify({ name });
+    //    let headers = new Headers({ 'Content-Type': 'application/json' });
+    //    let options = new RequestOptions({ headers: headers });
+    //    return this.http.post(this.heroesUrl, body, options)
+    //                    .map(this.extractData)
+    //                    .catch(this.handleError);   
+    //}
     HeroService.prototype.extractData = function (res) {
         var body = res.json();
         return body.data || {};
