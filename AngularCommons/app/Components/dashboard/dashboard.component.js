@@ -31,10 +31,11 @@ var DashboardComponent = (function () {
     };
     DashboardComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'my-dashboard',
             providers: [hero_service_1.HeroService],
-            templateUrl: 'app/Components/dashboard/dashboard.html',
-            styleUrls: ['app/Components/dashboard/dashboard.css']
+            templateUrl: 'dashboard.html',
+            styleUrls: ['dashboard.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
     ], DashboardComponent);

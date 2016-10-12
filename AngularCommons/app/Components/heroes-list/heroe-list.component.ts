@@ -1,30 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Hero } from "../../Entities/heroes";
 import { HeroService } from '../../services/hero.service';
 import { HeroDetailComponent } from "../../Components/heroe-detail/heroe-detail.component.ts";
 
 @Component({
+  moduleId: module.id,
   selector: 'heroe-list',
   providers: [HeroService],
-  templateUrl: 'app/Components/heroes-list/heroe-list.html',
-  styleUrls:  ['app/Components/heroes-list/heroe-list.css']
+  templateUrl: 'heroe-list.html',
+  styleUrls:  ['heroe-list.css']
 })
 
 export class HeroeList implements OnInit{ 
 
     errorMessage : string;
 
-    constructor(private heroService : HeroService){}
+    constructor(
+      private router: Router, 
+      private heroService : HeroService
+      ){}
 
     ngOnInit(){
       this.getHeroes();
     }
 
     private getHeroes(){
-      //this.heroService.getHeroes()
-      //               .subscribe(
-      //                 heroes => this.heroes = heroes,
-      //                 error =>  this.errorMessage = <any>error);
       this.heroService.getHeroes().then(heroes => this.heroes = heroes);
     }
 
@@ -46,5 +47,8 @@ export class HeroeList implements OnInit{
         this.selectedHero = hero;
     }
 
+    gotoDetail(): void {
+      this.router.navigate(['/detail', this.selectedHero.id]);
+    }
 
 }

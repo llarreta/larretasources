@@ -9,9 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var hero_service_1 = require('../../services/hero.service');
 var HeroeList = (function () {
-    function HeroeList(heroService) {
+    function HeroeList(router, heroService) {
+        this.router = router;
         this.heroService = heroService;
         this.title = "Tour of Heroes";
     }
@@ -20,10 +22,6 @@ var HeroeList = (function () {
     };
     HeroeList.prototype.getHeroes = function () {
         var _this = this;
-        //this.heroService.getHeroes()
-        //               .subscribe(
-        //                 heroes => this.heroes = heroes,
-        //                 error =>  this.errorMessage = <any>error);
         this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
     };
     HeroeList.prototype.addHero = function (name) {
@@ -39,14 +37,18 @@ var HeroeList = (function () {
     HeroeList.prototype.onSelect = function (hero) {
         this.selectedHero = hero;
     };
+    HeroeList.prototype.gotoDetail = function () {
+        this.router.navigate(['/detail', this.selectedHero.id]);
+    };
     HeroeList = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'heroe-list',
             providers: [hero_service_1.HeroService],
-            templateUrl: 'app/Components/heroes-list/heroe-list.html',
-            styleUrls: ['app/Components/heroes-list/heroe-list.css']
+            templateUrl: 'heroe-list.html',
+            styleUrls: ['heroe-list.css']
         }), 
-        __metadata('design:paramtypes', [hero_service_1.HeroService])
+        __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
     ], HeroeList);
     return HeroeList;
 }());

@@ -6,9 +6,11 @@ import { Hero } from "../../Entities/heroes";
 
 
 @Component({
+  moduleId: module.id,
   selector: 'my-hero-detail',
-  templateUrl: 'app/Components/heroe-detail/heroe-detail.html',
-  styleUrls: ['app/Components/heroe-detail/heroe-detail.css']
+  providers: [HeroService],
+  templateUrl: 'heroe-detail.html',
+  styleUrls: ['heroe-detail.css']
 })
 export class HeroDetailComponent implements OnInit {
 
@@ -30,8 +32,8 @@ export class HeroDetailComponent implements OnInit {
   hero: Hero;
 
   goBack(): void {
-  this.location.back();
-}
+    this.location.back();
+  }
 
 
 }
