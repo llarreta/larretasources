@@ -3,6 +3,7 @@
 // See node_module/rxjs/Rxjs.js
 // Import just the rxjs statics and operators we need for THIS app.
 // Statics
+require('rxjs/add/observable/of');
 require('rxjs/add/observable/throw');
 // Operators
 require('rxjs/add/operator/catch');
@@ -11,4 +12,6 @@ require('rxjs/add/operator/distinctUntilChanged');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/switchMap');
 require('rxjs/add/operator/toPromise');
+require('rxjs/add/operator/do');
+require('rxjs/add/operator/filter');
 //# sourceMappingURL=rxjs-operators.js.map

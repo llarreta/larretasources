@@ -16,11 +16,13 @@ var http_1 = require('@angular/http');
 var in_memory_web_api_module_1 = require('angular-in-memory-web-api/in-memory-web-api.module');
 var in_memory_data_service_1 = require('../Mock/in-memory-data.service');
 var app_component_1 = require('../Components/main-component/app.component');
+var hero_search_component_1 = require('../Components/hero-search/hero-search.component');
 var heroe_detail_component_1 = require('../Components/heroe-detail/heroe-detail.component');
 var heroe_list_component_1 = require('../Components/heroes-list/heroe-list.component');
 var dashboard_component_1 = require('../Components/dashboard/dashboard.component');
 var hero_service_1 = require('../services/hero.service');
 var app_routing_module_1 = require('./app-routing.module');
+require('../rxjs-operators');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -37,7 +39,8 @@ var AppModule = (function () {
                 app_component_1.AppComponent,
                 heroe_detail_component_1.HeroDetailComponent,
                 heroe_list_component_1.HeroeList,
-                dashboard_component_1.DashboardComponent
+                dashboard_component_1.DashboardComponent,
+                hero_search_component_1.HeroSearchComponent
             ],
             providers: [
                 hero_service_1.HeroService

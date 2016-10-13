@@ -9,11 +9,13 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api/in-memory-web-ap
 import { InMemoryDataService }  from '../Mock/in-memory-data.service';
 
 import { AppComponent }  from '../Components/main-component/app.component';
+import { HeroSearchComponent }  from '../Components/hero-search/hero-search.component';
 import { HeroDetailComponent } from '../Components/heroe-detail/heroe-detail.component';
 import { HeroeList } from '../Components/heroes-list/heroe-list.component';
 import { DashboardComponent } from '../Components/dashboard/dashboard.component';
 import { HeroService } from '../services/hero.service';
 import { AppRoutingModule }     from './app-routing.module';
+import '../rxjs-operators';
 
 @NgModule({
   imports: [
@@ -27,7 +29,8 @@ import { AppRoutingModule }     from './app-routing.module';
     AppComponent,
     HeroDetailComponent,
     HeroeList,
-    DashboardComponent
+    DashboardComponent,
+    HeroSearchComponent
   ],
   providers: [
     HeroService
