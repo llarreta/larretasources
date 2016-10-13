@@ -17,6 +17,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
 	</properties>
 
 	<dependencies>
@@ -350,6 +352,26 @@
 								<replacement> 
 									<token>%%MAXBEANS%%</token> 
 									<value>${maxBeans}</value> 
+								</replacement> 
+							</replacements> 
+						</configuration>
+					</execution>
+					<execution>
+						<id>version.properties</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/target/classes/properties/version.properties</file>
+							<replacements>
+								<replacement> 
+									<token>%%VERSION%%</token> 
+									<value>${project.version}</value> 
+								</replacement> 
+								<replacement> 
+									<token>%%FECHA%%</token> 
+									<value>${timestamp}</value> 
 								</replacement> 
 							</replacements> 
 						</configuration>
