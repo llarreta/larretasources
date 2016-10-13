@@ -24,15 +24,28 @@ var HeroeList = (function () {
         var _this = this;
         this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
     };
-    HeroeList.prototype.addHero = function (name) {
+    HeroeList.prototype.add = function (name) {
+        var _this = this;
+        name = name.trim();
         if (!name) {
             return;
         }
-        //this.heroService.addHero(name)
-        //                .subscribe(
-        //                  hero  => this.heroes.push(hero),
-        //                  error =>  this.errorMessage = <any>error);
-        //this.heroService.addHeroes().then(heroes => this.heroes = heroes);
+        this.heroService.create(name)
+            .then(function (hero) {
+            _this.heroes.push(hero);
+            _this.selectedHero = null;
+        });
+    };
+    HeroeList.prototype.delete = function (hero) {
+        var _this = this;
+        this.heroService
+            .delete(hero.id)
+            .then(function () {
+            _this.heroes = _this.heroes.filter(function (h) { return h !== hero; });
+            if (_this.selectedHero === hero) {
+                _this.selectedHero = null;
+            }
+        });
     };
     HeroeList.prototype.onSelect = function (hero) {
         this.selectedHero = hero;

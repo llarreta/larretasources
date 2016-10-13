@@ -12,6 +12,9 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
+//Simulador de servicios en memoria
+var in_memory_web_api_module_1 = require('angular-in-memory-web-api/in-memory-web-api.module');
+var in_memory_data_service_1 = require('../Mock/in-memory-data.service');
 var app_component_1 = require('../Components/main-component/app.component');
 var heroe_detail_component_1 = require('../Components/heroe-detail/heroe-detail.component');
 var heroe_list_component_1 = require('../Components/heroes-list/heroe-list.component');
@@ -27,6 +30,7 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
+                in_memory_web_api_module_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService),
                 app_routing_module_1.AppRoutingModule
             ],
             declarations: [

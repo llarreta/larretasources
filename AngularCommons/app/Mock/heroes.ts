@@ -1,3 +1,4 @@
+//Simple mock con datos
 import { Hero } from '../Entities/heroes';
 
 export const HEROES: Hero[] = [
