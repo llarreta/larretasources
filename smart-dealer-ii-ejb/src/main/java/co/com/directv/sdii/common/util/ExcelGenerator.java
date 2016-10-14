@@ -1,5 +1,6 @@
 package co.com.directv.sdii.common.util;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +33,7 @@ import co.com.directv.sdii.common.enumerations.ErrorBusinessMessages;
 import co.com.directv.sdii.exceptions.ExcelGenerationException;
 import co.com.directv.sdii.exceptions.PDFException;
 import co.com.directv.sdii.exceptions.PropertiesException;
+import co.com.directv.sdii.model.dto.QuantityWarehouseElementsDTO;
 import co.com.directv.sdii.reports.VisitsReportItem;
 import co.com.directv.sdii.reports.VisitsReportItemExcel;
 
@@ -51,6 +53,55 @@ public class ExcelGenerator implements ExcelGeneratorLocal {
     public ExcelGenerator() {
     }
 
+    @Override
+    public void flushToExcelFile(List<String> dataField, List<Object> dataList, String originalWorkBookName, int sheetNumber, boolean bCabecera) throws ExcelGenerationException{
+    	log.debug("== Inicia createExcelFile/ExcelGenerator ==");
+    	String nl = System.getProperty("line.separator");
+    	FileWriterWithEncoding fichero = null;
+		BufferedWriter bw = null;
+    	try{
+	        String rowValue="";
+	        fichero = new FileWriterWithEncoding(getReportsPathTemp()+originalWorkBookName, Constantes.ISO_LATIN_ENCODING, true);
+	        bw = new BufferedWriter(fichero);
+	        
+	        if(bCabecera){
+	        	for(String df: dataField){
+					bw.write("=\""+df+"\""+";");
+				}
+	        	bw.write(nl);
+	        }
+	        for(Object objeto : dataList){
+	        	rowValue="";
+	        	if(objeto instanceof QuantityWarehouseElementsDTO){
+	        		QuantityWarehouseElementsDTO itemQuantityWarehouseElementsDTO = (QuantityWarehouseElementsDTO) objeto;
+	        		rowValue = (itemQuantityWarehouseElementsDTO.getDealerNameCompany()!=null?itemQuantityWarehouseElementsDTO.getDealerNameCompany():" ")+";"+(itemQuantityWarehouseElementsDTO.getDealerNameBranch()!=null?itemQuantityWarehouseElementsDTO.getDealerNameBranch():" ")
+	    					+";"+(itemQuantityWarehouseElementsDTO.getWhTypeName()!=null?itemQuantityWarehouseElementsDTO.getWhTypeName():" ")+";"+(itemQuantityWarehouseElementsDTO.getIsResponsibleOut()!=null?itemQuantityWarehouseElementsDTO.getIsResponsibleOut():" ")+";"+(itemQuantityWarehouseElementsDTO.getWhName()!=null?itemQuantityWarehouseElementsDTO.getWhName():" ")
+	    					+";"+(itemQuantityWarehouseElementsDTO.getModelCode()!=null?itemQuantityWarehouseElementsDTO.getModelCode():" ")+"/"+(itemQuantityWarehouseElementsDTO.getModelName()!=null?itemQuantityWarehouseElementsDTO.getModelName():" ")+";"+(itemQuantityWarehouseElementsDTO.getTypeElementCode()!=null?itemQuantityWarehouseElementsDTO.getTypeElementCode():" ")
+	    					+";"+(itemQuantityWarehouseElementsDTO.getTypeElementName()!=null?itemQuantityWarehouseElementsDTO.getTypeElementName():" ")+";"+(itemQuantityWarehouseElementsDTO.getSerialCode()!=null?itemQuantityWarehouseElementsDTO.getSerialCode():" ")+";"+(itemQuantityWarehouseElementsDTO.getRid()!=null?itemQuantityWarehouseElementsDTO.getRid():" ")+";"+(itemQuantityWarehouseElementsDTO.getSerialCodeLinked()!=null?itemQuantityWarehouseElementsDTO.getSerialCodeLinked():" ")
+	    					+";"+(itemQuantityWarehouseElementsDTO.getActualQuantity()!=null?itemQuantityWarehouseElementsDTO.getActualQuantity():" ")+";"+(itemQuantityWarehouseElementsDTO.getAge()!=null?itemQuantityWarehouseElementsDTO.getAge():" ");
+	        		bw.write(rowValue + nl);
+	        	}
+	        }
+    	} catch (Exception e){
+			log.debug("== Error generando el archivo de excel == ", e);
+			throw new ExcelGenerationException("== Error generando el archivo de excel ==", e);
+		} finally {
+			try{
+				if(bw != null){
+					bw.flush();
+			        bw.close();	
+				}
+				if(fichero != null){
+					fichero.close();
+				}
+			}catch(Exception e){
+				log.error("Error al cerrar los Streams de escritura del fichero",e);
+			}
+			
+		    log.debug("== Termina createExcelFile/ExcelGenerator ==");
+		}
+    }
+    
     public void populateExcelFile(List<String> dataField,List<String> dataList,String originalWorkBookName, int sheetNumber)
 		throws ExcelGenerationException {
 		log.debug("== Inicia createExcelFile/ExcelGenerator ==");
@@ -217,17 +268,17 @@ public class ExcelGenerator implements ExcelGeneratorLocal {
 
 			//JasperPrint print = JasperFillManager.fillReport(reportConfFile,new HashMap(), new JRBeanCollectionDataSource(dataList));
 			JasperPrint print = JasperFillManager.fillReport(reportConfFile,UtilsBusiness.getReportParams(), new JRBeanCollectionDataSource(dataList));
-						
+			
 			ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
 
 			JRXlsExporter exporterXLS = new JRXlsExporter();
-			exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, print);
+			exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, print);			
 			exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,arrayOutputStream);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET,Boolean.TRUE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND,Boolean.FALSE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN,Boolean.TRUE);
-
+			
 			exporterXLS.exportReport();
 			return arrayOutputStream;
 		} catch (Exception e){
@@ -237,7 +288,7 @@ public class ExcelGenerator implements ExcelGeneratorLocal {
 		    log.debug("== Termina createExcelStreamWithJasper/ExcelGenerator ==");
 		}
 	}
-
+	
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -324,6 +375,7 @@ public class ExcelGenerator implements ExcelGeneratorLocal {
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND,Boolean.FALSE);
 			exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN,Boolean.TRUE);
+			
 			exporterXLS.exportReport();
 			return report;
 		} catch (Exception e){

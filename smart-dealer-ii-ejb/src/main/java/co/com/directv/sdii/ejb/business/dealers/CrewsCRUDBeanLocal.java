@@ -7,6 +7,8 @@ import javax.ejb.Local;
 
 import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.model.pojo.CrewOff;
+import co.com.directv.sdii.model.pojo.Employee;
+import co.com.directv.sdii.model.pojo.EmployeeCrew;
 import co.com.directv.sdii.model.vo.CrewOffVO;
 import co.com.directv.sdii.model.vo.CrewVO;
 import co.com.directv.sdii.model.vo.EmployeeCrewVO;
@@ -17,7 +19,7 @@ import co.com.directv.sdii.model.vo.UserVO;
  * Interfaz de las operaciones Tipo CRUD (Create,Read, Update, Delete) de la
  * Entidad Crews
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -30,7 +32,7 @@ public interface CrewsCRUDBeanLocal {
 
     public CrewVO getCrewsByID(Long id) throws BusinessException;
 
-    public void detachedEmployeeCrew(CrewVO obj , EmployeeCrewVO employeeCrew, UserVO user) throws BusinessException;
+    public void validateDetachedEmployee(CrewVO obj, Employee employeeOldResponsibleForCrew, List<Employee> employeesOldsNotResponsibleCrew ) throws BusinessException;
     /**
      * 
      * Metodo: Actualiza una cuadrilla

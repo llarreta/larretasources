@@ -24,7 +24,7 @@ import co.com.directv.sdii.model.vo.VehicleVO;
 /**
  * Expone los servicios para la configuraci�n de vehiculos
  * 
- * Fecha de Creaci�n: 25/03/2010
+ * Fecha de Creación: 25/03/2010
  * @author jcasas <a href="jcasas@intergrupo.com">e-mail</a>
  * @version 1.0   
  */
@@ -425,5 +425,19 @@ public class VehiclesWS {
     public List<VehicleVO> getVehiclesByDealerIdAndPlate(@WebParam(name = "dealerId") Long dealerId,@WebParam(name = "plate") String plate) throws BusinessException {
         return vehicleBean.getVehiclesByDealerIdAndPlate(dealerId, plate);
     }
+    
+    /**
+	 * 
+	 * Metodo: Consulta los vehiculos por dealer y por placa
+	 * @param dealerId
+	 * @param plate
+	 * @return
+	 * @throws BusinessException <tipo> <descripcion>
+	 * @author jnova
+	 */
+    @WebMethod(operationName = "getVehiclesByDealerIdAndStatusCodeOrPlate", action = "getVehiclesByDealerIdAndStatusCodeOrPlate")
+	public List<VehicleVO> getVehiclesByDealerIdAndStatusCodeOrPlate(Long dealerId,String plate) throws BusinessException {
+		return vehicleBean.getVehiclesByDealerIdAndStatusCodeOrPlate(dealerId, plate);
+	}
     
 }

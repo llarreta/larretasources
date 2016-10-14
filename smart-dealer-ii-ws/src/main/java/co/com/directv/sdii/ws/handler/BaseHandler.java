@@ -10,7 +10,7 @@ import javax.xml.ws.handler.MessageContext;
  * 
  * <Descripcion> 
  * 
- * Fecha de Creaci�n: 26/04/2010
+ * Fecha de Creación: 26/04/2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

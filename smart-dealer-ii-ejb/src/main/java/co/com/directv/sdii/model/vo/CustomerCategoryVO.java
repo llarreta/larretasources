@@ -8,7 +8,7 @@ import co.com.directv.sdii.model.pojo.CustomerCategory;
  * 
  * CustomerCategory Value Object
  * 
- * Fecha de Creaci�n: Oct 23, 2012
+ * Fecha de Creación: Oct 23, 2012
  * @author aharker <a href="mailto:aharker@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

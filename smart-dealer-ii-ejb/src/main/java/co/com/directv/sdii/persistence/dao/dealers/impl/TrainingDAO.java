@@ -25,7 +25,7 @@ import co.com.directv.sdii.persistence.dao.dealers.TrainingDAOLocal;
  * DAO para el procesamiento de operaciones CRUD
  * de la entidad de Training
  * 
- * Fecha de Creaci�n: Mar 4, 2010
+ * Fecha de Creación: Mar 4, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

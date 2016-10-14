@@ -15,7 +15,7 @@ import co.com.directv.sdii.model.vo.DealerMediaContactVO;
  * Facade para la gestion de las operaciones del CRUD
  * de la entidad DealersMediaContact
  * 
- * Fecha de Creaci�n: Mar 3, 2010
+ * Fecha de Creación: Mar 3, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

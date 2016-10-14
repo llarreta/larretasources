@@ -22,7 +22,7 @@ import co.com.directv.sdii.persistence.dao.dealers.TrainingTypesDAOLocal;
  * Entidad TrainingTypes
  * Solo implementa operaciones de consulta
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

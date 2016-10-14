@@ -143,8 +143,8 @@ public class WarehouseElementFacadeBean implements WarehouseElementFacadeBeanLoc
 	/* (non-Javadoc)
 	 * @see co.com.directv.sdii.facade.stock.WarehouseElementFacadeBeanLocal#getWarehouseElementsByCustomerIBSCodeDocTypeIdAndDocNumber(java.lang.String, java.lang.Long, java.lang.String)
 	 */
-	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElementSearchFilter,RequestCollectionInfo requestCollInfo) throws BusinessException {
-		return businessWarehouseElement.getWarehouseElementsByWarehouse(whElementSearchFilter, requestCollInfo);
+	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElementSearchFilter,RequestCollectionInfo requestCollInfo,boolean doCount) throws BusinessException {
+		return businessWarehouseElement.getWarehouseElementsByWarehouse(whElementSearchFilter, requestCollInfo, doCount);
 	}	
 	
 	

@@ -21,7 +21,7 @@ import co.com.directv.sdii.persistence.dao.dealers.EmployeeVehicleDAOLocal;
  * DAO para el procesamiento de operaciones CRUD
  * de la entidad de EmployeeVehicle
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

@@ -16,7 +16,9 @@ import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
+import co.com.directv.sdii.model.pojo.Crew;
 import co.com.directv.sdii.model.pojo.Employee;
+import co.com.directv.sdii.model.pojo.EmployeeCrew;
 import co.com.directv.sdii.model.pojo.collection.EmployeePaginationResponse;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
 import co.com.directv.sdii.persistence.dao.BaseDao;
@@ -27,7 +29,7 @@ import co.com.directv.sdii.persistence.dao.dealers.EmployeeDAOLocal;
  * DAO para el procesamiento de operaciones CRUD
  * de la entidad Employee
  * 
- * Fecha de Creaci�n: Mar 3, 2010
+ * Fecha de Creación: Mar 3, 2010
  * @author jcasas <a href="mailto:jcasas@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -227,12 +229,18 @@ public class EmployeeDAO extends BaseDao implements EmployeeDAOLocal {
          	StringBuffer stringQuery = new StringBuffer();
          	stringQuery.append("select e from ");
          	stringQuery.append(Employee.class.getName());
-         	stringQuery.append(" e where e.dealer.id = :dealerId and e.employeeStatus.statusCode = :codeStatus  order by e.lastName");
+         	stringQuery.append(" e where e.dealer.id = :dealerId ");
+         	stringQuery.append(" and e.employeeStatus.statusCode = :codeStatus");
+         	stringQuery.append(" and e.id not in (select ec.employee.id from "+EmployeeCrew.class.getName()+" ec  ");
+         	//se agrega inner join para que traiga todos los empleados que estan en cuadrillas inactivas
+         	stringQuery.append(" inner join ec.crew c where c.crewStatus.statusCode = :codeStatusCrew ) ");
+         	stringQuery.append(" order by e.lastName");
          	Query query = session.createQuery(stringQuery.toString());
          	//Query query = session.createQuery("select e from " + Employee.class.getName() + " e where e.dealer.id = :dealerId order by e.lastName");
-             query.setLong("dealerId", idDealer);
-             query.setString("codeStatus", codeStatus);
-
+            query.setLong("dealerId", idDealer);
+            query.setString("codeStatus", codeStatus);
+            query.setString("codeStatusCrew", CodesBusinessEntityEnum.CREW_STATUS_ACTIVE.getCodeEntity());
+             
              List<Employee> list = query.list();
  			return list;
 

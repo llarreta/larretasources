@@ -1893,27 +1893,27 @@ public class TrayReportsBusiness extends BusinessBase implements
 					codeRequiredcontractMark, technologies,idUsuario);
 			
 			for (ReportWorkOrderDTO wos : response) {
+				
+				// ####!####	
+				//Enmascarado de datos
+				
+				SystemParameter sp = systemParameterDao
+						.getSysParamByCodeAndCountryId(
+								CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK
+										.getCodeEntity(),countryId);
+				String isCustomerMask = sp.getValue();
+				// Se enmascara el numero de documento y el tipo de documento
+				if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity()
+						.equals(isCustomerMask)) {
 					
-					// ####!####	
-					//Enmascarado de datos
 					
-					SystemParameter sp = systemParameterDao
-							.getSysParamByCodeAndCountryId(
-									CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK
-											.getCodeEntity(),countryId);
-					String isCustomerMask = sp.getValue();
-					// Se enmascara el numero de documento y el tipo de documento
-					if (CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity()
-							.equals(isCustomerMask)) {
-						
-						
-					wos.setCustomerDocument(
-								UtilsBusiness.maskString(wos.getCustomerDocument()));
-					}
-					// ####!####
-				    
+				wos.setCustomerDocument(
+							UtilsBusiness.maskString(wos.getCustomerDocument()));
 				}
-			
+				// ####!####
+			    
+			}
+		
 			return response;
 
 		} catch (Throwable ex) {

@@ -16,10 +16,10 @@ import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.ejb.business.BusinessBase;
 import co.com.directv.sdii.ejb.business.stock.MassiveMovementDealerBusinessBeanLocal;
 import co.com.directv.sdii.exceptions.BusinessException;
+import co.com.directv.sdii.rules.BusinessRuleValidationManager;
 import co.com.directv.sdii.model.pojo.MassiveMovementDealer;
 import co.com.directv.sdii.model.vo.MassiveMovementDealerVO;
 import co.com.directv.sdii.persistence.dao.stock.MassiveMovementDealerDAOLocal;
-import co.com.directv.sdii.rules.BusinessRuleValidationManager;
 
 /**
  * EJB que implementa las operaciones Tipo CRUD MassiveMovementDealer

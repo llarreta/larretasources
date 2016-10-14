@@ -57,7 +57,7 @@ import co.com.directv.sdii.ws.model.dto.ResponseIVRWoServiceDTO;
  * 
  * Clase creada para exponer servicios web que serán consumidos por IVR
  * 
- * Fecha de Creaci�n: 6/08/2010
+ * Fecha de Creación: 6/08/2010
  * @author jforero <a href="mailto:jforero@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

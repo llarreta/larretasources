@@ -14,7 +14,7 @@ import co.com.directv.sdii.model.vo.UserVO;
  * Entidad SdiiTimeZone.
  * Solo operaciones de consulta.
  * 
- * Fecha de Creaci�n: Nov 25, 2010
+ * Fecha de Creación: Nov 25, 2010
  * @author jjimenezh <a href="mailto:jjimenezh@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

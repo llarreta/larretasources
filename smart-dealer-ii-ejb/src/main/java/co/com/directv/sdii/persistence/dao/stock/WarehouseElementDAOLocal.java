@@ -439,7 +439,7 @@ public interface WarehouseElementDAOLocal {
 	 */
 	//CC053
 	//public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElementSearchFilter,RequestCollectionInfo requestCollInfo)throws DAOServiceException, DAOSQLException;
-	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElementSearchFilter,RequestCollectionInfo requestCollInfo, boolean filterDealer)throws DAOServiceException, DAOSQLException;
+	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElementSearchFilter,RequestCollectionInfo requestCollInfo, boolean filterDealer, boolean doCount)throws DAOServiceException, DAOSQLException;
 
 	/**
 	 * Metodo: Obtiene una lista de los elementos en bodegas

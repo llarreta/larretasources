@@ -1320,14 +1320,14 @@ public class WarehouseElementBusinessBean extends BusinessBase implements Wareho
 	/* (non-Javadoc)
 	 * @see co.com.directv.sdii.ejb.business.stock.WarehouseElementBusinessBeanLocal#getQuantityWarehouseElementsDetailsByFilters(co.com.directv.sdii.model.dto.QuantityWarehouseElementsDTO, co.com.directv.sdii.model.dto.collection.RequestCollectionInfoDTO)
 	 */
-	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElementSearchFilter,RequestCollectionInfo requestCollInfo) throws BusinessException{
+	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElementSearchFilter,RequestCollectionInfo requestCollInfo,boolean doCount) throws BusinessException{
 		log.debug("== Inicia getWarehouseElementsByWarehouse/WarehouseElementBusinessBean ==");
 		try {
 			if( whElementSearchFilter.getUserId() == null || whElementSearchFilter.getUserId().longValue() <= 0 ){
 				throw new BusinessException(ErrorBusinessMessages.USER_NOT_EXIST.getCode(),ErrorBusinessMessages.USER_NOT_EXIST.getMessage());
 			}
 			//CC053
-			QuantityWarehouseElementResponse resp = this.daoWarehouseElement.getWarehouseElementsByWarehouse(whElementSearchFilter,requestCollInfo,true);
+			QuantityWarehouseElementResponse resp = this.daoWarehouseElement.getWarehouseElementsByWarehouse(whElementSearchFilter,requestCollInfo,true,doCount);
 			List<QuantityWarehouseElementsDTO> elements=resp.getQuantityWarehouseElementsDTO();
 			int tam = elements.size();
 			log.info("Hay "+tam+" elementos en la consulta");

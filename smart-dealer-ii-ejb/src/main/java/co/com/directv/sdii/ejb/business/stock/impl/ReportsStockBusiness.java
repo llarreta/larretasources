@@ -198,7 +198,7 @@ public class ReportsStockBusiness  extends BusinessBase implements ReportsStockB
 				if(pageSize<=0){
 					ri=null;
 				}
-				QuantityWarehouseElementResponse response = warehouseElementDAO.getWarehouseElementsByWarehouse(whElementSearchFilter,ri,false);
+				QuantityWarehouseElementResponse response = warehouseElementDAO.getWarehouseElementsByWarehouse(whElementSearchFilter,ri,false,true);
 
 				List dataList = response.getWareHouseElementsReportDTO();
 				

@@ -27,7 +27,7 @@ import co.com.directv.sdii.persistence.dao.dealers.EmployeesCrewDAOLocal;
  * EJB que implementa las operaciones Tipo CRUD (Create,Read, Update, Delete) de la
  * Entidad EmployeesCrew
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

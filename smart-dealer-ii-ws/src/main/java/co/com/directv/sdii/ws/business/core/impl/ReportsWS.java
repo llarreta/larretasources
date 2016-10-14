@@ -19,7 +19,7 @@ import co.com.directv.sdii.ws.business.core.IReportsWS;
  * Web Service que expone las operaciones
  * para la generacion de reportes (pdf)
  * 
- * Fecha de Creaci�n: 14/05/2010
+ * Fecha de Creación: 14/05/2010
  * @author Leonardo Cardozo Cadavid - lcardozo@intergrupo.com
  * @version 1.0
  * 

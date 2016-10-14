@@ -248,14 +248,14 @@ public class FileProcessorConfirmItemsLoadMassiveReference extends BasicFileProc
 			}
 			
 			//Ahora verificamos las remisiones.
-			HashMap<String,List<ReferenceVO>> listaRemisionoes = new HashMap<String, List<ReferenceVO>>();
+			HashMap<String,List<ReferenceVO>> mapRemisiones = new HashMap<String, List<ReferenceVO>>();
 			for(String sRem : listaRemisiones){
 				try{
-					listaRemisionoes.put(sRem, businessReference.getReferenceByRNNumber(sRem,CodesBusinessEntityEnum.REFERENCE_STATUS_DELETED.getCodeEntity()));
+					mapRemisiones.put(sRem, businessReference.getReferenceByRNNumber(sRem,CodesBusinessEntityEnum.REFERENCE_STATUS_DELETED.getCodeEntity()));
 				}catch(BusinessException be){
-					listaRemisionoes.put(sRem,null);
+					mapRemisiones.put(sRem,null);
 				}catch(Throwable t){
-					listaRemisionoes.put(sRem,null);
+					mapRemisiones.put(sRem,null);
 				}
 			}
 			
@@ -274,9 +274,12 @@ public class FileProcessorConfirmItemsLoadMassiveReference extends BasicFileProc
 					try{
 						String rnNumber = sAux.getRnNumber();
 						//lista de remisiones segun RN, menos las que se encuentren eliminadas
-						List<ReferenceVO> referenceVOs = listaRemisionoes.get(rnNumber);
+						List<ReferenceVO> referenceVOs = mapRemisiones.get(rnNumber);
 						if (referenceVOs.size()>1){
 							throw new BusinessException("El número de RN ya se encuentra asociado a otra remisión");
+						}
+						if(referenceVOs == null || referenceVOs.isEmpty()){
+							throw new BusinessException("La remision " + rnNumber + " indicada no existe.");
 						}
 						ReferenceVO referenceVO = referenceVOs.get(0);
 						

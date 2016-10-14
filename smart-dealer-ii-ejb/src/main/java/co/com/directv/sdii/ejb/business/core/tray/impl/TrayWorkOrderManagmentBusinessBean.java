@@ -68,6 +68,7 @@ import co.com.directv.sdii.model.pojo.EmployeeCrew;
 import co.com.directv.sdii.model.pojo.EmployeeMediaContact;
 import co.com.directv.sdii.model.pojo.EmployeeVehicle;
 import co.com.directv.sdii.model.pojo.ExpirationGrouping;
+import co.com.directv.sdii.model.pojo.OptimusStatus;
 import co.com.directv.sdii.model.pojo.Service;
 import co.com.directv.sdii.model.pojo.ServiceStatus;
 import co.com.directv.sdii.model.pojo.ShippingOrder;

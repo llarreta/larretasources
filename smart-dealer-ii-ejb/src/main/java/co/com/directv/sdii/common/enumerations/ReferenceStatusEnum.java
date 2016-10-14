@@ -5,7 +5,7 @@ package co.com.directv.sdii.common.enumerations;
  * Clase de tipo Enum encargada de realizar el mapping
  * de codigos para los estados de las remisiones(reference)
  * 
- * Fecha de Creaci�n: 20/03/2010
+ * Fecha de Creación: 20/03/2010
  * @author garciniegas <a href="mailto:garciniegas@intergrupo.com">e-mail</a>
  * @version 1.0
  * @see

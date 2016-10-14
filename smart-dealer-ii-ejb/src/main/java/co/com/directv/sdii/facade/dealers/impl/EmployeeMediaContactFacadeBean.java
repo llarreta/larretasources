@@ -15,7 +15,7 @@ import co.com.directv.sdii.model.vo.EmployeeMediaContactVO;
  * Implementacion de la Session Facade de las operaciones a realizar 
  * para el modulo de EmployeeMediaContact 
  * 
- * Fecha de Creaci�n: Mar 3, 2010
+ * Fecha de Creación: Mar 3, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

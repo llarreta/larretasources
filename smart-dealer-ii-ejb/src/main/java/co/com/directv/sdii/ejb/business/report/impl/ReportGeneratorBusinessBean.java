@@ -580,40 +580,62 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 				String originalArgs = args;
 				// Crear el libro de trabajo
 				log.info("va a generar el excel");
-				while(needOtherCall){
-					// Crear las filas en la hoja de trabajo
-					
-					// Crea la primera fila con los nombres de las columnas
-					if (cmd.equals("getQuantityWarehouseElementsSummariesByFilters")){
-						fieldList = makePoiHeadersWarehouseElementsSummariesByFilters(cmd);
-					}else {
+				 
+				if(cmd.equals("getWarehouseElementsByWarehouse")){
+					//NUEVA FORMA DE ESCRIBIR EL FICHERO.
+					boolean bCabecera = true;
+					while(needOtherCall){
+						// Crea la primera fila con los nombres de las columnas
 						fieldList = makePoiHeaders(cmd);
+						args = originalArgs + "pageIndex="+page+";pageSize="+pageSize+";";
+						log.info("va a realizar la consulta del reporte");
+						List<Object> dataList = command.execute(args);
+						if(dataList== null || dataList.isEmpty() || dataList.size()<pageSize){
+							needOtherCall = false;
+						}
+						log.info("realizo la consulta del reporte");
+						log.info("va a generar las filas");
+						excelGeneratorLocal.flushToExcelFile(fieldList,dataList,directoryName+"/"+fileName, (page-1),bCabecera);
+						bCabecera = false; 
+						++page;
 					}
+				}else{
+					while(needOtherCall){
+						// Crear las filas en la hoja de trabajo
 						
-					args = originalArgs + "pageIndex="+page+";pageSize="+pageSize+";";
-					log.info("va a realizar la consulta del reporte");
-					List<Object> dataList = command.execute(args);
-					if(dataList== null || dataList.isEmpty() || dataList.size()<pageSize){
-						needOtherCall = false;
-					}
-					log.info("realizo la consulta del reporte");
-					log.info("va a generar las filas");
+						// Crea la primera fila con los nombres de las columnas
+						if (cmd.equals("getQuantityWarehouseElementsSummariesByFilters")){
+							fieldList = makePoiHeadersWarehouseElementsSummariesByFilters(cmd);
+						}else {
+							fieldList = makePoiHeaders(cmd);
+						}
+							
+						args = originalArgs + "pageIndex="+page+";pageSize="+pageSize+";";
+						log.info("va a realizar la consulta del reporte");
+						List<Object> dataList = command.execute(args);
+						if(dataList== null || dataList.isEmpty() || dataList.size()<pageSize){
+							needOtherCall = false;
+						}
+						log.info("realizo la consulta del reporte");
+						log.info("va a generar las filas");
 
-					List<String> rows;
-					if (cmd.equals("getQuantityWarehouseElementsSummariesByFilters")){
-						rows = makePoiParametersWarehouseElementsSummariesByFilters(dataList);
-					}else {
-						rows = makePoiParameters(dataList);
-					}					
-					
-					
-					log.info("se generan "+rows.size()+" filas");
-					log.info("genero las filas");
-					excelGeneratorLocal.populateExcelFile(fieldList,rows, directoryName+"/"+fileName, (page-1));
-					rows.clear();
-					dataList.clear();
-					++page;
+						List<String> rows;
+						if (cmd.equals("getQuantityWarehouseElementsSummariesByFilters")){
+							rows = makePoiParametersWarehouseElementsSummariesByFilters(dataList);
+						}else {
+							rows = makePoiParameters(dataList);
+						}					
+						
+						
+						log.info("se generan "+rows.size()+" filas");
+						log.info("genero las filas");
+						excelGeneratorLocal.populateExcelFile(fieldList,rows, directoryName+"/"+fileName, (page-1));
+						rows.clear();
+						dataList.clear();
+						++page;
+					}
 				}
+				
 				log.info("genero el excel");
 				log.info("va a generar el zip");
 				String fileNameZip = fileName.replaceFirst(".csv", ".zip") ;
@@ -673,7 +695,12 @@ public class ReportGeneratorBusinessBean extends BusinessBase implements ReportG
 			log.debug("== Termina generateReport/ReportGeneratorBusinessBean ==");
 		}
 	}
-	
+
+	private void flushToFile(List<Object> dataList) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void createZip(String filename,String carpeta){
 		 
 		  try {

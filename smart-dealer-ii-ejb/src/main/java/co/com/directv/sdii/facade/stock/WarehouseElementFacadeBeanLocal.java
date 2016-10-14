@@ -529,7 +529,7 @@ public interface WarehouseElementFacadeBeanLocal {
 	 */
 	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(
 			WhElementSearchFilter whElementSearchFilter,
-			RequestCollectionInfo requestCollInfo) throws BusinessException;
+			RequestCollectionInfo requestCollInfo, boolean doCount) throws BusinessException;
 	
 	
 	/**

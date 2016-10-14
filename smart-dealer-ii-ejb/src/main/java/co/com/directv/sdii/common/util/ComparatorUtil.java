@@ -10,7 +10,7 @@ import java.util.Comparator;
  * realizar la comparacion de los valores de dos 
  * metodos por medio de introspeccion. 
  * 
- * Fecha de Creaci�n: 11/05/2010
+ * Fecha de Creación: 11/05/2010
  * @author Joan Lopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

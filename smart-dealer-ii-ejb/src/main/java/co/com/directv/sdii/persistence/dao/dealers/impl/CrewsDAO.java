@@ -37,7 +37,7 @@ import co.com.directv.sdii.persistence.dao.dealers.CrewsDAOLocal;
  * DAO para el procesamiento de operaciones CRUD
  * de la entidad de Crews
  *
- * Fecha de Creaci�n: Mar 08, 2010
+ * Fecha de Creación: Mar 08, 2010
  * @author jcasas <a href="mailto:jcasas@intergrupo.com">e-mail</a>
  * @version 1.0
  *

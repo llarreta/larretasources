@@ -168,9 +168,9 @@ public class CMDGetWarehouseElementsByWarehouse extends BaseCommand implements
 			rci.setPageSize(pageSize);
 			
 			if(pageSize != -1 && pageIndex != -1){
-				returnValue = whElementFacade.getWarehouseElementsByWarehouse(whElementSearchFilter,rci);
+				returnValue = whElementFacade.getWarehouseElementsByWarehouse(whElementSearchFilter,rci,false);
 			}else{
-				returnValue = whElementFacade.getWarehouseElementsByWarehouse(whElementSearchFilter,null);
+				returnValue = whElementFacade.getWarehouseElementsByWarehouse(whElementSearchFilter,null,false);
 			}
 
 			return  returnValue;

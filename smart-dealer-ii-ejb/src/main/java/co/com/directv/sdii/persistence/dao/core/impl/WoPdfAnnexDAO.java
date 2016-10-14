@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
+import co.com.directv.sdii.model.pojo.WoLoadDetail;
 import co.com.directv.sdii.model.pojo.WoPdfAnnex;
 import co.com.directv.sdii.persistence.dao.BaseDao;
 import co.com.directv.sdii.persistence.dao.core.WoPdfAnnexDAOLocal;

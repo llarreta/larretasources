@@ -22,7 +22,7 @@ import co.com.directv.sdii.model.vo.UserVO;
  * Facade para la gestion de las operaciones del CRUD
  * de la entidad Crews 
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -87,11 +87,7 @@ public class CrewsFacadeBean implements CrewsFacadeBeanLocal {
     public void updateCrews(CrewVO obj,String description, UserVO user) throws BusinessException{
         businessCrewBean.updateCrews(obj, description, user);
     }
-
-    public void detachedEmployeeCrew(CrewVO obj , EmployeeCrewVO employeeCrew , UserVO user) throws BusinessException{
-        businessCrewBean.detachedEmployeeCrew(obj, employeeCrew, user);
-    }
-    
+   
      /**
      * Metodo: <Descripcion>
      * @param plate - String

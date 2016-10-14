@@ -6,7 +6,7 @@ import java.util.Date;
  * 
  * Information To Print References
  * 
- * Fecha de Creaci�n: Aug 25, 2011
+ * Fecha de Creación: Aug 25, 2011
  * @author cduarte <a href="mailto:cduarte@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

@@ -183,4 +183,24 @@ public class JMSLocator {
 		}
 		return queue;
     }
+	
+	
+	public DistributedQueueMessage getQueueFileProcessor() throws JMSLocatorException {
+		
+		log.info("=== Inicia getQueueFileProcessor/ServiceLocator ===");
+		DistributedQueueMessage queue = null;
+		try{
+			String jndiQueue = JmsLocationsEnum.FILE_PROCESSOR_JMS.getJmsQueueName();
+	    	String jndiQueueConnectionFactory = JmsLocationsEnum.FILE_PROCESSOR_JMS.getJmsQueueConnectionFactoryName();
+	    	  
+	    	queue = new DistributedQueueMessage();
+	    	queue.selectQueue(jndiQueue, jndiQueueConnectionFactory);
+		}catch (Exception e) {
+			throw new JMSLocatorException(e.getMessage(),e);
+		}finally{
+			log.info("=== Termina getQueueFileProcessor/ServiceLocator ===");
+		}
+		return queue;
+    }
+	
 }

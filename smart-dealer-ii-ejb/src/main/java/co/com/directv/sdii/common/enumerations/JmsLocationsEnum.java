@@ -23,6 +23,7 @@ public enum JmsLocationsEnum {
 	CORE_JMS("core_jndi_queue","core_jndi_queue_connection_factory"),
 	MovCmdQueue_JMS("movCmd_jndi_queue","movCmd_jndi_queue_connection_factory"),
 	DISPATCH_TECHNICIAN_JMS("dispatch_techninician_jndi_queue","dispatch_techninician_jndi_queue_connection_factory"),
+	FILE_PROCESSOR_JMS("file_processor_jndi_queue","file_processor_jndi_queue_connection_factory"),
 	;
 	
 	private String jmsQueueName;

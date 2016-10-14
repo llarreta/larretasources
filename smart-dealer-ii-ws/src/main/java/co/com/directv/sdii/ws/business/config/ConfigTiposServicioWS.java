@@ -32,7 +32,7 @@ import co.com.directv.sdii.model.vo.ServiceVO;
  * Servicio que expone todos los metodos referentes a la administracion de tipos
  * de servicios
  * 
- * Fecha de Creaci�n: 25/03/2010
+ * Fecha de Creación: 25/03/2010
  * @author jcasas <a href="mailto:jcasas@intergrupo.com">e-mail</a>
  * @version 1.0    
  */

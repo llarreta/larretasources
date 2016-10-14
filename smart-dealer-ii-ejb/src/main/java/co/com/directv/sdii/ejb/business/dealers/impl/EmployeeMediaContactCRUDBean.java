@@ -23,7 +23,7 @@ import co.com.directv.sdii.persistence.dao.dealers.EmployeeMediaContactDAOLocal;
  * EJB que implementa las operaciones Tipo CRUD (Create,Read, Update, Delete) de la
  * Entidad EmployeeMediaContact
  *  
- * Fecha de Creaci�n: Mar 3, 2010
+ * Fecha de Creación: Mar 3, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

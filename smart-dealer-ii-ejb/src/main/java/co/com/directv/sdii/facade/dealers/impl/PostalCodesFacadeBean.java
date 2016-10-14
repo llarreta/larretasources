@@ -17,7 +17,7 @@ import co.com.directv.sdii.model.vo.PostalCodeVO;
  * Facade para la gestion de las operaciones del CRUD
  * de la entidad PostalCodes 
  * 
- * Fecha de Creaci�n: Mar 15, 2010
+ * Fecha de Creación: Mar 15, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

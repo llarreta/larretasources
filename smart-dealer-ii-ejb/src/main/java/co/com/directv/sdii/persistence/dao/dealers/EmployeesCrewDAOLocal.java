@@ -13,7 +13,7 @@ import co.com.directv.sdii.model.pojo.EmployeeCrew;
  * Interface Local para la gestion del CRUD de la
  * Entidad EmployeesCrew
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -142,5 +142,6 @@ public interface EmployeesCrewDAOLocal {
 	 */
 	public List<Employee> getAllEmployeeCrewByCrewId(Long crewId)throws DAOServiceException, DAOSQLException;
  
+	public EmployeeCrew getEmployeeByCrewIdAndEmployeeId(Long crewId, Long employeeId)throws DAOServiceException, DAOSQLException;
 
 }

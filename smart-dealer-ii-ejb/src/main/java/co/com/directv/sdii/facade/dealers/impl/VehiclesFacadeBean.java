@@ -15,7 +15,7 @@ import co.com.directv.sdii.model.vo.VehicleVO;
  * Facade para la gestion de las operaciones del CRUD
  * de la entidad Vehicles 
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -120,5 +120,13 @@ public class VehiclesFacadeBean implements VehiclesFacadeBeanLocal {
 		return vehicleCrudBean.getVehiclesByDealerIdAndPlate(dealerId, plate);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see co.com.directv.sdii.facade.dealers.VehiclesFacadeBeanLocal#getVehiclesByDealerIdAndPlate(java.lang.Long, java.lang.String)
+	 */
+	@Override
+	public List<VehicleVO> getVehiclesByDealerIdAndStatusCodeOrPlate(Long dealerId,String plate) throws BusinessException {
+		return vehicleCrudBean.getVehiclesByDealerIdAndStatusCodeOrPlate(dealerId, plate);
+	}
     
 }

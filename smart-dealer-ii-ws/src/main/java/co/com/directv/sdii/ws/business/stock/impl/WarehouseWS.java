@@ -561,7 +561,7 @@ public class WarehouseWS implements IWarehouseWS {
 	 */
 	@Override
 	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElementSearchFilter,RequestCollectionInfo requestCollInfo) throws BusinessException{
-		return ejbRefElement.getWarehouseElementsByWarehouse(whElementSearchFilter, requestCollInfo);
+		return ejbRefElement.getWarehouseElementsByWarehouse(whElementSearchFilter, requestCollInfo,true);
 	}
 	
 	@Override

@@ -1,6 +1,8 @@
 package co.com.directv.sdii.mdb.business;
 
+import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
+import javax.ejb.MessageDriven;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.jms.JMSException;
@@ -13,6 +15,7 @@ import org.apache.log4j.Logger;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.ejb.business.stock.MovementQueueBusinessBeanLocal;
 import co.com.directv.sdii.exceptions.BusinessException;
+import co.com.directv.sdii.model.dto.MovementInventoryDTO;
 import co.com.directv.sdii.model.dto.MovementInventoryListDTO;
 
 public class MovementInventoryConsumer implements MessageListener {

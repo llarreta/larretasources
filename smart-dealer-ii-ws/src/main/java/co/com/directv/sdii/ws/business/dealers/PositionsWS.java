@@ -20,7 +20,7 @@ import co.com.directv.sdii.model.vo.PositionVO;
 /**
  * Expone los servicios para la configuraci�n de Cargos
  * 
- * Fecha de Creaci�n: 25/03/2010
+ * Fecha de Creación: 25/03/2010
  * @author jcasas <a href="jcasas@intergrupo.com">e-mail</a>
  * @version 1.0   
  */

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 
  * DealersCodes Data Transfer Object
  * 
- * Fecha de Creaci�n: Mar 4, 2010
+ * Fecha de Creación: Mar 4, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

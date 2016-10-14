@@ -10,6 +10,8 @@ import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.model.dto.WarehouseInfoResponseDTO;
 import co.com.directv.sdii.model.dto.WarehouseInfoResponseDetailDTO;
 import co.com.directv.sdii.model.dto.collection.WarehouseElementStockDTO;
+import co.com.directv.sdii.model.pojo.Crew;
+import co.com.directv.sdii.model.pojo.Dealer;
 import co.com.directv.sdii.model.pojo.Warehouse;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
 import co.com.directv.sdii.model.pojo.collection.WareHouseResponse;

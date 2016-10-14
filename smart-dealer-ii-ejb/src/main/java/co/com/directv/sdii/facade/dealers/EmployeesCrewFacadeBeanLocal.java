@@ -12,7 +12,7 @@ import co.com.directv.sdii.model.vo.EmployeeCrewVO;
  * Interfaz que define la Session Facade de las operaciones 
  * a realizar para el modulo de EmployeesCrew
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

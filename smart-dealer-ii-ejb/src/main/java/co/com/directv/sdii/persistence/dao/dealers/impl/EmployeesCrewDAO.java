@@ -27,7 +27,7 @@ import co.com.directv.sdii.persistence.dao.dealers.EmployeesCrewDAOLocal;
  * DAO para el procesamiento de operaciones CRUD
  * de la entidad de EmployeesCrew
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -699,4 +699,41 @@ public class EmployeesCrewDAO extends BaseDao implements EmployeesCrewDAOLocal {
         }
 	}
 	
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public EmployeeCrew getEmployeeByCrewIdAndEmployeeId(Long crewId, Long employeeId)throws DAOServiceException, DAOSQLException{
+		log.debug("== Inicio getEmployeeByCrewIdAndEmployeeId/EmployeesCrewDAO ==");
+        EmployeeCrew ec = null;
+        try {
+        	Session session = this.getSession();
+        	StringBuffer stringQuery =  new StringBuffer();
+        	//stringQuery.append("from ");
+        	//stringQuery.append(EmployeeCrew.class.getName()+" empCrew ");
+        	//stringQuery.append(" where empCrew.id.crewId = :aCrewId and empCrew.id.employeeId = :aEmpId");
+        	
+        	stringQuery.append("SELECT * FROM EMPLOYEE_CREWS ");
+        	stringQuery.append("WHERE CREW_ID = :aCrewId ");
+        	stringQuery.append("  AND EMPLOYEE_ID = :aEmpId");
+        	
+        	Query query = session.createSQLQuery(stringQuery.toString());
+            query.setLong("aCrewId", crewId);
+        	query.setLong("aEmpId", employeeId);
+        	
+        	ScrollableResults sr = query.scroll(ScrollMode.FORWARD_ONLY);
+        	if (sr.next()) {
+        		ec = new EmployeeCrew();
+        		ec.setCrew(null);
+        		ec.setEmployee(null);
+        		ec.setIsResponsible(sr.get(2).toString());
+        	}
+        	sr.close();
+            return ec;           
+        } catch (Throwable ex) {
+            log.debug("== Error en getEmployeeByCrewIdAndEmployeeId ==");
+            throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina getEmployeeByCrewIdAndEmployeeId/EmployeesCrewDAO ==");
+        }
+	    	
+    }
 }

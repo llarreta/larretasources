@@ -3234,7 +3234,7 @@ public class WarehouseElementDAO extends BaseDao implements WarehouseElementDAOL
 	 * Reporte generado por work: Reporte Saldo detallado - WAREHOUSE_ELEMENTS_IN_DETAILS - WED - automatico
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElSerachFilter,RequestCollectionInfo requestCollInfo, boolean filterDealer)	throws DAOServiceException, DAOSQLException {
+	public QuantityWarehouseElementResponse getWarehouseElementsByWarehouse(WhElementSearchFilter whElSerachFilter,RequestCollectionInfo requestCollInfo, boolean filterDealer, boolean doCount)	throws DAOServiceException, DAOSQLException {
 		log.debug("== Inicia getWarehouseElementsByWarehouse/WarehouseElementDAO ==");
 		Session session = super.getSession();
 		try {		
@@ -3284,11 +3284,12 @@ public class WarehouseElementDAO extends BaseDao implements WarehouseElementDAOL
 			if (filterDealer){
 				
 				if (whElSerachFilter.getDealerId()!=null){
-					stringQuery.append(" and ((decode(d.dealer_branch_id,null,d.id,d.dealer_branch_id) =:aDealerId)) ");
+					//stringQuery.append(" and ((decode(d.dealer_branch_id,null,d.id,d.dealer_branch_id) =:aDealerId)) ");
+					stringQuery.append(" and ((d.dealer_branch_id =:aDealerId) OR (d.dealer_branch_id is NULL AND d.id = :aDealerId)) ");
 				}
 				
 				if (whElSerachFilter.getBranchDealerId()!=null){
-					stringQuery.append(" and ((d.id=:aDealerIdBranch)) ");
+					stringQuery.append(" and (d.id=:aDealerIdBranch) ");
 				}
 				
 			}
@@ -3306,22 +3307,25 @@ public class WarehouseElementDAO extends BaseDao implements WarehouseElementDAOL
 			}
 			
 			if (whElSerachFilter.getElementModelId()!=null) {
-				stringQuery.append(" and (decode(we.SER_ID,NULL,EMNS.ID,EMS.ID) = :aElementModelId) ");
+				//stringQuery.append(" and (decode(we.SER_ID,NULL,EMNS.ID,EMS.ID) = :aElementModelId) ");
+				stringQuery.append(" and ( (we.SER_ID IS NULL AND EMNS.ID = :aElementModelId) OR (we.SER_ID IS NOT NULL AND EMS.ID = :aElementModelId)) ");
 			}
 			
 			
 			if (whElSerachFilter.getElementTypeId()!=null) {
-				stringQuery.append(" and ((decode(we.SER_ID,NULL,ETNS.ID,ETS.ID) = :aTypeElementId)) ");
+				//stringQuery.append(" and ((decode(we.SER_ID,NULL,ETNS.ID,ETS.ID) = :aTypeElementId)) ");
+				stringQuery.append(" and ( (we.SER_ID IS NULL AND ETNS.ID = :aTypeElementId) OR (we.SER_ID IS NOT NULL AND ETS.ID = :aTypeElementId) ) ");
         	}
 			
 			if(whElSerachFilter.getSerialElement() != null){
-				stringQuery.append(" and ((decode(we.SER_ID,NULL,NULL,s.serial_code)=:aSerialElement or decode(we.SER_ID,NULL,NULL,sl.serial_code) = :aSerialElement)) ");
+				//stringQuery.append(" and ((decode(we.SER_ID,NULL,NULL,s.serial_code)=:aSerialElement or decode(we.SER_ID,NULL,NULL,sl.serial_code) = :aSerialElement)) ");
+				stringQuery.append(" and ( (we.SER_ID IS NOT NULL AND s.serial_code = :aSerialElement) OR (we.SER_ID IS NOT NULL AND sl.serial_code = :aSerialElement) ) ");
 			}
 			
 			
         	//----------------------------------------------------------------
 			//Paginacion 
-			stringCount.append(" Select count(*) from ( ");
+			stringCount.append(" Select count(1) from ( ");
 			stringCount.append( stringQuery.toString() + " ) " );        	
         	Query countQuery = session.createSQLQuery( stringCount.toString() );
         	
@@ -3407,12 +3411,13 @@ public class WarehouseElementDAO extends BaseDao implements WarehouseElementDAOL
 				query.setParameter("aSerialElement",whElSerachFilter.getSerialElement().toUpperCase(), Hibernate.STRING);
 				countQuery.setParameter("aSerialElement",whElSerachFilter.getSerialElement().toUpperCase(), Hibernate.STRING);					
 			}
-			
-			
+						
 			//Paginacion
         	Long recordQty = 0l;
-        	if( requestCollInfo != null ){	  
-	        	recordQty = ((BigDecimal)countQuery.uniqueResult()).longValue();
+        	if( requestCollInfo != null){
+        		if(doCount){
+        			recordQty = ((BigDecimal)countQuery.uniqueResult()).longValue();
+        		}
 				query.setFirstResult( requestCollInfo.getFirstResult() );
 				query.setMaxResults( requestCollInfo.getMaxResults() );				
         	}

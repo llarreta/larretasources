@@ -13,7 +13,7 @@ import co.com.directv.sdii.model.pojo.Vehicle;
  * Interface Local para la gestion del CRUD de la
  * Entidad Vehicle
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -83,5 +83,16 @@ public interface VehiclesDAOLocal {
 	 */
 	public List<Vehicle> getVehiclesByDealerIdAndPlate(Long dealerId,String plate) throws DAOServiceException, DAOSQLException;
 	
+	/**
+	 * 
+	 * Metodo: Consulta los vehiculos asociados a un dealer y en un estado especifico 
+	 * @param dealerId id del dealer
+	 * @param statusCode codigo del estado del vehiculo por el cual se desea filtrar
+	 * @return Lista de vehiculos asociados al dealer y en el estado enviado por parametro
+	 * @throws DAOServiceException
+	 * @throws DAOSQLException <tipo> <descripcion>
+	 * @author jnova
+	 */
+	public List<Vehicle> getVehiclesByDealerIdAndStatusCodeOrPlate(long dealerId,String statusCode ,String plate)throws DAOServiceException, DAOSQLException;
 	
 }

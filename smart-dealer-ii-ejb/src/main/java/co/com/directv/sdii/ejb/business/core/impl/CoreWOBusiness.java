@@ -1711,8 +1711,8 @@ public class CoreWOBusiness extends BusinessBase implements CoreWOBusinessLocal 
 			if(employeeCrew==null ){
 				throw new BusinessException(ErrorBusinessMessages.CREW_NOT_RESPONSIBLE_SPECIFIED.getCode() ,"No se encontro ningun empleado responsable de la WorkOrder de los "+crew.getEmployeesCrew().size()+" que tiene ");
 			}
-			
-//			####!#### Enmascara datos del cliente.
+			/**			
+//**			####!#### Enmascara datos del cliente.
 			
 			SystemParameter sp = systemParameterDAO.getSysParamByCodeAndCountryId(
 					CodesBusinessEntityEnum.SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK.getCodeEntity(), 
@@ -1723,8 +1723,8 @@ public class CoreWOBusiness extends BusinessBase implements CoreWOBusinessLocal 
 					isCustomerMask)) {
 				employeeCrew.setDocumentNumber(UtilsBusiness.maskNumber(employeeCrew.getDocumentNumber()));
 			}
-//			####!####
-			
+			####!#### 
+**/			
 			return reportsGeneratorLocal.generateCrewWorkOrdersPDF(workOrders, employeeCrew);
 
 		} catch (Throwable ex) {

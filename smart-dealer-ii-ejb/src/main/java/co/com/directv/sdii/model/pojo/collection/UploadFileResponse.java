@@ -2,7 +2,9 @@ package co.com.directv.sdii.model.pojo.collection;
 
 import java.util.List;
 
+import co.com.directv.sdii.model.pojo.ElementClass;
 import co.com.directv.sdii.model.pojo.UploadFile;
+import co.com.directv.sdii.model.vo.ElementClassVO;
 import co.com.directv.sdii.model.vo.UploadFileVO;
 
 public class UploadFileResponse extends CollectionBase {

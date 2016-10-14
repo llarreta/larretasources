@@ -19,7 +19,7 @@ import co.com.directv.sdii.model.vo.UserVO;
  * Interfaz que define la Session Facade de las operaciones 
  * a realizar para el modulo de Crews
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -41,17 +41,7 @@ public interface CrewsFacadeBeanLocal {
      * @author jnova
      */
     public void updateCrews(CrewVO obj,String description, UserVO user) throws BusinessException;
-
-    /**
-     * 
-     * Metodo: Desasocia un empleado de una cuadrilla
-     * @param obj objeto que encapsula informacion dela cuadrilla
-     * @param employee objeto que encapsula informacion delempleado
-     * @throws BusinessException <tipo> <descripcion>
-     * @author jgonzmol
-     */    
-    public void detachedEmployeeCrew(CrewVO obj , EmployeeCrewVO employeeCrew, UserVO user) throws BusinessException;    
-    
+   
     public void deleteCrews(CrewVO obj) throws BusinessException;
 
     public List<CrewVO> getAllCrews() throws BusinessException;

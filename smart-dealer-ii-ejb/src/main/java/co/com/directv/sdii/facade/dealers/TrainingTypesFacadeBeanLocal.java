@@ -14,7 +14,7 @@ import co.com.directv.sdii.model.vo.TrainingTypeVO;
  * a realizar para el modulo de TrainingTypes
  * Solo operaciones de consulta.
  * 
- * Fecha de Creaci�n: Mar 8, 2010
+ * Fecha de Creación: Mar 8, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

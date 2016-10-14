@@ -30,7 +30,7 @@ import co.com.directv.sdii.rules.BusinessRuleValidationManager;
  *
  * Caso de Uso CFG - 02 - Gestionar Parametros del Sistema
  *
- * Fecha de Creaci�n: Mar 25, 2010
+ * Fecha de Creación: Mar 25, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  *

@@ -13,8 +13,6 @@ import javax.ejb.Stateless;
 import org.apache.log4j.Logger;
 import org.example.allocatorrequest.Request;
 
-import com.oracle.xmlns.mer_sdii_jws.bpmallocator.allocatorprocess.AllocatorProcess;
-
 import co.com.directv.sdii.common.enumerations.ErrorBusinessMessages;
 import co.com.directv.sdii.common.enumerations.WsdlLocationsEnum;
 import co.com.directv.sdii.common.locator.ServiceLocator;
@@ -32,6 +30,8 @@ import co.com.directv.sdii.model.pojo.WorkOrderAgenda;
 import co.com.directv.sdii.model.vo.DealerVO;
 import co.com.directv.sdii.model.vo.WorkOrderVO;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderAgendaDAOLocal;
+
+import com.oracle.xmlns.mer_sdii_jws.bpmallocator.allocatorprocess.AllocatorProcess;
 
 /**
  * Implementa las operaciones para invocar el servicio web que expone

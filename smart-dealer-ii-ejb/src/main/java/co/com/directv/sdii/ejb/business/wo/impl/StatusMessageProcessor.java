@@ -21,6 +21,7 @@ import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.exceptions.PropertiesException;
 import co.com.directv.sdii.model.pojo.Country;
+import co.com.directv.sdii.model.pojo.Employee;
 import co.com.directv.sdii.model.pojo.OptimusStatus;
 import co.com.directv.sdii.model.pojo.OptimusStatusEvent;
 import co.com.directv.sdii.model.pojo.OptimusStatusHistory;

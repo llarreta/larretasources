@@ -65,7 +65,7 @@ import co.com.directv.sdii.rules.BusinessRuleValidationManager;
  * EJB que implementa las operaciones Tipo CRUD (Create,Read, Update, Delete) de
  * la Entidad Crews
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * 
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
@@ -400,12 +400,19 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 			//Consultar el responsable actual (antes de la modificación)
 			Employee employeeOldResponsibleForCrew = this.daoEmployeeCrew.getEmployeeResponsibleByCrewId(obj.getId());
 			
+			//consultar los empleados (no responsable) antes de la modificación
+			List<Employee> employeesOldsCrew = this.daoEmployeeCrew.getAllEmployeeCrewByCrewId(obj.getId());
+			List<Employee> employeesOldsNotResponsibleCrew = this.daoEmployeeCrew.getEmployeeNotResponsibleByCrewId(obj.getId());
+
+			this.validateDetachedEmployee(obj, employeeOldResponsibleForCrew, employeesOldsNotResponsibleCrew);
+
 
 			if (obj.getCrewStatus() == null
 					|| obj.getCrewStatus().getStatusCode() == null) {
 				throw new BusinessException(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(),ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
-			}
-
+			}			
+			
+			//Se busca a que estado se quiere pasar la cuadrilla
 			CrewStatus crewStatus = this.crewStatusDAO.getCrewStatusByCode(obj.getCrewStatus().getStatusCode());
 			if (crewStatus == null) {
 				throw new BusinessException(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(),ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
@@ -413,8 +420,9 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 			obj.setCrewStatus(crewStatus);
 			// Se valida que esta pasando de activo a inactivo para guardar el
 			// crew off
+			Crew Actualcrew = daoCrew.getCrewById(obj.getId());
 			if (crewStatus.getStatusCode().equals(CodesBusinessEntityEnum.CREW_STATUS_INACTIVE.getCodeEntity())) {
-				Crew crewTmp = daoCrew.getCrewById(obj.getId());
+				Crew crewTmp = Actualcrew;
 				List<Warehouse> warehousesByCrewId=bussinesWarehouse.getNoVirtualWarehousesByCrewId(obj.getId());
 				for(Warehouse wh: warehousesByCrewId){
 					if(wh.getIsActive().equals(CodesBusinessEntityEnum.WAREHOUSE_TYPE_STATUS_ACTIVE.getCodeEntity())){
@@ -432,7 +440,16 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 					CrewOff newCrewOff = new CrewOff(obj, new Date(),description);
 					crewOffDAO.createCrewOff(newCrewOff);
 				}
-
+            //Desasociar técnico - si se quiere activar la cuadrilla se debe validar que el vehiculo asociado no este vinculado a esa cuadrilla 
+			}else{
+				if (Actualcrew.getCrewStatus().getStatusCode().equals(CodesBusinessEntityEnum.CREW_STATUS_INACTIVE.getCodeEntity()) && 
+						crewStatus.getStatusCode().equals(CodesBusinessEntityEnum.CREW_STATUS_ACTIVE.getCodeEntity())){
+					List<Crew> listCrewVehicle  = this.daoCrew.getCrewsByVehicleIdAndCrewStatusCode(obj.getVehicle().getId(), obj.getCrewStatus().getStatusCode());
+					if(!listCrewVehicle.isEmpty() && listCrewVehicle != null  ){
+					      throw new BusinessException(ErrorBusinessMessages.DEALERS_DE022.getMessage(),ErrorBusinessMessages.DEALERS_DE022.getMessage());
+					}
+				}
+				
 			}
 			validateCrewsRulesToUpdateCrew(obj);
 			// Creacion de cuadrilla y asociacion de empleados a la cuadrilla
@@ -504,12 +521,18 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 			//Consultar el responsable modificado (despues de la modificación)
 			Employee employeeNewResponsibleForCrew = this.daoEmployeeCrew.getEmployeeResponsibleByCrewId(obj.getId());
 			
+			Boolean isNewResponsible = false;
+			
 			//Si cambión el empleado responsable se cambia el nombre de
 			//las ubicaciones de la cuadrilla.
 			if(employeeNewResponsibleForCrew.getId().longValue() != employeeOldResponsibleForCrew.getId().longValue()){
 				// Actualizacion de la bodega de la cuadrilla
 				bussinesWarehouse.changeTheWhCodeForWareHousesByCrewCode(obj.getId());
+				isNewResponsible = true;
 			}
+			
+			//se guarda las modificacion/es de la/s cuadrila
+			this.registerModificationsCrewForReport(obj, userVO, isNewResponsible, employeeNewResponsibleForCrew, employeesOldsCrew);
 			
 		} catch (Throwable ex) {
 			log.debug("== Error al tratar de ejecutar la operación updateCrews/CrewsCRUDBean ==",ex);
@@ -603,57 +626,58 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 		}
 	}
 
+	
+	//Desasociar tecnico
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void detachedEmployeeCrew(CrewVO obj, EmployeeCrewVO employeeCrew , UserVO user) throws BusinessException{
-		log.debug("== Inicia detachedEmployeeCrew/CrewsCRUDBean ==");		
+	public void validateDetachedEmployee(CrewVO obj , Employee employeeOldResponsibleForCrew ,List<Employee> employeesOldsNotResponsibleCrew) throws BusinessException{
+		log.debug("== Inicia validateDetachedEmployee/CrewsCRUDBean ==");		
 		try{
 			
-			if (obj == null) {
-				log.debug(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
-				throw new BusinessException(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(),ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
-			}
-			if (employeeCrew == null) {
-				log.debug(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
-				throw new BusinessException(ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getCode(),ErrorBusinessMessages.PARAMS_NULL_OR_MISSED.getMessage());
-			}
-			
-			//consultar los empleados responsables antes de la modificación
-			List<Employee> employeesOldsCrew = this.daoEmployeeCrew.getAllEmployeeCrewByCrewId(obj.getId());
-			
-			//pregunto si es el colaborador es técnico
-			//if (employeeCrew.getEmployeeRol().getRolCode().equals(CodesBusinessEntityEnum.CREW_ROL_TECNICIAN.getCodeEntity())){
-			if (employeeCrew.getIsResponsible().equals(CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity())){
-				//T-2 valido que no tenga ninguna WO asiganda en estados diferentes a Cancelada o Finalizada
-				validateCrewAssignment(obj.getId(),false);
-				//T-3  
-				//valido que no tenga ninguna Remisión en estado distinta de Recepcionada
-				validateCrewReferenecesPendings(obj.getId());				
-				//valido que no tenga ningun Ajuste en estado distinto de Procesada o Autorizada
-				validateCrewAdjustmentsPendings(obj.getId());
-				//T-1 pregunto si es responsable de la cuadrilla
-				validateIsResponsibleCrew(employeeCrew);
-				//encaso de cumplir las tres reglas desasocio el colaborador
-				daoEmployeeCrew.deleteEmployeeCrewsByEmployeeId(employeeCrew.getEmployee().getId());
-			}else{
-				//valido que no tenga ninguna WO asiganda en estados diferentes a Cancelada o Finalizada
-				validateCrewAssignment(obj.getId(),false);
-				//encaso de cumplir las tres reglas desasocio el colaborador
-				daoEmployeeCrew.deleteEmployeeCrewsByEmployeeId(employeeCrew.getEmployee().getId());
+			//validamos si cambio el empleado responsable
+			for(EmployeeCrew employee: obj.getEmployeesCrew()){
+				if (employee.getIsResponsible().equals(CodesBusinessEntityEnum.EMPLOYEE_CREW_RESPONSABLE.getCodeEntity()) 
+						&& employee.getId().getEmployeeId().longValue()!= employeeOldResponsibleForCrew.getId().longValue() ){
+					//T-2 valido que no tenga ninguna WO asiganda en estados diferentes a Cancelada o Finalizada
+					validateCrewAssignment(obj.getId(),false);
+					//T-3  
+					//valido que no tenga ninguna Remisión en estado distinta de Recepcionada
+					validateCrewReferenecesPendings(obj.getId());				
+					//valido que no tenga ningun Ajuste en estado distinto de Procesada o Autorizada
+					validateCrewAdjustmentsPendings(obj.getId());
 				}
+			}
 			
-			//se guarda las modificaciones de las cuadrilas
-			this.registerModificationsCrewForReport(obj,user , false, null, employeesOldsCrew);
+			if (employeesOldsNotResponsibleCrew != null && !employeesOldsNotResponsibleCrew.isEmpty()){
+				
+				int flag;
+				for( Employee employeeActual: employeesOldsNotResponsibleCrew){
+					flag = 0;
+					for( EmployeeCrew employeeModify: obj.getEmployeesCrew() ){
+						if( employeeModify.getIsResponsible().equals(CodesBusinessEntityEnum.EMPLOYEE_CREW_NOT_RESPONSABLE.getCodeEntity()) ){
+							if( employeeActual.getId().longValue() == employeeModify.getId().getEmployeeId().longValue() ){
+								flag = 1;
+								break;
+							}
+						}
+					}
+					if(flag == 0){
+						validateCrewAssignment(obj.getId(),false);
+					}
+				}
+			}
 			
 		} catch (Throwable ex) {
-			log.debug("== Error al tratar de ejecutar la operación detachedEmployeeCrew/CrewsCRUDBean ==",ex);
+			log.debug("== Error al tratar de ejecutar la operación validateDetachedEmployee/CrewsCRUDBean ==",ex);
 			throw this.manageException(ex);
 		} finally {
 			log.debug("== Termina detachedEmployeeCrew/CrewsCRUDBean ==");
 		}
 	}
+
+	//###########################################################################Desasociar tecnico
 	
-	public void validateIsResponsibleCrew(EmployeeCrewVO employeeCrew) throws BusinessException {
+	public void validateIsResponsibleCrew(EmployeeCrew employeeCrew) throws BusinessException {
 		log.debug("== Inicia validateIsResponsibleCrew/CrewsCRUDBean ==");
 		try{
 			
@@ -752,8 +776,9 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 			
 			List<String> statusCodes = new ArrayList<String>();
 
-			statusCodes.add(CodesBusinessEntityEnum.ITEM_STATUS_RECEPTED.getCodeEntity());
-							
+			statusCodes.add(CodesBusinessEntityEnum.ITEM_STATUS_RECEPTED.getCodeEntity() );
+			statusCodes.add(CodesBusinessEntityEnum.ITEM_STATUS_DELETED.getCodeEntity());				
+			
 			List<ReferenceVO> references = UtilsBusiness.convertList(this.daoReference.getReferencesByCrewIdAndDistinctReferneceStatus(statusCodes, crewID), ReferenceVO.class);		
 				
 			if ( references != null  && !references.isEmpty() ){

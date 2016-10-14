@@ -37,7 +37,7 @@ import co.com.directv.sdii.rules.BusinessRuleValidationManager;
  * EJB que implementa las operaciones Tipo CRUD (Create,Read, Update, Delete) de la
  * Entidad Vehicles
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -445,5 +445,27 @@ public class VehiclesCRUDBean extends BusinessBase implements VehiclesCRUDBeanLo
 		} finally {
 		    log.debug("== Termina getVehiclesByDealerIdAndPlate/VehicleCRUDBean ==");
 		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see co.com.directv.sdii.ejb.business.dealers.VehiclesCRUDBeanLocal#getActiveVehiclesByDealerId(long)
+	 */
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<VehicleVO> getVehiclesByDealerIdAndStatusCodeOrPlate(long dealerId, String plate) throws BusinessException {
+		log.debug("== Inicia getActiveVehiclesByDealerId/VehicleCRUDBean ==");
+
+		List<VehicleVO> resultVehicles = null;
+		try{
+		    List<Vehicle> allDealerVehicles = dAOVehicleBean.getVehiclesByDealerIdAndStatusCodeOrPlate(dealerId,CodesBusinessEntityEnum.ACTIVE_VEHICLE.getCodeEntity(), plate);
+		    resultVehicles = UtilsBusiness.convertList(allDealerVehicles, VehicleVO.class);
+		} catch(Throwable ex){
+			log.debug("== Error al tratar de ejecutar la operacion getActiveVehiclesByDealerId/MediaContactTypesCRUDBean ==");
+			throw this.manageException(ex);
+		} finally {
+		    log.debug("== Termina getActiveVehiclesByDealerId/VehicleCRUDBean ==");
+		}
+			return resultVehicles;
 	}
 }

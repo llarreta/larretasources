@@ -167,7 +167,7 @@ public enum CodesBusinessEntityEnum {
     SYSTEM_PARAM_REPORT_ELEMENT_TO_IBS("sdii_CODE_sys_param_report_element_to_ibs","sdii_COLUMN_system_param"),    
     
     SYSTEM_PARAM_BTB_ELEMENTS_TYPES("sdii_CODE_sys_param_btb_elements_types","sdii_COLUMN_system_param"),
-    
+    SYSTEM_PARAM_MAX_THREAD_FILES("sdii_CODE_sys_param_max_threads_files","sdii_CODE_sys_param_max_threads_files"),
     SYSTEM_PARAM_IS_CUSTOMER_INFO_MASK("sdii_CODE_sys_param_is_customer_info_mask","sdii_COLUMN_system_param"),
     
     

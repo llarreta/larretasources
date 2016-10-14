@@ -27,7 +27,7 @@ import co.com.directv.sdii.persistence.dao.config.WorkorderStatusDAOLocal;
  * encuentran realacionados en una tabla en la
  * Base de Datos.
  * 
- * Fecha de Creaci�n: 28/04/2010
+ * Fecha de Creación: 28/04/2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

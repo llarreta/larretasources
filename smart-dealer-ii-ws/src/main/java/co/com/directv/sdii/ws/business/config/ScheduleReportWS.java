@@ -22,7 +22,7 @@ import co.com.directv.sdii.model.dto.CreateAuxiliarTechnicianReportDTO;
 /**
  * Servicio web que expone las operaciones relacionadas con ScheduleReport
  * 
- * Fecha de Creaci�n: 11/10/2012
+ * Fecha de Creación: 11/10/2012
  * @author martlago
  * @version 1.0
  * 

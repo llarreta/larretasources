@@ -52,7 +52,7 @@ import co.com.directv.sdii.ws.business.core.wo.ICoreWoWS;
  * Caso de Uso ADS - 63 - Registrar Recuperacion  de  elementos serializados  donde el cliente ==> Se debe realizar cuando se haga el modulo de Inventarios
  * Caso de Uso ADS - 64 - Registrar Recuperacion  de  elementos NO serializados  donde el cliente ==> Se debe realizar cuando se haga el modulo de Inventarios
  * 
- * Fecha de Creaci�n: 21/04/2010
+ * Fecha de Creación: 21/04/2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

@@ -88,5 +88,7 @@ public interface ExcelGeneratorLocal {
 	
     public void populateExcelFile(List<String> dataField,List<String> dataList,String originalWorkBookName, int sheetNumber)
 	throws ExcelGenerationException ;
+
+	public void flushToExcelFile(List<String> fieldList, List<Object> dataList, String string, int i, boolean bCabecera) throws ExcelGenerationException;
 	
 }

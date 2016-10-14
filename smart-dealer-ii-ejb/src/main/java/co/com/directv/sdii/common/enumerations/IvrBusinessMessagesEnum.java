@@ -11,7 +11,7 @@ import co.com.ig.common.error.ErrorMessageManager;
  * Clase de tipo Enum, encargada de realizar el mapping
  * de codigos de errores y mensajes de los servicios expuestos a IVR.
  * 
- * Fecha de Creaci�n: 10/08/2010
+ * Fecha de Creación: 10/08/2010
  * @author jforero <a href="mailto:jforero@intergrupo.com">e-mail</a>
  * @version 1.0
  * 

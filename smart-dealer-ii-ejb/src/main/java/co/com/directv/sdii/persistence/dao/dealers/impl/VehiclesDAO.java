@@ -11,11 +11,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
 import co.com.directv.sdii.common.enumerations.ErrorBusinessMessages;
 import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
+import co.com.directv.sdii.model.pojo.Crew;
 import co.com.directv.sdii.model.pojo.Vehicle;
+import co.com.directv.sdii.model.pojo.Warehouse;
 import co.com.directv.sdii.persistence.dao.BaseDao;
 import co.com.directv.sdii.persistence.dao.dealers.VehiclesDAOLocal;
 
@@ -24,7 +27,7 @@ import co.com.directv.sdii.persistence.dao.dealers.VehiclesDAOLocal;
  * DAO para el procesamiento de operaciones CRUD
  * de la entidad de Vehicle
  * 
- * Fecha de Creaci�n: Mar 5, 2010
+ * Fecha de Creación: Mar 5, 2010
  * @author jalopez <a href="mailto:jalopez@intergrupo.com">e-mail</a>
  * @version 1.0
  * 
@@ -334,9 +337,11 @@ public class VehiclesDAO extends BaseDao implements VehiclesDAOLocal {
         	stringQuery.append(Vehicle.class.getName());
         	stringQuery.append(" vehicle where vehicle.dealer.id = :aDealerId");
         	stringQuery.append(" and vehicle.vehicleStatus.statusCode = :statusCode");
+        	stringQuery.append(" and vehicle.id not in (select c.vehicle.id from "+Crew.class.getName()+" c where c.dealer.id = :aDealerId and c.crewStatus.statusCode = :statusCodeCrew) ");
         	Query query = session.createQuery(stringQuery.toString());
             query.setLong("aDealerId", dealerId);
             query.setString("statusCode", statusCode);
+            query.setString("statusCodeCrew", CodesBusinessEntityEnum.CREW_STATUS_ACTIVE.getCodeEntity());
             List<Vehicle> result = query.list();
             return result;
         } catch (Throwable ex) {
@@ -412,4 +417,41 @@ public class VehiclesDAO extends BaseDao implements VehiclesDAOLocal {
             log.debug("== Termina getVehiclesByDealerIdAndPlate/VehicleDAO ==");
         }
     }
+	
+	/*
+	 * (non-Javadoc)
+	 * @see co.com.directv.sdii.persistence.dao.dealers.VehiclesDAOLocal#getVehiclesByDealerIdAndStatusCode(long, java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<Vehicle> getVehiclesByDealerIdAndStatusCodeOrPlate(long dealerId,String statusCode, String plate)throws DAOServiceException, DAOSQLException {
+		log.debug("== Inicio getVehiclesByDealerIdAndStatusCode/VehicleDAO ==");
+        
+        try {
+        	Session session = this.getSession();
+        	StringBuffer stringQuery = new StringBuffer();
+        	stringQuery.append("from ");
+        	stringQuery.append(Vehicle.class.getName());
+        	stringQuery.append(" vehicle where vehicle.dealer.id = :aDealerId");
+        	stringQuery.append(" and vehicle.vehicleStatus.statusCode = :statusCode");
+        	stringQuery.append(" and vehicle.id not in (select c.vehicle.id from "+Crew.class.getName()+" c where c.dealer.id = :aDealerId and c.crewStatus.statusCode = :statusCodeCrew) ");
+            if( plate != null && !plate.equals("") ){
+                stringQuery.append(" or upper(vehicle.plate) = :plate");
+            }
+        	Query query = session.createQuery(stringQuery.toString());
+            query.setLong("aDealerId", dealerId);
+            query.setString("statusCode", statusCode);
+            query.setString("statusCodeCrew", CodesBusinessEntityEnum.CREW_STATUS_ACTIVE.getCodeEntity());
+            if( plate != null && !plate.equals("") ){
+                query.setString("plate", plate.toUpperCase());
+            }
+            List<Vehicle> result = query.list();
+            return result;
+        } catch (Throwable ex) {
+            log.debug("== Error en getVehiclesByDealerIdAndStatusCode/VehicleDAO ==");
+            throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina getVehiclesByDealerIdAndStatusCode/VehicleDAO ==");
+        }
+	}
 }
