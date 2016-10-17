@@ -1262,8 +1262,7 @@ public class SecurityBusinessBean extends BusinessBase implements SecurityBusine
 			}
 			user = users.get(0);
 			
-			//DANI-ÑAPA
-			//this.ldapAuthenticate(user.getEmail(), password, countryId);
+			this.ldapAuthenticate(user.getEmail(), password, countryId);
 
 			if(user.getIsActive().equals("0")){
 				log.info("Se lograr autenticar en el directorio activo, pero el usuario en SDII de login " + userName + " en el pais con id: " + countryId + " no se encuentra activo");
