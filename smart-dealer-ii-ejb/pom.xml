@@ -181,7 +181,22 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>3.7.6</version>
+			<version>4.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-fonts</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dtvla</groupId>
+			<artifactId>font-arial-ext</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dtvla</groupId>
+			<artifactId>font-sansserif-ext</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -257,7 +272,7 @@
 		<plugins>
 			<plugin>
 				<groupId>com.google.code.maven-replacer-plugin</groupId>
-				<artifactId>replacer</artifactId> 
+				<artifactId>replacer</artifactId>
 				<version>1.5.3</version>
 				<executions>
 					<execution>
@@ -269,19 +284,19 @@
 						<configuration>
 							<file>${project.basedir}/target/classes/META-INF/ejb-jar.xml</file>
 							<replacements>
-								<replacement> 
-									<token>%%PAIS%%</token> 
-									<value>${country}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%ISO3CODE%%</token> 
-									<value>${iso3Code}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%MAXBEANS%%</token> 
-									<value>${maxBeans}</value> 
-								</replacement> 
-							</replacements> 
+								<replacement>
+									<token>%%PAIS%%</token>
+									<value>${country}</value>
+								</replacement>
+								<replacement>
+									<token>%%ISO3CODE%%</token>
+									<value>${iso3Code}</value>
+								</replacement>
+								<replacement>
+									<token>%%MAXBEANS%%</token>
+									<value>${maxBeans}</value>
+								</replacement>
+							</replacements>
 						</configuration>
 					</execution>
 					<execution>
@@ -293,19 +308,19 @@
 						<configuration>
 							<file>${project.basedir}/target/classes/META-INF/weblogic-ejb-jar.xml</file>
 							<replacements>
-								<replacement> 
-									<token>%%PAIS%%</token> 
-									<value>${country}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%ISO3CODE%%</token> 
-									<value>${iso3Code}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%MAXBEANS%%</token> 
-									<value>${maxBeans}</value> 
-								</replacement> 
-							</replacements> 
+								<replacement>
+									<token>%%PAIS%%</token>
+									<value>${country}</value>
+								</replacement>
+								<replacement>
+									<token>%%ISO3CODE%%</token>
+									<value>${iso3Code}</value>
+								</replacement>
+								<replacement>
+									<token>%%MAXBEANS%%</token>
+									<value>${maxBeans}</value>
+								</replacement>
+							</replacements>
 						</configuration>
 					</execution>
 					<execution>
@@ -317,19 +332,19 @@
 						<configuration>
 							<file>${project.basedir}/target/classes/properties/applicationSD.properties</file>
 							<replacements>
-								<replacement> 
-									<token>%%PAIS%%</token> 
-									<value>${country}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%ISO3CODE%%</token> 
-									<value>${iso3Code}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%MAXBEANS%%</token> 
-									<value>${maxBeans}</value> 
-								</replacement> 
-							</replacements> 
+								<replacement>
+									<token>%%PAIS%%</token>
+									<value>${country}</value>
+								</replacement>
+								<replacement>
+									<token>%%ISO3CODE%%</token>
+									<value>${iso3Code}</value>
+								</replacement>
+								<replacement>
+									<token>%%MAXBEANS%%</token>
+									<value>${maxBeans}</value>
+								</replacement>
+							</replacements>
 						</configuration>
 					</execution>
 					<execution>
@@ -341,19 +356,19 @@
 						<configuration>
 							<file>${project.basedir}/target/classes/properties/EJBRemoteJNDIName.properties</file>
 							<replacements>
-								<replacement> 
-									<token>%%PAIS%%</token> 
-									<value>${country}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%ISO3CODE%%</token> 
-									<value>${iso3Code}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%MAXBEANS%%</token> 
-									<value>${maxBeans}</value> 
-								</replacement> 
-							</replacements> 
+								<replacement>
+									<token>%%PAIS%%</token>
+									<value>${country}</value>
+								</replacement>
+								<replacement>
+									<token>%%ISO3CODE%%</token>
+									<value>${iso3Code}</value>
+								</replacement>
+								<replacement>
+									<token>%%MAXBEANS%%</token>
+									<value>${maxBeans}</value>
+								</replacement>
+							</replacements>
 						</configuration>
 					</execution>
 					<execution>
@@ -365,15 +380,15 @@
 						<configuration>
 							<file>${project.basedir}/target/classes/properties/version.properties</file>
 							<replacements>
-								<replacement> 
-									<token>%%VERSION%%</token> 
-									<value>${project.version}</value> 
-								</replacement> 
-								<replacement> 
-									<token>%%FECHA%%</token> 
-									<value>${timestamp}</value> 
-								</replacement> 
-							</replacements> 
+								<replacement>
+									<token>%%VERSION%%</token>
+									<value>${project.version}</value>
+								</replacement>
+								<replacement>
+									<token>%%FECHA%%</token>
+									<value>${timestamp}</value>
+								</replacement>
+							</replacements>
 						</configuration>
 					</execution>
 				</executions>
