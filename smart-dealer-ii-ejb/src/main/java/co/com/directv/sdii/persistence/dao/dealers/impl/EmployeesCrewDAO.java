@@ -10,6 +10,8 @@ import javax.ejb.TransactionManagementType;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 
 import co.com.directv.sdii.common.enumerations.CodesBusinessEntityEnum;
