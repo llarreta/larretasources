@@ -43,9 +43,9 @@
 		<wls.userId>weblogic</wls.userId>
 		<wls.password>welcome1</wls.password>
 	</properties>-->
-
+	
 	<build>
-		<finalName>HSP-EAR</finalName>
+		<finalName>HSP-EAR_v${version}${country}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
