@@ -12,10 +12,14 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
+var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 //Simulador de servicios en memoria
 var in_memory_web_api_module_1 = require('angular-in-memory-web-api/in-memory-web-api.module');
 var in_memory_data_service_1 = require('../Mock/in-memory-data.service');
 var app_component_1 = require('../Components/main-component/app.component');
+var header_component_1 = require('../Components/header/header.component');
+var body_component_1 = require('../Components/body/body.component');
+var footer_component_1 = require('../Components/footer/footer.component');
 var hero_search_component_1 = require('../Components/hero-search/hero-search.component');
 var heroe_detail_component_1 = require('../Components/heroe-detail/heroe-detail.component');
 var heroe_list_component_1 = require('../Components/heroes-list/heroe-list.component');
@@ -33,14 +37,18 @@ var AppModule = (function () {
                 forms_1.FormsModule,
                 http_1.HttpModule,
                 in_memory_web_api_module_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService),
-                app_routing_module_1.AppRoutingModule
+                app_routing_module_1.AppRoutingModule,
+                ng_bootstrap_1.NgbModule.forRoot(),
             ],
             declarations: [
                 app_component_1.AppComponent,
                 heroe_detail_component_1.HeroDetailComponent,
                 heroe_list_component_1.HeroeList,
                 dashboard_component_1.DashboardComponent,
-                hero_search_component_1.HeroSearchComponent
+                hero_search_component_1.HeroSearchComponent,
+                header_component_1.HeaderComponent,
+                body_component_1.BodyComponent,
+                footer_component_1.FooterComponent
             ],
             providers: [
                 hero_service_1.HeroService
