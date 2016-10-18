@@ -109,5 +109,6 @@ public interface EmployeeCRUDBeanLocal {
 	 */
 	public Long getActiveTechniciansQtyByDealerId(Long dealerId)throws BusinessException;
 
-	
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<EmployeeVO> getEmployeesAviableByDealerId(Long id)throws BusinessException;
 }

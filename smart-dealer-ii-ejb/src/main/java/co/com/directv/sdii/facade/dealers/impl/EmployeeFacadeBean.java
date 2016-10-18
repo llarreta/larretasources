@@ -191,5 +191,12 @@ public class EmployeeFacadeBean implements EmployeeFacadeBeanLocal {
         return businessCrudEmployee.getEmployeeDetailsByEmployeeId(employeeId);
     }
 
-	
+    /* (non-Javadoc)
+     * @see co.com.directv.sdii.facade.dealers.EmployeeFacadeBeanLocal#getEmployeesActiveByDealerId(java.lang.Long)
+     */
+    @Override
+	public List<EmployeeVO> getEmployeesAviableByDealerId(Long id)
+			throws BusinessException {
+    	 return businessCrudEmployee.getEmployeesAviableByDealerId(id);
+	}
 }

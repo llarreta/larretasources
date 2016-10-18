@@ -124,4 +124,7 @@ public interface EmployeeDAOLocal {
 	 */
 	public Employee getEmployeeByIbsTechnical(Long employeeId,Long ibsTechnical,Long countryId) throws DAOServiceException, DAOSQLException;
 	
+	
+    public List<Employee> getEmployeesAviableByDealerId(Long idDealer,String codeStatus,String crewStatus) throws DAOServiceException, DAOSQLException;
+
 }

@@ -231,17 +231,13 @@ public class EmployeeDAO extends BaseDao implements EmployeeDAOLocal {
          	stringQuery.append(Employee.class.getName());
          	stringQuery.append(" e where e.dealer.id = :dealerId ");
          	stringQuery.append(" and e.employeeStatus.statusCode = :codeStatus");
-         	stringQuery.append(" and e.id not in (select ec.employee.id from "+EmployeeCrew.class.getName()+" ec  ");
-         	//se agrega inner join para que traiga todos los empleados que estan en cuadrillas inactivas
-         	stringQuery.append(" inner join ec.crew c where c.crewStatus.statusCode = :codeStatusCrew ) ");
          	stringQuery.append(" order by e.lastName");
          	Query query = session.createQuery(stringQuery.toString());
          	//Query query = session.createQuery("select e from " + Employee.class.getName() + " e where e.dealer.id = :dealerId order by e.lastName");
             query.setLong("dealerId", idDealer);
             query.setString("codeStatus", codeStatus);
-            query.setString("codeStatusCrew", CodesBusinessEntityEnum.CREW_STATUS_ACTIVE.getCodeEntity());
              
-             List<Employee> list = query.list();
+            List<Employee> list = query.list();
  			return list;
 
          } catch (Throwable ex) {
@@ -807,4 +803,39 @@ public class EmployeeDAO extends BaseDao implements EmployeeDAOLocal {
         }
     }
     
+    
+    @Override
+    @SuppressWarnings("unchecked")
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<Employee> getEmployeesAviableByDealerId(Long idDealer,
+			String codeStatus, String crewStatus) throws DAOServiceException, DAOSQLException {
+    	 log.debug("== Inicia getEmployeesByDealerIdAndStatus/EmployeeDAO ==");
+         Session session = getSession();
+
+         try {
+         	StringBuffer stringQuery = new StringBuffer();
+         	stringQuery.append("select e from ");
+         	stringQuery.append(Employee.class.getName());
+         	stringQuery.append(" e where e.dealer.id = :dealerId ");
+         	stringQuery.append(" and e.employeeStatus.statusCode = :codeStatus");
+         	stringQuery.append(" and e.id not in (select ec.employee.id from "+EmployeeCrew.class.getName()+" ec  ");
+         	//se agrega inner join para que traiga todos los empleados que estan en cuadrillas inactivas
+         	stringQuery.append(" inner join ec.crew c where c.crewStatus.statusCode = :codeStatusCrew ) ");
+         	stringQuery.append(" order by e.lastName");
+         	Query query = session.createQuery(stringQuery.toString());
+         	//Query query = session.createQuery("select e from " + Employee.class.getName() + " e where e.dealer.id = :dealerId order by e.lastName");
+            query.setLong("dealerId", idDealer);
+            query.setString("codeStatus", codeStatus);
+            query.setString("codeStatusCrew", crewStatus);
+             
+            List<Employee> list = query.list();
+ 			return list;
+
+         } catch (Throwable ex) {
+             log.debug("== Error getEmployeesByDealerIdAndStatus ==");
+             throw this.manageException(ex);
+         } finally {
+             log.debug("== Termina getEmployeesByDealerIdAndStatus/EmployeeDAO ==");
+         }
+	}
 }

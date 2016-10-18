@@ -776,8 +776,8 @@ public class CrewsCRUDBean extends BusinessBase implements CrewsCRUDBeanLocal {
 			
 			List<String> statusCodes = new ArrayList<String>();
 
-			statusCodes.add(CodesBusinessEntityEnum.ITEM_STATUS_RECEPTED.getCodeEntity() );
-			statusCodes.add(CodesBusinessEntityEnum.ITEM_STATUS_DELETED.getCodeEntity());				
+			statusCodes.add(CodesBusinessEntityEnum.REFERENCE_STATUS_RECEPTED.getCodeEntity() );
+			statusCodes.add(CodesBusinessEntityEnum.REFERENCE_STATUS_DELETED.getCodeEntity());				
 			
 			List<ReferenceVO> references = UtilsBusiness.convertList(this.daoReference.getReferencesByCrewIdAndDistinctReferneceStatus(statusCodes, crewID), ReferenceVO.class);		
 				

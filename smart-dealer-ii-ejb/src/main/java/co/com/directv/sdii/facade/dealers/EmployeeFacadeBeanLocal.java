@@ -213,6 +213,15 @@ public interface EmployeeFacadeBeanLocal {
 	 */
 	public EmployeeVO getEmployeeDetailsByEmployeeId(@WebParam(name="employeeId")Long employeeId) throws BusinessException;
 
-	
+    /**
+     * Metodo: Obtiene la información de empleados disponibles por identificador de dealer
+     * @param id identificador del dealer por el que se realizará el filtro
+     * @return Lista con los empleados activos asociados a ese dealer
+     * @throws BusinessException en caso de error al consultar la información de los
+     * empleados activos 
+     * @author jgonzmol
+     */
+    public List<EmployeeVO> getEmployeesAviableByDealerId(Long id)throws BusinessException;
+
 
 }

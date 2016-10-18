@@ -990,4 +990,25 @@ public class EmployeesWS {
     public List<EducationLevelVO> getAllEducationLevel() throws BusinessException{
     	return this.educationLevelFacadeBean.getAllEducationLevel();
     }
+
+    /**
+	 * Metodo: Obtiene todos los empleados disponibles para ser asociados a una cuadrilla
+	 * @return Lista con los empleados activos disponibles (que no tengan cuadrilla asignada, o que la cuadrilla a la que esta asignado se encuentre inactiva)
+	 * @throws BusinessException En caso de error en la consulta
+     * <code>sdii_CODE_constraint_violation</code> En caso que se viole una restricción definida en la persistencia<br>
+     * <code>sdii_CODE_error_data</code> En caso que se viole una regla de datos de la persistencia<br>
+     * <code>sdii_CODE_generic_jdbc</code> En caso de error genérico relacionado con el componente de conexión a la base de datos<br>
+     * <code>sdii_CODE_jdbc_connection</code> En caso de error al tratar de conectarse con la base de datos<br>
+     * <code>sdii_CODE_sql_grammar</code> En caso de error relacionado con la gramática para ejecutar el comando en la base de datos<br>
+     * <code>sdii_CODE_error_service</code> En caso de error al tratar de obtener el valor de una propiedad o un error inesperado en la capa de acceso a datos<br>
+     * <code>sdii_CODE_unknow_error</code> En caso de un error inesperado en la capa de negocio<br>
+     * <code>sdii_CODE_lock_acquisition</code> En caso de un error por bloqueo en la base de datos<br>
+     * @author jgonzmol
+     */
+    @WebMethod(operationName = "getEmployeesAviableByDealerId", action = "getEmployeesAviableByDealerId")
+    public List<EmployeeVO> getEmployeesAviableByDealerId(@WebParam(name = "id")
+            final Long id) throws BusinessException {
+        return ejbEmployeeBean.getEmployeesAviableByDealerId(id);
+    }
+
 }

@@ -1054,5 +1054,32 @@ public class EmployeeCRUDBean extends BusinessBase implements EmployeeCRUDBeanLo
 		}
 	}
 
+    /* (non-Javadoc)
+     * @see co.com.directv.sdii.ejb.business.dealers.EmployeeCRUDBeanLocal#getEmployeesActiveByDealerId(java.lang.Long)
+     */
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public List<EmployeeVO> getEmployeesAviableByDealerId(Long id)
+			throws BusinessException {
+    	log.debug("== Inicia getEmployeesActiveByDealerId/EmployeeCRUDBean ==");
+        try {
+
+            List<Employee> employeeList = daoEmployee.getEmployeesAviableByDealerId(id,CodesBusinessEntityEnum.CODIGO_EMPLOYEE_STATUS_ACTIVE.getCodeEntity(),CodesBusinessEntityEnum.CREW_STATUS_ACTIVE.getCodeEntity());
+            if (employeeList == null) {
+                return null;
+            }
+            List<EmployeeVO> employeeVoList = UtilsBusiness.convertList(employeeList, EmployeeVO.class);
+            for (EmployeeVO employeeVO : employeeVoList) {
+                //employeeVO.populateBean();
+                fillRelationshipsData(employeeVO);
+            }
+            return employeeVoList;
+        } catch(Throwable ex){
+        	log.error("== Error al tratar de ejecutar la operación getEmployeesActiveByDealerId/ConfigMatrizCoberturaBusinessBean ==");
+        	throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina getEmployeesActiveByDealerId/EmployeeCRUDBean ==");
+        }
+	}
 	
 }
