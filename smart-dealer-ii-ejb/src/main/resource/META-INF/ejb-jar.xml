@@ -71,7 +71,12 @@
 			<transaction-type>Container</transaction-type>
 			<message-destination-type>javax.jms.Queue</message-destination-type>
 		</message-driven>
-		
+    <message-driven>
+      <ejb-name>FileProcessorConsumer</ejb-name>
+      <ejb-class>co.com.directv.sdii.mdb.business.FileProcessorConsumer</ejb-class>
+      <transaction-type>Container</transaction-type>
+      <message-destination-type>javax.jms.Queue</message-destination-type>
+    </message-driven>
 		<session>
 			<ejb-name>ErrorMessageBusinessLocal</ejb-name>
 			<mapped-name>ejb/ErrorMessageBusinessLocal%%PAIS%%</mapped-name>
@@ -303,18 +308,18 @@
 		</container-transaction>
     	<container-transaction>
       		<method>
+        <ejb-name>EventConsumer</ejb-name>
+        <method-name>onMessage()</method-name>
+      </method>
+      <trans-attribute>Supports</trans-attribute>
+    </container-transaction>
+    <container-transaction>
+      <method>
         		<ejb-name>MovCmdConsumer</ejb-name>
         		<method-name>onMessage()</method-name>
       		</method>
       		<trans-attribute>NotSupported</trans-attribute>
     	</container-transaction>				
-		<container-transaction>
-			<method>
-				<ejb-name>EventConsumer</ejb-name>
-				<method-name>onMessage()</method-name>
-			</method>
-			<trans-attribute>Supports</trans-attribute>
-		</container-transaction>
 		<container-transaction>
 			<method>
 				<ejb-name>DispatchWorkOrderConsumer</ejb-name>
@@ -329,5 +334,13 @@
 			</method>
 			<trans-attribute>Supports</trans-attribute>
 		</container-transaction>
+        <container-transaction>
+      <method>
+        <ejb-name>FileProcessorConsumer</ejb-name>
+        <method-name>onMessage()</method-name>
+      </method>
+      <trans-attribute>Supports</trans-attribute>
+    </container-transaction>
+    
 	</assembly-descriptor>
 </ejb-jar>
