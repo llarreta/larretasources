@@ -33,6 +33,7 @@ img.logo-style {
     -ms-transform-origin: 50% 50%;
     -ms-animation-fill-mode:forwards; /*IE 10+*/
     margin-top: 17px;
+    z-index: 1000;
 }
 /*
 * Bootstrap Tuning

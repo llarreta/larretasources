@@ -15,6 +15,10 @@ var BodyComponent = (function () {
         this.router = router;
     }
     BodyComponent.prototype.ngOnInit = function () {
+        this.isMenuVisible = true;
+    };
+    BodyComponent.prototype.openMenuLeft = function (event) {
+        this.isMenuVisible = !this.isMenuVisible;
     };
     BodyComponent = __decorate([
         core_1.Component({

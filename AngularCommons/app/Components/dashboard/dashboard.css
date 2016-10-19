@@ -30,6 +30,7 @@ h3 {
     min-width: 120px;
     background-color: #607D8B;
     border-radius: 2px;
+    z-index: 0;
 }
 h4 {
   position: inherit;
@@ -38,6 +39,7 @@ h4 {
   background-color: #EEE;
   cursor: pointer;
   color: #607d8b;
+  
 }
 .grid-pad {
   padding: 10px 0;

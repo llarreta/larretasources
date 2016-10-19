@@ -9,12 +9,18 @@ import { Router } from '@angular/router';
 })
 export class BodyComponent implements OnInit {
 
+   private isMenuVisible:boolean;
 
   constructor(
     private router: Router) {
   }
   
   ngOnInit(){
-    }
+    this.isMenuVisible=true;
+  }
+
+  openMenuLeft(event){
+    this.isMenuVisible = !this.isMenuVisible; 
+  }
 
 }
