@@ -12,13 +12,15 @@
 
 	<!-- Junit reports Location -->
 	<property name="reports" location="./junitreports" />
+	
+	<property name="soapui.configfile" location="./soapui-settings.xml" />
 
 	<target name="run.soapui">
 
 		<echo message="SoapUI location: ${SOAPUI_HOME}" />
 
 		<java fork="true" failonerror="false" classname="com.eviware.soapui.tools.SoapUITestCaseRunner">
-			<arg line="-j -f${reports} -r -s${test.suite} ${test-project-location}" />
+			<arg line="-j -f${reports} -r -s${test.suite} ${test-project-location} -t${soapui.configfile}" />
 			<jvmarg value="-Xms128m" />
 			<jvmarg value="-Xmx1024m" />
 			<jvmarg value="-Dsoapui.properties=soapui.properties" />
@@ -26,6 +28,9 @@
 			<jvmarg value="-Dsoapui.ext.libraries=${SOAPUI_HOME}/ext" />
 			<jvmarg value="-Dsoapui.ext.listeners=${SOAPUI_HOME}/listeners" />
 			<jvmarg value="-Dsoapui.ext.actions=${SOAPUI_HOME}/actions" />
+			<jvmarg value="-DHttpSettings.socket_timeout=6000000" />
+			<jvmarg value="-DHttpSettings@socket_timeout=6000000" />
+			<jvmarg value="-Dsocket_timeout=6000000" />
 			
 			<classpath>
 				<pathelement location="${SOAPUI_HOME}/bin/soapui-4.6.4.jar" />

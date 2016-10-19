@@ -19,23 +19,12 @@
 	</properties>
 
 	<modules>
-		<!--<module>smart-dealer-ii-lib</module>-->
 		<module>smart-dealer-ii-ejb</module>
 		<module>smart-dealer-ii-ws</module>
 		<module>hsp-ear</module>
 	</modules>
 
 	<distributionManagement>
-		<!--<repository>
-			<id>releases</id>
-			<name>releases</name>
-			<url>http://7.217.8.56:8081/repository/hsp-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>snapshots</name>
-			<url>http://7.217.8.56:8081/repository/hsp-snapshots/</url>
-		</snapshotRepository>-->
 		<repository>
 			<id>releases-quark</id>
 			<name>releases</name>
@@ -105,23 +94,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<!--<repositories>
-		<repository>
-			<id>nexus</id>
-			<url>http://localhost:8081/nexus/content/groups/public</url>
-		</repository>
-		<repository>
-			<id>maven2-repository.dev.java.net</id>
-			<name>Java.net Repository for Maven</name>
-			<url>http://download.java.net/maven/2/</url>
-			<layout>default</layout>
-		</repository>
-		<repository>
-			<id>maven2-repository.dev.java.net.glassfish</id>
-			<name>Java.net Repository for Maven</name>
-			<url>http://download.java.net/maven/glassfish/</url>
-		</repository>
-	</repositories>-->
-
 </project>
