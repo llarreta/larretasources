@@ -538,7 +538,11 @@ public class ReportsCoreBusiness extends BusinessBase implements ReportsCoreBusi
 				populateSucceedWorkOrdersCSR(request);
 			}else if(request.getCodeScheduleReportType().equals(CodesBusinessEntityEnum.REPORT_TYPE_CORE_AUXILIAR_EMPLOYEE.getCodeEntity())){
 				populateAuxiliarTechnician(request);
-			}
+			}else if(request.getCodeScheduleReportType().equals(CodesBusinessEntityEnum.REPORT_TYPE_CREW_MOVEMENTS.getCodeEntity())){
+			    populateCrewMovements(request);
+		    }else if(request.getCodeScheduleReportType().equals(CodesBusinessEntityEnum.REPORT_TYPE_WO_TECHNICIAL.getCodeEntity())){
+		    	populateWorkOrdersTechnicial(request);
+		    }
     		
 		} catch (Throwable ex) {
 			log.error("== Error al tratar de ejecutar la operación generateReport/ReportGeneratorBusinessBean");

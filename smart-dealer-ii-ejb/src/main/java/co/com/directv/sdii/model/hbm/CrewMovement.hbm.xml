@@ -25,13 +25,13 @@
             <column name="MEMBERS_CREW" length="4000" />
         </property>
         <property name="documentNumber" type="java.lang.String">
-            <column name="DOCUMENT_NUMBER" length="200" />
+            <column name="DOCUMENT_NUMBER" length="4000" />
         </property>
         <property name="responsibleCrew" type="java.lang.String">
             <column name="RESPONSIBLE_CREW" length="200" />
         </property>
         <property name="roleEmployeesCrew" type="java.lang.String">
-            <column name="ROL_MEMBERS_CREW" length="200" />
+            <column name="ROL_MEMBERS_CREW" length="4000" />
         </property>
 		<property name="creationCrew" type="java.util.Date">
             <column name="CREATION_DATE" length="200" />
