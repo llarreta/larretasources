@@ -40,41 +40,6 @@
 					</modules>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>weblogic-maven-plugin</artifactId>
-				<version>2.9.1</version>
-				<executions>
-					<execution>
-						<phase>deploy</phase>
-						<goals>
-							<goal>deploy</goal>
-							<goal>start</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<name>HSP-EAR_v${version}${country}</name>
-					<adminServerHostName>${wls.adminServerHostName}</adminServerHostName>
-					<adminServerPort>${wls.adminServerPort}</adminServerPort>
-					<adminServerProtocol>t3</adminServerProtocol>
-					<userId>${wls.userId}</userId>
-					<password>${wls.password}</password>
-					<upload>true</upload>
-					<remote>true</remote>
-					<verbose>false</verbose>
-					<debug>false</debug>
-					<targetNames>AdminServer</targetNames>
-					<noExit>true</noExit>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>weblogic</groupId>
-						<artifactId>wlfullclient</artifactId>
-						<version>10.3.2</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 		</plugins>
 	</build>
 	<dependencies>

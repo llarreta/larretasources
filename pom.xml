@@ -16,10 +16,6 @@
 		<project.ws.artifact>smart-dealer-ii-ws-${country}</project.ws.artifact>
 		<project.version>6.5.0.0-SNAPSHOT</project.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<wls.adminServerHostName>7.217.8.56</wls.adminServerHostName>
-		<wls.adminServerPort>7001</wls.adminServerPort>
-		<wls.userId>weblogic</wls.userId>
-		<wls.password>everis.2016</wls.password>	
 	</properties>
 
 	<modules>
