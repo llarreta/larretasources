@@ -17,6 +17,8 @@ import { HeroSearchComponent }  from '../Components/hero-search/hero-search.comp
 import { HeroDetailComponent } from '../Components/heroe-detail/heroe-detail.component';
 import { HeroeList } from '../Components/heroes-list/heroe-list.component';
 import { DashboardComponent } from '../Components/dashboard/dashboard.component';
+import { MenuLeftComponent } from '../Components/menu-left/menu-left.component';
+import { ContentBodyComponent } from '../Components/content-body/content-body.component';
 
 
 import { HeroService } from '../services/hero.service';
@@ -40,7 +42,9 @@ import '../rxjs-operators';
     HeroSearchComponent,
     HeaderComponent,
     BodyComponent,
-    FooterComponent
+    FooterComponent,
+    MenuLeftComponent,
+    ContentBodyComponent
   ],
   providers: [
     HeroService

@@ -7,9 +7,9 @@
     margin: auto;
 }
 img.logo-style {
-    width: 50%;
-    margin-top: 5%;
-    margin-left: 5%;
+    width: 180px;
+    margin-top: 20px;
+    margin-left: 20px;
 }
 .col-xs-8.col-sm-6.notifications-section {
     animation: fade-in ease-in 0.5s;
@@ -43,6 +43,7 @@ img.logo-style {
     background-image: none;
     background-color: transparent;
     border-color: transparent;
+    transition: color 0.5s;
 }
 .btn-outline-primary:hover {
     color: #bcbcbc;

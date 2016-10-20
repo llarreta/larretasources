@@ -24,6 +24,8 @@ var hero_search_component_1 = require('../Components/hero-search/hero-search.com
 var heroe_detail_component_1 = require('../Components/heroe-detail/heroe-detail.component');
 var heroe_list_component_1 = require('../Components/heroes-list/heroe-list.component');
 var dashboard_component_1 = require('../Components/dashboard/dashboard.component');
+var menu_left_component_1 = require('../Components/menu-left/menu-left.component');
+var content_body_component_1 = require('../Components/content-body/content-body.component');
 var hero_service_1 = require('../services/hero.service');
 var app_routing_module_1 = require('./app-routing.module');
 require('../rxjs-operators');
@@ -48,7 +50,9 @@ var AppModule = (function () {
                 hero_search_component_1.HeroSearchComponent,
                 header_component_1.HeaderComponent,
                 body_component_1.BodyComponent,
-                footer_component_1.FooterComponent
+                footer_component_1.FooterComponent,
+                menu_left_component_1.MenuLeftComponent,
+                content_body_component_1.ContentBodyComponent
             ],
             providers: [
                 hero_service_1.HeroService
