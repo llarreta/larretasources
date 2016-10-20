@@ -5,12 +5,16 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.dtvla</groupId>
-	<artifactId>hsp</artifactId>
+	<artifactId>${project.artifact}</artifactId>
 	<version>${project.version}</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<project.version>6.5.0.0</project.version>
+		<project.artifact>hsp-${country}</project.artifact>
+		<project.ear.artifact>hsp-ear-${country}</project.ear.artifact>
+		<project.ejb.artifact>smart-dealer-ii-ejb-${country}</project.ejb.artifact>
+		<project.ws.artifact>smart-dealer-ii-ws-${country}</project.ws.artifact>
+		<project.version>6.5.0.0-SNAPSHOT</project.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<wls.adminServerHostName>7.217.8.56</wls.adminServerHostName>
 		<wls.adminServerPort>7001</wls.adminServerPort>
@@ -38,7 +42,7 @@
 	</distributionManagement>
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
+			<!--<dependency>
 				<groupId>com.dtvla</groupId>
 				<artifactId>smart-dealer-ii-lib</artifactId>
 				<version>1.0</version>
@@ -47,7 +51,7 @@
 				<groupId>com.dtvla</groupId>
 				<artifactId>smart-dealer-ii-ejb</artifactId>
 				<version>1.0</version>
-			</dependency>
+			</dependency>-->
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>

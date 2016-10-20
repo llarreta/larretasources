@@ -5,45 +5,16 @@
 
 	<parent>
 		<groupId>com.dtvla</groupId>
-		<artifactId>hsp</artifactId>
+		<artifactId>${project.artifact}</artifactId>
 		<version>${project.version}</version>
 	</parent>
 
 	<groupId>com.dtvla</groupId>
-	<artifactId>hsp-ear</artifactId>
+	<artifactId>${project.ear.artifact}</artifactId>
 	<version>${project.version}</version>
 	<packaging>ear</packaging>
 	<name>hsp-ear</name>
 
-	<!--<build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ear-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <modules>
-                        <webModule>
-                            <groupId>com.dtvla</groupId>
-                            <artifactId>smart-dealer-ii-ws</artifactId>
-                        </webModule>
-                        <ejbModule>
-                            <groupId>com.dtvla</groupId>
-                            <artifactId>smart-dealer-ii-ejb</artifactId>
-                        </ejbModule>
-                    </modules>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>-->
-
-	<!--<properties>
-		<wls.adminServerHostName>localhost</wls.adminServerHostName>
-		<wls.adminServerPort>7001</wls.adminServerPort>
-		<wls.userId>weblogic</wls.userId>
-		<wls.password>welcome1</wls.password>
-	</properties>-->
-	
 	<build>
 		<finalName>HSP-EAR_v${version}${country}</finalName>
 		<plugins>
@@ -57,13 +28,13 @@
 					<modules>
 						<webModule>
                             <groupId>com.dtvla</groupId>
-                            <artifactId>smart-dealer-ii-ws</artifactId>
+                            <artifactId>${project.ws.artifact}</artifactId>
 							<bundleFileName>SmartDealerII-ws.war</bundleFileName>
 							<contextRoot>/SmartDealerII-ws${country}</contextRoot>
 						</webModule>
                         <ejbModule>
                             <groupId>com.dtvla</groupId>
-                            <artifactId>smart-dealer-ii-ejb</artifactId>
+                            <artifactId>${project.ejb.artifact}</artifactId>
 							<bundleFileName>SmartDealerII-ejb.jar</bundleFileName>
                         </ejbModule>
 					</modules>
@@ -109,13 +80,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.dtvla</groupId>
-			<artifactId>smart-dealer-ii-ejb</artifactId>
+			<artifactId>${project.ejb.artifact}</artifactId>
 			<version>${project.version}</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>com.dtvla</groupId>
-			<artifactId>smart-dealer-ii-ws</artifactId>
+			<artifactId>${project.ws.artifact}</artifactId>
 			<version>${project.version}</version>
 			<type>war</type>
 		</dependency>
