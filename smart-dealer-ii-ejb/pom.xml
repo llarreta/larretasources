@@ -5,12 +5,12 @@
 
 	<parent>
 		<groupId>com.dtvla</groupId>
-		<artifactId>${project.artifact}</artifactId>
+		<artifactId>hsp</artifactId>
 		<version>${project.version}</version>
 	</parent>
 
 	<groupId>com.dtvla</groupId>
-	<artifactId>${project.ejb.artifact}</artifactId>
+	<artifactId>smart-dealer-ii-ejb</artifactId>
 	<version>${project.version}</version>
 	<packaging>ejb</packaging>
 	<name>smart-dealer-ii-ejb</name>

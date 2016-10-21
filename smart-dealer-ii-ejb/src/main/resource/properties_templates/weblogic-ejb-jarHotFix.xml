@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-ejb-jar xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-ejb-jar" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd http://xmlns.oracle.com/weblogic/weblogic-ejb-jar http://xmlns.oracle.com/weblogic/weblogic-ejb-jar/1.0/weblogic-ejb-jar.xsd">
+    <!--weblogic-version:10.3.2--> 
+    <wls:weblogic-enterprise-bean>
+        <wls:ejb-name>TimerConsumer</wls:ejb-name>
+        <wls:message-driven-descriptor>
+        	<wls:pool>
+				<wls:max-beans-in-free-pool>1</wls:max-beans-in-free-pool>
+				<wls:initial-beans-in-free-pool>1</wls:initial-beans-in-free-pool>
+			</wls:pool>
+            <wls:destination-jndi-name>jmsq/scheduleTaskQueue%%PAIS%%</wls:destination-jndi-name>
+        </wls:message-driven-descriptor>
+    </wls:weblogic-enterprise-bean>
+    <wls:weblogic-enterprise-bean>
+        <wls:ejb-name>KpiConsumer</wls:ejb-name>
+        <wls:message-driven-descriptor>
+            <wls:destination-jndi-name>jmsq/KpiQueue%%PAIS%%</wls:destination-jndi-name>
+            <wls:distributed-destination-connection>EveryMember</wls:distributed-destination-connection>
+        </wls:message-driven-descriptor>
+    </wls:weblogic-enterprise-bean>
+    <wls:weblogic-enterprise-bean>
+        <wls:ejb-name>MovementInventoryConsumer</wls:ejb-name>
+        <wls:message-driven-descriptor>
+        	<wls:pool>
+				<wls:max-beans-in-free-pool>1</wls:max-beans-in-free-pool>
+				<wls:initial-beans-in-free-pool>1</wls:initial-beans-in-free-pool>
+			</wls:pool>
+            <wls:destination-jndi-name>jmsq/MovementInventoryIBSQueue%%PAIS%%</wls:destination-jndi-name>
+        </wls:message-driven-descriptor>
+    </wls:weblogic-enterprise-bean>
+	
+	<wls:weblogic-enterprise-bean>
+        <wls:ejb-name>ParallelProcessingAllocatorConsumer</wls:ejb-name>
+        <wls:message-driven-descriptor>
+        	<wls:pool>
+				<wls:max-beans-in-free-pool>%%MAXBEANS%%</wls:max-beans-in-free-pool>
+				<wls:initial-beans-in-free-pool>1</wls:initial-beans-in-free-pool>
+			</wls:pool>
+            <wls:destination-jndi-name>jmsq/allocatorQueue%%PAIS%%</wls:destination-jndi-name>
+            <wls:distributed-destination-connection>EveryMember</wls:distributed-destination-connection>
+        </wls:message-driven-descriptor>
+    </wls:weblogic-enterprise-bean>
+	
+ 
+	<wls:weblogic-enterprise-bean>
+        <wls:ejb-name>ParallelProcessingCoreConsumer</wls:ejb-name>
+        <wls:message-driven-descriptor>
+        	<wls:pool>
+				<wls:max-beans-in-free-pool>%%MAXBEANS%%</wls:max-beans-in-free-pool>
+				<wls:initial-beans-in-free-pool>1</wls:initial-beans-in-free-pool>
+			</wls:pool>
+            <wls:destination-jndi-name>jmsq/CoreQueue%%PAIS%%</wls:destination-jndi-name>
+            <wls:distributed-destination-connection>EveryMember</wls:distributed-destination-connection>
+        </wls:message-driven-descriptor>
+    </wls:weblogic-enterprise-bean>
+
+	<wls:weblogic-enterprise-bean>
+        <wls:ejb-name>MovCmdConsumer</wls:ejb-name>
+        <wls:message-driven-descriptor>
+        	<wls:pool>
+				<wls:max-beans-in-free-pool>16</wls:max-beans-in-free-pool>
+				<wls:initial-beans-in-free-pool>0</wls:initial-beans-in-free-pool>
+			</wls:pool>
+            <wls:destination-jndi-name>jmsq/MovCmdQueue%%PAIS%%</wls:destination-jndi-name>
+            <wls:distributed-destination-connection>EveryMember</wls:distributed-destination-connection>
+        </wls:message-driven-descriptor>
+    </wls:weblogic-enterprise-bean>	
+    	
+	<wls:weblogic-enterprise-bean>
+		<wls:ejb-name>EventConsumer</wls:ejb-name>
+		<wls:message-driven-descriptor>
+			<!-- una sola instancia para que se minimice el riesgo de que varias instancias desordenen los eventos -->
+			<wls:pool>
+				<wls:max-beans-in-free-pool>1</wls:max-beans-in-free-pool>
+				<wls:initial-beans-in-free-pool>1</wls:initial-beans-in-free-pool>
+			</wls:pool>
+			<!-- Esto deberia ser incluido en el parche del pais -->
+			<wls:destination-jndi-name>jms/HSPWorkOrderQueue%%PAIS%%</wls:destination-jndi-name> 
+		</wls:message-driven-descriptor>
+	</wls:weblogic-enterprise-bean>
+	
+	<wls:weblogic-enterprise-bean>
+		<wls:ejb-name>DispatchWorkOrderConsumer</wls:ejb-name>
+		<wls:message-driven-descriptor>
+			<wls:pool>
+				<wls:max-beans-in-free-pool>1</wls:max-beans-in-free-pool>
+				<wls:initial-beans-in-free-pool>1</wls:initial-beans-in-free-pool>
+			</wls:pool>
+			<wls:destination-jndi-name>jms/HSPWorkOrderResponseMessageQueue%%PAIS%%</wls:destination-jndi-name>
+		</wls:message-driven-descriptor>
+	</wls:weblogic-enterprise-bean>
+	
+	<wls:weblogic-enterprise-bean>
+        <wls:ejb-name>OptimusStatusConsumer</wls:ejb-name>
+        <wls:message-driven-descriptor>
+        	<wls:pool>
+				<wls:max-beans-in-free-pool>1</wls:max-beans-in-free-pool>
+				<wls:initial-beans-in-free-pool>1</wls:initial-beans-in-free-pool>
+			</wls:pool>
+            <wls:destination-jndi-name>jms/NotifyWorkOrderStatusChangeToHSPQueue%%PAIS%%</wls:destination-jndi-name>
+        </wls:message-driven-descriptor>
+    </wls:weblogic-enterprise-bean>
+	 
+</wls:weblogic-ejb-jar>
