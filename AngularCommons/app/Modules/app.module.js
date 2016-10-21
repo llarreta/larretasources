@@ -26,6 +26,7 @@ var heroe_list_component_1 = require('../Components/heroes-list/heroe-list.compo
 var dashboard_component_1 = require('../Components/dashboard/dashboard.component');
 var menu_left_component_1 = require('../Components/menu-left/menu-left.component');
 var content_body_component_1 = require('../Components/content-body/content-body.component');
+var load_app_example_component_component_1 = require('../Components/load-app-example-component/load-app-example-component.component');
 var hero_service_1 = require('../services/hero.service');
 var app_routing_module_1 = require('./app-routing.module');
 require('../rxjs-operators');
@@ -52,7 +53,8 @@ var AppModule = (function () {
                 body_component_1.BodyComponent,
                 footer_component_1.FooterComponent,
                 menu_left_component_1.MenuLeftComponent,
-                content_body_component_1.ContentBodyComponent
+                content_body_component_1.ContentBodyComponent,
+                load_app_example_component_component_1.LoadAppExampleComponent
             ],
             providers: [
                 hero_service_1.HeroService

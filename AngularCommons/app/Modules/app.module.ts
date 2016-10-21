@@ -19,7 +19,7 @@ import { HeroeList } from '../Components/heroes-list/heroe-list.component';
 import { DashboardComponent } from '../Components/dashboard/dashboard.component';
 import { MenuLeftComponent } from '../Components/menu-left/menu-left.component';
 import { ContentBodyComponent } from '../Components/content-body/content-body.component';
-
+import { LoadAppExampleComponent } from '../Components/load-app-example-component/load-app-example-component.component';
 
 import { HeroService } from '../services/hero.service';
 import { AppRoutingModule }     from './app-routing.module';
@@ -44,7 +44,8 @@ import '../rxjs-operators';
     BodyComponent,
     FooterComponent,
     MenuLeftComponent,
-    ContentBodyComponent
+    ContentBodyComponent,
+    LoadAppExampleComponent
   ],
   providers: [
     HeroService
