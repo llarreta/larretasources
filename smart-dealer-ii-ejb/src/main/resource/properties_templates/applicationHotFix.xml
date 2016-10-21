@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC
+	"-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+	"http://java.sun.com/dtd/application_1_3.dtd">
+<application>
+  <display-name>SmartDealerII%%PAIS%%</display-name>
+  <module>
+    <web>
+      <web-uri>SmartDealerII-ws.war</web-uri>
+      <context-root>/SmartDealerII-ws%%PAIS%%</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>SmartDealerII-ejb.jar</ejb>
+  </module>
+</application>
