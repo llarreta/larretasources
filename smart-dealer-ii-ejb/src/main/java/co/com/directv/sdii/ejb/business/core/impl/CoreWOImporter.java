@@ -54,6 +54,7 @@ import co.com.directv.sdii.ejb.business.core.CoreWOImporterLocal;
 import co.com.directv.sdii.ejb.business.core.OrderHandlingServiceBusinessLocal;
 import co.com.directv.sdii.ejb.business.core.WoInfoEsbServiceBusinessLocal;
 import co.com.directv.sdii.ejb.business.core.WoLoadBusinessLocal;
+import co.com.directv.sdii.ejb.business.core.tray.TrayWorkOrderManagmentBusinessLocal;
 import co.com.directv.sdii.ejb.business.stock.ElementClassBusinessBeanLocal;
 import co.com.directv.sdii.exceptions.BusinessException;
 import co.com.directv.sdii.exceptions.DAOSQLException;
@@ -61,6 +62,7 @@ import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.exceptions.PropertiesException;
 import co.com.directv.sdii.model.dto.CustomerInquiriesByCriteriaIBSDTO;
 import co.com.directv.sdii.model.dto.OrderHandlingServiceRequestDTO;
+import co.com.directv.sdii.model.dto.WOAttentionsRequestDTO;
 import co.com.directv.sdii.model.dto.WorkOrderDTO;
 import co.com.directv.sdii.model.pojo.Country;
 import co.com.directv.sdii.model.pojo.ElementClass;
@@ -69,6 +71,7 @@ import co.com.directv.sdii.model.pojo.WoLoad;
 import co.com.directv.sdii.model.pojo.WorkOrderService;
 import co.com.directv.sdii.model.pojo.WorkorderStatus;
 import co.com.directv.sdii.model.vo.WoStatusHistoryVO;
+import co.com.directv.sdii.model.vo.WorkOrderVO;
 import co.com.directv.sdii.persistence.dao.config.WorkorderStatusDAOLocal;
 import co.com.directv.sdii.persistence.dao.dealers.CountriesDAOLocal;
 
@@ -121,6 +124,9 @@ public class CoreWOImporter extends BusinessBase implements CoreWOImporterLocal 
 	
 	@EJB(name="SystemParameterBusinessBeanLocal", beanInterface=SystemParameterBusinessBeanLocal.class)
 	private SystemParameterBusinessBeanLocal systemParameterBusiness;
+	
+	@EJB
+	private TrayWorkOrderManagmentBusinessLocal trayWorkOrderManagementBusiness;
 	
 	private final static Logger log = UtilsBusiness.getLog4J(CoreWOBusiness.class);
 	
@@ -1265,6 +1271,22 @@ public class CoreWOImporter extends BusinessBase implements CoreWOImporterLocal 
 				}
 				
 				log.info("Se creó satisfactoriamente la WO  con código " + ibsWorkorder.getID() + " en estado: " + workOrderDto.getWorkOrder().getWorkorderStatusByActualStatusId().getWoStateName());
+				
+				
+				//si la work order esta en T realizada guradamos en la tabla  work_order_crew_attentions, asumimos que la wo esta prsistida.
+				log.info("Verificando si la work order esta en T-realizada para registrar la atención");
+				if(workOrderDto.getWorkOrder().getWorkorderStatusByActualStatusId().getWoStateCode().equals(CodesBusinessEntityEnum.WORKORDER_STATUS_REALIZED.getCodeEntity())){
+					log.info("La work order esta en T-realizada se ingresaran los datos pertinentes en work_order_crew_attentions");
+					
+					WOAttentionsRequestDTO woReqDTO = new WOAttentionsRequestDTO();
+					WorkOrderVO woVo = new WorkOrderVO();
+					
+					woVo.setWoCode(workOrderDto.getWorkOrder().getWoCode());
+					woReqDTO.setWorkorderVo(woVo);
+					
+					trayWorkOrderManagementBusiness.registerAttentionForReport(woReqDTO);	
+				}
+				
 				
 				if( !workOrderDto.isError() && !workOrderDto.isWarning()){
 					

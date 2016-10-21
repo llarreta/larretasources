@@ -568,7 +568,7 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	private void registerAttentionForReport(WOAttentionsRequestDTO woAttentionDTO) throws BusinessException{
+	public void registerAttentionForReport(WOAttentionsRequestDTO woAttentionDTO) throws BusinessException{
 		try {
 			log.debug("== Inicia registerAttentionForReport/TrayWorkOrderManagmentBusinessBean ==");		
 			
@@ -786,6 +786,9 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					trayHelper.completeWorkOrderFinalization( woAttentionDTO );
 				}
 			}
+			
+			this.registerAttentionForReport(woAttentionDTO);
+			
 			return response;
 		} catch (Throwable ex) {
 			log.error("== Error al tratar de ejecutar la operación finalizationWorkOrder/TrayWorkOrderManagmentBusinessBean");
