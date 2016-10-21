@@ -1274,7 +1274,8 @@ public class CoreWOImporter extends BusinessBase implements CoreWOImporterLocal 
 				
 				
 				// si la work order esta en T realizada guradamos en la tabla  work_order_crew_attentions, asumimos que la wo esta prsistida.
-				if(workOrderDto.getWorkOrder().getWorkorderStatusByActualStatusId().getWoStateName().equals(CodesBusinessEntityEnum.WORKORDER_STATUS_REALIZED.getCodeEntity())){
+				log.info("Verificando si la work order esta en T-realizada para registrar la atención");
+				if(workOrderDto.getWorkOrder().getWorkorderStatusByActualStatusId().getWoStateCode().equals(CodesBusinessEntityEnum.WORKORDER_STATUS_REALIZED.getCodeEntity())){
 					log.info("La work order esta en T-realizada se ingresaran los datos pertinentes en work_order_crew_attentions");
 					
 					WOAttentionsRequestDTO woReqDTO = new WOAttentionsRequestDTO();
