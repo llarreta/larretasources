@@ -59,8 +59,26 @@
 				</activation-config-property> 
 			</activation-config> 
 		</message-driven>
+		<message-driven>
+			<ejb-name>DispatchWorkOrderConsumer</ejb-name>
+			<ejb-class>co.com.directv.sdii.mdb.business.DispatchWorkOrderConsumer</ejb-class>
+			<transaction-type>Container</transaction-type>
+			<message-destination-type>javax.jms.Queue</message-destination-type>
+		</message-driven>
+		<message-driven>
+			<ejb-name>OptimusStatusConsumer</ejb-name>
+			<ejb-class>co.com.directv.sdii.mdb.business.OptimusStatusConsumer</ejb-class>
+			<transaction-type>Container</transaction-type>
+			<message-destination-type>javax.jms.Queue</message-destination-type>
+		</message-driven>
+	    <message-driven>
+			<ejb-name>FileProcessorConsumer</ejb-name>
+			<ejb-class>co.com.directv.sdii.mdb.business.FileProcessorConsumer</ejb-class>
+			<transaction-type>Container</transaction-type>
+			<message-destination-type>javax.jms.Queue</message-destination-type>
+		</message-driven>
 		
-		
+
 		<session>
 			<ejb-name>ErrorMessageBusinessLocal</ejb-name>
 			<mapped-name>ejb/ErrorMessageBusinessLocal%%PAIS%%</mapped-name>
@@ -251,6 +269,7 @@
 			<session-type>Stateless</session-type>
 			<transaction-type>Container</transaction-type>
 		</session>
+
 	    
 	</enterprise-beans>
 	<assembly-descriptor>
@@ -302,6 +321,27 @@
 				<method-name>onMessage()</method-name>
 			</method>
 			<trans-attribute>Supports</trans-attribute>
+		</container-transaction>
+		<container-transaction>
+			<method>
+				<ejb-name>DispatchWorkOrderConsumer</ejb-name>
+				<method-name>onMessage()</method-name>
+			</method>
+			<trans-attribute>Supports</trans-attribute>
+		</container-transaction>
+		<container-transaction>
+			<method>
+				<ejb-name>OptimusStatusConsumer</ejb-name>
+				<method-name>onMessage()</method-name>
+			</method>
+			<trans-attribute>Supports</trans-attribute>
+		</container-transaction>
+		<container-transaction>
+            <method>
+                <ejb-name>FileProcessorConsumer</ejb-name>
+                <method-name>onMessage()</method-name>
+            </method>
+            <trans-attribute>Supports</trans-attribute>
 		</container-transaction>
 	</assembly-descriptor>
 </ejb-jar>
