@@ -11,6 +11,7 @@ import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.model.dto.EmployeeCrewDTO;
 import co.com.directv.sdii.model.dto.EnvelopeEncapsulateResponse;
 import co.com.directv.sdii.model.dto.TrayWOManagmentDTO;
+import co.com.directv.sdii.model.dto.WOAttentionsRequestDTO;
 import co.com.directv.sdii.model.dto.WorkOrderFilterTrayDTO;
 import co.com.directv.sdii.model.dto.WorkOrderTrayDTO;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
@@ -466,4 +467,14 @@ public interface TrayWorkOrderManagmentBusinessLocal {
 	 * @throws BusinessException
 	 */
 	public CustomerVO getCustomerResources(String customerCode, Long userId) throws BusinessException;
+	
+	/**
+	 * 
+	 * Metodo: genera un registro en la tabla Work Order Crew Movements
+	 * @param woAttentionDTO
+	 * @return
+	 * @throws BusinessException <tipo> <descripcion>
+	 * @author jgonzmol
+	 */
+	public void registerAttentionForReport(WOAttentionsRequestDTO woAttentionDTO) throws BusinessException;
 }
