@@ -583,8 +583,11 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 			
 			//Fecha de atencion de WO
 			WorkOrder wo = workOrderDAO.getWorkOrderByCode(woAttentionDTO.getWorkorderVo().getWoCode());
+			if(wo == null){
+				throw new BusinessException(ErrorBusinessMessages.WORKORDER_DOES_NOT_EXIST.getCode(),ErrorBusinessMessages.WORKORDER_DOES_NOT_EXIST.getMessage()); 
+			}
 			
-			if (wo.getWoRealizationDate().equals(null)) {
+			if ((wo.getWoRealizationDate() == null)) {
 				workOrderCrewAttention.setAttentionDate(null);
 			} else{
 				workOrderCrewAttention.setAttentionDate(wo.getWoRealizationDate());
