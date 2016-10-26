@@ -19,11 +19,4 @@ export class LoadAppExampleComponent implements OnInit {
      
   }
 
-  resizeIframe(iframe){
-    console.log("hola");
-    var iframe2 =  (<HTMLIFrameElement>document.getElementById("otherApp")).contentWindow.document.getElementsByTagName('body');
-    //.document.body.scrollHeight + 'px';
-    //console.log(iframe2);
-  }
-
 }

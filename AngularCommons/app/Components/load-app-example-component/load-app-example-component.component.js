@@ -16,12 +16,6 @@ var LoadAppExampleComponent = (function () {
     }
     LoadAppExampleComponent.prototype.ngOnInit = function () {
     };
-    LoadAppExampleComponent.prototype.resizeIframe = function (iframe) {
-        console.log("hola");
-        var iframe2 = document.getElementById("otherApp").contentWindow.document.getElementsByTagName('body');
-        //.document.body.scrollHeight + 'px';
-        //console.log(iframe2);
-    };
     LoadAppExampleComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

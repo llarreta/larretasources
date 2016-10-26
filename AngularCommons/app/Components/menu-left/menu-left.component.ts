@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-//import {Accordion, AccordionGroup} from '@ng-bootstrap/ng-bootstrap/accordion';
 
 @Component({
   moduleId: module.id,

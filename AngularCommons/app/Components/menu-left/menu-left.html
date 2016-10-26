@@ -1,7 +1,12 @@
  <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand header-menu-left">
-                
+                <ngb-accordion [closeOthers]="true" activeIds="1">
+                    <ngb-panel id="1" title="Simple">
+                        <template ngbPanelContent>
+                        </template>
+                    </ngb-panel>
+                </ngb-accordion>
             </li>
             <li>
                 <a href="#">Dashboard</a>
