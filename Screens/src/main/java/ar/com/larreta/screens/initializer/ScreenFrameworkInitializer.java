@@ -13,12 +13,12 @@ import javax.servlet.ServletResponse;
 import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObject;
 import ar.com.larreta.commons.AppObjectImpl;
-import ar.com.larreta.commons.controllers.HttpSessionEventPublicher;
 import ar.com.larreta.commons.domain.ParametricEntity;
-import ar.com.larreta.commons.services.StandardService;
 import ar.com.larreta.commons.threads.SaveThread;
 import ar.com.larreta.screens.SaverExecuted;
+import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenUtils;
+import ar.com.larreta.screens.impl.ErrorScreen;
 import ar.com.larreta.screens.impl.HomeScreen;
 import ar.com.larreta.screens.impl.saver.ABMSaver;
 
@@ -29,25 +29,17 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		try {
-			final StandardService service = AppManager.getInstance().getStandardService();
-			HomeScreen homeScreen = (HomeScreen) AppManager.getInstance().getBean(HomeScreen.HOME_SCREEN);
-			SaverExecuted saverExecuted = new SaverExecuted();
-			saverExecuted.setDescription(homeScreen.getClass().getName());
-	
-			if (service.getEntity(saverExecuted, ParametricEntity.DESCRIPTION)==null){
-				homeScreen.initialize();
-				service.saveOrUpdate(homeScreen);
-				SaveThread.addEntity(saverExecuted);
-			}
+			saveScreen((HomeScreen) AppManager.getInstance().getBean(HomeScreen.HOME_SCREEN));
+			saveScreen((ErrorScreen) AppManager.getInstance().getBean(ErrorScreen.ERROR_SCREEN));
 			
 			Collection<ABMSaver> savers = ScreenUtils.getSavers();
 			Iterator<ABMSaver> it = savers.iterator();
 			
 			while (it.hasNext()) {
 				ABMSaver abmSaver = (ABMSaver) it.next();
-				saverExecuted = new SaverExecuted();
+				SaverExecuted saverExecuted = new SaverExecuted();
 				saverExecuted.setDescription(abmSaver.getClass().getName());
-				if (service.getEntity(saverExecuted, ParametricEntity.DESCRIPTION)==null){
+				if (AppManager.getInstance().getStandardService().getEntity(saverExecuted, ParametricEntity.DESCRIPTION)==null){
 					try {
 						abmSaver.save();	
 						SaveThread.addEntity(saverExecuted);
@@ -58,6 +50,17 @@ public class ScreenFrameworkInitializer extends GenericServlet {
 			}
 		} catch (Exception e){
 			appObject.getLog().error("Ocurrio un error inicializando ScreenFrameworkInitializer", e);
+		}
+	}
+
+	private void saveScreen(Screen screen) {
+		SaverExecuted saverExecuted = new SaverExecuted();
+		saverExecuted.setDescription(screen.getClass().getName());
+
+		if (AppManager.getInstance().getStandardService().getEntity(saverExecuted, ParametricEntity.DESCRIPTION)==null){
+			screen.initialize();
+			AppManager.getInstance().getStandardService().saveOrUpdate(screen);
+			SaveThread.addEntity(saverExecuted);
 		}
 	}
 	
