@@ -28,11 +28,13 @@ import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.exceptions.PropertiesException;
 import co.com.directv.sdii.jms.common.util.DistributedQueueMessage;
 import co.com.directv.sdii.model.dto.UploadFileFilterDTO;
+import co.com.directv.sdii.model.pojo.FileStatus;
 import co.com.directv.sdii.model.pojo.SystemParameter;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
 import co.com.directv.sdii.model.pojo.collection.UploadFileResponse;
 import co.com.directv.sdii.model.vo.UploadFileVO;
 import co.com.directv.sdii.persistence.dao.config.SystemParameterDAOLocal;
+import co.com.directv.sdii.persistence.dao.file.FileStatusDAOLocal;
 
 /**
  * Permite manejar el procesamiento de los archivos cargas a la aplicación
@@ -63,6 +65,9 @@ public class FileProcessorBusinessBean extends BusinessBase implements
 	
 	@EJB
 	private IFileProcessorFactory fileProcessorFactory;
+	
+	@EJB(name="FileStatusDAOLocal", beanInterface=FileStatusDAOLocal.class)
+	private FileStatusDAOLocal fileStatusDAO;
 	
 	/* (non-Javadoc)
 	 * @see co.com.directv.sdii.ejb.business.file.FileProcessorBusinessBeanLocal#processFiles()
@@ -99,23 +104,24 @@ public class FileProcessorBusinessBean extends BusinessBase implements
 			Long maxThreadsAvailable = maxThreadsConfig - currentAmmountOfFilesProcessing;
 			log.debug( "La cantidad de archivos que van a ser poder ser procesados en esta tanda es "+ maxThreadsAvailable );
 		
+			DistributedQueueMessage distributedQueueMessage = JMSLocator.getInstance().getQueueFileProcessor();
+			FileStatus fileStatus = fileStatusDAO.findByCode(CodesBusinessEntityEnum.FILE_STATUS_JMS_SEND.getCodeEntity());
 			for(int i = 0; (i < maxThreadsAvailable) && (i < listUploadFileVO.size()) ; i++ ){
 				
 				UploadFileVO uploadfile = listUploadFileVO.get(i);
-				// if(log.isDebugEnabled())log.debug( "Archivo "+ uploadfile.getName() + " va a ser enviado a la cola" );
 				log.debug( "Archivo "+ uploadfile.getName() + " va a ser enviado a la cola" );
 				//send the uploadFiles via JMS
-				DistributedQueueMessage distributedQueueMessage = JMSLocator.getInstance().getQueueFileProcessor();
-			    //if(log.isDebugEnabled())log.debug( "Archivo "+ uploadfile.getName() + " esta siendo enviado a la cola de mensajes para ser procesado" );
-				log.debug( "Archivo "+ uploadfile.getName() + " esta siendo enviado a la cola de mensajes para ser procesado" );
 				
-				//XXX: este fix posiblemente mejore la performance y evite procear en el mismo archivo en paralelo en simultaneo
-				// cuando un archivo empieza a procesarse pero se ejecuta el schedulerTasks antes de que el procesador haya cambiado de estados los archivos
-				// entonce puede suceder que se registren las cosas
-				//uploadFileBusinessBean.updateUploadFile(uploadfile, CodesBusinessEntityEnum.FILE_STATUS_PROCESSING.getCodeEntity());
+				log.debug( "Archivo "+ uploadfile.getName() + " esta siendo enviado a la cola de mensajes para ser procesado" );			
 				
+				//Actualizamos el estado.
+				uploadfile.setFileStatus(fileStatus);
+				
+				//Enviamos el mensaje.
 			    distributedQueueMessage.sendMessage(uploadfile);
 			    
+			    //Actualizamos el Fichero.
+			    uploadFileBusinessBean.updateUploadFile(uploadfile);
 			}
 			
 		} catch (Throwable t) {

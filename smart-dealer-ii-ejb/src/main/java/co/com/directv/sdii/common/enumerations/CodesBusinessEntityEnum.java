@@ -804,6 +804,7 @@ public enum CodesBusinessEntityEnum {
 	
 	
 	FILE_STATUS_PENDING("sdii_CODE_file_status_pending","sdii_COLUMN_file_status"),
+	FILE_STATUS_JMS_SEND("sdii_CODE_file_status_jms_send","sdii_COLUMN_file_status"),
 	FILE_STATUS_PROCESSING("sdii_CODE_file_status_processing","sdii_COLUMN_file_status"),
 	FILE_STATUS_PROCESS_ENDED_WITH_ERRORS("sdii_CODE_file_status_process_ended_with_errors","sdii_COLUMN_file_status"),
 	FILE_STATUS_PROCESS_ENDED_WITHOUT_ERRORS("sdii_CODE_file_status_process_ended_without_errors","sdii_COLUMN_file_status"), 

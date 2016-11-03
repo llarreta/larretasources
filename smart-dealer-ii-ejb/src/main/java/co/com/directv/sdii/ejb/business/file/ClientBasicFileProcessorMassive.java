@@ -39,6 +39,7 @@ public class ClientBasicFileProcessorMassive implements IFileProcessor {
 	private IBasicFileProcessorMassive fileProcessor;
 	
 	public void setRemoteFileProcessor(IBasicFileProcessorMassive fileProcessor) {
+		log.info("ILDELIAN:" + fileProcessor.getClass().hashCode());
 		this.fileProcessor = fileProcessor;
 	}
 	

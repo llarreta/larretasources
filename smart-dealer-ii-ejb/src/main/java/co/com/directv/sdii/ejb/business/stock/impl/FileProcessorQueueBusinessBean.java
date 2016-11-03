@@ -121,7 +121,15 @@ public class FileProcessorQueueBusinessBean implements FileProcessorQueueBusines
 			}
 		}
 		try {
-			String message = e.getMessage() != null ? e.getMessage() : "";
+			String message = "";
+			if(e.getMessage() != null && !e.getMessage().equals("")){
+				message = e.getMessage() != null ? e.getMessage() : "";
+			}else if(e.getCause() != null && e.getCause().getMessage() != null && !e.getCause().getMessage().equals("")){
+				message = e.getCause().getMessage();
+			}else{
+				message = "Ocurrio un error Inesperado:" + e.getClass().getName();
+			}
+			
 			saveFileDetailProces(rowWithError, message, uploadFileVOWorking.getId() );
 		} catch (Exception persistErrorException) {
 			log.error("No fue posible guardar la información del error generado en el procesamiento del archivo con id = " + uploadFileVOWorking.getId() != null ? uploadFileVOWorking.getId() : "null" + ".\n El error con el archivo fue: " + e.getMessage() );
