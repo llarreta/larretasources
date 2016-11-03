@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import ar.com.larreta.commons.domain.ResourceMessage;
 import ar.com.larreta.commons.persistence.dao.args.LoadArguments;
 import ar.com.larreta.commons.services.ResourceMessageService;
+import ar.com.larreta.commons.threads.SaveThread;
 
 @Service(ResourceMessageServiceImpl.RESOURCE_MESSAGE_SERVICE)
 @Transactional
@@ -56,7 +57,7 @@ public class ResourceMessageServiceImpl extends LocaleServiceImpl implements Res
 						resourceMessage.setLanguage(getLanguage(language));
 						resourceMessage.setKey(key);
 						resourceMessage.setTextString(key);
-						save(resourceMessage);
+						SaveThread.addEntity(resourceMessage);
 					}
 					
 					return key;

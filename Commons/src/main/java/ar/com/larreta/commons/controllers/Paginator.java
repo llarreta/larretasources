@@ -27,6 +27,8 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 
 	protected List<Entity> datasource;
 
+	private Integer lastFirst = 0;
+
 	private Integer count = 0;
 
 	private AppObject appObject = new AppObjectImpl(getClass());
@@ -44,6 +46,10 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 	
 	public Paginator(){
 		super();
+	}
+
+	public Integer getLastFirst() {
+		return lastFirst;
 	}
 	
 	public void putFilter(String key, Object filter){
@@ -143,6 +149,7 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 		try {
 			filters = putFilters(filters);
 			ServiceInfo serviceInfo = getService().loadServiceInfo(getEntityClass(), first, pageSize, null, filters, lazyProperties);
+			lastFirst = first;
 			datasource = new ArrayList<Entity>(serviceInfo.getData());
 			arguments = serviceInfo.getArguments();
 			refresh();
@@ -161,6 +168,7 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 			}
 			filters = putFilters(filters);
 			ServiceInfo serviceInfo = getService().loadServiceInfo(getEntityClass(), first, pageSize, getOrder(sortOrder, sortField), filters, lazyProperties);
+			lastFirst = first;
 			datasource = new ArrayList<Entity>(serviceInfo.getData());
 			arguments = serviceInfo.getArguments();
 			refresh();
