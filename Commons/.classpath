@@ -94,7 +94,7 @@
 	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.9/commons-codec-1.9.jar" sourcepath="M2_REPO/commons-codec/commons-codec/1.9/commons-codec-1.9-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/sun/faces/jsf-api/2.2.0/jsf-api-2.2.0.jar" sourcepath="M2_REPO/com/sun/faces/jsf-api/2.2.0/jsf-api-2.2.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/sun/faces/jsf-impl/2.2.0/jsf-impl-2.2.0.jar" sourcepath="M2_REPO/com/sun/faces/jsf-impl/2.2.0/jsf-impl-2.2.0-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/primefaces/primefaces/5.2/primefaces-5.2.jar" sourcepath="M2_REPO/org/primefaces/primefaces/5.2/primefaces-5.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/primefaces/primefaces/6.0/primefaces-6.0.jar" sourcepath="M2_REPO/org/primefaces/primefaces/6.0/primefaces-6.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/primefaces/extensions/primefaces-extensions/3.1.0/primefaces-extensions-3.1.0.jar" sourcepath="M2_REPO/org/primefaces/extensions/primefaces-extensions/3.1.0/primefaces-extensions-3.1.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar" sourcepath="M2_REPO/com/google/code/gson/gson/2.2.4/gson-2.2.4-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar" sourcepath="M2_REPO/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1-sources.jar"/>

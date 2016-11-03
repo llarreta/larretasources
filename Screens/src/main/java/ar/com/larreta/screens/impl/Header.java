@@ -19,13 +19,25 @@ public class Header extends Form {
 	@Override
 	public void initialize() {
 		super.initialize();
+		
 		setId(screenConstantIds.getIdentifier("header"));
 		Div div = new Div();
+		div.setStyleClass("header-style");
 		add(div);
-		div.add(0, new GraphicImage("images", "logo-barra-menu.png", "logo-main-menu"));
+		
+		Div notificationSection = new Div();
+		
+		GraphicImage logo = new GraphicImage("images", "LogoCommons.png", "LogoCommons");
+		logo.setStyleClass("main-logo");
+		
+		notificationSection.add(0, logo);
+		notificationSection.setStyleClass("notification-section");	
+		
 		MenuBar menuBar = ScreenUtils.getMainMenu();
 		menuBar.initialize();
-		div.add(1, menuBar);
+		notificationSection.add(1, menuBar);
+		
+		div.add(notificationSection);
 	}
 
 	@Override

@@ -21,8 +21,8 @@
 	
 	<pe:head title="${screen.titleEvaluated}">
  		<link href='https://fonts.googleapis.com/css?family=Arimo:400,400italic,700,700italic' rel='stylesheet' type='text/css'/>
- 	</pe:head>
-
+		<h:outputScript library="js" name="general-functions.js"/>
+	</pe:head>
 <h:body>
 		
 		<f:loadBundle var="msg" basename="ar.com.larreta.commons.resources.ResourceBundle"  />
@@ -35,16 +35,10 @@
 				</c:forEach>
 			</f:facet>	
 			
-		   	<div class="container">
-		   		<div class="ui-grid ui-grid-responsive">
-		    		<div class="ui-grid-col-12">
-			    		<div class="ui-grid-row">
-			    			<ui:insert name="content"/>
-			    		</div>
-			    	</div>
-			    </div>
-			</div>
-		            
+		   	<div class="ui-g">
+    			<ui:insert name="content"/>
+    		</div>
+		
 		</h:panelGroup>
 	
 		<pe:blockUI target="bodyPanel" widgetVar="blockUI"   >  
@@ -52,7 +46,7 @@
 		        <h:outputText value="#{msg['app.blockUI.message']}" style="white-space: nowrap;"/>  
 		    </h:panelGrid>  
 		</pe:blockUI>
-
+		
 </h:body>
 </f:view>
 </html>

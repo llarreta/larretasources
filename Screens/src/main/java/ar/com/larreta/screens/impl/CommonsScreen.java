@@ -7,6 +7,9 @@ import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 
+import ar.com.larreta.screens.AjaxButton;
+import ar.com.larreta.screens.Button;
+import ar.com.larreta.screens.Div;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;
 import ar.com.larreta.screens.ScreenUtils;
@@ -27,12 +30,10 @@ public abstract class CommonsScreen extends Screen{
 	
 	private static Collection<StyleSheet> getStyles(){
 		Collection<StyleSheet> styleSheets = new ArrayList<StyleSheet>();
-		styleSheets.add(new StyleSheet("css", 				"main.css"));
-		styleSheets.add(new StyleSheet("smarttrace/css", 	"bootstrap.min.css"));
 		styleSheets.add(new StyleSheet("css", 				"font-awesome.css"));
 		styleSheets.add(new StyleSheet("css", 				"animate.css"));
-		styleSheets.add(new StyleSheet("css", 				"socicon.css"));
 		styleSheets.add(new StyleSheet("css", 				"font-awesome-animation.min.css"));
+		styleSheets.add(new StyleSheet("css", 				"index-style.css"));
 		return styleSheets;
 	}
 	
@@ -48,9 +49,64 @@ public abstract class CommonsScreen extends Screen{
 	protected void setCommons() {
 		setTitleMessage("app.titleApp");
 		setStyleSheets(styleSheets);
-		add(0, getHeader());
-		add(1, getBody());
-		add(2, getFooter());
+		
+		Div menuLeft = new Div();
+		menuLeft.setStyleClass("ui-g-12 ui-md-2 menu-left");
+		
+		Div bodyComplete = new Div();
+		bodyComplete.setStyleClass("ui-g-12 ui-md-10 ui-g-nopad body-complete body-complete-full");
+		
+		Div header = new Div();
+		header.setStyleClass("ui-g-12 header-container");
+		header.add(getHeader());
+		
+		bodyComplete.add(0, header);
+		
+		Div bodyContainer = new Div();
+		bodyContainer.setStyleClass("ui-g-12 ui-g-nopad body-container");
+		
+		Div bodyRow = new Div();
+		bodyRow.setStyleClass("ui-g");
+		bodyRow.add(1, getBody());
+		
+		AjaxButton showHideMenuLeft = new AjaxButton();
+		
+		/**Este tipo de cosas podrian ser reemplazadas por
+			
+			showHideMenuLeft.setIcon(Icon.CHEVRON_RIGHT); 
+			
+			Inclusive podemos agregarle que tiene incorporados tamaños por default tiene por ejemplo estos 
+			<i class="fa fa-camera-retro fa-lg"></i> fa-lg
+			<i class="fa fa-camera-retro fa-2x"></i> fa-2x
+			<i class="fa fa-camera-retro fa-3x"></i> fa-3x
+			<i class="fa fa-camera-retro fa-4x"></i> fa-4x
+			<i class="fa fa-camera-retro fa-5x"></i> fa-5x
+			
+			Nosotros podriamos tenerlo asi: 
+			showHideMenuLeft.setIcon(Icon.CHEVRON_RIGHT, Icon.SIZE_LARGE);
+			showHideMenuLeft.setIcon(Icon.CHEVRON_RIGHT, Icon.SIZE_2);
+			showHideMenuLeft.setIcon(Icon.CHEVRON_RIGHT, Icon.SIZE_3);
+			showHideMenuLeft.setIcon(Icon.CHEVRON_RIGHT, Icon.SIZE_4);
+			showHideMenuLeft.setIcon(Icon.CHEVRON_RIGHT, Icon.SIZE_5); 
+		*/
+		showHideMenuLeft.setIcon("fa fa-bars");
+		showHideMenuLeft.setStyleClass("button-menu-left");
+		showHideMenuLeft.setOnclick("showHideMenuLeft()");
+		bodyRow.add(0, showHideMenuLeft);
+		
+		bodyContainer.add(0, bodyRow);
+		
+		bodyComplete.add(1, bodyContainer);
+		
+		Div footer = new Div();
+		footer.setStyleClass("ui-g-12");
+		footer.add(getFooter());
+		
+		//UML Y ETAPAS TOMA EN EL FINAL CLAUDIO
+		add(0, menuLeft);
+		add(1, bodyComplete);
+		add(2, footer);
+		
 	}
 
 	protected ScreenElement getFooter() {

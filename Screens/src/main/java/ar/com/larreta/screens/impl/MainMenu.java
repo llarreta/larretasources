@@ -20,7 +20,7 @@ import ar.com.larreta.screens.SubMenu;
 @Component(MainMenu.MAIN_MENU)
 public class MainMenu extends MenuBar {
 	public static final String MAIN_MENU = "mainMenu";
-	protected static final String MENU_ITEM_DEFAULT_STYLE = "menu-item-default";
+	protected static final String MENU_ITEM_DEFAULT_STYLE = "";
 	protected static final String APP_SCREEN_URL = "/app/screen?screenId=";
 
 	protected Integer index = 0;

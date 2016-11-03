@@ -15,17 +15,9 @@
 	</ui:define>
 	
 	<ui:define name="content">
-		<!-- FIXME: Evaluar la necesidad de tener estos 3 DIVs -->
-		<div class="ui-grid ui-grid-responsive">
-	    	<div class="ui-grid-row">
-	        	<div class="ui-grid-col-12">
-							<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
-								<ui:param name="elements" value="#{screen.ordererElements}" />
-							</ui:include>
-				</div>
-			</div>
-		</div>
+		<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+			<ui:param name="elements" value="#{screen.ordererElements}" />
+		</ui:include>
 	</ui:define>
-
 
 </ui:composition>
