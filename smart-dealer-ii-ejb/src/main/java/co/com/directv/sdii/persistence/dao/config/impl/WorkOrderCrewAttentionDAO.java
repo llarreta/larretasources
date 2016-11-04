@@ -7,6 +7,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import co.com.directv.sdii.common.enumerations.ErrorBusinessMessages;
@@ -45,4 +46,34 @@ public class WorkOrderCrewAttentionDAO extends BaseDao implements WorkOrderCrewA
 		
 	}
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public WorkOrderCrewAttention getWorkOrderCrewAttentionByWoCode(String woCode)
+			throws DAOServiceException, DAOSQLException {
+
+        log.debug("== Inicio getWorkOrderCrewAttentionByWoCode/WorkOrderCrewAttentionDAO ==");
+        Session session = super.getSession();
+        try {
+        	if (session == null) {
+                throw new DAOServiceException(ErrorBusinessMessages.SESSION_NULL.getCode());
+            }	
+            StringBuffer queryBuffer = new StringBuffer();
+            queryBuffer.append(" from ");
+            queryBuffer.append(WorkOrderCrewAttention.class.getName());
+            queryBuffer.append(" wca where wca.woCode = :woCode");
+            Query query = session.createQuery(queryBuffer.toString());
+            query.setString("woCode", woCode);
+            Object obj = query.uniqueResult();
+            if (obj != null) {
+                return (WorkOrderCrewAttention) obj;
+            }
+            return null;
+        }catch (Throwable ex) {
+            log.error("== Error getWorkOrderCrewAttentionByWoCode/WorkOrderCrewAttentionDAO ==");
+            throw this.manageException(ex);
+        } finally {
+            log.debug("== Termina getWorkOrderCrewAttentionByWoCode/WorkOrderCrewAttentionDAO ==");
+        }
+		
+	}
+    
 }

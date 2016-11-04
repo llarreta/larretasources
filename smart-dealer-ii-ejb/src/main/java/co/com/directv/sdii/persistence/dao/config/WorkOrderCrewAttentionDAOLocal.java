@@ -17,5 +17,14 @@ public interface WorkOrderCrewAttentionDAOLocal {
      * @throws DAOSQLException
      */
     public void createWorkOrderCrewAttention(WorkOrderCrewAttention obj) throws DAOServiceException, DAOSQLException;
+    
+    /**
+     * Busca un registro en la tabla WorkOrderCrewAttentions por WoCode 
+     * @param woCode - String
+     * @throws DAOServiceException
+     * @throws DAOSQLException
+     */
+    public WorkOrderCrewAttention getWorkOrderCrewAttentionByWoCode(String woCode) throws DAOServiceException, DAOSQLException;
+
 
 }

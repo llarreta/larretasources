@@ -599,20 +599,18 @@ public class AdjustmentDAO extends BaseDao implements AdjustmentDAOLocal {
 
 		try {
 			
-        	StringBuffer stringQuery = new StringBuffer();
-        	stringQuery.append( "select AD from " );
-        	stringQuery.append( Adjustment.class.getName() +" AD, ");
-        	stringQuery.append( AdjustmentElements.class.getName() +" AE ");
-        	stringQuery.append( "where " );
-        	stringQuery.append( "AD.id = AE.adjustment.id " );
-        	stringQuery.append( "and AD.adjustmentStatus.code NOT IN (:aStatusCodes) " );
-        	stringQuery.append( "and ( AE.warehouseSource.crewId.id = :aCrewId " );
-			stringQuery.append( "or AE.warehouseDestination.crewId.id = :aCrewId ) " );
-        	Query query = session.createQuery(stringQuery.toString());
-            query.setParameterList("aStatusCodes", statusCodes);
-            query.setLong("aCrewId", crewId);
-
-            return query.list();
+	         StringBuffer stringQuery = new StringBuffer();
+	         stringQuery.append( "select a from  ");
+	         stringQuery.append( "AdjustmentElements ae  ");
+	         stringQuery.append( "inner join  ae.adjustment a  ");
+	         stringQuery.append( "left join ae.warehouseDestination w1 "); 
+	         stringQuery.append( "left join ae.warehouseSource w2  ");
+	         stringQuery.append( "where a.adjustmentStatus.code NOT IN (:aStatusCodes) ");
+	         stringQuery.append( "and  ( w1.crewId.id = :aCrewId or w2.crewId.id = :aCrewId ) "); 
+	         Query query = session.createQuery(stringQuery.toString());
+	         query.setParameterList("aStatusCodes", statusCodes);
+	         query.setLong("aCrewId", crewId);
+	         return query.list();
 
 		} catch (Throwable ex) {
 			log.error("== Error ==");

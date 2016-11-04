@@ -572,64 +572,68 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 		try {
 			log.debug("== Inicia registerAttentionForReport/TrayWorkOrderManagmentBusinessBean ==");		
 			
-			WorkOrderCrewAttention workOrderCrewAttention = new WorkOrderCrewAttention(); 
+			WorkOrderCrewAttention workOrderCrewAttention = workOrderCrewAttentionDAO.getWorkOrderCrewAttentionByWoCode(woAttentionDTO.getWorkorderVo().getWoCode());			
 			
-			//Código de work Order
-			if(woAttentionDTO.getWorkorderVo().getWoCode().equals(null)){
-				workOrderCrewAttention.setWoCode("");
-			}else{
-				workOrderCrewAttention.setWoCode(woAttentionDTO.getWorkorderVo().getWoCode());
-			}
-			
-			//Fecha de atencion de WO
-			WorkOrder wo = workOrderDAO.getWorkOrderByCode(woAttentionDTO.getWorkorderVo().getWoCode());
-			if(wo == null){
-				throw new BusinessException(ErrorBusinessMessages.WORKORDER_DOES_NOT_EXIST.getCode(),ErrorBusinessMessages.WORKORDER_DOES_NOT_EXIST.getMessage()); 
-			}
-			
-			if ((wo.getWoRealizationDate() == null)) {
-				workOrderCrewAttention.setAttentionDate(null);
-			} else{
-				workOrderCrewAttention.setAttentionDate(wo.getWoRealizationDate());
-			}
-			
-			//Id de cuadrilla que atendio la Wo
-			WoAssignment woAssignment = woAssignmentDAO.getWorkOrdersCrewActiveAssignment(wo.getId());
-			
-			if (woAssignment.getCrewId().equals(null)) {
-				workOrderCrewAttention.setCrewId(null);
-			} else{
-				workOrderCrewAttention.setCrewId(woAssignment.getCrewId());
-			}
-			
-			//integrantes de la cuadrilla
-			List<EmployeeCrew> employeeCrewList = employeesCrewDAO.getEmployeesCrewByCrewID(woAssignment.getCrewId());
-			String membersCrew = "";
-			
-			for (EmployeeCrew employeeCrew : employeeCrewList) {
-				if (employeeCrew.getIsResponsible().equals("S")) {
-					workOrderCrewAttention.setIbsTechnicial(employeeCrew.getEmployee().getIbsTechnical().toString());
-					workOrderCrewAttention.setDocumentNumber(employeeCrew.getEmployee().getDocumentNumber());
-					workOrderCrewAttention.setResponsibleCrew(employeeCrew.getEmployee().getFirstName() + ", " + employeeCrew.getEmployee().getLastName());
-					membersCrew = membersCrew + workOrderCrewAttention.getResponsibleCrew() + ";";
-					//Nombre del dealer 
-					workOrderCrewAttention.setDealerName(employeeCrew.getCrew().getDealer().getDealerName());
-					//Nombre de compañia principal
-					if (employeeCrew.getCrew().getDealer().getDealer() == null ) {
-						workOrderCrewAttention.setDealerMain(workOrderCrewAttention.getDealerName());
-					} else {
-						workOrderCrewAttention.setDealerMain(employeeCrew.getCrew().getDealer().getDealer().getDealerName());
-					}
-					
-				} else {
-					membersCrew = membersCrew + employeeCrew.getEmployee().getFirstName() + ", " + employeeCrew.getEmployee().getLastName() + "; ";
+			if(workOrderCrewAttention == null){
+				workOrderCrewAttention = new WorkOrderCrewAttention(); 
+				
+				//Código de work Order
+				if(woAttentionDTO.getWorkorderVo().getWoCode().equals(null)){
+					workOrderCrewAttention.setWoCode("");
+				}else{
+					workOrderCrewAttention.setWoCode(woAttentionDTO.getWorkorderVo().getWoCode());
 				}
-			}
-		
-			//integrantes de la cuadrilla
-			workOrderCrewAttention.setEmployeesCrew(membersCrew);
+				
+				//Fecha de atencion de WO
+				WorkOrder wo = workOrderDAO.getWorkOrderByCode(woAttentionDTO.getWorkorderVo().getWoCode());
+				if(wo == null){
+					throw new BusinessException(ErrorBusinessMessages.WORKORDER_DOES_NOT_EXIST.getCode(),ErrorBusinessMessages.WORKORDER_DOES_NOT_EXIST.getMessage()); 
+				}
+				
+				if ((wo.getWoRealizationDate() == null)) {
+					workOrderCrewAttention.setAttentionDate(null);
+				} else{
+					workOrderCrewAttention.setAttentionDate(wo.getWoRealizationDate());
+				}
+				
+				//Id de cuadrilla que atendio la Wo
+				WoAssignment woAssignment = woAssignmentDAO.getWorkOrdersCrewActiveAssignment(wo.getId());
+				
+				if (woAssignment.getCrewId().equals(null)) {
+					workOrderCrewAttention.setCrewId(null);
+				} else{
+					workOrderCrewAttention.setCrewId(woAssignment.getCrewId());
+				}
+				
+				//integrantes de la cuadrilla
+				List<EmployeeCrew> employeeCrewList = employeesCrewDAO.getEmployeesCrewByCrewID(woAssignment.getCrewId());
+				String membersCrew = "";
+				
+				for (EmployeeCrew employeeCrew : employeeCrewList) {
+					if (employeeCrew.getIsResponsible().equals("S")) {
+						workOrderCrewAttention.setIbsTechnicial(employeeCrew.getEmployee().getIbsTechnical().toString());
+						workOrderCrewAttention.setDocumentNumber(employeeCrew.getEmployee().getDocumentNumber());
+						workOrderCrewAttention.setResponsibleCrew(employeeCrew.getEmployee().getFirstName() + ", " + employeeCrew.getEmployee().getLastName());
+						membersCrew = membersCrew + workOrderCrewAttention.getResponsibleCrew() + ";";
+						//Nombre del dealer 
+						workOrderCrewAttention.setDealerName(employeeCrew.getCrew().getDealer().getDealerName());
+						//Nombre de compañia principal
+						if (employeeCrew.getCrew().getDealer().getDealer() == null ) {
+							workOrderCrewAttention.setDealerMain(workOrderCrewAttention.getDealerName());
+						} else {
+							workOrderCrewAttention.setDealerMain(employeeCrew.getCrew().getDealer().getDealer().getDealerName());
+						}
+						
+					} else {
+						membersCrew = membersCrew + employeeCrew.getEmployee().getFirstName() + ", " + employeeCrew.getEmployee().getLastName() + "; ";
+					}
+				}
 			
-			workOrderCrewAttentionDAO.createWorkOrderCrewAttention(workOrderCrewAttention);
+				//integrantes de la cuadrilla
+				workOrderCrewAttention.setEmployeesCrew(membersCrew);
+				
+				workOrderCrewAttentionDAO.createWorkOrderCrewAttention(workOrderCrewAttention);
+			}
 			
 		} catch (Throwable ex) {
 			log.error("== Error al tratar de ejecutar la operación registerAttentionForReport/TrayWorkOrderManagmentBusinessBean");

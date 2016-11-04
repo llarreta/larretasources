@@ -436,7 +436,7 @@ public class VehiclesDAO extends BaseDao implements VehiclesDAOLocal {
         	stringQuery.append(" and vehicle.vehicleStatus.statusCode = :statusCode");
         	stringQuery.append(" and vehicle.id not in (select c.vehicle.id from "+Crew.class.getName()+" c where c.dealer.id = :aDealerId and c.crewStatus.statusCode = :statusCodeCrew) ");
             if( plate != null && !plate.equals("") ){
-                stringQuery.append(" or upper(vehicle.plate) = :plate");
+                stringQuery.append(" or upper(vehicle.plate) = :plate and vehicle.dealer.id = :aDealerId");
             }
         	Query query = session.createQuery(stringQuery.toString());
             query.setLong("aDealerId", dealerId);
