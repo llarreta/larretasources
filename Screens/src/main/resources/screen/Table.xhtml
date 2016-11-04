@@ -17,8 +17,8 @@
 	     currentPageReportTemplate="#{element.currentPageReportTemplateEvaluated}"
  				 var="tableElement"  selection="#{dataView.selected}"
      	 value="#{element.valueEvaluated}"
-     	 
-     >   
+     >
+        
     	<p:ajax event="page" 											onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"/>
      	<p:ajax event="sort" 		listener="#{controller.onSort}" 	onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"/>
      	<p:ajax event="filter" 		listener="#{controller.onFilter}" 	onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"/>
@@ -27,4 +27,6 @@
 	     	<ui:include src="/WEB-INF/flows/screen/Column#{column.filter}.xhtml" />
      	</c:forEach>
      </p:dataTable>
+     <p:hotkey bind="left"  handler="var paginator = PF('#{element.idValue}Var').getPaginator(); paginator.setPage(paginator.getCurrentPage()-1);" />
+	 <p:hotkey bind="right" handler="var paginator = PF('#{element.idValue}Var').getPaginator(); paginator.setPage(paginator.getCurrentPage()+1);" />
 </html>

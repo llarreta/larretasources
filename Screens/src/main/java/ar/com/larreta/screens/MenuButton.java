@@ -6,16 +6,15 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "menuBar")
-@DiscriminatorValue(value = "menuBar")
+@Table(name = "menuButton")
+@DiscriminatorValue(value = "menuButton")
 @PrimaryKeyJoinColumn(name=ar.com.larreta.commons.domain.Entity.ID)
-public class MenuBar extends Menu {
-
-	public MenuBar() {
+public class MenuButton extends Menu {
+	public MenuButton() {
 		super();
 	}
 
-	public MenuBar(String styleClass) {
+	public MenuButton(String styleClass) {
 		super(styleClass);
 	}
 }

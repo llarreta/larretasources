@@ -161,6 +161,11 @@ CREATE TABLE [SCHEMMA].menuBar (
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE [SCHEMMA].menuButton (
+	id BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
 CREATE TABLE [SCHEMMA].graphicImage (
 	id BIGINT NOT NULL,
 	name VARCHAR(255) NOT NULL,
@@ -403,6 +408,11 @@ REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].menuBar
 ADD CONSTRAINT fk_screenElement_in_menuBar
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].menuButton
+ADD CONSTRAINT fk_screenElement_in_menuButton
 FOREIGN KEY (id)
 REFERENCES [SCHEMMA].screenElement(id);
 

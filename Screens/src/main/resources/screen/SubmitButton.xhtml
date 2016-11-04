@@ -6,8 +6,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
-	
-		<p:commandButton	id="#{element.idValue}"
+		<p:commandButton	id="#{element.idValue}"					widgetVar="#{element.idValue}Var"
 						action="forward"							type="#{element.buttonType}"
 						value="#{element.bindingPropertyValue}" 
 						icon="#{element.icon}" 						styleClass="#{element.styleClass}"
@@ -15,17 +14,18 @@
 						onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"    onclick="#{element.onclick}"
 						>
 		
-		<f:setPropertyActionListener target="#{dataView.forward}" value="#{element.actionEvaluated}"/>
-		<f:setPropertyActionListener target="#{dataView.nextScreenId}" value="#{element.nextScreenId}"/>
-		
-		<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
-				<ui:param name="elements" value="#{element.params}" />
-		</ui:include>
-	</p:commandButton>
+			<f:setPropertyActionListener target="#{dataView.forward}" value="#{element.actionEvaluated}"/>
+			<f:setPropertyActionListener target="#{dataView.nextScreenId}" value="#{element.nextScreenId}"/>
+			
+			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
+					<ui:param name="elements" value="#{element.params}" />
+			</ui:include>
+		</p:commandButton>
 	
 		<p:confirmDialog global="#{element.confirm.global}" showEffect="#{element.confirm.showEffect}" hideEffect="#{element.confirm.hideEffect}" rendered="#{element.confirm!=null}">
 			<ui:include src="/WEB-INF/flows/screen/iterate.xhtml">
 				<ui:param name="elements" value="#{element.confirm.ordererElements}" />
 			</ui:include>
 		</p:confirmDialog>
+
 </html>
