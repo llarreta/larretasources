@@ -57,9 +57,11 @@ import co.com.directv.sdii.model.dto.ReportsSucceedWorkOrderCSRDTO;
 import co.com.directv.sdii.model.dto.ReportsSucceedWorkOrderFilterDTO;
 import co.com.directv.sdii.model.dto.WoPendingLackMaterialsDTO;
 import co.com.directv.sdii.model.pojo.Country;
+import co.com.directv.sdii.model.pojo.ScheduleReport;
 import co.com.directv.sdii.model.pojo.ScheduleReportParameter;
 import co.com.directv.sdii.model.pojo.SystemParameter;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
+import co.com.directv.sdii.persistence.dao.config.ScheduleReportDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.SystemParameterDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderCSRDAOLocal;
 import co.com.directv.sdii.persistence.dao.config.WorkOrderDAOLocal;
@@ -106,6 +108,10 @@ public class ReportsCoreBusiness extends BusinessBase implements ReportsCoreBusi
 	//REQ inactivación de técnico - Rerpote de movimiento de cuadrillas
 	@EJB(name="CrewsDAOLocal", beanInterface=CrewsDAOLocal.class)
 	private CrewsDAOLocal crewsDAO;
+	
+	//Se agrega para consultar el tecnico
+	@EJB
+	private ScheduleReportDAOLocal scheduleReportDAOLocal;
 	
     /**
      * Default constructor. 
@@ -1428,12 +1434,17 @@ public class ReportsCoreBusiness extends BusinessBase implements ReportsCoreBusi
 				nameFile=UtilsBusiness.generateCsv(dataList,fieldNames,columnNames,page, nameFile);
 				++page;
 			}
-			String nameFileResponse = "report"+nameFile;
+			
+   			//se le agrega el nombre del usuario y el ID reporte 
+			ScheduleReport scheduleReport = scheduleReportDAOLocal.getScheduleReportById(request.getIdScheduleReport());
+			String userName = scheduleReport.getUser().getName();
+			
+			String nameFileResponse = "report" + nameFile;
 			String fileType = "";
 			nameFileResponse+=".csv";
 			fileType = "text/plain";
 			SimpleDateFormat formatoFecha = new SimpleDateFormat("_yyyy_MM_dd_HH_mm");
-			request.setFileResponseDTO(UtilsBusiness.generateResponseFromNameFileTempCsv(nameFileResponse, request.getNameFileResponse()+formatoFecha.format(request.getDateNow())+".csv", fileType) );
+			request.setFileResponseDTO(UtilsBusiness.generateResponseFromNameFileTempCsv(nameFileResponse, request.getNameFileResponse()+formatoFecha.format(request.getDateNow()) + userName + scheduleReport.getId().toString()+".csv", fileType) );
 
 		} catch (Throwable ex) {
 			log.error("== Error al tratar de ejecutar la operación populateCrewMovements/ReportCoreBusiness");
@@ -1498,12 +1509,16 @@ public class ReportsCoreBusiness extends BusinessBase implements ReportsCoreBusi
 				nameFile=UtilsBusiness.generateCsv(dataList,fieldNames,columnNames,page, nameFile);
 				++page;
 			}
-			String nameFileResponse = "report"+nameFile;
+			//se le agrega el nombre del usuario y el ID reporte 
+			ScheduleReport scheduleReport = scheduleReportDAOLocal.getScheduleReportById(request.getIdScheduleReport());
+			String userName = scheduleReport.getUser().getName();
+			
+			String nameFileResponse = "report"+ nameFile;
 			String fileType = "";
 			nameFileResponse+=".csv";
 			fileType = "text/plain";
 			SimpleDateFormat formatoFecha = new SimpleDateFormat("_yyyy_MM_dd_HH_mm");
-			request.setFileResponseDTO(UtilsBusiness.generateResponseFromNameFileTempCsv(nameFileResponse, request.getNameFileResponse()+formatoFecha.format(request.getDateNow())+".csv", fileType) );
+			request.setFileResponseDTO(UtilsBusiness.generateResponseFromNameFileTempCsv(nameFileResponse, request.getNameFileResponse()+formatoFecha.format(request.getDateNow())+ userName + scheduleReport.getId().toString()+".csv", fileType) );
 
 		} catch (Throwable ex) {
 			log.error("== Error al tratar de ejecutar la operación populateWorkOrdersTechnicial/ReportCoreBusiness");

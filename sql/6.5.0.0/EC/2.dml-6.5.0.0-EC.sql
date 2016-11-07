@@ -95,6 +95,31 @@ else
 	);
 end if;
 
-	
+-----vehiculos - cuadrillas
+select count(*) into v_count from DBHSPCO.error_messages where ERROR_KEY  = 'sdii_CODE_crew_vehicle_assing_other_crew';
+
+if (v_count >= 1) then 
+
+	DBMS_OUTPUT.Put_line ('Ya existe el registro con código DE0199 en la tabla ERROR_MESSAGES');
+else
+	INSERT INTO DBHSPCO.error_messages (ID, COMPONENT_ID, ERROR_KEY,  ERROR_CODE, ERROR_MESSAGE) 
+	VALUES (DBHSPCO.SEQ_ERROR_MESSAGE.NEXTVAL, (select id from DBHSPCO.error_categories where CATEGORY_CODE = 'BL'),'sdii_CODE_crew_vehicle_assing_other_crew', 'DE0199','El vehiculo que intenta asignar ya se encuentra asignado a una cuadrilla.');
+end if;
+
+---- Actualización para regularizar las patentes de los vehículos
+update DBHSPCO.VEHICLES
+set plate = UPPER(replace(replace(replace(plate,'-',''),' ',''),'_',''))
+where STATUS_ID=1;
+
+-- Nuevo estado Ficheros.
+select count(*) into v_count from DBHSPCO.FILE_STATUS where CODE  = 'FEC';
+if (v_count >= 1) then 
+
+	DBMS_OUTPUT.Put_line ('Ya existe estado FEC en la tabla FILE_STATUS');
+else
+	INSERT INTO DBHSPCO.FILE_STATUS (ID, CODE, NAME) 
+	VALUES (DBHSPCO.SEQ_FILE_STATUS.NEXTVAL,'FEC','Pendiente de procesamiento');
+end if;	
+
 end;
 /

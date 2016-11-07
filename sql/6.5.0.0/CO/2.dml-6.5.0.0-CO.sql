@@ -168,7 +168,7 @@ else
 		'0205',
 		(SELECT ID FROM DBHSPCO.PARAMETER_TYPES WHERE PARAMETER_TYPE_CODE='04'
 		),
-		(SELECT ID FROM DBHSPCO.COUNTRIES WHERE COUNTRY_CODE = 'EC')
+		(SELECT ID FROM DBHSPCO.COUNTRIES WHERE COUNTRY_CODE = 'CO')
 	);
 end if;
 
@@ -189,5 +189,15 @@ update DBHSPCO.VEHICLES
 set plate = UPPER(replace(replace(replace(plate,'-',''),' ',''),'_',''))
 where STATUS_ID=1;
 	
+-- Nuevo estado Ficheros.
+select count(*) into v_count from DBHSPCO.FILE_STATUS where CODE  = 'FEC';
+if (v_count >= 1) then 
+
+	DBMS_OUTPUT.Put_line ('Ya existe estado FEC en la tabla FILE_STATUS');
+else
+	INSERT INTO DBHSPCO.FILE_STATUS (ID, CODE, NAME) 
+	VALUES (DBHSPCO.SEQ_FILE_STATUS.NEXTVAL,'FEC','Pendiente de procesamiento');
+end if;
+
 end;
 /
