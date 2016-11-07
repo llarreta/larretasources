@@ -105,7 +105,7 @@
 		<wls:ejb-name>FileProcessorConsumer</wls:ejb-name>
 		<wls:message-driven-descriptor>
 			<wls:pool>
-				<wls:max-beans-in-free-pool>16</wls:max-beans-in-free-pool>
+				<wls:max-beans-in-free-pool>1</wls:max-beans-in-free-pool>
 				<wls:initial-beans-in-free-pool>0</wls:initial-beans-in-free-pool>
 			</wls:pool>
 			<wls:destination-jndi-name>jms/FileProcessorMessageQueue%%PAIS%%</wls:destination-jndi-name> 
