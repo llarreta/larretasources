@@ -43,7 +43,7 @@ public class CustomerContactsServiceLocator {
 	private final static Logger log = UtilsBusiness.getLog4J(CustomerContactsServiceLocator.class);
 	/*timeout*/
 	private static final String CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
-	private static final String REQUEST_TIMEOUT = "com.sun.xml.internal.ws.request.timeout";
+	private static final String REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
 
 	/**
 	 * 
