@@ -73,6 +73,9 @@ public class SecurityBusinessBean extends BusinessBase implements SecurityBusine
 
 	private final static Logger log = UtilsBusiness.getLog4J(SecurityBusinessBean.class);
 	
+	@EJB(name="SystemParameterDAOLocal", beanInterface=SystemParameterDAOLocal.class)
+	private SystemParameterDAOLocal systemParameterDAO;
+
 	@EJB(name="UserDAOLocal", beanInterface=UserDAOLocal.class)
 	private UserDAOLocal userDao;
 	
@@ -1262,8 +1265,10 @@ public class SecurityBusinessBean extends BusinessBase implements SecurityBusine
 			}
 			user = users.get(0);
 			
-			this.ldapAuthenticate(user.getEmail(), password, countryId);
-
+			SystemParameter parameter = systemParameterDAO.getSysParamsByCodeAndCountryIdNull(CodesBusinessEntityEnum.SYSTEM_PARAM_DEVELOPMENT.getCodeEntity());
+			if (parameter == null)
+				this.ldapAuthenticate(user.getEmail(), password, countryId);
+			
 			if(user.getIsActive().equals("0")){
 				log.info("Se lograr autenticar en el directorio activo, pero el usuario en SDII de login " + userName + " en el pais con id: " + countryId + " no se encuentra activo");
 				throw new BusinessException(ErrorBusinessMessages.GENERAL_BL192.getCode(), ErrorBusinessMessages.GENERAL_BL192.getMessage());

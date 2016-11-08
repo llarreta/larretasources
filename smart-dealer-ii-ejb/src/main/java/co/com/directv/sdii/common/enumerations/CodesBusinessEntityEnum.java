@@ -1269,7 +1269,8 @@ public enum CodesBusinessEntityEnum {
     
     //Req - Reclamación de WO
     CODE_IBS_CONTACT_REASON_TECHNICAL_VISIT("sdii_CODE_ibs_contact_reason_technical_visit",""),
-    CODE_IBS_CONTACT_REASON_TECHNICAL_DEFAULT("sdii_CODE_ibs_contact_reason_technical_default","")
+    CODE_IBS_CONTACT_REASON_TECHNICAL_DEFAULT("sdii_CODE_ibs_contact_reason_technical_default",""), 
+    SYSTEM_PARAM_DEVELOPMENT ("sdii_Code_system_param_development","")
 	;
     
     private String codeEntity;
