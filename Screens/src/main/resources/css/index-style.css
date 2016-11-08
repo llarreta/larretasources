@@ -184,7 +184,7 @@ span.ui-icon.ui-icon-triangle-1-e{
     margin: 20px;
 }
 
-.notification-section {
+.header-top {
     background-color: #3F51B5;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     z-index: 100;
@@ -195,6 +195,64 @@ span.ui-icon.ui-icon-triangle-1-e{
 
 .header-container{
 	padding: 0px;
+}
+
+.search-input-inner-container {
+    float: right;
+}
+
+.ui-menubutton.fa.fa-bell.fa-2x.notification-menu .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left,
+.ui-menubutton.fa.fa-comments.fa-2x.chat-menu .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left,
+.ui-menubutton.fa.fa-cog.fa-2x.configuration-menu .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left {
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    box-shadow: 0px 0px 0px 0px transparent;
+}
+
+.notification-menu::before,
+.chat-menu::before,
+.configuration-menu::before {
+    position: absolute;
+    left: 9px;
+    top: 9px;
+}
+
+.notification-menu,
+.chat-menu,
+.configuration-menu {
+    color: white;
+}
+
+span.ui-button-icon-left.ui-icon.ui-c.ui-icon-triangle-1-s {
+    background: none;
+}
+
+.ui-menubutton.fa.fa-bell.fa-2x.notification-menu .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left .ui-button-text.ui-c, 
+.ui-menubutton.fa.fa-comments.fa-2x.chat-menu .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left .ui-button-text.ui-c,
+.ui-menubutton.fa.fa-cog.fa-2x.configuration-menu .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left .ui-button-text.ui-c{
+    width: 0px;
+    height: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.ui-outputlabel.ui-widget.notification-menu-icon, 
+.ui-outputlabel.ui-widget.chat-menu-icon,
+.ui-outputlabel.ui-widget.configuration-menu-icon{
+    background-color: #E91E63;
+    border-radius: 50%;
+    padding: 4px 6px;
+    font-size: 12px;
+    color: #ffffff;
+    position: absolute;
+    margin-left: 30px;
+    z-index: 1000;
+}
+
+.notification-section {
+    float: right;
 }
 
 /***************
