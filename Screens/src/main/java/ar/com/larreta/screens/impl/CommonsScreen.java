@@ -8,7 +8,6 @@ import javax.persistence.Transient;
 import org.apache.log4j.Logger;
 
 import ar.com.larreta.screens.AjaxButton;
-import ar.com.larreta.screens.Button;
 import ar.com.larreta.screens.Div;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;

@@ -2,7 +2,6 @@ package ar.com.larreta.screens.impl.saver;
 
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
-import ar.com.larreta.screens.validators.Required;
 import ar.com.larreta.screens.validators.Validator;
 
 public abstract class ParametricEntitySaver extends ABMSaver {

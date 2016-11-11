@@ -22,6 +22,7 @@ public class DataView extends AppObjectImpl {
 	public static final String DATA_VIEW = "dataView";
 	
 	protected Entity selected;
+	protected Entity auxiliar;
 	
 	private StandardController controller;
 	
@@ -31,6 +32,14 @@ public class DataView extends AppObjectImpl {
 
 	public DataView() {
 		super();
+	}
+
+	public Entity getAuxiliar() {
+		return auxiliar;
+	}
+
+	public void setAuxiliar(Entity auxiliar) {
+		this.auxiliar = auxiliar;
 	}
 	
 	public StandardController getController() {
