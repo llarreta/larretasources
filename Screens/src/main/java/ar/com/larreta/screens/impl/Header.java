@@ -42,33 +42,29 @@ public class Header extends Form {
 		headerTop.add(0, logoContainer);
 		
 		Div searchSection = new Div();
-		searchSection.setStyleClass("ui-g-4");
-		
-		Div searchInputContainer = new Div();
-		searchInputContainer.setStyleClass("ui-g-10");
+		searchSection.setStyleClass("ui-g-5");
 		
 		Div searchInputInnerContainer = new Div();
 		searchInputInnerContainer.setStyleClass("search-input-inner-container");
 		
 		Input searchInput = new Input();
 		searchInput.setStyleClass("search-input");
+		searchInput.setWatermark("Search...");
 		
 		searchInputInnerContainer.add(0, searchInput);
 		
-		searchInputContainer.add(0, searchInputInnerContainer);
-		
 		Div iconSearch = new Div();
-		iconSearch.setStyleClass("search-icon fa fa-search fa-2x ui-g-2");
+		iconSearch.setStyleClass("search-icon fa fa-search fa-2x");
 		
-		searchSection.add(0, searchInputContainer);
-		searchSection.add(1, iconSearch);
+		searchSection.add(1, searchInputInnerContainer);
+		searchSection.add(0, iconSearch);
 		headerTop.add(1, searchSection);
 		
 		Div notificationSection = new Div();
-		notificationSection.setStyleClass("ui-g-4");
+		notificationSection.setStyleClass("ui-g-3 center-notification-section");
 		
 		Div notificationMenuContainer = new Div();
-		notificationMenuContainer.setStyleClass("ui-g-2 notification-section");
+		notificationMenuContainer.setStyleClass("notification-section");
 		
 		Div notificationMenuInnerContainer = new Div();
 		notificationMenuInnerContainer.setStyleClass("notification-menu-inner-container");
@@ -93,7 +89,7 @@ public class Header extends Form {
 		notificationMenuContainer.add(0, notificationMenuInnerContainer);
 		
 		Div chatMenuContainer = new Div();
-		chatMenuContainer.setStyleClass("ui-g-2 notification-section");
+		chatMenuContainer.setStyleClass("notification-section");
 
 		Div notificationChatInnerContainer = new Div();
 		notificationChatInnerContainer.setStyleClass("notification-chat-inner-container");
@@ -118,7 +114,7 @@ public class Header extends Form {
 		chatMenuContainer.add(0, notificationChatInnerContainer);
 		
 		Div configurationMenuContainer = new Div();
-		configurationMenuContainer.setStyleClass("ui-g-2 notification-section");
+		configurationMenuContainer.setStyleClass("notification-section");
 		
 		Div notificationConfigurationInnerContainer = new Div();
 		notificationConfigurationInnerContainer.setStyleClass("notification-configuration-inner-container");
