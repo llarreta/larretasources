@@ -52,6 +52,7 @@ public abstract class CommonsScreen extends Screen{
 		Div menuLeft = new Div();
 		menuLeft.setStyleClass("ui-g-12 ui-md-2 menu-left");
 		
+		
 		Div bodyComplete = new Div();
 		bodyComplete.setStyleClass("ui-g-12 ui-md-10 ui-g-nopad body-complete body-complete-full");
 		
