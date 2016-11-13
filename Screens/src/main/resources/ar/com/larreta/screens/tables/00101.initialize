@@ -184,6 +184,16 @@ CREATE TABLE [SCHEMMA].outputPanel (
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE [SCHEMMA].accordionPanel (
+	id BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE [SCHEMMA].tab (
+	id BIGINT NOT NULL,
+	PRIMARY KEY (ID)
+);
+
 CREATE TABLE [SCHEMMA].label (
 	id BIGINT NOT NULL,
 	value VARCHAR(255),
@@ -378,6 +388,16 @@ REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].outputPanel
 ADD CONSTRAINT fk_screenElement_in_outputPanel
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].accordionPanel
+ADD CONSTRAINT fk_screenElement_in_accordionPanel
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].tab
+ADD CONSTRAINT fk_screenElement_in_tab
 FOREIGN KEY (id)
 REFERENCES [SCHEMMA].screenElement(id);
 
