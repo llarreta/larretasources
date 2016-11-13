@@ -3279,53 +3279,21 @@ public class WarehouseElementDAO extends BaseDao implements WarehouseElementDAOL
 			stringQuery.append(" left join EMPLOYEE_CREWS ec ON(ec.crew_id = w.crew_id AND ec.is_responsible = :anIsResponsible) left join EMPLOYEES e ON(e.id=ec.employee_id) ");
 			stringQuery.append(" left join CUSTOMERS cus ON(cus.id = w.customer_id) ");
 			stringQuery.append(" WHERE rs.RECORD_STATUS_CODE = :recordStatus ");
-			
-			
+			//CC053
 			if (filterDealer){
-				
-				if (whElSerachFilter.getDealerId()!=null){
-					//stringQuery.append(" and ((decode(d.dealer_branch_id,null,d.id,d.dealer_branch_id) =:aDealerId)) ");
-					stringQuery.append(" and ((d.dealer_branch_id =:aDealerId) OR (d.dealer_branch_id is NULL AND d.id = :aDealerId)) ");
-				}
-				
-				if (whElSerachFilter.getBranchDealerId()!=null){
-					stringQuery.append(" and (d.id=:aDealerIdBranch) ");
-				}
-				
+				stringQuery.append(" and ((decode(d.dealer_branch_id,null,d.id,d.dealer_branch_id) =:aDealerId) or :aDealerId is null) ");
+				stringQuery.append(" and ((d.id=:aDealerIdBranch) or :aDealerIdBranch is null) ");
 			}
-			
-			if (whElSerachFilter.getCrewId()!=null){
-				stringQuery.append(" and (w.crew_id = :aCrewId ) ");
-			}
-			
-			if (whElSerachFilter.getWarehouseTypeId()!=null ){
-				stringQuery.append(" and (w.WH_TYPE_ID = :aWhTypeId ) ");
-			}
-			
-			if (whElSerachFilter.getWareHouseId()!=null){
-				stringQuery.append(" and (w.id = :aWhId ) ");
-			}
-			
-			if (whElSerachFilter.getElementModelId()!=null) {
-				//stringQuery.append(" and (decode(we.SER_ID,NULL,EMNS.ID,EMS.ID) = :aElementModelId) ");
-				stringQuery.append(" and ( (we.SER_ID IS NULL AND EMNS.ID = :aElementModelId) OR (we.SER_ID IS NOT NULL AND EMS.ID = :aElementModelId)) ");
-			}
-			
-			
-			if (whElSerachFilter.getElementTypeId()!=null) {
-				//stringQuery.append(" and ((decode(we.SER_ID,NULL,ETNS.ID,ETS.ID) = :aTypeElementId)) ");
-				stringQuery.append(" and ( (we.SER_ID IS NULL AND ETNS.ID = :aTypeElementId) OR (we.SER_ID IS NOT NULL AND ETS.ID = :aTypeElementId) ) ");
-        	}
-			
-			if(whElSerachFilter.getSerialElement() != null){
-				//stringQuery.append(" and ((decode(we.SER_ID,NULL,NULL,s.serial_code)=:aSerialElement or decode(we.SER_ID,NULL,NULL,sl.serial_code) = :aSerialElement)) ");
-				stringQuery.append(" and ( (we.SER_ID IS NOT NULL AND s.serial_code = :aSerialElement) OR (we.SER_ID IS NOT NULL AND sl.serial_code = :aSerialElement) ) ");
-			}
-			
+			stringQuery.append(" and (w.crew_id = :aCrewId or :aCrewId is null) ");
+			stringQuery.append(" and (w.WH_TYPE_ID = :aWhTypeId or :aWhTypeId is null) ");
+			stringQuery.append(" and (w.id = :aWhId or :aWhId is null) ");
+			stringQuery.append(" and (decode(we.SER_ID,NULL,EMNS.ID,EMS.ID) = :aElementModelId or :aElementModelId is null) ");
+			stringQuery.append(" and ((decode(we.SER_ID,NULL,ETNS.ID,ETS.ID) = :aTypeElementId) or :aTypeElementId is null) ");
+			stringQuery.append(" and ((decode(we.SER_ID,NULL,NULL,s.serial_code)=:aSerialElement or decode(we.SER_ID,NULL,NULL,sl.serial_code) = :aSerialElement) or :aSerialElement is null) ");
 			
         	//----------------------------------------------------------------
 			//Paginacion 
-			stringCount.append(" Select count(1) from ( ");
+			stringCount.append(" Select count(*) from ( ");
 			stringCount.append( stringQuery.toString() + " ) " );        	
         	Query countQuery = session.createSQLQuery( stringCount.toString() );
         	
@@ -3361,60 +3329,75 @@ public class WarehouseElementDAO extends BaseDao implements WarehouseElementDAOL
         	countQuery.setParameter("anIsResponsible", CodesBusinessEntityEnum.BOOLEAN_TRUE.getCodeEntity(),Hibernate.STRING);
         	countQuery.setParameter("recordStatus", CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity(), Hibernate.STRING);
         	countQuery.setParameter("aSysdate", new Timestamp( sysdate.getTimeInMillis() ) , Hibernate.TIMESTAMP);
-        	
-        	
+
+			
+			//Asignacion de filtros a la consulta
+        	//CC053
         	if (filterDealer){
-				
-        		if (whElSerachFilter.getDealerId()!=null){
-        			query.setParameter("aDealerId", whElSerachFilter.getDealerId(), Hibernate.LONG);
-        			countQuery.setParameter("aDealerId", whElSerachFilter.getDealerId(), Hibernate.LONG);
-        		}
-				
-        		if (whElSerachFilter.getBranchDealerId()!=null){
-        			query.setParameter("aDealerIdBranch",whElSerachFilter.getBranchDealerId(), Hibernate.LONG);
-        			countQuery.setParameter("aDealerIdBranch",whElSerachFilter.getBranchDealerId(), Hibernate.LONG);
-        		}
-        		
+				query.setParameter("aDealerId", whElSerachFilter.getDealerId(), Hibernate.LONG);
+				countQuery.setParameter("aDealerId", whElSerachFilter.getDealerId(), Hibernate.LONG);
+
+				query.setParameter("aDealerIdBranch",whElSerachFilter.getBranchDealerId(), Hibernate.LONG);
+				countQuery.setParameter("aDealerIdBranch",whElSerachFilter.getBranchDealerId(), Hibernate.LONG);
         	}
-        	
         	//CC053
         	if (whElSerachFilter.getCrewId()!=null){
 				query.setParameter("aCrewId", whElSerachFilter.getCrewId(), Hibernate.LONG);
 				countQuery.setParameter("aCrewId",whElSerachFilter.getCrewId(), Hibernate.LONG);
         	}
-        	
+        	else {
+        		query.setParameter("aCrewId", null, Hibernate.LONG);
+				countQuery.setParameter("aCrewId",null, Hibernate.LONG);
+        	}
         	//CC053
         	if (whElSerachFilter.getWarehouseTypeId()!=null ){
 				query.setParameter("aWhTypeId",whElSerachFilter.getWarehouseTypeId(), Hibernate.LONG);
 				countQuery.setParameter("aWhTypeId",whElSerachFilter.getWarehouseTypeId(), Hibernate.LONG);
         	}
-        	
+        	else {
+        		query.setParameter("aWhTypeId",null, Hibernate.LONG);
+				countQuery.setParameter("aWhTypeId",null, Hibernate.LONG);
+        	}
         	//CC053
         	if (whElSerachFilter.getWareHouseId()!=null){
 				query.setParameter("aWhId",whElSerachFilter.getWareHouseId(), Hibernate.LONG);
 				countQuery.setParameter("aWhId",whElSerachFilter.getWareHouseId(), Hibernate.LONG);
         	}
-        	
+        	else {
+        		query.setParameter("aWhId",null, Hibernate.LONG);
+				countQuery.setParameter("aWhId",null, Hibernate.LONG);
+        	}
         	//CC053
         	if (whElSerachFilter.getElementModelId()!=null) {
 				query.setParameter("aElementModelId",whElSerachFilter.getElementModelId(), Hibernate.LONG);
 				countQuery.setParameter("aElementModelId",whElSerachFilter.getElementModelId(), Hibernate.LONG);
         	}
-        	
+        	else {
+        		query.setParameter("aElementModelId",null, Hibernate.LONG);
+				countQuery.setParameter("aElementModelId",null, Hibernate.LONG);
+        	}
         	//CC053
         	if (whElSerachFilter.getElementTypeId()!=null) {
 				query.setParameter("aTypeElementId",whElSerachFilter.getElementTypeId(), Hibernate.LONG);
 				countQuery.setParameter("aTypeElementId",whElSerachFilter.getElementTypeId(), Hibernate.LONG);
         	}
+        	else {
+        		query.setParameter("aTypeElementId",null, Hibernate.LONG);
+				countQuery.setParameter("aTypeElementId",null, Hibernate.LONG);
+        	}
 				
-			if(whElSerachFilter.getSerialElement() != null){
-				query.setParameter("aSerialElement",whElSerachFilter.getSerialElement().toUpperCase(), Hibernate.STRING);
-				countQuery.setParameter("aSerialElement",whElSerachFilter.getSerialElement().toUpperCase(), Hibernate.STRING);					
-			}
-						
+				if(whElSerachFilter.getSerialElement() != null){
+					query.setParameter("aSerialElement",whElSerachFilter.getSerialElement().toUpperCase(), Hibernate.STRING);
+					countQuery.setParameter("aSerialElement",whElSerachFilter.getSerialElement().toUpperCase(), Hibernate.STRING);					
+				}
+				else{
+					query.setParameter("aSerialElement",null, Hibernate.STRING);
+					countQuery.setParameter("aSerialElement",null, Hibernate.STRING);					
+				}
+
 			//Paginacion
         	Long recordQty = 0l;
-        	if( requestCollInfo != null){
+        	if( requestCollInfo != null ){	  
         		if(doCount){
         			recordQty = ((BigDecimal)countQuery.uniqueResult()).longValue();
         		}
