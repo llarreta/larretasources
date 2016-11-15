@@ -590,10 +590,10 @@ public class TrayWorkOrderManagmentBusinessBean extends BusinessBase implements 
 					throw new BusinessException(ErrorBusinessMessages.WORKORDER_DOES_NOT_EXIST.getCode(),ErrorBusinessMessages.WORKORDER_DOES_NOT_EXIST.getMessage()); 
 				}
 				
-				if ((wo.getWoRealizationDate() == null)) {
-					workOrderCrewAttention.setAttentionDate(null);
-				} else{
+				if ((wo.getWoRealizationDate() != null)) {
 					workOrderCrewAttention.setAttentionDate(wo.getWoRealizationDate());
+				} else{					
+					workOrderCrewAttention.setAttentionDate(UtilsBusiness.getCurrentTimeZoneDateByUserId(woAttentionDTO.getWorkorderVo().getUserId(), daoUser));
 				}
 				
 				//Id de cuadrilla que atendio la Wo
