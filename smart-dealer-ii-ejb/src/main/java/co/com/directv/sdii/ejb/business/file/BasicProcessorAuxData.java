@@ -27,6 +27,23 @@ public class BasicProcessorAuxData {
 		this.serialCode = fileRecord.getRowData()[POS_SERIAL];
 		this.serialCodeLinked = fileRecord.getRowData()[POS_LINKED_SERIAL];
 		this.quantityStr = fileRecord.getRowData()[POS_QUANTITY];
+		
+		if(this.rnNumber == null){
+			this.rnNumber="";
+		}
+		if(this.elementTypeCode == null){
+			this.elementTypeCode="";
+		}
+		if(this.serialCode == null){
+			this.serialCode="";
+		}
+		if(this.serialCodeLinked == null){
+			this.serialCodeLinked="";
+		}
+		if(this.quantityStr == null){
+			this.quantityStr="";
+		}
+		
 	}
 
 	public FileRecordDTO getFileRecordDTO() {

@@ -341,7 +341,7 @@ public class FileProcessorConfirmItemsLoadMassiveReference extends BasicFileProc
 	private boolean validaNumber(String quantityStr) {
 		boolean isNumber = false;
 		
-		if(!quantityStr.isEmpty()){
+		if(quantityStr != null && !quantityStr.isEmpty()){
 			isNumber = StringUtils.isNumeric(quantityStr);
 		}
 		return isNumber;
