@@ -7,7 +7,9 @@ import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
 
+import ar.com.larreta.screens.AccordionPanel;
 import ar.com.larreta.screens.AjaxButton;
+import ar.com.larreta.screens.CSSGrid;
 import ar.com.larreta.screens.Div;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;
@@ -49,24 +51,25 @@ public abstract class CommonsScreen extends Screen{
 		setTitleMessage("app.titleApp");
 		setStyleSheets(styleSheets);
 		
-		Div menuLeft = new Div();
-		menuLeft.setStyleClass("ui-g-12 ui-md-2 menu-left");
+		CSSGrid menuLeft = new CSSGrid(12, 2);
+		menuLeft.addExtraClass("menu-left");
 		
+//		AccordionPanel menuAccordionPanel = new AccordionPanel();
+//		menuLeft.add(menuAccordionPanel);
 		
-		Div bodyComplete = new Div();
-		bodyComplete.setStyleClass("ui-g-12 ui-md-10 ui-g-nopad body-complete body-complete-full");
+		CSSGrid bodyComplete = new CSSGrid(12, 10, true);
+		bodyComplete.addExtraClass("body-complete body-complete-full");
 		
-		Div header = new Div();
-		header.setStyleClass("ui-g-12 header-container");
+		CSSGrid header = new CSSGrid(12);
+		header.addExtraClass("header-container");
 		header.add(getHeader());
 		
 		bodyComplete.add(0, header);
 		
-		Div bodyContainer = new Div();
-		bodyContainer.setStyleClass("ui-g-12 ui-g-nopad body-container");
+		CSSGrid bodyContainer = new CSSGrid(12, true);
+		bodyContainer.addExtraClass("body-container");
 		
-		Div bodyRow = new Div();
-		bodyRow.setStyleClass("ui-g");
+		CSSGrid bodyRow = new CSSGrid(true);
 		bodyRow.add(1, getBody());
 		
 		AjaxButton showHideMenuLeft = new AjaxButton();
@@ -98,8 +101,7 @@ public abstract class CommonsScreen extends Screen{
 		
 		bodyComplete.add(1, bodyContainer);
 		
-		Div footer = new Div();
-		footer.setStyleClass("ui-g-12");
+		CSSGrid footer = new CSSGrid(12);
 		footer.add(getFooter());
 		
 		//UML Y ETAPAS TOMA EN EL FINAL CLAUDIO

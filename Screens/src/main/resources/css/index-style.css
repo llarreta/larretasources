@@ -34,6 +34,9 @@ body {
   text-shadow: none;  
 }
 
+body .ui-datatable tbody tr td {
+    border: 1px solid #cacaca;
+}
 
 /***************************
 *****Primefaces changes*****
@@ -61,6 +64,7 @@ body {
 	    margin: auto;
 	    border: none;
 	    background-image: none;
+	    border-radius: 0px;
 	}
 	a.ui-menuitem-link {
 	    color: white;
@@ -179,6 +183,94 @@ body {
 	/***************
 	****Menu Bar END****
 	****************/
+	
+	/***************
+	****Input****
+	****************/
+		.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all {
+		    background: transparent;
+		    padding: 2px 2px 1px 2px;
+		    font-size: 16px;
+		    border-color: #bdbdbd;
+		    border-style: solid;
+		    border-radius: 0px;
+		    border-top: none;
+		    box-shadow: none;
+		    border-left: none;
+		    border-right: none;
+		    border-width: 0 0 1px 0;
+		    -moz-transition: border-color 0.3s;
+		    -o-transition: border-color 0.3s;
+		    -webkit-transition: border-color 0.3s;
+		    transition: border-color 0.3s;
+		}
+		.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ui-state-hover.ui-state-focus, 
+		.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ui-state-focus{
+			border-width: 0 0 2px 0;
+			border-color: #3F51B5;
+			padding-bottom:0px;
+		}
+		.ui-state-default.ui-sortable-column.ui-filter-column .ui-column-title {
+		    font-size: 14px;
+		    color: #000000;
+		}
+		.ui-state-default.ui-sortable-column.ui-filter-column:hover {
+		    background-color: #e8e8e8;
+		}
+	/***************
+	****Input END****
+	****************/
+	
+	/**
+	********************
+	***TABLE***
+	********************
+	*/
+		.ui-paginator.ui-paginator-top.ui-widget-header.ui-corner-top {
+		    background-color: #3F51B5;
+		    color: #ffffff;
+		    font-size: 16px;
+		    border: 1px solid #3F51B5;
+		    background-image: none;
+		    text-shadow: none;
+		    font-size: 15px;
+		    padding-top: 6px;
+		    padding-bottom: 6px;
+		}
+		.ui-state-default.ui-sortable-column.ui-filter-column {
+		    background-image: none;
+		    background-color: transparent;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		    webkit-transition: all 0.2s ease-in-out;
+		    -moz-transition: all 0.2s ease-in-out;
+		    -o-transition: all 0.2s ease-in-out;
+		    transition: all 0.2s ease-in-out;
+		}
+		.ui-state-default.ui-sortable-column.ui-filter-column:hover {
+		    background-color: #e8e8e8;
+		    box-shadow: none;
+		}
+		body .ui-datatable tbody tr.ui-datatable-even {
+    		background-color: #f4f4f4;
+    		webkit-transition: all 0.2s ease-in-out;
+		    -moz-transition: all 0.2s ease-in-out;
+		    -o-transition: all 0.2s ease-in-out;
+		    transition: all 0.2s ease-in-out;
+		}
+		body .ui-datatable tbody tr.ui-datatable-even.ui-state-hover {
+		    background-color: #e8e8e8;
+		    color: #000000;
+		    box-shadow: none;
+		}
+		body.layout-compact .ui-datatable tbody tr.ui-widget-content td {
+		    padding: 6px 10px;
+		}
+	/**
+	********************
+	***TABLE END***
+	********************
+	*/
 span.ui-icon.ui-icon-triangle-1-e{
 	display:none;
 }
@@ -216,26 +308,29 @@ span.ui-icon.ui-icon-triangle-1-e{
 *****Header*****
 ****************
 */
-.main-logo {
-    width: 180px;
-    margin: 20px;
+.logo-container {
+    padding-top: 0px;
 }
-
+.main-logo {
+    width: 144px;
+    margin: 10px;
+    margin-top:	0px;
+}
+.search-input-container {
+    padding-top: 0px;
+}
 .header-top {
     background-color: #3F51B5;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     z-index: 100;
     width: 100%;
-    height: 75px;
+    height: 60px;
     margin: auto;
+    padding-top: 18px;
 }
 
 .header-container{
 	padding: 0px;
-}
-
-.search-input-inner-container {
-    float: right;
 }
 
 .ui-menubutton.fa.fa-bell.fa-2x.notification-menu .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left,
@@ -318,6 +413,7 @@ span.ui-button-icon-left.ui-icon.ui-c.ui-icon-triangle-1-s {
 	-ms-animation-fill-mode:forwards; /*IE 10+*/
 	padding-left: 0px;
     padding-right: 0px;
+    padding-top: 0px;
 }
 .ui-menu.ui-menu-dynamic.ui-widget.ui-widget-content.ui-corner-all.ui-helper-clearfix.ui-shadow {
     width: auto;
@@ -355,7 +451,6 @@ a.ui-menuitem-link.ui-corner-all {
 .search-icon.fa.fa-search.fa-2x {
    	color: white;
    	float: right;
-    padding-top: 18px;
     animation: fade-in-down ease-in-out 0.5s;
 	animation-iteration-count: 1;
 	transform-origin: 50% 50%;
@@ -392,7 +487,6 @@ a.ui-menuitem-link.ui-corner-all {
 }
 .search-input-inner-container {
     float: right;
-    margin-top: 18px;
     width: 200px;
     height: 30px;
     border: none;
@@ -443,6 +537,10 @@ a.ui-menuitem-link.ui-corner-all {
 .menu-left-open{
 	width:16.6%;
 	opacity: 1;
+	background-color: #ffffff;
+    -webkit-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
 }
 .button-menu-left{
 	-webkit-transition: all 0.5s ease-in-out;
@@ -650,3 +748,21 @@ a.ui-menuitem-link.ui-corner-all {
 ***Animations END***
 ********************
 */
+
+/**
+********************
+***OWN STYLES***
+********************
+*/
+.card{
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #ffffff;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}

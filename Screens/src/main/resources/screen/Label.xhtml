@@ -8,10 +8,10 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
 	<c:if test="#{element.isBindingTableElement}">
-		<p:outputLabel 		id="#{element.idValue}"		value="#{tableElement[element.bindingProperty]}"			styleClass="${element.styleClass}" />
+		<p:outputLabel 		id="#{element.idValue}"	value="#{tableElement[element.bindingProperty]}"			styleClass="${element.styleClass}" />
 	</c:if>
 	<c:if test="#{!element.isBindingTableElement}">
-		<p:outputLabel 		id="#{element.idValue}"		value="#{element.bindingPropertyValue}"						styleClass="${element.styleClass}" />
+		<p:outputLabel 		id="#{element.idValue}"	value="#{element.bindingPropertyValue}"						styleClass="${element.styleClass}" />
 	</c:if>
 	
 </html>	
