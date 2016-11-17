@@ -80,7 +80,7 @@ public abstract class CreateScreen extends CommonsScreen {
 	public Integer addPassword(Integer index, String labelText, String dataViewSelectedProperty, Validator validator) {
 		Password password = new Password(DATA_VIEW_SELECTED, dataViewSelectedProperty);
 		password.addValidator(validator);
-		body.add(index++, new Label(labelText));
+		index = addLabel(index, labelText);
 		body.add(index++, password);
 		return index;
 	}
@@ -92,8 +92,13 @@ public abstract class CreateScreen extends CommonsScreen {
 	public Integer addInput(Integer index, String labelText, String dataViewSelectedProperty, Validator validator) {
 		Input input = new Input(DATA_VIEW_SELECTED, dataViewSelectedProperty);
 		input.addValidator(validator);
-		body.add(index++, new Label(labelText));
+		index = addLabel(index, labelText);
 		body.add(index++, input);
+		return index;
+	}
+
+	public Integer addLabel(Integer index, String labelText) {
+		body.add(index++, new Label(labelText));
 		return index;
 	}
 	
@@ -102,7 +107,7 @@ public abstract class CreateScreen extends CommonsScreen {
 	}
 	
 	public Integer addCheckBox(Integer index, String labelText, String dataViewSelectedProperty) {
-		body.add(index++, new Label(labelText));
+		index = addLabel(index, labelText);
 		body.add(index++, new CheckBox(DATA_VIEW_SELECTED, dataViewSelectedProperty));
 		return index;
 	}
@@ -120,7 +125,7 @@ public abstract class CreateScreen extends CommonsScreen {
 	}
 	
 	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties, Validator validator) {
-		body.add(index++, new Label(labelText));
+		index = addLabel(index, labelText);
 		ComboBox comboBox = new ComboBox();
 		comboBox.addValidator(validator);
 		comboBox.setBindingObject(DATA_VIEW_SELECTED);
@@ -143,7 +148,7 @@ public abstract class CreateScreen extends CommonsScreen {
 	}
 	
 	public Integer addMultiCheckBox(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties, Validator validator) {
-		body.add(index++, new Label(labelText));
+		index = addLabel(index, labelText);
 		MultiCheckBox multiCheckBox = new MultiCheckBox();
 		multiCheckBox.addValidator(validator);
 		multiCheckBox.setBindingObject(DATA_VIEW_SELECTED);
