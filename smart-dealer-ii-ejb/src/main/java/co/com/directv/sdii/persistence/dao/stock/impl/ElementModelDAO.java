@@ -587,11 +587,11 @@ public class ElementModelDAO extends BaseDao implements ElementModelDAOLocal {
 			if(warehouseId!=null && warehouseId.longValue() > 0) {
 				warehouseIdSpecified=true;
 				
-				stringQuery.append("SELECT DISTINCT elementmod5_.* FROM DBHSPCO.WAREHOUSE_ELEMENTS warehousee0_ ");
-				stringQuery.append(" INNER JOIN DBHSPCO.ELEMENTS element3_");
+				stringQuery.append("SELECT DISTINCT elementmod5_.* FROM WAREHOUSE_ELEMENTS warehousee0_ ");
+				stringQuery.append(" INNER JOIN ELEMENTS element3_");
 				stringQuery.append(" ON ((WAREHOUSEE0_.SER_ID = ELEMENT3_.ID AND WAREHOUSEE0_.NOT_SER_ID is null) OR (WAREHOUSEE0_.NOT_SER_ID =ELEMENT3_.ID AND WAREHOUSEE0_.SER_ID is null ))");
-				stringQuery.append(" INNER JOIN DBHSPCO.ELEMENT_TYPES elementtyp4_ ON element3_.ELEMENT_TYPE_ID=elementtyp4_.ID");
-				stringQuery.append(" INNER JOIN DBHSPCO.ELEMENT_MODELS elementmod5_ ON elementtyp4_.ELEMENT_MODEL_ID=elementmod5_.ID");
+				stringQuery.append(" INNER JOIN ELEMENT_TYPES elementtyp4_ ON element3_.ELEMENT_TYPE_ID=elementtyp4_.ID");
+				stringQuery.append(" INNER JOIN ELEMENT_MODELS elementmod5_ ON elementtyp4_.ELEMENT_MODEL_ID=elementmod5_.ID");
 				stringQuery.append(" WHERE WAREHOUSEE0_.WAREHOUSE_ID = :aWarehouseId");
 				stringQuery.append(" AND WAREHOUSEE0_.RECORD_STATUS_ID= :recorStatusId");				
 				
