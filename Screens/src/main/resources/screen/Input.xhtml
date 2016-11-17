@@ -11,8 +11,7 @@
 		<p:inputText 		id="#{element.idValue}"		
 							value="#{element.bindingPropertyValue}"		
 							styleClass="${element.styleClass}"   	
-							validator="#{element.validate}"
-							/>
-        <p:message for="#{element.idValue}" display="icon" />
+							validator="#{element.validate}"/>
+		<p:message for="#{element.idValue}" display="icon" styleClass="#{element.styleClass}"/>
 	</h:panelGrid>
 </html>

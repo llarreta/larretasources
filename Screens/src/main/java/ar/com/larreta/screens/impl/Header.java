@@ -2,6 +2,7 @@ package ar.com.larreta.screens.impl;
 
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.screens.CSSGrid;
 import ar.com.larreta.screens.Div;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.GraphicImage;
@@ -25,14 +26,14 @@ public class Header extends Form {
 		super.initialize();
 		
 		setId(screenConstantIds.getIdentifier("header"));
-		Div header = new Div();
-		header.setStyleClass("ui-g header-style");
+		CSSGrid header = new CSSGrid(true);
+		header.addExtraClass("header-style");
 		add(header);
 		
 		Div headerTop = new Div();
 		
-		Div logoContainer = new Div();
-		logoContainer.setStyleClass("ui-g-4");
+		CSSGrid logoContainer = new CSSGrid(12, 6, 4);
+		logoContainer.addExtraClass("logo-container");
 		
 		GraphicImage logo = new GraphicImage("images", "LogoCommons.png", "LogoCommons");
 		logo.setStyleClass("main-logo");
@@ -41,17 +42,22 @@ public class Header extends Form {
 		
 		headerTop.add(0, logoContainer);
 		
-		Div searchSection = new Div();
-		searchSection.setStyleClass("ui-g-5");
+		CSSGrid searchSection = new CSSGrid(12, 7, 5);
+		searchSection.addExtraClass("search-input-container");
 		
 		Div searchInputInnerContainer = new Div();
 		searchInputInnerContainer.setStyleClass("search-input-inner-container");
 		
 		Input searchInput = new Input();
 		searchInput.setStyleClass("search-input");
+//		Label smartWaterMark = new Label();
+//		smartWaterMark.setForElement(searchInput.getIdValue());
+//		smartWaterMark.setValue("Search...");
+//		smartWaterMark.setStyleClass("smart-water-mark");
 		searchInput.setWatermark("Search...");
 		
 		searchInputInnerContainer.add(0, searchInput);
+//		searchInputInnerContainer.add(1, smartWaterMark);
 		
 		Div iconSearch = new Div();
 		iconSearch.setStyleClass("search-icon fa fa-search fa-2x");
@@ -60,8 +66,8 @@ public class Header extends Form {
 		searchSection.add(0, iconSearch);
 		headerTop.add(1, searchSection);
 		
-		Div notificationSection = new Div();
-		notificationSection.setStyleClass("ui-g-3 center-notification-section");
+		CSSGrid notificationSection = new CSSGrid(12, 6, 3);
+		notificationSection.addExtraClass("center-notification-section");
 		
 		Div notificationMenuContainer = new Div();
 		notificationMenuContainer.setStyleClass("notification-section");
@@ -75,7 +81,7 @@ public class Header extends Form {
 		
 		notificationMenuInnerContainer.add(0, notificationMenuIcon);
 		
-		MenuButton notificationMenu = new MenuButton("fa fa-bell fa-2x notification-menu");
+		MenuButton notificationMenu = new MenuButton("fa fa-bell fa-2x notification-menu faa-ring animated-hover");
 		
 		for(Integer i = 0; i < 3; i++){
 			MenuItem exampleNotification = new MenuItem();
@@ -94,7 +100,7 @@ public class Header extends Form {
 		Div notificationChatInnerContainer = new Div();
 		notificationChatInnerContainer.setStyleClass("notification-chat-inner-container");
 		
-		MenuButton chatMenu = new MenuButton("fa fa-comments fa-2x chat-menu");
+		MenuButton chatMenu = new MenuButton("fa fa-comments fa-2x chat-menu faa-float animated-hover");
 		
 		Label chatMenuIcon = new Label();
 		chatMenuIcon.setStyleClass("chat-menu-icon");
@@ -119,7 +125,7 @@ public class Header extends Form {
 		Div notificationConfigurationInnerContainer = new Div();
 		notificationConfigurationInnerContainer.setStyleClass("notification-configuration-inner-container");
 		
-		MenuButton configurationMenu = new MenuButton("fa fa-cog fa-2x configuration-menu");
+		MenuButton configurationMenu = new MenuButton("fa fa-cog fa-2x configuration-menu faa-spin animated-hover");
 		
 		Label configurationMenuIcon = new Label();
 		configurationMenuIcon.setStyleClass("configuration-menu-icon");
@@ -138,9 +144,9 @@ public class Header extends Form {
 		
 		configurationMenuContainer.add(0, notificationConfigurationInnerContainer);
 		
-		notificationSection.add(2, notificationMenuContainer);
+		notificationSection.add(0, notificationMenuContainer);
 		notificationSection.add(1, chatMenuContainer);
-		notificationSection.add(0, configurationMenuContainer);
+		notificationSection.add(2, configurationMenuContainer);
 		
 		headerTop.add(2, notificationSection);
 		headerTop.setStyleClass("header-top");	
