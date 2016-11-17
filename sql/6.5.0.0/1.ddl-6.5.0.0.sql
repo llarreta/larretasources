@@ -272,5 +272,18 @@ BEGIN
     dbms_output.put_line('El indice ADJUSTMENT_ELEMENTS_IDX02 ya existe');
   END IF;
   
+  -- INDICE
+  SELECT COUNT(*)
+  INTO v_count
+  FROM SYS.ALL_INDEXES
+  WHERE INDEX_NAME = 'WAREHOUSE_ELEMENTS_IDX3'
+  AND owner        = {{schema}} ;
+  
+  IF v_count       = 1 THEN
+  	EXECUTE immediate 'DROP INDEX WAREHOUSE_ELEMENTS_IDX3';
+  END IF;
+  
+  EXECUTE immediate 'create index WAREHOUSE_ELEMENTS_IDX3 on WAREHOUSE_ELEMENTS(RECORD_STATUS_ID,WAREHOUSE_ID,NOT_SER_ID,SER_ID)';
+  
   
 END;

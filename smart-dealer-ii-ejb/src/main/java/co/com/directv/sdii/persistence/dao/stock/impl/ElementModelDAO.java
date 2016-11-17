@@ -2,6 +2,7 @@ package co.com.directv.sdii.persistence.dao.stock.impl;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -17,10 +18,12 @@ import co.com.directv.sdii.common.util.UtilsBusiness;
 import co.com.directv.sdii.exceptions.DAOSQLException;
 import co.com.directv.sdii.exceptions.DAOServiceException;
 import co.com.directv.sdii.model.pojo.ElementModel;
+import co.com.directv.sdii.model.pojo.RecordStatus;
 import co.com.directv.sdii.model.pojo.collection.ElementModelResponse;
 import co.com.directv.sdii.model.pojo.collection.RequestCollectionInfo;
 import co.com.directv.sdii.persistence.dao.BaseDao;
 import co.com.directv.sdii.persistence.dao.stock.ElementModelDAOLocal;
+import co.com.directv.sdii.persistence.dao.stock.RecordStatusDAOLocal;
 
 /**
  * 
@@ -41,6 +44,8 @@ public class ElementModelDAO extends BaseDao implements ElementModelDAOLocal {
 
     private final static Logger log = UtilsBusiness.getLog4J(ElementModelDAO.class);
     
+	@EJB(name="RecordStatusDAOLocal", beanInterface=RecordStatusDAOLocal.class)
+	private RecordStatusDAOLocal recordStatusDao;
     
     
     /* (non-Javadoc)
@@ -574,30 +579,29 @@ public class ElementModelDAO extends BaseDao implements ElementModelDAOLocal {
         Session session = super.getSession();
         String strWhereOrAnd = " where ";
         boolean warehouseIdSpecified=false,elementModelIdSpecified=false;
-
+        long lRecorStatusId=0L;
         try {
 
 			StringBuffer stringQuery = new StringBuffer();
 			
 			if(warehouseId!=null && warehouseId.longValue() > 0) {
 				warehouseIdSpecified=true;
-				stringQuery.append("  select DISTINCT NVL(ems,emns) ");
-				stringQuery.append("  from WarehouseElement we inner join we.warehouseId w ");
-				stringQuery.append(" 				          left join we.notSerialized ns ");
-				stringQuery.append(" 				          left join ns.element ens ");
-				stringQuery.append(" 				          left join ens.elementType etns ");
-				stringQuery.append(" 				          left join etns.elementModel emns ");
-				stringQuery.append(" 				          left join we.serialized s ");
-				stringQuery.append(" 				          left join s.element es ");
-				stringQuery.append(" 				          left join es.elementType ets ");
-				stringQuery.append(" 				          left join ets.elementModel ems ");
-				stringQuery.append(" where w.id=:aWarehouseId ");
-				stringQuery.append(" and we.recordStatus.recordStatusCode = :recordStatus ");
-				strWhereOrAnd = " and ";
+				
+				stringQuery.append("SELECT DISTINCT elementmod5_.* FROM DBHSPCO.WAREHOUSE_ELEMENTS warehousee0_ ");
+				stringQuery.append(" INNER JOIN DBHSPCO.ELEMENTS element3_");
+				stringQuery.append(" ON ((WAREHOUSEE0_.SER_ID = ELEMENT3_.ID AND WAREHOUSEE0_.NOT_SER_ID is null) OR (WAREHOUSEE0_.NOT_SER_ID =ELEMENT3_.ID AND WAREHOUSEE0_.SER_ID is null ))");
+				stringQuery.append(" INNER JOIN DBHSPCO.ELEMENT_TYPES elementtyp4_ ON element3_.ELEMENT_TYPE_ID=elementtyp4_.ID");
+				stringQuery.append(" INNER JOIN DBHSPCO.ELEMENT_MODELS elementmod5_ ON elementtyp4_.ELEMENT_MODEL_ID=elementmod5_.ID");
+				stringQuery.append(" WHERE WAREHOUSEE0_.WAREHOUSE_ID = :aWarehouseId");
+				stringQuery.append(" AND WAREHOUSEE0_.RECORD_STATUS_ID= :recorStatusId");				
+				
+				//Obtenemos el ID del RecordStatus.
+				RecordStatus redordStatus = recordStatusDao.getRecordStatusByCode(CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity());
+				lRecorStatusId = redordStatus.getId();
+				
 				if(elementModelId!=null && elementModelId.longValue() > 0) {
 					elementModelIdSpecified = true;
-					stringQuery.append(strWhereOrAnd).append(" (emns.id=:aElementModelId or ems.id=:aElementModelId) ");
-					strWhereOrAnd = " and ";
+					stringQuery.append(" AND ELEMENTMOD5_.ID = :aElementModelId");
 				}
 			}else {
 				
@@ -610,14 +614,21 @@ public class ElementModelDAO extends BaseDao implements ElementModelDAOLocal {
 				}
 			}
 			
-			Query query = session.createQuery(stringQuery.toString());
+			Query query = null;
 			
-			if(elementModelIdSpecified)
+			if(warehouseIdSpecified){
+				query = session.createSQLQuery(stringQuery.toString()).addEntity(ElementModel.class);
+			}else{
+				query = session.createQuery(stringQuery.toString());
+			}
+			
+			if(elementModelIdSpecified){
 				query.setLong("aElementModelId", elementModelId);
+			}
             
 			if(warehouseIdSpecified){
 				query.setLong("aWarehouseId", warehouseId);
-				query.setString("recordStatus", CodesBusinessEntityEnum.RECORD_STATUS_LAST.getCodeEntity());
+				query.setLong("recorStatusId",lRecorStatusId);
 			}
             
 			return query.list();
