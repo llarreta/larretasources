@@ -18,7 +18,6 @@ public abstract class CommonsScreen extends Screen{
 
 	private static final Logger LOGGER = Logger.getLogger(CommonsScreen.class);
 	
-	public static final String DATA_VIEW_SELECTED = ScreenUtils.generateExpression("dataView.selected");
 	protected static final String DATA_VIEW = ScreenUtils.generateExpression("dataView");
 	protected static final String SELECTED = "selected";
 	

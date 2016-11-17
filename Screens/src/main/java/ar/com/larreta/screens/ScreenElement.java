@@ -38,6 +38,7 @@ import ar.com.larreta.screens.validators.Validator;
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class ScreenElement extends ar.com.larreta.commons.domain.Entity {
 
+	public static final String DATA_VIEW_SELECTED = ScreenUtils.generateExpression("dataView.selected");
 	public static final String TABLE_ELEMENT = ScreenUtils.generateExpression("tableElement");
 	public static final String CONTROLLER = ScreenUtils.generateExpression("controller");
 
