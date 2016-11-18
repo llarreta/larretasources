@@ -7,16 +7,17 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
-     <p:dataTable 	id="#{element.idValue}" widgetVar="#{element.idValue}Var"
-         selectionMode="#{element.selectionMode}"
-         rows="#{element.rows}"
-         paginator="#{element.paginator}" lazy="#{element.lazy}"
-         paginatorTemplate="#{element.paginatorTemplate}" first="#{element.valueEvaluated.lastFirst}"
-              	 rowsPerPageTemplate="#{element.rowsPerPageTemplate}" 
-	     emptyMessage="#{element.emptyMessage}"
-	     currentPageReportTemplate="#{element.currentPageReportTemplateEvaluated}"
- 				 var="tableElement"  selection="#{dataView.selected}"
-     	 value="#{element.valueEvaluated}"
+     <p:dataTable 	
+     				id="#{element.idValue}" 								widgetVar="#{element.idValue}Var"
+         			selectionMode="#{element.selectionMode}"
+         			rows="#{element.rows}"
+         			paginator="#{element.paginator}" 						lazy="#{element.lazy}"
+         			paginatorTemplate="#{element.paginatorTemplate}" 		first="#{element.valueEvaluated.lastFirst}"
+              	 	rowsPerPageTemplate="#{element.rowsPerPageTemplate}" 
+	     			emptyMessage="#{element.emptyMessage}"
+	     			currentPageReportTemplate="#{element.currentPageReportTemplateEvaluated}"
+ 				 	var="tableElement"  									selection="#{dataView.selected}"
+     	 			value="#{element.valueEvaluated}"
      >
         
     	<p:ajax event="page" 											onstart="#{element.onstart}"		oncomplete="#{element.oncomplete}"/>

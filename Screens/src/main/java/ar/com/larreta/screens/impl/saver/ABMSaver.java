@@ -1,6 +1,7 @@
 package ar.com.larreta.screens.impl.saver;
 
 import ar.com.larreta.commons.AppManager;
+import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.screens.impl.CommonsScreen;
 import ar.com.larreta.screens.impl.CreateScreen;
 import ar.com.larreta.screens.impl.MainScreen;
@@ -8,7 +9,7 @@ import ar.com.larreta.screens.impl.UpdateScreen;
 import ar.com.larreta.screens.services.ScreensService;
 import ar.com.larreta.screens.services.impl.ScreenServiceImpl;
 
-public abstract class ABMSaver {
+public abstract class ABMSaver extends AppObjectImpl{
 
 	protected MainScreen mainScreen;
 	protected CreateScreen createScreen;
@@ -43,15 +44,22 @@ public abstract class ABMSaver {
 	 * Guarda los screens que implementa
 	 */
 	public void save(){
-		save(mainScreen);
-		save(createScreen);
-		save(updateScreen);
+		save(mainScreen, "main");
+		save(createScreen, "create");
+		save(updateScreen, "update");
 	}
 
-	protected void save(CommonsScreen screen) {
+	protected void save(CommonsScreen screen, String operation) {
 		if (screen!=null){
-			screen.initialize();
-			getScreenService().saveOrUpdate(screen);
+			try {
+				screen.initialize();
+				getScreenService().saveOrUpdate(screen);
+				getLog().screen("Grabando " + operation + "(ID:" + screen.getId() + ") :" + screen.getEntityClass());
+			} catch (Exception e){
+				getLog().screenError("Ocurrio un error guardando la pantalla " + operation + "(ID:" + screen.getId() + ") :" + screen.getEntityClass(), e);
+			}
+		} else {
+			getLog().screen("No se grabo pantalla para:" + operation);
 		}
 	}
 	

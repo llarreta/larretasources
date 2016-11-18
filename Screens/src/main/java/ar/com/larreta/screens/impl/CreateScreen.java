@@ -68,7 +68,7 @@ public abstract class CreateScreen extends CommonsScreen {
 		return "Create";
 	}
 
-	protected void addNewBody(Integer columns) {
+	public void addNewBody(Integer columns) {
 		try {
 			body = new PanelGrid(columns);
 			form.add(index++, body);

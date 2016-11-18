@@ -200,11 +200,7 @@ public class StandardControllerImpl extends AppObjectImpl implements StandardCon
 		dataView.setController(this);
 		
 		assignEntityClass(flowRequestContext);
-		
-		/*if (entityClass!=null){
-			Paginator paginator = SessionUtils.getAuthentication().getInfo().getPaginator(entityClass);
-			dataView.setPaginator(paginator);
-		}*/
+
 	}
 
 	protected void assignEntityClass(RequestContext flowRequestContext) {

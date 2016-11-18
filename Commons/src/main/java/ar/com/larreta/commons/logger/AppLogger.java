@@ -16,6 +16,8 @@ public class AppLogger implements Serializable {
 	private static final String BD_INITIALIZER = "bdInitializeLogger";
 	private static final String ERROR = "errorLogger";
 	private static final String COPY = "copyLogger";
+	private static final String SAVE_THREAD = "saveThreadLogger";
+	private static final String SCREEN = "screenLogger";
 	
 	
 	private Logger commons;
@@ -24,6 +26,8 @@ public class AppLogger implements Serializable {
 	private Logger bdInitializerLogger = Logger.getLogger(BD_INITIALIZER);
 	private Logger errorLogger = Logger.getLogger(ERROR);
 	private Logger copyLogger = Logger.getLogger(COPY);
+	private Logger saveThreadLogger = Logger.getLogger(SAVE_THREAD);
+	private Logger screenLogger = Logger.getLogger(SCREEN);
 
 	public AppLogger(Class type) {
 		commons = Logger.getLogger(type);
@@ -67,6 +71,24 @@ public class AppLogger implements Serializable {
 		debug(message);
 		copyLogger.info(message);
 	}
+	
+	public void save(Object message) {
+		debug(message);
+		saveThreadLogger.info(message);
+	}
 
+	public void saveError(Object message, Throwable t) {
+		error(message, t);
+		saveThreadLogger.error(message, t);
+	}
 
+	public void screen(Object message) {
+		debug(message);
+		screenLogger.info(message);
+	}
+
+	public void screenError(Object message, Throwable t) {
+		error(message, t);
+		screenLogger.error(message, t);
+	}
 }

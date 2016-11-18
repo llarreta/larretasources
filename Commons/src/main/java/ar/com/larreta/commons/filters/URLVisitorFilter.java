@@ -11,12 +11,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import eu.bitwalker.useragentutils.UserAgent;
 import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObjectImpl;
 import ar.com.larreta.commons.domain.audit.VisitorStatistics;
+import ar.com.larreta.commons.logger.AppLogger;
 import ar.com.larreta.commons.threads.SaveThread;
 import ar.com.larreta.commons.utils.SessionUtils;
+import eu.bitwalker.useragentutils.UserAgent;
 
 public class URLVisitorFilter extends AppObjectImpl implements Filter {
 
@@ -25,30 +26,38 @@ public class URLVisitorFilter extends AppObjectImpl implements Filter {
 	public static final String EQUAL = "=";
 	public static final String PREFIX = "?";
 	
+	private static final AppLogger LOGGER = new AppLogger(URLVisitorFilter.class);
+	
 	
 	public void init(FilterConfig filterConfig) throws ServletException {
 		URLsManager.getInstance();
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		Boolean active = new Boolean(AppManager.getInstance().getAppConfigData().getProperty("visitor.statistics.avaiable"));
-		if (SessionUtils.getActualUser()!=null && active){
-			HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-			
-			String indexParam = httpServletRequest.getParameter(URLsManager.ACTUAL_INDEX);
-			
-			if (indexParam!=null){
-				Integer indexValue = new Integer(indexParam);
-				URLsManager.getInstance().setActualIndex(indexValue);
-			} else {
-				URLsManager.getInstance().putActualURL(httpServletRequest.getRequestURL().toString());
+		try {
+			Boolean active = new Boolean(AppManager.getInstance().getAppConfigData().getProperty("visitor.statistics.avaiable"));
+			if (SessionUtils.getActualUser()!=null && active){
+				HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+				
+				String indexParam = httpServletRequest.getParameter(URLsManager.ACTUAL_INDEX);
+				
+				if (indexParam!=null){
+					Integer indexValue = new Integer(indexParam);
+					URLsManager.getInstance().setActualIndex(indexValue);
+				} else {
+					URLsManager.getInstance().putActualURL(httpServletRequest.getRequestURL().toString());
+				}
+				
+				saveStatistics(httpServletRequest);
 			}
-			
-			saveStatistics(httpServletRequest);
+			chain.doFilter(request, response);
+		} catch (IOException e){
+			LOGGER.error("Ocurrio un error inesperado", e);
+			throw e;
+		} catch (ServletException e){
+			LOGGER.error("Ocurrio un error inesperado", e);
+			throw e;
 		}
-		chain.doFilter(request, response);
-		
-		
 	}
 
 	/**

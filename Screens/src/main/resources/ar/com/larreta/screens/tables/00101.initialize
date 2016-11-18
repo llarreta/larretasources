@@ -207,6 +207,12 @@ CREATE TABLE [SCHEMMA].input (
 	PRIMARY KEY (ID)
 );
 
+CREATE TABLE [SCHEMMA].calendar (
+	id BIGINT NOT NULL,
+	value VARCHAR(255),
+	PRIMARY KEY (ID)
+);
+
 CREATE TABLE [SCHEMMA].panelGrid (
 	id BIGINT NOT NULL,
 	columns VARCHAR(255),
@@ -379,6 +385,11 @@ REFERENCES [SCHEMMA].screenElement(id);
 
 ALTER TABLE [SCHEMMA].input
 ADD CONSTRAINT fk_screenElement_in_input
+FOREIGN KEY (id)
+REFERENCES [SCHEMMA].screenElement(id);
+
+ALTER TABLE [SCHEMMA].calendar
+ADD CONSTRAINT fk_screenElement_in_calendar
 FOREIGN KEY (id)
 REFERENCES [SCHEMMA].screenElement(id);
 

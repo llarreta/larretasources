@@ -33,6 +33,16 @@
 		<appender-ref ref="copyAppenderAsync" />
 	</logger>	
 
+	<logger name="saveThreadLogger">
+		<level value="DEBUG" />
+		<appender-ref ref="saveThreadAppenderAsync" />
+	</logger>	
+
+	<logger name="screenLogger">
+		<level value="DEBUG" />
+		<appender-ref ref="screenAppenderAsync" />
+	</logger>	
+	
 	<!-- Hibernate Loggers -->
 		<!-- Log all SQL DML statements as they are executed -->
 		<logger name="org.hibernate.SQL"  >
@@ -117,6 +127,12 @@
  	<appender name="copyAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
 	    <appender-ref ref="copyAppender" /> 
  	</appender>
+ 	<appender name="saveThreadAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="saveThreadAppender" /> 
+ 	</appender>
+ 	<appender name="screenAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="screenAppender" /> 
+ 	</appender> 	
 
 	<!-- Appenders -->
 	<appender class="org.apache.log4j.ConsoleAppender" name="consoleAppender">
@@ -201,5 +217,27 @@
             <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
         </layout>
     </appender>
+
+	<appender class="org.apache.log4j.RollingFileAppender" name="saveThreadAppender">
+        <param name="Append"				value="false" />
+        <param name="File"					value="\\log\\${contextPath}\\commons\\saveThread.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
+    
+	<appender class="org.apache.log4j.RollingFileAppender" name="screenAppender">
+        <param name="Append"				value="false" />
+        <param name="File"					value="\\log\\${contextPath}\\commons\\screen.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>    
         
 </log4j:configuration>

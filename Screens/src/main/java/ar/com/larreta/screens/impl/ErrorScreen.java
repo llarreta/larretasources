@@ -15,7 +15,6 @@ public class ErrorScreen extends CommonsScreen {
 
 	public ErrorScreen(){
 		super(null);
-		
 	}
 	
 	@Transient

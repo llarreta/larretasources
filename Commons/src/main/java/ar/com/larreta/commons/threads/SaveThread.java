@@ -89,6 +89,7 @@ public class SaveThread extends Thread {
 						if (getService()!=null){
 							entity = it.next();
 							entitiesPersisted.add(entity);
+							getLog().save("Grabando (ID:" + entity.getId() + ") :" + entity.getClass().getName());
 							getService().saveOrUpdate(entities);
 						}
 						// acotamos el intervalo o frecuencia de ejecucion de este thread
@@ -101,7 +102,7 @@ public class SaveThread extends Thread {
 				//Grabamos la info de lockeo
 				LockAppInitializer.writeLockApp(this);
 			} catch (Exception e){
-				getLog().error("Ocurrio un error al intentar almacenar (ID:" + entity.getId() + ") :" + entity.getClass().getName(), e);
+				getLog().saveError("Ocurrio un error al intentar almacenar (ID:" + entity.getId() + ") :" + entity.getClass().getName(), e);
 				// Se borra para q no siga ocurriendo el error
 				entities.remove(entity);
 			} finally {

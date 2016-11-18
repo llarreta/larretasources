@@ -67,8 +67,12 @@ public abstract class StandardContainer extends ScreenElement implements Contain
 
 	public void add(Integer orderIndex, ScreenElement element){
 		try {
-			containedElements.add(new ContainedElement(orderIndex, this, element));
-			searchMap.add(element);
+			if (element!=this){
+				containedElements.add(new ContainedElement(orderIndex, this, element));
+				searchMap.add(element);
+			} else {
+				LOGGER.info("No puede agregarse un elemento sobre si mismo:" + element.getClass().getName());
+			}
 		} catch (Exception e){
 			LOGGER.error("Ocurrio un error", e);
 		}
@@ -100,6 +104,18 @@ public abstract class StandardContainer extends ScreenElement implements Contain
 		input.addValidator(validator);
 		index = addLabel(index, labelText);
 		getTargetObject().add(index++, input);
+		return index;
+	}
+	
+	public Integer addCalendar(Integer index, String labelText, String dataViewSelectedProperty) {
+		return addCalendar(index, labelText, dataViewSelectedProperty, null);
+	}
+	
+	public Integer addCalendar(Integer index, String labelText, String dataViewSelectedProperty, Validator validator) {
+		Calendar calendar = new Calendar(DATA_VIEW_SELECTED, dataViewSelectedProperty);
+		calendar.addValidator(validator);
+		index = addLabel(index, labelText);
+		getTargetObject().add(index++, calendar);
 		return index;
 	}
 

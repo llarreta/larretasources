@@ -29,7 +29,6 @@ import ar.com.larreta.screens.FilterMatchMode;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Screen;
 import ar.com.larreta.screens.ScreenElement;
-import ar.com.larreta.screens.ScreenUtils;
 import ar.com.larreta.screens.Table;
 import ar.com.larreta.screens.exceptions.ScreenNotFoundException;
 import ar.com.larreta.screens.impl.ScreenListener;
@@ -97,6 +96,9 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 		try {
 			screen = (Screen) getService().getScreen(getScreenId(flowRequestContext));
 			flowRequestContext.getFlowScope().put(SCREEN_REF, screen); 
+			if (screen==null){
+				throw new ScreenNotFoundException();
+			}
 		} catch (Exception e){
 			getLog().error("Ocurrio un error", e);
 		}
@@ -107,10 +109,6 @@ public class ScreensControllerImpl extends StandardControllerImpl {
 	public void starting(RequestContext flowRequestContext) throws AppException {
 		assignScreen(flowRequestContext);
 		super.starting(flowRequestContext);
-		
-		if (screen==null){
-			throw new ScreenNotFoundException();
-		}
 		
 		screen.getSearchMap().recursiveFind(Form.class);
 		callListener(flowRequestContext, screen.getInitActionListener());
