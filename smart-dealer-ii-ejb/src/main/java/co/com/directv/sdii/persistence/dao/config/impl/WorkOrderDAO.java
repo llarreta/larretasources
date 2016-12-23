@@ -4698,7 +4698,7 @@ public class WorkOrderDAO extends BaseDao implements WorkOrderDAOLocal {
 		  queryBuffer.append("         NVL((select optimusStatus.DESCRIPTION    ");
 		  queryBuffer.append("               from OPTIMUS_STATUS optimusStatus");
 		  queryBuffer.append("               where optimusStatus.ID = w.OPTIMUS_STATUS_ID), ' ' ) optimusStatus ,");
-		  queryBuffer.append("         NVL((select reason.WORKORDER_REASON_NAME || '|' || wosh.STATUS_DATE    ");
+		  queryBuffer.append("         NVL((select reason.WORKORDER_REASON_NAME || '|' || TO_CHAR(wosh.STATUS_DATE,'dd/mm/yyyy hh:mi:ss am') ");
 		  queryBuffer.append("               from WORK_ORDER_STATUS_HISTORIES wosh, WORK_ORDER_REASONS reason");
 		  queryBuffer.append("               where wosh.WO_ID = w.id");
 		  queryBuffer.append("               AND wosh.WO_REASON_ID = reason.ID");

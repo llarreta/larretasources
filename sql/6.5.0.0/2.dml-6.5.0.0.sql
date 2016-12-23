@@ -120,5 +120,7 @@ update VEHICLES
 set plate = UPPER(replace(replace(replace(plate,'-',''),' ',''),'_',''))
 where STATUS_ID=1;
 	
+commit;
+
 end;
 /

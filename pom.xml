@@ -10,7 +10,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<project.version>6.5.0.0</project.version>
+		<project.version>6.5.0.0-SNAPSHOT</project.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 

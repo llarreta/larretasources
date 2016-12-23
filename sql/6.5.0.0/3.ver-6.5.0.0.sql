@@ -125,5 +125,7 @@ if (v_count >= 1) then
 	DBMS_OUTPUT.Put_line ('Se creo correctamente el indice ADJUSTMENT_ELEMENTS_IDX02');
 end if;
 
+commit;
+
 end;
 /

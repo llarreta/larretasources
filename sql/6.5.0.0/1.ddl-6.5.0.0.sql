@@ -36,7 +36,7 @@ BEGIN
     dbms_output.put_line('La tabla CREW_MODIFICATIONS ya existe');
   END IF;
 
-  --  
+  -- PRIMARY KEY 
   SELECT COUNT(*)
   INTO v_count
   FROM SYS.ALL_CONSTRAINTS
@@ -125,7 +125,7 @@ BEGIN
   INTO v_count
   FROM sys.all_tables
   WHERE table_name = 'WORK_ORDER_CREW_ATTENTIONS'
-  AND owner        = {{schema}};
+  AND owner        = '{{schema}}';
   
   IF v_count       = 0 THEN
     EXECUTE immediate 'CREATE TABLE WORK_ORDER_CREW_ATTENTIONS 
@@ -145,7 +145,21 @@ BEGIN
   ELSE
     dbms_output.put_line('La tabla WORK_ORDER_CREW_ATTENTIONS ya existe');
   END IF;
-
+ 
+  -- PRIMARY KEY
+  SELECT COUNT(*)
+  INTO v_count
+  FROM SYS.ALL_CONSTRAINTS
+  WHERE CONSTRAINT_NAME = 'WORK_ORDER_CREW_ATTENTIONS_PK'
+  AND owner        = '{{schema}}';
+  
+  IF v_count       = 0 THEN
+	EXECUTE immediate 'ALTER TABLE WORK_ORDER_CREW_ATTENTIONS ADD CONSTRAINT WORK_ORDER_CREW_ATTENTIONS_PK PRIMARY KEY (id) enable';
+    dbms_output.put_line('Se creo la constrain WORK_ORDER_CREW_ATTENTIONS_PK.');
+  ELSE
+    dbms_output.put_line('La constrain WORK_ORDER_CREW_ATTENTIONS_PK ya existe');
+  END IF;
+  
   --  SECUENCIA
   SELECT COUNT(*)
   INTO v_count
@@ -285,5 +299,6 @@ BEGIN
   
   EXECUTE immediate 'create index WAREHOUSE_ELEMENTS_IDX3 on WAREHOUSE_ELEMENTS(RECORD_STATUS_ID,WAREHOUSE_ID,NOT_SER_ID,SER_ID)';
   
-  
+commit; 
+
 END;
