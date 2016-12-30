@@ -2,6 +2,8 @@ package co.com.directv.sdii.ejb.business.stock.impl;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
@@ -45,6 +47,7 @@ public class FileProcessorQueueBusinessBean implements FileProcessorQueueBusines
 	private UploadFileVO uploadFileVOWorking;
 	
 	@Override
+	@TransactionAttribute(value = TransactionAttributeType.NOT_SUPPORTED)
 	public void processFile(UploadFileVO uploadFileVO) throws BusinessException{
 		
 		try{
