@@ -1,0 +1,66 @@
+html, body {
+    height: 100%;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+	
+}
+
+
+.main-body {
+    .container-fluid {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+
+ul {
+    padding: 0px;
+    list-style: none;
+}
+
+.pp-body-container, .au-body-container {
+    padding: 40px 0;
+}
+
+
+
+/* 5 cols for bootstrap */
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+@media (min-width: 768px) {
+.col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+/* end 5 cols for bootstrap */

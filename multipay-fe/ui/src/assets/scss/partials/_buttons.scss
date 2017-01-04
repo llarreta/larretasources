@@ -1,0 +1,269 @@
+a {
+    color: $dark-gray;
+
+    &:hover {
+        color: $brand-base-color;
+    }
+}
+
+.btn {}
+
+.btn-default {}
+
+.btn-primary {
+    padding: 10px 12px;
+    border: none;
+    background-color: $brand-base-color;
+    margin-right: 15px;
+    margin-left: 15px;
+    min-width: 186px;
+    color: white !important;
+    -webkit-appearance: none !important;
+
+    &:hover {
+        background-color: $brand-dark-color;
+    }
+
+    &:focus {
+        background-color: $brand-base-color;
+    }
+
+    &:active,
+    &:active:hover {
+        background-color: $brand-light-color;
+    }
+}
+
+.btn-primary-toggle {
+    background-image: url("../images/icons/btn-primary-arrow-down.png");
+    background-repeat: no-repeat;
+    background-position: right 11px top 9px;
+    padding-right: 10px 40px 10px 12px;
+
+    &:hover {
+        background-color: $brand-dark-color;
+    }
+
+    &:focus, &:active {
+        background-color: $brand-base-color;
+        background-image: url("../images/icons/btn-primary-arrow-down.png");
+        outline: none;
+    }
+
+    &.active {
+        background-color: $brand-base-color;
+        background-image: url("../images/icons/btn-primary-arrow-up.png");
+        box-shadow: none;
+
+        &:hover {
+            background-color: $brand-dark-color;
+        }
+
+        &:focus {
+            background-color: $brand-base-color;
+            outline: none;
+        }
+
+        &:active:focus,
+        &:active:hover {
+            background-color: $brand-light-color;
+            background-image: url("../images/icons/btn-primary-arrow-up.png");
+        }
+    }
+}
+
+.btn-secondary {
+    padding: 10px 12px;
+    border: 1px solid $brand-base-color;
+    color: $brand-base-color;
+    margin-right: 15px;
+    margin-left: 15px;
+    min-width: 186px;
+
+    &:hover {
+        border: 1px solid $dark-gray;
+        color: $dark-gray;
+    }
+
+    &:focus {}
+
+    &:active,
+    &:active:hover {}
+}
+
+.btn-action {
+    padding: 7px 7px;
+    border: none;
+    color: white;
+    margin-right: 15px;
+    margin-left: 15px;
+    background-color: $dark-gray;
+    min-width: 100px;
+
+    &:hover {
+        color: white;
+        background-color: black;
+    }
+
+    &:focus {}
+
+    &:active,
+    &:active:hover {}
+}
+
+.btn-download {
+    padding: 7px 14px;
+    border: none;
+    color: white;
+    margin-right: 15px;
+    margin-left: 15px;
+    background-color: $base-gray;
+    min-width: 100px;
+    text-transform: uppercase;
+
+    &:hover {
+        color: white;
+        background-color: black;
+    }
+
+    &:focus {}
+
+    &:active,
+    &:active:hover {}
+}
+
+.text-link {
+    color: $link-color;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.form__buttons--rounded {
+    height: 59px;
+    margin-bottom: 40px;
+    padding: 13px;
+
+    a {
+        margin-right: 5px;
+    }
+
+    &.on-tabs-button {
+        float: none;
+        margin-bottom: 0;
+        margin-top: -22px;
+        text-align: right;
+    }
+}
+
+.form__button--rounded-primary,
+.form__button--rounded-secondary {
+    width: 40px;
+    height: 40px;
+    background-color: $brand-base-color;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    border: 1px solid transparent;
+}
+
+.form__button--rounded-primary {
+    &.search {
+        background-image: url("../images/icons/btn-rounded-search.png");
+    }
+
+    &.download {
+        background-image: url("../images/icons/btn-rounded-download.png");
+    }
+
+    &.print {
+        background-image: url("../images/icons/btn-rounded-print.png");
+    }
+
+    &.delete {
+        background-image: url("../images/icons/btn-rounded-delete.png");
+    }
+
+    &:hover {
+        background-color: $brand-dark-color;
+    }
+}
+
+.form__button--rounded-secondary {
+    background-color: white;
+    border: 1px solid $brand-base-color;
+
+    &.add {
+        background-image: url("../images/icons/btn-rounded-add.png");
+
+        &:hover {
+            background-color: $brand-base-color;
+            background-image: url("../images/icons/btn-rounded-add-hover.png");
+        }
+    }
+
+    &.agenda {
+        background-image: url("../images/icons/btn-rounded-agenda.png");
+
+        &:hover {
+            background-color: $brand-base-color;
+            background-image: url("../images/icons/btn-rounded-agenda-hover.png");
+        }
+    }
+
+    &.agenda-add {
+        background-image: url("../images/icons/btn-rounded-agenda-add.png");
+
+        &:hover {
+            background-color: $brand-base-color;
+            background-image: url("../images/icons/btn-rounded-agenda-add-hover.png");
+        }
+    }
+}
+
+.table__button--deleteall {
+    background-image: url("../images/icons/btn-table-deleteall.png");
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 39px;
+    display: inline-block;
+}
+
+.table__button--delete {
+    background-image: url("../images/icons/btn-table-delete.png");
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 39px;
+    display: inline-block;
+}
+
+.table__button--attachment {
+    background-image: url("../images/icons/btn-table-attachment.png");
+    background-repeat: no-repeat;
+    width: 39px;
+    height: 39px;
+    display: inline-block;
+}
+
+.list-group.submenu {
+    position: relative;
+
+    .list-group-item:first-child,
+    .list-group-item:last-child {
+        border-radius: 0;
+    }
+
+    .list-group-item {
+        border: none;
+        background-color: $base-gray;
+        color: white;
+        text-transform: uppercase;
+
+        &:hover {
+            background-color: $dark-gray;
+        }
+    }
+}

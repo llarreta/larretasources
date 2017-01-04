@@ -1,0 +1,69 @@
+.navbar {
+    border-radius: 0px;
+    background-color: $dark-gray;
+    height: 60px;
+    margin-bottom: 0px;
+    padding: 0;
+
+    .container {
+        .navbar-header {
+            .navbar-brand {
+                padding: 10px 15px;
+            }
+        }
+
+        .navbar-collapse {
+                border: none;
+                background-color: $dark-gray;
+            .navbar-nav {
+                li {
+                    height: 100%;
+
+                    a {
+                        color: white;
+                        padding-top: 18px;
+                        padding-bottom: 15px;
+                        padding-left: 25px;
+                        padding-right: 25px;
+                        height: 100%;
+                        outline: none;
+
+                        &:hover, &.active {
+                            border-bottom: none;
+                            background-color: $brand-base-color;
+                        }
+                    }
+                }
+            }
+        }
+
+        .navbar-right {
+            position: absolute;
+            right: 95px;
+            top: -8;
+
+            li {
+                a {
+                    height: auto;
+                    padding-top: 0px;
+                    padding-bottom: 0px;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    margin: 12px -40;
+                    position: absolute;
+
+
+                    &:hover {
+                        border-bottom: none;
+                    }
+                }
+
+                .badge {
+                    position: absolute;
+                    margin: 10px -20px;
+                    background-color: $brand-base-color;
+                }
+            }
+        }
+    }
+}

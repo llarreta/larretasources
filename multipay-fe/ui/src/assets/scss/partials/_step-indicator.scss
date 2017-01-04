@@ -1,0 +1,87 @@
+.form-steps {
+    margin-bottom: 70px !important;
+}
+
+.step-indicator-container {
+	text-align: center;
+	margin: 0 auto;
+	width: 90%;
+}
+
+.step-indicator {
+    counter-reset: step;
+
+    li {
+        list-style-type: none;
+        float: left;
+        // display: inline-block;
+        font-size: 14px;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        color: $dark-gray;
+        font-family: $title-font-bold;
+
+        &:before {
+            width: 40px;
+            height: 40px;
+            content: counter(step);
+            counter-increment: step;
+            line-height: 34px;
+            border: 2px solid $light-gray;
+            background-color: $base-gray;
+            color: white;
+            display: block;
+            text-align: center;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            -webkit-box-shadow: 0px 0px 0px 15px rgba(255, 255, 255, 1);
+            -moz-box-shadow: 0px 0px 0px 15px rgba(255, 255, 255, 1);
+            box-shadow: 0px 0px 0px 15px rgba(255, 255, 255, 1);
+            font-size: 16px;
+            font-family: $title-font-bold;
+        }
+
+        &:after {
+            width: 100%;
+            height: 2px;
+            content: '';
+            position: absolute;
+            background-color: $light-gray;
+            top: 20px;
+            left: -50%;
+            z-index: -1;
+        }
+
+        &:first-child:after {
+            content: none;
+        }
+
+        &.active {
+            color: $brand-base-color;
+
+            &:before {
+                border-color: $brand-light-color;
+                background-color: $brand-base-color;
+                color: white;
+            }
+
+            & + li:after {
+                background-color: $light-gray;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    &.three-steps {
+    	li {
+    		width: 33%;
+    	}
+    }
+    &.four-steps {
+    	li {
+    		width: 25%;
+    	}
+    }
+}

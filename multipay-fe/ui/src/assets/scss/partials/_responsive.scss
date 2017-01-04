@@ -1,0 +1,70 @@
+// Extra small devices (portrait phones, less than 544px)
+// No media query since this is the default in Bootstrap
+
+// Small devices (landscape phones, 544px and up)
+@media (min-width: 544px) {
+    /*NavBar*/
+
+    .navbar {
+        .container {
+            .navbar-right {
+                position: absolute;
+                right: 25%;
+                top: -8;
+            }
+        }
+    }
+
+    /*Lista de Pagos Pendientes*/
+
+    .form__buttons--rounded.on-tabs-button {
+        float: right;
+        margin-top: -90px;
+    }
+
+    .nav-tabs {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+    /*NavBar*/
+
+    .navbar {
+        .container {
+            .navbar-header {
+                .navbar-brand {}
+            }
+
+            .navbar-collapse {
+                border: none;
+                background-color: transparent;
+
+                .navbar-nav {
+                    li {
+                        a {
+                            &:hover, &.active {
+                                border-bottom: 6px solid $brand-base-color;
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .navbar-right {
+                position: absolute;
+                right: 10%;
+                top: 0;
+            }
+        }
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {}

@@ -1,0 +1,345 @@
+.small-table-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    table {
+        width: 100%;
+
+        thead {
+            tr {
+                th, td {
+                    font-weight: normal;
+
+                    &:nth-last-child(2), &:nth-last-child(3), &:last-child {
+                        text-align: right;
+                    }
+
+                    span {
+                        font-size: 21px;
+                    }
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                th, td {
+                    background-color: $lighter-gray;
+                    border-top: 5px solid white;
+                    vertical-align: middle;
+
+                    &:nth-last-child(2), &:nth-last-child(3), &:last-child {
+                        text-align: right;
+                    }
+                }
+
+                &:first-child {
+                    th, td {
+                        border-top: 1px solid $light-gray;
+                    }
+                }
+            }
+        }
+
+        thead, tbody {
+            tr {
+                td {
+                    &:nth-last-child(2), &:last-child {
+                        width: 40px;
+                    }
+                }
+
+                th {
+                    &:first-child {
+                        width: 25px;
+                    }
+                }
+            }
+        }
+
+        .checkbox {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.base-table-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    table {
+        width: 100%;
+
+        thead {
+            tr {
+                th, td {
+                    font-weight: normal;
+                    font-size: 12px;
+                    font-weight: bold;
+
+                    &:nth-last-child(2), &:last-child {
+                        text-align: right;
+                    }
+
+                    &:nth-last-child(3) {
+                        text-align: center;
+                        width: 34px;
+                    }
+
+                    span {
+                        font-size: 21px;
+                    }
+                }
+
+                th:first-child {
+                    width: 40px;
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                th, td {
+                    vertical-align: middle;
+                    font-size: 12px;
+
+                    &:nth-last-child(2), &:last-child {
+                        text-align: right;
+                    }
+
+                    &:nth-last-child(3) {
+                        text-align: center;
+                    }
+
+                    .btn-action {
+                        margin-right: 0;
+                        margin-left: 0;
+                    }
+
+                    a.row-open, a.row-close {
+                        background-image: url("../images/icons/row-open.png");
+                        background-repeat: none;
+                        height: 10px;
+                        width: 17px;
+                        display: block;
+                        cursor: pointer;
+                    }
+
+                    a.row-close {
+                        background-image: url("../images/icons/row-close.png");
+                    }
+
+                    img.row-date-warning {
+                        margin-left: 10px;
+                    }
+
+                    .glyphicon-option-vertical {
+                        font-size: 21px;
+                        cursor: pointer;
+                    }
+
+                    .popover {
+                        border: none;
+                        padding: 0;
+                        border-radius: 0;
+
+                        .popover-content {
+                            padding: 0;
+                        }
+
+                        &.popover-left::before {
+                            border: none;
+                        }
+
+                        &.popover-left::after {
+                            border-left-color: $base-gray;
+                        }
+                    }
+                }
+
+                &:first-child {
+                    th, td {}
+                }
+            }
+
+            tr.row-details {
+                background-color: $lighter-light-gray;
+
+                td {
+                    text-align: left;
+                    padding: 0;
+
+                    label {
+                        text-decoration: uppercase;
+                    }
+
+                    p {
+                        color: $light-gray;
+                    }
+
+                    h4 {
+                        margin-bottom: 22px;
+
+                        &:first-child {
+                            margin-top: 20px;
+                        }
+                    }
+
+                    .form-group {
+                        padding-right: 0px;
+                        padding-left: 0px;
+                    }
+
+                    .row-details-history {
+                        background-color: $lighter-gray;
+                        float: left;
+                        width: 100%;
+
+                        ul {
+                            li.history-item {
+                                min-height: 110px;
+                                min-width: 220px;
+                                background-color: white;
+                                padding: 10px;
+                                border: 1px solid $base-gray;
+                                display: inline-block;
+                                margin-bottom: 5px;
+                                margin-right: 5px;
+
+                                &.default {
+                                    border-top: 4px solid $dark-gray;
+                                }
+
+                                &.info {
+                                    border-top: 4px solid $info-color;
+                                }
+
+                                &.warning {
+                                    border-top: 4px solid $warning-color;
+                                }
+
+                                &.success {
+                                    border-top: 4px solid $success-color;
+                                }
+
+                                &.error {
+                                    border-top: 4px solid $error-color;
+                                }
+
+                                div {
+                                    float: left;
+
+                                    .tooltip.in.tooltip-top {
+                                        color: $dark-gray;
+                                    }
+
+                                    &:nth-child(2) {
+                                        margin-left: 10px;
+
+                                        label {
+                                            margin-bottom: 0;
+                                            font-size: 12px;
+                                        }
+
+                                        p {
+                                            margin-bottom: 0;
+                                        }
+
+                                        ul {
+
+                                            li {
+                                                display: block;
+                                                height: 12px;
+
+                                                a.text-link {
+                                                    padding-bottom: 0;
+                                                    font-size: 10px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        thead, tbody {
+            tr {
+                td {}
+
+                th {}
+            }
+        }
+
+        .checkbox {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.pay-warning-true {
+    color: $error-color;
+
+    img {
+        display: inline-block;
+    }
+}
+
+.pay-warning-false {
+    color: $dark-gray;
+
+    img {
+        display: none;
+    }
+}
+
+.pay-status {
+    background-image: url("../images/icons/pay-status-empty.png");
+    background-repeat: no-repeat;
+    background-position: 0 4px;
+    min-width: 63px;
+    padding-top: 16px !important;
+    display: block;
+
+    &.pay-status-creado {
+        background-image: url("../images/icons/pay-status-created.png");
+        color: $dark-gray;
+    }
+
+    &.pay-status-aprobado {
+        background-image: url("../images/icons/pay-status-approved.png");
+        color: $warning-color;
+    }
+
+    &.pay-status-procesado {
+        background-image: url("../images/icons/pay-status-processed.png");
+        color: $info-color;
+    }
+
+    &.pay-status-liberado {
+        background-image: url("../images/icons/pay-status-released.png");
+        color: $success-color;
+    }
+}
+
+.pay-status-td {
+    min-width: 70px;
+}
+
+
+.table-order-arrows {
+    background-image: url("../images/icons/table-order-arrows.png");
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    border: none;
+    background-color: transparent;
+    margin-left: 5px;
+    background-position: 6px 3px;
+    vertical-align: middle;
+}

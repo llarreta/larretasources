@@ -1,0 +1,24 @@
+<input #input 
+       id="{{id}}"  
+       placeholder="{{placeholder}}" 
+       type="text" 
+       class="form-control input-list" 
+       [(ngModel)]="query"
+       (keyup)="filter($event)" 
+       style=" border: 0px solid;">
+
+<ul id="{{id}}-list-group" class="list-group group-list" 
+    *ngIf="filteredList.length > 0"
+     style="position:absolute;z-index:999">
+    
+    <li *ngFor="let item of filteredList; let i = index" 
+        #elem [attr.id]="i+1"
+        [class.active]="item.selected"  
+        (click)="selectItem(item)"
+        (mouseover)="showActiveItem($event, true);" 
+        (mouseout)="showActiveItem($event, false);"
+        class="list-group-item item-list">
+        {{ item.text }}
+    </li>
+</ul>
+<!--p *ngIf="selectedItem">Selected: {{ selectedItem | json }}</p-->

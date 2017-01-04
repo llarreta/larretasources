@@ -1,0 +1,15 @@
+<p *ngFor="let alert of alerts">
+  <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">
+		<div class="feedback-content">
+			<h3>Su lista está siendo procesada</h3>
+			<p><span>Nombre de lista</span> - $<span>40.000,00</span> - <span>8</span> items</p>
+		</div>
+		<div class="feedback-loading">
+			<div>
+				<h4>60%</h4>
+				<ngb-progressbar type="info" [value]="50"></ngb-progressbar>
+			</div>
+			<a href=""><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
+		</div>
+  </ngb-alert>
+</p>

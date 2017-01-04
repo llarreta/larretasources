@@ -1,0 +1,78 @@
+<form action="">
+	<div class="row form-title"><h2>Detalle de la lista</h2></div>
+	<div class="row form-body">
+		<div class="row">
+			<div class="form-group col-sm-4">
+				<label for="exampleInputEmail1">Empresa</label>
+				<p>Accenture</p>
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="exampleInputEmail1">Tipo de pago</label>
+				<p>Cheque</p>
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="exampleInputEmail1">Origen</label>
+				<p>$<span>00-00000000000000-00</span></p>
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="exampleInputEmail1">Sucursal de entrega</label>
+				<div ngbDropdown class="d-inline-block">
+					<button class="btn btn-outline-primary" id="pp-archivo-sucursal" ngbDropdownToggle>Sucursal de entrega</button>
+					<div class="dropdown-menu" aria-labelledby="pp-archivo-sucursal">
+						<button class="dropdown-item">Action - 1</button>
+						<button class="dropdown-item">Another Action</button>
+						<button class="dropdown-item">Something else is here</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-4">
+				<label for="exampleInputEmail1">Nombre de la lista</label>
+				<div ngbDropdown class="d-inline-block">
+					<button class="btn btn-outline-primary" id="pp-archivo-sucursal" ngbDropdownToggle>Nombre de la lista</button>
+					<div class="dropdown-menu" aria-labelledby="pp-archivo-sucursal">
+						<button class="dropdown-item">Action - 1</button>
+						<button class="dropdown-item">Another Action</button>
+						<button class="dropdown-item">Something else is here</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="exampleInputEmail1">Monto</label>
+				<p>$100000</p>
+			</div>
+			<div class="form-group col-sm-2">
+				<label for="exampleInputEmail1">Items</label>
+				<a href="" class="text-link">5</a>
+			</div>
+			<div class="form-group col-sm-2">
+				<label for="exampleInputEmail1">Errores</label>
+				<a href="" class="text-link">2</a>
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="exampleInputEmail1">Descripción (opcional)</label>
+				<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese el nombre completo">
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="exampleInputEmail1">Fecha de impresión</label>
+				<div class="input-group form__date-picker">
+					<input class="form-control" placeholder="yyyy-mm-dd" name="dp9" [(ngModel)]="newItem.EndTime"  ngbDatepicker #d9="ngbDatepicker">
+					<div class="input-group-addon" (click)="d9.toggle()" >
+						<i class="fa fa-calendar" aria-hidden="true"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row form-actions">
+		<div class="file-upload">
+			<a href="" class="btn btn-secondary">
+				Cancelar
+			</a>
+			<a href="" class="btn btn-primary">
+				Confirmar
+			</a>
+		</div>
+	</div>
+</form>

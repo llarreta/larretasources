@@ -1,0 +1,24 @@
+$brand-base-color: #dd0000;
+$brand-light-color: lighten($brand-base-color, 10%);
+$brand-dark-color: darken($brand-base-color, 10%);
+
+$dark-gray: #272426;
+$base-gray: #999999;
+$light-gray: #cccccc;
+$lighter-gray: #ededed;
+$lighter-light-gray: #f8f9f9;
+
+$info-color: #447FB0;
+$light-info-color: lighten($info-color, 50%);
+
+$warning-color: #dcad2a;
+$light-warning-color: lighten($warning-color, 40%);
+$dark-warning-color: darken($warning-color, 30%);
+
+$success-color: #80AF79;
+$light-success-color: lighten($success-color, 40%);
+
+$error-color: #C7202C;
+$light-error-color: lighten($error-color, 50%);
+
+$link-color: #33A2D5;

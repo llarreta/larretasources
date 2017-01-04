@@ -1,0 +1,132 @@
+.alert {
+    padding: 1px 15px 15px 15px;
+    margin-bottom: 20px;
+    border: none;
+    border-left: 10px solid transparent;
+    border-radius: 0px;
+    padding-left: 90px;
+    overflow: hidden;
+
+    .feedback-content {
+        width: 60%;
+        float: left;
+
+        h3 {
+            margin-bottom: 4px;
+        }
+    }
+
+    .feedback-content-right {
+        float: right;
+        width: 30%;
+        margin: 35px 25px 0 0;
+        text-align: right;
+
+        a {}
+    }
+
+    button {
+        margin: 36px 16px 0 0;
+        float: right;
+    }
+}
+
+.alert-info {
+    color: $info-color;
+    background-color: $light-info-color;
+    border-left-color: $info-color;
+    background-image: url("../images/icons/icon-feedback-info.png");
+    background-repeat: no-repeat;
+    background-position: 15px 20px;
+
+    .feedback-content {
+        width: 50%;
+
+        h3 {
+            color: $info-color;
+        }
+        p {
+            color: $info-color;
+        }
+    }
+
+    .feedback-loading {
+        width: 40%;
+        float: left;
+        margin-top: 20px;
+
+        & > div {
+            width: 60%;
+            float: left;
+
+            h4 {
+                float: right;
+            }
+        }
+
+        a {
+            margin-top: 21px;
+            float: left;
+            margin-left: 10px;
+            font-size: x-large;
+            color: $info-color;
+        }
+    }
+}
+
+.alert-success {
+    color: $success-color;
+    background-color: $light-success-color;
+    border-left-color: $success-color;
+    background-image: url("../images/icons/icon-feedback-success.png");
+    background-repeat: no-repeat;
+    background-position: 15px 20px;
+
+    .feedback-content {
+
+        h3 {
+            color: $success-color;
+        }
+        p {
+            color: $success-color;
+        }
+    }
+}
+
+.alert-warning {
+    color: $dark-warning-color;
+    background-color: $light-warning-color;
+    border-left-color: $dark-warning-color;
+    background-image: url("../images/icons/icon-feedback-warning.png");
+    background-repeat: no-repeat;
+    background-position: 15px 20px;
+
+    .feedback-content {
+
+        h3 {
+            color: $dark-warning-color;
+        }
+        p {
+            color: $dark-warning-color;
+        }
+    }
+}
+
+.alert-danger {
+    color: $error-color;
+    background-color: $light-error-color;
+    border-left-color: $error-color;
+    background-image: url("../images/icons/icon-feedback-error.png");
+    background-repeat: no-repeat;
+    background-position: 15px 20px;
+
+    .feedback-content {
+
+        h3 {
+            color: $error-color;
+        }
+        p {
+            color: $error-color;
+        }
+    }
+}

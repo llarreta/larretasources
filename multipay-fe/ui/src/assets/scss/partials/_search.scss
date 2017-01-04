@@ -1,0 +1,150 @@
+.card-search {
+    border: none !important;
+    padding: 0;
+    .advanced-search {
+        padding: 0!important;
+        margin: 0!important;
+        ;
+        background: $lighter-gray;
+        position: relative;
+        .arrow-up {
+            position: absolute;
+            top: -10px;
+            right: 110px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid $lighter-gray;
+        }
+        form {
+            margin: 0!important;
+            padding: 0!important;
+            .row {
+                margin: 0!important;
+                padding: 8px 0!important;
+                div {
+                    margin: 0!important;
+                    padding: 0!important;
+                    vertical-align: middle !important;
+                    &.option-close-advanced {
+                        display: inline-block;
+                        height: 30px;
+                        line-height: 32px;
+                        .option-links-search {
+                            vertical-align: middle;
+                            display: inline-block;
+                            line-height: normal !important;
+                            padding: 0;
+                            margin: 0;
+                            cursor: pointer;
+                            .icon-close-search {
+                                width: 13px;
+                                height: 13px;
+                                display: block;
+                                background: url(../images/icons/icon-close-search.png) no-repeat;
+                                margin-left: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+            .form-group {
+                height: auto !important;
+                .input_search {
+                    border: none !important;
+                    background: $lighter-gray;
+                    font-size: 14px;
+                    margin: 0 !important;
+                    padding: 0 0 0 40px !important;
+                    background: url("../images/icons/icon-search.png");
+                    background-repeat: no-repeat;
+                    background-position: 8px center;
+                }
+            }
+        }
+    }
+}
+
+.form-advanced-search {
+    margin: 4px 0 0 0;
+    padding: 0 30px 20px 30px;
+    background: $lighter-gray;
+    .row {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .form-group {
+        margin: 0 0 15px 0;
+        padding: 10px 20px;
+        vertical-align: top;
+        div {
+            margin: 0;
+            padding: 0;
+            min-height: 34px;
+        }
+    }
+    h3 {
+        font-size: 12px;
+        font-weight: bold;
+    }
+    span {
+        font-size: 12px;
+        font-weight: bold;
+        color: $base-gray;
+        line-height: 32px;
+    }
+    input {
+        background: transparent;
+        &:hover,
+        &:focus,
+        &:active,
+        &:active:focus,
+        &:hover:active {
+            background-color: transparent;
+            border-color: transparent;
+            border-bottom: 1px solid $light-gray;
+            color: $brand-base-color;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    }
+}
+
+.search-filter {
+    display: block;
+    margin: 16px 0;
+    li {
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 6px;
+        padding: 3px 10px 3px 12px;
+        background: $link-color;
+        color: #FFF;
+        font-size: 11px;
+        border-radius: 20px;
+        -moz-border-radius: 20px;
+        -webkit-border-radius: 20px;
+        .icons-close-filter {
+            vertical-align: middle;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        &.remove-all-filters {
+            background: none;
+            margin-left: 14px !important;
+            a {
+                color: $link-color;
+                text-decoration: none;
+                span {
+                    vertical-align: middle;
+                    width: 16px;
+                    height: 16px;
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

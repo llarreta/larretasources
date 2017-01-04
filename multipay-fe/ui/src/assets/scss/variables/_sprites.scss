@@ -1,0 +1,7 @@
+@import "compass/css3";
+
+@import "compass/utilities/sprites";
+
+@import "../images/icons/*.png";
+
+@include all-icons-sprites; 

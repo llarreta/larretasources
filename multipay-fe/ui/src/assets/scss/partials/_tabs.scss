@@ -1,0 +1,10 @@
+ul.nav.nav-tabs {
+	li.nav-item {
+		a {
+			border-radius: 0;
+			&.active {
+				border-top: 3px solid $link-color;
+			}
+		}
+	}
+}
