@@ -1,8 +1,11 @@
 package ar.com.larreta.commons.views;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+
+import org.aspectj.apache.bcel.classfile.Modifiers;
 
 import ar.com.larreta.commons.AppManager;
 import ar.com.larreta.commons.AppObjectImpl;
@@ -100,7 +103,8 @@ public class DataView extends AppObjectImpl {
 	
 	public Entity newSelected(){
 		try {
-			if ((controller!=null) && (controller.getEntityClass()!=null)) {
+			if ((controller!=null) && (controller.getEntityClass()!=null) 
+					&& !Modifier.isAbstract(controller.getEntityClass().getModifiers())) {
 				return (Entity) controller.getEntityClass().newInstance();
 			}
 		} catch (Exception e) {

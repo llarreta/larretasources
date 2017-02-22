@@ -8,15 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.component.UIInput;
 import javax.faces.event.FacesEvent;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -48,6 +45,15 @@ public abstract class ListSelector extends ContainerValued {
 		List<ListSelectorItem> ordererElements = new ArrayList<ListSelectorItem>(getIndividualItems());
 		Collections.sort(ordererElements, new Comparator<ListSelectorItem>() {
 			public int compare(ListSelectorItem elementA, ListSelectorItem elementB) {
+				if (elementA==null&&elementB==null){
+					return 0;
+				}
+				if (elementA!=null && elementB==null){
+					return 1;
+				}
+				if (elementA.getOrder()==null){
+					return -1;
+				}
 				return elementA.getOrder().compareTo(elementB.getOrder());
 			}
 		});

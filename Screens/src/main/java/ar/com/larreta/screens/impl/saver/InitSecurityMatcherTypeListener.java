@@ -3,6 +3,7 @@ package ar.com.larreta.screens.impl.saver;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.webflow.execution.RequestContext;
 
 import ar.com.larreta.commons.AppObjectImpl;
@@ -28,10 +29,17 @@ public class InitSecurityMatcherTypeListener extends AppObjectImpl implements Sc
 			SecurityMatcher securityMatcher = (SecurityMatcher) controller.getDataView().getSelected();
 			Screen screen = screensControllerImpl.getScreen();
 			
-			Collection securities = controller.getService().load(Security.class);
-			securityMatcher.setSecurity((Security) securities.iterator().next());
+			String value = null;
 			
-			String value = securityMatcher.getSecurityMatcherType();
+			if (securityMatcher!=null){
+				Collection securities = controller.getService().load(Security.class);
+				securityMatcher.setSecurity((Security) securities.iterator().next());
+				value = securityMatcher.getSecurityMatcherType();
+			} else {
+				SecurityMatcher aux = new AuthenticatedSecurityMatcher();
+				aux.setSecurityMatcherType(StringUtils.EMPTY);
+				controller.getDataView().setSelected(aux);
+			}
 			
 			PanelGrid panelPermitAll = null;
 			PanelGrid panelRoles = null;

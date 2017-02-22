@@ -8,7 +8,7 @@ import ar.com.larreta.commons.controllers.Paginator;
 
 public class SessionInfo extends AppObjectImpl {
 
-	private Map<Class, Paginator> paginators = new HashMap<>();
+	private Map<Class, Paginator> paginators = new HashMap<Class, Paginator>();
 	
 	public Paginator getPaginator(Class type){
 		Paginator paginator = null;

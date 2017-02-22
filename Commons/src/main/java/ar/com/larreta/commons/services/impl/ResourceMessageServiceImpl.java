@@ -89,16 +89,16 @@ public class ResourceMessageServiceImpl extends LocaleServiceImpl implements Res
 
 	private Map<String, String> getMessageCache(String country, String language) {
 		if (messages==null){
-			messages = new HashMap<>();
+			messages = new HashMap();
 		}
 		Map<String, Map<String, String>> messagesFromCountries =  messages.get(country);
 		if (messagesFromCountries==null){
-			messagesFromCountries = new HashMap<>();
+			messagesFromCountries = new HashMap();
 			messages.put(country, messagesFromCountries);
 		}
 		 Map<String, String> messagesFromLanguage = messagesFromCountries.get(language);
 		 if (messagesFromLanguage==null){
-			 messagesFromLanguage = new HashMap<>();
+			 messagesFromLanguage = new HashMap();
 			 messagesFromCountries.put(language, messagesFromLanguage);
 		 }
 		return messagesFromLanguage;

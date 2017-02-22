@@ -181,7 +181,7 @@ public class Paginator extends LazyDataModel<Entity> implements AppObject {
 
 	private Map<String, Object> putFilters(Map<String, Object> filters) {
 		if (filters==null){
-			filters = new HashMap<>();
+			filters = new HashMap<String, Object>();
 		}
 		filters.putAll(this.filters);
 		filters.remove("bindingProperty");

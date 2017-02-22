@@ -3,6 +3,8 @@ package ar.com.larreta.screens.impl.saver;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.FacesEvent;
 
+import org.apache.commons.lang3.StringUtils;
+
 import ar.com.larreta.commons.controllers.StandardController;
 import ar.com.larreta.commons.domain.AuthenticatedSecurityMatcher;
 import ar.com.larreta.commons.domain.PermitAllSecurityMatcher;
@@ -23,11 +25,16 @@ public class SecurityMatcherTypeListener implements ListSelectorListener {
 		Screen screen = screensControllerImpl.getScreen();
 		
 		AjaxBehaviorEvent event = (AjaxBehaviorEvent) facesEvent;
-		
+
 		SecurityMatcher old = (SecurityMatcher) controller.getDataView().getSelected();
 		SecurityMatcher newSecurityMatcher = null;
 		
-		String value = old.getType();
+		String value = StringUtils.EMPTY;
+		if (old!=null){
+			value = old.getType();
+		} else {
+			controller.getDataView().setSelected(new AuthenticatedSecurityMatcher());
+		}
 		
 		PanelGrid panelPermitAll = (PanelGrid) screen.getSearchMap().recursiveFind(new Long((String)ScreenUtils.getEventAttribute(facesEvent, SecurityMatcherSaver.PANEL_PERMIT_ALL_ID)));
 		PanelGrid panelRoles = (PanelGrid) screen.getSearchMap().recursiveFind(new Long((String)ScreenUtils.getEventAttribute(facesEvent, SecurityMatcherSaver.PANEL_ROLES_ID)));

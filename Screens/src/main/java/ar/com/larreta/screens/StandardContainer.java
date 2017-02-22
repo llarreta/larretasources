@@ -155,7 +155,7 @@ public abstract class StandardContainer extends ScreenElement implements Contain
 		comboBox.setEntityType(entityType);
 		comboBox.setLazyProperties(lazyProperties);
 		
-		comboBox.addItem(getVoidItem());
+		comboBox.addVoidItem();
 		
 		getTargetObject().add(index++, comboBox);
 		return index;
@@ -219,13 +219,5 @@ public abstract class StandardContainer extends ScreenElement implements Contain
 	
 	public void preAddMultibox(){}
 	public void postAddMultibox(){}
-
-	@Transient
-	protected ListSelectorItem getVoidItem() {
-		ListSelectorItem item = new ListSelectorItem();
-		item.setItemLabel(ScreenUtils.generateMessage("app.selection.void"));
-		item.setNoSelectionOption(Boolean.TRUE.toString());
-		return item;
-	}
 	
 }

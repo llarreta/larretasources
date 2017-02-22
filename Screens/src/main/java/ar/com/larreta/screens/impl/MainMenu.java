@@ -51,17 +51,17 @@ public class MainMenu extends MenuBar {
 		security.add(0, new MenuItem("app.security", APP_SCREEN_URL + screenConstantIds.getIdentifier(Security.class.getSimpleName() + "Update"), MENU_ITEM_DEFAULT_STYLE));
 		security.add(1, new MenuItem("app.securityMatcher", APP_SCREEN_URL + getMainScreenClass(SecurityMatcher.class), MENU_ITEM_DEFAULT_STYLE));
 		
-		SubMenu root = new SubMenu("app.root", "");
-		root.add(0, new MenuItem("app.stylesheet", APP_SCREEN_URL + screenConstantIds.getIdentifier(StyleSheet.class.getSimpleName() + "Update"), MENU_ITEM_DEFAULT_STYLE));
+		//SubMenu root = new SubMenu("app.root", "");
+		//root.add(0, new MenuItem("app.stylesheet", APP_SCREEN_URL + screenConstantIds.getIdentifier(StyleSheet.class.getSimpleName() + "Update"), MENU_ITEM_DEFAULT_STYLE));
 		
 		SubMenu preferences = new SubMenu("app.preferences", "");
 		preferences.add(0, general);
 		preferences.add(1, users);
 		preferences.add(2, security);
-		preferences.add(3, root);
+		//preferences.add(3, root);
 		
 		add(index++, preferences);
-		add(index++, new MenuItem("app.message", APP_SCREEN_URL + getMainScreenClass(Message.class), MENU_ITEM_DEFAULT_STYLE));
+		//add(index++, new MenuItem("app.message", APP_SCREEN_URL + getMainScreenClass(Message.class), MENU_ITEM_DEFAULT_STYLE));
 	}
 
 	@Override

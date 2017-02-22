@@ -116,6 +116,7 @@ public class SecurityMatcherSaver extends ABMSaver {
 		ComboBox comboBox = new ComboBox();
 		comboBox.setBindingObject(createScreen.DATA_VIEW_SELECTED);
 		comboBox.setBindingProperty("securityMatcherType");
+
 		comboBox.addItem(getComboBoxItem(comboBox, AuthenticatedSecurityMatcher.AUTHENTICATED, "securityMatcher.authenticated", 1));
 		comboBox.addItem(getComboBoxItem(comboBox, PermitAllSecurityMatcher.PERMIT_ALL, "securityMatcher.permitAll", 2));
 		comboBox.addItem(getComboBoxItem(comboBox, RolesSecurityMatcher.ROLES, "securityMatcher.roles", 3));
