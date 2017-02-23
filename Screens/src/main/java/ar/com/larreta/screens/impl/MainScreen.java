@@ -11,7 +11,6 @@ import ar.com.larreta.screens.Column;
 import ar.com.larreta.screens.Confirm;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Label;
-import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.PropertyActionListener;
 import ar.com.larreta.screens.ScreenElement;
 import ar.com.larreta.screens.ScreenUtils;
@@ -110,20 +109,21 @@ public abstract class MainScreen extends CommonsScreen {
 	public Column getColumnWithButtons(String update){
 		Column column = new Column();
 		
-		PanelGrid panelGrid = new PanelGrid();
-		panelGrid.setColumns("2");
-		
-		SubmitButton updateButton = new SubmitButton("update", "ui-icon-pencil", "app.modify", getUpdateScreenId());
+		SubmitButton updateButton = new SubmitButton();
+		updateButton.setAction("update");
+		updateButton.setIcon("fa fa-pencil");
+		updateButton.setNextScreenId(getUpdateScreenId());
 		updateButton.setInmediate(Boolean.TRUE);
+		updateButton.setStyleClass("update-button-table");
 		updateButton.add(new PropertyActionListener(DATA_VIEW, SELECTED, TABLE_ELEMENT));
 		
 		AjaxButton deleteButton = new AjaxButton();
 		deleteButton.setActionListenerObject(CONTROLLER);
 		deleteButton.setActionListenerMethod(DELETE);
-		deleteButton.setIcon("ui-icon-trash");
-		deleteButton.setValue("app.delete");
+		deleteButton.setIcon("fa fa-trash");
 		deleteButton.setInmediate(Boolean.TRUE);
 		deleteButton.setUpdate(update);
+		deleteButton.setStyleClass("delete-button-table");
 		
 		Attribute attribute = new Attribute();
 		attribute.setBindingObject(TABLE_ELEMENT);
@@ -135,15 +135,10 @@ public abstract class MainScreen extends CommonsScreen {
 		
 		deleteButton.add(attribute);
 		
-		panelGrid.add(0, updateButton);
-		addDeleteButton(panelGrid, deleteButton);
-		column.add(panelGrid);
+		column.add(0, updateButton);
+		column.add(1, deleteButton);
 		
 		return column;	
-	}
-
-	protected void addDeleteButton(PanelGrid panelGrid, AjaxButton deleteButton) {
-		panelGrid.add(1, deleteButton);
 	}
 
 	protected Confirm getConfirm() {

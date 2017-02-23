@@ -71,7 +71,7 @@ public abstract class CommonsScreen extends Screen{
 		CSSGrid bodyRow = new CSSGrid(true);
 		bodyRow.add(1, getBody());
 		
-		AjaxButton showHideMenuLeft = new AjaxButton();
+//		AjaxButton showHideMenuLeft = new AjaxButton();
 		
 		/**Este tipo de cosas podrian ser reemplazadas por
 			
@@ -91,10 +91,10 @@ public abstract class CommonsScreen extends Screen{
 			showHideMenuLeft.setIcon(Icon.CHEVRON_RIGHT, Icon.SIZE_4);
 			showHideMenuLeft.setIcon(Icon.CHEVRON_RIGHT, Icon.SIZE_5); 
 		*/
-		showHideMenuLeft.setIcon("fa fa-bars");
-		showHideMenuLeft.setStyleClass("button-menu-left");
-		showHideMenuLeft.setOnclick("showHideMenuLeft()");
-		bodyRow.add(0, showHideMenuLeft);
+//		showHideMenuLeft.setIcon("fa fa-bars");
+//		showHideMenuLeft.setStyleClass("button-menu-left");
+//		showHideMenuLeft.setOnclick("showHideMenuLeft()");
+//		bodyRow.add(0, showHideMenuLeft);
 		
 		bodyContainer.add(0, bodyRow);
 		

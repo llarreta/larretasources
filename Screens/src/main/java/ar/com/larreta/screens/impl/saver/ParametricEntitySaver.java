@@ -21,7 +21,7 @@ public abstract class ParametricEntitySaver extends ABMSaver {
 	}
 	
 	protected void makeColumn(MainScreen screen){
-		screen.getTable().addColumn(0, screen.getColumnWithContainsFilter(DESCRIPTION, 	APP_DESCRIPTION, 		TABLE_ELEMENT_DESCRIPTION, 	WIDTH));
+		screen.getTable().addColumn(0, screen.getColumnWithContainsFilter(DESCRIPTION, 	APP_DESCRIPTION, TABLE_ELEMENT_DESCRIPTION,	WIDTH));
 	}
 
 }
