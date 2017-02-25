@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.screens.AjaxButton;
 import ar.com.larreta.screens.Attribute;
+import ar.com.larreta.screens.CSSGrid;
 import ar.com.larreta.screens.Column;
 import ar.com.larreta.screens.Confirm;
 import ar.com.larreta.screens.Form;
@@ -44,12 +45,15 @@ public abstract class MainScreen extends CommonsScreen {
 	@Override
 	public ScreenElement getBody() {
 		Form form = new Form();
-
-		form.add(0, new Label(getEntityClassShortName() + "." + getTitleAction() + ".Title"));
+		Label title = new Label(getEntityClassShortName() + "." + getTitleAction() + ".Title");
+		title.setStyleClass("mainScreen-title");
+		form.add(0, title);
 		
+		CSSGrid cssGrid = new CSSGrid(12);
 		table = new Table();
 		table.setId(screenConstantIds.getIdentifier(getEntityClassShortName() + "MainTable"));
-		form.add(1, table);
+		cssGrid.add(0, table);
+		form.add(2, cssGrid);
 		
 		makeColumns();
 	
@@ -65,7 +69,14 @@ public abstract class MainScreen extends CommonsScreen {
 	}
 	
 	protected void putCreateButton(Form form) {
-		form.add(2, new SubmitButton("create", "ui-icon-plusthick", "app.create", getCreateScreenId()));
+		CSSGrid cssGrid = new CSSGrid(12);
+		SubmitButton createButton = new SubmitButton();
+		createButton.setAction("create");
+		createButton.setIcon("fa fa-plus");
+		createButton.setNextScreenId(getCreateScreenId());
+		createButton.setStyleClass("create-button");
+		cssGrid.add(0, createButton);
+		form.add(1, cssGrid);
 	}
 
 	protected abstract void makeColumns();
@@ -108,6 +119,8 @@ public abstract class MainScreen extends CommonsScreen {
 	@Transient
 	public Column getColumnWithButtons(String update){
 		Column column = new Column();
+//		column.setStyleClass("table-buttons-default");
+		column.setWidth("40");
 		
 		SubmitButton updateButton = new SubmitButton();
 		updateButton.setAction("update");

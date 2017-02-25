@@ -5,6 +5,10 @@
     font-family: Roboto;
     src: url(fonts/roboto/Roboto-Regular.ttf);
 }
+@font-face {
+    font-family: Gustan;
+    src: url(fonts/Gustan/GustanBold-Regular.ttf);
+}
 body {
    overflow-x: hidden;
    margin: 0px;
@@ -295,10 +299,35 @@ body .ui-datatable tbody tr td {
 		    transition: all 0.2s ease-in-out;
 		}
 		body .ui-datatable tbody tr.ui-datatable-even.ui-state-hover {
-		    background-color: #e8e8e8;
+		    background-color: #ccc;
 		    color: #000000;
 		    box-shadow: none;
 		}
+		tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable:hover {
+		    background-color: #ccc;
+		    color: #000000;
+		    box-shadow: none;
+		}
+		tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-highlight {
+		    background-color: rgba(63, 81, 181, 0.37);
+		    transition: box-shadow 0.2s;
+		}
+		tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-highlight:hover {
+		    color: white;
+		    box-shadow: inset 0px 0px 20px 2px #3f51b5;
+		}
+		tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable.ui-state-highlight {
+		    background-color: rgba(167, 16, 112, 0.23);
+		    transition: box-shadow 0.2s;
+		}
+		tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable.ui-state-highlight:hover {
+		    color: white;
+		    box-shadow: inset 0px 0px 20px 2px rgba(167, 16, 112, 0.63);
+		}
+		tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable {
+		    background-color: #edebeb;
+		}
+		
 		body.layout-compact .ui-datatable tbody tr.ui-widget-content td {
 		    padding: 6px 10px;
 		}
@@ -364,6 +393,8 @@ span.ui-icon.ui-icon-triangle-1-e{
 
 .body-container {
     margin: .5em;
+    width: 98%;
+    margin-left: 20px;
 }
 
 /***************
@@ -834,7 +865,7 @@ a.ui-menuitem-link.ui-corner-all {
     box-sizing: border-box;
 }
 
-.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.update-button-table{
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.update-button-table {
     width: 20px;
     height: 100%;
     background: none;
@@ -843,8 +874,12 @@ a.ui-menuitem-link.ui-corner-all {
     color: #6f7ed6;
     font-size: 20px;
     text-align: center;
-    margin-left: 20px;
+    margin-left: 14px;
+    transition: color 0.2s;
     text-shadow: 1px 1px 1px rgba(128, 128, 128, 0.55);
+}
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.update-button-table:hover {
+    color: #9aa4de;
 }
 .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.delete-button-table{
 	width: 20px;
@@ -857,4 +892,66 @@ a.ui-menuitem-link.ui-corner-all {
     text-align: center;
     margin-left: 20px;
     text-shadow: 1px 1px 1px rgba(128, 128, 128, 0.55);
+    transition: color 0.2s;
 }
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.delete-button-table:hover {
+    color: #e2630b;
+}
+.ui-datatable .ui-sortable-column-icon.ui-icon {
+    background-image: none; 
+    text-indent: 0; 
+    margin: 0 0 0 .5em;
+}
+.ui-outputlabel.ui-widget.mainScreen-title {
+    font-family: Gustan;
+    font-size: 34px;
+    margin-top: 20px;
+    display: flex;
+    margin-bottom: 25px;
+    text-shadow: 0px 1px 5px grey;
+}
+.create-button {
+    float: right;
+    margin-right: 30px;
+    border-radius: 80px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    background-color: #59de9a;
+    color: white;
+    border: none;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.55);
+    font-size: 25px;
+    box-shadow: 1px 1px 4px 2px #C4C4C9;
+    transition: color 0.2s, box-shadow 0.2s;
+}
+.create-button:hover {
+    box-shadow: 1px 1px 4px 2px #8f8f8f;
+    color: #e3e3e3;
+}
+span.ui-button-icon-left.ui-icon.ui-c.fa.fa-plus {
+    padding-top: 8px;
+}
+.ui-paginator > span:before, .ui-sortable-column-icon:before {
+    font-family: FontAwesome; 
+    color: #fff;
+}
+.ui-paginator-first.ui-state-default.ui-corner-all,
+.ui-paginator-prev.ui-state-default.ui-corner-all,
+.ui-paginator-next.ui-state-default.ui-corner-all,
+.ui-paginator-last.ui-state-default.ui-corner-all {
+    font-family: FontAwesome;
+}
+.ui-paginator > span > span, .ui-paginator a span { display: none; }
+.ui-paginator-first:before { content: '\f049'; }
+.ui-icon-seek-first:before { content: '\f049'; }
+.ui-icon-seek-prev:before { content: '\f048'; }
+.ui-paginator-prev:before { content: '\f048'; }
+.ui-icon-seek-next:before { content: '\f051'; }
+.ui-paginator-next:before { content: '\f051'; }
+.ui-icon-seek-end:before { content: '\f050'; }
+.ui-paginator-last:before { content: '\f050'; }
+.ui-icon-carat-2-n-s:before { content: '\f0dc'; }
+.ui-icon-carat-2-n-s.ui-icon-triangle-1-n:before { content: '\f0de'; }
+.ui-icon-carat-2-n-s.ui-icon-triangle-1-s:before { content: '\f0dd'; }
+.ui-paginator .ui-state-disabled { opacity: .25; }
