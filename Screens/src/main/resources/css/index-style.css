@@ -13,6 +13,7 @@ body {
    overflow-x: hidden;
    margin: 0px;
    font-family: Roboto;
+   background-color: rgb(245, 245, 245);
 }
 ::-webkit-input-placeholder {
   color: white;
@@ -207,11 +208,12 @@ body .ui-datatable tbody tr td {
 		    -o-transition: border-color 0.3s;
 		    -webkit-transition: border-color 0.3s;
 		    transition: border-color 0.3s;
+		    margin-left: -8px;
+		    width: 100%;
 		}
 		.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ui-state-hover.ui-state-focus, 
 		.ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ui-state-focus{
-			border-width: 0 0 2px 0;
-			box-shadow: 0px 4px 6px -2px #6F7ED7;
+			box-shadow: 0px 4px 7px -6px #6F7ED7;
 			padding-bottom:0px;
 		}
 		.ui-state-default.ui-sortable-column.ui-filter-column .ui-column-title {
@@ -342,10 +344,10 @@ body .ui-datatable tbody tr td {
 		    padding: 10px;
 		}
 		.ui-datatable.ui-widget {
-		    box-shadow: 0 0 0 0.75pt #d1d1d1, 0 0 3pt 0.75pt #ccc;
+		    box-shadow: 0px 1px 3px 0px rgba(0,0,0,.2), 0px 1px 1px 0px rgba(0,0,0,.14), 0px -1px 1px -1px rgba(0,0,0,.12);
 		    border: none;
 		    border-radius: 7px;
-		    max-width: 98%;
+		    max-width: 99%;
 		}
 		.ui-state-default.ui-sortable-column {
 		    background: none;
@@ -908,6 +910,13 @@ a.ui-menuitem-link.ui-corner-all {
     margin-top: 20px;
     display: flex;
     margin-bottom: 25px;
+    text-shadow: 0px 1px 5px #aaa;
+    padding-left: 10px;
+}
+.createScreen-title{
+    margin-top: -70px;
+    font-family: Gustan;
+    font-size: 34px;
     text-shadow: 0px 1px 5px grey;
 }
 .create-button {
@@ -936,6 +945,92 @@ span.ui-button-icon-left.ui-icon.ui-c.fa.fa-plus {
     font-family: FontAwesome; 
     color: #fff;
 }
+.custom-input {
+  position: relative;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+.custom-input input {
+  padding-left: 15px;
+}
+.custom-input label {
+  cursor: text;
+  margin: 0;
+  padding: 0;
+  left: 0px;
+  top: 25px;
+  position: absolute;
+  font-size: 14px;
+  color: #ccc;
+  font-weight: normal;
+  transition: all .3s ease;
+}
+.custom-input label.active {
+  top: 0;
+  left: 0;
+  font-size: 12px;
+}
+.custom-input label.active.focusIn {
+  color: #66afe9;
+}
+
+.form-create-custom{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,.2), 0px 1px 1px 0px rgba(0,0,0,.14), 0px -1px 1px -1px rgba(0,0,0,.12);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.back-button-custom {
+    background: none;
+    background-color: rgb(249, 84, 82);
+    color: white;
+    border-radius: 40px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.37);
+    width: 40px;
+    height: 40px;
+    border: none;
+    font-size: 25px;
+    transition: box-shadow 0.5s, color 0.5s;
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.back-button-custom:hover {
+    box-shadow: 0px 0px 8px 1px #bcbcbc;
+    color: rgb(239, 237, 237);
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.back-button-custom span.ui-button-icon-left.ui-icon.ui-c.fa.fa-arrow-left {
+    padding-top: 6px;
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.custom-confirm-button {
+    background: none;
+    background-color: #59de9a;
+    border: none;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.77);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.2s, color 0.2s;
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.custom-confirm-button span.ui-button-icon-left.ui-icon.ui-c.fa.fa-check {
+    margin-left: -55px;
+    margin-top: 7px;
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left.custom-confirm-button:hover {
+    border: none;
+    box-shadow: 1px 1px 5px 0px #a8a8a8;
+    color: rgb(227, 227, 227);
+}
+
+.confirm-button-custom{
+	text-align: center;
+}
+
 .ui-paginator-first.ui-state-default.ui-corner-all,
 .ui-paginator-prev.ui-state-default.ui-corner-all,
 .ui-paginator-next.ui-state-default.ui-corner-all,

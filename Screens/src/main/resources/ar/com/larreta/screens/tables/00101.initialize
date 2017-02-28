@@ -204,6 +204,8 @@ CREATE TABLE [SCHEMMA].label (
 CREATE TABLE [SCHEMMA].input (
 	id BIGINT NOT NULL,
 	value VARCHAR(255),
+	onClick VARCHAR(255),
+	placeHolder VARCHAR(255),
 	PRIMARY KEY (ID)
 );
 

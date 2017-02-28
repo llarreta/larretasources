@@ -102,7 +102,7 @@ public abstract class StandardContainer extends ScreenElement implements Contain
 	public Integer addInput(Integer index, String labelText, String dataViewSelectedProperty, Validator validator) {
 		Input input = new Input(DATA_VIEW_SELECTED, dataViewSelectedProperty);
 		input.addValidator(validator);
-		index = addLabel(index, labelText);
+		input.setPlaceHolder(labelText);
 		getTargetObject().add(index++, input);
 		return index;
 	}

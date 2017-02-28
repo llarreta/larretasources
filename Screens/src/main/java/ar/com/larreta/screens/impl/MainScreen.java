@@ -119,7 +119,6 @@ public abstract class MainScreen extends CommonsScreen {
 	@Transient
 	public Column getColumnWithButtons(String update){
 		Column column = new Column();
-//		column.setStyleClass("table-buttons-default");
 		column.setWidth("40");
 		
 		SubmitButton updateButton = new SubmitButton();

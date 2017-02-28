@@ -23,10 +23,10 @@ public class PaymentPlanSaver extends ParametricEntitySaver {
 	protected void makeBody(CreateScreen screen) {
 		super.makeBody(screen);
 
-		screen.addNewBody(1);
+		screen.addNewBody();
 		screen.getTargetObject().addLabel(0, "app.colegio.obligacion");
 		
-		screen.addNewBody(2);
+		screen.addNewBody();
 		screen.getTargetObject().addInput(		0, 	"app.colegio.obligacion.descripcion", 	"obligationDescription");
 		screen.getTargetObject().addCalendar(	1, 	"app.colegio.obligacion.date", 			"obligationDate");
 		screen.getTargetObject().addCombo(		2, 	"app.colegio.obligacion.productGroup", 	"productGroup", 	ProductGroup.class.getName());

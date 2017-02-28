@@ -5,9 +5,9 @@ import javax.persistence.Transient;
 import org.apache.log4j.Logger;
 
 import ar.com.larreta.commons.exceptions.AppException;
+import ar.com.larreta.screens.CSSGrid;
 import ar.com.larreta.screens.Form;
 import ar.com.larreta.screens.Label;
-import ar.com.larreta.screens.PanelGrid;
 import ar.com.larreta.screens.ScreenElement;
 import ar.com.larreta.screens.StandardContainer;
 import ar.com.larreta.screens.SubmitButton;
@@ -16,7 +16,7 @@ public abstract class CreateScreen extends CommonsScreen {
 
 	private static final Logger LOGGER = Logger.getLogger(CreateScreen.class);
 	
-	private PanelGrid body;
+	private CSSGrid body;
 	private Integer index;
 	private Form form;
 	
@@ -44,33 +44,53 @@ public abstract class CreateScreen extends CommonsScreen {
 	@Override
 	public ScreenElement getBody() {
 		form = new Form();
-		
+		form.setStyleClass("form-create-custom");
 		index = 0;
-		form.add(index++, new Label(getEntityClassShortName() + "." + getTitleAction() + ".Title"));
-		addNewBody(2);
+		
+		CSSGrid cssGridTitle = new CSSGrid(12);
+		cssGridTitle.setStyleClass("createScreen-title");
+		Label title = new Label((getEntityClassShortName() + "." + getTitleAction() + ".Title"));
+		title.setStyleClass("createScreen-title");
+		cssGridTitle.add(0, title);
+		form.add(index++, cssGridTitle);
+		
+		CSSGrid cssGridBackButton = new CSSGrid(12);
+		SubmitButton backButton = new SubmitButton();
+		backButton.setStyleClass("back-button-custom");
+		backButton.setAction("starting");
+		backButton.setIcon("fa fa-arrow-left");
+		backButton.setNextScreenId(getNextScreenId());
+		backButton.setInmediate(Boolean.TRUE);
+		cssGridBackButton.add(backButton);
+		form.add(index++, cssGridBackButton);
+		
+		addNewBody();
 		
 		makeBody();
-		makeButtons();
-
+		
+		SubmitButton confirmButton = new SubmitButton(getConfirmAction(), "fa fa-check", "app.confirm", getNextScreenId());
+		confirmButton.setStyleClass("custom-confirm-button");
+		CSSGrid confirmButtonCss = new CSSGrid(12);
+		confirmButtonCss.setStyleClass("confirm-button-custom");
+		confirmButtonCss.add(confirmButton);
+		form.add(index++, confirmButtonCss);
+		
 		return form;
 	}
 
 	protected abstract void makeBody();
 	
 	protected void makeButtons() {
-		form.add(index++, new SubmitButton(getConfirmAction(), "ui-icon-check", "app.confirm", getNextScreenId()));
-		SubmitButton backButton = new SubmitButton("starting", "ui-icon-check", "app.back", getNextScreenId());
-		backButton.setInmediate(Boolean.TRUE);
-		form.add(index++, backButton);
+		
 	}
 
 	protected String getTitleAction() {
 		return "Create";
 	}
 
-	public void addNewBody(Integer columns) {
+	public void addNewBody() {
 		try {
-			body = new PanelGrid(columns);
+			body = new CSSGrid(12);
 			form.add(index++, body);
 		} catch (Exception e){
 			LOGGER.error(AppException.getStackTrace(e));
@@ -89,13 +109,13 @@ public abstract class CreateScreen extends CommonsScreen {
 	@Override
 	public void preAddMultibox() {
 		super.preAddMultibox();
-		addNewBody(1);
+		addNewBody();
 	}
 
 	@Override
 	public void postAddMultibox() {
 		super.postAddMultibox();
-		addNewBody(2);
+		addNewBody();
 	}
 
 	@Transient

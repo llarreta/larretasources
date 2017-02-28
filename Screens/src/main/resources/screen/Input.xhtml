@@ -7,11 +7,17 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
-	<h:panelGrid columns="2">
-		<p:inputText 		id="#{element.idValue}"		
-							value="#{element.bindingPropertyValue}"		
-							styleClass="${element.styleClass}"   	
-							validator="#{element.validate}"/>
-		<p:message for="#{element.idValue}" display="icon" styleClass="#{element.styleClass}"/>
-	</h:panelGrid>
+	<div class="ui-g-12">
+		<div class="ui-g-10 custom-input">
+			<p:outputLabel id="#{'label'.concat(element.idValue)}" for="#{element.idValue}" value="#{element.placeHolder}"/>
+			<p:inputText 		id="#{element.idValue}"		
+								value="#{element.bindingPropertyValue}"		
+								styleClass="${element.styleClass}"   	
+								validator="#{element.validate}"
+								onclick="#{element.onClick}"/>
+		</div>
+		<div class="ui-g-2">
+			<p:message for="#{element.idValue}" display="icon" styleClass="#{element.styleClass}"/>
+		</div>
+	</div>
 </html>

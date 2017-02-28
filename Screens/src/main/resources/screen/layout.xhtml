@@ -46,7 +46,9 @@
 		        <h:outputText value="#{msg['app.blockUI.message']}" style="white-space: nowrap;"/>  
 		    </h:panelGrid>  
 		</pe:blockUI>
-		
+		<h:form id="document-ready">
+			<p:remoteCommand autoRun="true" oncomplete="documentReady();"/>
+		</h:form>
 </h:body>
 </f:view>
 </html>
