@@ -17,10 +17,10 @@ public class ComboBox extends ListSelector {
 	private static Logger logger = Logger.getLogger(ComboBox.class);
 	
 	@Transient
-	public void addVoidItem() {
+	public void addVoidItem(String selectionLabel) {
 		ListSelectorItem item = new ListSelectorItem();
 		item.setOrder(0);
-		item.setItemLabel(ScreenUtils.generateMessage("app.selection.void"));
+		item.setItemLabel(ScreenUtils.generateMessage(selectionLabel));
 		item.setNoSelectionOption(Boolean.TRUE.toString());
 		addItem(item);
 	}

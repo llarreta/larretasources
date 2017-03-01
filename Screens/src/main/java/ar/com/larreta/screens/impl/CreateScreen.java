@@ -71,7 +71,7 @@ public abstract class CreateScreen extends CommonsScreen {
 		SubmitButton confirmButton = new SubmitButton(getConfirmAction(), "fa fa-check", "app.confirm", getNextScreenId());
 		confirmButton.setStyleClass("custom-confirm-button");
 		CSSGrid confirmButtonCss = new CSSGrid(12);
-		confirmButtonCss.setStyleClass("confirm-button-custom");
+		confirmButtonCss.addExtraClass("confirm-button-custom");
 		confirmButtonCss.add(confirmButton);
 		form.add(index++, confirmButtonCss);
 		

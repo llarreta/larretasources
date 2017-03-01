@@ -147,15 +147,15 @@ public abstract class StandardContainer extends ScreenElement implements Contain
 	}
 	
 	public Integer addCombo(Integer index, String labelText, String dataViewSelectedProperty, String entityType, String lazyProperties, Validator validator) {
-		index = addLabel(index, labelText);
 		ComboBox comboBox = new ComboBox();
 		comboBox.addValidator(validator);
 		comboBox.setBindingObject(DATA_VIEW_SELECTED);
 		comboBox.setBindingProperty(dataViewSelectedProperty);
 		comboBox.setEntityType(entityType);
 		comboBox.setLazyProperties(lazyProperties);
+		comboBox.setStyleClass("combo-box-custom");
 		
-		comboBox.addVoidItem();
+		comboBox.addVoidItem(labelText);
 		
 		getTargetObject().add(index++, comboBox);
 		return index;
