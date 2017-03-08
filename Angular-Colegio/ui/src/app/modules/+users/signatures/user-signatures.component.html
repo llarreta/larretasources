@@ -1,0 +1,63 @@
+<div class="row form-body">
+	<div id="form-alta">
+		<div class="row">
+			<h4>Alta de nuevo esquema</h4>
+			<div class="form-group col-sm-3">
+				<label for="exampleInputEmail1">Nombre del esquema</label>
+				<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrese nombre del esquema">
+			</div>
+			<div class="form-group col-sm-3">
+				<label for="exampleInputEmail1">Moneda</label>
+				<div class="col-sm-4">
+					<div ngbDropdown class="d-inline-block">
+						<button class="btn btn-outline-primary" id="au-alta-documento-tipo" ngbDropdownToggle>$</button>
+						<div class="dropdown-menu" aria-labelledby="au-alta-documento-tipo">
+							<button class="dropdown-item">Action - 1</button>
+							<button class="dropdown-item">Another Action</button>
+							<button class="dropdown-item">Something else is here</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<h4>Límites para autorizar listas</h4>
+
+				<div class="form-group col-sm-3">
+					<label for="au-firmas-limite-item" class="label-inline">Límite por item</label><template #auFirmaLimiteItem>Limite por item tooltip</template><span class="icons-warning" [ngbTooltip]="auFirmaLimiteItem"></span>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type="text" class="form-control" id="au-firmas-limite-item" placeholder="Amount">
+					</div>
+				</div>
+				<div class="form-group col-sm-3">
+					<label for="au-firmas-limite-diario" class="label-inline">Límite diario</label><template #auFirmaLimiteDiario>Limite diario tooltip</template><span class="icons-warning" [ngbTooltip]="auFirmaLimiteDiario"></span>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type="text" class="form-control" id="au-firmas-limite-diario" placeholder="Amount">
+					</div>
+				</div>
+
+				<div class="form-group col-sm-3">
+					<label for="au-firmas-limite-lista" class="label-inline">Límite por lista</label><template #auFirmaLimiteLista>Limite por lista tooltip</template><span class="icons-warning" [ngbTooltip]="auFirmaLimiteLista"></span>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type="text" class="form-control" id="au-firmas-limite-lista" placeholder="Amount">
+					</div>
+				</div>
+				<div class="form-group col-sm-3">
+					<label for="au-firmas-limite-mensual" class="label-inline">Límite mensual</label><template #auFirmaLimiteMensual>Limite mensual tooltip</template><span class="icons-warning" [ngbTooltip]="auFirmaLimiteMensual"></span>
+					<div class="input-group">
+						<div class="input-group-addon">$</div>
+						<input type="text" class="form-control" id="au-firmas-limite-mensual" placeholder="Amount">
+					</div>
+				</div>
+
+		</div>
+	</div>
+</div>
+<div class="row form-actions">
+	<div>
+		<button class="btn btn-primary">Siguiente</button>
+	</div>
+</div>

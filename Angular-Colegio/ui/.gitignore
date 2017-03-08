@@ -1,0 +1,20 @@
+node_modules/
+
+### VisualStudioCode ###
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+*.iml
+
+*.log
+
+
+src/**/*.js
+src/**/*.js.map
+src/**/*.map
+**/*.log
+
+

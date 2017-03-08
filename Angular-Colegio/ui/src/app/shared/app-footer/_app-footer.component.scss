@@ -1,0 +1,32 @@
+.footer {
+//    position: absolute;
+//    bottom: 0;
+    width: 100%;
+    height: 84px;
+    background-color: white;
+    padding: 16px;
+    border-top: 1px solid $light-gray;
+
+    .container {
+        text-align: center;
+
+        div {
+            ul {
+                margin-bottom: 5px;
+                li {
+                    display: inline-block;
+                    padding-right: 15px;
+                    border-right: 1px solid gray;
+                    margin-right: 15px;
+                    &:last-child {
+                    padding-right: 0px;
+                    border-right: none;
+                    margin-right: 0px;
+                    }
+
+                    a {}
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<p *ngFor="let alert of alerts">
+  <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">
+		<div class="feedback-content">
+			<h3>Feedback info title</h3>
+			<p><span>Nombre de lista</span> - $<span>40.000,00</span> - <span>8</span> items</p>
+		</div>
+		<div class="feedback-content-right">
+			<a href="" class="text-link">Ver detalle</a>
+			<a href="" class="btn btn-action">Liberar</a>
+		</div>
+  </ngb-alert>
+</p>

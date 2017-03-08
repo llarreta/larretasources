@@ -1,0 +1,243 @@
+<div class="base-table-container">
+    <div class="form__buttons--rounded on-tabs-button">
+    <button type="button" class="form__button--rounded-primary icons-btn-rounded-search" (click)="pagosHistoricosCollapsed = !pagosHistoricosCollapsed"></button>
+    <button type="button" class="form__button--rounded-primary icons-btn-rounded-download"></button>
+    <button type="button" class="form__button--rounded-primary icons-btn-rounded-print"></button>
+    </div>
+    <div [ngbCollapse]="!pagosHistoricosCollapsed">
+      <div class="card-search">
+        <div class="card-block advanced-search">
+          <div class="arrow-up"></div>
+          <form (ngSubmit)="generalHistoricalSearch()">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-md-9">
+                  <div class="form-group">
+                    <input [(ngModel)]="advancedSearchHistoricalFilter.searchField" type="search" class="form-control text-center input_search" name="historicalSearch" placeholder="Buscar por ID o nombre de lista ...">
+                  </div>
+                </div>
+                <div class="col-xs-12 col-md-3 option-close-advanced text-right">
+                  <span class="text-link option-links-search" (click)="pagosHistoricosAdvanced = !pagosHistoricosAdvanced">BÚSQUEDA AVANZADA</span>
+                  <a class="text-link option-links-search" href="#" (click)="pagosHistoricosCollapsed = !pagosHistoricosCollapsed"><i class="icon-close-search"></i></a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="form-advanced-search" [ngbCollapse]="!pagosHistoricosAdvanced">
+        <form>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <h3>MONTO</h3>
+              <div class="col-md-5">
+                <input [(ngModel)]="advancedSearchHistoricalFilter.amountFrom" name="amountFrom" type="number" class="form-control" placeholder="$ 000,00">
+              </div>
+              <div class="col-md-2 text-center"><span>Hasta</span></div>
+              <div class="col-md-5">
+                <input [(ngModel)]="advancedSearchHistoricalFilter.amountTo" name="amountTo" type="number" class="form-control" placeholder="$ 000,00">
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <h3> FECHA DE PAGO</h3>
+              <div class="col-md-5">
+                <div class="input-group form__date-picker">
+                  <input [(ngModel)]="advancedSearchHistoricalFilter.dateFrom" name="dateFrom" class="form-control" placeholder="yyyy-mm-dd" name="dp3" [(ngModel)]="model" ngbDatepicker #d3="ngbDatepicker">
+                  <div class="input-group-addon" (click)="d3.toggle()">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 text-center"><span>Hasta</span></div>
+              <div class="col-md-5">
+                <div class="input-group form__date-picker">
+                  <input [(ngModel)]="advancedSearchHistoricalFilter.dateTo" name="dateTo" class="form-control" placeholder="yyyy-mm-dd"  ngbDatepicker #d4="ngbDatepicker">
+                  <div class="input-group-addon" (click)="d4.toggle()">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+              <div class="col-xs-12 col-sm-6 col-md-5">
+                <h3>ESTADO</h3>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="pp-manual-tipodepago" ngbDropdownToggle>{{ advancedSearchHistoricalFilter.state }}</button>
+                  <div class="dropdown-menu" aria-labelledby="pp-manual-tipodepago">
+                    <button *ngIf="this.statusDefault !== this.advancedSearchHistoricalFilter.state" (click)="selectHistoricalStatus(-1)" class="dropdown-item" name="state">{{ statusDefault }}</button>
+                    <template ngFor let-status [ngForOf]="historicStates" let-i="index">
+                      <button (click)="selectHistoricalStatus(i)" class="dropdown-item" name="state">{{status}}</button>
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-2 col-md-2"> </div>
+              <div class="col-xs-12 col-sm-6 col-md-5">
+                <h3>ORIGEN</h3>
+                <div ngbDropdown class="d-inline-block">
+                  <input [(ngModel)]="advancedSearchHistoricalFilter.origin" class="form-control" placeholder="Ingrese origen" id="origin" name="origin">
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-5">
+                <h3>TIPO DE PAGO</h3>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="pp-manual-tipodepago" ngbDropdownToggle>{{ advancedSearchHistoricalFilter.paymentType }}</button>
+                  <div class="dropdown-menu" aria-labelledby="pp-manual-tipodepago">
+                    <button *ngIf="paymentDefault !== advancedSearchHistoricalFilter.paymentType" (click)="selectHistoricalPayment(-1)" class="dropdown-item" name="state">{{ paymentDefault }}</button>
+                    <template ngFor let-paymentType [ngForOf]="paymentTypes" let-i="index">
+                      <button (click)="selectHistoricalPayment(i)" class="dropdown-item" name="paymentType">{{paymentType}}</button>
+                    </template>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-4 col-md-4">
+                <h3>EMPRESA</h3>
+                <div ngbDropdown class="d-inline-block">
+                  <button class="btn btn-outline-primary" id="pp-manual-tipodepago" ngbDropdownToggle>{{ advancedSearchHistoricalFilter.customerName }}</button>
+                  <div class="dropdown-menu" aria-labelledby="pp-manual-tipodepago">
+                    <button *ngIf="customerDefault !== advancedSearchHistoricalFilter.customerName" (click)="selectCustomerName(-1)" class="dropdown-item" name="state">{{ customerDefault }}</button>
+                    <template ngFor let-customerName [ngForOf]="customerNames" let-i="index">
+                      <button (click)="selectCustomerName(i)" class="dropdown-item" name="customerName">{{customerName}}</button>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary"  (click)="generalHistoricalSearch()">Buscar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              <div class="checkbox">
+                <input type="checkbox" id="proveedores-select-all">
+                <label for="proveedores-select-all"></label>
+              </div>
+            </th>
+            <th>Fecha de pago<button (click)="historicalColumnField('dateDue')" class="table-order-arrows"></button></th>
+            <th>Empresa<button (click)="historicalColumnField('customerName')" class="table-order-arrows"></button></th>
+            <th>ID<button (click)="historicalColumnField('idList')" class="table-order-arrows"></button></th>
+            <th>Origen<button (click)="historicalColumnField('origin')" class="table-order-arrows"></button></th>
+            <th>Tipo de pago<button (click)="historicalColumnField('paymentType')" class="table-order-arrows"></button></th>
+            <th>Monto<button (click)="historicalColumnField('amount')" class="table-order-arrows"></button></th>
+            <th>Estado<button (click)="historicalColumnField('state')" class="table-order-arrows"></button></th>
+            <th>Acción</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <template ngFor let-pago [ngForOf]="historicPayments" let-i="index">
+          <tr>
+            <td>
+              <div class="checkbox">
+                <input type="checkbox" id="proveedores-select">
+                <label for="proveedores-select"></label>
+              </div>
+            </td>
+            <td>{{pago.dateDue}}
+            <td>{{pago.customerName}}</td>
+            <td>{{pago.listId}}</td>
+            <td>CC $ {{pago.origin}}</td>
+            <td>{{pago.paymentType}}</td>
+            <td>${{pago.amount}}</td>
+            <td class="pay-status-td"><span [ngbTooltip]="statusDetail" class="pay-status pay-status-{{pago.state}}">{{pago.state}}</span>
+            <template #statusDetail>
+            <p class="tooltip-subtitle">Creada por</p>
+            <p>{{pago.createdby}}</p>
+            <p class="tooltip-subtitle">Aprobada por</p>
+            <p>{{pago.approvedby}}</p>
+            </template>
+          </td>
+          <td>
+        <button type="button" class="btn btn-action" data-toggle="modal" data-target="#myModal">Liberar</button>
+          </td>
+          <td>
+            <template #popContent>
+            <div class="list-group submenu">
+              <a href="#" class="list-group-item list-group-item-action">Utilizar</a>
+              <a href="#" class="list-group-item list-group-item-action">Eliminar</a>
+              <a href="#" class="list-group-item list-group-item-action">Ver detalle</a>
+            </div>
+            </template>
+            <a [ngbPopover]="popContent"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span></a>
+          </td>
+          <td>
+            <a (click)="closePaymentDetails(i)" *ngIf="pago.show" class="row-close"></a>
+            <a (click)="loadPaymentDetails(i)" *ngIf="!pago.show" class="row-open"></a>
+          </td>
+          <tr *ngIf="pago.show" class="row-details">
+            <td colspan="11" class="collapse-row">
+              <div>
+                <div class="col-sm-12 row-details-actual">
+                  <h4>Nombre de la lista - 001</h4>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Fecha de emisión</label>
+                    <p>{{pago.openPaymentDetails.emissionDate}}</p>
+                  </div>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Ordenante</label>
+                    <p>{{pago.openPaymentDetails.payer}}</p>
+                  </div>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Canal de alta</label>
+                    <p>{{pago.openPaymentDetails.creationChannel}}</p>
+                  </div>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Sucursal de entrega</label>
+                    <p>{{pago.openPaymentDetails.deliveryBranch}}</p>
+                  </div>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Cantidad de pagos</label>
+                    <p>{{pago.openPaymentDetails.itemsAmmount}}</p>
+                  </div>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Pago con cheque CTA</label>
+                    <p>${{pago.openPaymentDetails.checkPaymentAccount}}</p>
+                  </div>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Acreditaciones escuela <span>(2)</span></label>
+                    <p>${{pago.openPaymentDetails.escuelaAccreditations}}</p>
+                  </div>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Acreditaciones otros bancos <span>(2)</span></label>
+                    <p>${{pago.openPaymentDetails.otherBanksAccreditations}}</p>
+                  </div>
+                  <div class="form-group col-sm-15">
+                    <label for="exampleInputEmail1">Total</label>
+                    <p>${{pago.openPaymentDetails.total}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-12 row-details-history">
+                  <h4>Historial</h4>
+                  <ul>
+                    <template ngFor let-history [ngForOf]="pago.openPaymentDetails.historicalStateChanges">
+                    <li class="history-item default">
+                      <div>
+                        <img src="src/assets/images/user-image.png" class="rounded-circle" />
+                      </div>
+                      <div>
+                        <label for="">{{history.name}} {{history.surname}}</label>
+                        <p><span>{{history.date}}</span> - <span>{{history.time}}</span></p>
+                        <span [ngbTooltip]="statusDetail" class="pay-status pay-status-{{pago.status}}">{{history.action}}</span>
+                      </div>
+                    </li>
+                    </template>
+                  </ul>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
