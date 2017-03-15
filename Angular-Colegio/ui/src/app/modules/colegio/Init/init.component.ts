@@ -23,7 +23,7 @@ export class InitComponent implements OnInit{
     this.nombreInput.messageErrorValidation="El nombre ingresado es incorrecto.";
     this.nombreInput.type="text";
     this.nombreInput.required=true;
-    this.textoCapturado = "Nacho";
+    this.textoCapturado = "";
   }
 
   setTextoCapturado(texto: string){

@@ -9,6 +9,8 @@ import { ProvidersRouter } from './colegio.router';
 // Components
 import { InitComponent } from './Init/init.component';
 import { StudentComponent } from './Student/List/student.component';
+import { StudentCreateComponent } from './Student/Create/student.create.component';
+import { StudentUpdateComponent } from './Student/Update/student.update.component';
 import { InputCommonsComponent } from './Commons/Input/input.component';
 
 @NgModule({
@@ -24,6 +26,8 @@ import { InputCommonsComponent } from './Commons/Input/input.component';
     [
         InitComponent,
         StudentComponent,
+        StudentCreateComponent,
+        StudentUpdateComponent,
         InputCommonsComponent,
     ],
     providers:

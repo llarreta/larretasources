@@ -2131,9 +2131,9 @@ input[type="radio"] .styled:checked + label::after {
 .footer {
   width: 100%;
   height: 84px;
-  background-color: white;
+  background-color: #f5f5f5;
   padding: 16px;
-  border-top: 1px solid #cccccc;
+  border: none;
 }
 .footer .container {
   text-align: center;
@@ -2449,4 +2449,66 @@ button:focus{
 
 .tooltip-text a {
 	font-weight: bold;
+}
+
+button.button-add {
+    float: right;
+    color: rgb(56, 203, 96);
+    background: none;
+    border: none;
+    font-size: 40px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+    margin-right: 20px;
+    transition: text-shadow 0.5s;
+}
+
+button.button-add:focus {
+    outline: none;
+}
+
+button.button-add:hover {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.69);
+    transition: text-shadow 0.5s;
+    cursor: pointer;
+}
+
+button.button-back {
+    float: left;
+    color: #009688;
+    background: none;
+    border: none;
+    font-size: 40px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+    transition: text-shadow 0.5s;
+}
+
+button.button-back:focus {
+  outline: none;
+}
+
+button.button-back:hover {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.69);
+  transition: text-shadow 0.5s;
+  cursor: pointer;
+}
+
+.col-12.common-box {
+    border-radius: 2px;
+    padding: 8px 12px;
+    margin: 24px auto 48px auto;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2);
+    background-color: #fff;
+    max-width: 800px;
+    overflow: hidden;
+}
+
+body{
+  background-color: #f5f5f5;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

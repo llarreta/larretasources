@@ -2,6 +2,8 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../../Models/Student.model';
 import { Course } from '../../Models/Course.model';
+import { StudentCreateComponent } from '../Create/student.create.component';
+import { StudentUpdateComponent } from '../Update/student.update.component';
 
 @Component({
   selector: 'colegio-alumnos',
@@ -19,6 +21,7 @@ export class StudentComponent implements OnInit{
 
   ngOnInit() {
 
+    this.selectedStudent = new Student();
     this.cargarStudentTest();
     this.inListStudent = true;
     this.inCreateStudent = false;
@@ -64,6 +67,18 @@ export class StudentComponent implements OnInit{
     this.students.push(student);
     this.students.push(student2);
     this.students.push(student3);
+  }
+
+  goListCreate(goList: boolean) {
+    this.inUpdateStudent = false;
+    this.inCreateStudent = !goList;
+    this.inListStudent = goList;
+  }
+
+  goListUpdate(goList: boolean){
+    this.inCreateStudent = false;
+    this.inUpdateStudent = !goList;
+    this.inListStudent = goList;
   }
 
 }

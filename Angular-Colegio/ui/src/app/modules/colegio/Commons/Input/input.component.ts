@@ -39,8 +39,8 @@ export class InputCommonsComponent implements OnInit{
     this.isOnFocusLabel = false;
     this.isValueEmpty = true;
     this.isAllOK = false;
-    this.checkValue();
     this.loadConditions();
+    this.checkValue();
   }
 
   onFocus(){
@@ -74,7 +74,7 @@ export class InputCommonsComponent implements OnInit{
       this.isErrorEmpty = false;
     }
     if(!this.isErrorEmpty && !this.isErrorValidation){
-      console.log("isAllOK = true");
+      console.log("onChange isAllOK = true");
       this.isAllOK = true;
     }else{
       console.log("isAllOK = false");
@@ -85,19 +85,21 @@ export class InputCommonsComponent implements OnInit{
 
   checkValue(){
     this.loadConditions();  
-    if(this.required && !this.isValueEmpty){
-      console.log("isErrorEmpty = false");
-      this.isErrorEmpty = false;
-    }
-    if(!this.isErrorEmpty && !this.isErrorValidation){
-      console.log("isAllOK = true");
+    if((this.required && !this.isValueEmpty) 
+      && (!this.isErrorValidation)){
+      console.log("checkValue isAllOK = true");
       this.isAllOK = true;
     }
   }
 
   changeValueModel() {
       console.log('newvalue', this.value)
-      this.valueModel.emit(this.value);
+      if(this.type == "text" || this.type == "email"){  
+        this.valueModel.emit(this.value);
+      }
+      if(this.type == "number"){
+        this.valueModel.emit(Number(this.value));
+      }
   }
 
 }

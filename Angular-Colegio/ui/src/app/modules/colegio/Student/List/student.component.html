@@ -1,38 +1,65 @@
 <div class="container">
-  <div *ngIf="inListStudent">
-    <div>
-      <h1>Inicio Alumnos</h1>
+  <div *ngIf="inListStudent" class="animated fadeInUp">
+    <div class= "col-12 common-box">
+      <div class="row">
+        <div class="col-12">    
+          <div>
+            <h1>Lista de Alumnos</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 body-component">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="button-add" (click)="goListCreate(false)">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Tipo Documento</th>
+                    <th>Numero Documento</th>
+                    <th>Nivel</th>
+                    <th>Año</th>
+                    <th>Division</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="students.length >= 1">
+                  <tr *ngFor="let student of students; let i = index">
+                    <td>{{student.name}}</td>
+                    <td>{{student.surname}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.documentType}}</td>
+                    <td>{{student.documentNumber}}</td>
+                    <td>{{student.course.level}}</td>
+                    <td>{{student.course.year}}</td>
+                    <td>{{student.course.division}}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="students.length == 0">
+                  <tr>
+                    <td>No hay alumnos cargados.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Email</th>
-          <th>Tipo Documento</th>
-          <th>Numero Documento</th>
-          <th>Nivel</th>
-          <th>Año</th>
-          <th>Division</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="students.length >= 1">
-        <tr *ngFor="let student of students; let i = index">
-          <td>{{student.name}}</td>
-          <td>{{student.surname}}</td>
-          <td>{{student.email}}</td>
-          <td>{{student.documentType}}</td>
-          <td>{{student.documentNumber}}</td>
-          <td>{{student.course.level}}</td>
-          <td>{{student.course.year}}</td>
-          <td>{{student.course.division}}</td>
-        </tr>
-      </tbody>
-      <tbody *ngIf="students.length == 0">
-        <tr>
-          <td>No hay alumnos cargados.</td>
-        </tr>
-      </tbody>
-    </table>
+  </div>
+  <div *ngIf="inCreateStudent" class="animated fadeInUp">
+    <colegio-alumnos-create (goList)="goListCreate($event)"></colegio-alumnos-create>
+  </div>
+  <div *ngIf="inUpdateStudent" class="animated fadeInUp">
+    <colegio-alumnos-update (goList)="goListUpdate($event)" [student]="selectedStudent"></colegio-alumnos-update>
   </div>
 </div>
