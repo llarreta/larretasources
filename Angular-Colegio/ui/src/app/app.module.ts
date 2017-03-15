@@ -34,6 +34,7 @@ import { ImageUploadModule } from './shared/image-uploader/image-upload.module';
 
 import { LoginModule } from './modules/login/login.module';
 
+import { ColegioModule } from './modules/colegio/colegio.module';
 
 @NgModule({
   imports: [

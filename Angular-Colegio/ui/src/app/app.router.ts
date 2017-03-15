@@ -10,8 +10,7 @@ import { LoginComponent } from './modules/login/login.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
-  { path: 'pp', loadChildren: 'app/modules/+providers/providers.module#ProvidersModule'},
-  { path: 'au', loadChildren: 'app/modules/+users/users.module#UsersModule'}
+  { path: 'colegio', loadChildren: 'app/modules/colegio/colegio.module#ColegioModule'}
 ];
 
 export const AppRouter = RouterModule.forRoot(routes, { useHash: true });
