@@ -111,6 +111,7 @@ div.cs-skin-elastic {
 	font-size: 1.5em;
 	font-weight: 700;
 	color: #5b8583;
+	width: 100%;
 }
 
 @media screen and (max-width: 30em) {
@@ -258,4 +259,87 @@ div.cs-skin-elastic {
 	50% { -webkit-transform: translate3d(0,-6px,0); transform: translate3d(0,-6px,0); }
 	75% { -webkit-transform: translate3d(0,2px,0); transform: translate3d(0,2px,0); }
 	100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); opacity: 1; }
+}
+
+.cs-options ul li:hover {
+    background-color: #ededed;
+	transition: background-color 0.5s;
+}
+
+.cs-select.cs-skin-elastic span.cs-placeholder {
+    border-radius: 20px;
+    transition: border-radius 0.2s, box-shadow 0.2s;
+	width: 100%;
+    padding: 10px 20px;
+	box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.44);
+}
+
+.cs-select.cs-skin-elastic span.cs-placeholder:hover {
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.44);
+}
+
+.cs-select.cs-skin-elastic.cs-active span.cs-placeholder {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+	width: 100%;
+    padding: 10px 20px;
+	box-shadow: 0px 0px 5px -2px rgba(0, 0, 0, 0.44);
+}
+
+i.fa.fa-check-square.is-all-ok-icon {
+    color: rgb(56, 203, 96);
+    position: absolute;
+    font-size: 25px;
+    margin-left: 88%;
+    margin-top: -36px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.33);
+}
+
+span.cs-placeholder.place-holder-ok {
+    background-color: rgba(56, 203, 96, 0.63) !important;
+    color: white;
+}
+
+i.fa.fa-times-circle.error-icon{
+    color: #c7202c;
+    text-shadow: 1px 1px 1px lightgrey;
+    font-size: 25px;
+	margin-top: -38px;
+}
+
+.tooltip-custon {
+    margin-left: 98%;
+}
+
+.tooltip-content{
+	background: #b70c19;
+    border-radius: 5px;
+}
+
+.tooltip-content::after{
+	border-top-color: #b70c19;
+}
+
+.tooltip-text strong{
+	font-size: 12px;
+}
+
+.tooltip-effect-5 .tooltip-text p {
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.44);
+}
+
+span.tooltip-text h5 {
+    font-size: 15px;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.44);
+}
+
+.section-select-one-menu{
+	margin: 1em;
+}
+
+span.cs-placeholder.place-holder-error {
+    background-color: rgba(199, 32, 44, 0.69) !important;
+    color: white;
 }

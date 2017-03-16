@@ -1,7 +1,11 @@
-<div>
+<div class="row">
 	<h1>Inicio Colegio</h1>
+	<div class="col-4">
+		<select-one-menu-commons [selectOneMenuModel]="tipoDNI" (valueModel)="setOptionSelect($event)"></select-one-menu-commons>
+		<p>Chau {{optionSelect}}</p>
+	</div>
 	<div class="col-4">
 		<input-commons [inputModel]="nombreInput" (valueModel)="setTextoCapturado($event)"></input-commons>
 		<p>Hola {{textoCapturado}}<p>
-	<div>
+	</div>
 </div>

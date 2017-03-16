@@ -24,10 +24,15 @@
       </div>
       <div class="row animated fadeIn">
         <div class="col-6">
-          <input-commons [inputModel]="inputDocumentNumber"
+          <select-one-menu-commons [selectOneMenuModel]="selecOneMenuDocumentType" (valueModel)="setDocumentType($event)"></select-one-menu-commons>
+        </div>
+        <div class="col-6">
+          <input-commons
+            [inputModel]="inputDocumentNumber"
           (valueModel)="setDocumentNumber($event)"></input-commons>
         </div>
-
+      </div>
+      <div>
         <div class="col-6">
           <input-commons [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
         </div>

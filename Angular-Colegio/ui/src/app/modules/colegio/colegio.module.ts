@@ -12,6 +12,7 @@ import { StudentComponent } from './Student/List/student.component';
 import { StudentCreateComponent } from './Student/Create/student.create.component';
 import { StudentUpdateComponent } from './Student/Update/student.update.component';
 import { InputCommonsComponent } from './Commons/Input/input.component';
+import { SelectOneMenuCommonsComponent } from './Commons/SelectOneMenu/selectOneMenu.component';
 
 @NgModule({
     imports:
@@ -29,6 +30,7 @@ import { InputCommonsComponent } from './Commons/Input/input.component';
         StudentCreateComponent,
         StudentUpdateComponent,
         InputCommonsComponent,
+        SelectOneMenuCommonsComponent,
     ],
     providers:
     [

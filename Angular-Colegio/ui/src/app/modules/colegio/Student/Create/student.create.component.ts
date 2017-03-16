@@ -7,6 +7,9 @@ import { ObligationStatus } from '../../Models/ObligationStatus.model';
 import { Responsible } from '../../Models/Responsible.model';
 import { InputModel } from '../../Commons/Input/input.model.component';
 import { InputCommonsComponent } from '../../Commons/Input/input.component';
+import { SelectOneMenuCommonsComponent } from '../../Commons/SelectOneMenu/selectOneMenu.component';
+import { SelectOneMenuModel } from '../../Commons/SelectOneMenu/selectOneMenu.model.component';
+import { OptionModel } from '../../Commons/SelectOneMenu/option.model.component';
 
 @Component({
   selector: 'colegio-alumnos-create',
@@ -21,6 +24,7 @@ export class StudentCreateComponent implements OnInit{
   inputSurname: InputModel;
   inputDocumentNumber: InputModel;
   inputEmail: InputModel;
+  selecOneMenuDocumentType: SelectOneMenuModel;
 
   student: Student;
   paymentPlans: Array<PaymentPlan>;
@@ -76,6 +80,43 @@ export class StudentCreateComponent implements OnInit{
     this.inputSurname.required= true;
     this.inputSurname.type= "text";
 
+    this.selecOneMenuDocumentType = new SelectOneMenuModel();
+    this.selecOneMenuDocumentType.id= "document-type";
+    this.selecOneMenuDocumentType.listOptions = new Array<OptionModel>();
+    
+    let dniOption: OptionModel = new OptionModel();
+    dniOption.id= 1;
+    dniOption.label= "DNI";
+
+    let cuilOption: OptionModel = new OptionModel();
+    cuilOption.id= 2;
+    cuilOption.label= "CUIL";
+
+    let pasaporteOption: OptionModel = new OptionModel();
+    pasaporteOption.id= 3;
+    pasaporteOption.label= "PASAPORTE";
+
+    this.selecOneMenuDocumentType.listOptions.push(dniOption);
+    this.selecOneMenuDocumentType.listOptions.push(cuilOption);
+    this.selecOneMenuDocumentType.listOptions.push(pasaporteOption);
+
+    this.selecOneMenuDocumentType.messageErrorEmpty= "Debe seleccionar un tipo de documento.";
+    this.selecOneMenuDocumentType.nonSelectionOptionMessage= "Tipo de documento";
+    
+    if(this.student.documentType != null){
+      if(this.student.documentType.includes("DNI")){
+        this.selecOneMenuDocumentType.optionSelected = dniOption;
+      }
+      if(this.student.documentType.includes("CUIL")){
+        this.selecOneMenuDocumentType.optionSelected = cuilOption;
+      }
+      if(this.student.documentType.includes("PASAPORTE")){
+        this.selecOneMenuDocumentType.optionSelected = pasaporteOption;
+      }
+    }
+
+    this.selecOneMenuDocumentType.required = true;
+
   }
 
   loadPaymentPlansTest(){}
@@ -97,5 +138,29 @@ export class StudentCreateComponent implements OnInit{
   }
   setEmail(email: string){
     this.student.email = email;
+  }
+
+  setDocumentType(id: number){
+    
+    switch(id){
+      
+      case 0:
+        this.student.documentType = "";
+      break;
+
+      case 1:
+        this.student.documentType = "DNI";
+      break;
+
+      case 2:
+        this.student.documentType = "CUIL";
+      break;
+
+      case 3:
+        this.student.documentType = "PASAPORTE";
+      break;
+
+    }
+    
   }
 }
