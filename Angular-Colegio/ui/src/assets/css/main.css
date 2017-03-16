@@ -7,6 +7,12 @@
   font-family: "GustanBold";
   src: url("../fonts/Gustan/GustanBold-Regular.ttf") format("truetype"), url("../fonts/Gustan/GustanBold-Regular.eot") format("opentype");
 }
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon/icomoon.ttf?-rdnm34') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
 /* base-font & title-font */
 html, body, p, a, li, th, td, input {
   font-family:"GustanBook", Arial, sans-serif;

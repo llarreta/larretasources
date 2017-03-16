@@ -15,36 +15,21 @@
     <div class="col-12">
       <div class="row animated fadeIn">
         <div class="col-6">
-          <input-commons [type]="inputName.type" [id]="inputName.id" [labelContent]="inputName.labelContent"
-          [isErrorValidation]="inputName.isErrorValidation" 
-          [messageErrorEmpty]="inputName.messageErrorEmpty" [messageErrorValidation]="inputName.messageErrorValidation"
-          [required]="inputName.required" [(value)]="student.name"
-          (valueModel)="setStudentName($event)"></input-commons>
+          <input-commons [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
         </div>
 
         <div class="col-6">
-          <input-commons [type]="inputSurname.type" [id]="inputSurname.id" [labelContent]="inputSurname.labelContent"
-          [isErrorValidation]="inputSurname.isErrorValidation" 
-          [messageErrorEmpty]="inputSurname.messageErrorEmpty" [messageErrorValidation]="inputSurname.messageErrorValidation"
-          [required]="inputSurname.required" [(value)]="student.surname"
-          (valueModel)="setStudentSurname($event)"></input-commons>
+          <input-commons [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
         </div>
       </div>
       <div class="row animated fadeIn">
         <div class="col-6">
-          <input-commons [type]="inputDocumentNumber.type" [id]="inputDocumentNumber.id" [labelContent]="inputDocumentNumber.labelContent"
-          [isErrorValidation]="inputDocumentNumber.isErrorValidation" 
-          [messageErrorEmpty]="inputDocumentNumber.messageErrorEmpty" [messageErrorValidation]="inputDocumentNumber.messageErrorValidation"
-          [required]="inputDocumentNumber.required" [(value)]="student.documentNumber"
+          <input-commons [inputModel]="inputDocumentNumber"
           (valueModel)="setDocumentNumber($event)"></input-commons>
         </div>
 
         <div class="col-6">
-          <input-commons [type]="inputEmail.type" [id]="inputEmail.id" [labelContent]="inputEmail.labelContent"
-          [isErrorValidation]="inputEmail.isErrorValidation" 
-          [messageErrorEmpty]="inputEmail.messageErrorEmpty" [messageErrorValidation]="inputEmail.messageErrorValidation"
-          [required]="inputEmail.required" [(value)]="student.email"
-          (valueModel)="setEmail($event)"></input-commons>
+          <input-commons [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
         </div>
       </div>
     </div>

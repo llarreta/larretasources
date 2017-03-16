@@ -72,7 +72,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputSurname.isErrorValidation= false;
     this.inputSurname.labelContent= "Apellido";
     this.inputSurname.messageErrorEmpty= "Debe completar el apellido.";
-    this.inputSurname.messageErrorValidation= "El apellido ingresado es invalido.":
+    this.inputSurname.messageErrorValidation= "El apellido ingresado es invalido.";
     this.inputSurname.required= true;
     this.inputSurname.type= "text";
 

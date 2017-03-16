@@ -1,11 +1,7 @@
 <div>
 	<h1>Inicio Colegio</h1>
 	<div class="col-4">
-		<input-commons [type]="nombreInput.type" [id]="nombreInput.id" [labelContent]="nombreInput.labelContent"
-			[isErrorValidation]="nombreInput.isErrorValidation" 
-			[messageErrorEmpty]="nombreInput.messageErrorEmpty" [messageErrorValidation]="nombreInput.messageErrorValidation"
-			[required]="nombreInput.required" [(value)]="textoCapturado"
-			(valueModel)="setTextoCapturado($event)"></input-commons>
+		<input-commons [inputModel]="nombreInput" (valueModel)="setTextoCapturado($event)"></input-commons>
 		<p>Hola {{textoCapturado}}<p>
 	<div>
 </div>

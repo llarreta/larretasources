@@ -1,13 +1,13 @@
 <span class="input input--hoshi" [ngClass]="{'input--filled': !isValueEmpty || isAllOK || isErrorEmpty || isErrorValidation}">
-  <input (focus)="onFocus()" (blur)="onBlur()" type="{{type}}" 
-    id="{{id}}" [(ngModel)]="value" class="input__field input__field--hoshi"
+  <input (focus)="onFocus()" (blur)="onBlur()" type="{{inputModel.type}}" 
+    id="{{inputModel.id}}" [(ngModel)]="inputModel.value" class="input__field input__field--hoshi"
     (ngModelChange)="onChange()"/>
-  <label id="{{labelId}}" class="input__label input__label--hoshi input__label--hoshi-color-1" 
+  <label id="{{inputModel.labelId}}" class="input__label input__label--hoshi input__label--hoshi-color-1" 
         [ngClass]="{'error-color': isErrorEmpty || isErrorValidation,
                   'input_label_non_focus': !isOnFocusLabel && isValueEmpty && !isAllOK && !isErrorEmpty && !isErrorValidation,
                   'is-all-ok-color': isAllOK}" 
-        attr.for="{{id}}">
-    <span class="input__label-content input__label-content--hoshi">{{labelContent}}</span>
+        attr.for="{{inputModel.id}}">
+    <span class="input__label-content input__label-content--hoshi">{{inputModel.labelContent}}</span>
   </label>
   <i *ngIf="isAllOK" 
     class="fa fa-check-square is-all-ok-icon animated fadeIn" aria-hidden="true"></i>
@@ -23,10 +23,10 @@
           ERROR
         </h5>
         <p *ngIf="isErrorEmpty">
-          {{messageErrorEmpty}}
+          {{inputModel.messageErrorEmpty}}
         </p>
         <p *ngIf="isErrorValidation">
-          {{messageErrorValidation}}
+          {{inputModel.messageErrorValidation}}
         </p>
       </span>
     </span>

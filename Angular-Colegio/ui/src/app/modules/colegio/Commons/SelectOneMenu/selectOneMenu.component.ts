@@ -1,17 +1,30 @@
 import { Component, Input, Output, OnInit, 
          OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
-import { InputModel } from './input.model.component';
 
 @Component({
   selector: 'input-commons',
-  templateUrl: './src/app/modules/colegio/Commons/Input/input.component.html',
-  styleUrls: ['./src/app/modules/colegio/Commons/Input/input.component.css'],
+  templateUrl: './src/app/modules/colegio/Commons/SelectOneMenu/selectOneMenu.component.html',
+  styleUrls: ['./src/app/modules/colegio/Commons/SelectOneMenu/selectOneMenu.component.css'],
 })
-export class InputCommonsComponent implements OnInit{
+export class SelectOneMenuCommonsComponent implements OnInit{
 
   @Input()
-  inputModel: InputModel;
+  type: string;
+  @Input()
+  id: string;
+  @Input()
+  labelContent: string;
+  @Input()
+  isErrorValidation: boolean;
+  @Input()
+  messageErrorValidation: string;
+  @Input()
+  messageErrorEmpty: string;
+  @Input()
+  required: boolean;
+  @Input()
+  value: string;
   @Output() 
   valueModel = new EventEmitter();
 
@@ -41,8 +54,8 @@ export class InputCommonsComponent implements OnInit{
   }
 
   loadConditions(){
-    console.log("value= " + this.inputModel.value);
-    if((this.inputModel.value == null) || (this.inputModel.value == "")){
+    console.log("value= " + this.value);
+    if((this.value == null) || (this.value == "")){
       this.isValueEmpty = true;
     }else{
       this.isValueEmpty = false;
@@ -50,17 +63,17 @@ export class InputCommonsComponent implements OnInit{
   }
 
   onChange(){
-    console.log("onChange value " + this.inputModel.value);
+    console.log("onChange value " + this.value);
     this.loadConditions();
-    if(this.inputModel.required && this.isValueEmpty){
+    if(this.required && this.isValueEmpty){
       console.log("isErrorEmpty = true");
       this.isErrorEmpty = true;
     }
-    if(this.inputModel.required && !this.isValueEmpty){
+    if(this.required && !this.isValueEmpty){
       console.log("isErrorEmpty = false");
       this.isErrorEmpty = false;
     }
-    if(!this.isErrorEmpty && !this.inputModel.isErrorValidation){
+    if(!this.isErrorEmpty && !this.isErrorValidation){
       console.log("onChange isAllOK = true");
       this.isAllOK = true;
     }else{
@@ -72,20 +85,20 @@ export class InputCommonsComponent implements OnInit{
 
   checkValue(){
     this.loadConditions();  
-    if((this.inputModel.required && !this.isValueEmpty) 
-      && (!this.inputModel.isErrorValidation)){
+    if((this.required && !this.isValueEmpty) 
+      && (!this.isErrorValidation)){
       console.log("checkValue isAllOK = true");
       this.isAllOK = true;
     }
   }
 
   changeValueModel() {
-      console.log('newvalue', this.inputModel.value)
-      if(this.inputModel.type == "text" || this.inputModel.type == "email"){  
-        this.valueModel.emit(this.inputModel.value);
+      console.log('newvalue', this.value)
+      if(this.type == "text" || this.type == "email"){  
+        this.valueModel.emit(this.value);
       }
-      if(this.inputModel.type == "number"){
-        this.valueModel.emit(Number(this.inputModel.value));
+      if(this.type == "number"){
+        this.valueModel.emit(Number(this.value));
       }
   }
 

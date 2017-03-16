@@ -1,13 +1,11 @@
-export class InputModel{
+export class SelectOneMenuModel{
 
-    public type: string;
     public id: string;
     public labelContent: string;
     public isErrorValidation: boolean;
     public messageErrorValidation: string;
     public messageErrorEmpty: string;
     public required: boolean;
-    public value: string;
 
     constructor() {}
 }
