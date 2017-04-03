@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.com.larreta.annotations.PerformanceMonitor;
+import ar.com.larreta.persistence.aspects.Retry;
 import ar.com.larreta.prototypes.JSONable;
 import ar.com.larreta.rest.exceptions.BadInputException;
 import ar.com.larreta.rest.exceptions.NotImplementedException;
@@ -40,6 +41,7 @@ public abstract class ParentController<T extends JSONable> {
 		return executePost(request);
 	}
 	
+	@Retry(count=3)
 	@PerformanceMonitor
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public UpdateResponse createPost(@Valid @RequestBody UpdateRequest<T> request, Errors errors) throws RestException{
