@@ -51,7 +51,7 @@ export class SelectOneMenuCommonsComponent implements OnInit{
     this.isActive = !this.isActive;
   }
 
-  onBlurSelect(){
+  onBlurSelect(e){
     this.isActive = false;
   }
 
@@ -71,7 +71,7 @@ export class SelectOneMenuCommonsComponent implements OnInit{
   }
   
   changeValueModel() {
-    this.valueModel.emit(this.selectOneMenuModel.optionSelected.id);
+    this.valueModel.emit(this.selectOneMenuModel);
   }
 
 }

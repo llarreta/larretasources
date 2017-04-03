@@ -1,6 +1,6 @@
 <section class="section-select-one-menu">
-  <div class="cs-select cs-skin-elastic" tabindex="0" [ngClass]="{'cs-active': isActive}" 
-      (click)="onClickSelect()" (blur)="onBlurSelect()">
+  <div class="cs-select cs-skin-elastic" [ngClass]="{'cs-active': isActive}" 
+      (click)="onClickSelect()" (blur)="onBlurSelect($event)">
       
     <span class="cs-placeholder" [ngClass]="{'place-holder-ok': isAllOK, 'place-holder-error': isErrorEmpty}">
       {{selectOneMenuModel.optionSelected.label}}

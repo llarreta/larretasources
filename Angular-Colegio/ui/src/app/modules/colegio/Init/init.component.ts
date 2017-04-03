@@ -21,7 +21,6 @@ export class InitComponent implements OnInit{
   ngOnInit() {
     this.nombreInput = new InputModel();
     this.nombreInput.id="nombre";
-    this.nombreInput.isErrorValidation=false;
     this.nombreInput.labelContent="Nombre";
     this.nombreInput.messageErrorEmpty="El campo no puede ser vacio.";
     this.nombreInput.messageErrorValidation="El nombre ingresado es incorrecto.";
@@ -31,7 +30,6 @@ export class InitComponent implements OnInit{
 
     this.tipoDNI = new SelectOneMenuModel();
     this.tipoDNI.id = "tipodni";
-    this.tipoDNI.isErrorValidation = false;
     this.tipoDNI.listOptions = new Array<OptionModel>();
     
     let option1: OptionModel = new OptionModel();
@@ -56,11 +54,11 @@ export class InitComponent implements OnInit{
 
   }
 
-  setTextoCapturado(texto: string){
-    this.textoCapturado = texto;
+  setTextoCapturado(inputModel: InputModel){
+    this.nombreInput = inputModel;
   }
 
-  setOptionSelect(id: number){
-    this.optionSelect = "" + id;
+  setOptionSelect(select: SelectOneMenuModel){
+    this.tipoDNI = select;
   }
 }
