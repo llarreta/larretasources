@@ -1,105 +1,77 @@
 import { Component, Input, Output, OnInit, 
          OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { SelectOneMenuModel } from './selectOneMenu.model.component';
+import { OptionModel } from './option.model.component';
 
 @Component({
-  selector: 'input-commons',
+  selector: 'select-one-menu-commons',
   templateUrl: './src/app/modules/colegio/Commons/SelectOneMenu/selectOneMenu.component.html',
   styleUrls: ['./src/app/modules/colegio/Commons/SelectOneMenu/selectOneMenu.component.css'],
 })
 export class SelectOneMenuCommonsComponent implements OnInit{
 
   @Input()
-  type: string;
-  @Input()
-  id: string;
-  @Input()
-  labelContent: string;
-  @Input()
-  isErrorValidation: boolean;
-  @Input()
-  messageErrorValidation: string;
-  @Input()
-  messageErrorEmpty: string;
-  @Input()
-  required: boolean;
-  @Input()
-  value: string;
+  selectOneMenuModel: SelectOneMenuModel;
   @Output() 
   valueModel = new EventEmitter();
 
-  isOnFocusLabel: boolean;
-  isValueEmpty: boolean;
+  isActive: boolean;
   isErrorEmpty: boolean;
   isAllOK: boolean;
 
   constructor() {}
 
-  ngOnInit() {
-    this.isOnFocusLabel = false;
-    this.isValueEmpty = true;
+  ngOnInit(){
+    this.isActive = false;
     this.isAllOK = false;
-    this.loadConditions();
-    this.checkValue();
-  }
+    this.isErrorEmpty = false;
 
-  onFocus(){
-    this.isOnFocusLabel = true;
-  }
-
-  onBlur(){
-    this.loadConditions();
-    this.isOnFocusLabel = false;
-    this.changeValueModel();
-  }
-
-  loadConditions(){
-    console.log("value= " + this.value);
-    if((this.value == null) || (this.value == "")){
-      this.isValueEmpty = true;
+    let defaultOption: OptionModel = new OptionModel();
+    defaultOption.id = 0;
+    defaultOption.label = this.selectOneMenuModel.nonSelectionOptionMessage;
+    if((this.selectOneMenuModel.listOptions != null) 
+      && (this.selectOneMenuModel.listOptions.length > 0)){
+      let auxOptions: Array<OptionModel> = new Array<OptionModel>();
+      auxOptions.push(defaultOption);
+      for(let i: number = 0; i < this.selectOneMenuModel.listOptions.length; i++){
+        auxOptions.push(this.selectOneMenuModel.listOptions[i]);
+      }
+      this.selectOneMenuModel.listOptions = auxOptions;
     }else{
-      this.isValueEmpty = false;
+        this.selectOneMenuModel.listOptions = new Array<OptionModel>();
+        this.selectOneMenuModel.listOptions.push(defaultOption);
+    }
+    if(this.selectOneMenuModel.optionSelected == null){
+      this.selectOneMenuModel.optionSelected = defaultOption;
     }
   }
 
-  onChange(){
-    console.log("onChange value " + this.value);
-    this.loadConditions();
-    if(this.required && this.isValueEmpty){
-      console.log("isErrorEmpty = true");
+  onClickSelect(){
+    this.isActive = !this.isActive;
+  }
+
+  onBlurSelect(){
+    this.isActive = false;
+  }
+
+  loadOption(option: OptionModel){
+    this.selectOneMenuModel.optionSelected = option;
+    if(this.selectOneMenuModel.required && option.id == 0){
       this.isErrorEmpty = true;
-    }
-    if(this.required && !this.isValueEmpty){
-      console.log("isErrorEmpty = false");
+      this.isAllOK = false;
+    }else{
       this.isErrorEmpty = false;
     }
-    if(!this.isErrorEmpty && !this.isErrorValidation){
-      console.log("onChange isAllOK = true");
+    if(option.id != 0){
       this.isAllOK = true;
-    }else{
-      console.log("isAllOK = false");
-      this.isAllOK = false;
+      this.isErrorEmpty = false;
     }
     this.changeValueModel();
-  }  
-
-  checkValue(){
-    this.loadConditions();  
-    if((this.required && !this.isValueEmpty) 
-      && (!this.isErrorValidation)){
-      console.log("checkValue isAllOK = true");
-      this.isAllOK = true;
-    }
   }
-
+  
   changeValueModel() {
-      console.log('newvalue', this.value)
-      if(this.type == "text" || this.type == "email"){  
-        this.valueModel.emit(this.value);
-      }
-      if(this.type == "number"){
-        this.valueModel.emit(Number(this.value));
-      }
+    this.valueModel.emit(this.selectOneMenuModel.optionSelected.id);
   }
 
 }
