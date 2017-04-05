@@ -3,6 +3,7 @@ package ar.com.larreta.tools;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -89,14 +90,8 @@ public class LockApp {
 			if ("dev".equals(enviroment)){
 				path = devPath + SRC_MAIN_RESOURCES +  LOCK_APP;
 			}
-			setLockString(getText(path));
-			String decryptedLockString = getDecryptedLockString();
-			String[] splitted = decryptedLockString.split(SEPARATOR);
-			lastDate = dateFormatter.parse(splitted[0]);
-			propietary = splitted[1];
-			expirationDate = dateFormatter.parse(splitted[2]);
-			identifier = new Long(splitted[3]);
-			identifier++;
+
+			decode();
 			
 			showInfo();
 		} catch (Exception e){
@@ -104,12 +99,24 @@ public class LockApp {
 		}
 	}
 
-	private void showInfo() {
+	public void decode() throws ParseException {
+		setLockString(getText(path));
+		String decryptedLockString = getDecryptedLockString();
+		String[] splitted = decryptedLockString.split(SEPARATOR);
+		lastDate = dateFormatter.parse(splitted[0]);
+		propietary = splitted[1];
+		expirationDate = dateFormatter.parse(splitted[2]);
+		identifier = new Long(splitted[3]);
+		identifier++;
+	}
+
+	public void showInfo() {
 		LOG.debug("Informacion de bloqueo de la aplicacion");
 		LOG.debug("_______________________________________");
 		LOG.debug("Propietary     :" + getPropietary());
 		LOG.debug("Expiration Date:" + getExpirationDate());
 		LOG.debug("Last Date      :" + getLastDate());
+		LOG.debug("Identifier     :" + getIdentifier());
 	}
 	
 	private String getText(String path) {
@@ -150,7 +157,7 @@ public class LockApp {
 	}
 	
 	public synchronized void setIdentifier(Long identifier) {
-		if (this.identifier<=0){
+		if (this.identifier>=0){
 			this.identifier = identifier;
 		}
 	}
