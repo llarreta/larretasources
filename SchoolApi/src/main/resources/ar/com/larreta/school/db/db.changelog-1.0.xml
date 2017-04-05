@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+                      
+  <changeSet author="Leonel" id="changelog-1.0">
+
+    <createTable tableName="documentType" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+ 
+    <createTable tableName="person" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="name"			type="varchar(255)" />
+      <column name="surname"		type="varchar(255)" />
+      <column name="idDocumentType"	type="bigint" />
+      <column name="documentNumber"	type="varchar(20)" />
+    </createTable>
+    
+    <addForeignKeyConstraint 	constraintName		="personDocumentType" 
+    							referencedTableName	="documentType" 			referencedColumnNames	="id" 
+    							baseTableName		="person"					baseColumnNames			="idDocumentType"
+    							/>
+
+    <createTable tableName="year" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+    
+    <createTable tableName="division" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+    
+    <createTable tableName="level" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+
+    <createTable tableName="course" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="idLevel"		type="bigint" />
+      <column name="idYear"			type="bigint" />
+      <column name="idDivision"		type="bigint" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="courseLevel" 
+    							referencedTableName	="level" 					referencedColumnNames	="id" 
+    							baseTableName		="course"					baseColumnNames			="idLevel"
+    							/>
+    <addForeignKeyConstraint 	constraintName		="courseYear" 
+    							referencedTableName	="year" 					referencedColumnNames	="id" 
+    							baseTableName		="course"					baseColumnNames			="idYear"
+    							/>
+    <addForeignKeyConstraint 	constraintName		="courseDivision" 
+    							referencedTableName	="division"					referencedColumnNames	="id" 
+    							baseTableName		="course"					baseColumnNames			="idDivision"
+    							/>    
+    							
+    <createTable tableName="student" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="idCourse"		type="bigint" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="studentCourse" 
+    							referencedTableName	="course"					referencedColumnNames	="id" 
+    							baseTableName		="student"					baseColumnNames			="idCourse"
+    							/>    
+
+    <createTable tableName="paymentDirection" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+  
+    <createTable tableName="paymentEntity" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+  
+   	<createTable tableName="productGroup" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+
+    <createTable tableName="paymentPlan" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+    
+    <createTable tableName="product" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+      <column name="idProductGroup"	type="bigint" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="productProductGroup" 
+    							referencedTableName	="productGroup"				referencedColumnNames	="id" 
+    							baseTableName		="product"					baseColumnNames			="idProductGroup"
+    							/>    
+
+    <createTable tableName="obligation" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="idPaymentPlan"	type="bigint" />
+      <column name="dueDate"		type="datetime" />
+      <column name="priceValue"		type="double" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="obligationPaymentPlan" 
+    							referencedTableName	="paymentPlan"				referencedColumnNames	="id" 
+    							baseTableName		="obligation"				baseColumnNames			="idPaymentPlan"
+    							/>  
+    <addForeignKeyConstraint 	constraintName		="obligationProduct" 
+    							referencedTableName	="product"					referencedColumnNames	="id" 
+    							baseTableName		="obligation"				baseColumnNames			="id"
+    							/>  							  
+
+    <createTable tableName="price" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"			type="datetime" />
+      <column name="idObligation"		type="bigint" />
+      <column name="validityStartDate"	type="datetime" />
+      <column name="priceValue"			type="double" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="priceObligation" 
+    							referencedTableName	="obligation"				referencedColumnNames	="id" 
+    							baseTableName		="price"					baseColumnNames			="idObligation"
+    							/>  
+
+    <createTable tableName="detail" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"			type="datetime" />
+      <column name="description"		type="varchar(255)" />
+      <column name="detailValue"		type="double" />
+      <column name="idPrice"			type="bigint" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="detailPrice" 
+    							referencedTableName	="price"					referencedColumnNames	="id" 
+    							baseTableName		="detail"					baseColumnNames			="idPrice"
+    							/>  
+
+    <createTable tableName="littleDetail" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"			type="datetime" />
+      <column name="description"		type="varchar(255)" />
+      <column name="littleDetailValue"	type="double" />
+      <column name="idDetail"			type="bigint" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="littleDetailDetail" 
+    							referencedTableName	="detail"					referencedColumnNames	="id" 
+    							baseTableName		="littleDetail"				baseColumnNames			="idDetail"
+    							/>  
+  
+  
+    <createTable tableName="obligationStatus" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"			type="datetime" />
+      <column name="idObligation"		type="bigint" />
+      <column name="idStudent"			type="bigint" />
+      <column name="paidOff"			type="boolean" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="obligationStatusObligation" 
+    							referencedTableName	="obligation"				referencedColumnNames	="id" 
+    							baseTableName		="obligationStatus"			baseColumnNames			="idObligation"
+    							/>    
+
+    <addForeignKeyConstraint 	constraintName		="obligationStatusStudent" 
+    							referencedTableName	="student"					referencedColumnNames	="id" 
+    							baseTableName		="obligationStatus"			baseColumnNames			="idStudent"
+    							/>  
+
+
+    <createTable tableName="responsible" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"			type="datetime" />
+      <column name="cbu"				type="varchar(255)" />
+      <column name="cuil"				type="varchar(255)" />
+    </createTable>
+ 
+    <addForeignKeyConstraint 	constraintName		="responsiblePerson" 
+    							referencedTableName	="person"					referencedColumnNames	="id" 
+    							baseTableName		="responsible"				baseColumnNames			="id"
+    							/>  
+ 
+    <createTable tableName="studentResponsible" >
+      <column name="idResponsible" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="idStudent" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+    </createTable>  
+
+    <addForeignKeyConstraint 	constraintName		="studentResponsibleStudent" 
+    							referencedTableName	="student"					referencedColumnNames	="id" 
+    							baseTableName		="studentResponsible"		baseColumnNames			="idStudent"
+    							/>  
+
+    <addForeignKeyConstraint 	constraintName		="studentResponsibleResponsible" 
+    							referencedTableName	="responsible"					referencedColumnNames	="id" 
+    							baseTableName		="studentResponsible"		baseColumnNames			="idResponsible"
+    							/>   
+
+    <createTable tableName="studentPaymentPlan" >
+      <column name="idStudent" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="idPaymentPlan" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+    </createTable> 
+
+    <addForeignKeyConstraint 	constraintName		="studentPaymentPlanStudent" 
+    							referencedTableName	="student"					referencedColumnNames	="id" 
+    							baseTableName		="studentPaymentPlan"		baseColumnNames			="idStudent"
+    							/>  
+     <addForeignKeyConstraint 	constraintName		="studentPaymentPlanPaymentPlan" 
+    							referencedTableName	="paymentPlan"				referencedColumnNames	="id" 
+    							baseTableName		="studentPaymentPlan"		baseColumnNames			="idPaymentPlan"
+    							/>     							
+
+    <createTable tableName="payment" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"					type="datetime" />
+ 	  <column name="idPersonWhoPays"			type="bigint" />
+ 	  <column name="paymentValue"				type="double" />
+ 	  <column name="paymentDate"				type="datetime" />
+    </createTable>     							
+
+     <addForeignKeyConstraint 	constraintName		="paymentPersonWhoPays" 
+    							referencedTableName	="person"					referencedColumnNames	="id" 
+    							baseTableName		="payment"					baseColumnNames			="idPersonWhoPays"
+    							/>     							
+
+    <createTable tableName="paymentUnit" >
+      <column name="id" 			type="bigint">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"					type="datetime" />
+ 	  <column name="paymentUnitValue"			type="double" />
+ 	  <column name="idPersonBenefiting"			type="bigint" />
+ 	  <column name="idProduct"					type="bigint" />
+ 	  <column name="idPaymentDirection"			type="bigint" />
+ 	  <column name="idPaymentEntity"			type="bigint" />
+ 	  <column name="idPayment"			type="bigint" />
+      <column name="description"		type="varchar(255)" />
+    </createTable>     							
+
+     <addForeignKeyConstraint 	constraintName		="paymentUnitPersonBenefiting" 
+    							referencedTableName	="person"					referencedColumnNames	="id" 
+    							baseTableName		="paymentUnit"				baseColumnNames			="idPersonBenefiting"
+    							/>     							
+     <addForeignKeyConstraint 	constraintName		="paymentUnitProduct" 
+    							referencedTableName	="product"					referencedColumnNames	="id" 
+    							baseTableName		="paymentUnit"				baseColumnNames			="idProduct"
+    							/> 
+     <addForeignKeyConstraint 	constraintName		="paymentUnitPaymentDirection" 
+    							referencedTableName	="paymentDirection"			referencedColumnNames	="id" 
+    							baseTableName		="paymentUnit"				baseColumnNames			="idPaymentDirection"
+    							/>     							    
+     <addForeignKeyConstraint 	constraintName		="paymentUnitPaymentEntity" 
+    							referencedTableName	="paymentEntity"			referencedColumnNames	="id" 
+    							baseTableName		="paymentUnit"				baseColumnNames			="idPaymentEntity"
+    							/>     							    
+     <addForeignKeyConstraint 	constraintName		="paymentUnitPayment" 
+    							referencedTableName	="payment"					referencedColumnNames	="id" 
+    							baseTableName		="paymentUnit"				baseColumnNames			="idPayment"
+    							/>  
+  </changeSet>
+</databaseChangeLog> 
