@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+                      
+  <changeSet author="Leonel" id="changelog-1.1">
+
+	<insert tableName="documentType">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="DNI" />
+	</insert>
+	<insert tableName="documentType">
+		<column name="id" 			value="2" />
+		<column name="description" 	value="Pasaporte" />
+	</insert>
+	
+	<insert tableName="year">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="1" />
+	</insert>
+	<insert tableName="year">
+		<column name="id" 			value="2" />
+		<column name="description" 	value="2" />
+	</insert>
+	<insert tableName="year">
+		<column name="id" 			value="3" />
+		<column name="description" 	value="3" />
+	</insert>	
+	<insert tableName="year">
+		<column name="id" 			value="4" />
+		<column name="description" 	value="4" />
+	</insert>	
+	<insert tableName="year">
+		<column name="id" 			value="5" />
+		<column name="description" 	value="5" />
+	</insert>	
+	<insert tableName="year">
+		<column name="id" 			value="6" />
+		<column name="description" 	value="6" />
+	</insert>	
+	<insert tableName="year">
+		<column name="id" 			value="7" />
+		<column name="description" 	value="7" />
+	</insert>	
+
+	<insert tableName="division">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="A" />
+	</insert>
+	<insert tableName="division">
+		<column name="id" 			value="2" />
+		<column name="description" 	value="B" />
+	</insert>
+	<insert tableName="division">
+		<column name="id" 			value="3" />
+		<column name="description" 	value="C" />
+	</insert>	
+	
+	<insert tableName="level">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Jardin" />
+	</insert>	
+	<insert tableName="level">
+		<column name="id" 			value="2" />
+		<column name="description" 	value="Pre Escolar" />
+	</insert>		
+	<insert tableName="level">
+		<column name="id" 			value="3" />
+		<column name="description" 	value="Primario" />
+	</insert>	
+	<insert tableName="level">
+		<column name="id" 			value="4" />
+		<column name="description" 	value="Secundario" />
+	</insert>	
+	
+	
+	<insert tableName="Course">
+		<column name="id" 				value="1" />
+		<column name="idLevel" 			value="1" />
+		<column name="idYear" 			value="1" />
+		<column name="idDivision" 		value="1" />
+	</insert>
+	<insert tableName="Course">
+		<column name="id" 				value="2" />
+		<column name="idLevel" 			value="1" />
+		<column name="idYear" 			value="2" />
+		<column name="idDivision" 		value="1" />
+	</insert>
+	<insert tableName="Course">
+		<column name="id" 				value="3" />
+		<column name="idLevel" 			value="1" />
+		<column name="idYear" 			value="3" />
+		<column name="idDivision" 		value="1" />
+	</insert>				
+  </changeSet>
+</databaseChangeLog> 
