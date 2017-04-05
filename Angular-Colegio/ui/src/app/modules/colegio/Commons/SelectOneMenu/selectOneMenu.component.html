@@ -2,7 +2,7 @@
   <div class="cs-select cs-skin-elastic" [ngClass]="{'cs-active': isActive}" 
       (click)="onClickSelect()" (blur)="onBlurSelect($event)">
       
-    <span class="cs-placeholder" [ngClass]="{'place-holder-ok': isAllOK, 'place-holder-error': isErrorEmpty}">
+    <span class="cs-placeholder" [ngClass]="{'place-holder-ok': selectOneMenuModel.isAllOK, 'place-holder-error': isErrorEmpty}">
       {{selectOneMenuModel.optionSelected.label}}
     </span>
     <div class="cs-options">
@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <i *ngIf="isAllOK" 
+  <i *ngIf="selectOneMenuModel.isAllOK" 
     class="fa fa-check-square is-all-ok-icon animated fadeIn" aria-hidden="true"></i>
 
   <span  *ngIf="isErrorEmpty"

@@ -11,6 +11,7 @@ import { SelectOneMenuCommonsComponent } from '../../Commons/SelectOneMenu/selec
 import { SelectOneMenuModel } from '../../Commons/SelectOneMenu/selectOneMenu.model.component';
 import { OptionModel } from '../../Commons/SelectOneMenu/option.model.component';
 import { DocumentTypes } from '../../Commons/Enums/DocumentTypes';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'colegio-alumnos-create',
@@ -32,7 +33,13 @@ export class StudentCreateComponent implements OnInit{
   obligationsStatus: Array<ObligationStatus>;
   responsibles: Array<Responsible>;
 
-  constructor() {}
+  showMessageError: boolean;
+  showMessageErrorInput: boolean;
+  showMessageErrorService: boolean;
+  messageErrorInputs: string; 
+  messageErrorService: string;
+
+  constructor(private studentService: StudentService) {}
 
   ngOnInit() {
     this.student = new Student();
@@ -41,6 +48,11 @@ export class StudentCreateComponent implements OnInit{
     this.loadPaymentPlansTest();
     this.loadObligationsStatusTest();
     this.loadResponsiblesTest();
+    this.showMessageError = false;
+    this.showMessageErrorInput = false;
+    this.showMessageErrorService = false;
+    this.messageErrorInputs = "Debes corregir todos los errores antes de continuar.";
+    this.messageErrorService = "Ocurrio un error de conexion con el servidor, reintentelo en un momento."
   }
 
   inicializarInputs(){
@@ -120,6 +132,36 @@ export class StudentCreateComponent implements OnInit{
 
     this.selecOneMenuDocumentType.required = true;
 
+  }
+
+  isAllOK(){
+    if(this.inputDocumentNumber.isAllOK && this.inputEmail.isAllOK 
+      && this.inputName.isAllOK && this.inputSurname.isAllOK
+      && this.selecOneMenuDocumentType.isAllOK){
+        return true;
+    }else{
+      return false;
+    }
+  }
+
+  confirm(){
+    if(this.isAllOK()){
+      this.loadStudentData();
+      this.showMessageError = false;
+      this.studentService.createStudent(this.student)
+       .subscribe(
+                       error =>  console.log(error));;
+      this.goToList();
+    }else{
+      this.showMessageError = true;
+      this.showMessageErrorInput = true;
+    }
+  }
+
+  loadStudentData(){
+    this.student.name = this.inputName.value;
+    this.student.surname = this.inputSurname.value;
+    this.student.documentNumber = Number(this.inputDocumentNumber.value);
   }
 
   loadPaymentPlansTest(){}

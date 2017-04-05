@@ -19,11 +19,8 @@ export class HttpRequest {
         @Inject("Config") private config: any,
         private cookieService: CookieService) { }
 
-    post(data: DefaultRequest): Observable<any> {
-        let fullURL = this.config.API_URL
-        if (this.config.MOCK) {
-            fullURL = fullURL + data.sei;
-        }
+    post(data, url): Observable<any> {
+        let fullURL = this.config.API_URL + url
         console.info("Post: " + fullURL);
         let dataString = JSON.stringify(data); // Stringify
         console.info("Data:", dataString);
@@ -35,14 +32,8 @@ export class HttpRequest {
 
     private getOptions(): RequestOptions {
 		let headers;
-		
-		if (this.config.MOCK) {
-			headers = new Headers({ 'Content-Type': 'application/json'});
-		}else{
-			headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" });
-		}
-		
-        let options = new RequestOptions({ headers: headers });
+		headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" });
+		let options = new RequestOptions({ headers: headers });
         return options;
     }
 
@@ -55,18 +46,4 @@ export class HttpRequest {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    /**
-     * Create the default requestt object, and set the module name, endpoint and body (optional);
-     */
-    createRequest(moduleName: string, endpoint: string, data?: any): DefaultRequest {
-        let cookie = this.cookieService.getObject(this.cookieName);
-        console.log(cookie);
-        return new DefaultRequest(
-            "string",
-            "string",
-            moduleName,
-            endpoint,
-            data
-        );
-    }
 }

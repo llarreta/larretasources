@@ -164,7 +164,6 @@ export class InputCommonsComponent implements OnInit{
   }
 
   onChange(){
-    console.log("onChange value " + this.inputModel.value);
     this.loadConditions();
     this.checkIsAllOK();
     this.changeValueModel();
