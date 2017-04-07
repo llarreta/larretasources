@@ -15,11 +15,6 @@
   		<artifactId>spring-webmvc</artifactId>
   		<version>4.3.3.RELEASE</version>
   	</dependency>
-  	<dependency>
-  		<groupId>javax.servlet</groupId>
-  		<artifactId>javax.servlet-api</artifactId>
-  		<version>3.0.1</version>
-  	</dependency>
 	<dependency>
 		<groupId>ar.com.larreta.tools</groupId>
 		<artifactId>Tools</artifactId>

@@ -30,8 +30,11 @@ import ar.com.larreta.annotations.Log;
 @EnableWebMvc
 @ComponentScan(basePackages = {
 		"ar.com.larreta"})  // scan  only the packages needed
-@PropertySource("classpath:application.properties")
+@PropertySource(RestConfig.CLASSPATH_APPLICATION_PROPERTIES)
 public class RestConfig extends WebMvcConfigurerAdapter  {
+
+	public static final String CLASSPATH_DOMAINS_ENABLED 		= "classpath:domains.enabled";
+	public static final String CLASSPATH_APPLICATION_PROPERTIES = "classpath:application.properties";
 
 	private static @Log Logger LOG;
 	
@@ -48,7 +51,7 @@ public class RestConfig extends WebMvcConfigurerAdapter  {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		try {
-			Resource resource = resourceLoader.getResource("classpath:domains.enabled");
+			Resource resource = resourceLoader.getResource(CLASSPATH_DOMAINS_ENABLED);
 			InputStreamReader reader = new InputStreamReader(resource.getInputStream());
 			BufferedReader bufferedReader = new BufferedReader(reader);
 			

@@ -2,17 +2,16 @@ package ar.com.larreta.prototypes.impl;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import ar.com.larreta.prototypes.Person;
+import ar.com.larreta.validators.annotations.NotNull;
 
 public class PersonImpl extends EntityImpl implements Person{
 
-	@NotNull(message="name required") @Size(min=5, message="name min size 5 char")
+	@NotNull(avaiableActions = { "" }) @Size(min=5, message="name min size 5 char")
 	private String 			name;
-	@NotNull(message="surname required") @Size(min=5, message="surname min size 5 char")
+	@NotNull(avaiableActions = { "" }) @Size(min=5, message="surname min size 5 char")
 	private String 			surname;
 	private Long 			documentType;
 	private String 			documentNumber;
