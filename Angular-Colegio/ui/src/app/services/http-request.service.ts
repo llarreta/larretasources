@@ -19,54 +19,37 @@ export class HttpRequest {
         @Inject("Config") private config: any,
         private cookieService: CookieService) { }
 
-    post(data: DefaultRequest): Observable<any> {
-        let fullURL = this.config.API_URL
-        if (this.config.MOCK) {
-            fullURL = fullURL + data.sei;
-        }
+    post(data, url): Observable<any> {
+        let fullURL = this.config.API_URL + url
         console.info("Post: " + fullURL);
         let dataString = JSON.stringify(data); // Stringify
         console.info("Data:", dataString);
         console.info("Options", this.getOptions());
         return this.http.post(fullURL, dataString, this.getOptions())
-            .map(this.extractData)
-            .catch(this.error);
+            .catch(this.onCatch());
     }
 
     private getOptions(): RequestOptions {
 		let headers;
-		
-		if (this.config.MOCK) {
-			headers = new Headers({ 'Content-Type': 'application/json'});
-		}else{
-			headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" });
-		}
-		
-        let options = new RequestOptions({ headers: headers });
+		headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" });
+		let options = new RequestOptions({ headers: headers });
         return options;
     }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        return body || {};
-    }
-
-    private error(error: any) {
-        return Observable.throw(error.json().error || 'Server error');
-    }
-
     /**
-     * Create the default requestt object, and set the module name, endpoint and body (optional);
-     */
-    createRequest(moduleName: string, endpoint: string, data?: any): DefaultRequest {
-        let cookie = this.cookieService.getObject(this.cookieName);
-        console.log(cookie);
-        return new DefaultRequest(
-            "string",
-            "string",
-            moduleName,
-            endpoint,
-            data
-        );
+     * Interceptor para captura genérica de errores http
+     * */
+    private onCatch() {
+        return (res: Response) => {
+        // Security errors
+        if (res.status === 401 || res.status === 403) {
+            // redirigir al usuario para pedir credenciales
+            //this.router.navigate(['user/login']);
+            console.log("Acceso denegado...");
+        }
+        // To Do: Gestión común de otros errores...
+        return Observable.throw(res);
+        };
     }
+
 }

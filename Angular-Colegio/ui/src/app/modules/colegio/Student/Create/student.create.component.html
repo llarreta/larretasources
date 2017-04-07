@@ -1,4 +1,4 @@
-<div class= "col-12 common-box">
+<div class= "common-box">
   <div class="row animated fadeIn">
     <div class="col-12">
       <button type="button" class="button-back" (click)="goToList(true)">
@@ -11,9 +11,20 @@
         <h1>Creando Alumnos</h1>
     </div>
   </div>
+  <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+    <div class="col-1 error-box-icon">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+    </div>
+    <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+      {{messageErrorInputs}}  
+    </div>
+    <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+      {{messageErrorService}}
+    </div>
+  </div>
   <div class="row">
     <div class="col-12">
-      <div class="row animated fadeIn">
+      <div class="row">
         <div class="col-6">
           <input-commons [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
         </div>
@@ -22,7 +33,7 @@
           <input-commons [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
         </div>
       </div>
-      <div class="row animated fadeIn">
+      <div class="row">
         <div class="col-6">
           <select-one-menu-commons [selectOneMenuModel]="selecOneMenuDocumentType" (valueModel)="setDocumentType($event)"></select-one-menu-commons>
         </div>
@@ -32,9 +43,14 @@
           (valueModel)="setDocumentNumber($event)"></input-commons>
         </div>
       </div>
-      <div>
+      <div class="row">
         <div class="col-6">
           <input-commons [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button (click)="confirm()" class="custom-green-button" type="button">Confirmar</button>
         </div>
       </div>
     </div>

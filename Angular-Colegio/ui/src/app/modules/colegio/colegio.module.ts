@@ -14,6 +14,9 @@ import { StudentUpdateComponent } from './Student/Update/student.update.componen
 import { InputCommonsComponent } from './Commons/Input/input.component';
 import { SelectOneMenuCommonsComponent } from './Commons/SelectOneMenu/selectOneMenu.component';
 
+//Services
+import { StudentService } from './services/student.service';
+
 @NgModule({
     imports:
     [
@@ -34,6 +37,7 @@ import { SelectOneMenuCommonsComponent } from './Commons/SelectOneMenu/selectOne
     ],
     providers:
     [
+        StudentService
     ]
 })
 export class ColegioModule { }

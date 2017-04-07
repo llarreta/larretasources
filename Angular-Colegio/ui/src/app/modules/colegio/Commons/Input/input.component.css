@@ -214,6 +214,7 @@ span.tooltip-text h5 {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.44);
 }
 
+label.input__label.input__label--hoshi.input__label--hoshi-color-1.input_label_non_focus.error-color::after,
 label.input__label.input__label--hoshi.input__label--hoshi-color-1.error-color::after {
     border-color: #c7202c;
 }

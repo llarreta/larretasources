@@ -16,18 +16,64 @@ export class InputCommonsComponent implements OnInit{
   valueModel = new EventEmitter();
 
   isOnFocusLabel: boolean;
-  isValueEmpty: boolean;
   isErrorEmpty: boolean;
-  isAllOK: boolean;
+  isErrorValidation: boolean;
+  isErrorMaxCharacter: boolean;
+  isErrorMinCharacter: boolean;
+  isErrorMaxNumber: boolean;
+  isErrorMinNumber: boolean;
+  isErrorType: boolean;
+
+  isErrorValidationEnabled: boolean;
+  isErrorMaxCharacterEnabled: boolean;
+  isErrorMinCharacterEnabled: boolean;
+  isErrorMaxNumberEnabled: boolean;
+  isErrorMinNumberEnabled: boolean;
+  isMaskEnabled: boolean;
+
+  errorTypeText: string = "Solamente puede ingresar numeros, el maximo de decimales es 2.";
 
   constructor() {}
 
   ngOnInit() {
     this.isOnFocusLabel = false;
-    this.isValueEmpty = true;
-    this.isAllOK = false;
-    this.loadConditions();
-    this.checkValue();
+    this.checkValidationsEnabled();
+    if(this.inputModel.value != null){
+      this.checkValue();
+    }
+  }
+
+  checkValidationsEnabled(){
+    if(this.inputModel.maxCharacter != null){
+      this.isErrorMaxCharacterEnabled = true;
+    }else{
+      this.isErrorMaxCharacterEnabled = false;
+    }
+    if(this.inputModel.minCharacter != null){
+      this.isErrorMinCharacterEnabled = true;
+    }else{
+      this.isErrorMinCharacterEnabled = false;
+    }
+    if(this.inputModel.maxNumber != null){
+      this.isErrorMaxNumberEnabled = true;
+    }else{
+      this.isErrorMaxNumberEnabled = false;
+    }
+    if(this.inputModel.minNumber != null){
+      this.isErrorMinNumberEnabled = true;
+    }else{
+      this.isErrorMinNumberEnabled = false;
+    }
+    if(this.inputModel.validateText != null){
+      this.isErrorValidationEnabled = true;
+    }else{
+      this.isErrorValidationEnabled = false;
+    }
+    if(this.inputModel.maskText != null){
+      this.isMaskEnabled = true;
+    }else{
+      this.isMaskEnabled = false;
+    }
   }
 
   onFocus(){
@@ -35,58 +81,127 @@ export class InputCommonsComponent implements OnInit{
   }
 
   onBlur(){
-    this.loadConditions();
+    this.checkValue();
     this.isOnFocusLabel = false;
     this.changeValueModel();
   }
 
   loadConditions(){
-    console.log("value= " + this.inputModel.value);
-    if((this.inputModel.value == null) || (this.inputModel.value == "")){
-      this.isValueEmpty = true;
+    this.checkEmpty();
+    this.checkValidation();
+    if(this.inputModel.type == "text" || this.inputModel.type == "email"){ 
+      this.checkMaxCharacter();
+      this.checkMinCharacter();
+    } 
+    if(this.inputModel.type == "number"){ 
+      this.checkType();
+      this.checkMaxNumber();
+      this.checkMinNumber();
+    }
+  }
+
+  checkEmpty(){
+    if((this.inputModel.required) && 
+      ((this.inputModel.value == null) || (this.inputModel.value == ""))){
+      this.isErrorEmpty = true;
     }else{
-      this.isValueEmpty = false;
+      this.isErrorEmpty = false;
+    }
+  }
+
+  checkValidation(){
+    if((this.isErrorValidationEnabled) && (!this.inputModel.value.match(this.inputModel.validateText))){
+      this.isErrorValidation = true;
+    }else{
+      this.isErrorValidation = false;
+    }
+  }
+
+  checkMaxCharacter(){
+    if((this.isErrorMaxCharacterEnabled) && (this.inputModel.value.length > this.inputModel.maxCharacter)){
+      this.isErrorMaxCharacter = true;
+    }else{
+      this.isErrorMaxCharacter = false;
+    }
+  }
+
+  checkMinCharacter(){
+    if((this.isErrorMinCharacterEnabled) && (this.inputModel.value.length < this.inputModel.minCharacter)){
+      this.isErrorMinCharacter = true;
+    }else{
+      this.isErrorMinCharacter = false;
+    }
+  }
+
+  checkMaxNumber(){
+    if((this.isErrorMaxNumberEnabled) && (Number(this.inputModel.value) > this.inputModel.maxNumber)){
+      this.isErrorMaxNumber = true;
+    }else{
+      this.isErrorMaxNumber = false;
+    }
+  }
+
+  checkType(){
+    if(this.inputModel.type == "number"){
+      let texto: string = this.getTextWithOutMask();
+      if(texto != null){  
+        if(!texto.match("^[0-9]*([,][0-9]{1,2})?$")){  
+          this.isErrorType = true;
+        }else{
+          console.log("Error type false");
+          this.isErrorType = false;
+        }
+      }
+    }
+  }
+
+  checkMinNumber(){
+    if((this.isErrorMinNumberEnabled) && (Number(this.inputModel.value) < this.inputModel.minNumber)){
+      this.isErrorMinNumber = true;
+    }else{
+      this.isErrorMinNumber = false;
     }
   }
 
   onChange(){
-    console.log("onChange value " + this.inputModel.value);
     this.loadConditions();
-    if(this.inputModel.required && this.isValueEmpty){
-      console.log("isErrorEmpty = true");
-      this.isErrorEmpty = true;
-    }
-    if(this.inputModel.required && !this.isValueEmpty){
-      console.log("isErrorEmpty = false");
-      this.isErrorEmpty = false;
-    }
-    if(!this.isErrorEmpty && !this.inputModel.isErrorValidation){
-      console.log("onChange isAllOK = true");
-      this.isAllOK = true;
-    }else{
-      console.log("isAllOK = false");
-      this.isAllOK = false;
-    }
+    this.checkIsAllOK();
     this.changeValueModel();
   }  
 
-  checkValue(){
-    this.loadConditions();  
-    if((this.inputModel.required && !this.isValueEmpty) 
-      && (!this.inputModel.isErrorValidation)){
-      console.log("checkValue isAllOK = true");
-      this.isAllOK = true;
+  checkIsAllOK(){
+    if(
+      ((!this.inputModel.required) || (this.inputModel.required && !this.isErrorEmpty))
+      && ((!this.isErrorMaxCharacterEnabled) || (this.isErrorMaxCharacterEnabled && !this.isErrorMaxCharacter))
+      && ((!this.isErrorMinCharacterEnabled) || (this.isErrorMinCharacterEnabled && !this.isErrorMinCharacter))
+      && ((!this.isErrorMaxNumberEnabled) || (this.isErrorMaxNumberEnabled && !this.isErrorMaxNumber))
+      && ((!this.isErrorMinNumberEnabled) || (this.isErrorMinNumberEnabled && !this.isErrorMinNumber))
+      && ((!this.isErrorValidationEnabled) || (this.isErrorValidationEnabled && !this.isErrorValidation))
+      && (!this.isErrorType)
+      ){
+        this.inputModel.isAllOK = true;
+    }else{
+      this.inputModel.isAllOK = false;
     }
   }
 
+  checkValue(){
+    this.loadConditions();    
+    this.checkIsAllOK();
+  }
+
   changeValueModel() {
-      console.log('newvalue', this.inputModel.value)
-      if(this.inputModel.type == "text" || this.inputModel.type == "email"){  
-        this.valueModel.emit(this.inputModel.value);
-      }
-      if(this.inputModel.type == "number"){
-        this.valueModel.emit(Number(this.inputModel.value));
-      }
+    this.valueModel.emit(this.inputModel);
+  }
+
+  applyMask(){
+    // example **-***-**
+    let valueWithMask: string;
+    this.inputModel.value = "-" + this.inputModel.value;
+  }
+
+  getTextWithOutMask(){
+    return this.inputModel.value;
   }
 
 }

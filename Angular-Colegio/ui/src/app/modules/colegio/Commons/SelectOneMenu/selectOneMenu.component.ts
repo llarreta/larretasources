@@ -18,13 +18,12 @@ export class SelectOneMenuCommonsComponent implements OnInit{
 
   isActive: boolean;
   isErrorEmpty: boolean;
-  isAllOK: boolean;
 
   constructor() {}
 
   ngOnInit(){
     this.isActive = false;
-    this.isAllOK = false;
+    this.selectOneMenuModel.isAllOK = false;
     this.isErrorEmpty = false;
 
     let defaultOption: OptionModel = new OptionModel();
@@ -51,7 +50,7 @@ export class SelectOneMenuCommonsComponent implements OnInit{
     this.isActive = !this.isActive;
   }
 
-  onBlurSelect(){
+  onBlurSelect(e){
     this.isActive = false;
   }
 
@@ -59,19 +58,19 @@ export class SelectOneMenuCommonsComponent implements OnInit{
     this.selectOneMenuModel.optionSelected = option;
     if(this.selectOneMenuModel.required && option.id == 0){
       this.isErrorEmpty = true;
-      this.isAllOK = false;
+      this.selectOneMenuModel.isAllOK = false;
     }else{
       this.isErrorEmpty = false;
     }
     if(option.id != 0){
-      this.isAllOK = true;
+      this.selectOneMenuModel.isAllOK = true;
       this.isErrorEmpty = false;
     }
     this.changeValueModel();
   }
   
   changeValueModel() {
-    this.valueModel.emit(this.selectOneMenuModel.optionSelected.id);
+    this.valueModel.emit(this.selectOneMenuModel);
   }
 
 }

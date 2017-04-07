@@ -6,13 +6,13 @@ export class ConfigurationLoader {
     private CONF: { [id: string] : IConfig } = {
         "DEV": {
             APP_URL: "http://localhost:3000/",
-            API_URL: "http://localhost:8887/",
+            API_URL: "http://localhost:8084/school/",
             LOG_LEVEL: "ALL",
             MOCK: true
         },
         "PROD":{
             APP_URL: "http://localhost:3000/",
-            API_URL: "http://localhost:9999/",
+            API_URL: "http://localhost:8084/school/",
             LOG_LEVEL: "NONE",
             MOCK: false
         }

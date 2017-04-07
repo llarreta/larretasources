@@ -1,14 +1,27 @@
-export class InputModel{
+import { CommonComponentModel } from '../CommonComponent/CommonComponent.model';
 
-    public type: string;
+export class InputModel extends CommonComponentModel{
+
     public id: string;
+    public type: string;
     public labelContent: string;
-    public isErrorValidation: boolean;
+    public value: string;
+    public maxNumber: number;
+    public minNumber: number;
+    public maxCharacter: number;
+    public minCharacter: number;
+    public validateText: string;
+    public maskText: string;
     public messageErrorValidation: string;
     public messageErrorEmpty: string;
-    public required: boolean;
-    public value: string;
-
-    constructor() {}
+    public messageErrorMaxCharacter: string;
+    public messageErrorMinCharacter: string;
+    public messageErrorMaxNumber: string;
+    public messageErrorMinNumber: string;
+    public childComponent: CommonComponentModel; 
+    
+    constructor() {
+        super();
+    }
 }
 

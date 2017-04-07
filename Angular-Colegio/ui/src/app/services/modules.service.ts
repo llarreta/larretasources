@@ -3,4 +3,5 @@ export namespace Modules {
     export const PagoProveedores: string = 'PagoProveedores';
     export const ModuloDePago: string= 'mpay';
     export const ModuloDeUsuario: string = 'musr';
+    export const Student: string = "students";
 }
