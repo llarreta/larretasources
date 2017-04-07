@@ -59,7 +59,10 @@ public class RestConfig extends WebMvcConfigurerAdapter  {
 			while (bufferedReader.ready()){
 				domains.add(bufferedReader.readLine());
 			}
-			registry.addMapping("/**").allowedOrigins(domains.stream().toArray(String[]::new));
+			registry.addMapping("/**")
+					.allowedHeaders("Content-Type", "X-Requested-With", "accept", "Origin", 
+									"Access-Control-Request-Method", "Access-Control-Request-Headers")
+					.allowedOrigins(domains.stream().toArray(String[]::new));
 		} catch (Exception e){
 			LOG.error("Ocurrio un error estableciendo dominios habilitados");
 		}
