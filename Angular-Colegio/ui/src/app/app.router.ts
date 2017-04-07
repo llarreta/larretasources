@@ -4,12 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 // Modules
 //import { ProvidersModule } from './modules/+providers/providers.module';
 
-// Shared Components
-import { LoginComponent } from './modules/login/login.component';
-
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent},
+  { path: '', redirectTo: 'colegio', pathMatch: 'full' },
   { path: 'colegio', loadChildren: 'app/modules/colegio/colegio.module#ColegioModule'}
 ];
 

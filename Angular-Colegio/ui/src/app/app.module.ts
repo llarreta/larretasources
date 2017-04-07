@@ -32,8 +32,6 @@ import { ShowHidePass } from './shared/show-hide-pass/show-hide-pass.component';
 
 import { ImageUploadModule } from './shared/image-uploader/image-upload.module';
 
-import { LoginModule } from './modules/login/login.module';
-
 import { ColegioModule } from './modules/colegio/colegio.module';
 
 @NgModule({
@@ -46,7 +44,6 @@ import { ColegioModule } from './modules/colegio/colegio.module';
     NgbModule.forRoot(),
     ReactiveFormsModule,
     ImageUploadModule.forRoot(),
-    LoginModule
   ],
   providers: [
     CookieService,
