@@ -19,7 +19,7 @@ export class StudentService {
             surname: student.surname,
             documentNumber: ""+student.documentNumber    
         };
-        return this.http.post(data, "create");
+        return this.http.post(data, "students/create");
     }
 
 }

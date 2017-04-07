@@ -148,9 +148,11 @@ export class StudentCreateComponent implements OnInit{
     if(this.isAllOK()){
       this.loadStudentData();
       this.showMessageError = false;
+      let bodyResponse;
       this.studentService.createStudent(this.student)
-       .subscribe(
-                       error =>  console.log(error));;
+       .subscribe(  
+                       body => bodyResponse = body);
+      console.log("State: " + bodyResponse);
       this.goToList();
     }else{
       this.showMessageError = true;
