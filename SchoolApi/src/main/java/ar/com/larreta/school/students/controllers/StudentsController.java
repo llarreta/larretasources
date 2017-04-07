@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,7 @@ import ar.com.larreta.school.students.business.StudentsDeleteBusiness;
 import ar.com.larreta.school.students.business.StudentsLoadBusiness;
 import ar.com.larreta.school.students.business.StudentsUpdateBusiness;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value="/students")
 @Validated
@@ -40,11 +42,6 @@ public class StudentsController extends ParentController<PersonImpl> {
 	
 	@Autowired
 	private StudentsLoadBusiness loadBusiness;
-	
-	/*@InitBinder
-	protected void initBinder(WebDataBinder binder) {
-	    binder.setValidator(new StudentsCreateRequestValidator());
-	}*/
 	
 	
 	@Override

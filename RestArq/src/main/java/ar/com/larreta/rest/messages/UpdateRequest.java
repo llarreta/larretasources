@@ -1,13 +1,13 @@
 package ar.com.larreta.rest.messages;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import ar.com.larreta.prototypes.JSONable;
+import ar.com.larreta.validators.annotations.NotNull;
 
 public class UpdateRequest<T extends JSONable> extends Request {
 
-	@NotNull(message="target required")
+	@NotNull(avaiableActions = { "create", "update" })
 	@Valid
 	private T target;
 
