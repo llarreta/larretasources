@@ -26,7 +26,8 @@ export class HttpRequest {
         console.info("Data:", dataString);
         console.info("Options", this.getOptions());
         return this.http.post(fullURL, dataString, this.getOptions())
-            .catch(this.onCatch());
+            .map(res => res.json())
+            .catch(this.onCatch);
     }
 
     private getOptions(): RequestOptions {
@@ -39,17 +40,12 @@ export class HttpRequest {
     /**
      * Interceptor para captura genérica de errores http
      * */
-    private onCatch() {
-        return (res: Response) => {
-        // Security errors
-        if (res.status === 401 || res.status === 403) {
-            // redirigir al usuario para pedir credenciales
-            //this.router.navigate(['user/login']);
-            console.log("Acceso denegado...");
-        }
-        // To Do: Gestión común de otros errores...
-        return Observable.throw(res);
+    public onCatch(error: Response) {
+        let responseError = 
+        { 
+            httpStatus: error.status, 
+            codeError: error.json().state.code
         };
+        return Observable.throw(responseError);
     }
-
 }

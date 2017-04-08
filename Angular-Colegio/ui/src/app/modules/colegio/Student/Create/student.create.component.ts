@@ -12,6 +12,7 @@ import { SelectOneMenuModel } from '../../Commons/SelectOneMenu/selectOneMenu.mo
 import { OptionModel } from '../../Commons/SelectOneMenu/option.model.component';
 import { DocumentTypes } from '../../Commons/Enums/DocumentTypes';
 import { StudentService } from '../../services/student.service';
+import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
 
 @Component({
   selector: 'colegio-alumnos-create',
@@ -149,17 +150,28 @@ export class StudentCreateComponent implements OnInit{
       this.loadStudentData();
       this.showMessageError = false;
       let datosResponse;
+      let status;
       this.studentService.createStudent(this.student)
-       .subscribe(res => {
-          datosResponse = res.json();
-          console.log("status dentro subscribe: " + res.status);
-        });
-      console.log("State: " + datosResponse);
-      this.goToList();
+       .subscribe(
+        data => this.createStudentOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+      );
+      
     }else{
       this.showMessageError = true;
       this.showMessageErrorInput = true;
     }
+  }
+
+  createStudentOK(data){
+    this.goToList();
+  }
+
+  loadErrorMessageService(error){
+    this.messageErrorService = ErrorMessages.getMessageError(error.codeError + "-ES");
+    this.showMessageErrorService = true;
+    this.showMessageError = true;
   }
 
   loadStudentData(){
