@@ -25,7 +25,7 @@ import ar.com.larreta.school.students.business.StudentsDeleteBusiness;
 import ar.com.larreta.school.students.business.StudentsLoadBusiness;
 import ar.com.larreta.school.students.business.StudentsUpdateBusiness;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping(value="/students")
 @Validated
