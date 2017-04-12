@@ -7,10 +7,39 @@ import ar.com.larreta.rest.messages.status.NOT;
 import ar.com.larreta.rest.messages.status.OK;
 import ar.com.larreta.rest.messages.status.State;
 
-public class Response extends Message {
+public class Response<T extends JSONable> extends Message {
 	
+	/**
+	 * Estado de la ejecucion realizada
+	 */
 	private State state = new OK();
 	
+	/**
+	 * Nuevo token de seguridad proporcionado al cliente para posteriores llamadas
+	 */
+	private String token = "Not Implemented";
+	
+	/**
+	 * Cuerpo del mensaje que se esta retornando
+	 */
+	private T body;
+
+	public T getBody() {
+		return body;
+	}
+
+	public void setBody(T body) {
+		this.body = body;
+	}
+	
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public void setOK(){
 		state = new OK();
 	}

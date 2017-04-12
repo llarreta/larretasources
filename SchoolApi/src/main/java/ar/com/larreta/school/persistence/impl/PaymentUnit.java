@@ -12,17 +12,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import ar.com.larreta.persistence.model.impl.PersistenceParametricEntityImpl;
+import ar.com.larreta.persistence.model.ParametricEntity;
+import ar.com.larreta.persistence.model.Person;
 
 @Entity
 @Table(name = "paymentUnit")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE PaymentUnit SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class PaymentUnit extends PersistenceParametricEntityImpl {
+public class PaymentUnit extends ParametricEntity {
 	
 	private Double value;
-	private PersistencePersonImpl personBenefiting;
+	private Person personBenefiting;
 	private Product product;
 	private PaymentDirection paymentDirection;
 	private PaymentEntity paymentEntity;
@@ -36,12 +37,12 @@ public class PaymentUnit extends PersistenceParametricEntityImpl {
 		this.value = value;
 	}
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=PersistencePersonImpl.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Person.class)
 	@JoinColumn (name="idPersonBenefiting")
-	public PersistencePersonImpl getPersonBenefiting() {
+	public Person getPersonBenefiting() {
 		return personBenefiting;
 	}
-	public void setPersonBenefiting(PersistencePersonImpl personBenefiting) {
+	public void setPersonBenefiting(Person personBenefiting) {
 		this.personBenefiting = personBenefiting;
 	}
 	

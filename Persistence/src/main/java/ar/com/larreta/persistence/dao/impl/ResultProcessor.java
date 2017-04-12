@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
+import ar.com.larreta.persistence.model.Entity;
 
 /**
  * Procesa el resultado del DAO y lo vuelca sobre la entidad principal 
@@ -21,17 +21,17 @@ public class ResultProcessor {
 	
 	private static final Logger LOGGER = Logger.getLogger(ResultProcessor.class);
 	
-	private List<PersistenceEntityImpl> entities;
+	private List<Entity> entities;
 	
 	private LoadArguments args;
 	
-	public Collection<PersistenceEntityImpl> getEntities() {
+	public Collection<Entity> getEntities() {
 		return entities;
 	}
 
 	public ResultProcessor(List result, LoadArguments args){
 		this.args = args;
-		entities = new ArrayList<PersistenceEntityImpl>();
+		entities = new ArrayList<Entity>();
 		try {
 			Iterator<Object[]> itList = result.iterator();
 			while (itList.hasNext()) {
@@ -46,18 +46,18 @@ public class ResultProcessor {
 				}
 				
 				if ((objects!=null) && (objects.length>0)){
-					PersistenceEntityImpl entity = (PersistenceEntityImpl) objects[0];
+					Entity entity = (Entity) objects[0];
 				
 					Integer index = 1;
 					Iterator<ProjectedProperty> itProjected = args.getAllOrdereProperties().iterator();
 					
-					Map<String, PersistenceEntityImpl> toSetEntities = new HashMap<String, PersistenceEntityImpl>();
+					Map<String, Entity> toSetEntities = new HashMap<String, Entity>();
 					toSetEntities.put(StringUtils.EMPTY, entity);
 					
 					while (itProjected.hasNext()) {
 						ProjectedProperty projectedProperty = (ProjectedProperty) itProjected.next();
-						PersistenceEntityImpl toSet = toSetEntities.get(projectedProperty.getPrefix());
-						PersistenceEntityImpl value = (PersistenceEntityImpl) objects[index];
+						Entity toSet = toSetEntities.get(projectedProperty.getPrefix());
+						Entity value = (Entity) objects[index];
 						
 						projectedProperty.setValue(toSet, value);
 						

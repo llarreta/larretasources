@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import ar.com.larreta.persistence.model.impl.PersistenceParametricEntityImpl;
+import ar.com.larreta.persistence.model.ParametricEntity;
 
 @Entity
 @Table(name = "product")
@@ -20,7 +20,7 @@ import ar.com.larreta.persistence.model.impl.PersistenceParametricEntityImpl;
 @Inheritance(strategy=InheritanceType.JOINED)
 @SQLDelete (sql="UPDATE Product SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Product extends PersistenceParametricEntityImpl{
+public class Product extends ParametricEntity{
 	
 	private ProductGroup productGroup;
 	
@@ -31,7 +31,7 @@ public class Product extends PersistenceParametricEntityImpl{
 	}
 
 	public void setProductGroup(ProductGroup productGroup) {
-		this.productGroup = productGroup;
+		this.productGroup = (ProductGroup) productGroup;
 	}
 
 	

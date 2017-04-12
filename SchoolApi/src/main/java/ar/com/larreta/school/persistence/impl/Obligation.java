@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -21,7 +20,6 @@ import org.hibernate.annotations.Where;
 @Table(name = "obligation")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Obligation SET deleted=CURRENT_TIMESTAMP WHERE id=?")
-@XmlRootElement
 public class Obligation extends Product {
 	
 	private Date dueDate;

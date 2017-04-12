@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import ar.com.larreta.persistence.aspects.InjectId;
 import ar.com.larreta.persistence.dao.StandardDAO;
 import ar.com.larreta.persistence.dao.args.LoadArguments;
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
+import ar.com.larreta.persistence.model.Entity;
 
 /**
  * DAO con las funcionalidades basicas resueltas
@@ -28,7 +28,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * Obtiene una entidad de la base de datos del tipo entityClass y filtrando por el id
 	 * @throws UnreportedEntityException 
 	 */
-	public PersistenceEntityImpl getEntity(Class entityClass, Serializable id){
+	public Entity getEntity(Class entityClass, Serializable id){
 		LoadArguments args = new LoadArguments(entityClass);
 		args.addWhereEqual("id", id);
 		return getEntity(args);
@@ -42,9 +42,9 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * @param wheres
 	 * @return
 	 */
-	public PersistenceEntityImpl getEntity(LoadArguments args) {
-		PersistenceEntityImpl entity = null;
-		Collection<PersistenceEntityImpl> result = load(args);
+	public Entity getEntity(LoadArguments args) {
+		Entity entity = null;
+		Collection<Entity> result = load(args);
 		if ((result!=null) && (!result.isEmpty())){
 			entity = result.iterator().next();
 		}
@@ -60,7 +60,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * @return
 	 * @throws UnreportedEntityException 
 	 */
-	public PersistenceEntityImpl getEntity(Class entityClass, String field, Object value){
+	public Entity getEntity(Class entityClass, String field, Object value){
 		LoadArguments args = new LoadArguments(entityClass);
 		args.addWhereEqual(field, value);
 		return getEntity(args);
@@ -71,7 +71,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * @param entity
 	 */
 	@InjectId
-	public void save(PersistenceEntityImpl entity){
+	public void save(Entity entity){
 		//No colocar el ExecutionStatisticsDirector aqui porque se volveria recursivo ya que se invoca desde el mismo SaveThread
 		getSessionFactory().getCurrentSession().save(entity);
 	}
@@ -84,7 +84,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 		if (entities!=null){
 			Iterator it = entities.iterator();
 			while (it.hasNext()) {
-				saveOrUpdate((PersistenceEntityImpl)it.next());
+				saveOrUpdate((Entity)it.next());
 			}
 		}
 	}
@@ -93,7 +93,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * Actualiza una entidad en la base de datos
 	 * @param entity
 	 */
-	public void update(PersistenceEntityImpl entity){
+	public void update(Entity entity){
 		getSessionFactory().getCurrentSession().update(entity);
 	}
 	
@@ -101,7 +101,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * Crea o Actualiza una entidad en la base de datos segun corresponda
 	 * @param entity
 	 */
-	public void saveOrUpdate(PersistenceEntityImpl entity){
+	public void saveOrUpdate(Entity entity){
 		getSessionFactory().getCurrentSession().saveOrUpdate(entity);
 	}
 
@@ -116,7 +116,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * Elimina de la base de datos una entidad
 	 * @param entity
 	 */
-	public void delete(PersistenceEntityImpl entity){
+	public void delete(Entity entity){
 		getSessionFactory().getCurrentSession().delete(entity);
 	}
 	
@@ -127,7 +127,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * @param property
 	 * @return
 	 */
-	public Collection getPropertyCollection(PersistenceEntityImpl entity, String property){
+	public Collection getPropertyCollection(Entity entity, String property){
 		if ((entity==null)||(property==null)){
 			return new ArrayList();
 		}
@@ -150,7 +150,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * @param property
 	 * @return
 	 */
-	public PersistenceEntityImpl getProperty(PersistenceEntityImpl entity, String property){
+	public Entity getProperty(Entity entity, String property){
 		if ((entity==null)||(property==null)){
 			return null;
 		}
@@ -161,7 +161,7 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 		
 		Query query = getSessionFactory().getCurrentSession().createQuery(hql.toString());
 		query.setLong(ID, entity.getId());
-		PersistenceEntityImpl result = (PersistenceEntityImpl) query.uniqueResult();
+		Entity result = (Entity) query.uniqueResult();
 		return result;
 	}	
 	

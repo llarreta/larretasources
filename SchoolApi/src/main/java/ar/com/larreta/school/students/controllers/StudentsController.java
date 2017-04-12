@@ -1,25 +1,15 @@
 package ar.com.larreta.school.students.controllers;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.larreta.prototypes.JSONable;
-import ar.com.larreta.prototypes.ObjectJSONable;
-import ar.com.larreta.prototypes.impl.PersonImpl;
+import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.controllers.ParentController;
-import ar.com.larreta.rest.exceptions.BadInputException;
-import ar.com.larreta.rest.exceptions.RestException;
-import ar.com.larreta.rest.messages.DeleteRequest;
-import ar.com.larreta.rest.messages.DeleteResponse;
-import ar.com.larreta.rest.messages.LoadRequest;
-import ar.com.larreta.rest.messages.LoadResponse;
-import ar.com.larreta.rest.messages.UpdateRequest;
-import ar.com.larreta.rest.messages.UpdateResponse;
+import ar.com.larreta.school.messages.LoadStudentsBody;
+import ar.com.larreta.school.messages.UpdateStudentBody;
 import ar.com.larreta.school.students.business.StudentsCreateBusiness;
 import ar.com.larreta.school.students.business.StudentsDeleteBusiness;
 import ar.com.larreta.school.students.business.StudentsLoadBusiness;
@@ -28,74 +18,30 @@ import ar.com.larreta.school.students.business.StudentsUpdateBusiness;
 @RestController
 @RequestMapping(value="/students")
 @Validated
-public class StudentsController extends ParentController<PersonImpl> {
+public class StudentsController extends ParentController<UpdateStudentBody, LoadStudentsBody> {
 
-	@Autowired
-	private StudentsCreateBusiness createBusiness;
-
-	@Autowired
-	private StudentsUpdateBusiness updateBusiness;
-	
-	@Autowired
-	private StudentsDeleteBusiness deleteBusiness;
-	
-	@Autowired
-	private StudentsLoadBusiness loadBusiness;
-	
-	
+	@Autowired @Qualifier(StudentsCreateBusiness.BUSINESS_NAME)
 	@Override
-	public UpdateResponse executeCreate(UpdateRequest<PersonImpl> request) throws RestException {
-		UpdateResponse response = new UpdateResponse();
-		
-		PersonImpl person = request.getTarget();
-		if (person==null){
-			throw new BadInputException();
-		}
-		createBusiness.execute(person);
-		
-		response.setTargetId(person.getId());
-		return response;
+	public void setCreateBusiness(Business createBusiness) {
+		this.createBusiness = createBusiness;
 	}
 
+	@Autowired @Qualifier(StudentsUpdateBusiness.BUSINESS_NAME)
 	@Override
-	public UpdateResponse executeUpdate(UpdateRequest<PersonImpl> request) throws RestException {
-		UpdateResponse response = new UpdateResponse();
-		
-		PersonImpl person = request.getTarget();
-		if (person==null){
-			throw new BadInputException();
-		}
-		updateBusiness.execute(person);
-		
-		response.setTargetId(person.getId());
-		return response;
+	public void setUpdateBusiness(Business updateBusiness) {
+		this.updateBusiness = updateBusiness;
 	}
 
+	@Autowired @Qualifier(StudentsDeleteBusiness.BUSINESS_NAME)
 	@Override
-	public DeleteResponse executeDelete(DeleteRequest request) throws RestException {
-		DeleteResponse response = new DeleteResponse();
-		
-		Long targetId = request.getTargetId();
-		if (targetId==null){
-			throw new BadInputException();
-		}
-		
-		deleteBusiness.execute(new ObjectJSONable(targetId));
-		
-		response.setTargetId(targetId);
-		return response;
+	public void setDeleteBusiness(Business deleteBusiness) {
+		this.deleteBusiness = deleteBusiness;
 	}
-	
 
+	@Autowired @Qualifier(StudentsLoadBusiness.BUSINESS_NAME)
 	@Override
-	public LoadResponse<PersonImpl> executeLoad(LoadRequest<PersonImpl> request) throws RestException {
-
-		LoadResponse<PersonImpl> response = new LoadResponse<PersonImpl>();
-		
-		JSONable persons = loadBusiness.execute(request.getFilter());
-		response.setResult((Collection<PersonImpl>) persons);
-		
-		return response;
+	public void setLoadBusiness(Business loadBusiness) {
+		this.loadBusiness = loadBusiness;
 	}
 
 

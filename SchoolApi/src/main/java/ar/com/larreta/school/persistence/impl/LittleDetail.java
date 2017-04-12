@@ -1,5 +1,7 @@
 package ar.com.larreta.school.persistence.impl;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +14,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
-
 @Entity
 @Table(name = "littleDetail")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE LittleDetail SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class LittleDetail extends PersistenceEntityImpl {
+public class LittleDetail extends ar.com.larreta.persistence.model.Entity {
 
 	private Double value;
 	private Detail detail;
@@ -37,8 +37,8 @@ public class LittleDetail extends PersistenceEntityImpl {
 	public Detail getDetail() {
 		return detail;
 	}
-	public void setDetail(Detail detail) {
-		this.detail = detail;
+	public void setDetail(Serializable detail) {
+		this.detail = (Detail) detail;
 	}
 	
 

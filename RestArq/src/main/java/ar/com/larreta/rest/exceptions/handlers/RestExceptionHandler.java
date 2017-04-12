@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -23,10 +24,20 @@ import ar.com.larreta.rest.messages.Response;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
+	@Override
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		return processException(ex);
+	}
+
 	private static @Log Logger LOG;
 
-	@ExceptionHandler(value = { ConstraintViolationException.class })
+	@ExceptionHandler(value = { ConstraintViolationException.class})
 	public ResponseEntity<Object> handleBadInputException(Throwable ex, WebRequest request) {
+		return processException(ex);
+	}
+
+	private ResponseEntity<Object> processException(Throwable ex) {
 		LOG.error("handleRestException", ex);
 
 		Response response = new Response();

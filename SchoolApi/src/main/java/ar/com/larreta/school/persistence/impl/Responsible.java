@@ -15,12 +15,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import ar.com.larreta.persistence.model.Person;
+
 @Entity
 @Table(name = "responsible")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Responsible SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Responsible extends PersistencePersonImpl {
+public class Responsible extends Person {
 
 	private String cbu;
 	private String cuil;

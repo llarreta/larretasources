@@ -16,12 +16,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import ar.com.larreta.persistence.model.Person;
+
 @Entity
 @Table(name = "student")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Student SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Student extends PersistencePersonImpl {
+public class Student extends Person {
 	
 	private Course course;
 	private Set<PaymentPlan> paymentPlans;

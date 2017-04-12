@@ -17,14 +17,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
-
 @Entity
 @Table(name = "price")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Price SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Price extends PersistenceEntityImpl {
+public class Price extends ar.com.larreta.persistence.model.Entity {
 
 	private Date validityStartDate;
 	private Double value;

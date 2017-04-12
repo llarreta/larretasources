@@ -12,14 +12,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import ar.com.larreta.persistence.model.impl.PersistenceParametricEntityImpl;
+import ar.com.larreta.persistence.model.ParametricEntity;
 
 @Entity
 @Table(name = "paymentPlan")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE PaymentPlan SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class PaymentPlan extends PersistenceParametricEntityImpl {
+public class PaymentPlan extends ParametricEntity {
 
 	private Set<Obligation> obligations;
 	

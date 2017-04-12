@@ -17,17 +17,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
+import ar.com.larreta.persistence.model.Person;
 
 @Entity
 @Table(name = "payment")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Payment SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Payment extends PersistenceEntityImpl {
+public class Payment extends ar.com.larreta.persistence.model.Entity {
 
 	private Double value;
-	private PersistencePersonImpl personWhoPays;
+	private Person personWhoPays;
 	private Set<PaymentUnit> paymentUnits;
 	private Date paymentDate;
 	
@@ -41,10 +41,10 @@ public class Payment extends PersistenceEntityImpl {
 	
 	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Product.class)
 	@JoinColumn (name="idPersonWhoPays")
-	public PersistencePersonImpl getPersonWhoPays() {
+	public Person getPersonWhoPays() {
 		return personWhoPays;
 	}
-	public void setPersonWhoPays(PersistencePersonImpl personWhoPays) {
+	public void setPersonWhoPays(Person personWhoPays) {
 		this.personWhoPays = personWhoPays;
 	}
 

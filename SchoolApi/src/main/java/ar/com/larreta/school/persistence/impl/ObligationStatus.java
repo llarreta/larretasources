@@ -7,19 +7,15 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
 
 @Entity
 @Table(name = "obligationStatus")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE ObligationStatus SET deleted=CURRENT_TIMESTAMP WHERE id=?")
-@XmlRootElement
-public class ObligationStatus extends PersistenceEntityImpl {
+public class ObligationStatus extends ar.com.larreta.persistence.model.Entity {
 
 	private Obligation obligation;
 	private Student student;
