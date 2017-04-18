@@ -1,6 +1,5 @@
 import { Component, Input, Output, OnInit, 
          OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectOneMenuModel } from './selectOneMenu.model.component';
 import { OptionModel } from './option.model.component';
 
@@ -50,7 +49,7 @@ export class SelectOneMenuCommonsComponent implements OnInit{
     this.isActive = !this.isActive;
   }
 
-  onBlurSelect(e){
+  onLeaveSelect(){
     this.isActive = false;
   }
 

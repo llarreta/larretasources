@@ -10,13 +10,17 @@ export class ErrorMessages{
         }
     };
 
-    public static getMessageError(codeStatus){
-        switch(codeStatus){
-            case "BAD-ES":
-                return this.MESSAGES.error.BAD.ES;
-            
-            default: 
-                return this.MESSAGES.error.DEFAULT.ES;
+    public static getMessageError(codeError, language){
+        let error = this.MESSAGES.error[codeError];
+        if(error != null){
+            let messageLanguage = error[language];
+            if(messageLanguage != null){
+                return messageLanguage;
+            }else{
+                return this.MESSAGES.error.DEFAULT.ES
+            }
+        }else{
+            return this.MESSAGES.error.DEFAULT.ES;
         }
     }
 }

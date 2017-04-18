@@ -169,7 +169,7 @@ export class StudentCreateComponent implements OnInit{
   }
 
   loadErrorMessageService(error){
-    this.messageErrorService = ErrorMessages.getMessageError(error.codeError + "-ES");
+    this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
     this.showMessageErrorService = true;
     this.showMessageError = true;
   }
