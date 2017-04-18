@@ -13,7 +13,7 @@ import ar.com.larreta.rest.business.impl.BusinessImpl;
 import ar.com.larreta.rest.messages.JSONableCollectionBody;
 import ar.com.larreta.school.messages.LoadStudentsBody;
 import ar.com.larreta.school.messages.UpdateStudentBody;
-import ar.com.larreta.school.persistence.impl.Student;
+import ar.com.larreta.school.persistence.Student;
 import ar.com.larreta.school.students.business.StudentsLoadBusiness;
 
 @Service(StudentsLoadBusiness.BUSINESS_NAME)

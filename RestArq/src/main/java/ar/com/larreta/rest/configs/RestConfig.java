@@ -10,11 +10,13 @@ import javax.validation.Validator;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -33,6 +35,10 @@ import ar.com.larreta.annotations.Log;
 @PropertySource(RestConfig.CLASSPATH_APPLICATION_PROPERTIES)
 public class RestConfig extends WebMvcConfigurerAdapter  {
 
+	public static final String UTF_8 							= "UTF-8";
+	
+	public static final String CLASSPATH_MESSAGES 				= "classpath:messages";
+	public static final String CLASSPATH_EXCEPTIONS 			= "classpath:exceptions";
 	public static final String CLASSPATH_DOMAINS_ENABLED 		= "classpath:domains.enabled";
 	public static final String CLASSPATH_APPLICATION_PROPERTIES = "classpath:application.properties";
 
@@ -47,7 +53,14 @@ public class RestConfig extends WebMvcConfigurerAdapter  {
 	@Autowired
 	public ResourceLoader resourceLoader;
 	
-
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames(CLASSPATH_EXCEPTIONS, CLASSPATH_MESSAGES);
+        messageSource.setDefaultEncoding(UTF_8);
+        return messageSource;
+    }
+	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		try {

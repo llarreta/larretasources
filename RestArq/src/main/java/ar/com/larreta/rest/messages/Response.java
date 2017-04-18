@@ -1,23 +1,40 @@
 package ar.com.larreta.rest.messages;
 
-import ar.com.larreta.rest.messages.status.BAD;
-import ar.com.larreta.rest.messages.status.NOK;
-import ar.com.larreta.rest.messages.status.NOP;
-import ar.com.larreta.rest.messages.status.NOT;
-import ar.com.larreta.rest.messages.status.OK;
+import java.util.Locale;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.rest.messages.status.State;
 
+@Component
+@Scope("prototype")
 public class Response<T extends JSONable> extends Message {
+	
+	public static final String NOT_IMPLEMENTED = "not.implemented";
+
+	@Autowired
+	private MessageSource messageSource;
 	
 	/**
 	 * Estado de la ejecucion realizada
 	 */
-	private State state = new OK();
+	private State state;
 	
 	/**
 	 * Nuevo token de seguridad proporcionado al cliente para posteriores llamadas
 	 */
 	private String token = "Not Implemented";
+	
+	@PostConstruct
+	public void initialize(){
+		token = messageSource.getMessage(NOT_IMPLEMENTED, null, NOT_IMPLEMENTED, Locale.ROOT);
+	} 
 	
 	/**
 	 * Cuerpo del mensaje que se esta retornando
@@ -40,29 +57,13 @@ public class Response<T extends JSONable> extends Message {
 		this.token = token;
 	}
 
-	public void setOK(){
-		state = new OK();
-	}
-
-	public void setNOP(){
-		state = new NOP();
-	}
-	
-	public void setNOK(){
-		state = new NOK();
-	}
-	
-	public void setNOT(){
-		state = new NOT();
-	}
-	
-	public void setBAD(){
-		state = new BAD();
-	}
-
 	public State getState() {
 		return state;
 	}
 	
+	@Autowired @Qualifier("OK")
+	public void setState(State state) {
+		this.state = state;
+	}
 
 }

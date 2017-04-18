@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import ar.com.larreta.rest.business.impl.BusinessImpl;
-import ar.com.larreta.school.persistence.impl.Student;
+import ar.com.larreta.school.persistence.Student;
 import ar.com.larreta.school.students.business.StudentsDeleteBusiness;
 
 @Service(StudentsDeleteBusiness.BUSINESS_NAME)

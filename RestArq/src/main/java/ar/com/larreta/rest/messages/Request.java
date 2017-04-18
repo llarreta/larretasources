@@ -19,7 +19,7 @@ public class Request<T extends JSONable> extends Message {
 	/**
 	 * Cuerpo del mensaje que se esta enviando
 	 */
-	@NotNull(message="body is required")
+	@NotNull(message="body.required")
 	@Valid
 	private T body;
 

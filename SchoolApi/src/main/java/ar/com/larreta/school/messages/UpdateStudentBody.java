@@ -7,11 +7,11 @@ import ar.com.larreta.validators.annotations.NotNull;
 
 public class UpdateStudentBody extends Body {
 
-	@NotNull(message="id is required", avaiableActions={"update"})
+	@NotNull(message="id.required", avaiableActions={"update"})
 	private Long id;
-	@NotNull(message="name is required") @Size(min=5, message="name min size 5 char")
+	@NotNull(message="name.required") @Size(min=5, message="name.min.length")
 	private String 			name;
-	@NotNull(message="surname is required") @Size(min=5, message="surname min size 5 char")
+	@NotNull(message="surname.required") @Size(min=5, message="surname.min.length")
 	private String 			surname;
 	private Long 			documentType;
 	private String 			documentNumber;
