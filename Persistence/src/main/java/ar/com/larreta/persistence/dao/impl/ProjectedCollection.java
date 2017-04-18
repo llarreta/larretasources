@@ -10,7 +10,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
+import ar.com.larreta.persistence.model.Entity;
 
 public class ProjectedCollection extends ProjectedProperty {
 
@@ -50,14 +50,14 @@ public class ProjectedCollection extends ProjectedProperty {
 		}
 	}
 	
-	public Boolean initialize(PersistenceEntityImpl entity){
+	public Boolean initialize(Entity entity){
 		Boolean init = entitiesInitialized.contains(entity.getId());
 		entitiesInitialized.add(entity.getId());
 		return !init;
 	}
 
 	@Override
-	public void setValue(PersistenceEntityImpl toSet, Object value) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+	public void setValue(Entity toSet, Object value) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		if (initialize(toSet)){
 			PropertyUtils.setProperty(toSet, getShortName(), newInstance());
 		}

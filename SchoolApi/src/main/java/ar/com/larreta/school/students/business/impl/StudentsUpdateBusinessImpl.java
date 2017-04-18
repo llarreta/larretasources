@@ -1,29 +1,29 @@
 package ar.com.larreta.school.students.business.impl;
 
+import java.io.Serializable;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import ar.com.larreta.prototypes.JSONable;
-import ar.com.larreta.prototypes.impl.EntityImpl;
 import ar.com.larreta.rest.business.impl.BusinessImpl;
-import ar.com.larreta.school.persistence.impl.Student;
+import ar.com.larreta.school.messages.UpdateStudentBody;
+import ar.com.larreta.school.persistence.Student;
 import ar.com.larreta.school.students.business.StudentsUpdateBusiness;
 
-@Service
+@Service(StudentsUpdateBusiness.BUSINESS_NAME)
 @Transactional
 public class StudentsUpdateBusinessImpl extends BusinessImpl implements StudentsUpdateBusiness {
 
 	@Override
-	public JSONable execute(JSONable input) {
-		EntityImpl entity = (EntityImpl) input;
+	public Serializable execute(Serializable input) {
+		UpdateStudentBody body = (UpdateStudentBody) input;
 		Student student = new Student();
-		beanUtils.copy(entity, student);
+		beanUtils.copy(body, student);
 		
 		standardDAO.update(student);
-		entity.setId(student.getId());
 		
-		return entity;	
+		return student.getId();	
 	}
 
 }

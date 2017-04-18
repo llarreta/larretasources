@@ -1,6 +1,6 @@
 package ar.com.larreta.rest.messages.status;
 
-import ar.com.larreta.prototypes.JSONable;
+import ar.com.larreta.rest.messages.JSONable;
 
 public class Detail extends JSONable {
 

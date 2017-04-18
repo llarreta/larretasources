@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.persistence.model.PersistenceEntity;
+import ar.com.larreta.persistence.model.Entity;
 import ar.com.larreta.tools.UniqueIDGenerator;
 
 @Aspect
@@ -18,7 +18,7 @@ public class InjectIdAspect {
 	
 	@Before("execution(@ ar.com.larreta.persistence.aspects.InjectId * *(..)) && @annotation(injectIdAnnotation)")
 	public void execute(JoinPoint joinPoint, InjectId injectIdAnnotation) {
-		PersistenceEntity entity = (PersistenceEntity) joinPoint.getArgs()[0];
+		Entity entity = (Entity) joinPoint.getArgs()[0];
 		entity.setId(idGenerator.nextId());
 	}
 

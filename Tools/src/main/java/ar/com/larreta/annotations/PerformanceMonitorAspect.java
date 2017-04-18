@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class PerformanceMonitorAspect {
 
+	private static @Log Logger LOG;
+	
 	public PerformanceMonitorAspect() {
 		super();
 	}
 
-	private static @Log Logger LOG;
-	
 	@Around("execution(@ ar.com.larreta.annotations.PerformanceMonitor * *(..)) && @annotation(performanceMonitor)")
 	public Object execute(ProceedingJoinPoint joinPoint, PerformanceMonitor performanceMonitor) throws Throwable {
 		Object toReturn = null;

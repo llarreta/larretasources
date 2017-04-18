@@ -9,7 +9,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
+import ar.com.larreta.persistence.model.Entity;
 
 public class ProjectedProperty extends QueryElement {
 
@@ -69,7 +69,7 @@ public class ProjectedProperty extends QueryElement {
 		return Boolean.FALSE;
 	}	
 
-	public Boolean initialize(PersistenceEntityImpl entity){
+	public Boolean initialize(Entity entity){
 		return Boolean.FALSE;
 	}
 	
@@ -77,7 +77,7 @@ public class ProjectedProperty extends QueryElement {
 		return new ArrayList();
 	}
 	
-	public void setValue(PersistenceEntityImpl toSet, Object value) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+	public void setValue(Entity toSet, Object value) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		try {
 			PropertyUtils.setProperty(toSet, getShortName(), value);
 		} catch (IllegalArgumentException e){

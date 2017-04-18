@@ -21,11 +21,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
 	<dependency>
-		<groupId>ar.com.larreta.prototypes</groupId>
-		<artifactId>DataPrototypes</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-	<dependency>
 		<groupId>ar.com.larreta.persistence</groupId>
 		<artifactId>Persistence</artifactId>
 		<version>0.0.1-SNAPSHOT</version>

@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
-import ar.com.larreta.persistence.model.impl.PersistenceEntityImpl;
+import ar.com.larreta.persistence.model.Entity;
 
 public interface StandardDAO extends LoadDao {
 	/**
 	 * Obtiene una entidad de la base de datos del tipo entityClass y filtrando por el id
 	 */
-	public PersistenceEntityImpl getEntity(Class entityClass, Serializable id);
+	public Entity getEntity(Class entityClass, Serializable id);
 	/**
 	 * Obtienen una entidad de la base de datos, filtrando por wheres y proyectando las propiedades pasadas por parametro
 	 * Tener presente que si la consulta retorna mas de una entidad, entonces se retorna solo la primera
@@ -19,7 +19,7 @@ public interface StandardDAO extends LoadDao {
 	 * @param wheres
 	 * @return
 	 */
-	public PersistenceEntityImpl getEntity(LoadArguments args);
+	public Entity getEntity(LoadArguments args);
 	/**
 	 * Obtiene una entidad de la base de datos del tipo entityClass filtrando por el campo field y el valor value
 	 * @param entityClass
@@ -27,12 +27,12 @@ public interface StandardDAO extends LoadDao {
 	 * @param value
 	 * @return
 	 */
-	public PersistenceEntityImpl getEntity(Class entityClass, String field, Object value);
+	public Entity getEntity(Class entityClass, String field, Object value);
 	/**
 	 * Crea una nueva entidad en la base de datos
 	 * @param entity
 	 */
-	public void save(PersistenceEntityImpl entity);
+	public void save(Entity entity);
 	/**
 	 * Crea o Actualiza una coleccion de entidades en la base de datos segun corresponda
 	 * @param entities
@@ -42,12 +42,12 @@ public interface StandardDAO extends LoadDao {
 	 * Actualiza una entidad en la base de datos
 	 * @param entity
 	 */
-	public void update(PersistenceEntityImpl entity);
+	public void update(Entity entity);
 	/**
 	 * Crea o Actualiza una entidad en la base de datos segun corresponda
 	 * @param entity
 	 */
-	public void saveOrUpdate(PersistenceEntityImpl entity);
+	public void saveOrUpdate(Entity entity);
 	/**
 	 * Limpia la session de hibernate
 	 */
@@ -56,7 +56,7 @@ public interface StandardDAO extends LoadDao {
 	 * Elimina de la base de datos una entidad
 	 * @param entity
 	 */
-	public void delete(PersistenceEntityImpl entity);
+	public void delete(Entity entity);
 	/**
 	 * Retorna una propiedad de tipo collection de una entidad pasada por parametro
 	 * Precaucion!!! no usar dentro de Whiles, ya que incrementa considerablemente su costo
@@ -64,7 +64,7 @@ public interface StandardDAO extends LoadDao {
 	 * @param property
 	 * @return
 	 */
-	public Collection getPropertyCollection(PersistenceEntityImpl entity, String property);
+	public Collection getPropertyCollection(Entity entity, String property);
 	/**
 	 * Retorna una propiedad de tipo Entidad de una Entidad pasada por parametro
 	 * Precaucion!!! no usar dentro de Whiles, ya que incrementa considerablemente su costo
@@ -72,5 +72,5 @@ public interface StandardDAO extends LoadDao {
 	 * @param property
 	 * @return
 	 */
-	public PersistenceEntityImpl getProperty(PersistenceEntityImpl entity, String property);
+	public Entity getProperty(Entity entity, String property);
 }

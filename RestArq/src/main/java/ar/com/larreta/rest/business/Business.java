@@ -1,9 +1,9 @@
 package ar.com.larreta.rest.business;
 
-import ar.com.larreta.prototypes.JSONable;
+import java.io.Serializable;
 
 public interface Business {
 
-	public JSONable execute(JSONable input);
+	public Serializable execute(Serializable input);
 	
 }

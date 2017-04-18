@@ -15,11 +15,6 @@
 		<version>4.3.3.RELEASE</version>
 	</dependency>
 	<dependency>
-		<groupId>ar.com.larreta.prototypes</groupId>
-		<artifactId>DataPrototypes</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
 		<version>5.1.34</version>
