@@ -35,7 +35,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	private static @Log Logger LOG;
 
 	@Autowired
-	private ApplicationContext context;
+	private ApplicationContext applicationContext;
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -54,8 +54,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	private ResponseEntity<Object> processException(Throwable ex) {
 		LOG.error("handleRestException", ex);
 
-		Response response = context.getBean(Response.class);
-		response.setState(context.getBean(BAD.class));
+		Response response = applicationContext.getBean(Response.class);
+		response.setState(applicationContext.getBean(BAD.class));
 		
 		if (ex instanceof ConstraintViolationException) {
 			ConstraintViolationException violationException = (ConstraintViolationException) ex;
@@ -75,8 +75,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleRestException(RestException ex, WebRequest request) {
 		LOG.error("handleRestException", ex);
 
-		Response response = context.getBean(Response.class);
-		response.setState(context.getBean(NOK.class));
+		Response response = applicationContext.getBean(Response.class);
+		response.setState(applicationContext.getBean(NOK.class));
 		return new ResponseEntity<Object>(response, HttpStatus.CONFLICT);
 	}
 	
@@ -84,8 +84,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleNotPermitedException(NotPermitedExeption ex, WebRequest request) {
 		LOG.error("handleRestException", ex);
 
-		Response response = context.getBean(Response.class);
-		response.setState(context.getBean(NOP.class));
+		Response response = applicationContext.getBean(Response.class);
+		response.setState(applicationContext.getBean(NOP.class));
 		return new ResponseEntity<Object>(response, HttpStatus.CONFLICT);
 	}
 	
@@ -95,8 +95,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		LOG.error("handleNoHandlerFoundException", ex);
 		
-		Response response = context.getBean(Response.class);
-		response.setState(context.getBean(NOT.class));
+		Response response = applicationContext.getBean(Response.class);
+		response.setState(applicationContext.getBean(NOT.class));
 		return new ResponseEntity<Object>(response, HttpStatus.NOT_FOUND);
 	}
 
@@ -105,8 +105,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 		LOG.error("handleConflict", ex);
 
-		Response response = context.getBean(Response.class);
-		response.setState(context.getBean(NOK.class));
+		Response response = applicationContext.getBean(Response.class);
+		response.setState(applicationContext.getBean(NOK.class));
 		response.getState().setDescription("Unexpected exception");
 		return new ResponseEntity<Object>(response, HttpStatus.CONFLICT);
 	}

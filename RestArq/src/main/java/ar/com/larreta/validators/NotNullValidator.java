@@ -25,24 +25,19 @@ public class NotNullValidator implements ConstraintValidator<Annotation, Object>
 	@Autowired
 	protected HttpServletRequest request;
 	
-	private String action;
-	private Boolean validate = Boolean.TRUE;
+	private List avaiableActions;
 	private NotNull notNull;
 	
 	@Override
 	public void initialize(Annotation annotation) {
 		notNull = (NotNull) annotation; 
-		List avaiableActions = Arrays.asList(notNull.avaiableActions());
+		avaiableActions = Arrays.asList(notNull.avaiableActions());
 		avaiableActions = CollectionsUtils.removeEmtpyElements(avaiableActions);
-		if (avaiableActions.size()>0){
-			action = getActionFromURL();
-			validate = avaiableActions.contains(action);
-		}
 	}
 
 	@Override
 	public boolean isValid(Object field, ConstraintValidatorContext context) {
-		if (validate){
+		if (avaiableActions.contains(getActionFromURL())){
 			return (((field instanceof String) && (!StringUtils.isEmpty((CharSequence) field))) || 
 					(!(field instanceof String) && (field!=null)));
 		}

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,10 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 	public static final String ALL_URLS = "/*";
 	
 	@Autowired
-	protected ServletContext context;
+	protected ServletContext servletContext;
+	
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	protected Business createBusiness;
 	protected Business updateBusiness;
@@ -72,7 +76,7 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 	}
 	
 	private Response<TargetedBody> executeBusiness(Request<UpdateBodyRequest> request, Business business) {
-		Response<TargetedBody> response = new Response<TargetedBody>();
+		Response<TargetedBody> response = applicationContext.getBean(Response.class);
 		Long target = (Long) business.execute(request.getBody());
 		TargetedBody responseBody = new TargetedBody();
 		responseBody.setTarget(target);
@@ -83,7 +87,7 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 	@PerformanceMonitor
 	@RequestMapping(value = DELETE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<TargetedBody> deletePost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws RestException{
-		Response<TargetedBody> response = new Response<TargetedBody>();
+		Response<TargetedBody> response = applicationContext.getBean(Response.class);
 		
 		deleteBusiness.execute(request.getBody().getTarget());
 		
@@ -97,7 +101,7 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 	@PerformanceMonitor
 	@RequestMapping(value = LOAD, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<JSONableCollectionBody<Serializable>> loadPost(@Valid @RequestBody Request<LoadBodyRequest> request, Errors errors) throws RestException{
-		Response<JSONableCollectionBody<Serializable>> response = new Response<JSONableCollectionBody<Serializable>>();
+		Response<JSONableCollectionBody<Serializable>> response = applicationContext.getBean(Response.class);;
 		JSONableCollectionBody<Serializable> loadResponse = (JSONableCollectionBody<Serializable>) loadBusiness.execute(request.getBody());
 		response.setBody(loadResponse);
 		return response;
