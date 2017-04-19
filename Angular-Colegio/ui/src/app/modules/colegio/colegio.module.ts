@@ -13,6 +13,7 @@ import { StudentCreateComponent } from './Student/Create/student.create.componen
 import { StudentUpdateComponent } from './Student/Update/student.update.component';
 import { InputCommonsComponent } from './Commons/Input/input.component';
 import { SelectOneMenuCommonsComponent } from './Commons/SelectOneMenu/selectOneMenu.component';
+import { TableCommonsComponent } from './Commons/Table/table.component';
 
 //Services
 import { StudentService } from './services/student.service';
@@ -34,6 +35,7 @@ import { StudentService } from './services/student.service';
         StudentUpdateComponent,
         InputCommonsComponent,
         SelectOneMenuCommonsComponent,
+        TableCommonsComponent,
     ],
     providers:
     [

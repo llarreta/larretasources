@@ -19,6 +19,7 @@ export class InputModel extends CommonComponentModel{
     public messageErrorMaxNumber: string;
     public messageErrorMinNumber: string;
     public childComponent: CommonComponentModel; 
+    public validationActivate: boolean;
     
     constructor() {
         super();

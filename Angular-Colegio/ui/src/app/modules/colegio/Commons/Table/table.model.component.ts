@@ -2,12 +2,12 @@ import { ColumnModel } from './column.model.component';
 
 export class TableModel{
 
-    public values: any;
+    public values: Array<string>;
     public columns: Array<ColumnModel>;
     public paginator: number;
-    public valuesForView: any;
     public globalFilter: boolean;
     public inputGlobalFilter: string;
+    public emptyMessage: string;
 
     constructor() {}
 

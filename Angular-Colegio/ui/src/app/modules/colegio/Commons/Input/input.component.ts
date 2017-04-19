@@ -37,9 +37,11 @@ export class InputCommonsComponent implements OnInit{
 
   ngOnInit() {
     this.isOnFocusLabel = false;
-    this.checkValidationsEnabled();
-    if(this.inputModel.value != null){
-      this.checkValue();
+    if(this.inputModel.validationActivate){ 
+      this.checkValidationsEnabled();
+      if(this.inputModel.value != null){
+        this.checkValue();
+      }
     }
   }
 
@@ -81,9 +83,11 @@ export class InputCommonsComponent implements OnInit{
   }
 
   onBlur(){
-    this.checkValue();
+    if(this.inputModel.validationActivate){
+      this.checkValue();
+      this.changeValueModel();
+    }
     this.isOnFocusLabel = false;
-    this.changeValueModel();
   }
 
   loadConditions(){
@@ -164,8 +168,10 @@ export class InputCommonsComponent implements OnInit{
   }
 
   onChange(){
-    this.loadConditions();
-    this.checkIsAllOK();
+    if(this.inputModel.validationActivate){
+      this.loadConditions();
+      this.checkIsAllOK();
+    }
     this.changeValueModel();
   }  
 
@@ -186,8 +192,10 @@ export class InputCommonsComponent implements OnInit{
   }
 
   checkValue(){
-    this.loadConditions();    
-    this.checkIsAllOK();
+    if(this.inputModel.validationActivate){    
+      this.loadConditions();    
+      this.checkIsAllOK();
+    }
   }
 
   changeValueModel() {

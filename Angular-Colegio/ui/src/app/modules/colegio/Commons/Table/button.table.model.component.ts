@@ -5,6 +5,7 @@ export class ButtonTableModel{
     public label: string;
     public styleClass: string;
     public iconAwesome: string;
+    public iconAwesomeStyleClass: string;
 
     constructor() {}
 

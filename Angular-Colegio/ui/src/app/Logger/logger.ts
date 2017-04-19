@@ -3,6 +3,7 @@ export class Logger{
     private warn: boolean = true;
     private info: boolean = true;
     private error: boolean = true;
+    private debug: boolean = true;
 
     public static warn(text){
         if(this.warn){
@@ -21,4 +22,11 @@ export class Logger{
             console.error(text);
         }
     }
+
+    public static debug(text){
+        if(this.debug){
+            console.debug(text);
+        }
+    }
+
 }

@@ -1,3 +1,5 @@
+import { Logger } from '../Logger/logger';
+
 export class I18n{    
     private static readonly MESSAGES={ 
         message: {
@@ -29,6 +31,10 @@ export class I18n{
                 ES: "Division",
                 US: "Division"
             },
+            commonsYear: {
+                ES: "Año",
+                US: "Year"
+            },
             DEFAULT: {
                 ES: "No existe la key I18n."
             }
@@ -45,6 +51,7 @@ export class I18n{
                 return this.MESSAGES.message.DEFAULT.ES
             }
         }else{
+            Logger.warn("No existe la key: " + code + " en I18N...");
             return this.MESSAGES.message.DEFAULT.ES;
         }
     }

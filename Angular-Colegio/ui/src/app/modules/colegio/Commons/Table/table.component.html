@@ -1,36 +1,45 @@
 <div class="row">
     <div class="col-12">
+        <div class="col-12" *ngIf="tableModel.globalFilter">
+            <input-commons [inputModel]="inputGlobalFilter" (valueModel)="setGlobalFilter($event)"></input-commons>
+        </div>    
         <table class="table table-striped">
-        <thead>
-            <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Tipo Documento</th>
-            <th>Numero Documento</th>
-            <th>Nivel</th>
-            <th>Año</th>
-            <th>Division</th>
-            </tr>
-        </thead>
-        <tbody *ngIf="students.length >= 1">
-            <tr *ngFor="let student of students; let i = index">
-            <td>{{student.name}}</td>
-            <td>{{student.surname}}</td>
-            <td>{{student.email}}</td>
-            <td>{{student.documentType}}</td>
-            <td>{{student.documentNumber}}</td>
-            <td>{{student.course.level}}</td>
-            <td>{{student.course.year}}</td>
-            <td>{{student.course.division}}</td>
-            </tr>
-        </tbody>
-        <tbody *ngIf="students.length == 0">
-            <tr>
-            <td>No hay alumnos cargados.</td>
-            </tr>
-        </tbody>
+            <thead>
+                <tr>
+                    <th *ngFor="let column of tableModel.columns; let iColumn = index" class="{{column.classStyle}}">
+                        {{column.header}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="valuesForView.length > 0">
+                <tr *ngFor="let value of valuesForView[actualPage]; let iValue = index" class="animated fadeIn">
+                    <td class="table-commons-td" *ngFor="let valueChild of value.slice(1); let iValueChild = index">
+                        <div *ngIf="!tableModel.columns[iValueChild].columnButton">
+                            {{valueChild}}
+                        </div>
+                        <div style="min-width:90px!important" *ngIf="tableModel.columns[iValueChild].columnButton">
+                            <button *ngFor="let button of tableModel.columns[iValueChild].buttons" 
+                                (click)="buttonClick(button.action, value[0])"
+                                class="{{button.styleClass}}" type="button">
+                                {{button.label}}
+                                <i class="fa {{button.iconAwesome}} {{button.iconAwesomeStyleClass}}" aria-hidden="true"></i> 
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
+        <div *ngIf="valuesForView.length == 0" class="table-commons-emptymessage">
+            {{tableModel.emptyMessage}}
+        </div>
+        <div *ngIf="tableModel.paginator != null && tableModel.paginator >= 1" class="table-commons-paginator-container">
+            <button *ngFor="let value of valuesForView; let page = index" 
+                                (click)="changePage(page)"
+                                class="table-commons-paginator-button" type="button"
+                                [ngClass]="{'table-commons-paginator-button-active': (page == actualPage)}">
+                                {{page}}
+            </button>
+        </div>
     </div>
 </div>
         

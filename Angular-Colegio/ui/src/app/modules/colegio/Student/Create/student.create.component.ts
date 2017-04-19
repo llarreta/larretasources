@@ -66,6 +66,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputName.messageErrorValidation= "El nombre ingresado es invalido."
     this.inputName.required= true;
     this.inputName.type= "text";
+    this.inputName.validationActivate = true;
 
     this.inputDocumentNumber = new InputModel();
     this.inputDocumentNumber.id= "document-number";
@@ -75,6 +76,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputDocumentNumber.required= true;
     this.inputDocumentNumber.type= "number";
     this.inputDocumentNumber.maskText= "**-**";
+    this.inputDocumentNumber.validationActivate = true;
 
     this.inputEmail = new InputModel();
     this.inputEmail.id= "email";
@@ -83,6 +85,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputEmail.messageErrorValidation="El email ingresado es invalido.";
     this.inputEmail.required= true;
     this.inputEmail.type= "email";
+    this.inputEmail.validationActivate = true;
 
     this.inputSurname = new InputModel();
     this.inputSurname.id= "surname"
@@ -91,6 +94,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputSurname.messageErrorValidation= "El apellido ingresado es invalido.";
     this.inputSurname.required= true;
     this.inputSurname.type= "text";
+    this.inputSurname.validationActivate = true;
 
     this.selecOneMenuDocumentType = new SelectOneMenuModel();
     this.selecOneMenuDocumentType.id= "document-type";
