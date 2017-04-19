@@ -2,10 +2,12 @@ package ar.com.larreta.validators;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ar.com.larreta.tools.CollectionsUtils;
 import ar.com.larreta.validators.annotations.NotNull;
 
+@Transactional
 public class NotNullValidator implements ConstraintValidator<Annotation, Object> {
 
 	public static final String BAR = "/";
@@ -25,19 +28,21 @@ public class NotNullValidator implements ConstraintValidator<Annotation, Object>
 	@Autowired
 	protected HttpServletRequest request;
 	
-	private List avaiableActions;
 	private NotNull notNull;
 	
 	@Override
 	public void initialize(Annotation annotation) {
 		notNull = (NotNull) annotation; 
-		avaiableActions = Arrays.asList(notNull.avaiableActions());
-		avaiableActions = CollectionsUtils.removeEmtpyElements(avaiableActions);
+	}
+
+	private List getAvaiableActions() {
+		return CollectionsUtils.removeEmtpyElements(Arrays.asList(notNull.avaiableActions()));
 	}
 
 	@Override
 	public boolean isValid(Object field, ConstraintValidatorContext context) {
-		if (avaiableActions.contains(getActionFromURL())){
+		Collection avaiableActions = getAvaiableActions();
+		if (avaiableActions.isEmpty() || avaiableActions.contains(getActionFromURL())){
 			return (((field instanceof String) && (!StringUtils.isEmpty((CharSequence) field))) || 
 					(!(field instanceof String) && (field!=null)));
 		}

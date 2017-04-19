@@ -6,9 +6,12 @@ import java.util.Iterator;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
+import ar.com.larreta.persistence.dao.impl.Equal;
+import ar.com.larreta.persistence.dao.impl.Like;
 import ar.com.larreta.rest.business.impl.BusinessImpl;
 import ar.com.larreta.rest.messages.JSONableCollectionBody;
 import ar.com.larreta.school.messages.LoadStudentsBody;
@@ -27,15 +30,25 @@ public class StudentsLoadBusinessImpl extends BusinessImpl implements StudentsLo
 		LoadArguments args = new LoadArguments(Student.class);
 		
 		if (body!=null){
-			/*if (StringUtils.isNotEmpty(person.getName())){
-				Like like = new Like(args, "name", person.getName());
+			if (StringUtils.isNotEmpty(body.getName())){
+				Like like = new Like(args, "name", body.getName());
 				args.addWhere(like);
 			}
 	
-			if (StringUtils.isNotEmpty(person.getSurname())){
-				Like like = new Like(args, "surname", person.getSurname());
+			if (StringUtils.isNotEmpty(body.getSurname())){
+				Like like = new Like(args, "surname", body.getSurname());
 				args.addWhere(like);
-			}*/
+			}
+			
+			if (body.getDocumentType()!=null){
+				Equal equal = new Equal(args, "documentType.id", body.getDocumentType());
+				args.addWhere(equal);
+			}
+			
+			if (StringUtils.isNotEmpty(body.getDocumentNumber())){
+				Like like = new Like(args, "documentNumber", body.getDocumentNumber());
+				args.addWhere(like);
+			}
 		}
 		
 		Collection result = standardDAO.load(args);
@@ -45,7 +58,15 @@ public class StudentsLoadBusinessImpl extends BusinessImpl implements StudentsLo
 			while (it.hasNext()) {
 				Student student = (Student) it.next();
 				UpdateStudentBody actualStudent = new UpdateStudentBody();
-				beanUtils.copy(student, actualStudent);
+				
+				actualStudent.setId(student.getId());
+				actualStudent.setName(student.getName());
+				actualStudent.setSurname(student.getSurname());
+				if (student.getDocumentType()!=null){
+					actualStudent.setDocumentType(student.getDocumentType().getId());
+				}
+				actualStudent.setDocumentNumber(student.getDocumentNumber());
+				
 				students.add(actualStudent);
 			}
 		}

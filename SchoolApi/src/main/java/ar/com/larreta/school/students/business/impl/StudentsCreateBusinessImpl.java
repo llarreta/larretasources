@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import ar.com.larreta.persistence.model.DocumentType;
 import ar.com.larreta.rest.business.impl.BusinessImpl;
 import ar.com.larreta.school.messages.UpdateStudentBody;
 import ar.com.larreta.school.persistence.Student;
@@ -20,6 +21,10 @@ public class StudentsCreateBusinessImpl extends BusinessImpl implements Students
 		UpdateStudentBody body = (UpdateStudentBody) input;
 		Student student = new Student();
 		beanUtils.copy(body, student);
+		
+		if (body.getDocumentType()!=null){
+			student.setDocumentType(standardDAO.getEntity(DocumentType.class, body.getDocumentType()));
+		}
 		
 		standardDAO.save(student);
 		

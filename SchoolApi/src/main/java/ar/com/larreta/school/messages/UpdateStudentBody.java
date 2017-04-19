@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 import ar.com.larreta.rest.messages.Body;
 import ar.com.larreta.validators.annotations.NotNull;
+import ar.com.larreta.validators.annotations.ValidParametricEntity;
 
 public class UpdateStudentBody extends Body {
 
@@ -13,6 +14,7 @@ public class UpdateStudentBody extends Body {
 	private String 			name;
 	@NotNull(message="surname.required") @Size(min=5, message="surname.min.length")
 	private String 			surname;
+	@ValidParametricEntity(message="documentType.inexistent", parametricEntity="ar.com.larreta.persistence.model.DocumentType")
 	private Long 			documentType;
 	private String 			documentNumber;
 
