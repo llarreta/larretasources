@@ -13,6 +13,7 @@ import { OptionModel } from '../../Commons/SelectOneMenu/option.model.component'
 import { DocumentTypes } from '../../Commons/Enums/DocumentTypes';
 import { StudentService } from '../../services/student.service';
 import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
+import { Logger } from '../../../../Logger/logger';
 
 @Component({
   selector: 'colegio-alumnos-create',
@@ -169,6 +170,7 @@ export class StudentCreateComponent implements OnInit{
   }
 
   loadErrorMessageService(error){
+    Logger.warn("Ocurrio un error al crear un estudiante...");
     this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
     this.showMessageErrorService = true;
     this.showMessageError = true;

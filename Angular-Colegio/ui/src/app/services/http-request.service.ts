@@ -9,6 +9,9 @@ import 'rxjs/add/operator/catch';
 
 import { CookieService } from 'angular2-cookie/core';
 
+import { Request } from './request.template';
+import { Logger } from '../Logger/logger';
+
 
 @Injectable()
 export class HttpRequest {
@@ -20,11 +23,13 @@ export class HttpRequest {
         private cookieService: CookieService) { }
 
     post(data, url): Observable<any> {
+        let request = new Request();
+        request.body = data;
         let fullURL = this.config.API_URL + url
-        console.info("Post: " + fullURL);
-        let dataString = JSON.stringify(data); // Stringify
-        console.info("Data:", dataString);
-        console.info("Options", this.getOptions());
+        Logger.info("Post: " + fullURL);
+        let dataString = JSON.stringify(request); // Stringify
+        Logger.info("Data:" + dataString);
+        Logger.info("Options" + this.getOptions());
         return this.http.post(fullURL, dataString, this.getOptions())
             .map(res => res.json())
             .catch(this.onCatch);
@@ -46,6 +51,7 @@ export class HttpRequest {
             httpStatus: error.status, 
             codeError: error.json().state.code
         };
+        console.error(error.json());
         return Observable.throw(responseError);
     }
 }
