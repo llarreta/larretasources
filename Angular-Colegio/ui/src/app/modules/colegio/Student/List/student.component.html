@@ -1,23 +1,58 @@
 <div class="container">
   <div *ngIf="inListStudent" class="animated fadeInUp">
-    <div class= "col-12 common-box-large">
-      <div class="row">
-        <div class="col-12">    
-          <div>
-            <h1>Lista de Alumnos</h1>
-          </div>
-        </div>
-      </div>
+    <div class= "col-12 common-box-extra-large">
       <div class="row">
         <div class="col-12 body-component">
-          <div class="row">
-            <div class="col-12">
+          <p-dataScroller [value]="students" [rows]="7" class="data-scroller-two-columns">
+            <p-header>
+              Alumnos 
               <button type="button" class="button-add" (click)="goListCreate(false)">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
-            </div>
-          </div>
-          <table-commons [tableModel]="table" (action)="actionCatch($event)"></table-commons>
+            </p-header>
+            
+            <p-footer *ngIf="!moreStudents">
+              <div class="no-more-data">    
+                No hay mas alumnos.
+              </div>
+            </p-footer>
+            
+            <p-footer *ngIf="students.length == 0">
+              <div class="no-data-footer">
+                No hay alumnos cargados...
+              </div>
+            </p-footer>
+
+            <p-footer *ngIf="loading">
+                <div class="loading-footer">
+                  <loading-commons></loading-commons>
+                </div>
+            </p-footer>
+            
+            <ng-template let-student pTemplate="item">
+              <div class="data-scroller-item-1-container">
+                <div class="data-scroller-item-1-title">
+                  {{student.name}} {{student.surname}}
+                </div>
+                <div class="data-scroller-item-1-photo">
+                  <img src="src/assets/images/user-image.png" class="student-photo"/>
+                </div>
+                <div class="data-scroller-item-1-body">
+                  <div class="data-scroller-item-1-body-data">
+                    {{student.documentType}}: {{student.documentNumber}}
+                  </div>
+                  <div class="data-scroller-item-1-body-data">
+                    {{student.course.level}}
+                  </div>
+                  <div class="data-scroller-item-1-body-data">
+                    {{student.course.year}}° {{student.course.division}}
+                  </div>
+                </div>
+                  
+              </div>      
+            </ng-template>
+
+        </p-dataScroller>
         </div>
       </div>
     </div>

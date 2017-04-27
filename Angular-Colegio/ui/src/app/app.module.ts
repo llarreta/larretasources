@@ -34,6 +34,8 @@ import { ImageUploadModule } from './shared/image-uploader/image-upload.module';
 
 import { ColegioModule } from './modules/colegio/colegio.module';
 
+import {DataScrollerModule} from 'primeng/primeng';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -44,6 +46,8 @@ import { ColegioModule } from './modules/colegio/colegio.module';
     NgbModule.forRoot(),
     ReactiveFormsModule,
     ImageUploadModule.forRoot(),
+    ColegioModule,
+    DataScrollerModule
   ],
   providers: [
     CookieService,

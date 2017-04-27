@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="col-12" *ngIf="tableModel.globalFilter">
             <input-commons [inputModel]="inputGlobalFilter" (valueModel)="setGlobalFilter($event)"></input-commons>
-        </div>    
+        </div>  
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -31,14 +31,6 @@
         </table>
         <div *ngIf="valuesForView.length == 0" class="table-commons-emptymessage">
             {{tableModel.emptyMessage}}
-        </div>
-        <div *ngIf="tableModel.paginator != null && tableModel.paginator >= 1" class="table-commons-paginator-container">
-            <button *ngFor="let value of valuesForView; let page = index" 
-                                (click)="changePage(page)"
-                                class="table-commons-paginator-button" type="button"
-                                [ngClass]="{'table-commons-paginator-button-active': (page == actualPage)}">
-                                {{page}}
-            </button>
         </div>
     </div>
 </div>

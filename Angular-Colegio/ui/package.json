@@ -15,31 +15,36 @@
     }
   ],
   "dependencies": {
-    "@angular/common": "2.1.1",
-    "@angular/compiler": "2.1.1",
-    "@angular/core": "2.1.1",
-    "@angular/forms": "2.1.1",
-    "@angular/http": "2.1.1",
-    "@angular/platform-browser": "2.1.1",
-    "@angular/platform-browser-dynamic": "2.1.1",
-    "@angular/router": "3.1.1",
-    "@angular/upgrade": "2.1.1",
+    "@angular/animations": "4.1.0-rc.0",
+    "@angular/common": "4.1.0-rc.0",
+    "@angular/compiler": "4.1.0-rc.0",
+    "@angular/core": "4.1.0-rc.0",
+    "@angular/forms": "4.1.0-rc.0",
+    "@angular/http": "4.1.0-rc.0",
+    "@angular/platform-browser": "4.1.0-rc.0",
+    "@angular/platform-browser-dynamic": "4.1.0-rc.0",
+    "@angular/platform-server": "4.1.0-rc.0",
+    "@angular/router": "4.1.0-rc.0",
+    "@angular/upgrade": "4.1.0-rc.0",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.13",
     "angular2-cookie": "1.2.5",
     "bootstrap": "3.3.7",
     "core-js": "2.4.1",
     "json-loader": "0.5.4",
+    "primeng": "2.0.6",
     "reflect-metadata": "0.1.8",
-    "rxjs": "5.0.0-beta.12",
+    "rxjs": "5.0.1",
+    "symbol-observable": "1.0.4",
     "systemjs": "0.19.39",
-    "zone.js": "0.6.25"
+    "typescript": "2.2.2",
+    "zone.js": "0.8.4"
   },
   "devDependencies": {
     "@types/core-js": "0.9.34",
     "@types/node": "6.0.45",
     "concurrently": "3.0.0",
     "lite-server": "2.2.2",
- 	  "compass": "0.1.1",
+    "compass": "0.1.1",
     "typescript": "2.0.10"
   }
 }

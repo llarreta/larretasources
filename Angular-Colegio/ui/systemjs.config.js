@@ -25,7 +25,8 @@
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular2-cookie': 'npm:angular2-cookie',
-            'angular2-image-upload': 'npm:angular2-image-upload'
+            'angular2-image-upload': 'npm:angular2-image-upload',
+            'primeng': 'npm:primeng',
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -44,8 +45,10 @@
             'angular2-image-upload':{
                 main: './index.js',
                 defaultExtension: 'js'
-            }
-
+            },
+            primeng: {
+                defaultExtension: 'js'
+            }   
         }
     });
 })(this);

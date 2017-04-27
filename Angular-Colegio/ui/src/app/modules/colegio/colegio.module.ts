@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {DataScrollerModule} from 'primeng/primeng';
 
 // Router
 import { ProvidersRouter } from './colegio.router';
@@ -14,6 +15,7 @@ import { StudentUpdateComponent } from './Student/Update/student.update.componen
 import { InputCommonsComponent } from './Commons/Input/input.component';
 import { SelectOneMenuCommonsComponent } from './Commons/SelectOneMenu/selectOneMenu.component';
 import { TableCommonsComponent } from './Commons/Table/table.component';
+import { LoadingCommonsComponent } from './Commons/Loading/loading.component';
 
 //Services
 import { StudentService } from './services/student.service';
@@ -25,7 +27,8 @@ import { StudentService } from './services/student.service';
         FormsModule,
         ReactiveFormsModule,
         NgbModule.forRoot(),
-        ProvidersRouter
+        ProvidersRouter,
+        DataScrollerModule
     ],
     declarations:
     [
@@ -36,6 +39,7 @@ import { StudentService } from './services/student.service';
         InputCommonsComponent,
         SelectOneMenuCommonsComponent,
         TableCommonsComponent,
+        LoadingCommonsComponent
     ],
     providers:
     [

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../../Models/Student.model';
 import { Course } from '../../Models/Course.model';
@@ -10,6 +10,8 @@ import { I18n } from '../../../../i18n/i18n';
 import { Logger } from '../../../../logger/logger';
 import { ButtonTableModel } from '../../Commons/Table/button.table.model.component';
 import { ActionButtonTable } from '../../Commons/Table/actionButtonTable.model.component';
+import {Header} from 'primeng/primeng';
+import {Footer} from 'primeng/primeng';
 
 @Component({
   selector: 'colegio-alumnos',
@@ -22,9 +24,12 @@ export class StudentComponent implements OnInit{
   inCreateStudent: boolean;
   inUpdateStudent: boolean;
   inListStudent: boolean;
-  table: TableModel;
+  loading: boolean;
+  moreStudents: boolean;
 
   private language: string;
+
+
 
   constructor() {}
 
@@ -32,92 +37,26 @@ export class StudentComponent implements OnInit{
 
     this.language = "ES";
     this.selectedStudent = new Student();
+    this.students = new Array<Student>();
     this.cargarStudentTest();
     this.inListStudent = true;
     this.inCreateStudent = false;
     this.inUpdateStudent = false;
-    this.loadTable();
+    this.moreStudents = true;
+    this.loading = false;
     //this.cargarStudents();
 
   }
 
-  loadTable(){
-    
-    this.table = new TableModel();
-    this.table.paginator = 5;
-    this.table.emptyMessage = "No se encontraron alumnos cargados.";
-    this.table.values = new Array<string>();
-    for(let student of this.students){
-      this.table.values.push(JSON.stringify(student));
+
+
+    protected fetchNextChunk(skip: number, limit: number): Promise<Student[]> {
+        return new Promise((resolve, reject) => {
+            new Array<Student>();
+        });
     }
-    this.table.globalFilter = true;
-    this.table.columns = new Array<ColumnModel>();
 
-    let columnName: ColumnModel = new ColumnModel();
-    columnName.header = I18n.getMessage("commonsName", this.language);
-    columnName.key = "name";
-
-    let columnSurname: ColumnModel = new ColumnModel();
-    columnSurname.header = I18n.getMessage("commonsSurname", this.language);
-    columnSurname.key = "surname";
-
-    let columnEmail: ColumnModel = new ColumnModel();
-    columnEmail.header = I18n.getMessage("commonsEmail", this.language);
-    columnEmail.key = "email";
-
-    let columnDocumentType: ColumnModel = new ColumnModel();
-    columnDocumentType.header = I18n.getMessage("commonsDocumentType", this.language);
-    columnDocumentType.key = "documentType";
-
-    let columnDocumentNumber: ColumnModel = new ColumnModel();
-    columnDocumentNumber.header = I18n.getMessage("commonsDocumentNumber", this.language);
-    columnDocumentNumber.key = "documentNumber";
-
-    let columnLevel: ColumnModel = new ColumnModel();
-    columnLevel.header = I18n.getMessage("commonsLevel", this.language);
-    columnLevel.key = "course.level";
-
-    let columnYear: ColumnModel = new ColumnModel();
-    columnYear.header = I18n.getMessage("commonsYear", this.language);
-    columnYear.key = "course.year";
-
-    let columnDivision: ColumnModel = new ColumnModel();
-    columnDivision.header = I18n.getMessage("commonsDivision", this.language);
-    columnDivision.key = "course.division";
-
-    let columnButtons: ColumnModel = new ColumnModel();
-    columnButtons.header = "";
-    columnButtons.columnButton = true;
-    columnButtons.classStyle = "table-buttons-default";
-
-    let editButton: ButtonTableModel = new ButtonTableModel();
-    editButton.action = "editStudent";
-    editButton.iconAwesome = "fa-pencil";
-    editButton.iconAwesomeStyleClass = "edit-button-table-student-icon";
-    editButton.styleClass = "edit-button-table-student";
-
-    let deleteButton: ButtonTableModel = new ButtonTableModel();
-    deleteButton.action = "deleteStudent";
-    deleteButton.iconAwesome = "fa-trash";
-    deleteButton.iconAwesomeStyleClass = "delete-button-table-student-icon";
-    deleteButton.styleClass = "delete-button-table-student";
-
-    columnButtons.buttons = new Array<ButtonTableModel>();
-    columnButtons.buttons.push(editButton);
-    columnButtons.buttons.push(deleteButton);
-
-    this.table.columns.push(columnName);
-    this.table.columns.push(columnSurname);
-    this.table.columns.push(columnEmail);
-    this.table.columns.push(columnDocumentType);
-    this.table.columns.push(columnDocumentNumber);
-    this.table.columns.push(columnLevel);
-    this.table.columns.push(columnYear);
-    this.table.columns.push(columnDivision);
-    this.table.columns.push(columnButtons);
-
-  }
-
+  
   cargarStudentTest(){
     let course: Course = new Course();
     course.division = "Mercantil";
@@ -187,13 +126,18 @@ export class StudentComponent implements OnInit{
     student7.surname = "Ejemplo7";
     student7.course = course;
 
-    this.students = new Array<Student>();
+    this.students = [];
     this.students.push(student);
     this.students.push(student2);
     this.students.push(student3);
     this.students.push(student4);
     this.students.push(student5);
     this.students.push(student6);
+    this.students.push(student7);
+    this.students.push(student7);
+    this.students.push(student7);
+    this.students.push(student7);
+    this.students.push(student7);
     this.students.push(student7);
   }
 
@@ -209,10 +153,8 @@ export class StudentComponent implements OnInit{
     this.inListStudent = goList;
   }
 
-  actionCatch(action: ActionButtonTable){
-    Logger.debug("Lista de estudiantes accion capturada...");
-    Logger.debug("action: " + action.action);
-    Logger.debug("value: " + action.value);
+  loadData(event) {
+      this.cargarStudentTest();
   }
 
 }

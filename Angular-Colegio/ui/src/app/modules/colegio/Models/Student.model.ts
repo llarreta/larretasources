@@ -11,7 +11,7 @@ export class Student extends Entity{
     public documentType: string;
     public documentNumber: number;
     public email: string;
-    public course: Course;
+    public course: Course; 
     public paymentPlans: Array<PaymentPlan>;
     public obligationsStatus: Array<ObligationStatus>;
     public responsibles: Array<Responsible>;
