@@ -1,5 +1,4 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
-import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../../Models/Student.model';
 import { Course } from '../../Models/Course.model';
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
@@ -10,7 +9,6 @@ import { InputCommonsComponent } from '../../Commons/Input/input.component';
 import { SelectOneMenuCommonsComponent } from '../../Commons/SelectOneMenu/selectOneMenu.component';
 import { SelectOneMenuModel } from '../../Commons/SelectOneMenu/selectOneMenu.model.component';
 import { OptionModel } from '../../Commons/SelectOneMenu/option.model.component';
-import { DocumentTypes } from '../../Commons/Enums/DocumentTypes';
 import { StudentService } from '../../services/student.service';
 import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
 import { Logger } from '../../../../Logger/logger';
@@ -28,7 +26,7 @@ export class StudentCreateComponent implements OnInit{
   inputSurname: InputModel;
   inputDocumentNumber: InputModel;
   inputEmail: InputModel;
-  selecOneMenuDocumentType: SelectOneMenuModel;
+  documentTypes: Array<string>;
 
   student: Student;
   paymentPlans: Array<PaymentPlan>;
@@ -96,54 +94,17 @@ export class StudentCreateComponent implements OnInit{
     this.inputSurname.type= "text";
     this.inputSurname.validationActivate = true;
 
-    this.selecOneMenuDocumentType = new SelectOneMenuModel();
-    this.selecOneMenuDocumentType.id= "document-type";
-    this.selecOneMenuDocumentType.listOptions = new Array<OptionModel>();
+    this.documentTypes = new Array<string>();
+    this.documentTypes.push("CUIL");
+    this.documentTypes.push("DNI");
+    this.documentTypes.push("PASAPORTE");
     
-    let dniOption: OptionModel = new OptionModel();
-    dniOption.id= DocumentTypes.DNI;
-    dniOption.label= "DNI";
-
-    let cuilOption: OptionModel = new OptionModel();
-    cuilOption.id= DocumentTypes.CUIL;
-    cuilOption.label= "CUIL";
-
-    let pasaporteOption: OptionModel = new OptionModel();
-    pasaporteOption.id= DocumentTypes.PASAPORTE;
-    pasaporteOption.label= "PASAPORTE";
-
-    let sarasaOption: OptionModel = new OptionModel();
-    sarasaOption.id= DocumentTypes.PASAPORTE;
-    sarasaOption.label= "SARASA";
-
-    this.selecOneMenuDocumentType.listOptions.push(dniOption);
-    this.selecOneMenuDocumentType.listOptions.push(cuilOption);
-    this.selecOneMenuDocumentType.listOptions.push(pasaporteOption);
-    this.selecOneMenuDocumentType.listOptions.push(sarasaOption);
-
-    this.selecOneMenuDocumentType.messageErrorEmpty= "Debe seleccionar un tipo de documento.";
-    this.selecOneMenuDocumentType.nonSelectionOptionMessage= "Tipo de documento";
-    
-    if(this.student.documentType != null){
-      if(this.student.documentType.includes("DNI")){
-        this.selecOneMenuDocumentType.optionSelected = dniOption;
-      }
-      if(this.student.documentType.includes("CUIL")){
-        this.selecOneMenuDocumentType.optionSelected = cuilOption;
-      }
-      if(this.student.documentType.includes("PASAPORTE")){
-        this.selecOneMenuDocumentType.optionSelected = pasaporteOption;
-      }
-    }
-
-    this.selecOneMenuDocumentType.required = true;
 
   }
 
   isAllOK(){
     if(this.inputDocumentNumber.isAllOK && this.inputEmail.isAllOK 
-      && this.inputName.isAllOK && this.inputSurname.isAllOK
-      && this.selecOneMenuDocumentType.isAllOK){
+      && this.inputName.isAllOK && this.inputSurname.isAllOK){
         return true;
     }else{
       return false;
@@ -205,8 +166,5 @@ export class StudentCreateComponent implements OnInit{
   }
   setEmail(inputModel: InputModel){
     this.inputEmail = inputModel;
-  }
-  setDocumentType(selectOneModel: SelectOneMenuModel){
-    this.selecOneMenuDocumentType = selectOneModel;
   }
 }

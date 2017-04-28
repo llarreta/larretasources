@@ -14,17 +14,16 @@
             app: 'src/app',
             // angular bundles
             '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+            '@angular/animations': 'npm:@angular/animations/bundles/animations-browser.umd.js',
             '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
             '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
             '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
             '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+            'rxjs': 'npm:rxjs',
             '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-            '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
             // other libraries
-            'rxjs': 'npm:rxjs',
-            'angular2-cookie': 'npm:angular2-cookie',
             'angular2-image-upload': 'npm:angular2-image-upload',
             'primeng': 'npm:primeng',
         },
@@ -36,10 +35,6 @@
             },
             rxjs: {
                 main: './bundles/Rx.min.js',
-                defaultExtension: 'js'
-            },
-            'angular2-cookie': {
-                main: './core.js',
                 defaultExtension: 'js'
             },
             'angular2-image-upload':{

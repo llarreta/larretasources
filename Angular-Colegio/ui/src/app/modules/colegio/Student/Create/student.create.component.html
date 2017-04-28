@@ -35,7 +35,13 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <select-one-menu-commons [selectOneMenuModel]="selecOneMenuDocumentType" (valueModel)="setDocumentType($event)"></select-one-menu-commons>
+          <p-dropdown [options]="documentTypes" [(ngModel)]="student.documentType" [style]="{'width':'150px'}" filter="filter">
+            <ng-template let-documentType pTemplate="item">
+                <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                    <div style="font-size:14px;float:right;margin-top:4px">{{documentType}}</div>
+                </div>
+            </ng-template>
+          </p-dropdown>
         </div>
         <div class="col-6">
           <input-commons

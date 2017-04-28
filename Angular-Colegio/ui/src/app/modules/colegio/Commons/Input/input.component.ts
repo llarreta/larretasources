@@ -1,6 +1,5 @@
 import { Component, Input, Output, OnInit, 
          OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputModel } from './input.model.component';
 
 @Component({

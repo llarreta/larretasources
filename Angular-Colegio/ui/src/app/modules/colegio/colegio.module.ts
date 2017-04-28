@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//PRIMENG
 import {DataScrollerModule} from 'primeng/primeng';
+import {DropdownModule} from 'primeng/primeng';
 
 // Router
 import { ProvidersRouter } from './colegio.router';
@@ -26,9 +28,9 @@ import { StudentService } from './services/student.service';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbModule.forRoot(),
         ProvidersRouter,
-        DataScrollerModule
+        DataScrollerModule,
+        DropdownModule
     ],
     declarations:
     [

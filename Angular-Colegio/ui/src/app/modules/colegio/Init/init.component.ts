@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { InputCommonsComponent } from '../Commons/Input/input.component';
 import { InputModel } from '../Commons/Input/input.model.component';
 import { SelectOneMenuModel } from '../Commons/SelectOneMenu/selectOneMenu.model.component';

@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 
-import { CookieService } from 'angular2-cookie/core';
-
 import { Request } from './request.template';
 import { Logger } from '../Logger/logger';
 
@@ -19,8 +17,7 @@ export class HttpRequest {
     private cookieName: string = "test";
 
     constructor(private http: Http,
-        @Inject("Config") private config: any,
-        private cookieService: CookieService) { }
+        @Inject("Config") private config: any) { }
 
     post(data, url): Observable<any> {
         let request = new Request();
