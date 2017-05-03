@@ -66,6 +66,7 @@ public class StudentsLoadBusinessImpl extends BusinessImpl implements StudentsLo
 					actualStudent.setDocumentType(student.getDocumentType().getId());
 				}
 				actualStudent.setDocumentNumber(student.getDocumentNumber());
+				actualStudent.setPhoto(student.getPhoto());
 				
 				students.add(actualStudent);
 			}

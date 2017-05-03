@@ -65,17 +65,17 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 	
 	@PerformanceMonitor
 	@RequestMapping(value = CREATE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response<TargetedBody> createPost(@Valid @RequestBody Request<UpdateBodyRequest> request, Errors errors) throws RestException{
+	public Response<TargetedBody> createPost(@Valid @RequestBody Request<UpdateBodyRequest> request, Errors errors) throws Exception{
 		return executeBusiness(request, createBusiness);	
 	}
 
 	@PerformanceMonitor
 	@RequestMapping(value = UPDATE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response<TargetedBody> updatePost(@Valid @RequestBody Request<UpdateBodyRequest> request, Errors errors) throws RestException{
+	public Response<TargetedBody> updatePost(@Valid @RequestBody Request<UpdateBodyRequest> request, Errors errors) throws Exception{
 		return executeBusiness(request, updateBusiness);	
 	}
 	
-	private Response<TargetedBody> executeBusiness(Request<UpdateBodyRequest> request, Business business) {
+	private Response<TargetedBody> executeBusiness(Request<UpdateBodyRequest> request, Business business) throws Exception{
 		Response<TargetedBody> response = applicationContext.getBean(Response.class);
 		Long target = (Long) business.execute(request.getBody());
 		TargetedBody responseBody = new TargetedBody();
@@ -86,7 +86,7 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 
 	@PerformanceMonitor
 	@RequestMapping(value = DELETE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response<TargetedBody> deletePost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws RestException{
+	public Response<TargetedBody> deletePost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws Exception{
 		Response<TargetedBody> response = applicationContext.getBean(Response.class);
 		
 		deleteBusiness.execute(request.getBody().getTarget());
@@ -100,7 +100,7 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 
 	@PerformanceMonitor
 	@RequestMapping(value = LOAD, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response<JSONableCollectionBody<Serializable>> loadPost(@Valid @RequestBody Request<LoadBodyRequest> request, Errors errors) throws RestException{
+	public Response<JSONableCollectionBody<Serializable>> loadPost(@Valid @RequestBody Request<LoadBodyRequest> request, Errors errors) throws Exception{
 		Response<JSONableCollectionBody<Serializable>> response = applicationContext.getBean(Response.class);;
 		JSONableCollectionBody<Serializable> loadResponse = (JSONableCollectionBody<Serializable>) loadBusiness.execute(request.getBody());
 		response.setBody(loadResponse);

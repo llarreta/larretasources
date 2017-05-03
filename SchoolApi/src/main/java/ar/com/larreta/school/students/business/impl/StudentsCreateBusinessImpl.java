@@ -17,7 +17,7 @@ import ar.com.larreta.school.students.business.StudentsCreateBusiness;
 public class StudentsCreateBusinessImpl extends BusinessImpl implements StudentsCreateBusiness {
 
 	@Override
-	public Serializable execute(Serializable input) {
+	public Serializable execute(Serializable input) throws Exception {
 		UpdateStudentBody body = (UpdateStudentBody) input;
 		Student student = new Student();
 		beanUtils.copy(body, student);

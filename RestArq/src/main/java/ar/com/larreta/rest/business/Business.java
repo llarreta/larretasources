@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public interface Business {
 
-	public Serializable execute(Serializable input);
+	public Serializable execute(Serializable input) throws Exception;
 	
 }
