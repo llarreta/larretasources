@@ -6,7 +6,7 @@ import { StudentComponent } from './Student/List/student.component';
 
 const routes: Routes = [
     { path: '', component: InitComponent },
-    { path: 'alumnos', component: StudentComponent }
+    { path: 'students', component: StudentComponent }
 ];
 
 export const ProvidersRouter: ModuleWithProviders = RouterModule.forChild(routes);

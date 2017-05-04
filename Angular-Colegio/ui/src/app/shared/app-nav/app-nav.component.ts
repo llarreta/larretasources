@@ -1,7 +1,29 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
-  templateUrl: './src/app/shared/app-nav/app-nav.component.html'
+  templateUrl: './src/app/shared/app-nav/app-nav.component.html',
+  styleUrls: ['./src/app/shared/app-nav/app-nav.component.scss'],
 })
-export class AppNavComponent {}
+export class AppNavComponent {
+
+  menuActive: boolean = false;
+
+  constructor(private router: Router) { }
+
+  public openCloseMenu(){
+    this.menuActive = !this.menuActive;
+  }
+
+  public goStudents(){
+    this.router.navigate(['./colegio/students']);
+    this.menuActive = false;
+  }
+
+  public goHome(){
+    this.router.navigate(['./#']);
+    this.menuActive = false;
+  }
+
+}

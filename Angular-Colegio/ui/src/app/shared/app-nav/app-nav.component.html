@@ -1,4 +1,5 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+<!--
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,7 +10,7 @@
         <a class="nav-link" href="./cursos">Cursos<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/#/colegio/alumnos">Alumnos</a>
+        <a class="nav-link" href="">Alumnos</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="./pagos">Pagos</a>
@@ -23,3 +24,57 @@
     </ul>
   </div>
 </nav>
+-->
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="nav-toggle" id="nav-toggle" (click)="openCloseMenu()"
+        [ngClass]="{'active': menuActive}" >
+          <span class="top"></span>
+          <span class="middle"></span>
+          <span class="bottom"></span>
+      </div>
+      <div class="navbar" id="navbar" [ngClass]="{'open': menuActive}">
+          <nav>
+              <ul>
+                  <li (click)="goHome()">
+                    <i class="icon-home icon-menu"></i>
+                    <a class="item-menu">
+                      HOME
+                    </a>
+                  </li>
+                  <li (click)="goStudents()">
+                    <i class="icon-user icon-menu"></i>
+                    <a class="item-menu">
+                      Alumnos
+                    </a>
+                  </li>
+                  <li (click)="openCloseMenu()">
+                    <i class="icon-group icon-menu"></i>
+                    <a class="item-menu" href="#">
+                      Cursos
+                    </a>
+                  </li>
+                  <li (click)="openCloseMenu()">
+                    <i class="icon-money icon-menu"></i>
+                    <a class="item-menu" href="#">
+                      Pagos
+                    </a>
+                  </li>
+                  <li (click)="openCloseMenu()">
+                    <i class="icon-male icon-menu"></i>
+                    <a class="item-menu" href="#">
+                      Responsables
+                    </a>
+                  </li>
+                  <li (click)="openCloseMenu()">
+                    <i class="icon-tasks icon-menu"></i>
+                    <a class="item-menu" href="#">
+                      Planes de Pago
+                    </a>
+                  </li>
+              </ul>
+          </nav>
+      </div>
+  </div>
+</div>
