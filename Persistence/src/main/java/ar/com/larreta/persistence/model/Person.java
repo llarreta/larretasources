@@ -1,6 +1,7 @@
 package ar.com.larreta.persistence.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -28,7 +29,16 @@ public abstract class Person extends ar.com.larreta.persistence.model.Entity {
 	private String surname;
 	private DocumentType documentType;
 	private String documentNumber;
-
+	private String photo;
+	
+	@Basic @Column (name="photo", columnDefinition="TEXT")
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
 	@Basic @Column (name="name")
 	public String getName() {
 		return name;

@@ -17,7 +17,14 @@ public class UpdateStudentBody extends Body {
 	@ValidParametricEntity(message="documentType.inexistent", parametricEntity="ar.com.larreta.persistence.model.DocumentType")
 	private Long 			documentType;
 	private String 			documentNumber;
+	private String 			photo;
 
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public Long getId() {
 		return id;
 	}
