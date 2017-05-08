@@ -30,7 +30,7 @@ import { StudentService } from './services/student.service';
         ReactiveFormsModule,
         ProvidersRouter,
         DataScrollerModule,
-        DropdownModule
+        DropdownModule,
     ],
     declarations:
     [

@@ -35,12 +35,8 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <p-dropdown [options]="documentTypes" [(ngModel)]="student.documentType" [style]="{'width':'150px'}" filter="filter">
-            <ng-template let-documentType pTemplate="item">
-                <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-                    <div style="font-size:14px;float:right;margin-top:4px">{{documentType}}</div>
-                </div>
-            </ng-template>
+          <p-dropdown [options]="documentTypes" [(ngModel)]="student.documentType" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
           </p-dropdown>
         </div>
         <div class="col-6">

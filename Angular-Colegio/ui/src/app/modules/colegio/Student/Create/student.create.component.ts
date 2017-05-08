@@ -6,12 +6,10 @@ import { ObligationStatus } from '../../Models/ObligationStatus.model';
 import { Responsible } from '../../Models/Responsible.model';
 import { InputModel } from '../../Commons/Input/input.model.component';
 import { InputCommonsComponent } from '../../Commons/Input/input.component';
-import { SelectOneMenuCommonsComponent } from '../../Commons/SelectOneMenu/selectOneMenu.component';
-import { SelectOneMenuModel } from '../../Commons/SelectOneMenu/selectOneMenu.model.component';
-import { OptionModel } from '../../Commons/SelectOneMenu/option.model.component';
 import { StudentService } from '../../services/student.service';
 import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
 import { Logger } from '../../../../Logger/logger';
+import { SelectItem } from 'primeng/primeng';
 
 @Component({
   selector: 'colegio-alumnos-create',
@@ -26,7 +24,7 @@ export class StudentCreateComponent implements OnInit{
   inputSurname: InputModel;
   inputDocumentNumber: InputModel;
   inputEmail: InputModel;
-  documentTypes: Array<string>;
+  documentTypes: SelectItem[];
 
   student: Student;
   paymentPlans: Array<PaymentPlan>;
@@ -94,10 +92,11 @@ export class StudentCreateComponent implements OnInit{
     this.inputSurname.type= "text";
     this.inputSurname.validationActivate = true;
 
-    this.documentTypes = new Array<string>();
-    this.documentTypes.push("CUIL");
-    this.documentTypes.push("DNI");
-    this.documentTypes.push("PASAPORTE");
+    this.documentTypes = [];
+    this.documentTypes.push({label:'Tipo Documento', value:null});
+    this.documentTypes.push({label:'CUIL', value:"CUIL"});
+    this.documentTypes.push({label:'DNI', value:"DNI"});
+    this.documentTypes.push({label:'PASAPORTE', value:"PASAPORTE"});
     
 
   }

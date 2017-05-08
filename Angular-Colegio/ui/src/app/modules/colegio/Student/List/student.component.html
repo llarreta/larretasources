@@ -6,8 +6,21 @@
           <p-dataScroller [value]="students" [rows]="7" class="data-scroller-two-columns">
             <p-header>
               Alumnos 
+              <div class="filter-container">
+                <div class="filter-by-name"> 
+                  <span class="filter-by-name-student">Filtrado por nombre</span>
+                  <input class="input-filter-by-name-student" type="text" pInputText [(ngModel)]="filterName"/>
+                </div>
+                <div class="filter-by-level"> 
+                  <span class="filter-by-name-level">Filtrado por nivel</span>
+                  <p-dropdown [options]="filterLevelsOptions" [(ngModel)]="filterLevel" class="input-filter-by-level"></p-dropdown>
+                </div>
+                <div class="filter-by-year"> 
+
+                </div>
+              </div>
               <button type="button" class="button-add" (click)="goListCreate(false)">
-                  <i class="icon-plus" aria-hidden="true"></i>
+                  <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </p-header>
             

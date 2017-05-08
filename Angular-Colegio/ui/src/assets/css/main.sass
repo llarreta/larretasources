@@ -55,6 +55,12 @@ ul {
   list-style: none;
 }
 
+input:focus{
+  outline: none;
+  transition: box-shadow 0.25s linear;
+  box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.50);
+}
+
 .pp-body-container,
 .au-body-container {
   padding: 40px 0;
@@ -2475,7 +2481,7 @@ button.button-add {
     box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
     position: absolute;
     margin-left: 36%;
-    margin-top: 14px;
+    margin-top: -16px;
     transition: text-shadow 0.25s, background 0.25s;
 }
 
@@ -2846,4 +2852,36 @@ img.student-photo {
 .data-scroller-item-1-body {
     padding: 5px;
 }
+.drop-down-custom .ui-dropdown{
+    width: 100%;
+    margin: 14px;
+    margin-top: 13%;
+}
 
+.drop-down-custom .ui-dropdown .ui-dropdown-panel .ui-dropdown-filter-container{
+  width: 100%;
+}
+
+.filter-by-name,
+.filter-by-level {
+    width: 25%;
+    display: inline-block;
+}
+
+input.input-filter-by-name-student {
+    border: none;
+    border-radius: 5px;
+    width: 70%;
+    margin-top: 5px;
+    font-size: 16px;
+    padding: 7px;
+}
+
+span.filter-by-name-student,
+span.filter-by-name-level {
+    font-size: 18px;
+}
+
+.input-filter-by-level{
+  text-shadow: none;
+}
