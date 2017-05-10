@@ -233,3 +233,7 @@ label.input__label.input__label--hoshi.input__label--hoshi-color-1.input_label_n
 label.input__label.input__label--hoshi.input__label--hoshi-color-1.is-all-ok-color::after {
     border-color: hsl(136, 59%, 51%);
 }
+
+.input__field{
+	box-shadow: none;
+}

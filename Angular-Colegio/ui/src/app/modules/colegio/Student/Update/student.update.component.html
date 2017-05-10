@@ -1,38 +1,102 @@
-<div class="container">
-  <div *ngIf="inListStudent">
-    <div>
-      <h1>Inicio Alumnos</h1>
+<div class= "common-box">
+  <div class="row animated fadeIn">
+    <div class="col-12">
+      <button type="button" class="button-back" (click)="goToList(true)">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+      </button>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Email</th>
-          <th>Tipo Documento</th>
-          <th>Numero Documento</th>
-          <th>Nivel</th>
-          <th>Año</th>
-          <th>Division</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="students.length >= 1">
-        <tr *ngFor="let student of students; let i = index">
-          <td>{{student.name}}</td>
-          <td>{{student.surname}}</td>
-          <td>{{student.email}}</td>
-          <td>{{student.documentType}}</td>
-          <td>{{student.documentNumber}}</td>
-          <td>{{student.course.level}}</td>
-          <td>{{student.course.year}}</td>
-          <td>{{student.course.division}}</td>
-        </tr>
-      </tbody>
-      <tbody *ngIf="students.length == 0">
-        <tr>
-          <td>No hay alumnos cargados.</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
+
+  <div *ngIf="editStudent">
+    <div class="row animated fadeIn">
+      <div class="col-12">
+          <h1>Modificar Alumno</h1>
+      </div>
+    </div>
+    <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+      <div class="col-1 error-box-icon">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      </div>
+      <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+        {{messageErrorInputs}}  
+      </div>
+      <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+        {{messageErrorService}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6">
+            <input-commons [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
+          </div>
+
+          <div class="col-6">
+            <input-commons [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p-dropdown [options]="documentTypes" [(ngModel)]="student.documentType" 
+              class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
+            </p-dropdown>
+          </div>
+          <div class="col-6">
+            <input-commons
+              [inputModel]="inputDocumentNumber"
+            (valueModel)="setDocumentNumber($event)"></input-commons>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <input-commons [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button (click)="confirm()" class="custom-green-button" type="button">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!editStudent">
+    <div class="row animated fadeIn">
+      <div class="col-12">
+          <h1>{{student.name}} {{student.surname}}</h1>
+      </div>
+    </div>
+    <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+      <div class="col-1 error-box-icon">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      </div>
+      <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+        {{messageErrorInputs}}  
+      </div>
+      <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+        {{messageErrorService}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="custom-edit-button-container">
+            <div (click)="editStudentActive()" class="custom-edit-button">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="row animated fadeIn">
+          <div class="update-student-info">    
+            {{student.documentType}}: {{student.documentNumber}}
+          </div>
+          <div class="update-student-info">    
+            {{student.email}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

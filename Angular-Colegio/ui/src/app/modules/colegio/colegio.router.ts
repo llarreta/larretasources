@@ -5,6 +5,7 @@ import { InitComponent } from './Init/init.component';
 import { StudentComponent } from './Student/List/student.component';
 
 const routes: Routes = [
+    { path: 'home', component: InitComponent },
     { path: '', component: InitComponent },
     { path: 'students', component: StudentComponent }
 ];

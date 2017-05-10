@@ -175,4 +175,11 @@ export class StudentComponent implements OnInit{
       this.cargarStudentTest();
   }
 
+  loadStudent(student: Student){
+    this.selectedStudent = student;
+    this.inUpdateStudent = true;
+    this.inListStudent = false;
+    this.inCreateStudent = false;
+  }
+
 }

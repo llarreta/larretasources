@@ -12,7 +12,7 @@ import { Logger } from '../../../../Logger/logger';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
-  selector: 'colegio-alumnos-create',
+  selector: 'school-students-create',
   templateUrl: './src/app/modules/colegio/Student/Create/student.create.component.html'
 })
 export class StudentCreateComponent implements OnInit{

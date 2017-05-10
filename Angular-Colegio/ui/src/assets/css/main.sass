@@ -2863,7 +2863,8 @@ img.student-photo {
 }
 
 .filter-by-name,
-.filter-by-level {
+.filter-by-level,
+.filter-by-year {
     width: 25%;
     display: inline-block;
 }
@@ -2878,10 +2879,69 @@ input.input-filter-by-name-student {
 }
 
 span.filter-by-name-student,
-span.filter-by-name-level {
+span.filter-by-name-level,
+span.filter-by-name-year {
     font-size: 18px;
 }
 
-.input-filter-by-level{
+.input-filter-by-level,
+.input-filter-by-year{
   text-shadow: none;
+}
+
+p-dropdown.input-filter-by-year .ui-dropdown,
+p-dropdown.input-filter-by-level .ui-dropdown{
+  min-width: 70%
+}
+
+.list-student-header {
+    margin-bottom: 20px;
+}
+
+span.list-student-counter {
+    text-align: left;
+    width: 100%;
+    display: inline-flex;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 15px;
+}
+
+.update-student-info {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0px;
+    font-size: 20px;
+}
+
+.custom-edit-button {
+    font-size: 25px;
+    color: white;
+    background: #029688;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    padding: 9px;
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.34902) 1px 1px 1px;
+    text-shadow: rgba(0, 0, 0, 0.34902) 1px 1px 1px;
+    transition: box-shadow 0.25s linear, text-shadow 0.25s linear, color 0.25s linear;
+}
+
+.custom-edit-button:hover {
+    color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.7) 1px 1px 1px;
+    cursor: pointer;
+}
+
+.custom-edit-button:active {
+    box-shadow: inset rgba(0, 0, 0, 0.34902) 1px 1px 1px;
+}
+
+.custom-edit-button-container {
+    width: 100%;
+    display: inline-block;
+    text-align: right;
+    margin-right: 5%;
 }

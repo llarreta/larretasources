@@ -75,9 +75,9 @@
     </div>
   </div>
   <div *ngIf="inCreateStudent" class="animated fadeInUp">
-    <school-students-create (goList)="goListCreate($event)"></school-students-create>
+    <colegio-alumnos-create (goList)="goListCreate($event)"></colegio-alumnos-create>
   </div>
   <div *ngIf="inUpdateStudent" class="animated fadeInUp">
-    <school-students-update (goList)="goListUpdate($event)" [student]="selectedStudent"></school-students-update>
+    <colegio-alumnos-update (goList)="goListUpdate($event)" [student]="selectedStudent"></colegio-alumnos-update>
   </div>
 </div>
