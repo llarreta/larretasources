@@ -16,7 +16,7 @@ import { InputModel } from '../../Commons/Input/input.model.component';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
-  selector: 'colegio-alumnos',
+  selector: 'school-students',
   templateUrl: './src/app/modules/colegio/Student/List/student.component.html'
 })
 export class StudentComponent implements OnInit{
@@ -31,6 +31,7 @@ export class StudentComponent implements OnInit{
   filterName: string;
   filterLevel: string;
   filterLevelsOptions: SelectItem[];
+  filterYear: string;
   filterYearOptions: SelectItem[];
 
   private language: string;

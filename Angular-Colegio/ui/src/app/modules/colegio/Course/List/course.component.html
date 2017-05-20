@@ -1,18 +1,14 @@
 <div class="container">
-  <div *ngIf="inListStudent" class="animated fadeInUp">
+  <div *ngIf="inListCourse" class="animated fadeInUp">
     <div class= "col-12 common-box-extra-large">
       <div class="row">
         <div class="col-12 body-component">
-          <p-dataScroller [value]="students" [rows]="7" class="data-scroller-two-columns">
+          <p-dataScroller [value]="courses" [rows]="7" class="data-scroller-two-columns">
             <p-header>
-              <div class="list-student-header">
-                Alumnos
+              <div class="list-course-header">
+                Cursos
               </div>
               <div class="filter-container">
-                <div class="filter-by-name"> 
-                  <span class="filter-by-name-student">Filtrado por nombre</span>
-                  <input class="input-filter-by-name-student" type="text" pInputText [(ngModel)]="filterName"/>
-                </div>
                 <div class="filter-by-level"> 
                   <span class="filter-by-name-level">Filtrado por nivel</span>
                   <p-dropdown [options]="filterLevelsOptions" [(ngModel)]="filterLevel" class="input-filter-by-level"></p-dropdown>
@@ -21,22 +17,25 @@
                   <span class="filter-by-name-year">Filtrado por año</span>
                   <p-dropdown [options]="filterYearOptions" [(ngModel)]="filterYear" class="input-filter-by-year"></p-dropdown>
                 </div>
+                <div class="filter-by-division"> 
+                  <span class="filter-by-name-division">Filtrado por division</span>
+                  <p-dropdown [options]="filterDivisionOptions" [(ngModel)]="filterDivision" class="input-filter-by-division"></p-dropdown>
+                </div>
               </div>
-              <span class="list-student-counter">123 Resultados</span>
               <button type="button" class="button-add" (click)="goListCreate(false)">
                   <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </p-header>
             
-            <p-footer *ngIf="!moreStudents">
+            <p-footer *ngIf="!morecourses">
               <div class="no-more-data">    
-                No hay mas alumnos.
+                No hay mas cursos.
               </div>
             </p-footer>
             
-            <p-footer *ngIf="students.length == 0">
+            <p-footer *ngIf="courses.length == 0">
               <div class="no-data-footer">
-                No hay alumnos cargados...
+                No hay cursos cargados...
               </div>
             </p-footer>
 
@@ -46,38 +45,23 @@
                 </div>
             </p-footer>
             
-            <ng-template let-student pTemplate="item">
-              <div class="data-scroller-item-1-container" (click)="loadStudent(student)">
+            <ng-template let-course pTemplate="item">
+              <div class="data-scroller-item-1-container" (click)="loadCourse(course)">
                 <div class="data-scroller-item-1-title">
-                  {{student.name}} {{student.surname}}
+                  {{course.year}} {{course.division}}
                 </div>
-                <div class="data-scroller-item-1-photo">
-                  <img src="src/assets/images/user-image.png" class="student-photo"/>
-                </div>
-                <div class="data-scroller-item-1-body">
-                  <div class="data-scroller-item-1-body-data">
-                    {{student.documentType}}: {{student.documentNumber}}
-                  </div>
-                  <div class="data-scroller-item-1-body-data">
-                    {{student.course.level}}
-                  </div>
-                  <div class="data-scroller-item-1-body-data">
-                    {{student.course.year}}° {{student.course.division}}
-                  </div>
-                </div>
-                  
               </div>      
             </ng-template>
 
         </p-dataScroller>
-        </div>
+        </div> 
       </div>
     </div>
   </div>
-  <div *ngIf="inCreateStudent" class="animated fadeInUp">
-    <colegio-alumnos-create (goList)="goListCreate($event)"></colegio-alumnos-create>
+  <div *ngIf="inCreateCourse" class="animated fadeInUp">
+    <school-course-create (goList)="goListCreate($event)"></school-course-create>
   </div>
-  <div *ngIf="inUpdateStudent" class="animated fadeInUp">
-    <colegio-alumnos-update (goList)="goListUpdate($event)" [student]="selectedStudent"></colegio-alumnos-update>
+  <div *ngIf="inUpdateCourse" class="animated fadeInUp">
+  <!--<school-course-update (goList)="goListUpdate($event)" [course]="selectedCurse"></school-course-update>-->
   </div>
 </div>

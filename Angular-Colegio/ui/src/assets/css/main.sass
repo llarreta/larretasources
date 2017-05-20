@@ -2224,8 +2224,13 @@ nav.navbar.navbar-default {
 
 .main-body {
     padding-top: 20px;
+    z-index: 99;
+    position: relative;
 }
-
+.main-menu{
+  z-index: 999;
+  position: relative;
+}
 .navbar {
   border-radius: 0px;
   height: 60px;
@@ -2864,7 +2869,8 @@ img.student-photo {
 
 .filter-by-name,
 .filter-by-level,
-.filter-by-year {
+.filter-by-year,
+.filter-by-division {
     width: 25%;
     display: inline-block;
 }
@@ -2880,17 +2886,20 @@ input.input-filter-by-name-student {
 
 span.filter-by-name-student,
 span.filter-by-name-level,
-span.filter-by-name-year {
+span.filter-by-name-year,
+span.filter-by-name-division {
     font-size: 18px;
 }
 
 .input-filter-by-level,
-.input-filter-by-year{
+.input-filter-by-year,
+.input-filter-by-division{
   text-shadow: none;
 }
 
 p-dropdown.input-filter-by-year .ui-dropdown,
-p-dropdown.input-filter-by-level .ui-dropdown{
+p-dropdown.input-filter-by-level .ui-dropdown,
+p-dropdown.input-filter-by-division .ui-dropdown{
   min-width: 70%
 }
 

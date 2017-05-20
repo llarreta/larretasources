@@ -26,4 +26,9 @@ export class AppNavComponent {
     this.menuActive = false;
   }
 
+  public goCourses(){
+    this.router.navigate(['./colegio/courses']);
+    this.menuActive = false;
+  }
+
 }

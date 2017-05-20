@@ -11,13 +11,18 @@ import { ProvidersRouter } from './colegio.router';
 
 // Components
 import { InitComponent } from './Init/init.component';
-import { StudentComponent } from './Student/List/student.component';
-import { StudentCreateComponent } from './Student/Create/student.create.component';
-import { StudentUpdateComponent } from './Student/Update/student.update.component';
 import { InputCommonsComponent } from './Commons/Input/input.component';
 import { SelectOneMenuCommonsComponent } from './Commons/SelectOneMenu/selectOneMenu.component';
 import { TableCommonsComponent } from './Commons/Table/table.component';
 import { LoadingCommonsComponent } from './Commons/Loading/loading.component';
+//Students component
+import { StudentComponent } from './Student/List/student.component';
+import { StudentCreateComponent } from './Student/Create/student.create.component';
+import { StudentUpdateComponent } from './Student/Update/student.update.component';
+//Courses component
+import { CourseComponent } from './Course/List/course.component';
+import { CourseCreateComponent } from './Course/Create/course.create.component';
+//import { Course } from './Course/Update/course.update.component';
 
 //Services
 import { StudentService } from './services/student.service';
@@ -41,7 +46,9 @@ import { StudentService } from './services/student.service';
         InputCommonsComponent,
         SelectOneMenuCommonsComponent,
         TableCommonsComponent,
-        LoadingCommonsComponent
+        LoadingCommonsComponent,
+        CourseComponent,
+        CourseCreateComponent
     ],
     providers:
     [
