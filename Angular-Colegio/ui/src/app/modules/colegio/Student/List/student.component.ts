@@ -11,9 +11,12 @@ import { ButtonTableModel } from '../../Commons/Table/button.table.model.compone
 import { ActionButtonTable } from '../../Commons/Table/actionButtonTable.model.component';
 import {Header} from 'primeng/primeng';
 import {Footer} from 'primeng/primeng';
+import { InputCommonsComponent } from '../../Commons/Input/input.component';
+import { InputModel } from '../../Commons/Input/input.model.component';
+import { SelectItem } from 'primeng/primeng';
 
 @Component({
-  selector: 'colegio-alumnos',
+  selector: 'school-students',
   templateUrl: './src/app/modules/colegio/Student/List/student.component.html'
 })
 export class StudentComponent implements OnInit{
@@ -25,6 +28,11 @@ export class StudentComponent implements OnInit{
   inListStudent: boolean;
   loading: boolean;
   moreStudents: boolean;
+  filterName: string;
+  filterLevel: string;
+  filterLevelsOptions: SelectItem[];
+  filterYear: string;
+  filterYearOptions: SelectItem[];
 
   private language: string;
 
@@ -43,17 +51,29 @@ export class StudentComponent implements OnInit{
     this.inUpdateStudent = false;
     this.moreStudents = true;
     this.loading = false;
+    this.filterLevelsOptions = [];
+    this.filterLevelsOptions.push({label:'Nivel', value:null});
+    this.filterLevelsOptions.push({label:'Inicial', value:"inicial"});
+    this.filterLevelsOptions.push({label:'Primario', value:"primario"});
+    this.filterLevelsOptions.push({label:'Secundario', value:"secundario"});
+    this.filterYearOptions = [];
+    this.filterYearOptions.push({label:'Año', value:null});
+    this.filterYearOptions.push({label:'1°', value:1});
+    this.filterYearOptions.push({label:'2°', value:2});
+    this.filterYearOptions.push({label:'3°', value:3});
+    this.filterYearOptions.push({label:'4°', value:4});
+    this.filterYearOptions.push({label:'5°', value:5});
+    this.filterYearOptions.push({label:'6°', value:6});
+    this.filterYearOptions.push({label:'7°', value:7});
     //this.cargarStudents();
 
   }
 
-
-
-    protected fetchNextChunk(skip: number, limit: number): Promise<Student[]> {
-        return new Promise((resolve, reject) => {
-            new Array<Student>();
-        });
-    }
+  protected fetchNextChunk(skip: number, limit: number): Promise<Student[]> {
+      return new Promise((resolve, reject) => {
+          new Array<Student>();
+      });
+  }
 
   
   cargarStudentTest(){
@@ -154,6 +174,13 @@ export class StudentComponent implements OnInit{
 
   loadData(event) {
       this.cargarStudentTest();
+  }
+
+  loadStudent(student: Student){
+    this.selectedStudent = student;
+    this.inUpdateStudent = true;
+    this.inListStudent = false;
+    this.inCreateStudent = false;
   }
 
 }

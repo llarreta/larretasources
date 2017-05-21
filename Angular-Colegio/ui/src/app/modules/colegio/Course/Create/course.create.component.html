@@ -8,7 +8,7 @@
   </div>
   <div class="row animated fadeIn">
     <div class="col-12">
-        <h1>Creando Alumnos</h1>
+        <h1>Creando Curso</h1>
     </div>
   </div>
   <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
@@ -26,28 +26,19 @@
     <div class="col-12">
       <div class="row">
         <div class="col-6">
-          <input-commons [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
-        </div>
-
-        <div class="col-6">
-          <input-commons [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
+          <input-commons [inputModel]="inputDivision" (valueModel)="setCourseDivision($event)"></input-commons>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
-          <p-dropdown [options]="documentTypes" [(ngModel)]="student.documentType" 
+          <p-dropdown [options]="levels" [(ngModel)]="course.level" 
             class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
           </p-dropdown>
         </div>
         <div class="col-6">
-          <input-commons
-            [inputModel]="inputDocumentNumber"
-          (valueModel)="setDocumentNumber($event)"></input-commons>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <input-commons [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
+          <p-dropdown [options]="years" [(ngModel)]="course.year" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
+          </p-dropdown>
         </div>
       </div>
       <div class="row">

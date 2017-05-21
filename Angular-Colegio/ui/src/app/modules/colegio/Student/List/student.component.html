@@ -5,9 +5,25 @@
         <div class="col-12 body-component">
           <p-dataScroller [value]="students" [rows]="7" class="data-scroller-two-columns">
             <p-header>
-              Alumnos 
+              <div class="list-student-header">
+                Alumnos
+              </div>
+              <div class="filter-container">
+                <div class="filter-by-name"> 
+                  <span class="filter-by-name-student">Filtrado por nombre</span>
+                  <input class="input-filter-by-name-student" type="text" pInputText [(ngModel)]="filterName"/>
+                </div>
+                <div class="filter-by-level"> 
+                  <span class="filter-by-name-level">Filtrado por nivel</span>
+                  <p-dropdown [options]="filterLevelsOptions" [(ngModel)]="filterLevel" class="input-filter-by-level"></p-dropdown>
+                </div>
+                <div class="filter-by-year"> 
+                  <span class="filter-by-name-year">Filtrado por año</span>
+                  <p-dropdown [options]="filterYearOptions" [(ngModel)]="filterYear" class="input-filter-by-year"></p-dropdown>
+                </div>
+              </div>
               <button type="button" class="button-add" (click)="goListCreate(false)">
-                  <i class="icon-plus" aria-hidden="true"></i>
+                  <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </p-header>
             
@@ -30,7 +46,7 @@
             </p-footer>
             
             <ng-template let-student pTemplate="item">
-              <div class="data-scroller-item-1-container">
+              <div class="data-scroller-item-1-container" (click)="loadStudent(student)">
                 <div class="data-scroller-item-1-title">
                   {{student.name}} {{student.surname}}
                 </div>
@@ -58,9 +74,9 @@
     </div>
   </div>
   <div *ngIf="inCreateStudent" class="animated fadeInUp">
-    <colegio-alumnos-create (goList)="goListCreate($event)"></colegio-alumnos-create>
+    <school-students-create (goList)="goListCreate($event)"></school-students-create>
   </div>
   <div *ngIf="inUpdateStudent" class="animated fadeInUp">
-    <colegio-alumnos-update (goList)="goListUpdate($event)" [student]="selectedStudent"></colegio-alumnos-update>
+    <school-students-update (goList)="goListUpdate($event)" [student]="selectedStudent"></school-students-update>
   </div>
 </div>

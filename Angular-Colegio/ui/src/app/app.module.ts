@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 // App Components
 import { AppComponent } from './app.component';
@@ -35,7 +37,9 @@ import {DataScrollerModule} from 'primeng/primeng';
     JsonpModule,
     ReactiveFormsModule,
     ColegioModule,
-    DataScrollerModule
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    DataScrollerModule,
   ],
   providers: [
     HttpRequest,

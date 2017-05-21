@@ -55,6 +55,12 @@ ul {
   list-style: none;
 }
 
+input:focus{
+  outline: none;
+  transition: box-shadow 0.25s linear;
+  box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.50);
+}
+
 .pp-body-container,
 .au-body-container {
   padding: 40px 0;
@@ -2218,8 +2224,13 @@ nav.navbar.navbar-default {
 
 .main-body {
     padding-top: 20px;
+    z-index: 99;
+    position: relative;
 }
-
+.main-menu{
+  z-index: 999;
+  position: relative;
+}
 .navbar {
   border-radius: 0px;
   height: 60px;
@@ -2475,7 +2486,7 @@ button.button-add {
     box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.16);
     position: absolute;
     margin-left: 36%;
-    margin-top: 14px;
+    margin-top: -16px;
     transition: text-shadow 0.25s, background 0.25s;
 }
 
@@ -2846,4 +2857,100 @@ img.student-photo {
 .data-scroller-item-1-body {
     padding: 5px;
 }
+.drop-down-custom .ui-dropdown{
+    width: 100%;
+    margin: 14px;
+    margin-top: 13%;
+}
 
+.drop-down-custom .ui-dropdown .ui-dropdown-panel .ui-dropdown-filter-container{
+  width: 100%;
+}
+
+.filter-by-name,
+.filter-by-level,
+.filter-by-year,
+.filter-by-division {
+    width: 25%;
+    display: inline-block;
+}
+
+input.input-filter-by-name-student {
+    border: none;
+    border-radius: 5px;
+    width: 70%;
+    margin-top: 5px;
+    font-size: 16px;
+    padding: 7px;
+}
+
+span.filter-by-name-student,
+span.filter-by-name-level,
+span.filter-by-name-year,
+span.filter-by-name-division {
+    font-size: 18px;
+}
+
+.input-filter-by-level,
+.input-filter-by-year,
+.input-filter-by-division{
+  text-shadow: none;
+}
+
+p-dropdown.input-filter-by-year .ui-dropdown,
+p-dropdown.input-filter-by-level .ui-dropdown,
+p-dropdown.input-filter-by-division .ui-dropdown{
+  min-width: 70%
+}
+
+.list-student-header {
+    margin-bottom: 20px;
+}
+
+span.list-student-counter {
+    text-align: left;
+    width: 100%;
+    display: inline-flex;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 15px;
+}
+
+.update-student-info {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0px;
+    font-size: 20px;
+}
+
+.custom-edit-button {
+    font-size: 25px;
+    color: white;
+    background: #029688;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    padding: 9px;
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.34902) 1px 1px 1px;
+    text-shadow: rgba(0, 0, 0, 0.34902) 1px 1px 1px;
+    transition: box-shadow 0.25s linear, text-shadow 0.25s linear, color 0.25s linear;
+}
+
+.custom-edit-button:hover {
+    color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.7) 1px 1px 1px;
+    cursor: pointer;
+}
+
+.custom-edit-button:active {
+    box-shadow: inset rgba(0, 0, 0, 0.34902) 1px 1px 1px;
+}
+
+.custom-edit-button-container {
+    width: 100%;
+    display: inline-block;
+    text-align: right;
+    margin-right: 5%;
+}

@@ -2,7 +2,7 @@
 	position: relative;
 	z-index: 1;
 	display: inline-block;
-	margin: 1em;
+	margin: 2%;
 	max-width: 350px;
 	width: calc(100% - 2em);
 	vertical-align: top;
@@ -48,7 +48,7 @@
 .input__label-content {
 	position: relative;
 	display: block;
-	padding: 1.6em 0;
+	padding: 10% 0;
 	width: 100%;
 }
 
@@ -71,21 +71,22 @@
 
 .input__field--hoshi {
 	margin-top: 1em;
-    width: 100%;
-    background: transparent;
-    color: #595F6E;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 4px;
-    padding-right: 30px;
+	width: 100%;
+	background: transparent;
+	color: #595F6E;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 4px;
+	padding-right: 30px;
+	font-size: 100%;
 }
 
 .input_label_non_focus{
-    font-size: 15px !important;
+    font-size: 80% !important;
 }
 
 .input__label--hoshi {
-    font-size: 18px;
+    font-size: 100%;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -231,4 +232,8 @@ i.fa.fa-check-square.is-all-ok-icon {
 label.input__label.input__label--hoshi.input__label--hoshi-color-1.input_label_non_focus.is-all-ok-color::after,
 label.input__label.input__label--hoshi.input__label--hoshi-color-1.is-all-ok-color::after {
     border-color: hsl(136, 59%, 51%);
+}
+
+.input__field{
+	box-shadow: none;
 }

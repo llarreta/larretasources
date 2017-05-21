@@ -1,0 +1,67 @@
+<div class="container">
+  <div *ngIf="inListCourse" class="animated fadeInUp">
+    <div class= "col-12 common-box-extra-large">
+      <div class="row">
+        <div class="col-12 body-component">
+          <p-dataScroller [value]="courses" [rows]="7" class="data-scroller-two-columns">
+            <p-header>
+              <div class="list-course-header">
+                Cursos
+              </div>
+              <div class="filter-container">
+                <div class="filter-by-level"> 
+                  <span class="filter-by-name-level">Filtrado por nivel</span>
+                  <p-dropdown [options]="filterLevelsOptions" [(ngModel)]="filterLevel" class="input-filter-by-level"></p-dropdown>
+                </div>
+                <div class="filter-by-year"> 
+                  <span class="filter-by-name-year">Filtrado por año</span>
+                  <p-dropdown [options]="filterYearOptions" [(ngModel)]="filterYear" class="input-filter-by-year"></p-dropdown>
+                </div>
+                <div class="filter-by-division"> 
+                  <span class="filter-by-name-division">Filtrado por division</span>
+                  <p-dropdown [options]="filterDivisionOptions" [(ngModel)]="filterDivision" class="input-filter-by-division"></p-dropdown>
+                </div>
+              </div>
+              <button type="button" class="button-add" (click)="goListCreate(false)">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </p-header>
+            
+            <p-footer *ngIf="!morecourses">
+              <div class="no-more-data">    
+                No hay mas cursos.
+              </div>
+            </p-footer>
+            
+            <p-footer *ngIf="courses.length == 0">
+              <div class="no-data-footer">
+                No hay cursos cargados...
+              </div>
+            </p-footer>
+
+            <p-footer *ngIf="loading">
+                <div class="loading-footer">
+                  <loading-commons></loading-commons>
+                </div>
+            </p-footer>
+            
+            <ng-template let-course pTemplate="item">
+              <div class="data-scroller-item-1-container" (click)="loadCourse(course)">
+                <div class="data-scroller-item-1-title">
+                  {{course.year}} {{course.division}}
+                </div>
+              </div>      
+            </ng-template>
+
+        </p-dataScroller>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <div *ngIf="inCreateCourse" class="animated fadeInUp">
+    <school-course-create (goList)="goListCreate($event)"></school-course-create>
+  </div>
+  <div *ngIf="inUpdateCourse" class="animated fadeInUp">
+  <!--<school-course-update (goList)="goListUpdate($event)" [course]="selectedCurse"></school-course-update>-->
+  </div>
+</div>

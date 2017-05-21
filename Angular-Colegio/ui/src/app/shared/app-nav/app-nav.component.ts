@@ -22,7 +22,12 @@ export class AppNavComponent {
   }
 
   public goHome(){
-    this.router.navigate(['./#']);
+    this.router.navigate(['./colegio/home']);
+    this.menuActive = false;
+  }
+
+  public goCourses(){
+    this.router.navigate(['./colegio/courses']);
     this.menuActive = false;
   }
 
