@@ -30,6 +30,14 @@ public class StudentsLoadBusinessImpl extends BusinessImpl implements StudentsLo
 		LoadArguments args = new LoadArguments(Student.class);
 		
 		if (body!=null){
+			if (body.getFirstResult()!=null){
+				args.setFirstResult(body.getFirstResult());
+			}
+			
+			if (body.getMaxResults()!=null){
+				args.setMaxResults(body.getMaxResults());
+			}
+			
 			if (StringUtils.isNotEmpty(body.getName())){
 				Like like = new Like(args, "name", body.getName());
 				args.addWhere(like);

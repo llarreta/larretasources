@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
@@ -16,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.com.larreta.annotations.PerformanceMonitor;
 import ar.com.larreta.rest.business.Business;
-import ar.com.larreta.rest.exceptions.NotImplementedException;
-import ar.com.larreta.rest.exceptions.NotPermitedExeption;
-import ar.com.larreta.rest.exceptions.RestException;
 import ar.com.larreta.rest.messages.Body;
 import ar.com.larreta.rest.messages.JSONableCollectionBody;
 import ar.com.larreta.rest.messages.Request;
@@ -35,8 +31,6 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 
 	public static final String CREATE = "/create";
 
-	public static final String ALL_URLS = "/*";
-	
 	@Autowired
 	protected ServletContext servletContext;
 	
@@ -53,15 +47,7 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 	public abstract void setDeleteBusiness(Business deleteBusiness);
 	public abstract void setLoadBusiness(Business loadBusiness);
 	
-	@RequestMapping(value = StringUtils.EMPTY, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response sourcePost(@RequestBody Request request) throws RestException{
-		return executePost(request);
-	}
-	
-	@RequestMapping(value = ALL_URLS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response rootPost(@RequestBody Request request) throws RestException{
-		return executePost(request);
-	}
+
 	
 	@PerformanceMonitor
 	@RequestMapping(value = CREATE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -106,51 +92,4 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 		response.setBody(loadResponse);
 		return response;
 	}
-
-	public Response executePost(Request request) throws RestException{
-		throw new NotImplementedException();
-	}
-	
-	@RequestMapping(value = StringUtils.EMPTY, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response sourceGet() throws RestException{
-		return executeGet();
-	}
-	
-	@RequestMapping(value = ALL_URLS, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response rootGet() throws RestException{
-		return executeGet();
-	}
-	
-	public Response executeGet() throws RestException{
-		throw new NotPermitedExeption();
-	}
-	
-	@RequestMapping(value = StringUtils.EMPTY, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response sourcePut() throws RestException{
-		return executePut();
-	}
-	
-	@RequestMapping(value = ALL_URLS, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response rootPut() throws RestException{
-		return executePut();
-	}
-	
-	public Response executePut() throws RestException{
-		throw new NotPermitedExeption();
-	}
-	
-	@RequestMapping(value = StringUtils.EMPTY, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response sourceDelete() throws RestException{
-		return executeRequestMethodDelete();
-	}
-	
-	@RequestMapping(value = ALL_URLS, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response rootDelete() throws RestException{
-		return executeRequestMethodDelete();
-	}
-	
-	public Response executeRequestMethodDelete() throws RestException{
-		throw new NotPermitedExeption();
-	}
-	
 }

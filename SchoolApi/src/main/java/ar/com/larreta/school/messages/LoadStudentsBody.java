@@ -1,8 +1,9 @@
 package ar.com.larreta.school.messages;
 
 import ar.com.larreta.rest.messages.Body;
+import ar.com.larreta.rest.messages.LoadBody;
 
-public class LoadStudentsBody extends Body {
+public class LoadStudentsBody extends LoadBody {
 
 	private Long 			id;
 	private String 			name;

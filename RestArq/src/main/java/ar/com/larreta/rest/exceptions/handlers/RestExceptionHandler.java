@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import ar.com.larreta.annotations.Log;
 import ar.com.larreta.rest.exceptions.NotPermitedExeption;
+import ar.com.larreta.rest.exceptions.ResourceNotFoundException;
 import ar.com.larreta.rest.exceptions.RestException;
 import ar.com.larreta.rest.messages.Response;
 import ar.com.larreta.rest.messages.status.BAD;
@@ -30,6 +32,7 @@ import ar.com.larreta.rest.messages.status.NOP;
 import ar.com.larreta.rest.messages.status.NOT;
 
 @ControllerAdvice
+//FIXME: Ver si se puede mejorar para que ya venga el estado seteado en los response
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private static @Log Logger LOG;
@@ -74,7 +77,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(value = { RestException.class })
 	public ResponseEntity<Object> handleRestException(RestException ex, WebRequest request) {
 		LOG.error("handleRestException", ex);
-
 		Response response = applicationContext.getBean(Response.class);
 		response.setState(applicationContext.getBean(NOK.class));
 		return new ResponseEntity<Object>(response, HttpStatus.CONFLICT);
@@ -83,7 +85,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(value = { NotPermitedExeption.class })
 	public ResponseEntity<Object> handleNotPermitedException(NotPermitedExeption ex, WebRequest request) {
 		LOG.error("handleRestException", ex);
-
 		Response response = applicationContext.getBean(Response.class);
 		response.setState(applicationContext.getBean(NOP.class));
 		return new ResponseEntity<Object>(response, HttpStatus.CONFLICT);
@@ -92,23 +93,36 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
-		
 		LOG.error("handleNoHandlerFoundException", ex);
-		
 		Response response = applicationContext.getBean(Response.class);
 		response.setState(applicationContext.getBean(NOT.class));
 		return new ResponseEntity<Object>(response, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(value = { ResourceNotFoundException.class } )
+	protected ResponseEntity<Object> handleResourceNotFound(ResourceNotFoundException ex, WebRequest request) {
+		LOG.error("handleResourceNotFound", ex);
+		Response response = applicationContext.getBean(Response.class);
+		response.setState(applicationContext.getBean(NOT.class));
+		return new ResponseEntity<Object>(response, HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler(value = { Throwable.class } )
 	protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-
 		LOG.error("handleConflict", ex);
-
 		Response response = applicationContext.getBean(Response.class);
 		response.setState(applicationContext.getBean(NOK.class));
 		response.getState().setDescription("Unexpected exception");
 		return new ResponseEntity<Object>(response, HttpStatus.CONFLICT);
 	}
 
+	@Override
+	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		LOG.error("handleHttpRequestMethodNotSupported", ex);
+		Response response = applicationContext.getBean(Response.class);
+		response.setState(applicationContext.getBean(NOP.class));
+		return new ResponseEntity<Object>(response, HttpStatus.CONFLICT);	}
+
+	
 }
