@@ -63,13 +63,13 @@ export class CourseCreateComponent implements OnInit{
     this.years = [];
     this.years.push({label:'Año', value:null});
     this.years.push({label:'1°', value:1});
-    this.years.push({label:'2°', value:1});
-    this.years.push({label:'3°', value:1});
-    this.years.push({label:'4°', value:1});
-    this.years.push({label:'5°', value:1});
-    this.years.push({label:'6°', value:1});
-    this.years.push({label:'7°', value:1});
-    this.years.push({label:'8°', value:1});
+    this.years.push({label:'2°', value:2});
+    this.years.push({label:'3°', value:3});
+    this.years.push({label:'4°', value:4});
+    this.years.push({label:'5°', value:5});
+    this.years.push({label:'6°', value:6});
+    this.years.push({label:'7°', value:7});
+    this.years.push({label:'8°', value:8});
 
   }
 
@@ -114,10 +114,6 @@ export class CourseCreateComponent implements OnInit{
   loadCourseData(){
     this.course.division = this.inputDivision.value;
   }
-
-  loadPaymentPlansTest(){}
-  loadObligationsStatusTest(){}
-  loadResponsiblesTest(){}
 
   goToList(){
     this.goList.emit(true);

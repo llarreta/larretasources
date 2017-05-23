@@ -22,7 +22,7 @@ import { StudentUpdateComponent } from './Student/Update/student.update.componen
 //Courses component
 import { CourseComponent } from './Course/List/course.component';
 import { CourseCreateComponent } from './Course/Create/course.create.component';
-//import { Course } from './Course/Update/course.update.component';
+import { CourseUpdateComponent } from './Course/Update/course.update.component';
 
 //Services
 import { StudentService } from './services/student.service';
@@ -48,7 +48,8 @@ import { StudentService } from './services/student.service';
         TableCommonsComponent,
         LoadingCommonsComponent,
         CourseComponent,
-        CourseCreateComponent
+        CourseCreateComponent,
+        CourseUpdateComponent
     ],
     providers:
     [

@@ -79,28 +79,38 @@ export class CourseComponent implements OnInit{
 
     let course: Course = new Course();
     course.division = "Mercantil";
-    course.level = "Secundario";
-    course.year = "3°";
+    course.level = "SECUNDARIO";
+    course.year = "3";
+    course.description = "";
+    course.id = 1;
 
     let course2: Course = new Course();
     course2.division = "CBU";
-    course2.level = "Secundario";
-    course2.year = "2°";
+    course2.level = "SECUNDARIO";
+    course2.year = "2";
+    course.description = "";
+    course.id = 2;
     
     let course3: Course = new Course();
     course3.division = "Mercantil";
-    course3.level = "Secundario";
-    course3.year = "2°";
+    course3.level = "SECUNDARIO";
+    course3.year = "2";
+    course.description = "";
+    course.id = 3;
 
     let course4: Course = new Course();
     course4.division = "Mercantil";
-    course4.level = "Secundario";
-    course4.year = "1°";
+    course4.level = "SECUNDARIO";
+    course4.year = "1";
+    course.description = "";
+    course.id = 4;
 
     let course5: Course = new Course();
     course5.division = "Verde";
-    course5.level = "Inicial";
-    course5.year = "2°";
+    course5.level = "INICIAL";
+    course5.year = "2";
+    course.description = "";
+    course.id = 5;
 
     this.courses = [];
     this.courses.push(course);
@@ -126,8 +136,8 @@ export class CourseComponent implements OnInit{
       this.cargarCourseTest();
   }
 
-  loadCourse(Course: Course){
-    this.selectedCourse = Course;
+  loadCourse(course: Course){
+    this.selectedCourse = course;
     this.inUpdateCourse = true;
     this.inListCourse = false;
     this.inCreateCourse = false;

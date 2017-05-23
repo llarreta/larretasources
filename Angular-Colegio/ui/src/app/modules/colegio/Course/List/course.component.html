@@ -48,7 +48,7 @@
             <ng-template let-course pTemplate="item">
               <div class="data-scroller-item-1-container" (click)="loadCourse(course)">
                 <div class="data-scroller-item-1-title">
-                  {{course.year}} {{course.division}}
+                  {{course.year}}° {{course.division}}
                 </div>
               </div>      
             </ng-template>
@@ -62,6 +62,6 @@
     <school-course-create (goList)="goListCreate($event)"></school-course-create>
   </div>
   <div *ngIf="inUpdateCourse" class="animated fadeInUp">
-  <!--<school-course-update (goList)="goListUpdate($event)" [course]="selectedCurse"></school-course-update>-->
+    <school-course-update (goList)="goListUpdate($event)" [course]="selectedCourse"></school-course-update>
   </div>
 </div>
