@@ -1,0 +1,59 @@
+<div class="container">
+  <div *ngIf="inListPaymentPlan" class="animated fadeInUp">
+    <div class= "col-12 common-box-extra-large">
+      <div class="row">
+        <div class="col-12 body-component">
+          <p-dataScroller [value]="paymentPlans" [rows]="7" class="data-scroller-two-columns">
+            <p-header>
+              <div class="list-paymentPlan-header">
+                Planes de pago
+              </div>
+              <div class="filter-container">
+                <div class="filter-by-name"> 
+                  <span class="filter-by-name-paymentPlan">Filtrado por nombre</span>
+                  <input class="input-filter-by-name-paymentPlan" type="text" pInputText [(ngModel)]="filterName"/>
+                </div>
+              </div>
+              <button type="button" class="button-add" (click)="goListCreate(false)">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </p-header>
+            
+            <p-footer *ngIf="!morepaymentPlans">
+              <div class="no-more-data">    
+                No hay mas planes de pago.
+              </div>
+            </p-footer>
+            
+            <p-footer *ngIf="paymentPlans.length == 0">
+              <div class="no-data-footer">
+                No hay planes de pago cargados...
+              </div>
+            </p-footer>
+
+            <p-footer *ngIf="loading">
+                <div class="loading-footer">
+                  <loading-commons></loading-commons>
+                </div>
+            </p-footer>
+            
+            <ng-template let-paymentPlan pTemplate="item">
+              <div class="data-scroller-item-1-container" (click)="loadPaymentPlan(paymentPlan)">
+                <div class="data-scroller-item-1-title">
+                  {{paymentPlan.description}}
+                </div>
+              </div>      
+            </ng-template>
+
+        </p-dataScroller>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <div *ngIf="inCreatePaymentPlan" class="animated fadeInUp">
+    <school-paymentPlan-create (goList)="goListCreate($event)"></school-paymentPlan-create>
+  </div>
+  <div *ngIf="inUpdatePaymentPlan" class="animated fadeInUp">
+    <school-paymentPlan-update (goList)="goListUpdate($event)" [paymentPlan]="selectedPaymentPlan"></school-paymentPlan-update>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<div class= "common-box">
+  <div class="row animated fadeIn">
+    <div class="col-12">
+      <button type="button" class="button-back" (click)="goToList(true)">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="editPaymentPlan">
+    <div class="row animated fadeIn">
+      <div class="col-12">
+          <h1>Modificar Plan de Pago</h1>
+      </div>
+    </div>
+    <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+      <div class="col-1 error-box-icon">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      </div>
+      <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+        {{messageErrorInputs}}  
+      </div>
+      <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+        {{messageErrorService}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <input-commons [inputModel]="inputDivision" (valueModel)="setPaymentPlanDivision($event)"></input-commons>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p-dropdown [options]="levels" [(ngModel)]="paymentPlan.level" 
+                    class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
+                </p-dropdown>
+            </div>
+            <div class="col-6">
+                <p-dropdown [options]="years" [(ngModel)]="paymentPlan.year" 
+                    class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button (click)="confirm()" class="custom-green-button" type="button">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!editPaymentPlan">
+    <div class="row animated fadeIn">
+      <div class="col-12">
+          <h1>{{paymentPlan.description}}</h1>
+      </div>
+    </div>
+    <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+      <div class="col-1 error-box-icon">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      </div>
+      <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+        {{messageErrorInputs}}  
+      </div>
+      <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+        {{messageErrorService}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="custom-edit-button-container">
+            <div (click)="editPaymentPlanActive()" class="custom-edit-button">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div class="row animated fadeIn">
+          <div class="col-12 update-paymentPlan-info">    
+            {{paymentPlan.description}}
+          </div>
+          <div class="col-6 update-paymentPlan-obligation" *ngFor="let obligation of paymentPlan.obligations; let i = index">
+            <div class="data-scroller-item-1-container">
+              <div class="data-scroller-item-1-title">
+                {{obligation.description}}
+              </div>
+              <div class="data-scroller-item-1-body" *ngFor="let price of obligation.prices; let i = index">
+                  <div class="data-scroller-item-1-body-data">
+                    {{price.validityStartDate}}
+                  </div>
+                  <div class="data-scroller-item-1-body-data">
+                    ${{price.value}}
+                  </div>
+                  <div class="data-scroller-item-1-body-data" *ngFor="let detail of price.details; let i = index">
+                    {{detail.description}}: ${{detail.value}}
+                    <div class="data-scroller-item-1-body-data-sub" *ngFor="let littleDetail of detail.littleDetails; let i = index">
+                      {{littleDetail.description}}: ${{littleDetail.value}}
+                    </div>
+                  </div>
+              </div>
+            </div>   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

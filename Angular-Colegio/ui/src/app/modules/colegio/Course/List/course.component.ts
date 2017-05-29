@@ -88,29 +88,29 @@ export class CourseComponent implements OnInit{
     course2.division = "CBU";
     course2.level = "SECUNDARIO";
     course2.year = "2";
-    course.description = "";
-    course.id = 2;
+    course2.description = "";
+    course2.id = 2;
     
     let course3: Course = new Course();
     course3.division = "Mercantil";
     course3.level = "SECUNDARIO";
     course3.year = "2";
-    course.description = "";
-    course.id = 3;
+    course3.description = "";
+    course3.id = 3;
 
     let course4: Course = new Course();
     course4.division = "Mercantil";
     course4.level = "SECUNDARIO";
     course4.year = "1";
-    course.description = "";
-    course.id = 4;
+    course4.description = "";
+    course4.id = 4;
 
     let course5: Course = new Course();
     course5.division = "Verde";
     course5.level = "INICIAL";
     course5.year = "2";
-    course.description = "";
-    course.id = 5;
+    course5.description = "";
+    course5.id = 5;
 
     this.courses = [];
     this.courses.push(course);

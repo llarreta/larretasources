@@ -31,4 +31,9 @@ export class AppNavComponent {
     this.menuActive = false;
   }
 
+  public goPaymentPlans(){
+    this.router.navigate(['./colegio/paymentPlan']);
+    this.menuActive = false;
+  }
+
 }

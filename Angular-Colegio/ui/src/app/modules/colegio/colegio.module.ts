@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //PRIMENG
 import {DataScrollerModule} from 'primeng/primeng';
 import {DropdownModule} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/primeng';
+import {TooltipModule} from 'primeng/primeng';
+import {AccordionModule} from 'primeng/primeng';
 
 // Router
 import { ProvidersRouter } from './colegio.router';
@@ -24,6 +27,11 @@ import { CourseComponent } from './Course/List/course.component';
 import { CourseCreateComponent } from './Course/Create/course.create.component';
 import { CourseUpdateComponent } from './Course/Update/course.update.component';
 
+//PaymentPlan component
+import { PaymentPlanComponent } from './PaymentPlan/List/paymentPlan.component';
+import { PaymentPlanCreateComponent } from './PaymentPlan/Create/paymentPlan.create.component';
+import { PaymentPlanUpdateComponent } from './PaymentPlan/Update/paymentPlan.update.component';
+
 //Services
 import { StudentService } from './services/student.service';
 
@@ -36,6 +44,9 @@ import { StudentService } from './services/student.service';
         ProvidersRouter,
         DataScrollerModule,
         DropdownModule,
+        CalendarModule,
+        TooltipModule,
+        AccordionModule
     ],
     declarations:
     [
@@ -49,7 +60,10 @@ import { StudentService } from './services/student.service';
         LoadingCommonsComponent,
         CourseComponent,
         CourseCreateComponent,
-        CourseUpdateComponent
+        CourseUpdateComponent,
+        PaymentPlanComponent,
+        PaymentPlanCreateComponent,
+        PaymentPlanUpdateComponent
     ],
     providers:
     [
