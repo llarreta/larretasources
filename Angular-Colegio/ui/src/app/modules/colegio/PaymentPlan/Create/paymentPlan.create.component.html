@@ -58,9 +58,9 @@
                             class="calendar-obligation-dueDate" placeholder="Fecha de Vencimiento"></p-calendar>
                         </div>
                       </p-header>
-                      <div class="obligation-body" *ngIf="(obligation.prices != null) && (obligation.prices.length > 0)">
-                        <p-accordion [multiple]="true">
-                          <p-accordionTab *ngFor="let price of obligation.prices; let j = index"> 
+                      <div class="obligation-body" *ngFor="let price of obligation.prices; let j = index">
+                        <p-accordion [multiple]="true" *ngIf="price.details != null && price.details.length > 0; else priceWithOutDetails">
+                          <p-accordionTab> 
                             <p-header class="price-header">
                               <div class="obligation-price-header-description"> 
                                 <input class="input-obligation-price-description" type="text" pInputText [(ngModel)]="price.description"
@@ -74,14 +74,14 @@
                                 <input class="input-obligation-price-value" type="number" pInputText [(ngModel)]="price.value"
                                   placeholder="Precio"/>
                               </div>
-                              <button type="button" class="button-add button-add-detail" (click)="addNewDetail(obligation, price)"
+                              <button type="button" class="button-add button-add-detail" (click)="addNewDetail(price)"
                                 pTooltip="Agregar Detalle">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                               </button>
                             </p-header>
-                            <div class="price-body">
-                              <p-accordion [multiple]="true">
-                                <p-accordionTab *ngFor="let detail of price.details; let k = index">    
+                            <div class="price-body" *ngFor="let detail of price.details; let k = index">
+                              <p-accordion [multiple]="true" *ngIf="detail.littleDetails != null && detail.littleDetails.length > 0; else detailWithOutLittleDetails">
+                                <p-accordionTab>    
                                   <p-header class="detail-header">
                                     <div class="obligation-price-detail-header-description"> 
                                       <input class="input-obligation-price-detail-description" type="text" pInputText [(ngModel)]="detail.description"
@@ -92,7 +92,7 @@
                                         placeholder="Precio"/>
                                     </div>
                                     <button type="button" class="button-add button-add-little-detail" 
-                                      (click)="addNewLittleDetail(obligation, price, detail)" pTooltip="Agregar Detalle Especifico">
+                                      (click)="addNewLittleDetail(detail)" pTooltip="Agregar Detalle Especifico">
                                       <i class="fa fa-plus" aria-hidden="true"></i>
                                     </button>
                                   </p-header>
@@ -108,9 +108,41 @@
                                   </div>
                                 </p-accordionTab>
                               </p-accordion>
+                              <ng-template #detailWithOutLittleDetails>
+                                <div class="obligation-price-detail-header-description"> 
+                                  <input class="input-obligation-price-detail-description" type="text" pInputText [(ngModel)]="detail.description"
+                                    placeholder="Descripcion"/>
+                                </div>
+                                <div class="obligation-price-detail-header-value"> 
+                                  <input class="input-obligation-price-detail-value" type="number" pInputText [(ngModel)]="detail.value"
+                                    placeholder="Precio"/>
+                                </div>
+                                <button type="button" class="button-add button-add-little-detail" 
+                                  (click)="addNewLittleDetail(detail)" pTooltip="Agregar Detalle Especifico">
+                                  <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                              </ng-template>
                             </div>
                           </p-accordionTab>
                         </p-accordion>
+                        <ng-template #priceWithOutDetails>
+                          <div class="obligation-price-header-description"> 
+                            <input class="input-obligation-price-description" type="text" pInputText [(ngModel)]="price.description"
+                              placeholder="Descripcion"/>
+                          </div>
+                          <div class="obligation-price-header-validityStartDate"> 
+                            <p-calendar [(ngModel)]="price.validityStartDate" dateFormat="dd.mm.yy" [locale]="es" [showIcon]="true"
+                              class="calendar-obligation-price-validityStartDate" placeholder="Fecha de Inicio de Validez"></p-calendar>
+                          </div>
+                          <div class="obligation-price-header-value"> 
+                            <input class="input-obligation-price-value" type="number" pInputText [(ngModel)]="price.value"
+                              placeholder="Precio"/>
+                          </div>
+                          <button type="button" class="button-add button-add-detail" (click)="addNewDetail(price)"
+                            pTooltip="Agregar Detalle">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                          </button>
+                        </ng-template>
                       </div>
                     </p-accordionTab>
                   </p-accordion>

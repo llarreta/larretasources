@@ -1,6 +1,9 @@
  import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
 import { Obligation } from '../../Models/Obligation.model';
+import { Price } from '../../Models/Price.model';
+import { Detail } from '../../Models/Detail.model';
+import { LittleDetail } from '../../Models/LittleDetail.model';
 import { InputModel } from '../../Commons/Input/input.model.component';
 import { InputCommonsComponent } from '../../Commons/Input/input.component';
 //import { PaymentPlanService } from '../../services/paymentPlan.service';
@@ -114,11 +117,48 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   addNewObligation(){
+    Logger.debug("Creando nueva cuota...");
     if(this.paymentPlan.obligations == null){
       this.paymentPlan.obligations = new Array<Obligation>();
     }
-    let obligation: Obligation = new Obligation();
-    this.paymentPlan.obligations.push(obligation);
+    this.paymentPlan.obligations.push(new Obligation());
+    Logger.debug("Logueando paymentPlan");
+    Logger.debug(JSON.stringify(this.paymentPlan));
   }
-  
+
+  addNewPrice(obligation: Obligation){
+    Logger.debug("Creando nuevo precio...");
+    if(obligation.prices == null){
+      obligation.prices = new Array<Price>();
+    }
+    obligation.prices.push(new Price());
+    Logger.debug("Logueando paymentPlan");
+    Logger.debug(JSON.stringify(this.paymentPlan));
+  }
+
+  addNewDetail(price: Price){
+    Logger.debug("Creando nuevo detalle...");
+    if(price.details == null){
+      price.details = new Array<Detail>();
+    }
+    price.details.push(new Detail());
+    Logger.debug("Logueando paymentPlan");
+    Logger.debug(JSON.stringify(this.paymentPlan));
+    Logger.debug(this.paymentPlan.valueOf());
+  }
+
+  addNewLittleDetail(detail: Detail){
+    Logger.debug("Creando nuevo detalle especifico...");
+    if(detail.littleDetails == null){
+      detail.littleDetails = new Array<LittleDetail>();
+    }
+    detail.littleDetails.push(new LittleDetail());
+    Logger.debug("Logueando paymentPlan");
+    Logger.debug(JSON.stringify(this.paymentPlan));
+  }
+
+  stopPropagationHeader(event){
+    event.stopPropagation();
+  }
+
 }
