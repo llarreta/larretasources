@@ -305,6 +305,9 @@ public class LoadArguments implements Serializable {
 	 * @return
 	 */
 	public Collection<ProjectedProperty> getAllOrdereProperties(){
+		if (splitter==null){
+			return new ArrayList<ProjectedProperty>();
+		}
 		return splitter.getOrdererProperties();
 	}
 

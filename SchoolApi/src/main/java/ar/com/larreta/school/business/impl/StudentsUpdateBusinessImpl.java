@@ -1,29 +1,20 @@
-package ar.com.larreta.school.students.business.impl;
-
-import java.io.Serializable;
+package ar.com.larreta.school.business.impl;
 
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import ar.com.larreta.rest.business.impl.BusinessImpl;
+import ar.com.larreta.rest.business.impl.CreateBusinessImpl;
+import ar.com.larreta.school.business.StudentsUpdateBusiness;
 import ar.com.larreta.school.messages.UpdateStudentBody;
 import ar.com.larreta.school.persistence.Student;
-import ar.com.larreta.school.students.business.StudentsUpdateBusiness;
 
 @Service(StudentsUpdateBusiness.BUSINESS_NAME)
 @Transactional
-public class StudentsUpdateBusinessImpl extends BusinessImpl implements StudentsUpdateBusiness {
+public class StudentsUpdateBusinessImpl extends CreateBusinessImpl<UpdateStudentBody, Student> implements StudentsUpdateBusiness {
 
-	@Override
-	public Serializable execute(Serializable input) {
-		UpdateStudentBody body = (UpdateStudentBody) input;
-		Student student = new Student();
-		beanUtils.copy(body, student);
-		
-		standardDAO.update(student);
-		
-		return student.getId();	
+	public StudentsUpdateBusinessImpl(){
+		addListener(new PersistStudentsListener());
 	}
 
 }

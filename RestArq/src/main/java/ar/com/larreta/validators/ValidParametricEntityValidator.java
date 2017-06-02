@@ -31,6 +31,9 @@ public class ValidParametricEntityValidator implements ConstraintValidator<Annot
 
 	@Override
 	public boolean isValid(Object field, ConstraintValidatorContext context) {
+		if (field==null){
+			return Boolean.TRUE;
+		}
 		try {
 			ValidateParametricEntityData data = new ValidateParametricEntityData(validParametricEntity.parametricEntity(), (Long) field);
 			return (boolean) business.execute(data);

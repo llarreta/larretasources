@@ -2,15 +2,15 @@ package ar.com.larreta.rest.messages;
 
 public class MappingEntry extends JSONable {
 
-	private String verbs;
+	private String methods;
 	private String patterns;
 	private String produces;
 	
-	public String getVerbs() {
-		return verbs;
+	public String getMethods() {
+		return methods;
 	}
-	public void setVerbs(String verbs) {
-		this.verbs = verbs;
+	public void setMethods(String methods) {
+		this.methods = methods;
 	}
 	public String getPatterns() {
 		return patterns;

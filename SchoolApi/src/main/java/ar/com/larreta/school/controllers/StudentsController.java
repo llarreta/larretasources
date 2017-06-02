@@ -1,4 +1,4 @@
-package ar.com.larreta.school.students.controllers;
+package ar.com.larreta.school.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.controllers.ParentController;
+import ar.com.larreta.school.business.StudentsCreateBusiness;
+import ar.com.larreta.school.business.StudentsDeleteBusiness;
+import ar.com.larreta.school.business.StudentsLoadBusiness;
+import ar.com.larreta.school.business.StudentsUpdateBusiness;
 import ar.com.larreta.school.messages.LoadStudentsBody;
 import ar.com.larreta.school.messages.UpdateStudentBody;
-import ar.com.larreta.school.students.business.StudentsCreateBusiness;
-import ar.com.larreta.school.students.business.StudentsDeleteBusiness;
-import ar.com.larreta.school.students.business.StudentsLoadBusiness;
-import ar.com.larreta.school.students.business.StudentsUpdateBusiness;
 
 @RestController
 @RequestMapping(value="/students")

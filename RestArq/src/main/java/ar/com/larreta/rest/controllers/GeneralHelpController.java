@@ -27,8 +27,18 @@ public class GeneralHelpController {
 	private RequestMappingHandlerMapping handlerMapping;
 
 	
+	@RequestMapping(value = StringUtils.EMPTY, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Response sourcePostGet() throws RestException{
+		return helpProcess();
+	}
+	
 	@RequestMapping(value = StringUtils.EMPTY, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response sourcePost() throws RestException{
+	public Response sourcePostPost() throws RestException{
+		return helpProcess();
+	}
+
+
+	private Response helpProcess() {
 		JSONableCollectionBody<MappingEntry> body = new JSONableCollectionBody<>();
 		
 		Map<RequestMappingInfo, HandlerMethod> map = handlerMapping.getHandlerMethods();
@@ -38,7 +48,7 @@ public class GeneralHelpController {
 			RequestMappingInfo requestMappingInfo = (RequestMappingInfo) it.next();
 			MappingEntry entry = new MappingEntry();
 			entry.setPatterns(requestMappingInfo.getPatternsCondition().toString());
-			entry.setVerbs(requestMappingInfo.getMethodsCondition().toString());
+			entry.setMethods(requestMappingInfo.getMethodsCondition().toString());
 			entry.setProduces(requestMappingInfo.getProducesCondition().toString());
 			body.add(entry);
 		}

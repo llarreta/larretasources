@@ -1,4 +1,4 @@
-package ar.com.larreta.school.students.business;
+package ar.com.larreta.school.business;
 
 import ar.com.larreta.rest.business.Business;
 
