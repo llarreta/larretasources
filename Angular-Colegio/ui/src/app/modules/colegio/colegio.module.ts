@@ -8,6 +8,8 @@ import {DropdownModule} from 'primeng/primeng';
 import {CalendarModule} from 'primeng/primeng';
 import {TooltipModule} from 'primeng/primeng';
 import {AccordionModule} from 'primeng/primeng';
+import {DialogModule} from 'primeng/primeng';
+import {InputMaskModule} from 'primeng/primeng';
 
 // Router
 import { ProvidersRouter } from './colegio.router';
@@ -46,7 +48,9 @@ import { StudentService } from './services/student.service';
         DropdownModule,
         CalendarModule,
         TooltipModule,
-        AccordionModule
+        AccordionModule,
+        DialogModule,
+        InputMaskModule
     ],
     declarations:
     [

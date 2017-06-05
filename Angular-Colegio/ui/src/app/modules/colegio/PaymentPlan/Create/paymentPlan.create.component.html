@@ -31,138 +31,12 @@
       </div>
       <div class="row">
         <div class="col-12 box-obligation-detail">
-          <button type="button" class="button-add  button-add-obligation" (click)="addNewObligation()"
+          <button type="button" class="button-add  button-add-obligation" (click)="showDisplayPopUp()"
             pTooltip="Agregar Cuota">
               <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
           <div class="paymentPlan-not-obligations" *ngIf="(paymentPlan.obligations == null) || (paymentPlan.obligations.length <= 0)">
             No hay cuotas cargadas.
-          </div>
-          <div class="paymentPlan-obligations" *ngIf="(paymentPlan.obligations != null) && (paymentPlan.obligations.length > 0)">
-            <div class="row">
-              <div class="col-12">
-                <div *ngFor="let obligation of paymentPlan.obligations; let i = index" class="payment-obligations-container">
-                  <p-accordion [multiple]="true" *ngIf="obligation.prices != null && obligation.prices.length > 0; else obligationWithOutPrices">
-                    <p-accordionTab>    
-                      <p-header class="obligation-header">
-                        <button type="button" class="button-add button-add-price" (click)="addNewPrice(obligation)" 
-                          pTooltip="Agregar Precio">
-                          <i class="fa fa-plus" aria-hidden="true"></i>
-                        </button>
-                        <div class="obligation-header-description">  
-                          <input class="input-obligation-description" type="text" pInputText [(ngModel)]="obligation.description"
-                            placeholder="Descripcion"/>
-                        </div>
-                        <div class="obligation-header-date"> 
-                          <p-calendar [(ngModel)]="obligation.dueDate" dateFormat="dd.mm.yy" [locale]="es" [showIcon]="true"
-                            class="calendar-obligation-dueDate" placeholder="Fecha de Vencimiento"></p-calendar>
-                        </div>
-                      </p-header>
-                      <div class="obligation-body" *ngFor="let price of obligation.prices; let j = index">
-                        <p-accordion [multiple]="true" *ngIf="price.details != null && price.details.length > 0; else priceWithOutDetails">
-                          <p-accordionTab> 
-                            <p-header class="price-header">
-                              <div class="obligation-price-header-description"> 
-                                <input class="input-obligation-price-description" type="text" pInputText [(ngModel)]="price.description"
-                                  placeholder="Descripcion"/>
-                              </div>
-                              <div class="obligation-price-header-validityStartDate"> 
-                                <p-calendar [(ngModel)]="price.validityStartDate" dateFormat="dd.mm.yy" [locale]="es" [showIcon]="true"
-                                  class="calendar-obligation-price-validityStartDate" placeholder="Fecha de Inicio de Validez"></p-calendar>
-                              </div>
-                              <div class="obligation-price-header-value"> 
-                                <input class="input-obligation-price-value" type="number" pInputText [(ngModel)]="price.value"
-                                  placeholder="Precio"/>
-                              </div>
-                              <button type="button" class="button-add button-add-detail" (click)="addNewDetail(price)"
-                                pTooltip="Agregar Detalle">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                              </button>
-                            </p-header>
-                            <div class="price-body" *ngFor="let detail of price.details; let k = index">
-                              <p-accordion [multiple]="true" *ngIf="detail.littleDetails != null && detail.littleDetails.length > 0; else detailWithOutLittleDetails">
-                                <p-accordionTab>    
-                                  <p-header class="detail-header">
-                                    <div class="obligation-price-detail-header-description"> 
-                                      <input class="input-obligation-price-detail-description" type="text" pInputText [(ngModel)]="detail.description"
-                                        placeholder="Descripcion"/>
-                                    </div>
-                                    <div class="obligation-price-detail-header-value"> 
-                                      <input class="input-obligation-price-detail-value" type="number" pInputText [(ngModel)]="detail.value"
-                                        placeholder="Precio"/>
-                                    </div>
-                                    <button type="button" class="button-add button-add-little-detail" 
-                                      (click)="addNewLittleDetail(detail)" pTooltip="Agregar Detalle Especifico">
-                                      <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                  </p-header>
-                                  <div class="detail-body" *ngFor="let littleDetail of detail.littleDetails; let r = index">
-                                    <div class="obligation-price-detail-littleDetail-header-description"> 
-                                      <input class="input-obligation-price-detail-littleDetail-description" type="text" pInputText [(ngModel)]="littleDetail.description"
-                                        placeholder="Descripcion"/>
-                                    </div>
-                                    <div class="obligation-price-detail-littleDetail-header-value"> 
-                                      <input class="input-obligation-price-detail-littleDetail-value" type="number" pInputText [(ngModel)]="littleDetail.value"
-                                        placeholder="Precio"/>
-                                    </div>
-                                  </div>
-                                </p-accordionTab>
-                              </p-accordion>
-                              <ng-template #detailWithOutLittleDetails>
-                                <div class="obligation-price-detail-header-description"> 
-                                  <input class="input-obligation-price-detail-description" type="text" pInputText [(ngModel)]="detail.description"
-                                    placeholder="Descripcion"/>
-                                </div>
-                                <div class="obligation-price-detail-header-value"> 
-                                  <input class="input-obligation-price-detail-value" type="number" pInputText [(ngModel)]="detail.value"
-                                    placeholder="Precio"/>
-                                </div>
-                                <button type="button" class="button-add button-add-little-detail" 
-                                  (click)="addNewLittleDetail(detail)" pTooltip="Agregar Detalle Especifico">
-                                  <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>
-                              </ng-template>
-                            </div>
-                          </p-accordionTab>
-                        </p-accordion>
-                        <ng-template #priceWithOutDetails>
-                          <div class="obligation-price-header-description"> 
-                            <input class="input-obligation-price-description" type="text" pInputText [(ngModel)]="price.description"
-                              placeholder="Descripcion"/>
-                          </div>
-                          <div class="obligation-price-header-validityStartDate"> 
-                            <p-calendar [(ngModel)]="price.validityStartDate" dateFormat="dd.mm.yy" [locale]="es" [showIcon]="true"
-                              class="calendar-obligation-price-validityStartDate" placeholder="Fecha de Inicio de Validez"></p-calendar>
-                          </div>
-                          <div class="obligation-price-header-value"> 
-                            <input class="input-obligation-price-value" type="number" pInputText [(ngModel)]="price.value"
-                              placeholder="Precio"/>
-                          </div>
-                          <button type="button" class="button-add button-add-detail" (click)="addNewDetail(price)"
-                            pTooltip="Agregar Detalle">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                          </button>
-                        </ng-template>
-                      </div>
-                    </p-accordionTab>
-                  </p-accordion>
-                  <ng-template #obligationWithOutPrices>
-                    <button type="button" class="button-add button-add-price" (click)="addNewPrice(obligation)" 
-                      pTooltip="Agregar Precio">
-                      <i class="fa fa-plus" aria-hidden="true"></i>
-                    </button>
-                    <div class="obligation-header-description">  
-                      <input class="input-obligation-description" type="text" pInputText [(ngModel)]="obligation.description"
-                        placeholder="Descripcion"/>
-                    </div>
-                    <div class="obligation-header-date"> 
-                      <p-calendar [(ngModel)]="obligation.dueDate" dateFormat="dd.mm.yy" [locale]="es" [showIcon]="true"
-                        class="calendar-obligation-dueDate" placeholder="Fecha de Vencimiento"></p-calendar>
-                    </div>
-                  </ng-template>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -172,5 +46,99 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUp}">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content animated" [ngClass]="{'fadeIn': obligationContentActive}" *ngIf="obligationContentActive">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">Nueva Cuota</h3>
+      </div>
+      <div class="row modal-body">
+        <h5 class="col-12">Fecha de Vencimiento</h5>
+        <p-calendar class="col-12" [(ngModel)]="obligationSelected.dueDate" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+        <input-commons class="col-12" [inputModel]="inputObligationDescription" (valueModel)="setPaymentPlanObligationDescription($event)"></input-commons>
+        <button type="button" class="button-add add-new-price" (click)="newPrice()" pTooltip="Agregar Precio">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <div class="row price-container" *ngFor="let price of obligationSelected.prices; index as i">
+          <h5>{{price.validityStartDate}}</h5>
+          <h5>{{price.description}}</h5>
+          <h5>{{price.value}}</h5>
+          <button type="button" class="edit-button" (click)="newPrice()" pTooltip="Editar Precio">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="row no-exist-prices-container" *ngIf="obligationSelected.prices == null || obligationSelected.prices.length <= 0">
+          <h6 class="no-exist-prices">No se ingresaron precios.</h6>
+        </div>
+      </div>
+      <div class="row modal-footer">
+        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="modal-content animated" [ngClass]="{'fadeIn': priceContentActive}" *ngIf="priceContentActive">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">Nuevo precio</h3>
+      </div>
+      <div class="row modal-body">
+        <h5 class="col-12">Fecha de inicio de validez</h5>
+        <p-calendar class="col-12" [(ngModel)]="priceSelected.validityStartDate" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+        <input-commons class="col-12" [inputModel]="inputPriceDescription" (valueModel)="setPaymentPlanObligationPriceDescription($event)"></input-commons>
+        <input-commons class="col-12" [inputModel]="inputPriceValue" (valueModel)="setPaymentPlanObligationPriceValue($event)"></input-commons>
+        <button type="button" class="button-add add-new-price" (click)="newDetail()" pTooltip="Agregar Detalle">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <div class="row price-container" *ngFor="let detail of priceSelected.details; index as i">
+        </div>
+        <div class="row no-exist-prices-container" *ngIf="priceSelected.details == null || priceSelected.details.length <= 0">
+            <h6 class="no-exist-prices">No se ingresaron detalles.</h6>
+        </div>
+      </div>
+      <div class="row modal-footer">
+        <button type="button" class="btn btn-primary" (click)="savePrice()">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="backToObligation()">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="modal-content animated" [ngClass]="{'fadeIn': detailContentActive}" *ngIf="detailContentActive">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">Nuevo Detalle</h3>
+      </div>
+      <div class="row modal-body">
+        <input-commons class="col-12" [inputModel]="inputDetailDescription" (valueModel)="setPaymentPlanObligationPriceDetailDescription($event)"></input-commons>
+        <input-commons class="col-12" [inputModel]="inputDetailValue" (valueModel)="setPaymentPlanObligationPriceDetailValue($event)"></input-commons>
+        <button type="button" class="button-add add-new-price" (click)="newLittleDetail()" pTooltip="Agregar Pequeño Detalle">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <div class="row price-container" *ngFor="let detail of priceSelected.details; index as i">
+        </div>
+        <div class="row no-exist-prices-container" *ngIf="priceSelected.details == null || priceSelected.details.length <= 0">
+            <h6 class="no-exist-prices">No se ingresaron pequeños detalles.</h6>
+        </div>
+      </div>
+      <div class="row modal-footer">
+        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="backToObligation()">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="modal-content animated" [ngClass]="{'fadeIn': littleDetailContentActive}" *ngIf="littleDetailContentActive">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">Nuevo Pequeño Detalle</h3>
+      </div>
+      <div class="row modal-body">
+        <input-commons class="col-12" [inputModel]="inputLittleDetailDescription" (valueModel)="setPaymentPlanObligationPriceLittleDetailDescription($event)"></input-commons>
+        <input-commons class="col-12" [inputModel]="inputLittleDetailValue" (valueModel)="setPaymentPlanObligationPriceLittleDetailValue($event)"></input-commons>
+      </div>
+      <div class="row modal-footer">
+        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="backToDetail()">Cancelar</button>
+      </div>
+    </div>
+
   </div>
 </div>

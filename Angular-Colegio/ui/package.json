@@ -28,7 +28,7 @@
     "@angular/upgrade": "4.1.0-rc.0",
     "core-js": "2.4.1",
     "json-loader": "0.5.4",
-    "primeng": "2.0.6",
+    "primeng": "4.0.0",
     "reflect-metadata": "0.1.8",
     "typescript": "^2.2.2",
     "symbol-observable": "^1.0.4",
