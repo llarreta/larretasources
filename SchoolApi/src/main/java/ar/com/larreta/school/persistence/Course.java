@@ -10,10 +10,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import ar.com.larreta.persistence.model.ParametricEntity;
 
-@Entity
+@Entity @Component @Scope("prototype")
 @Table(name = "course")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Course SET deleted=CURRENT_TIMESTAMP WHERE id=?")

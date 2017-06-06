@@ -21,11 +21,11 @@ public abstract class DeleteBusinessImpl<E extends Entity> extends BusinessImpl 
 		Long id = (Long) input;
 		
 		try {
-			Class<?>[] generics = ResolvableType.forClass(CreateBusinessImpl.class, getClass()).resolveGenerics();
+			Class<?>[] generics = ResolvableType.forClass(DeleteBusinessImpl.class, getClass()).resolveGenerics();
 			
 			if (generics.length==1){		
 					Class<?> entityType = generics[0];
-					E entity = (E) entityType.newInstance();
+					E entity = (E) applicationContext.getBean(entityType);
 					entity.setId(id);
 					standardDAO.delete(entity);
 					return id;

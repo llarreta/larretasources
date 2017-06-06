@@ -11,10 +11,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import ar.com.larreta.persistence.model.ParametricEntity;
 
-@Entity
+@Entity @Component @Scope("prototype")
 @Table(name = "product")
 @Where(clause="deleted IS NULL")
 @Inheritance(strategy=InheritanceType.JOINED)

@@ -1,9 +1,14 @@
 package ar.com.larreta.school.business.impl;
 
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.business.impl.CreateBusinessImpl;
 import ar.com.larreta.school.business.StudentsCreateBusiness;
 import ar.com.larreta.school.messages.UpdateStudentBody;
@@ -13,8 +18,11 @@ import ar.com.larreta.school.persistence.Student;
 @Transactional
 public class StudentsCreateBusinessImpl extends CreateBusinessImpl<UpdateStudentBody, Student> implements StudentsCreateBusiness {
 
-	public StudentsCreateBusinessImpl(){
-		addListener(new PersistStudentsListener());
+	@Override
+	@Autowired @Qualifier(StudentCreateBusinessListenerConfig.STUDENT_CREATE_BEFORE_PERSIST)
+	public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
+		super.setBeforePersistListeners(beforePersistListeners);
 	}
 
 }
+

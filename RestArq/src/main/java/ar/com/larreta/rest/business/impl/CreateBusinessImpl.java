@@ -1,20 +1,16 @@
 package ar.com.larreta.rest.business.impl;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang3.reflect.MethodUtils;
 import org.slf4j.Logger;
 import org.springframework.core.ResolvableType;
 
 import ar.com.larreta.annotations.Log;
 import ar.com.larreta.persistence.model.Entity;
-import ar.com.larreta.rest.business.PersistBusinessListener;
+import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.rest.messages.Body;
 
@@ -23,11 +19,8 @@ public abstract class CreateBusinessImpl<B extends Body, E extends Entity> exten
 	
 	private static @Log Logger LOG;	
 	
-	private Collection<PersistBusinessListener> listeners = new ArrayList<>();
-	
-	public void addListener(PersistBusinessListener listener){
-		listeners.add(listener);
-	}
+	private Set<BusinessListener> beforePersistListeners;
+	private Set<BusinessListener> afterPersistListeners;
 
 	@Override
 	public Serializable execute(Serializable input) throws Exception {
@@ -39,12 +32,12 @@ public abstract class CreateBusinessImpl<B extends Body, E extends Entity> exten
 					Class<?> entityType = generics[1];
 					
 					B body = (B) input;
-					E entity = (E) entityType.newInstance();
+					E entity = (E) applicationContext.getBean(entityType);
 					beanUtils.copy(body, entity);
 					
-					callListeners(body, entity, "beforePersist");
+					callListeners(beforePersistListeners, body, entity);
 					persist(entity);
-					callListeners(body, entity, "afterPersist");
+					callListeners(afterPersistListeners, body, entity);
 					
 					
 					return entity.getId();
@@ -60,12 +53,20 @@ public abstract class CreateBusinessImpl<B extends Body, E extends Entity> exten
 		standardDAO.save(entity);
 	}
 	
-	protected void callListeners(B body, E entity, String methodName) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException{
-		Iterator<PersistBusinessListener> it = listeners.iterator();
-		while (it.hasNext()) {
-			PersistBusinessListener listener = (PersistBusinessListener) it.next();
-			MethodUtils.invokeExactMethod(listener, methodName, body, entity);
-		}
+	public Set<BusinessListener> getBeforePersistListeners() {
+		return beforePersistListeners;
 	}
 
+	public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
+		this.beforePersistListeners = beforePersistListeners;
+	}
+
+	public Set<BusinessListener> getAfterPersistListeners() {
+		return afterPersistListeners;
+	}
+
+	public void setAfterPersistListeners(Set<BusinessListener> afterPersistListeners) {
+		this.afterPersistListeners = afterPersistListeners;
+	}
+	
 }

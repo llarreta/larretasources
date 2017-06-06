@@ -15,8 +15,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-@Entity
+@Entity @Component @Scope("prototype")
 @Table(name = "obligation")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Obligation SET deleted=CURRENT_TIMESTAMP WHERE id=?")

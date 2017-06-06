@@ -1,9 +1,10 @@
 package ar.com.larreta.rest.messages;
 
-public class LoadBody extends Body {
-	
+public class LoadBody<E extends JSONable> extends Body {
+
 	private Integer firstResult;
 	private Integer maxResults;
+	private JSONableCollectionBody<E> result;
 	
 	public Integer getFirstResult() {
 		return firstResult;
@@ -16,6 +17,12 @@ public class LoadBody extends Body {
 	}
 	public void setMaxResults(Integer maxResults) {
 		this.maxResults = maxResults;
+	}
+	public JSONableCollectionBody<E> getResult() {
+		return result;
+	}
+	public void setResult(JSONableCollectionBody<E> result) {
+		this.result = result;
 	}
 	
 }

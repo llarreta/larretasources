@@ -1,6 +1,10 @@
 package ar.com.larreta.rest.messages;
 
-public class ParametricBody extends Body {
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component @Scope("prototype")
+public class ParametricData extends JSONable {
 
 	private Long 			id;
 	private String 			description;

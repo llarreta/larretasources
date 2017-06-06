@@ -15,10 +15,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import ar.com.larreta.persistence.model.Person;
 
-@Entity
+@Entity @Component @Scope("prototype")
 @Table(name = "student")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Student SET deleted=CURRENT_TIMESTAMP WHERE id=?")

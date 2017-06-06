@@ -1,7 +1,5 @@
 package ar.com.larreta.rest.controllers;
 
-import java.io.Serializable;
-
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
@@ -16,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ar.com.larreta.annotations.PerformanceMonitor;
 import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.messages.Body;
-import ar.com.larreta.rest.messages.JSONableCollectionBody;
+import ar.com.larreta.rest.messages.JSONable;
+import ar.com.larreta.rest.messages.LoadBody;
 import ar.com.larreta.rest.messages.Request;
 import ar.com.larreta.rest.messages.Response;
 import ar.com.larreta.rest.messages.TargetedBody;
@@ -74,22 +73,22 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 	@RequestMapping(value = DELETE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<TargetedBody> deletePost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws Exception{
 		Response<TargetedBody> response = applicationContext.getBean(Response.class);
-		
-		deleteBusiness.execute(request.getBody().getTarget());
-		
 		TargetedBody responseBody = new TargetedBody();
 		responseBody.setTarget(request.getBody().getTarget());
 		response.setBody(responseBody);
+		
+		deleteBusiness.execute(request.getBody().getTarget());
+		
 		return response;
 
 	}
 
 	@PerformanceMonitor
 	@RequestMapping(value = LOAD, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Response<JSONableCollectionBody<Serializable>> loadPost(@Valid @RequestBody Request<LoadBodyRequest> request, Errors errors) throws Exception{
-		Response<JSONableCollectionBody<Serializable>> response = applicationContext.getBean(Response.class);;
-		JSONableCollectionBody<Serializable> loadResponse = (JSONableCollectionBody<Serializable>) loadBusiness.execute(request.getBody());
-		response.setBody(loadResponse);
+	public Response<LoadBody<JSONable>> loadPost(@Valid @RequestBody Request<LoadBodyRequest> request, Errors errors) throws Exception{
+		Response<LoadBody<JSONable>> response = applicationContext.getBean(Response.class);;
+		LoadBody body = (LoadBody) loadBusiness.execute(request.getBody());
+		response.setBody(body);
 		return response;
 	}
 }

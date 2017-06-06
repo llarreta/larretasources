@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.controllers.ParentController;
+import ar.com.larreta.rest.messages.LoadBody;
 import ar.com.larreta.school.business.StudentsCreateBusiness;
 import ar.com.larreta.school.business.StudentsDeleteBusiness;
 import ar.com.larreta.school.business.StudentsLoadBusiness;
 import ar.com.larreta.school.business.StudentsUpdateBusiness;
-import ar.com.larreta.school.messages.LoadStudentRequest;
-import ar.com.larreta.school.messages.UpdateStudentBody;
+import ar.com.larreta.school.messages.LoadStudentsData;
+import ar.com.larreta.school.messages.UpdateCourseBody;
 
 @RestController
-@RequestMapping(value="/students")
+@RequestMapping(value="/courses")
 @Validated
-public class StudentsController extends ParentController<UpdateStudentBody, LoadStudentRequest> {
+public class CoursesController extends ParentController<UpdateCourseBody, LoadBody<LoadStudentsData>> {
 
 	@Autowired @Qualifier(StudentsCreateBusiness.BUSINESS_NAME)
 	@Override
@@ -43,5 +44,5 @@ public class StudentsController extends ParentController<UpdateStudentBody, Load
 	public void setLoadBusiness(Business loadBusiness) {
 		this.loadBusiness = loadBusiness;
 	}
-
+	
 }
