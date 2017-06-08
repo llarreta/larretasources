@@ -10,6 +10,7 @@ import {TooltipModule} from 'primeng/primeng';
 import {AccordionModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
 import {InputMaskModule} from 'primeng/primeng';
+import {ListboxModule} from 'primeng/primeng';
 
 // Router
 import { ProvidersRouter } from './colegio.router';
@@ -50,7 +51,8 @@ import { StudentService } from './services/student.service';
         TooltipModule,
         AccordionModule,
         DialogModule,
-        InputMaskModule
+        InputMaskModule,
+        ListboxModule
     ],
     declarations:
     [

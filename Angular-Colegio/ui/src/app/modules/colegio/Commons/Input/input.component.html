@@ -1,7 +1,7 @@
 <span class="input input--hoshi" [ngClass]="{'input--filled': ((inputModel.value != null) && (inputModel.value != ''))}">
   <input (focus)="onFocus()" (blur)="onBlur()" type="text" 
     id="{{inputModel.id}}" [(ngModel)]="inputModel.value" class="input__field input__field--hoshi"
-    (ngModelChange)="onChange()"/>
+    (ngModelChange)="onChange()" [disabled]="inputModel.disabled"/>
   <label id="{{inputModel.labelId}}" class="input__label input__label--hoshi input__label--hoshi-color-1" 
         [ngClass]="{'error-color': isErrorEmpty || isErrorValidation || isErrorMaxCharacter || isErrorMinCharacter ||
               isErrorMaxNumber || isErrorMinNumber || isErrorType,
