@@ -26,6 +26,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   inputDetailValue: InputModel;
   inputLittleDetailDescription: InputModel;
   inputLittleDetailValue: InputModel;
+  dateObligation: Date;
 
   paymentPlan: PaymentPlan;
 
@@ -38,8 +39,10 @@ export class PaymentPlanCreateComponent implements OnInit{
   showMessageError: boolean;
   showMessageErrorInput: boolean;
   showMessageErrorService: boolean;
+  showMessageErrorPopUp:boolean = false;
   messageErrorInputs: string; 
   messageErrorService: string;
+  messageErrorInputsPopUp: string;
 
   displayPopUp: string;
   obligationContentActive: Boolean;
@@ -119,6 +122,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   showDisplayPopUpObligation(){
     this.obligationSelected = new Obligation();
     this.inputObligationDescription.value = "";
+    this.dateObligation = new Date();
     this.inputObligationDescription.isAllOK = false;
     this.displayPopUp = "block";
     this.obligationContentActive = true;
@@ -232,62 +236,281 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   isAllOK(){
-    if((this.inputDescription.isAllOK) && (this.paymentPlan.obligations != null) && (this.paymentPlan.obligations.length > 0)){
+    if((this.inputDescription.isAllOK) && (this.paymentPlan.obligations != null) 
+      && (this.paymentPlan.obligations.length > 0) && (this.ifObligationsHaveOneDetail())){
         return true;
     }else{
+      this.messageErrorInputs = "";
+      if(!this.inputDescription.isAllOK){
+        this.messageErrorInputs += "Debe ingresar un nombre para el plan de pago."
+      }
+      if((this.paymentPlan.obligations == null) || (this.paymentPlan.obligations.length <= 0)){
+        this.messageErrorInputs += " Debe ingresar al menos una cuota para crear un plan de pago."
+      }
+      if(!this.ifObligationsHaveOneDetail()){
+        this.messageErrorInputs += " Debe ingresar al menos una detalle por cuota."
+      }
+      this.showMessageError = true;
+      this.showMessageErrorInput = true;
       return false;
     }
   }
 
-  saveSelectedObligation(){
-    if(this.paymentPlan.obligations == null){
-      this.paymentPlan.obligations = new Array<Obligation>();
+  ifObligationsHaveOneDetail(){
+    for(let obligation of this.paymentPlan.obligations){
+      for(let price of obligation.prices){
+        if((price.details == null) || (price.details.length <= 0)){
+          return false;
+        }
+      }
     }
-    this.obligationSelected.description = this.inputObligationDescription.value;
-    this.paymentPlan.obligations.push(this.obligationSelected);
-    this.refreshListBox();
-    this.hideDisplayPopUp();
+    return true;
+  }
+
+  saveSelectedObligation(){
+    if((this.inputObligationDescription.isAllOK) && (this.dateObligation != null) &&
+        (!this.isDuplicateDescriptionObligation(this.inputObligationDescription.value))){
+      if(this.paymentPlan.obligations == null){
+        this.paymentPlan.obligations = new Array<Obligation>();
+      }
+      this.obligationSelected.description = this.inputObligationDescription.value;
+      this.obligationSelected.dueDate = this.dateObligation;
+      this.paymentPlan.obligations.push(this.obligationSelected);
+      this.refreshListBox();
+      this.hideDisplayPopUp();
+    }else{
+      this.showMessageErrorPopUp = true;
+      if(this.dateObligation == null){
+        this.messageErrorInputsPopUp += "Debe ingresar una fecha."
+      }
+      if(!this.inputObligationDescription.isAllOK){
+        this.messageErrorInputsPopUp += " Debe ingresar un nombre."
+      }
+      if(this.isDuplicateDescriptionObligation(this.inputObligationDescription.value)){
+        this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
+      }
+    }
   }
 
   saveSelectedObligationEdit(){
-    this.obligationSelected.description = this.inputObligationDescription.value;
-    this.refreshListBox();
-    this.hideDisplayPopUp();
+    if((this.inputObligationDescription.isAllOK) && (this.dateObligation != null) &&
+        (!this.isDuplicateDescriptionObligationEdit(this.inputObligationDescription.value))){
+      this.obligationSelected.description = this.inputObligationDescription.value;
+      this.obligationSelected.dueDate = this.dateObligation;
+      this.refreshListBox();
+      this.hideDisplayPopUp();
+    }else{
+      this.showMessageErrorPopUp = true;
+      this.messageErrorInputsPopUp = "";
+      if(this.dateObligation == null){
+        this.messageErrorInputsPopUp += "Debe ingresar una fecha."
+      }
+      if(!this.inputObligationDescription.isAllOK){
+        this.messageErrorInputsPopUp += " Debe ingresar un nombre."
+      }
+      if(this.isDuplicateDescriptionObligationEdit(this.inputObligationDescription.value)){
+        this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
+      }
+    }
   }
 
   saveSelectedDetail(){
-    if(this.obligationSelected.prices == null){
-      this.obligationSelected.prices = new Array<Price>();
+    if(this.inputDetailDescription.isAllOK && this.inputDetailValue.isAllOK 
+      && !this.isDuplicateDescriptionDetail(this.inputDetailDescription.value)){
+      if(this.obligationSelected.prices == null){
+        this.obligationSelected.prices = new Array<Price>();
+      }
+      this.detailSelected.description = this.inputDetailDescription.value;
+      Logger.debug("Guardando detalle valor " + this.inputDetailValue.value);
+      let value: number = Number(this.inputDetailValue.value.replace(",", "."));
+      this.detailSelected.value = value;
+      Logger.debug("Valor actual del input detalle valor " + this.detailSelected.value);
+      this.priceSelected = new Price();
+      this.priceSelected.description = this.inputDetailDescription.value;
+      this.priceSelected.details = new Array<Detail>();
+      this.priceSelected.details.push(this.detailSelected);
+      this.priceSelected.validityStartDate = new Date();
+      this.priceSelected.value = Number(this.inputDetailValue.value);
+      this.obligationSelected.prices.push(this.priceSelected);
+      this.refreshListBox();
+      this.hideDisplayPopUp();
+    }else{
+      this.showMessageErrorPopUp = true;
+      this.messageErrorInputsPopUp = "";
+      if(!this.inputDetailDescription.isAllOK){
+        this.messageErrorInputsPopUp += "Debe ingresar un nombre."
+      }
+      if(!this.inputDetailValue.isAllOK){
+        this.messageErrorInputsPopUp += " Debe ingresar un valor."
+      }
+      if(this.isDuplicateDescriptionDetail(this.inputDetailDescription.value)){
+        this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
+      }
     }
-    this.detailSelected.description = this.inputDetailDescription.value;
-    this.detailSelected.value = Number(this.inputDetailValue.value);
-    
-    this.priceSelected = new Price();
-    this.priceSelected.description = this.inputDetailDescription.value;
-    this.priceSelected.details = new Array<Detail>();
-    this.priceSelected.details.push(this.detailSelected);
-    this.priceSelected.validityStartDate = new Date();
-    this.priceSelected.value = Number(this.inputDetailValue.value);
-    
-    this.obligationSelected.prices.push(this.priceSelected);
-    this.refreshListBox();
-    this.hideDisplayPopUp();
+  }
+
+  saveSelectedDetailEdit(){
+    if(this.inputDetailDescription.isAllOK && this.inputDetailValue.isAllOK 
+      && !this.isDuplicateDescriptionDetailEdit(this.inputDetailDescription.value)){
+      this.detailSelected.description = this.inputDetailDescription.value;
+      let value: number = Number(this.inputDetailValue.value.replace(",", "."));
+      this.detailSelected.value = value;
+      this.refreshListBox();
+      this.hideDisplayPopUp();
+    }else{
+      this.showMessageErrorPopUp = true;
+      this.messageErrorInputsPopUp = "";
+      if(!this.inputDetailDescription.isAllOK){
+        this.messageErrorInputsPopUp += "Debe ingresar un nombre."
+      }
+      if(!this.inputDetailValue.isAllOK){
+        this.messageErrorInputsPopUp += " Debe ingresar un valor."
+      }
+      if(this.isDuplicateDescriptionDetailEdit(this.inputDetailDescription.value)){
+        this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
+      }
+    }
   }
 
   saveSelectedLittleDetail(){
-    if(this.detailSelected.littleDetails == null){
-      this.detailSelected.littleDetails = new Array<LittleDetail>();
+    if(this.inputLittleDetailDescription.isAllOK && this.inputLittleDetailValue.isAllOK 
+      && !this.isDuplicateDescriptionLittleDetail(this.inputLittleDetailDescription.value)){
+      if(this.detailSelected.littleDetails == null){
+        this.detailSelected.littleDetails = new Array<LittleDetail>();
+      }
+      this.littleDetailSelected.description = this.inputLittleDetailDescription.value;
+      let value: number = Number(this.inputLittleDetailValue.value.replace(",", "."));
+      this.littleDetailSelected.value = value;
+      this.detailSelected.littleDetails.push(this.littleDetailSelected);
+      let totalPrice: number = 0;
+      for(let littleDetail of this.detailSelected.littleDetails){
+        totalPrice += littleDetail.value;
+      }
+      this.detailSelected.value = totalPrice;
+      this.refreshListBox();
+      this.hideDisplayPopUp();
+    }else{
+      this.showMessageErrorPopUp = true;
+      this.messageErrorInputsPopUp = "";
+      if(!this.inputLittleDetailDescription.isAllOK){
+        this.messageErrorInputsPopUp += "Debe ingresar un nombre."
+      }
+      if(!this.inputLittleDetailValue.isAllOK){
+        this.messageErrorInputsPopUp += " Debe ingresar un valor."
+      }
+      if(this.isDuplicateDescriptionLittleDetail(this.inputLittleDetailDescription.value)){
+        this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
+      }
     }
-    this.littleDetailSelected.description = this.inputLittleDetailDescription.value;
-    this.littleDetailSelected.value = Number(this.inputLittleDetailValue.value);
-    this.detailSelected.littleDetails.push(this.littleDetailSelected);
-    let totalPrice: number = 0;
+  }
+
+  saveSelectedLittleDetailEdit(){
+    if(this.inputLittleDetailDescription.isAllOK && this.inputLittleDetailValue.isAllOK 
+      && !this.isDuplicateDescriptionLittleDetailEdit(this.inputLittleDetailDescription.value)){
+      this.littleDetailSelected.description = this.inputLittleDetailDescription.value;
+      let value: number = Number(this.inputLittleDetailValue.value.replace(",", "."));
+      this.littleDetailSelected.value = value;
+      let totalPrice: number = 0;
+      for(let littleDetail of this.detailSelected.littleDetails){
+        totalPrice += littleDetail.value;
+      }
+      this.detailSelected.value = totalPrice;
+      this.refreshListBox();
+      this.hideDisplayPopUp();
+    }else{
+      this.showMessageErrorPopUp = true;
+      this.messageErrorInputsPopUp = "";
+      if(!this.inputLittleDetailDescription.isAllOK){
+        this.messageErrorInputsPopUp += "Debe ingresar un nombre."
+      }
+      if(!this.inputLittleDetailValue.isAllOK){
+        this.messageErrorInputsPopUp += " Debe ingresar un valor."
+      }
+      if(this.isDuplicateDescriptionLittleDetailEdit(this.inputLittleDetailDescription.value)){
+        this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
+      }
+    }
+  }
+
+  isDuplicateDescriptionObligation(description:string){
+   if(this.paymentPlan.obligations != null){
+      for(let obligation of this.paymentPlan.obligations){
+        if(obligation.description === description){
+          return true;
+        }
+      }
+    }   
+    return false;
+  }
+
+  isDuplicateDescriptionObligationEdit(description:string){
+    let rNumber: number = 0;
+    for(let obligation of this.paymentPlan.obligations){
+      if(obligation.description === description){
+        rNumber++;
+        if(rNumber > 1){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  isDuplicateDescriptionDetail(description:string){
+    if(this.obligationSelected.prices != null){
+      for(let price of this.obligationSelected.prices){
+        if(price.details != null){
+          for(let detail of price.details){
+            if(detail.description === description){
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  isDuplicateDescriptionDetailEdit(description:string){
+    let rNumber: number = 0;
+    for(let price of this.obligationSelected.prices){
+      for(let detail of price.details){
+        if(detail.description === description){
+          Logger.debug("descripciones iguales: " + detail.description + " : " + description);
+          rNumber++;
+          Logger.debug("Number: " + rNumber);
+          if(rNumber > 1){
+            Logger.debug("true");
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  isDuplicateDescriptionLittleDetail(description:string){
+    if(this.detailSelected.littleDetails != null){
+      for(let littleDetail of this.detailSelected.littleDetails){
+        if(littleDetail.description === description){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  isDuplicateDescriptionLittleDetailEdit(description:string){
+    let rNumber: number = 0;
     for(let littleDetail of this.detailSelected.littleDetails){
-      totalPrice += littleDetail.value;
+      if(littleDetail.description === description){
+        rNumber++;
+        if(rNumber > 1){
+          return true;
+        }
+      }
     }
-    this.detailSelected.value = totalPrice;
-    this.refreshListBox();
-    this.hideDisplayPopUp();
+    return false;
   }
 
   confirm(){
@@ -327,63 +550,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   goToList(){
     this.goList.emit(true);
   }
-  
-  addNewObligation(){
-    Logger.debug("Creando nueva cuota...");
-    if(this.paymentPlan.obligations == null){
-      this.paymentPlan.obligations = new Array<Obligation>();
-    }
-    this.paymentPlan.obligations.push(new Obligation());
-    Logger.debug("Logueando paymentPlan");
-    Logger.debug(JSON.stringify(this.paymentPlan));
-  }
-
-  addNewPrice(event, obligation: Obligation){
-    Logger.debug("Event: "+event);
-    Logger.debug("Target: "+event.target.nodeName)
-    Logger.debug("Parent: "+event.target.parentElement.nodeName);
-    Logger.debug("Parent Parent: "+event.target.parentElement.parentElement.nodeName);
-    Logger.debug("Parent Parent Parent: "+event.target.parentElement.parentElement.parentElement.nodeName);
-    event.target.parentElement.parentElement.setAttribute("aria-expanded", "true");
-    event.target.parentElement.parentElement.setAttribute("aria-selected", "true");
-    Logger.debug("Creando nuevo precio...");
-    if(obligation.prices == null){
-      obligation.prices = new Array<Price>();
-    }
-    obligation.prices.push(new Price());
-    Logger.debug("Logueando paymentPlan");
-    Logger.debug(JSON.stringify(this.paymentPlan));
-  }
-
-  addNewDetail(price: Price){
-    Logger.debug("Creando nuevo detalle...");
-    if(price.details == null){
-      price.details = new Array<Detail>();
-    }
-    price.details.push(new Detail());
-    Logger.debug("Logueando paymentPlan");
-    Logger.debug(JSON.stringify(this.paymentPlan));
-    Logger.debug(this.paymentPlan.valueOf());
-  }
-
-  addNewLittleDetail(detail: Detail){
-    Logger.debug("Creando nuevo detalle especifico...");
-    if(detail.littleDetails == null){
-      detail.littleDetails = new Array<LittleDetail>();
-    }
-    detail.littleDetails.push(new LittleDetail());
-    Logger.debug("Logueando paymentPlan");
-    Logger.debug(JSON.stringify(this.paymentPlan));
-  }
-
-  newPrice(){
-    this.priceSelected = new Price();
-    this.priceContentActive = true;
-    this.detailContentActive = false;
-    this.obligationContentActive = false;
-    this.littleDetailContentActive = false;
-  }
-
+ 
   newDetail(){
     this.detailSelected = new Detail();
     this.inputDetailDescription.value = "";
@@ -396,34 +563,12 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   newLittleDetail(){
     this.littleDetailSelected = new LittleDetail();
+    this.inputLittleDetailDescription.value = "";
+    this.inputLittleDetailValue.value = "";
     this.priceContentActive = false;
     this.detailContentActive = false;
     this.obligationContentActive = false;
     this.littleDetailContentActive = true;
-  }
-
-  backToObligation(){
-    this.priceContentActive = false;
-    this.detailContentActive = false;
-    this.obligationContentActive = true;
-    this.littleDetailContentActive = false;
-  }
-
-  backToDetail(){
-    this.priceContentActive = false;
-    this.detailContentActive = true;
-    this.obligationContentActive = false;
-    this.littleDetailContentActive = false;
-  }
-
-  savePrice(){
-    this.priceSelected.description = this.inputPriceDescription.value;
-    this.priceSelected.value = Number(this.inputPriceValue.value);
-    if(this.obligationSelected.prices == null){
-      this.obligationSelected.prices = new Array<Price>();
-    }
-    this.obligationSelected.prices.push(this.priceSelected);
-    this.backToObligation();
   }
 
   loadEditObligation(){
@@ -433,11 +578,56 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.littleDetailContentActive = false;
     this.displayPopUp = "block";
     this.inputObligationDescription.value = this.obligationSelected.description;
+    this.dateObligation = this.obligationSelected.dueDate;
     this.inEditPopUp = true;
+    this.showMessageErrorPopUp = false;
   }
 
   loadDeleteObligation(){
     this.paymentPlan.obligations.splice(this.paymentPlan.obligations.indexOf(this.obligationSelected));
+    this.refreshListBox();
+  }
+
+  loadEditDetail(){
+    this.detailContentActive = true;
+    this.obligationContentActive = false;
+    this.littleDetailContentActive = false;
+    this.displayPopUp = "block";
+    this.inputDetailDescription.value = this.detailSelected.description;
+    Logger.debug("Cargando detalle valor " + this.detailSelected.value);
+    this.inputDetailValue.value = "" + this.detailSelected.value;
+    this.inputDetailValue.value = this.inputDetailValue.value.replace(".", ",");
+    Logger.debug("Valor actual del input detalle valor " + this.inputDetailValue.value);
+    this.inEditPopUp = true;
+    this.showMessageErrorPopUp = false;
+  }
+
+  loadDeleteDetail(){
+    for(let i = 0; i < this.obligationSelected.prices.length; i++){
+      for(let j = 0; j < this.obligationSelected.prices[i].details.length; j++){
+        if(this.obligationSelected.prices[i].details[j].description === this.detailSelected.description){
+          this.obligationSelected.prices[i].details.splice(j);
+        }
+      }
+    }
+    this.refreshListBox();
+  }
+
+
+  loadEditLittleDetail(){
+    this.detailContentActive = false;
+    this.obligationContentActive = false;
+    this.littleDetailContentActive = true;
+    this.displayPopUp = "block";
+    this.inputLittleDetailDescription.value = this.littleDetailSelected.description;
+    this.inputLittleDetailValue.value = "" + this.littleDetailSelected.value;
+    this.inputLittleDetailValue.value = this.inputLittleDetailValue.value.replace(".", ",");
+    this.inEditPopUp = true;
+    this.showMessageErrorPopUp = false;
+  }
+
+  loadDeleteLittleDetail(){
+    this.detailSelected.littleDetails.splice(this.detailSelected.littleDetails.indexOf(this.littleDetailSelected));
     this.refreshListBox();
   }
 
@@ -447,14 +637,6 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   setPaymentPlanObligationDescription(inputModel: InputModel){
     this.inputObligationDescription = inputModel;
-  }
-
-  setPaymentPlanObligationPriceDescription(inputModel: InputModel){
-    this.inputPriceDescription = inputModel;
-  }
-
-  setPaymentPlanObligationPriceValue(inputModel: InputModel){
-    this.inputPriceValue = inputModel;
   }
 
   setPaymentPlanObligationPriceDetailDescription(inputModel: InputModel){

@@ -62,13 +62,21 @@
                 pTooltip="Agregar Detalle" *ngIf="(obligationSelected != null) && (obligationSelected.description != null)">
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
+
+              <button type="button" class="button-edit  button-edit-obligation" (click)="loadEditDetail()"
+                pTooltip="Editar Detalle" *ngIf="(detailSelected != null) && (detailSelected.description != null)">
+                <i class="fa fa-pencil-square-o edit-listbox animated fadeIn"  aria-hidden="true"></i>
+              </button>
+              <button type="button" class="button-delete  button-delete-obligation" (click)="loadDeleteDetail()"
+                pTooltip="Borrar Detalle" *ngIf="(detailSelected != null) && (detailSelected.description != null)">
+                <i class="fa fa-trash delete-listbox animated fadeIn" aria-hidden="true"></i>
+              </button>
+
               <p-listbox [options]="details" 
                 [(ngModel)]="detailSelected" filter="filter" (onChange)="detailSelectedChange()" 
                 class="animated fadeIn listbox-common" *ngIf="(details != null) && (details.length > 0)">
                 <ng-template let-detail pTemplate="item">
                   <div class="ui-helper-clearfix">
-                    <i class="fa fa-pencil-square-o edit-listbox" aria-hidden="true"></i>
-                    <i class="fa fa-trash delete-listbox" aria-hidden="true"></i>
                     <span class="label-with-buttons-listbox">{{detail.label}}</span>   
                   </div>
                 </ng-template>
@@ -87,13 +95,21 @@
                 pTooltip="Agregar Detalle" *ngIf="(detailSelected != null) && (detailSelected.description != null)">
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
+
+              <button type="button" class="button-edit  button-edit-obligation" (click)="loadEditLittleDetail()"
+                pTooltip="Editar Detalle Fino" *ngIf="(littleDetailSelected != null) && (littleDetailSelected.description != null)">
+                <i class="fa fa-pencil-square-o edit-listbox animated fadeIn"  aria-hidden="true"></i>
+              </button>
+              <button type="button" class="button-delete  button-delete-obligation" (click)="loadDeleteLittleDetail()"
+                pTooltip="Borrar Detalle Fino" *ngIf="(littleDetailSelected != null) && (littleDetailSelected.description != null)">
+                <i class="fa fa-trash delete-listbox animated fadeIn" aria-hidden="true"></i>
+              </button>
+
               <p-listbox [options]="littleDetails" 
                 [(ngModel)]="littleDetailSelected" filter="filter" (onChange)="refreshListBox()" 
                 class="animated fadeIn listbox-common" *ngIf="(littleDetails != null) && (littleDetails.length > 0)">
                 <ng-template let-littleDetail pTemplate="item">
                   <div class="ui-helper-clearfix">
-                    <i class="fa fa-pencil-square-o edit-listbox" aria-hidden="true"></i>
-                    <i class="fa fa-trash delete-listbox" aria-hidden="true"></i>
                     <span class="label-with-buttons-listbox">{{littleDetail.label}}</span>     
                   </div>
                 </ng-template>
@@ -126,9 +142,17 @@
         <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nueva Cuota</h3>
         <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Cuota</h3>
       </div>
+      <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
+        <div class="col-1 error-box-icon">
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        </div>
+        <div class="col-11 error-box-message">
+          {{messageErrorInputsPopUp}}  
+        </div>
+      </div> 
       <div class="row modal-body">
         <h5 class="col-12">Fecha de Vencimiento</h5>
-        <p-calendar class="col-12" [(ngModel)]="obligationSelected.dueDate" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+        <p-calendar class="col-12" [(ngModel)]="dateObligation" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
         <input-commons class="col-12" [inputModel]="inputObligationDescription" (valueModel)="setPaymentPlanObligationDescription($event)"></input-commons>
       </div>
       <div class="row modal-footer">
@@ -140,28 +164,48 @@
 
     <div class="modal-content animated" [ngClass]="{'fadeIn': detailContentActive}" *ngIf="detailContentActive">
       <div class="row modal-header">
-        <h3 class="col-12 modal-title">Nuevo Detalle</h3>
+        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nuevo Detalle</h3>
+        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Detalle</h3>
       </div>
+      <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
+        <div class="col-1 error-box-icon">
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        </div>
+        <div class="col-11 error-box-message">
+          {{messageErrorInputsPopUp}}  
+        </div>
+      </div> 
       <div class="row modal-body">
         <input-commons class="col-12" [inputModel]="inputDetailDescription" (valueModel)="setPaymentPlanObligationPriceDetailDescription($event)"></input-commons>
         <input-commons class="col-12" [inputModel]="inputDetailValue" (valueModel)="setPaymentPlanObligationPriceDetailValue($event)"></input-commons>
       </div>
       <div class="row modal-footer">
-        <button type="button" class="btn btn-primary" (click)="saveSelectedDetail()">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="saveSelectedDetail()" *ngIf="!inEditPopUp">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="saveSelectedDetailEdit()" *ngIf="inEditPopUp">Guardar Cambios</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
       </div>
     </div>
 
     <div class="modal-content animated" [ngClass]="{'fadeIn': littleDetailContentActive}" *ngIf="littleDetailContentActive">
       <div class="row modal-header">
-        <h3 class="col-12 modal-title">Nuevo Pequeño Detalle</h3>
+        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nuevo Detalle Fino</h3>
+        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Detalle Fino</h3>
       </div>
+      <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
+        <div class="col-1 error-box-icon">
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        </div>
+        <div class="col-11 error-box-message">
+          {{messageErrorInputsPopUp}}  
+        </div>
+      </div> 
       <div class="row modal-body">
         <input-commons class="col-12" [inputModel]="inputLittleDetailDescription" (valueModel)="setPaymentPlanObligationPriceLittleDetailDescription($event)"></input-commons>
         <input-commons class="col-12" [inputModel]="inputLittleDetailValue" (valueModel)="setPaymentPlanObligationPriceLittleDetailValue($event)"></input-commons>
       </div>
       <div class="row modal-footer">
-        <button type="button" class="btn btn-primary" (click)="saveSelectedLittleDetail()">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="saveSelectedLittleDetail()" *ngIf="!inEditPopUp">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="saveSelectedLittleDetailEdit()" *ngIf="inEditPopUp">Guardar Cambios</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
       </div>
     </div>
