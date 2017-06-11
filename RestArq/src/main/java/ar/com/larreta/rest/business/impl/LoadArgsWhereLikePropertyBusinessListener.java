@@ -1,5 +1,7 @@
 package ar.com.larreta.rest.business.impl;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
@@ -10,7 +12,7 @@ import ar.com.larreta.rest.messages.JSONable;
 public abstract class LoadArgsWhereLikePropertyBusinessListener extends BusinessListenerImpl {
 
 	@Override
-	public void process(JSONable json, Entity entity, Object... args) {
+	public Serializable process(JSONable json, Entity entity, Object... args) {
 		LoadArguments loadArgs = (LoadArguments) args[0];
 		if ((json!=null) && (loadArgs!=null)){
 			Object value = beanUtils.getValue(json, getProperty());
@@ -19,6 +21,7 @@ public abstract class LoadArgsWhereLikePropertyBusinessListener extends Business
 				loadArgs.addWhere(like);
 			}	
 		}
+		return null;
 	}
 	
 	public abstract String getProperty();

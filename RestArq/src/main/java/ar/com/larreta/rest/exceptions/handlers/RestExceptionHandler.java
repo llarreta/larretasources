@@ -22,11 +22,13 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import ar.com.larreta.annotations.Log;
+import ar.com.larreta.rest.exceptions.NoHelpException;
 import ar.com.larreta.rest.exceptions.NotPermitedExeption;
 import ar.com.larreta.rest.exceptions.ResourceNotFoundException;
 import ar.com.larreta.rest.exceptions.RestException;
 import ar.com.larreta.rest.messages.Response;
 import ar.com.larreta.rest.messages.status.BAD;
+import ar.com.larreta.rest.messages.status.NOH;
 import ar.com.larreta.rest.messages.status.NOK;
 import ar.com.larreta.rest.messages.status.NOP;
 import ar.com.larreta.rest.messages.status.NOT;
@@ -104,6 +106,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		LOG.error("handleResourceNotFound", ex);
 		Response response = applicationContext.getBean(Response.class);
 		response.setState(applicationContext.getBean(NOT.class));
+		return new ResponseEntity<Object>(response, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(value = { NoHelpException.class } )
+	protected ResponseEntity<Object> handleResourceNoHelp(NoHelpException ex, WebRequest request) {
+		LOG.error("handleResourceNoHelp", ex);
+		Response response = applicationContext.getBean(Response.class);
+		response.setState(applicationContext.getBean(NOH.class));
 		return new ResponseEntity<Object>(response, HttpStatus.NOT_FOUND);
 	}
 	

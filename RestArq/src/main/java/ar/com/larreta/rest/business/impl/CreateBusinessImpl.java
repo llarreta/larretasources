@@ -13,9 +13,10 @@ import ar.com.larreta.persistence.model.Entity;
 import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.rest.messages.Body;
+import ar.com.larreta.rest.messages.JSONable;
 
 @Transactional
-public abstract class CreateBusinessImpl<B extends Body, E extends Entity> extends BusinessImpl {
+public abstract class CreateBusinessImpl<J extends JSONable, E extends Entity> extends BusinessImpl {
 	
 	private static @Log Logger LOG;	
 	
@@ -31,14 +32,13 @@ public abstract class CreateBusinessImpl<B extends Body, E extends Entity> exten
 					Class<?> bodyType = generics[0];
 					Class<?> entityType = generics[1];
 					
-					B body = (B) input;
+					J json = (J) input;
 					E entity = (E) applicationContext.getBean(entityType);
-					beanUtils.copy(body, entity);
+					beanUtils.copy(json, entity);
 					
-					callListeners(beforePersistListeners, body, entity);
+					callListeners(beforePersistListeners, json, entity);
 					persist(entity);
-					callListeners(afterPersistListeners, body, entity);
-					
+					callListeners(afterPersistListeners, json, entity);
 					
 					return entity.getId();
 			}

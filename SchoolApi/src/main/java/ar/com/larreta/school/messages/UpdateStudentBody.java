@@ -2,10 +2,14 @@ package ar.com.larreta.school.messages;
 
 import javax.validation.constraints.Size;
 
-import ar.com.larreta.rest.messages.Body;
-import ar.com.larreta.validators.annotations.NotNull;
-import ar.com.larreta.validators.annotations.ValidParametricEntity;
+import org.springframework.stereotype.Component;
 
+import ar.com.larreta.persistence.model.DocumentType;
+import ar.com.larreta.rest.messages.Body;
+import ar.com.larreta.validators.annotations.Exist;
+import ar.com.larreta.validators.annotations.NotNull;
+
+@Component
 public class UpdateStudentBody extends Body {
 
 	@NotNull(message="id.required", avaiableActions={"update"})
@@ -14,7 +18,7 @@ public class UpdateStudentBody extends Body {
 	private String 			name;
 	@NotNull(message="surname.required") @Size(min=5, message="surname.min.length")
 	private String 			surname;
-	@ValidParametricEntity(message="documentType.inexistent", parametricEntity="ar.com.larreta.persistence.model.DocumentType")
+	@Exist(message="documentType.inexistent", entityType=DocumentType.class)
 	private Long 			documentType;
 	private String 			documentNumber;
 	private String 			photo;

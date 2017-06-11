@@ -1,6 +1,5 @@
 package ar.com.larreta.rest.business.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -29,12 +28,12 @@ public abstract class BusinessImpl implements Business {
 	protected ApplicationContext applicationContext;
 
 	
-	protected void callListeners(Set<BusinessListener> listeners, JSONable body, Entity entity, Object... args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException{
+	protected void callListeners(Set<BusinessListener> listeners, JSONable json, Entity entity, Object... args) throws Exception {
 		if (listeners!=null){
 			Iterator<BusinessListener> it = listeners.iterator();
 			while (it.hasNext()) {
 				BusinessListener listener = (BusinessListener) it.next();
-				listener.process(body, entity, args);;
+				listener.process(json, entity, args);;
 			}
 		}
 	}

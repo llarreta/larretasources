@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.controllers.LoadAllController;
-import ar.com.larreta.school.business.YearsLoadBusiness;
+import ar.com.larreta.school.business.courses.YearsLoadBusiness;
 
 @RestController
 @RequestMapping(value="/years")

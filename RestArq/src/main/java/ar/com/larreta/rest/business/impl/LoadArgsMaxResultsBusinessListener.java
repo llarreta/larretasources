@@ -1,5 +1,7 @@
 package ar.com.larreta.rest.business.impl;
 
+import java.io.Serializable;
+
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
@@ -9,7 +11,7 @@ import ar.com.larreta.rest.messages.JSONable;
 @Component
 public class LoadArgsMaxResultsBusinessListener extends BusinessListenerImpl  {
 	@Override
-	public void process(JSONable json, Entity entity, Object... args) {
+	public Serializable process(JSONable json, Entity entity, Object... args) {
 		LoadArguments loadArgs = (LoadArguments) args[0];
 		if ((json!=null) && (loadArgs!=null)){
 			Object value = beanUtils.getValue(json, "maxResults");
@@ -17,5 +19,6 @@ public class LoadArgsMaxResultsBusinessListener extends BusinessListenerImpl  {
 				loadArgs.setMaxResults((Integer) value);
 			}	
 		}
+		return null;
 	}
 }

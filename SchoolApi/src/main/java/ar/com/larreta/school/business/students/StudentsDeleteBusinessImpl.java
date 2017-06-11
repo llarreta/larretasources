@@ -1,0 +1,13 @@
+package ar.com.larreta.school.business.students;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
+import ar.com.larreta.rest.business.impl.DeleteBusinessImpl;
+import ar.com.larreta.school.persistence.Student;
+
+@Service(StudentsDeleteBusiness.BUSINESS_NAME)
+@Transactional
+public class StudentsDeleteBusinessImpl extends DeleteBusinessImpl<Student> implements StudentsDeleteBusiness {
+}

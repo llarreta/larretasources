@@ -2,8 +2,13 @@ package ar.com.larreta.rest.messages;
 
 import javax.validation.Valid;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.validators.annotations.NotNull;
 
+@Component
+@Scope("prototype")
 public class Request<T extends JSONable> extends Message {
 	
 	/**

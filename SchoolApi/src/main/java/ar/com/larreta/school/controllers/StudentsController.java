@@ -8,17 +8,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.controllers.ParentController;
-import ar.com.larreta.school.business.StudentsCreateBusiness;
-import ar.com.larreta.school.business.StudentsDeleteBusiness;
-import ar.com.larreta.school.business.StudentsLoadBusiness;
-import ar.com.larreta.school.business.StudentsUpdateBusiness;
-import ar.com.larreta.school.messages.LoadStudentRequest;
+import ar.com.larreta.school.business.students.StudentsCreateBusiness;
+import ar.com.larreta.school.business.students.StudentsDeleteBusiness;
+import ar.com.larreta.school.business.students.StudentsLoadBusiness;
+import ar.com.larreta.school.business.students.StudentsUpdateBusiness;
+import ar.com.larreta.school.messages.LoadStudentBody;
 import ar.com.larreta.school.messages.UpdateStudentBody;
 
 @RestController
-@RequestMapping(value="/students")
+@RequestMapping(value=StudentsController.ROOT_MAP)
 @Validated
-public class StudentsController extends ParentController<UpdateStudentBody, LoadStudentRequest> {
+public class StudentsController extends ParentController<UpdateStudentBody, LoadStudentBody> {
+
+	public static final String ROOT_MAP = "/students";
 
 	@Autowired @Qualifier(StudentsCreateBusiness.BUSINESS_NAME)
 	@Override
