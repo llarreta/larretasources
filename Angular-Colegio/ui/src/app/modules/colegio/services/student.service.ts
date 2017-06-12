@@ -13,13 +13,20 @@ export class StudentService {
     constructor(private http: HttpRequest) { }
 
     createStudent(student: Student): Observable<any> {
-        let data = 
-        { 
-            name: student.name, 
-            surname: student.surname,
-            documentNumber: ""+student.documentNumber    
-        };
-        return this.http.post(data, "students/create");
+        return this.http.post(student, "students/create");
+    }
+
+    updateStudent(student: Student): Observable<any> {
+        return this.http.post(student, "students/update");
+    }
+
+    deleteStudent(student: Student): Observable<any> {
+        return this.http.post(student, "students/delete");
+    }
+
+    loadStudents(): Observable<any> {
+        var body = {};
+        return this.http.post(body, "students/load");
     }
 
 }

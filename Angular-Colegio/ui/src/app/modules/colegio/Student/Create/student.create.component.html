@@ -7,8 +7,11 @@
     </div>
   </div>
   <div class="row animated fadeIn">
-    <div class="col-12">
+    <div class="col-12" *ngIf="!inEdit">
         <h1>Creando Alumnos</h1>
+    </div>
+    <div class="col-12" *ngIf="inEdit">
+        <h1>Modificando Alumnos</h1>
     </div>
   </div>
   <div *ngIf="showMessageError" class="row error-box animated fadeInDown">

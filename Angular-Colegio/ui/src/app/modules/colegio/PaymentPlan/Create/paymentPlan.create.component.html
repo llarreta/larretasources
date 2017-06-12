@@ -7,8 +7,11 @@
     </div>
   </div>
   <div class="row animated fadeIn">
-    <div class="col-12">
+    <div class="col-12" *ngIf="!inEdit">
         <h1>Creando Plan de Pago</h1>
+    </div>
+    <div class="col-12" *ngIf="inEdit">
+        <h1>Modificando Plan de Pago</h1>
     </div>
   </div>
   <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
@@ -59,7 +62,7 @@
             </div>
             <div class="col-4">
               <button type="button" class="button-add  button-add-obligation" (click)="showDisplayPopUpDetail()"
-                pTooltip="Agregar Detalle" *ngIf="(obligationSelected != null) && (obligationSelected.description != null)">
+                pTooltip="Agregar Item" *ngIf="(obligationSelected != null) && (obligationSelected.description != null)">
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
 
@@ -83,7 +86,7 @@
               </p-listbox>
               <div *ngIf="((details == null) || (details.length <= 0)) && (obligationSelected != null)" 
                 class="no-obligations-message animated fadeIn">
-                No se ingresaron detalles.
+                No se ingresaron items.
               </div>
               <div *ngIf="((details == null) || (details.length <= 0)) && (obligationSelected == null)" 
                 class="no-obligations-message animated fadeIn">
@@ -97,11 +100,11 @@
               </button>
 
               <button type="button" class="button-edit  button-edit-obligation" (click)="loadEditLittleDetail()"
-                pTooltip="Editar Detalle Fino" *ngIf="(littleDetailSelected != null) && (littleDetailSelected.description != null)">
+                pTooltip="Editar Detalle" *ngIf="(littleDetailSelected != null) && (littleDetailSelected.description != null)">
                 <i class="fa fa-pencil-square-o edit-listbox animated fadeIn"  aria-hidden="true"></i>
               </button>
               <button type="button" class="button-delete  button-delete-obligation" (click)="loadDeleteLittleDetail()"
-                pTooltip="Borrar Detalle Fino" *ngIf="(littleDetailSelected != null) && (littleDetailSelected.description != null)">
+                pTooltip="Borrar Detalle" *ngIf="(littleDetailSelected != null) && (littleDetailSelected.description != null)">
                 <i class="fa fa-trash delete-listbox animated fadeIn" aria-hidden="true"></i>
               </button>
 
@@ -116,11 +119,11 @@
               </p-listbox>
               <div *ngIf="((littleDetails == null) || (littleDetails.length <= 0)) && (detailSelected != null)" 
                 class="no-obligations-message-large animated fadeIn">
-                No se ingresaron pequeños detalles.
+                No se ingresaron detalles.
               </div>
               <div *ngIf="((littleDetails == null) || (littleDetails.length <= 0)) && (detailSelected == null)" 
                 class="no-obligations-message animated fadeIn">
-                Seleccione una detalle.
+                Seleccione un item.
               </div>
             </div>
           </div>
@@ -164,8 +167,8 @@
 
     <div class="modal-content animated" [ngClass]="{'fadeIn': detailContentActive}" *ngIf="detailContentActive">
       <div class="row modal-header">
-        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nuevo Detalle</h3>
-        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Detalle</h3>
+        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nuevo Item</h3>
+        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Item</h3>
       </div>
       <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
         <div class="col-1 error-box-icon">
@@ -188,8 +191,8 @@
 
     <div class="modal-content animated" [ngClass]="{'fadeIn': littleDetailContentActive}" *ngIf="littleDetailContentActive">
       <div class="row modal-header">
-        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nuevo Detalle Fino</h3>
-        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Detalle Fino</h3>
+        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nuevo Detalle</h3>
+        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Detalle</h3>
       </div>
       <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
         <div class="col-1 error-box-icon">
