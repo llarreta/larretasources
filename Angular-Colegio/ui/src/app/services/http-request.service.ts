@@ -48,7 +48,7 @@ export class HttpRequest {
             httpStatus: error.status, 
             codeError: error.json().state.code
         };
-        console.error(error.json());
+        console.error(JSON.stringify(error));
         return Observable.throw(responseError);
     }
 }

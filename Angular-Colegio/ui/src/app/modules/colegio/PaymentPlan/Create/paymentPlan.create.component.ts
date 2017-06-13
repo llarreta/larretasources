@@ -19,6 +19,10 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   @Output()
   goList = new EventEmitter();
+  @Input()
+  inEdit: Boolean;
+  @Input()
+  paymentPlan: PaymentPlan;
 
   inputDescription: InputModel;
   inputObligationDescription: InputModel;
@@ -27,8 +31,6 @@ export class PaymentPlanCreateComponent implements OnInit{
   inputLittleDetailDescription: InputModel;
   inputLittleDetailValue: InputModel;
   dateObligation: Date;
-
-  paymentPlan: PaymentPlan;
 
   obligationSelected: Obligation;
   priceSelected: Price;
@@ -67,7 +69,9 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.priceContentActive = false;
     this.detailContentActive = false;
     this.littleDetailContentActive = false;
-    this.paymentPlan = new PaymentPlan();
+    if(!this.inEdit){
+      this.paymentPlan = new PaymentPlan();
+    }
     this.inicializarInputs();
     this.showMessageError = false;
     this.showMessageErrorInput = false;
@@ -82,6 +86,10 @@ export class PaymentPlanCreateComponent implements OnInit{
             monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
             monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
         };
+    if(this.inEdit){
+      this.inputDescription.value = this.paymentPlan.description;
+      this.refreshListBox();
+    }
   }
 
   refreshListBox(){
@@ -139,14 +147,15 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputDetailValue.isAllOK = false;
     this.inEditPopUp = false;
     if((this.detailSelected.littleDetails != null) && (this.detailSelected.littleDetails.length > 0)){
-      this.inputLittleDetailValue.disabled = true;
+      this.inputDetailValue.disabled = true;
+      this.inputDetailValue.isAllOK = true;
       let totalPrice: number = 0;
       for(let littleDetail of this.detailSelected.littleDetails){
         totalPrice += littleDetail.value;
       }
       this.inputDetailValue.value = String(totalPrice);
     }else{
-      this.inputLittleDetailValue.disabled = false;
+      this.inputDetailValue.disabled = false;
       this.inputDetailValue.value = "";
     }
     this.newDetail();
@@ -248,7 +257,7 @@ export class PaymentPlanCreateComponent implements OnInit{
         this.messageErrorInputs += " Debe ingresar al menos una cuota para crear un plan de pago."
       }
       if(!this.ifObligationsHaveOneDetail()){
-        this.messageErrorInputs += " Debe ingresar al menos una detalle por cuota."
+        this.messageErrorInputs += " Debe ingresar al menos un item por cuota."
       }
       this.showMessageError = true;
       this.showMessageErrorInput = true;
@@ -519,12 +528,17 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.showMessageError = false;
       let datosResponse;
       let status;
-      //this.paymentPlanService.createPaymentPlan(this.paymentPlan)
-      // .subscribe(
-      //  data => this.createPaymentPlanOK(data),
-      //  err => this.loadErrorMessageService(err),
-      //  () => console.log('Vacio')
-      //);
+      if(this.inEdit){
+        //Llamar servicio update
+        //this.paymentPlanService.createPaymentPlan(this.paymentPlan)
+        // .subscribe(
+        //  data => this.createPaymentPlanOK(data),
+        //  err => this.loadErrorMessageService(err),
+        //  () => console.log('Vacio')
+        //);
+      }else{
+        //llamar servicio crear
+      }
       
     }else{
       this.showMessageError = true;
@@ -585,6 +599,7 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   loadDeleteObligation(){
     this.paymentPlan.obligations.splice(this.paymentPlan.obligations.indexOf(this.obligationSelected));
+    this.obligationSelected = null;
     this.refreshListBox();
   }
 
@@ -600,6 +615,17 @@ export class PaymentPlanCreateComponent implements OnInit{
     Logger.debug("Valor actual del input detalle valor " + this.inputDetailValue.value);
     this.inEditPopUp = true;
     this.showMessageErrorPopUp = false;
+    if((this.detailSelected.littleDetails != null) && (this.detailSelected.littleDetails.length > 0)){
+      this.inputDetailValue.disabled = true;
+      this.inputDetailValue.isAllOK = true;
+      let totalPrice: number = 0;
+      for(let littleDetail of this.detailSelected.littleDetails){
+        totalPrice += littleDetail.value;
+      }
+      this.inputDetailValue.value = String(totalPrice).replace(".", ",");;
+    }else{
+      this.inputDetailValue.disabled = false;
+    }
   }
 
   loadDeleteDetail(){
@@ -610,6 +636,7 @@ export class PaymentPlanCreateComponent implements OnInit{
         }
       }
     }
+    this.detailSelected = null;
     this.refreshListBox();
   }
 
@@ -628,6 +655,7 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   loadDeleteLittleDetail(){
     this.detailSelected.littleDetails.splice(this.detailSelected.littleDetails.indexOf(this.littleDetailSelected));
+    this.littleDetailSelected = null;
     this.refreshListBox();
   }
 

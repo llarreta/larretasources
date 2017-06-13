@@ -1,14 +1,25 @@
+//Angular
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+
+//Models
 import { Student } from '../../Models/Student.model';
 import { Course } from '../../Models/Course.model';
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
 import { ObligationStatus } from '../../Models/ObligationStatus.model';
 import { Responsible } from '../../Models/Responsible.model';
+import { DocumentType } from '../../Models/DocumentType.model';
+
+//Commons
 import { InputModel } from '../../Commons/Input/input.model.component';
 import { InputCommonsComponent } from '../../Commons/Input/input.component';
-import { StudentService } from '../../services/student.service';
 import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
 import { Logger } from '../../../../Logger/logger';
+
+//Service
+import { StudentService } from '../../services/student.service';
+import { DocumentTypeService } from '../../services/documentType.service';
+
+//ngPrime
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
@@ -19,14 +30,17 @@ export class StudentCreateComponent implements OnInit{
 
   @Output()
   goList = new EventEmitter();
+  @Input()
+  student: Student;
+  @Input()
+  inEdit: Boolean;
 
   inputName: InputModel;
   inputSurname: InputModel;
   inputDocumentNumber: InputModel;
   inputEmail: InputModel;
-  documentTypes: SelectItem[];
+  documentTypes: Array<SelectItem>;
 
-  student: Student;
   paymentPlans: Array<PaymentPlan>;
   obligationsStatus: Array<ObligationStatus>;
   responsibles: Array<Responsible>;
@@ -37,11 +51,14 @@ export class StudentCreateComponent implements OnInit{
   messageErrorInputs: string; 
   messageErrorService: string;
 
-  constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService, private documentTypeService: DocumentTypeService) {}
 
   ngOnInit() {
-    this.student = new Student();
-    this.inicializarInputs();
+    this.loadInitData();
+    if(!this.inEdit){
+      this.student = new Student();
+    }
+    this.initInputs();
     //Aca deberia cargar con los servicios todas las listas
     this.loadPaymentPlansTest();
     this.loadObligationsStatusTest();
@@ -53,8 +70,26 @@ export class StudentCreateComponent implements OnInit{
     this.messageErrorService = "Ocurrio un error de conexion con el servidor, reintentelo en un momento."
   }
 
-  inicializarInputs(){
-    
+  private loadInitData(){
+    this.documentTypeService.loadDocumentTypes()
+       .subscribe(
+        data => this.loadDocumentTypeOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+    );
+  }
+
+  loadDocumentTypeOK(data){
+    this.documentTypes = new Array<SelectItem>();
+    this.documentTypes.push({label:"Seleccionar Tipo Documento", value:null});
+    for(let documentTypeJSON of data.body.result){
+      let documentType: DocumentType = new DocumentType();
+      Object.assign(documentType, documentTypeJSON);
+      this.documentTypes.push({label:documentType.description, value:documentType.id});
+    }
+  }
+
+  initInputs(){
     this.inputName = new InputModel();
     this.inputName.id=  "name";
     this.inputName.labelContent= "Nombre";
@@ -63,7 +98,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputName.required= true;
     this.inputName.type= "text";
     this.inputName.validationActivate = true;
-
+    
     this.inputDocumentNumber = new InputModel();
     this.inputDocumentNumber.id= "document-number";
     this.inputDocumentNumber.labelContent= "Numero de Documento";
@@ -92,13 +127,16 @@ export class StudentCreateComponent implements OnInit{
     this.inputSurname.type= "text";
     this.inputSurname.validationActivate = true;
 
-    this.documentTypes = [];
-    this.documentTypes.push({label:'Tipo Documento', value:null});
-    this.documentTypes.push({label:'CUIL', value:"CUIL"});
-    this.documentTypes.push({label:'DNI', value:"DNI"});
-    this.documentTypes.push({label:'PASAPORTE', value:"PASAPORTE"});
-    
+    if(this.inEdit){
+      this.initValueInput();
+    }
+  }
 
+  initValueInput(){
+    this.inputName.value = this.student.name;
+    this.inputDocumentNumber.value = String(this.student.documentNumber);
+    this.inputEmail.value = this.student.email;
+    this.inputSurname.value = this.student.surname;
   }
 
   isAllOK(){
@@ -116,16 +154,21 @@ export class StudentCreateComponent implements OnInit{
       this.showMessageError = false;
       let datosResponse;
       let status;
-      this.studentService.createStudent(this.student)
-       .subscribe(
-        data => this.createStudentOK(data),
-        err => this.loadErrorMessageService(err),
-        () => console.log('Vacio')
-      );
-      
-    }else{
-      this.showMessageError = true;
-      this.showMessageErrorInput = true;
+      if(!this.inEdit){
+        this.studentService.createStudent(this.student)
+        .subscribe(
+          data => this.createStudentOK(data),
+          err => this.loadErrorMessageService(err),
+          () => console.log('Vacio')
+        );
+      }else{
+        this.studentService.updateStudent(this.student)
+        .subscribe(
+          data => this.createStudentOK(data),
+          err => this.loadErrorMessageService(err),
+          () => console.log('Vacio')
+        );
+      }
     }
   }
 
@@ -134,10 +177,11 @@ export class StudentCreateComponent implements OnInit{
   }
 
   loadErrorMessageService(error){
-    Logger.warn("Ocurrio un error al crear un estudiante...");
+    Logger.warn("Ocurrio un error al crear o actualizar un estudiante...");
     this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
     this.showMessageErrorService = true;
     this.showMessageError = true;
+    Logger.error(JSON.stringify(error));
   }
 
   loadStudentData(){

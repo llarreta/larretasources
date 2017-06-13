@@ -1,19 +1,38 @@
+//Angular components
 import { Component, Input, OnInit, OnDestroy, ViewChild} from '@angular/core';
+
+//Models
 import { Student } from '../../Models/Student.model';
 import { Course } from '../../Models/Course.model';
+import { Division } from '../../Models/Division.model';
+import { Level } from '../../Models/Level.model';
+import { Year } from '../../Models/Year.model';
+
+//Components student
 import { StudentCreateComponent } from '../Create/student.create.component';
-import { StudentUpdateComponent } from '../Update/student.update.component';
-import { TableModel } from '../../Commons/Table/table.model.component';
-import { ColumnModel } from '../../Commons/Table/column.model.component';
+
+//Commons
 import { I18n } from '../../../../i18n/i18n';
 import { Logger } from '../../../../logger/logger';
+import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
+import { InputCommonsComponent } from '../../Commons/Input/input.component';
+import { InputModel } from '../../Commons/Input/input.model.component';
+
+//ngPrime
+import { TableModel } from '../../Commons/Table/table.model.component';
+import { ColumnModel } from '../../Commons/Table/column.model.component';
 import { ButtonTableModel } from '../../Commons/Table/button.table.model.component';
 import { ActionButtonTable } from '../../Commons/Table/actionButtonTable.model.component';
 import {Header} from 'primeng/primeng';
 import {Footer} from 'primeng/primeng';
-import { InputCommonsComponent } from '../../Commons/Input/input.component';
-import { InputModel } from '../../Commons/Input/input.model.component';
 import { SelectItem } from 'primeng/primeng';
+
+//Services
+import { StudentService } from '../../services/student.service';
+import { LevelService } from '../../services/level.service';
+import { YearService } from '../../services/year.service';
+import { DivisionService } from '../../services/division.service';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'school-students',
@@ -28,136 +47,105 @@ export class StudentComponent implements OnInit{
   inListStudent: boolean;
   loading: boolean;
   moreStudents: boolean;
+  
+  //Filters
   filterName: string;
-  filterLevel: string;
-  filterLevelsOptions: SelectItem[];
-  filterYear: string;
-  filterYearOptions: SelectItem[];
+  filterLevel: Level;
+  filterLevelsOptions: Array<SelectItem>;
+  filterYear: Year;
+  filterYearOptions: Array<SelectItem>;
+  filterDivision: Division;
+  filterDivisionOptions: Array<SelectItem>;
+  
+  //Errors
+  showMessageError: boolean;
+  showMessageErrorService: boolean; 
+  messageErrorService: string;
 
   private language: string;
 
-
-
-  constructor() {}
+  constructor(private studentService: StudentService, private courseService: CourseService, 
+              private levelService: LevelService, private divisionService: DivisionService,
+              private yearService: YearService) {}
 
   ngOnInit() {
-
     this.language = "ES";
     this.selectedStudent = new Student();
     this.students = new Array<Student>();
-    this.cargarStudentTest();
     this.inListStudent = true;
     this.inCreateStudent = false;
     this.inUpdateStudent = false;
     this.moreStudents = true;
     this.loading = false;
-    this.filterLevelsOptions = [];
-    this.filterLevelsOptions.push({label:'Nivel', value:null});
-    this.filterLevelsOptions.push({label:'Inicial', value:"inicial"});
-    this.filterLevelsOptions.push({label:'Primario', value:"primario"});
-    this.filterLevelsOptions.push({label:'Secundario', value:"secundario"});
-    this.filterYearOptions = [];
-    this.filterYearOptions.push({label:'Año', value:null});
-    this.filterYearOptions.push({label:'1°', value:1});
-    this.filterYearOptions.push({label:'2°', value:2});
-    this.filterYearOptions.push({label:'3°', value:3});
-    this.filterYearOptions.push({label:'4°', value:4});
-    this.filterYearOptions.push({label:'5°', value:5});
-    this.filterYearOptions.push({label:'6°', value:6});
-    this.filterYearOptions.push({label:'7°', value:7});
-    //this.cargarStudents();
-
+    this.loadInitData();
   }
 
-  protected fetchNextChunk(skip: number, limit: number): Promise<Student[]> {
-      return new Promise((resolve, reject) => {
-          new Array<Student>();
-      });
+  private loadInitData(){
+    this.divisionService.loadDivisions()
+       .subscribe(
+        data => this.loadDivisionsOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion divisionService...')
+    );
+    this.levelService.loadLevels()
+       .subscribe(
+        data => this.loadLevelsOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion levelService...')
+    );
+    this.yearService.loadYears()
+       .subscribe(
+        data => this.loadYearsOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion yearService...')
+    );
+    this.studentService.loadStudents()
+       .subscribe(
+        data => this.loadStudentsOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion studentService...')
+    );
   }
 
-  
-  cargarStudentTest(){
-    let course: Course = new Course();
-    course.division = "Mercantil";
-    course.level = "Secundario";
-    course.year = "3";
+  loadDivisionsOK(data){
+    this.filterDivisionOptions = new Array<SelectItem>();
+    this.filterDivisionOptions.push({label:"Seleccionar Division", value:null});
+    for(let divisionJSON of data.body.result){
+      let division: Division = new Division();
+      Object.assign(division, divisionJSON);
+      this.filterDivisionOptions.push({label:division.description, value:division});
+    }
+  }
 
-    let student: Student = new Student();
-    student.id = 1;
-    student.name = "Jorge";
-    student.email = "jorge@email.com";
-    student.documentNumber = 38287965;
-    student.documentType = "DNI";
-    student.surname = "Ejemplo";
-    student.course = course;
+  loadLevelsOK(data){
+    this.filterLevelsOptions = new Array<SelectItem>();
+    this.filterLevelsOptions.push({label:"Seleccionar Nivel", value:null});
+    for(let levelJSON of data.body.result){
+      let level: Level = new Level();
+      Object.assign(level, levelJSON);
+      this.filterLevelsOptions.push({label:level.description, value:level});
+    }
+  }
 
-    let student2: Student = new Student();
-    student2.id = 2;
-    student2.name = "Leo";
-    student2.email = "leo@email.com";
-    student2.documentNumber = 38287123;
-    student2.documentType = "DNI";
-    student2.surname = "Ejemplo2";
-    student2.course = course;
+  loadYearsOK(data){
+    this.filterYearOptions = new Array<SelectItem>();
+    this.filterYearOptions.push({label:"Seleccionar Año", value:null});
+    for(let yearJSON of data.body.result){
+      let year: Year = new Year();
+      Object.assign(year, yearJSON);
+      this.filterYearOptions.push({label:year.description, value:year});
+    }
+  }
 
-    let student3: Student = new Student();
-    student3.id = 3;
-    student3.name = "Cacho";
-    student3.email = "cacho@email.com";
-    student3.documentNumber = 38284567;
-    student3.documentType = "DNI";
-    student3.surname = "Ejemplo3";
-    student3.course = course;
-
-    let student4: Student = new Student();
-    student4.id = 4;
-    student4.name = "Cacho4";
-    student4.email = "cacho4@email.com";
-    student4.documentNumber = 33284567;
-    student4.documentType = "DNI";
-    student4.surname = "Ejemplo4";
-    student4.course = course;
-
-    let student5: Student = new Student();
-    student5.id = 5;
-    student5.name = "Cacho5";
-    student5.email = "cacho5@email.com";
-    student5.documentNumber = 35284567;
-    student5.documentType = "DNI";
-    student5.surname = "Ejemplo5";
-    student5.course = course;
-
-    let student6: Student = new Student();
-    student6.id = 6;
-    student6.name = "Cacho6";
-    student6.email = "cacho6@email.com";
-    student6.documentNumber = 36284567;
-    student6.documentType = "DNI";
-    student6.surname = "Ejemplo6";
-    student6.course = course;
-
-    let student7: Student = new Student();
-    student7.id = 7;
-    student7.name = "Cacho7";
-    student7.email = "cacho7@email.com";
-    student7.documentNumber = 37284567;
-    student7.documentType = "DNI";
-    student7.surname = "Ejemplo7";
-    student7.course = course;
-
-    this.students = [];
-    this.students.push(student);
-    this.students.push(student2);
-    this.students.push(student3);
-    this.students.push(student4);
-    this.students.push(student5);
-    this.students.push(student6);
-    this.students.push(student7);
-    this.students.push(student7);
-    this.students.push(student7);
-    this.students.push(student7);
-    this.students.push(student7);
-    this.students.push(student7);
+  loadStudentsOK(data){
+    Logger.debug("Estudiantes recibidos.. " + JSON.stringify(data));
+    this.students = new Array<Student>();
+    for(let studentJSON of data.body.result){
+      let student: Student = new Student();
+      Object.assign(student, studentJSON);
+      this.students.push(student);
+    }
+    Logger.debug("Estudiantes cargados.. " + JSON.stringify(this.students));
   }
 
   goListCreate(goList: boolean) {
@@ -173,7 +161,7 @@ export class StudentComponent implements OnInit{
   }
 
   loadData(event) {
-      this.cargarStudentTest();
+    this.loadInitData();
   }
 
   loadStudent(student: Student){
@@ -181,6 +169,13 @@ export class StudentComponent implements OnInit{
     this.inUpdateStudent = true;
     this.inListStudent = false;
     this.inCreateStudent = false;
+  }
+
+  loadErrorMessageService(error){
+    Logger.warn("Ocurrio un error al crear un estudiante...");
+    this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
+    this.showMessageErrorService = true;
+    this.showMessageError = true;
   }
 
 }

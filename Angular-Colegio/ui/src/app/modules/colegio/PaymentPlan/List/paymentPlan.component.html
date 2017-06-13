@@ -51,9 +51,9 @@
     </div>
   </div>
   <div *ngIf="inCreatePaymentPlan" class="animated fadeInUp">
-    <school-paymentPlan-create (goList)="goListCreate($event)"></school-paymentPlan-create>
+    <school-paymentPlan-create (goList)="goListCreate($event)" [inEdit]="false"></school-paymentPlan-create>
   </div>
   <div *ngIf="inUpdatePaymentPlan" class="animated fadeInUp">
-    <school-paymentPlan-update (goList)="goListUpdate($event)" [paymentPlan]="selectedPaymentPlan"></school-paymentPlan-update>
+    <school-paymentPlan-create (goList)="goListCreate($event)" [inEdit]="true" [paymentPlan]="selectedPaymentPlan"></school-paymentPlan-create>
   </div>
 </div>

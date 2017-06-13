@@ -8,7 +8,7 @@ export class Student extends Entity{
 
     public name: string;
     public surname: string;
-    public documentType: string;
+    public documentType: number;
     public documentNumber: number;
     public email: string;
     public course: Course; 

@@ -3,6 +3,17 @@
     <div class= "col-12 common-box-extra-large">
       <div class="row">
         <div class="col-12 body-component">
+          <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+            <div class="col-1 error-box-icon">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </div>
+            <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+              {{messageErrorInputs}}  
+            </div>
+            <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+              {{messageErrorService}}
+            </div>
+          </div>
           <p-dataScroller [value]="courses" [rows]="7" class="data-scroller-two-columns">
             <p-header>
               <div class="list-course-header">
@@ -59,9 +70,9 @@
     </div>
   </div>
   <div *ngIf="inCreateCourse" class="animated fadeInUp">
-    <school-course-create (goList)="goListCreate($event)"></school-course-create>
+    <school-course-create (goList)="goListCreate($event)" [inEdit]="false"></school-course-create>
   </div>
   <div *ngIf="inUpdateCourse" class="animated fadeInUp">
-    <school-course-update (goList)="goListUpdate($event)" [course]="selectedCourse"></school-course-update>
+    <school-course-create (goList)="goListUpdate($event)" [course]="selectedCourse" [inEdit]="true"></school-course-create>
   </div>
 </div>

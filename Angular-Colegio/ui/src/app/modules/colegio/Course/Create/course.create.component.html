@@ -8,7 +8,8 @@
   </div>
   <div class="row animated fadeIn">
     <div class="col-12">
-        <h1>Creando Curso</h1>
+        <h1 *ngIf="!inEdit">Creando Curso</h1>
+        <h1 *ngIf="inEdit">Modificando Curso</h1>
     </div>
   </div>
   <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
@@ -26,16 +27,21 @@
     <div class="col-12">
       <div class="row">
         <div class="col-6">
-          <input-commons [inputModel]="inputDivision" (valueModel)="setCourseDivision($event)"></input-commons>
+          <input-commons [inputModel]="inputDescription" (valueModel)="setCourseDescription($event)"></input-commons>
         </div>
       </div>
       <div class="row">
-        <div class="col-6">
+        <div class="col-4">
+          <p-dropdown [options]="divisions" [(ngModel)]="course.division" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
+          </p-dropdown>
+        </div>
+        <div class="col-4">
           <p-dropdown [options]="levels" [(ngModel)]="course.level" 
             class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
           </p-dropdown>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <p-dropdown [options]="years" [(ngModel)]="course.year" 
             class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
           </p-dropdown>
