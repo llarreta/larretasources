@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import ar.com.larreta.rest.exceptions.NoHelpException;
 import ar.com.larreta.rest.exceptions.RestException;
-import ar.com.larreta.rest.messages.JSONableCollectionBody;
+import ar.com.larreta.rest.messages.JSONableCollection;
 import ar.com.larreta.rest.messages.MappingEntry;
 import ar.com.larreta.rest.messages.Message;
 import ar.com.larreta.rest.messages.Response;
@@ -67,7 +67,7 @@ public class GeneralHelpController {
 
 
 	private Response helpProcess() {
-		JSONableCollectionBody<MappingEntry> body = new JSONableCollectionBody<>();
+		JSONableCollection<MappingEntry> body = new JSONableCollection<>();
 		
 		Map<RequestMappingInfo, HandlerMethod> map = handlerMapping.getHandlerMethods();
 		Set<RequestMappingInfo>  setInfo = map.keySet();
@@ -81,7 +81,7 @@ public class GeneralHelpController {
 			body.add(entry);
 		}
 		
-		Response<JSONableCollectionBody<MappingEntry>> response = new Response<>();
+		Response<JSONableCollection<MappingEntry>> response = new Response<>();
 		response.setBody(body);
 		
 		return response;

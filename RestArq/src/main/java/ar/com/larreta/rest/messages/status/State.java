@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
-import ar.com.larreta.rest.messages.JSONableCollectionBody;
+import ar.com.larreta.rest.messages.JSONableCollection;
 import ar.com.larreta.rest.messages.Message;
 
 public abstract class State extends Message {
@@ -17,7 +17,7 @@ public abstract class State extends Message {
 	
 	private String code;
 	private String description;
-	private JSONableCollectionBody<Detail> details = new JSONableCollectionBody<Detail>();
+	private JSONableCollection<Detail> details = new JSONableCollection<Detail>();
 	
 	public State(String code, String description){
 		this.code = code;
@@ -41,11 +41,11 @@ public abstract class State extends Message {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public JSONableCollectionBody<Detail> getDetails() {
+	public JSONableCollection<Detail> getDetails() {
 		return details;
 	}
 
-	public void setDetails(JSONableCollectionBody<Detail> details) {
+	public void setDetails(JSONableCollection<Detail> details) {
 		this.details = details;
 	}
 	public void addDetail(Detail detail){

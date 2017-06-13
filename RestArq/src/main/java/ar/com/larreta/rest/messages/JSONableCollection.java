@@ -6,18 +6,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class JSONableCollectionBody<E> extends LoadBody implements List<E> {
+public class JSONableCollection<E> extends JSONable implements List<E> {
 	
 	private List<E> source;
 
-	public JSONableCollectionBody(List<E> source){
+	public JSONableCollection(List<E> source){
 		this();
 		if (source!=null){
 			this.source = source;
 		}
 	}
 	
-	public JSONableCollectionBody(){
+	public JSONableCollection(){
 		this.source = new ArrayList<E>();
 	}
 	

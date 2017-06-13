@@ -13,7 +13,7 @@ import ar.com.larreta.school.persistence.Course;
 import ar.com.larreta.school.persistence.Division;
 
 @Component
-public class CoursesAsignDivisionBusinessListener extends BusinessListenerImpl {
+public class CoursesAsignDivisionBeforePersistBusinessListener extends BusinessListenerImpl {
 
 	@Override
 	public Serializable process(JSONable json, Entity entity, Object... args) throws BusinessException {
@@ -22,6 +22,7 @@ public class CoursesAsignDivisionBusinessListener extends BusinessListenerImpl {
 		
 		Division division = applicationContext.getBean(Division.class);
 		division.setId(updateCourseBody.getYear().getId());
+		course.setDivision(division);
 		
 		return null;
 	}

@@ -10,18 +10,19 @@ import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.rest.messages.JSONable;
 import ar.com.larreta.school.messages.UpdateCourseBody;
 import ar.com.larreta.school.persistence.Course;
-import ar.com.larreta.school.persistence.Level;
+import ar.com.larreta.school.persistence.Division;
 
 @Component
-public class CoursesAsignLevelBusinessListener extends BusinessListenerImpl {
+public class CoursesAsignLevelBeforePersistBusinessListener extends BusinessListenerImpl {
 
 	@Override
 	public Serializable process(JSONable json, Entity entity, Object... args) throws BusinessException {
 		UpdateCourseBody updateCourseBody = (UpdateCourseBody) json;
 		Course course = (Course) entity;
 		
-		Level level = applicationContext.getBean(Level.class);
-		level.setId(updateCourseBody.getLevel().getId());
+		Division division = applicationContext.getBean(Division.class);
+		division.setId(updateCourseBody.getYear().getId());
+		course.setDivision(division);
 		
 		return null;
 	}

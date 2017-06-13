@@ -16,7 +16,7 @@ import ar.com.larreta.persistence.model.Entity;
 import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.rest.messages.JSONable;
-import ar.com.larreta.rest.messages.JSONableCollectionBody;
+import ar.com.larreta.rest.messages.JSONableCollection;
 import ar.com.larreta.rest.messages.LoadBody;
 
 @Transactional
@@ -36,9 +36,9 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 				Class<?> loadDataType = generics[0];
 				Class<?> entityType = generics[1];
 
-				JSONableCollectionBody<B> collectionBody = new JSONableCollectionBody<B>();	
+				JSONableCollection<B> jsonableCollection = new JSONableCollection<B>();	
 				LoadBody<B> response = new LoadBody<>();
-				response.setResult(collectionBody);
+				response.setResult(jsonableCollection);
 				
 				LoadArguments args = new LoadArguments(entityType);
 				callListeners(beforeLoadListeners,(JSONable) input, null, args);
@@ -55,7 +55,7 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 						
 						callListeners(afterLoadListeners, bodyElement, entity);
 						
-						collectionBody.add(bodyElement);
+						jsonableCollection.add(bodyElement);
 					}
 				}
 				

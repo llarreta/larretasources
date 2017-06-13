@@ -22,11 +22,5 @@ public class StudentsLoadBusinessImpl extends LoadBusinessImpl<LoadStudentsData,
 	public void setBeforeLoadListeners(Set<BusinessListener> beforeLoadListeners) {
 		super.setBeforeLoadListeners(beforeLoadListeners);
 	}
-
-
-/*	if (student.getDocumentType()!=null){
-		actualStudent.setDocumentType(student.getDocumentType().getId());
-	}
-*/
 	
 }

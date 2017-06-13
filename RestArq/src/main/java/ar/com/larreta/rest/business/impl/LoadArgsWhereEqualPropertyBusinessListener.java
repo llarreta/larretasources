@@ -13,7 +13,7 @@ public abstract class LoadArgsWhereEqualPropertyBusinessListener extends Busines
 	public Serializable process(JSONable json, Entity entity, Object... args) {
 		LoadArguments loadArgs = (LoadArguments) args[0];
 		if ((json!=null) && (loadArgs!=null)){
-			Object value = beanUtils.getValue(json, getSourceProperty());
+			Object value = beanUtils.read(json, getSourceProperty());
 			if (value!=null){
 				Equal equal = new Equal(loadArgs, getTargetProperty(), value);
 				loadArgs.addWhere(equal);

@@ -15,7 +15,7 @@ public abstract class LoadArgsWhereLikePropertyBusinessListener extends Business
 	public Serializable process(JSONable json, Entity entity, Object... args) {
 		LoadArguments loadArgs = (LoadArguments) args[0];
 		if ((json!=null) && (loadArgs!=null)){
-			Object value = beanUtils.getValue(json, getProperty());
+			Object value = beanUtils.read(json, getProperty());
 			if (!StringUtils.isEmpty((CharSequence) value)){
 				Like like = new Like(loadArgs, getProperty(), value);
 				loadArgs.addWhere(like);

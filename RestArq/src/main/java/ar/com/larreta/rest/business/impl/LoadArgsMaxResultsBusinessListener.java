@@ -14,7 +14,7 @@ public class LoadArgsMaxResultsBusinessListener extends BusinessListenerImpl  {
 	public Serializable process(JSONable json, Entity entity, Object... args) {
 		LoadArguments loadArgs = (LoadArguments) args[0];
 		if ((json!=null) && (loadArgs!=null)){
-			Object value = beanUtils.getValue(json, "maxResults");
+			Object value = beanUtils.read(json, "maxResults");
 			if (value!=null){
 				loadArgs.setMaxResults((Integer) value);
 			}	

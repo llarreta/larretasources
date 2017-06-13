@@ -13,15 +13,16 @@ import ar.com.larreta.school.persistence.Course;
 import ar.com.larreta.school.persistence.Year;
 
 @Component
-public class CoursesAsignYearBusinessListener extends BusinessListenerImpl {
+public class CoursesAsignYearBeforePersistBusinessListener extends BusinessListenerImpl {
 
 	@Override
 	public Serializable process(JSONable json, Entity entity, Object... args) throws BusinessException {
 		UpdateCourseBody updateCourseBody = (UpdateCourseBody) json;
 		Course course = (Course) entity;
 		
-		Year level = applicationContext.getBean(Year.class);
-		level.setId(updateCourseBody.getYear().getId());
+		Year year = applicationContext.getBean(Year.class);
+		year.setId(updateCourseBody.getYear().getId());
+		course.setYear(year);
 		
 		return null;
 	}

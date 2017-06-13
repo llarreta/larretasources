@@ -4,7 +4,7 @@ public class LoadBody<E extends JSONable> extends Body {
 
 	private Integer firstResult;
 	private Integer maxResults;
-	private JSONableCollectionBody<E> result;
+	private JSONableCollection<E> result;
 	
 	public Integer getFirstResult() {
 		return firstResult;
@@ -18,10 +18,10 @@ public class LoadBody<E extends JSONable> extends Body {
 	public void setMaxResults(Integer maxResults) {
 		this.maxResults = maxResults;
 	}
-	public JSONableCollectionBody<E> getResult() {
+	public JSONableCollection<E> getResult() {
 		return result;
 	}
-	public void setResult(JSONableCollectionBody<E> result) {
+	public void setResult(JSONableCollection<E> result) {
 		this.result = result;
 	}
 	

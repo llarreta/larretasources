@@ -13,6 +13,7 @@ import ar.com.larreta.rest.business.BusinessListener;
 public class CoursesBusinessConfig {
 
 	public static final String COURSES_BEFORE_PERSIST = "COURSES_BEFORE_PERSIST";
+	public static final String COURSES_AFTER_LOAD = "COURSES_AFTER_LOAD";
 
 	@Autowired
 	private CoursesCallCreateYearBusinessListener 			coursesCallCreateYearBusinessListener;
@@ -21,14 +22,20 @@ public class CoursesBusinessConfig {
 	@Autowired
 	private CoursesCallCreateLevelBusinessListener 			coursesCallCreateLevelBusinessListener;
 	@Autowired
-	private CoursesAsignLevelBusinessListener 				coursesAsignLevelBusinessListener; 
+	private CoursesAsignLevelBeforePersistBusinessListener 				coursesAsignLevelBusinessListener; 
 	@Autowired
-	private CoursesAsignYearBusinessListener 				coursesAsignYearBusinessListener;
+	private CoursesAsignYearBeforePersistBusinessListener 				coursesAsignYearBusinessListener;
 	@Autowired
-	private CoursesAsignDivisionBusinessListener 			coursesAsignDivisionBusinessListener;
+	private CoursesAsignDivisionBeforePersistBusinessListener 			coursesAsignDivisionBusinessListener;
+	@Autowired
+	private CoursesAsignLevelAfterLoadBusinessListener coursesAsignLevelAfterLoadBusinessListener;
+	@Autowired
+	private CoursesAsignYearAfterLoadBusinessListener coursesAsignYearAfterLoadBusinessListener;
+	@Autowired
+	private CoursesAsignDivisionAfterLoadBusinessListener coursesAsignDivisionAfterLoadBusinessListener;
 	
 	@Bean(name=COURSES_BEFORE_PERSIST)
-	public Set<BusinessListener> getStudentBeforeLoadS(){
+	public Set<BusinessListener> getCoursesBeforePerist(){
 		Set<BusinessListener> businessListeners = new HashSet<>();
 		businessListeners.add(coursesCallCreateYearBusinessListener);
 		businessListeners.add(coursesCallCreateDivisionBusinessListener);
@@ -36,6 +43,15 @@ public class CoursesBusinessConfig {
 		businessListeners.add(coursesAsignLevelBusinessListener);
 		businessListeners.add(coursesAsignYearBusinessListener);
 		businessListeners.add(coursesAsignDivisionBusinessListener);
+		return businessListeners;
+	}
+	
+	@Bean(name=COURSES_AFTER_LOAD)
+	public Set<BusinessListener> getCoursesAfterLoad(){
+		Set<BusinessListener> businessListeners = new HashSet<>();
+		businessListeners.add(coursesAsignLevelAfterLoadBusinessListener);
+		businessListeners.add(coursesAsignYearAfterLoadBusinessListener);
+		businessListeners.add(coursesAsignDivisionAfterLoadBusinessListener);
 		return businessListeners;
 	}
 	
