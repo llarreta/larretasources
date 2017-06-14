@@ -1,8 +1,12 @@
 <div class= "common-box">
   <div class="row animated fadeIn">
     <div class="col-12">
-      <button type="button" class="button-back" (click)="goToList(true)">
+      <button type="button" class="button-back" (click)="goToList(true)" pTooltip="Volver">
         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="delete-button button-align-right" (click)="confirmDelete()" *ngIf="inEdit"
+        pTooltip="Borrar Alumno">
+        <i class="fa fa-trash" aria-hidden="true"></i>
       </button>
     </div>
   </div>
@@ -57,6 +61,30 @@
         <div class="col-12">
           <button (click)="confirm()" class="custom-green-button" type="button">Confirmar</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayLoading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUp}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content animated fadeIn">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">¿Seguro quiere borrar el alumno {{student.name}} {{student.surname}}?</h3>
+      </div>
+      <div class="row modal-body">
+        <button type="button" class="btn btn-primary min-width-40" (click)="deleteSelectedStudent()">Confirmar</button>
+        <button type="button" class="btn btn-secondary min-width-40" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
       </div>
     </div>
   </div>

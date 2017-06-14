@@ -152,12 +152,14 @@ export class StudentComponent implements OnInit{
     this.inUpdateStudent = false;
     this.inCreateStudent = !goList;
     this.inListStudent = goList;
+    this.loadInitData();
   }
 
   goListUpdate(goList: boolean){
     this.inCreateStudent = false;
     this.inUpdateStudent = !goList;
     this.inListStudent = goList;
+    this.loadInitData();
   }
 
   loadData(event) {
