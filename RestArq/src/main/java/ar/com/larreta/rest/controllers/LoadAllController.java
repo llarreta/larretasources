@@ -26,7 +26,6 @@ public abstract class LoadAllController {
 
 	public abstract void setLoadBusiness(Business loadBusiness);
 
-
 	@PerformanceMonitor
 	@RequestMapping(value = LOAD, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<LoadBody<JSONable>> loadPost() throws Exception{
@@ -35,4 +34,5 @@ public abstract class LoadAllController {
 		response.setBody(body);
 		return response;
 	}
+	
 }

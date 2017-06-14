@@ -1,31 +1,17 @@
 package ar.com.larreta.school.messages;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.rest.messages.Body;
+import ar.com.larreta.rest.messages.JSONable;
 
-@Component
-public class LoadStudentBody extends Body {
+@Component @Scope("prototype")
+public class LoadStudentData extends JSONable {
 	private Long 			id;
 	private String 			name;
 	private String 			surname;
 	private Long 			documentType;
 	private String 			documentNumber;
-	private Integer firstResult;
-	private Integer maxResults;
-	
-	public Integer getFirstResult() {
-		return firstResult;
-	}
-	public void setFirstResult(Integer firstResult) {
-		this.firstResult = firstResult;
-	}
-	public Integer getMaxResults() {
-		return maxResults;
-	}
-	public void setMaxResults(Integer maxResults) {
-		this.maxResults = maxResults;
-	}
 
 	public Long getId() {
 		return id;

@@ -23,9 +23,10 @@ import ar.com.larreta.tools.Base64;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:persistence.properties")
+@PropertySource(PersistenceConfig.CLASSPATH_PERSISTENCE_PROPERTIES)
 public class PersistenceConfig  {
 	
+	public static final String CLASSPATH_PERSISTENCE_PROPERTIES = "classpath:persistence.properties";
 	public static final String CLOSE_PLACE_HOLDER_TAG = "}";
 	public static final String OPEN_PLACE_HOLDER_TAG = "${";
 	

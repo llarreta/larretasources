@@ -2,10 +2,14 @@ package ar.com.larreta.school.messages;
 
 import javax.validation.constraints.Size;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.rest.messages.Body;
 import ar.com.larreta.rest.messages.JSONableCollection;
 import ar.com.larreta.validators.annotations.NotNull;
 
+@Component @Scope("prototype")
 public class UpdatePaymentPlansBody extends Body {
 
 	@NotNull(message="id.required", avaiableActions={"update"})

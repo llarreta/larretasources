@@ -1,5 +1,8 @@
 package ar.com.larreta.school.messages;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.rest.messages.Body;
 import ar.com.larreta.rest.messages.ParametricData;
 import ar.com.larreta.school.persistence.Division;
@@ -10,6 +13,7 @@ import ar.com.larreta.validators.annotations.NotExist;
 import ar.com.larreta.validators.annotations.NotNull;
 import ar.com.larreta.validators.annotations.OnlyOne;
 
+@Component @Scope("prototype")
 public class UpdateCourseBody extends Body {
 
 	@NotNull(message="id.required", avaiableActions={"update"})

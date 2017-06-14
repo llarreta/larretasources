@@ -46,8 +46,6 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 	public abstract void setDeleteBusiness(Business deleteBusiness);
 	public abstract void setLoadBusiness(Business loadBusiness);
 	
-
-	
 	@PerformanceMonitor
 	@RequestMapping(value = CREATE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<TargetedBody> createPost(@Valid @RequestBody Request<UpdateBodyRequest> request, Errors errors) throws Exception{
@@ -80,7 +78,6 @@ public abstract class ParentController<UpdateBodyRequest extends Body, LoadBodyR
 		deleteBusiness.execute(request.getBody().getTarget());
 		
 		return response;
-
 	}
 
 	@PerformanceMonitor

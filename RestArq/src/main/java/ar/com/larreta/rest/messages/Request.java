@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.validators.annotations.NotNull;
 
-@Component
-@Scope("prototype")
+@Component(Request.COMPONENT_NAME) @Scope("prototype")
 public class Request<T extends JSONable> extends Message {
+	
+	public static final String COMPONENT_NAME = "request";
 	
 	/**
 	 * Idioma en el que se retornaran los mensajes 

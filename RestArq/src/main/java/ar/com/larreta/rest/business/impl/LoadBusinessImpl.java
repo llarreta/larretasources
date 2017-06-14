@@ -59,8 +59,17 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 					}
 				}
 				
-				response.setFirstResult(args.getFirstResult());
-				response.setMaxResults(args.getMaxResults());
+				Integer firstResult = args.getFirstResult();
+				if (firstResult==null){
+					firstResult=1;
+				}
+				response.setFirstResult(firstResult);
+				
+				Integer maxResults = args.getMaxResults();
+				if (maxResults==null){
+					maxResults = result.size();
+				}
+				response.setMaxResults(maxResults);
 				return response;
 			}
 			LOG.error("No se encontraron la catidad de elementos genericos necesarios para la clase");
