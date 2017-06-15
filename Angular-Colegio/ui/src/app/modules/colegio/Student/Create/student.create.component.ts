@@ -50,6 +50,8 @@ export class StudentCreateComponent implements OnInit{
   showMessageErrorService: boolean;
   messageErrorInputs: string; 
   messageErrorService: string;
+  displayPopUp: string;
+  displayLoading: string;
 
   constructor(private studentService: StudentService, private documentTypeService: DocumentTypeService) {}
 
@@ -60,9 +62,6 @@ export class StudentCreateComponent implements OnInit{
     }
     this.initInputs();
     //Aca deberia cargar con los servicios todas las listas
-    this.loadPaymentPlansTest();
-    this.loadObligationsStatusTest();
-    this.loadResponsiblesTest();
     this.showMessageError = false;
     this.showMessageErrorInput = false;
     this.showMessageErrorService = false;
@@ -106,8 +105,9 @@ export class StudentCreateComponent implements OnInit{
     this.inputDocumentNumber.messageErrorValidation= "El numero de documento es invalido.";
     this.inputDocumentNumber.required= true;
     this.inputDocumentNumber.type= "number";
-    this.inputDocumentNumber.maskText= "**-**";
+    this.inputDocumentNumber.maskText= "99-9999-99";
     this.inputDocumentNumber.validationActivate = true;
+    this.inputDocumentNumber.maskActivate = false;
 
     this.inputEmail = new InputModel();
     this.inputEmail.id= "email";
@@ -155,6 +155,7 @@ export class StudentCreateComponent implements OnInit{
       let datosResponse;
       let status;
       if(!this.inEdit){
+        this.showLoading();
         this.studentService.createStudent(this.student)
         .subscribe(
           data => this.createStudentOK(data),
@@ -162,6 +163,7 @@ export class StudentCreateComponent implements OnInit{
           () => console.log('Vacio')
         );
       }else{
+        this.showLoading();
         this.studentService.updateStudent(this.student)
         .subscribe(
           data => this.createStudentOK(data),
@@ -173,10 +175,12 @@ export class StudentCreateComponent implements OnInit{
   }
 
   createStudentOK(data){
+    this.hideLoading();
     this.goToList();
   }
 
   loadErrorMessageService(error){
+    this.hideLoading();
     Logger.warn("Ocurrio un error al crear o actualizar un estudiante...");
     this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
     this.showMessageErrorService = true;
@@ -190,12 +194,40 @@ export class StudentCreateComponent implements OnInit{
     this.student.documentNumber = Number(this.inputDocumentNumber.value);
   }
 
-  loadPaymentPlansTest(){}
-  loadObligationsStatusTest(){}
-  loadResponsiblesTest(){}
+  deleteSelectedStudent(){
+    this.showLoading();
+    this.studentService.deleteStudent(this.student)
+       .subscribe(
+        data => this.deleteStudentOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion studentService...')
+    );
+  }
+
+  deleteStudentOK(data){
+    Logger.debug("Estudiante eliminado...");
+    this.goToList();
+    this.hideLoading();
+  }
+
+  showLoading(){
+    this.displayLoading = "block";
+  }
+
+  hideLoading(){
+    this.displayLoading = "none";
+  }
 
   goToList(){
     this.goList.emit(true);
+  }
+
+  confirmDelete(){
+    this.displayPopUp = "block";
+  }
+
+  hideDisplayPopUp(){
+    this.displayPopUp = "none";
   }
 
   setStudentName(inputModel: InputModel){

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'loading-commons',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./src/app/modules/colegio/Commons/Loading/loading.component.scss'],
 })
 export class LoadingCommonsComponent{
-
+  @Input()
+  fontSize: string;
 }

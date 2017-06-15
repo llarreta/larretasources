@@ -21,7 +21,10 @@ export class StudentService {
     }
 
     deleteStudent(student: Student): Observable<any> {
-        return this.http.post(student, "students/delete");
+        var body = {
+                    "target":student.id
+                };
+        return this.http.post(body, "students/delete");
     }
 
     loadStudents(): Observable<any> {

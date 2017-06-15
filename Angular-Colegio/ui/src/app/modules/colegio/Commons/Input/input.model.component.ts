@@ -20,6 +20,7 @@ export class InputModel extends CommonComponentModel{
     public messageErrorMinNumber: string;
     public childComponent: CommonComponentModel; 
     public validationActivate: boolean;
+    public maskActivate: boolean = false;
     public disabled: boolean = false;
     
     constructor() {

@@ -1,5 +1,5 @@
 //Angular components
-import { Component, Input, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, ViewChild, EventEmitter} from '@angular/core';
 
 //Models
 import { Student } from '../../Models/Student.model';
@@ -40,6 +40,11 @@ import { CourseService } from '../../services/course.service';
 })
 export class StudentComponent implements OnInit{
 
+  @Input()
+  inPaymentRecord: boolean;
+  @Output()
+  goRecord = new EventEmitter();
+
   students: Array<Student>;
   selectedStudent: Student;
   inCreateStudent: boolean;
@@ -47,6 +52,7 @@ export class StudentComponent implements OnInit{
   inListStudent: boolean;
   loading: boolean;
   moreStudents: boolean;
+  showPaymentRecord: boolean;
   
   //Filters
   filterName: string;
@@ -152,12 +158,22 @@ export class StudentComponent implements OnInit{
     this.inUpdateStudent = false;
     this.inCreateStudent = !goList;
     this.inListStudent = goList;
+    this.loadInitData();
   }
 
   goListUpdate(goList: boolean){
     this.inCreateStudent = false;
     this.inUpdateStudent = !goList;
     this.inListStudent = goList;
+    this.loadInitData();
+  }
+
+  goListPaymentRecord(goList: boolean){
+    this.inCreateStudent = false;
+    this.inUpdateStudent = false;
+    this.showPaymentRecord = !goList;
+    this.inListStudent = goList;
+    this.loadInitData();
   }
 
   loadData(event) {
@@ -166,9 +182,17 @@ export class StudentComponent implements OnInit{
 
   loadStudent(student: Student){
     this.selectedStudent = student;
-    this.inUpdateStudent = true;
-    this.inListStudent = false;
-    this.inCreateStudent = false;
+    if(!this.inPaymentRecord){
+      this.inUpdateStudent = true;
+      this.inListStudent = false;
+      this.inCreateStudent = false;
+    }else{
+      this.showPaymentRecord = true;
+      this.inUpdateStudent = false;
+      this.inListStudent = false;
+      this.inCreateStudent = false;
+      this.goRecord.emit(true);
+    }
   }
 
   loadErrorMessageService(error){

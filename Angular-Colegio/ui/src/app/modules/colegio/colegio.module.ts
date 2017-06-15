@@ -34,6 +34,9 @@ import { CourseCreateComponent } from './Course/Create/course.create.component';
 import { PaymentPlanComponent } from './PaymentPlan/List/paymentPlan.component';
 import { PaymentPlanCreateComponent } from './PaymentPlan/Create/paymentPlan.create.component';
 
+//PaymentRecord component
+import { PaymentRecordComponent } from './PaymentRecord/paymentRecord.component';
+
 //Services
 import { StudentService } from './services/student.service';
 import { CourseService } from './services/course.service';
@@ -70,7 +73,8 @@ import { DocumentTypeService } from './services/documentType.service';
         CourseComponent,
         CourseCreateComponent,
         PaymentPlanComponent,
-        PaymentPlanCreateComponent
+        PaymentPlanCreateComponent,
+        PaymentRecordComponent
     ],
     providers:
     [

@@ -36,4 +36,9 @@ export class AppNavComponent {
     this.menuActive = false;
   }
 
+  public goPaymentRecord(){
+    this.router.navigate(['./colegio/paymentRecord']);
+    this.menuActive = false;
+  }
+
 }
