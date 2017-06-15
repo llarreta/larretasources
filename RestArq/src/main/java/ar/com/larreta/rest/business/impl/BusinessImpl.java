@@ -28,7 +28,7 @@ public abstract class BusinessImpl implements Business {
 	protected ApplicationContext applicationContext;
 
 	
-	protected void callListeners(Set<BusinessListener> listeners, JSONable json, Entity entity, Object... args) throws Exception {
+	public static void callListeners(Set<BusinessListener> listeners, JSONable json, Entity entity, Object... args) throws Exception {
 		if (listeners!=null){
 			Iterator<BusinessListener> it = listeners.iterator();
 			while (it.hasNext()) {
