@@ -41,7 +41,7 @@ public abstract class PaymentPlansBeforePersistListenerTemplate extends Business
 		while (it.hasNext()) {
 			try {
 				JSONable jsonData = (JSONable) it.next();
-				Entity actualEntity = applicationContext.getBean(type);
+				Entity actualEntity = (Entity) applicationContext.getBean(type);
 				
 				beanUtils.copy(jsonData, actualEntity);
 				
