@@ -21,7 +21,10 @@ export class CourseService {
     }
 
     deleteCourse(course: Course): Observable<any> {
-        return this.http.post(course, "courses/delete");
+        var body = {
+                    "target":course.id
+                };
+        return this.http.post(body, "courses/delete");
     }
 
     loadCourses(): Observable<any> {

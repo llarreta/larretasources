@@ -72,7 +72,7 @@
               </div>      
             </ng-template>
 
-        </p-dataScroller>
+          </p-dataScroller>
         </div>
       </div>
     </div>
@@ -82,5 +82,8 @@
   </div>
   <div *ngIf="inUpdateStudent" class="animated fadeInUp">
     <school-students-create (goList)="goListUpdate($event)" [student]="selectedStudent" [inEdit]="true"></school-students-create>
+  </div>
+  <div *ngIf="showPaymentRecord" class="animated fadeInUp">
+    <school-students-create (goList)="goListPaymentRecord($event)" [student]="selectedStudent"></school-students-create>
   </div>
 </div>
