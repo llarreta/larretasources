@@ -23,7 +23,7 @@ import ar.com.larreta.tools.Base64;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource(PersistenceConfig.CLASSPATH_PERSISTENCE_PROPERTIES)
+@PropertySource(value=PersistenceConfig.CLASSPATH_PERSISTENCE_PROPERTIES /*, ignoreResourceNotFound=true*/)
 public class PersistenceConfig  {
 	
 	public static final String CLASSPATH_PERSISTENCE_PROPERTIES = "classpath:persistence.properties";

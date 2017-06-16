@@ -32,7 +32,7 @@ import ar.com.larreta.annotations.Log;
 @EnableWebMvc
 @ComponentScan(basePackages = {
 		"ar.com.larreta"})  // scan  only the packages needed
-@PropertySource(RestConfig.CLASSPATH_APPLICATION_PROPERTIES)
+@PropertySource(value=RestConfig.CLASSPATH_APPLICATION_PROPERTIES /*, ignoreResourceNotFound=true*/)
 public class RestConfig extends WebMvcConfigurerAdapter  {
 
 	public static final String UTF_8 							= "UTF-8";

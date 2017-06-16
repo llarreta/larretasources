@@ -1,12 +1,13 @@
 package ar.com.larreta.school.messages;
 
-import java.util.Date;
+import javax.validation.Valid;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.rest.messages.JSONable;
 import ar.com.larreta.rest.messages.JSONableCollection;
+import ar.com.larreta.validators.annotations.Format;
 import ar.com.larreta.validators.annotations.NotNull;
 
 @Component @Scope("prototype")
@@ -14,6 +15,19 @@ public class ObligationData extends JSONable {
 	
 	private Long 			id;
 	private String 			description;
+	
+	@NotNull(message="productGroup.required")
+	private Long 	productGroup;
+	
+	@Format(formatType=Format.FormatType.DATE, message="dueDate.obligation.invalid")
+	@NotNull(message="dueDate.required")
+	private String 	dueDate;
+	
+	@Valid
+	@NotNull(message="prices.required")
+	@ar.com.larreta.validators.annotations.Size(message="prices.mayorOrEqual", mayorOrEqual=1)
+	private JSONableCollection<PriceData> prices;
+
 
 	public Long getId() {
 		return id;
@@ -28,26 +42,16 @@ public class ObligationData extends JSONable {
 		this.description = description;
 	}
 	
-	@NotNull(message="productGroup.required")
-	private Long 	productGroup;
-	
-	@NotNull(message="dueDate.required")
-	private Date 	dueDate;
-	
-	@NotNull(message="prices.required")
-	@ar.com.larreta.validators.annotations.Size(message="prices.mayorOrEqual", mayorOrEqual=1)
-	private JSONableCollection<PriceData> prices;
-	
 	public JSONableCollection<PriceData> getPrices() {
 		return prices;
 	}
 	public void setPrices(JSONableCollection<PriceData> prices) {
 		this.prices = prices;
 	}
-	public Date getDueDate() {
+	public String getDueDate() {
 		return dueDate;
 	}
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
 	public Long getProductGroup() {

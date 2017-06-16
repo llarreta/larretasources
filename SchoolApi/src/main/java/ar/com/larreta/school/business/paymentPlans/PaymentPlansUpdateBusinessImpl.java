@@ -9,18 +9,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import ar.com.larreta.rest.business.BusinessListener;
-import ar.com.larreta.rest.business.impl.CreateBusinessImpl;
+import ar.com.larreta.rest.business.impl.UpdateBusinessImpl;
 import ar.com.larreta.school.messages.UpdatePaymentPlansBody;
 import ar.com.larreta.school.persistence.PaymentPlan;
 
-@Service(PaymentPlansCreateBusiness.BUSINESS_NAME)
+@Service(PaymentPlansUpdateBusiness.BUSINESS_NAME)
 @Transactional
-public class PaymentPlansCreateBusinessImpl extends CreateBusinessImpl<UpdatePaymentPlansBody, PaymentPlan> implements PaymentPlansCreateBusiness {
+public class PaymentPlansUpdateBusinessImpl extends UpdateBusinessImpl<UpdatePaymentPlansBody, PaymentPlan> implements PaymentPlansUpdateBusiness {
 
 	@Override
 	@Autowired @Qualifier(PaymentPlansBusinessConfig.PAYMENT_PLANS_BEFORE_CREATE)
 	public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
 		super.setBeforePersistListeners(beforePersistListeners);
 	}
-
+	
 }

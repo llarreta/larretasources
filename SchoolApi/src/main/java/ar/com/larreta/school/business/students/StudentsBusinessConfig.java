@@ -20,7 +20,7 @@ public class StudentsBusinessConfig {
 
 	public static final String STUDENT_BEFORE_LOAD = "studentBeforeLoad";
 
-	public static final String STUDENT_CREATE_BEFORE_PERSIST = "studentCreateBeforePersist";
+	public static final String STUDENT_BEFORE_PERSIST = "studentBeforePersist";
 	
 	@Autowired
 	private StudentsBeforePersistListener beforePersistStudentsListener;
@@ -51,7 +51,7 @@ public class StudentsBusinessConfig {
 		return businessListeners;
 	}
 	
-	@Bean(name=STUDENT_CREATE_BEFORE_PERSIST)
+	@Bean(name=STUDENT_BEFORE_PERSIST)
 	public Set<BusinessListener> getStudentCreateBeforePersist(){
 		Set<BusinessListener> businessListeners = new HashSet<>();
 		businessListeners.add(beforePersistStudentsListener);
