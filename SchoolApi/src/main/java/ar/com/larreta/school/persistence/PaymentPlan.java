@@ -32,6 +32,7 @@ public class PaymentPlan extends ParametricEntity {
 	}
 	public void setObligations(Set<Obligation> obligations) {
 		this.obligations = obligations;
+		writeToAll(obligations, "paymentPlan", this);
 	}
 	
 	

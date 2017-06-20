@@ -9,7 +9,7 @@
   <changeSet author="Leonel" id="changelog-1.0">
 
     <createTable tableName="documentType" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -17,7 +17,7 @@
     </createTable>
  
     <createTable tableName="person" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -34,7 +34,7 @@
     							/>
 
     <createTable tableName="year" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -42,7 +42,7 @@
     </createTable>
     
     <createTable tableName="division" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -50,7 +50,7 @@
     </createTable>
     
     <createTable tableName="level" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -58,7 +58,7 @@
     </createTable>
 
     <createTable tableName="course" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -81,7 +81,7 @@
     							/>    
     							
     <createTable tableName="student" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -94,7 +94,7 @@
     							/>    
 
     <createTable tableName="paymentDirection" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -102,7 +102,7 @@
     </createTable>
   
     <createTable tableName="paymentEntity" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -110,7 +110,7 @@
     </createTable>
   
    	<createTable tableName="productGroup" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -118,7 +118,7 @@
     </createTable>
 
     <createTable tableName="paymentPlan" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -126,7 +126,7 @@
     </createTable>
     
     <createTable tableName="product" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
@@ -140,13 +140,12 @@
     							/>    
 
     <createTable tableName="obligation" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"		type="datetime" />
       <column name="idPaymentPlan"	type="bigint" />
       <column name="dueDate"		type="datetime" />
-      <column name="priceValue"		type="double" />
     </createTable>
 
     <addForeignKeyConstraint 	constraintName		="obligationPaymentPlan" 
@@ -159,13 +158,13 @@
     							/>  							  
 
     <createTable tableName="price" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"			type="datetime" />
       <column name="idObligation"		type="bigint" />
       <column name="validityStartDate"	type="datetime" />
-      <column name="priceValue"			type="double" />
+      <column name="value"			type="double" />
     </createTable>
 
     <addForeignKeyConstraint 	constraintName		="priceObligation" 
@@ -174,7 +173,7 @@
     							/>  
 
     <createTable tableName="detail" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"			type="datetime" />
@@ -189,7 +188,7 @@
     							/>  
 
     <createTable tableName="littleDetail" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"			type="datetime" />
@@ -205,7 +204,7 @@
   
   
     <createTable tableName="obligationStatus" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"			type="datetime" />
@@ -226,7 +225,7 @@
 
 
     <createTable tableName="responsible" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"			type="datetime" />
@@ -260,10 +259,10 @@
 
     <createTable tableName="studentPaymentPlan" >
       <column name="idStudent" 			type="bigint">
-        <constraints nullable="false" primaryKey="true" unique="true"/>
+        <constraints nullable="false" primaryKey="true" unique="false"/>
       </column>
       <column name="idPaymentPlan" 			type="bigint">
-        <constraints nullable="false" primaryKey="true" unique="true"/>
+        <constraints nullable="false" primaryKey="true" unique="false"/>
       </column>
     </createTable> 
 
@@ -277,7 +276,7 @@
     							/>     							
 
     <createTable tableName="payment" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"					type="datetime" />
@@ -292,7 +291,7 @@
     							/>     							
 
     <createTable tableName="paymentUnit" >
-      <column name="id" 			type="bigint">
+      <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
       </column>
       <column name="deleted"					type="datetime" />

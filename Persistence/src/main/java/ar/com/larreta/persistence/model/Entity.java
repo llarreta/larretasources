@@ -1,16 +1,20 @@
 package ar.com.larreta.persistence.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.com.larreta.persistence.dao.impl.MainEntity;
+import ar.com.larreta.tools.BeanUtils;
 
 @MappedSuperclass
 @Where(clause=Entity.NOT_DELETED)
@@ -22,7 +26,11 @@ public class Entity implements Serializable {
 	protected Long id;
 	protected Date deleted;
 	
+	@Autowired
+	private BeanUtils beanUtils;
+	
 	@Id
+	@GeneratedValue
 	public Long getId(){
 		return id;
 	}
@@ -51,6 +59,9 @@ public class Entity implements Serializable {
 
 	@Override
 	public int hashCode() {
+		if (getId()==null){
+			return super.hashCode();
+		}
 		return getId().hashCode();
 	}
 	
@@ -66,6 +77,12 @@ public class Entity implements Serializable {
 	@Transient
 	public String getPersistEntityName(){
 		return null;
+	}
+	
+	protected void writeToAll(Collection source, String property, Serializable value){
+		if (beanUtils!=null){
+			beanUtils.writeToAll(source, property, value);
+		}
 	}
 
 }

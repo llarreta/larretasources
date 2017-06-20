@@ -41,6 +41,19 @@ public class LoadArguments implements Serializable {
 	private Map<String, String> symbols = new HashMap<String, String>();
 	private ProjectedPropertiesSplitter splitter;
 
+	public LoadArguments(Class type){
+		mainEntity = new MainEntity(this, type);
+	}
+
+	public LoadArguments(Class type, String uniqueProjectionField){
+		mainEntity = new MainEntity(this, type, uniqueProjectionField);
+	}
+
+	public LoadArguments(MainEntity mainEntity){
+		this.mainEntity = mainEntity;
+		mainEntity.setLoadArguments(this);
+	}
+	
 	public LoadArguments toLoadArguments(){
 		LoadArguments args = new LoadArguments(mainEntity.getType());
 		setCommonsProperties(args);
@@ -69,20 +82,6 @@ public class LoadArguments implements Serializable {
 		args.setSymbols(getSymbols());
 		args.setSplitter(getSplitter());
 	}
-	
-	public LoadArguments(Class type){
-		mainEntity = new MainEntity(this, type);
-	}
-
-	public LoadArguments(Class type, String uniqueProjectionField){
-		mainEntity = new MainEntity(this, type, uniqueProjectionField);
-	}
-
-	public LoadArguments(MainEntity mainEntity){
-		this.mainEntity = mainEntity;
-		mainEntity.setLoadArguments(this);
-	}
-	
 	
 	public Integer getFirstResult() {
 		return firstResult;

@@ -46,6 +46,8 @@ public class Detail extends ParametricEntity{
 	}
 	public void setLittleDetails(Set<LittleDetail> littleDetails) {
 		this.littleDetails = littleDetails;
+		writeToAll(littleDetails, "detail", this);
+
 	}
 	
 	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Price.class)

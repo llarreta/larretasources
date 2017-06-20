@@ -19,7 +19,6 @@ import ar.com.larreta.school.business.students.StudentsLoadBusiness;
 import ar.com.larreta.school.business.students.StudentsUpdateBusiness;
 import ar.com.larreta.school.messages.LoadStudentData;
 import ar.com.larreta.school.messages.LoadStudentsData;
-import ar.com.larreta.school.messages.UpdateCourseBody;
 import ar.com.larreta.school.messages.UpdateStudentBody;
 
 @RestController
@@ -30,7 +29,7 @@ public class StudentsController extends ParentController<UpdateStudentBody, Load
 	public static final String ROOT_MAP = "/students";
 
 	@Configuration
-	public class Help extends HelpConfig<UpdateCourseBody, LoadBody<LoadStudentsData>> {
+	public class Help extends HelpConfig<UpdateStudentBody, LoadBody<LoadStudentsData>> {
 
 		@Bean(name=ROOT_MAP + ParentController.CREATE)
 		@Override

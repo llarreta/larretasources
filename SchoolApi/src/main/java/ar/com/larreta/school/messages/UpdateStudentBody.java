@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.persistence.model.DocumentType;
 import ar.com.larreta.rest.messages.Body;
+import ar.com.larreta.rest.messages.JSONableCollection;
 import ar.com.larreta.validators.annotations.Exist;
 import ar.com.larreta.validators.annotations.NotNull;
 
@@ -22,7 +23,21 @@ public class UpdateStudentBody extends Body {
 	private Long 			documentType;
 	private String 			documentNumber;
 	private String 			photo;
+	private Long 			course;
+	private JSONableCollection<Long> paymentPlans;
 
+	public JSONableCollection<Long> getPaymentPlans() {
+		return paymentPlans;
+	}
+	public void setPaymentPlans(JSONableCollection<Long> paymentPlans) {
+		this.paymentPlans = paymentPlans;
+	}
+	public Long getCourse() {
+		return course;
+	}
+	public void setCourse(Long course) {
+		this.course = course;
+	}
 	public String getPhoto() {
 		return photo;
 	}

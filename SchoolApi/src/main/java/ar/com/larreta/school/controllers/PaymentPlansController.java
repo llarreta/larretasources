@@ -16,9 +16,9 @@ import ar.com.larreta.rest.messages.LoadBody;
 import ar.com.larreta.rest.messages.Message;
 import ar.com.larreta.rest.messages.Request;
 import ar.com.larreta.school.business.paymentPlans.PaymentPlansCreateBusiness;
-import ar.com.larreta.school.business.students.StudentsDeleteBusiness;
-import ar.com.larreta.school.business.students.StudentsLoadBusiness;
-import ar.com.larreta.school.business.students.StudentsUpdateBusiness;
+import ar.com.larreta.school.business.paymentPlans.PaymentPlansDeleteBusiness;
+import ar.com.larreta.school.business.paymentPlans.PaymentPlansLoadBusiness;
+import ar.com.larreta.school.business.paymentPlans.PaymentPlansUpdateBusiness;
 import ar.com.larreta.school.messages.DetailData;
 import ar.com.larreta.school.messages.LittleDetailData;
 import ar.com.larreta.school.messages.LoadStudentData;
@@ -98,19 +98,19 @@ public class PaymentPlansController extends ParentController<UpdatePaymentPlansB
 		this.createBusiness = createBusiness;
 	}
 
-	@Autowired @Qualifier(StudentsUpdateBusiness.BUSINESS_NAME)
+	@Autowired @Qualifier(PaymentPlansUpdateBusiness.BUSINESS_NAME)
 	@Override
 	public void setUpdateBusiness(Business updateBusiness) {
 		this.updateBusiness = updateBusiness;
 	}
 
-	@Autowired @Qualifier(StudentsDeleteBusiness.BUSINESS_NAME)
+	@Autowired @Qualifier(PaymentPlansDeleteBusiness.BUSINESS_NAME)
 	@Override
 	public void setDeleteBusiness(Business deleteBusiness) {
 		this.deleteBusiness = deleteBusiness;
 	}
 
-	@Autowired @Qualifier(StudentsLoadBusiness.BUSINESS_NAME)
+	@Autowired @Qualifier(PaymentPlansLoadBusiness.BUSINESS_NAME)
 	@Override
 	public void setLoadBusiness(Business loadBusiness) {
 		this.loadBusiness = loadBusiness;

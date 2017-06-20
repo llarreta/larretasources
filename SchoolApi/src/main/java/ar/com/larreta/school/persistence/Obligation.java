@@ -52,6 +52,7 @@ public class Obligation extends Product {
 	}
 	public void setPrices(Set<Price> prices) {
 		this.prices = prices;
+		writeToAll(prices, "obligation", this);
 	}
 
 	

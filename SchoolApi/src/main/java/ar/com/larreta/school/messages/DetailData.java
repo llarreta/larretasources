@@ -1,5 +1,7 @@
 package ar.com.larreta.school.messages;
 
+import javax.validation.Valid;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,7 @@ public class DetailData extends JSONable {
 	@NotNull(message="detail.description.required")
 	private String 			description;
 
+	@Valid
 	private JSONableCollection<LittleDetailData> littleDetails;
 
 	public Long getId() {

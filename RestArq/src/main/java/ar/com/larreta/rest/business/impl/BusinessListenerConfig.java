@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import ar.com.larreta.rest.business.BusinessListener;
 
@@ -22,9 +23,8 @@ public class BusinessListenerConfig {
 	@Autowired
 	private LoadArgsMaxResultsBusinessListener maxResultListener;
 	
-	private LoadArgsWhereEqualDescriptionBusinessListener loadArgsWhereEqualDescriptionBusinessListener;
-	
-	@Bean(name=FIRST_AND_MAX_RESULTS)
+	@Bean(name=FIRST_AND_MAX_RESULTS) 
+	@DependsOn(value={LoadArgsFirstResultBusinessListener.BUSINESS_LISTENER_NAME, LoadArgsMaxResultsBusinessListener.BUSINESS_LISTENER_NAME})
 	public Set<BusinessListener> getFirstAndaMaxResults(){
 		Set<BusinessListener> businessListeners = new HashSet<>();
 		businessListeners.add(firstResultListener);
@@ -32,7 +32,8 @@ public class BusinessListenerConfig {
 		return businessListeners;
 	}
 	
-	@Bean(name=PARAMETRIC_DATA_BEFORE_LOAD_LISTENER)
+	@Bean(name=PARAMETRIC_DATA_BEFORE_LOAD_LISTENER) 
+	@DependsOn(value={LoadArgsFirstResultBusinessListener.BUSINESS_LISTENER_NAME, LoadArgsMaxResultsBusinessListener.BUSINESS_LISTENER_NAME})
 	public Set<BusinessListener> getParametricDataBeforeLoadListener(){
 		Set<BusinessListener> businessListeners = new HashSet<>();
 		businessListeners.add(firstResultListener);

@@ -18,7 +18,7 @@ import ar.com.larreta.school.persistence.Student;
 public class StudentsCreateBusinessImpl extends CreateBusinessImpl<UpdateStudentBody, Student> implements StudentsCreateBusiness {
 
 	@Override
-	@Autowired @Qualifier(StudentsBusinessConfig.STUDENT_CREATE_BEFORE_PERSIST)
+	@Autowired @Qualifier(StudentsBusinessConfig.STUDENT_BEFORE_PERSIST)
 	public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
 		super.setBeforePersistListeners(beforePersistListeners);
 	}

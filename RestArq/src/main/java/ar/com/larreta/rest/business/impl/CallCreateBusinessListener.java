@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import ar.com.larreta.annotations.Log;
 import ar.com.larreta.persistence.model.Entity;
 import ar.com.larreta.rest.exceptions.BusinessException;
-import ar.com.larreta.rest.messages.JSONable;
 
 public abstract class CallCreateBusinessListener extends CallAnotherBusinessListener {
 
@@ -16,10 +15,11 @@ public abstract class CallCreateBusinessListener extends CallAnotherBusinessList
 	private static @Log Logger LOG;	
 	
 	@Override
-	public Serializable process(JSONable json, Entity entity, Object... args) throws BusinessException {
+	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
 			try {
-				Serializable id = super.process(json, entity, args);
+				Serializable id = super.process(source, target, args);
 				if (isExecuteAvaiable()){
+					Entity entity = (Entity) target;
 					if (entity!=null){
 						entity.setId((Long) id);
 					}
