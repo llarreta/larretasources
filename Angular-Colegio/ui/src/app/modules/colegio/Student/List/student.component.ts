@@ -68,6 +68,8 @@ export class StudentComponent implements OnInit{
   showMessageErrorService: boolean; 
   messageErrorService: string;
 
+  displayLoading: string;
+
   private language: string;
 
   constructor(private studentService: StudentService, private courseService: CourseService, 
@@ -87,29 +89,17 @@ export class StudentComponent implements OnInit{
   }
 
   private loadInitData(){
+    this.showLoading();
+    this.loadDivisions();
+  }
+
+  loadDivisions(){
+    this.showLoading();
     this.divisionService.loadDivisions()
        .subscribe(
         data => this.loadDivisionsOK(data),
         err => this.loadErrorMessageService(err),
         () => Logger.debug('Termino ejecucion divisionService...')
-    );
-    this.levelService.loadLevels()
-       .subscribe(
-        data => this.loadLevelsOK(data),
-        err => this.loadErrorMessageService(err),
-        () => Logger.debug('Termino ejecucion levelService...')
-    );
-    this.yearService.loadYears()
-       .subscribe(
-        data => this.loadYearsOK(data),
-        err => this.loadErrorMessageService(err),
-        () => Logger.debug('Termino ejecucion yearService...')
-    );
-    this.studentService.loadStudents()
-       .subscribe(
-        data => this.loadStudentsOK(data),
-        err => this.loadErrorMessageService(err),
-        () => Logger.debug('Termino ejecucion studentService...')
     );
   }
 
@@ -121,6 +111,17 @@ export class StudentComponent implements OnInit{
       Object.assign(division, divisionJSON);
       this.filterDivisionOptions.push({label:division.description, value:division});
     }
+    this.loadLevels();
+  }
+
+  loadLevels(){
+    this.showLoading();
+    this.levelService.loadLevels()
+       .subscribe(
+        data => this.loadLevelsOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion levelService...')
+    );
   }
 
   loadLevelsOK(data){
@@ -131,6 +132,17 @@ export class StudentComponent implements OnInit{
       Object.assign(level, levelJSON);
       this.filterLevelsOptions.push({label:level.description, value:level});
     }
+    this.loadYears();
+  }
+
+  loadYears(){
+    this.showLoading();
+    this.yearService.loadYears()
+       .subscribe(
+        data => this.loadYearsOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion yearService...')
+    );
   }
 
   loadYearsOK(data){
@@ -141,6 +153,17 @@ export class StudentComponent implements OnInit{
       Object.assign(year, yearJSON);
       this.filterYearOptions.push({label:year.description, value:year});
     }
+    this.loadStudents();
+  }
+
+  loadStudents(){
+    this.showLoading();
+    this.studentService.loadStudents()
+       .subscribe(
+        data => this.loadStudentsOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion studentService...')
+    );
   }
 
   loadStudentsOK(data){
@@ -152,6 +175,7 @@ export class StudentComponent implements OnInit{
       this.students.push(student);
     }
     Logger.debug("Estudiantes cargados.. " + JSON.stringify(this.students));
+    this.hideLoading();
   }
 
   goListCreate(goList: boolean) {
@@ -196,10 +220,19 @@ export class StudentComponent implements OnInit{
   }
 
   loadErrorMessageService(error){
+    this.hideLoading();
     Logger.warn("Ocurrio un error al crear un estudiante...");
     this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
     this.showMessageErrorService = true;
     this.showMessageError = true;
+  }
+
+  showLoading(){
+    this.displayLoading = "block";
+  }
+
+  hideLoading(){
+    this.displayLoading = "none";
   }
 
 }

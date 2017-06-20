@@ -26,7 +26,7 @@
                   <input class="input-filter-by-name-student" type="text" pInputText [(ngModel)]="filterName"/>
                 </div>
               </div>
-              <button type="button" class="button-add" (click)="goListCreate(false)">
+              <button type="button" class="button-add" (click)="goListCreate(false)" *ngIf="showPaymentRecord">
                   <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </p-header>
@@ -86,4 +86,14 @@
   <div *ngIf="showPaymentRecord" class="animated fadeInUp">
     <school-students-create (goList)="goListPaymentRecord($event)" [student]="selectedStudent"></school-students-create>
   </div>
+</div>
+
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayLoading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
 </div>

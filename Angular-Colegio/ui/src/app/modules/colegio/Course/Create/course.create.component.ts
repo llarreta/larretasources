@@ -35,7 +35,6 @@ export class CourseCreateComponent implements OnInit{
   @Input()
   course: Course;
 
-  inputDescription: InputModel;
   levels: Array<SelectItem>;
   years: Array<SelectItem>;
   divisions: Array<SelectItem>;
@@ -46,6 +45,8 @@ export class CourseCreateComponent implements OnInit{
   messageErrorInputs: string; 
   messageErrorService: string;
 
+  displayLoading: string;
+
   constructor(private courseService: CourseService, private levelService: LevelService,
               private divisionService: DivisionService, private yearService: YearService) {}
 
@@ -54,7 +55,6 @@ export class CourseCreateComponent implements OnInit{
     if(!this.inEdit){
       this.course = new Course();
     }
-    this.initInputs();
     this.showMessageError = false;
     this.showMessageErrorInput = false;
     this.showMessageErrorService = false;
@@ -63,18 +63,53 @@ export class CourseCreateComponent implements OnInit{
   }
 
   loadInitData(){
+    this.showLoading();
+    this.loadDivisions();
+  }
+
+  loadDivisions(){
     this.divisionService.loadDivisions()
        .subscribe(
         data => this.loadDivisionsOK(data),
         err => this.loadErrorMessageService(err),
         () => console.log('Vacio')
     );
+  }
+
+  loadDivisionsOK(data){
+    this.divisions = new Array<SelectItem>();
+    this.divisions.push({label:"Seleccionar Division", value:null});
+    for(let divisionJSON of data.body.result){
+      let division: Division = new Division();
+      Object.assign(division, divisionJSON);
+      this.divisions.push({label:division.description, value:division});
+    }
+    this.loadLevels();
+  }
+
+  loadLevels(){
+    this.showLoading();
     this.levelService.loadLevels()
        .subscribe(
         data => this.loadLevelsOK(data),
         err => this.loadErrorMessageService(err),
         () => console.log('Vacio')
     );
+  }
+
+  loadLevelsOK(data){
+    this.levels = new Array<SelectItem>();
+    this.levels.push({label:"Seleccionar Nivel", value:null});
+    for(let levelJSON of data.body.result){
+      let level: Level = new Level();
+      Object.assign(level, levelJSON);
+      this.levels.push({label:level.description, value:level});
+    }
+    this.loadYears();
+  }
+
+  loadYears(){
+    this.showLoading();
     this.yearService.loadYears()
        .subscribe(
         data => this.loadYearsOK(data),
@@ -83,55 +118,30 @@ export class CourseCreateComponent implements OnInit{
     );
   }
 
-  loadDivisionsOK(data){
-    this.divisions = new Array<SelectItem>();
-    for(let divisionJSON of data.body.result){
-      let division: Division = new Division();
-      Object.assign(division, divisionJSON);
-      this.divisions.push({label:division.description, value:division});
-    }
-  }
-
-  loadLevelsOK(data){
-    this.levels = new Array<SelectItem>();
-    for(let levelJSON of data.body.result){
-      let level: Level = new Level();
-      Object.assign(level, levelJSON);
-      this.levels.push({label:level.description, value:level});
-    }
-  }
-
   loadYearsOK(data){
     this.years = new Array<SelectItem>();
+    this.years.push({label:"Seleccionar Nivel", value:null});
     for(let yearJSON of data.body.result){
       let year: Year = new Year();
       Object.assign(year, yearJSON);
       this.years.push({label:year.description, value:year});
     }
+    this.hideLoading();
   }
 
-  initInputs(){
-    this.inputDescription = new InputModel();
-    this.inputDescription.id=  "name";
-    this.inputDescription.labelContent= "Nombre";
-    this.inputDescription.messageErrorEmpty= "Debe indicar el nombre.";
-    this.inputDescription.messageErrorValidation= "El nombre ingresado es invalido."
-    this.inputDescription.required= true;
-    this.inputDescription.type= "text";
-    this.inputDescription.validationActivate = true;
-    if(this.inEdit){
-      this.inputDescription.value = this.course.description;
-    }
+  showLoading(){
+    this.displayLoading = "block";
+  }
+
+  hideLoading(){
+    this.displayLoading = "none";
   }
 
   isAllOK(){
-    if(this.inputDescription.isAllOK && this.course.level != null 
+    if(this.course.level != null 
       && this.course.year != null && this.course.division != null){
         return true;
     }else{
-      if(!this.inputDescription.isAllOK){
-        this.messageErrorInputs += this.inputDescription.messageErrorEmpty + ". ";
-      }
       if(this.course.level == null){
         this.messageErrorInputs += "Debe seleccionar un nivel. ";
       }
@@ -149,11 +159,11 @@ export class CourseCreateComponent implements OnInit{
 
   confirm(){
     if(this.isAllOK()){
-      this.loadCourseData();
       this.showMessageError = false;
       let datosResponse;
       let status;
       if(!this.inEdit){
+        this.showLoading();
         this.courseService.createCourse(this.course)
           .subscribe(
           data => this.createCourseOK(data),
@@ -161,6 +171,7 @@ export class CourseCreateComponent implements OnInit{
           () => console.log('Vacio')
         );
       }else{
+        this.showLoading();
         this.courseService.updateCourse(this.course)
           .subscribe(
           data => this.createCourseOK(data),
@@ -172,6 +183,7 @@ export class CourseCreateComponent implements OnInit{
   }
 
   createCourseOK(data){
+    this.hideLoading();
     this.goToList();
   }
 
@@ -180,18 +192,11 @@ export class CourseCreateComponent implements OnInit{
     this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
     this.showMessageErrorService = true;
     this.showMessageError = true;
-  }
-
-  loadCourseData(){
-    this.course.description = this.inputDescription.value;
+    this.hideLoading();
   }
 
   goToList(){
     this.goList.emit(true);
   }
 
-  setCourseDescription(inputModel: InputModel){
-    this.inputDescription = inputModel;
-  }
-  
 }

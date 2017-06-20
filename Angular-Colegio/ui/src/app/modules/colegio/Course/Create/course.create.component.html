@@ -26,11 +26,6 @@
   <div class="row">
     <div class="col-12">
       <div class="row">
-        <div class="col-6">
-          <input-commons [inputModel]="inputDescription" (valueModel)="setCourseDescription($event)"></input-commons>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-4">
           <p-dropdown [options]="divisions" [(ngModel)]="course.division" 
             class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
@@ -54,4 +49,13 @@
       </div>
     </div>
   </div>
+</div>
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayLoading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
 </div>

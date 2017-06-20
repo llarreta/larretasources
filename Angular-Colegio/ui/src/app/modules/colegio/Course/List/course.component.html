@@ -28,9 +28,9 @@
                   <span class="filter-by-name-year">Filtrado por año</span>
                   <p-dropdown [options]="filterYearOptions" [(ngModel)]="filterYear" class="input-filter-by-year"></p-dropdown>
                 </div>
-                <div class="filter-by-division"> 
-                  <span class="filter-by-name-division">Filtrado por division</span>
-                  <p-dropdown [options]="filterDivisionOptions" [(ngModel)]="filterDivision" class="input-filter-by-division"></p-dropdown>
+                <div class="filter-by-year"> 
+                  <span class="filter-by-name-year">Filtrado por division</span>
+                  <p-dropdown [options]="filterDivisionOptions" [(ngModel)]="filterDivision" class="input-filter-by-year"></p-dropdown>
                 </div>
               </div>
               <button type="button" class="button-add" (click)="goListCreate(false)">
@@ -75,4 +75,14 @@
   <div *ngIf="inUpdateCourse" class="animated fadeInUp">
     <school-course-create (goList)="goListUpdate($event)" [course]="selectedCourse" [inEdit]="true"></school-course-create>
   </div>
+</div>
+
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayLoading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
 </div>

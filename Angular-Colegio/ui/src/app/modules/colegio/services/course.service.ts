@@ -13,11 +13,34 @@ export class CourseService {
     constructor(private http: HttpRequest) { }
 
     createCourse(course: Course): Observable<any> {
-        return this.http.post(course, "courses/create");
+        var body = {
+                    "level":{
+                                "id":course.level.id
+                            },
+                    "year":{
+                                "id":course.year.id
+                            },
+                    "division":{
+                                 "id":course.division.id
+                                }
+                };
+        return this.http.post(body, "courses/create");
     }
 
     updateCourse(course: Course): Observable<any> {
-        return this.http.post(course, "courses/update");
+        var body = {
+                    "id":course.id,
+                    "level":{
+                                "id":course.level.id
+                            },
+                    "year":{
+                                "id":course.year.id
+                            },
+                    "division":{
+                                 "id":course.division.id
+                                }
+                };
+        return this.http.post(body, "courses/update");
     }
 
     deleteCourse(course: Course): Observable<any> {
