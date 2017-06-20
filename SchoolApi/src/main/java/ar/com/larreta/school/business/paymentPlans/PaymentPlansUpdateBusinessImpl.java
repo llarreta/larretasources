@@ -16,11 +16,9 @@ import ar.com.larreta.school.persistence.PaymentPlan;
 @Service(PaymentPlansUpdateBusiness.BUSINESS_NAME)
 @Transactional
 public class PaymentPlansUpdateBusinessImpl extends UpdateBusinessImpl<UpdatePaymentPlansBody, PaymentPlan> implements PaymentPlansUpdateBusiness {
-
 	@Override
-	@Autowired @Qualifier(PaymentPlansBusinessConfig.PAYMENT_PLANS_BEFORE_CREATE)
+	@Autowired @Qualifier(PaymentPlansBusinessConfig.PAYMENT_PLANS_BEFORE_PERSIST_LISTENERS)
 	public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
 		super.setBeforePersistListeners(beforePersistListeners);
 	}
-	
 }

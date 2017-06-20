@@ -47,7 +47,7 @@ public class Price extends ar.com.larreta.persistence.model.Entity {
 		this.validityStartDate = validityStartDate;
 	}
 	
-	@Basic @Column (name="priceValue")
+	@Basic @Column (name="value")
 	public Double getValue() {
 		return value;
 	}
@@ -62,5 +62,6 @@ public class Price extends ar.com.larreta.persistence.model.Entity {
 	}
 	public void setDetails(Set<Detail> details) {
 		this.details = details;
+		writeToAll(details, "price", this);
 	}
 }

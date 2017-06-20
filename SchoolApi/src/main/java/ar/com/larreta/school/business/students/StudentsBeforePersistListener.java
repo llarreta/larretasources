@@ -5,9 +5,8 @@ import java.io.Serializable;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.persistence.model.DocumentType;
-import ar.com.larreta.persistence.model.Entity;
 import ar.com.larreta.rest.business.impl.BusinessListenerImpl;
-import ar.com.larreta.rest.messages.JSONable;
+import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.school.messages.UpdateStudentBody;
 import ar.com.larreta.school.persistence.Student;
 
@@ -15,9 +14,9 @@ import ar.com.larreta.school.persistence.Student;
 public class StudentsBeforePersistListener extends BusinessListenerImpl {
 
 	@Override
-	public Serializable process(JSONable json, Entity entity, Object... args) {
-		Student student = (Student) entity;
-		UpdateStudentBody updateStudentBody = (UpdateStudentBody) json;
+	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
+		Student student = (Student) source;
+		UpdateStudentBody updateStudentBody = (UpdateStudentBody) target;
 		if (updateStudentBody.getDocumentType()!=null){
 			student.setDocumentType(standardDAO.getEntity(DocumentType.class, updateStudentBody.getDocumentType()));
 		}

@@ -5,7 +5,6 @@ import java.io.Serializable;
 import org.slf4j.Logger;
 
 import ar.com.larreta.annotations.Log;
-import ar.com.larreta.persistence.model.Entity;
 import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.rest.messages.JSONable;
@@ -31,7 +30,7 @@ public abstract class CallAnotherBusinessListener extends BusinessListenerImpl {
 	}
 
 	@Override
-	public Serializable process(JSONable json, Entity entity, Object... args) throws BusinessException{
+	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
 		try {
 			this.json = json;
 			if (isExecuteAvaiable()){

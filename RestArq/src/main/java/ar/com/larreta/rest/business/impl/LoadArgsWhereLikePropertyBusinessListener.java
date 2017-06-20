@@ -6,16 +6,15 @@ import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
 import ar.com.larreta.persistence.dao.impl.Like;
-import ar.com.larreta.persistence.model.Entity;
-import ar.com.larreta.rest.messages.JSONable;
+import ar.com.larreta.rest.exceptions.BusinessException;
 
 public abstract class LoadArgsWhereLikePropertyBusinessListener extends BusinessListenerImpl {
 
 	@Override
-	public Serializable process(JSONable json, Entity entity, Object... args) {
+	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
 		LoadArguments loadArgs = (LoadArguments) args[0];
-		if ((json!=null) && (loadArgs!=null)){
-			Object value = beanUtils.read(json, getProperty());
+		if ((source!=null) && (loadArgs!=null)){
+			Object value = beanUtils.read(source, getProperty());
 			if (!StringUtils.isEmpty((CharSequence) value)){
 				Like like = new Like(loadArgs, getProperty(), value);
 				loadArgs.addWhere(like);
