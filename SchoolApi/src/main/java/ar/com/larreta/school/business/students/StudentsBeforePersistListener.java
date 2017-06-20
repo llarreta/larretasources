@@ -15,8 +15,8 @@ public class StudentsBeforePersistListener extends BusinessListenerImpl {
 
 	@Override
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
-		Student student = (Student) source;
-		UpdateStudentBody updateStudentBody = (UpdateStudentBody) target;
+		Student student = (Student) target;
+		UpdateStudentBody updateStudentBody = (UpdateStudentBody) source;
 		if (updateStudentBody.getDocumentType()!=null){
 			student.setDocumentType(standardDAO.getEntity(DocumentType.class, updateStudentBody.getDocumentType()));
 		}

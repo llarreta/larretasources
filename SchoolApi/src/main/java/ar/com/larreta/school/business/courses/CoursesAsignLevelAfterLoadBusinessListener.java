@@ -16,8 +16,8 @@ public class CoursesAsignLevelAfterLoadBusinessListener extends BusinessListener
 
 	@Override
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
-		CourseData data = (CourseData) source;
-		Course course = (Course) target;
+		CourseData data = (CourseData) target;
+		Course course = (Course) source;
 		
 		ParametricData parametricData = applicationContext.getBean(ParametricData.class);
 		ParametricEntity parametricEntity = course.getLevel();
