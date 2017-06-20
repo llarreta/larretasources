@@ -10,6 +10,7 @@ import org.springframework.context.annotation.DependsOn;
 
 import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.business.impl.BusinessConfig;
+import ar.com.larreta.rest.business.impl.CollectionEntityAsignBusinessListener;
 import ar.com.larreta.rest.business.impl.LoadArgsAddProjectedCollectionLeftJoinBusinessListener;
 import ar.com.larreta.school.messages.DetailData;
 import ar.com.larreta.school.messages.LittleDetailData;
@@ -18,6 +19,7 @@ import ar.com.larreta.school.messages.PriceData;
 import ar.com.larreta.school.persistence.Detail;
 import ar.com.larreta.school.persistence.LittleDetail;
 import ar.com.larreta.school.persistence.Obligation;
+import ar.com.larreta.school.persistence.PaymentPlan;
 import ar.com.larreta.school.persistence.Price;
 
 @Configuration
@@ -209,6 +211,5 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	public Set<BusinessListener> paymentPlansBeforeLoadListeners(){
 		return getSet(obligationsProjected);
 	}
-	
 	
 }

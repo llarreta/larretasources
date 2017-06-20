@@ -37,7 +37,8 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 			LoadBody<B> response = new LoadBody<>();
 			response.setResult(jsonableCollection);
 			
-			LoadArguments args = new LoadArguments(entityType);
+			LoadArguments args = createLoadArgs(entityType, input);
+			
 			callListeners(beforeLoadListeners,(JSONable) input, null, args);
 			
 			Collection result = standardDAO.load(args);
@@ -72,6 +73,10 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 			LOG.error("Ocurrio un error ejecutando DeleteBusinessImpl", e);
 		}
 		throw new BusinessException();
+	}
+
+	protected LoadArguments createLoadArgs(Class<?> entityType, Serializable input) {
+		return new LoadArguments(entityType);
 	}
 
 	public Set<BusinessListener> getBeforeLoadListeners() {

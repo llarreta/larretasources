@@ -259,10 +259,10 @@
 
     <createTable tableName="studentPaymentPlan" >
       <column name="idStudent" 			type="bigint">
-        <constraints nullable="false" primaryKey="true" unique="true"/>
+        <constraints nullable="false" primaryKey="true" unique="false"/>
       </column>
       <column name="idPaymentPlan" 			type="bigint">
-        <constraints nullable="false" primaryKey="true" unique="true"/>
+        <constraints nullable="false" primaryKey="true" unique="false"/>
       </column>
     </createTable> 
 

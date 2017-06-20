@@ -7,10 +7,11 @@ import org.springframework.stereotype.Component;
 import ar.com.larreta.persistence.dao.args.LoadArguments;
 import ar.com.larreta.rest.exceptions.BusinessException;
 
-@Component
+@Component(LoadArgsFirstResultBusinessListener.BUSINESS_LISTENER_NAME)
 public class LoadArgsFirstResultBusinessListener extends BusinessListenerImpl {
 
-	private static final String FIRST_RESULT = "firstResult";
+	public static final String BUSINESS_LISTENER_NAME = "LoadArgsFirstResultBusinessListener";
+	public static final String FIRST_RESULT = "firstResult";
 
 	@Override
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{

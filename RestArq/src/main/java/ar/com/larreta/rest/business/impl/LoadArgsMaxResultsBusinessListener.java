@@ -7,8 +7,10 @@ import org.springframework.stereotype.Component;
 import ar.com.larreta.persistence.dao.args.LoadArguments;
 import ar.com.larreta.rest.exceptions.BusinessException;
 
-@Component
+@Component(LoadArgsMaxResultsBusinessListener.BUSINESS_LISTENER_NAME)
 public class LoadArgsMaxResultsBusinessListener extends BusinessListenerImpl  {
+	
+	public static final String BUSINESS_LISTENER_NAME = "LoadArgsMaxResultsBusinessListener";
 	private static final String MAX_RESULTS = "maxResults";
 
 	@Override

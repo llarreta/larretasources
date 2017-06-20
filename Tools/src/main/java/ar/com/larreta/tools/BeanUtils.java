@@ -2,6 +2,7 @@ package ar.com.larreta.tools;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -127,4 +128,21 @@ public class BeanUtils {
 		}
 		return null;
 	}
+	
+	public Object newInstance(Class type, Object[] args){
+		try {
+			Collection<Class> paramsTypes = new ArrayList<>();
+			Collection argsInstance = Arrays.asList(args);
+			Iterator it = argsInstance.iterator();
+			while (it.hasNext()) {
+				paramsTypes.add(it.next().getClass());
+			}
+			Constructor constructor = type.getConstructor((Class[]) paramsTypes.toArray());
+			return constructor.newInstance(args);
+		} catch (Exception e){
+			LOGGER.error("Ocurrio un error newInstance", e);
+		}
+		return null;
+	}
+	
 }
