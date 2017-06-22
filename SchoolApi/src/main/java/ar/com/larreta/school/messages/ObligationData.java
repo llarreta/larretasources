@@ -16,7 +16,6 @@ public class ObligationData extends JSONable {
 	private Long 			id;
 	private String 			description;
 	
-	@NotNull(message="productGroup.required")
 	private Long 	productGroup;
 	
 	@Format(formatType=Format.FormatType.DATE, message="dueDate.obligation.invalid")
