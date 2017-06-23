@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
+import ar.com.larreta.persistence.exceptions.CantBuildQueryException;
 import ar.com.larreta.persistence.model.Entity;
 
 public interface StandardDAO extends LoadDao {
 	/**
 	 * Obtiene una entidad de la base de datos del tipo entityClass y filtrando por el id
 	 */
-	public Entity getEntity(Class entityClass, Serializable id);
+	public Entity getEntity(Class entityClass, Serializable id) throws CantBuildQueryException ;
 	/**
 	 * Obtienen una entidad de la base de datos, filtrando por wheres y proyectando las propiedades pasadas por parametro
 	 * Tener presente que si la consulta retorna mas de una entidad, entonces se retorna solo la primera
@@ -19,7 +20,7 @@ public interface StandardDAO extends LoadDao {
 	 * @param wheres
 	 * @return
 	 */
-	public Entity getEntity(LoadArguments args);
+	public Entity getEntity(LoadArguments args)  throws CantBuildQueryException ;
 	/**
 	 * Obtiene una entidad de la base de datos del tipo entityClass filtrando por el campo field y el valor value
 	 * @param entityClass
@@ -27,7 +28,7 @@ public interface StandardDAO extends LoadDao {
 	 * @param value
 	 * @return
 	 */
-	public Entity getEntity(Class entityClass, String field, Object value);
+	public Entity getEntity(Class entityClass, String field, Object value)  throws CantBuildQueryException ;
 	/**
 	 * Crea una nueva entidad en la base de datos
 	 * @param entity
