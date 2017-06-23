@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ar.com.larreta.persistence.aspects.InjectId;
 import ar.com.larreta.persistence.dao.StandardDAO;
 import ar.com.larreta.persistence.dao.args.LoadArguments;
+import ar.com.larreta.persistence.exceptions.CantBuildQueryException;
 import ar.com.larreta.persistence.model.Entity;
 
 /**
@@ -26,9 +27,10 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 
 	/**
 	 * Obtiene una entidad de la base de datos del tipo entityClass y filtrando por el id
+	 * @throws CantBuildQueryException 
 	 * @throws UnreportedEntityException 
 	 */
-	public Entity getEntity(Class entityClass, Serializable id){
+	public Entity getEntity(Class entityClass, Serializable id) throws CantBuildQueryException{
 		LoadArguments args = new LoadArguments(entityClass);
 		args.addWhereEqual("id", id);
 		return getEntity(args);
@@ -41,8 +43,9 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * @param properties
 	 * @param wheres
 	 * @return
+	 * @throws CantBuildQueryException 
 	 */
-	public Entity getEntity(LoadArguments args) {
+	public Entity getEntity(LoadArguments args) throws CantBuildQueryException {
 		Entity entity = null;
 		Collection<Entity> result = load(args);
 		if ((result!=null) && (!result.isEmpty())){
@@ -58,9 +61,10 @@ public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 	 * @param field
 	 * @param value
 	 * @return
+	 * @throws CantBuildQueryException 
 	 * @throws UnreportedEntityException 
 	 */
-	public Entity getEntity(Class entityClass, String field, Object value){
+	public Entity getEntity(Class entityClass, String field, Object value) throws CantBuildQueryException{
 		LoadArguments args = new LoadArguments(entityClass);
 		args.addWhereEqual(field, value);
 		return getEntity(args);

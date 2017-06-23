@@ -15,6 +15,7 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import ar.com.larreta.persistence.dao.LoadDao;
 import ar.com.larreta.persistence.dao.args.CountArguments;
 import ar.com.larreta.persistence.dao.args.LoadArguments;
+import ar.com.larreta.persistence.exceptions.CantBuildQueryException;
 
 /**
  * DAO con la funcionalidad de poder cargar entidades desde la base  
@@ -67,9 +68,10 @@ public abstract class LoadDAOImpl implements LoadDao {
 	 * @param firstResult
 	 * @param maxResults
 	 * @return
+	 * @throws CantBuildQueryException 
 	 * @throws UnreportedEntityException 
 	 */
-	public Collection load(Class type){
+	public Collection load(Class type) throws CantBuildQueryException{
 		
 		LoadArguments args = new LoadArguments(type);
 		
@@ -95,8 +97,9 @@ public abstract class LoadDAOImpl implements LoadDao {
 	 * @param firstResult
 	 * @param maxResults
 	 * @return
+	 * @throws CantBuildQueryException 
 	 */
-	public Collection load(LoadArguments args){
+	public Collection load(LoadArguments args) throws CantBuildQueryException{
 		args.splitProperties();
 
 		QueryMaked queryMaked = makeQuery(args);
@@ -112,7 +115,7 @@ public abstract class LoadDAOImpl implements LoadDao {
 	 * @param wheres
 	 * @return
 	 */
-	public Long count(CountArguments args){
+	public Long count(CountArguments args)  throws CantBuildQueryException {
 		QueryMaked queryMaked = makeQuery(args);
 		Query query = queryMaked.getQuery();
 		return (Long) query.uniqueResult();
@@ -128,8 +131,9 @@ public abstract class LoadDAOImpl implements LoadDao {
 	 * @param maxResults
 	 * @param splitter
 	 * @return
+	 * @throws CantBuildQueryException 
 	 */
-	public QueryMaked makeQuery(LoadArguments args) {
+	public QueryMaked makeQuery(LoadArguments args) throws CantBuildQueryException {
 		StringBuilder hql = makeHQL(args);
 		
 		Query query = getQuery(args, hql);
@@ -282,8 +286,9 @@ public abstract class LoadDAOImpl implements LoadDao {
 	 * @param maxResults
 	 * @param hql
 	 * @return
+	 * @throws CantBuildQueryException 
 	 */
-	public Query getQuery(LoadArguments args,	StringBuilder hql) {
+	public Query getQuery(LoadArguments args,	StringBuilder hql) throws CantBuildQueryException {
 		try {
 			Query query = getSessionFactory().getCurrentSession().createQuery(hql.toString());
 			if (args.getFirstResult()!=null){
@@ -295,8 +300,8 @@ public abstract class LoadDAOImpl implements LoadDao {
 			return query;
 		} catch (Exception e){
 			LOGGER.error("No fue posible construir la query para:\n" + hql, e);
+			throw new CantBuildQueryException();
 		}
-		return null;
 	}
 	
 	/**

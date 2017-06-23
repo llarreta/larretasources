@@ -12,6 +12,7 @@ import java.util.Set;
 import ar.com.larreta.persistence.dao.impl.Asc;
 import ar.com.larreta.persistence.dao.impl.Desc;
 import ar.com.larreta.persistence.dao.impl.Equal;
+import ar.com.larreta.persistence.dao.impl.InSubquery;
 import ar.com.larreta.persistence.dao.impl.InnerJoin;
 import ar.com.larreta.persistence.dao.impl.JoinedEntity;
 import ar.com.larreta.persistence.dao.impl.LeftJoin;
@@ -226,6 +227,13 @@ public class LoadArguments implements Serializable {
 		LoadArguments args = new LoadArguments(new MainEntity(this, subClass, subField));
 		args.setSymbols(symbols);
 		addWhere(new NotInSubquery(this, field, args));
+		return args;
+	}
+	
+	public LoadArguments addWhereInSubquery(String field, String subField, Class subClass){
+		LoadArguments args = new LoadArguments(new MainEntity(this, subClass, subField));
+		args.setSymbols(symbols);
+		addWhere(new InSubquery(this, field, args));
 		return args;
 	}
 	

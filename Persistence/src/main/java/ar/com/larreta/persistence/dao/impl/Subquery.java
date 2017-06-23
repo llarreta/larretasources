@@ -4,7 +4,9 @@ import java.util.Iterator;
 
 import org.hibernate.Query;
 
+import ar.com.larreta.persistence.dao.StandardDAO;
 import ar.com.larreta.persistence.dao.args.LoadArguments;
+import ar.com.larreta.tools.SpringUtils;
 
 public abstract class Subquery extends Where {
 	
@@ -16,8 +18,7 @@ public abstract class Subquery extends Where {
 	}
 	
 	protected StringBuilder getSubquery(){
-		StandardDAOImpl standardDAO = null; //= (StandardDAOImpl) AppManager.getInstance().getBean(StandardDAOImpl.STANDAR_DAO);
-		return standardDAO.makeHQL(argsSub);
+		return ((StandardDAO)SpringUtils.getBean(StandardDAOImpl.STANDAR_DAO)).makeHQL(argsSub);
 	}
 
 	@Override

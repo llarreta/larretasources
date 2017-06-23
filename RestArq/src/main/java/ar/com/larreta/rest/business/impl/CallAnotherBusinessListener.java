@@ -32,7 +32,7 @@ public abstract class CallAnotherBusinessListener extends BusinessListenerImpl {
 	@Override
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
 		try {
-			this.json = json;
+			this.json = (JSONable) source;
 			if (isExecuteAvaiable()){
 				return business.execute(getParam());
 			}
