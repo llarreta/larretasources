@@ -10,7 +10,7 @@ import org.springframework.context.annotation.DependsOn;
 
 import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.business.impl.BusinessConfig;
-import ar.com.larreta.rest.business.impl.CollectionEntityAsignBusinessListener;
+import ar.com.larreta.rest.business.impl.IteratorListener;
 import ar.com.larreta.rest.business.impl.LoadArgsAddProjectedCollectionLeftJoinBusinessListener;
 import ar.com.larreta.school.messages.DetailData;
 import ar.com.larreta.school.messages.LittleDetailData;
@@ -19,7 +19,6 @@ import ar.com.larreta.school.messages.PriceData;
 import ar.com.larreta.school.persistence.Detail;
 import ar.com.larreta.school.persistence.LittleDetail;
 import ar.com.larreta.school.persistence.Obligation;
-import ar.com.larreta.school.persistence.PaymentPlan;
 import ar.com.larreta.school.persistence.Price;
 
 @Configuration
@@ -54,101 +53,101 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	public static final String DETAILS 			= "details";
 	public static final String LITTLE_DETAILS 	= "littleDetails";
 	
-	private PaymentPlansListener<Obligation> obligationsListenerFrontToService;
-	private PaymentPlansListener<Price> pricesListenerFrontToService;
-	private PaymentPlansListener<Detail> detailsListenerFrontToService;
-	private PaymentPlansListener<LittleDetail> littleDetailsListenerFrontToService;
+	private IteratorListener<Obligation> obligationsListenerFrontToService;
+	private IteratorListener<Price> pricesListenerFrontToService;
+	private IteratorListener<Detail> detailsListenerFrontToService;
+	private IteratorListener<LittleDetail> littleDetailsListenerFrontToService;
 
-	private PaymentPlansListener<ObligationData> obligationsListenerServiceToFront;
-	private PaymentPlansListener<PriceData> pricesListenerServiceToFront;
-	private PaymentPlansListener<DetailData> detailsListenerServiceToFront;
-	private PaymentPlansListener<LittleDetailData> littleDetailsListenerServiceToFront;
+	private IteratorListener<ObligationData> obligationsListenerServiceToFront;
+	private IteratorListener<PriceData> pricesListenerServiceToFront;
+	private IteratorListener<DetailData> detailsListenerServiceToFront;
+	private IteratorListener<LittleDetailData> littleDetailsListenerServiceToFront;
 	
 	private LoadArgsAddProjectedCollectionLeftJoinBusinessListener obligationsProjected;
 
 	// Services Listeners
 	
 	@Bean(name=OBLIGATIONS_LISTENER_FRONT_TO_SERVICE)
-	public PaymentPlansListener<Obligation> obligationsListenerFrontToService(){
-		obligationsListenerFrontToService =  new PaymentPlansListener<Obligation>(OBLIGATIONS) {
+	public IteratorListener<Obligation> obligationsListenerFrontToService(){
+		obligationsListenerFrontToService =  new IteratorListener<Obligation>(OBLIGATIONS) {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.OBLIGATIONS_BEFORE_PERSIST_LISTENERS)
-			public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
-				super.setBeforePersistListeners(beforePersistListeners);
+			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
+				super.setBeforeIterateListeners(beforePersistListeners);
 			}
 		};
 		return obligationsListenerFrontToService;
 	}
 
 	@Bean(name=PRICES_LISTENER_FRONT_TO_SERVICE)
-	public PaymentPlansListener<Price> pricesListenerFrontToService(){
-		pricesListenerFrontToService = new PaymentPlansListener<Price>(PRICES) {
+	public IteratorListener<Price> pricesListenerFrontToService(){
+		pricesListenerFrontToService = new IteratorListener<Price>(PRICES) {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.PRICES_BEFORE_PERSIST_LISTENERS)
-			public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
-				super.setBeforePersistListeners(beforePersistListeners);
+			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
+				super.setBeforeIterateListeners(beforePersistListeners);
 			}
 		};
 		return pricesListenerFrontToService;
 	}
 
 	@Bean(name=DETAILS_LISTENER_FRONT_TO_SERVICE)
-	public PaymentPlansListener<Detail> detailsListenerFrontToService(){
-		detailsListenerFrontToService = new PaymentPlansListener<Detail>(DETAILS) {
+	public IteratorListener<Detail> detailsListenerFrontToService(){
+		detailsListenerFrontToService = new IteratorListener<Detail>(DETAILS) {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.DETAILS_BEFORE_PERSIST_LISTENERS)
-			public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
-				super.setBeforePersistListeners(beforePersistListeners);
+			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
+				super.setBeforeIterateListeners(beforePersistListeners);
 			}			
 		};
 		return detailsListenerFrontToService;
 	}
 
 	@Bean(name=LITTLE_DETAILS_LISTENER_FRONT_TO_SERVICE)
-	public PaymentPlansListener<LittleDetail> littleDetailsListenerFrontToService(){
-		littleDetailsListenerFrontToService = new PaymentPlansListener<LittleDetail>(LITTLE_DETAILS) {};
+	public IteratorListener<LittleDetail> littleDetailsListenerFrontToService(){
+		littleDetailsListenerFrontToService = new IteratorListener<LittleDetail>(LITTLE_DETAILS) {};
 		return littleDetailsListenerFrontToService;
 	}
 	
 	@Bean(name=OBLIGATIONS_LISTENER_SERVICE_TO_FRONT)
-	public PaymentPlansListener<ObligationData> obligationsListenerServiceToFront(){
-		obligationsListenerServiceToFront = new PaymentPlansListener<ObligationData>(OBLIGATIONS) {
+	public IteratorListener<ObligationData> obligationsListenerServiceToFront(){
+		obligationsListenerServiceToFront = new IteratorListener<ObligationData>(OBLIGATIONS) {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.OBLIGATIONS_BEFORE_LOAD_LISTENERS)
-			public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
-				super.setBeforePersistListeners(beforePersistListeners);
+			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
+				super.setBeforeIterateListeners(beforePersistListeners);
 			}
 		};
 		return obligationsListenerServiceToFront;
 	}
 
 	@Bean(name=PRICES_LISTENER_SERVICE_TO_FRONT)
-	public PaymentPlansListener<PriceData> pricesListenerServiceToFront(){
-		pricesListenerServiceToFront = new PaymentPlansListener<PriceData>(PRICES) {
+	public IteratorListener<PriceData> pricesListenerServiceToFront(){
+		pricesListenerServiceToFront = new IteratorListener<PriceData>(PRICES) {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.PRICES_BEFORE_LOAD_LISTENERS)
-			public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
-				super.setBeforePersistListeners(beforePersistListeners);
+			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
+				super.setBeforeIterateListeners(beforePersistListeners);
 			}			
 		};
 		return pricesListenerServiceToFront;
 	}
 	
 	@Bean(name=DETAILS_LISTENER_SERVICE_TO_FRONT)
-	public PaymentPlansListener<DetailData> detailsListenerServiceToFront(){
-		detailsListenerServiceToFront = new PaymentPlansListener<DetailData>(DETAILS) {
+	public IteratorListener<DetailData> detailsListenerServiceToFront(){
+		detailsListenerServiceToFront = new IteratorListener<DetailData>(DETAILS) {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.DETAILS_BEFORE_LOAD_LISTENERS)
-			public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
-				super.setBeforePersistListeners(beforePersistListeners);
+			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
+				super.setBeforeIterateListeners(beforePersistListeners);
 			}			
 		};
 		return detailsListenerServiceToFront;
 	}
 	
 	@Bean(name=LITTLE_DETAILS_LISTENER_SERVICE_TO_FRONT)
-	public PaymentPlansListener<LittleDetailData> littleDetailsListenerServiceToFront(){
-		littleDetailsListenerServiceToFront = new PaymentPlansListener<LittleDetailData>(LITTLE_DETAILS) {};
+	public IteratorListener<LittleDetailData> littleDetailsListenerServiceToFront(){
+		littleDetailsListenerServiceToFront = new IteratorListener<LittleDetailData>(LITTLE_DETAILS) {};
 		return littleDetailsListenerServiceToFront;
 	}
 

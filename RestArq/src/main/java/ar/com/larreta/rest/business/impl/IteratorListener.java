@@ -1,8 +1,7 @@
-package ar.com.larreta.school.business.paymentPlans;
+package ar.com.larreta.rest.business.impl;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -10,22 +9,19 @@ import org.slf4j.Logger;
 
 import ar.com.larreta.annotations.Log;
 import ar.com.larreta.rest.business.BusinessListener;
-import ar.com.larreta.rest.business.impl.BusinessImpl;
-import ar.com.larreta.rest.business.impl.BusinessListenerImpl;
-import ar.com.larreta.rest.business.impl.SourcedListener;
-import ar.com.larreta.rest.business.impl.TargetedListener;
 import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.tools.TypedClassesUtils;
 
-public abstract class PaymentPlansListener<E extends Serializable>  extends BusinessListenerImpl implements SourcedListener, TargetedListener{
+public abstract class IteratorListener<E extends Serializable>  extends BusinessListenerImpl implements SourcedListener, TargetedListener{
 
 	private static @Log Logger LOG;
 	
-	private Set<BusinessListener> beforePersistListeners;
+	private Set<BusinessListener> beforeIterateListeners;
+	private Set<BusinessListener> afterIterateListeners;
 
 	public String property;
 	
-	public PaymentPlansListener(String property) {
+	public IteratorListener(String property) {
 		super();
 		this.property = property;
 	}
@@ -40,14 +36,22 @@ public abstract class PaymentPlansListener<E extends Serializable>  extends Busi
 		return property;
 	}
 	
-	public Set<BusinessListener> getBeforePersistListeners() {
-		return beforePersistListeners;
+	public Set<BusinessListener> getBeforeIterateListeners() {
+		return afterIterateListeners;
 	}
 
-	public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
-		this.beforePersistListeners = beforePersistListeners;
+	public void setBeforeIterateListeners(Set<BusinessListener> beforeIterateListeners) {
+		this.afterIterateListeners = beforeIterateListeners;
 	}
 
+	public Set<BusinessListener> getAfterIterateListeners() {
+		return afterIterateListeners;
+	}
+
+	public void setAfterIterateListeners(Set<BusinessListener> afterIterateListeners) {
+		this.afterIterateListeners = afterIterateListeners;
+	}
+	
 	@Override
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
 		Collection collection = (Collection) beanUtils.newInstanceType(target, getTargetProperty());
@@ -59,14 +63,15 @@ public abstract class PaymentPlansListener<E extends Serializable>  extends Busi
 			try {
 				Serializable sourceFromCollection = (Serializable) it.next();
 				Serializable targetToCollection = (Serializable) applicationContext.getBean(
-							TypedClassesUtils.getGenerics(PaymentPlansListener.class, this, 0));
-				
+							TypedClassesUtils.getGenerics(IteratorListener.class, this, 0));
+
 				beanUtils.copy(sourceFromCollection, targetToCollection);
 				
-				BusinessImpl.callListeners(beforePersistListeners, sourceFromCollection, targetToCollection, null);
+				BusinessImpl.callListeners(afterIterateListeners, sourceFromCollection, targetToCollection, null);
 				collection.add(targetToCollection);
+				BusinessImpl.callListeners(beforeIterateListeners, sourceFromCollection, targetToCollection, null);
 			} catch (Exception e){
-				LOG.error("Ocurrio un error en PaymentPlansBeforePersistListener", e);
+				LOG.error("Ocurrio un error en IteratorListener", e);
 			}
 		}
 		
