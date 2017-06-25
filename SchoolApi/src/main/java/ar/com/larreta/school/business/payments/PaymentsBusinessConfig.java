@@ -13,11 +13,27 @@ import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.business.impl.BusinessConfig;
 import ar.com.larreta.rest.business.impl.EntityAsignBusinessListener;
 import ar.com.larreta.rest.business.impl.IteratorListener;
-import ar.com.larreta.school.business.paymentPlans.PaymentPlansBusinessConfig;
+import ar.com.larreta.school.persistence.PaymentDirection;
+import ar.com.larreta.school.persistence.PaymentEntity;
 import ar.com.larreta.school.persistence.PaymentUnit;
+import ar.com.larreta.school.persistence.Product;
 
 @Configuration
 public class PaymentsBusinessConfig extends BusinessConfig {
+
+	public static final String ASIGN_PAYMENT_ENTITY_LISTENER = "asignPaymentEntityListener";
+
+	public static final String PAYMENT_ENTITY = "paymentEntity";
+
+	public static final String PAYMENT_DIRECTION = "paymentDirection";
+
+	public static final String ASIGN_PAYMENT_DIRECTION_LISTENER = "asignPaymentDirectionListener";
+
+	public static final String PRODUCT = "product";
+
+	public static final String ASIGN_PRODUCT_LISTENER = "asignProductListener";
+
+	public static final String PAYMENT_UNITS = "paymentUnits";
 
 	public static final String PAYMENT_UNIT_BEFORE_PERIST_LISTENERS = "paymentUnitBeforePeristListeners";
 
@@ -31,7 +47,10 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 
 	public static final String PAYMENT_UNITS_LISTENER_FRONT_TO_SERVICE = "paymentUnitsListenerFrontToService";
 
-	private EntityAsignBusinessListener<Person> 	  asignPersonListener;
+	private EntityAsignBusinessListener<Person> 	  				asignPersonListener;
+	private EntityAsignBusinessListener<Product> 	  				asignProductListener;
+	private EntityAsignBusinessListener<PaymentDirection> 	  		asignPaymentDirectionListener;
+	private EntityAsignBusinessListener<PaymentEntity> 	  			asignPaymentEntityListener;
 	
 	private IteratorListener<PaymentUnit> paymentUnitsListenerServiceToFront;
 
@@ -40,9 +59,58 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 		return getSet(paymentUnitsListenerServiceToFront);
 	}
 	
-	@Bean(name=PAYMENT_UNIT_BEFORE_PERIST_LISTENERS) @DependsOn(value={ASIGN_PERSON_LISTENER})
+	@Bean(name=PAYMENT_UNIT_BEFORE_PERIST_LISTENERS) 
+	@DependsOn(value={ASIGN_PERSON_LISTENER, ASIGN_PRODUCT_LISTENER, ASIGN_PAYMENT_DIRECTION_LISTENER, ASIGN_PAYMENT_ENTITY_LISTENER})
 	public Set<BusinessListener> paymentUnitBeforePeristListeners(){
-		return getSet(asignPersonListener);
+		return getSet(asignPersonListener, asignProductListener, asignPaymentDirectionListener, asignPaymentEntityListener);
+	}
+
+	@Bean(name=ASIGN_PAYMENT_ENTITY_LISTENER)
+	public EntityAsignBusinessListener<PaymentEntity> asignPaymentEntityListener(){
+		asignPaymentEntityListener = new EntityAsignBusinessListener<PaymentEntity>() {
+			@Override
+			public String getSourceProperty() {
+				return PAYMENT_ENTITY;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return PAYMENT_ENTITY;
+			}
+		};
+		return asignPaymentEntityListener;
+	}
+	
+	@Bean(name=ASIGN_PAYMENT_DIRECTION_LISTENER)
+	public EntityAsignBusinessListener<PaymentDirection> asignPaymentDirectionListener(){
+		asignPaymentDirectionListener = new EntityAsignBusinessListener<PaymentDirection>() {
+			@Override
+			public String getSourceProperty() {
+				return PAYMENT_DIRECTION;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return PAYMENT_DIRECTION;
+			}
+		};
+		return asignPaymentDirectionListener;
+	}
+	
+	@Bean(name=ASIGN_PRODUCT_LISTENER)
+	public EntityAsignBusinessListener<Product> asignProductListener(){
+		asignProductListener = new EntityAsignBusinessListener<Product>() {
+			@Override
+			public String getSourceProperty() {
+				return PRODUCT;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return PRODUCT;
+			}
+		};
+		return asignProductListener;
 	}
 	
 	@Bean(name=ASIGN_PERSON_LISTENER)
@@ -63,11 +131,21 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 	
 	@Bean(name=PAYMENT_UNITS_LISTENER_FRONT_TO_SERVICE)
 	public IteratorListener<PaymentUnit> paymentUnitsListenerFrontToService(){
-		paymentUnitsListenerServiceToFront =  new IteratorListener<PaymentUnit>(PAY_UNITS) {
+		paymentUnitsListenerServiceToFront =  new IteratorListener<PaymentUnit>() {
 			@Override
-			@Autowired @Qualifier(PaymentPlansBusinessConfig.OBLIGATIONS_BEFORE_PERSIST_LISTENERS)
+			@Autowired @Qualifier(PaymentsBusinessConfig.PAYMENT_UNIT_BEFORE_PERIST_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
+			}
+
+			@Override
+			public String getSourceProperty() {
+				return PAY_UNITS;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return PAYMENT_UNITS;
 			}
 		};
 		return paymentUnitsListenerServiceToFront;

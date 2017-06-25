@@ -19,23 +19,6 @@ public abstract class IteratorListener<E extends Serializable>  extends Business
 	private Set<BusinessListener> beforeIterateListeners;
 	private Set<BusinessListener> afterIterateListeners;
 
-	public String property;
-	
-	public IteratorListener(String property) {
-		super();
-		this.property = property;
-	}
-
-	@Override
-	public String getSourceProperty() {
-		return property;
-	}
-
-	@Override
-	public String getTargetProperty() {
-		return property;
-	}
-	
 	public Set<BusinessListener> getBeforeIterateListeners() {
 		return afterIterateListeners;
 	}

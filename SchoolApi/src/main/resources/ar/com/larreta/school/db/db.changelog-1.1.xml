@@ -95,5 +95,32 @@
 		<column name="idYear" 			value="3" />
 		<column name="idDivision" 		value="1" />
 	</insert>				
+	<insert tableName="PaymentEntity">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Colegio" />
+	</insert>	
+	<insert tableName="PaymentDirection">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Entrada" />
+	</insert>	
+	<insert tableName="PaymentDirection">
+		<column name="id" 			value="2" />
+		<column name="description" 	value="Salida" />
+	</insert>	
+	<insert tableName="Product">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="DefaultGroup" />
+	</insert>	
+	<insert tableName="Person">
+		<column name="id" 			value="1" />
+		<column name="name" 			value="default responsible" />
+		<column name="surname" 			value="default responsible" />
+	</insert>
+	<insert tableName="Responsible">
+		<column name="id" 			value="1" />
+	</insert>		
+
+
+
   </changeSet>
 </databaseChangeLog> 

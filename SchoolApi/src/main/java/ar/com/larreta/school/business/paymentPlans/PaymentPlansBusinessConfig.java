@@ -69,11 +69,21 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	
 	@Bean(name=OBLIGATIONS_LISTENER_FRONT_TO_SERVICE)
 	public IteratorListener<Obligation> obligationsListenerFrontToService(){
-		obligationsListenerFrontToService =  new IteratorListener<Obligation>(OBLIGATIONS) {
+		obligationsListenerFrontToService =  new IteratorListener<Obligation>() {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.OBLIGATIONS_BEFORE_PERSIST_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
+			}
+
+			@Override
+			public String getSourceProperty() {
+				return OBLIGATIONS;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return OBLIGATIONS;
 			}
 		};
 		return obligationsListenerFrontToService;
@@ -81,11 +91,21 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 
 	@Bean(name=PRICES_LISTENER_FRONT_TO_SERVICE)
 	public IteratorListener<Price> pricesListenerFrontToService(){
-		pricesListenerFrontToService = new IteratorListener<Price>(PRICES) {
+		pricesListenerFrontToService = new IteratorListener<Price>() {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.PRICES_BEFORE_PERSIST_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
+			}
+
+			@Override
+			public String getSourceProperty() {
+				return PRICES;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return PRICES;
 			}
 		};
 		return pricesListenerFrontToService;
@@ -93,11 +113,21 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 
 	@Bean(name=DETAILS_LISTENER_FRONT_TO_SERVICE)
 	public IteratorListener<Detail> detailsListenerFrontToService(){
-		detailsListenerFrontToService = new IteratorListener<Detail>(DETAILS) {
+		detailsListenerFrontToService = new IteratorListener<Detail>() {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.DETAILS_BEFORE_PERSIST_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
+			}
+
+			@Override
+			public String getSourceProperty() {
+				return DETAILS;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return DETAILS;
 			}			
 		};
 		return detailsListenerFrontToService;
@@ -105,17 +135,37 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 
 	@Bean(name=LITTLE_DETAILS_LISTENER_FRONT_TO_SERVICE)
 	public IteratorListener<LittleDetail> littleDetailsListenerFrontToService(){
-		littleDetailsListenerFrontToService = new IteratorListener<LittleDetail>(LITTLE_DETAILS) {};
+		littleDetailsListenerFrontToService = new IteratorListener<LittleDetail>() {
+
+			@Override
+			public String getSourceProperty() {
+				return LITTLE_DETAILS;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return LITTLE_DETAILS;
+			}};
 		return littleDetailsListenerFrontToService;
 	}
 	
 	@Bean(name=OBLIGATIONS_LISTENER_SERVICE_TO_FRONT)
 	public IteratorListener<ObligationData> obligationsListenerServiceToFront(){
-		obligationsListenerServiceToFront = new IteratorListener<ObligationData>(OBLIGATIONS) {
+		obligationsListenerServiceToFront = new IteratorListener<ObligationData>() {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.OBLIGATIONS_BEFORE_LOAD_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
+			}
+
+			@Override
+			public String getSourceProperty() {
+				return OBLIGATIONS;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return OBLIGATIONS;
 			}
 		};
 		return obligationsListenerServiceToFront;
@@ -123,11 +173,21 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 
 	@Bean(name=PRICES_LISTENER_SERVICE_TO_FRONT)
 	public IteratorListener<PriceData> pricesListenerServiceToFront(){
-		pricesListenerServiceToFront = new IteratorListener<PriceData>(PRICES) {
+		pricesListenerServiceToFront = new IteratorListener<PriceData>() {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.PRICES_BEFORE_LOAD_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
+			}
+
+			@Override
+			public String getSourceProperty() {
+				return PRICES;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return PRICES;
 			}			
 		};
 		return pricesListenerServiceToFront;
@@ -135,11 +195,21 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	
 	@Bean(name=DETAILS_LISTENER_SERVICE_TO_FRONT)
 	public IteratorListener<DetailData> detailsListenerServiceToFront(){
-		detailsListenerServiceToFront = new IteratorListener<DetailData>(DETAILS) {
+		detailsListenerServiceToFront = new IteratorListener<DetailData>() {
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.DETAILS_BEFORE_LOAD_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
+			}
+
+			@Override
+			public String getSourceProperty() {
+				return DETAILS;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return DETAILS;
 			}			
 		};
 		return detailsListenerServiceToFront;
@@ -147,7 +217,17 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	
 	@Bean(name=LITTLE_DETAILS_LISTENER_SERVICE_TO_FRONT)
 	public IteratorListener<LittleDetailData> littleDetailsListenerServiceToFront(){
-		littleDetailsListenerServiceToFront = new IteratorListener<LittleDetailData>(LITTLE_DETAILS) {};
+		littleDetailsListenerServiceToFront = new IteratorListener<LittleDetailData>() {
+
+			@Override
+			public String getSourceProperty() {
+				return LITTLE_DETAILS;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return LITTLE_DETAILS;
+			}};
 		return littleDetailsListenerServiceToFront;
 	}
 
