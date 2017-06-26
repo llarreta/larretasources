@@ -57,6 +57,7 @@ public class Payment extends ar.com.larreta.persistence.model.Entity {
 	}
 	public void setPaymentUnits(Set<PaymentUnit> paymentUnits) {
 		this.paymentUnits = paymentUnits;
+		writeToAll(paymentUnits, "payment", this);
 	}
 	
 	@Basic @Column (name="paymentDate")
