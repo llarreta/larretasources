@@ -26,7 +26,8 @@ export class DocumentTypeService {
 
     loadDocumentTypes(): Observable<any> {
         var body = {};
-        return this.http.post(body, "documentTypes/load");
+        var token = "";
+        return this.http.post(body, "documentTypes/load", token);
     }
 
 }

@@ -19,9 +19,10 @@ export class HttpRequest {
     constructor(private http: Http,
         @Inject("Config") private config: any) { }
 
-    post(data, url): Observable<any> {
+    post(data, url, token): Observable<any> {
         let request = new Request();
         request.body = data;
+        request.token = token;
         let fullURL = this.config.API_URL + url
         Logger.info("Post: " + fullURL);
         let dataString = JSON.stringify(request); // Stringify

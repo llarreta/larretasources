@@ -18,6 +18,8 @@ import { Logger } from '../../../../Logger/logger';
 //Service
 import { StudentService } from '../../services/student.service';
 import { DocumentTypeService } from '../../services/documentType.service';
+import { PaymentPlanService } from '../../services/paymentPlan.service';
+import { CourseService } from '../../services/course.service';
 
 //ngPrime
 import { SelectItem } from 'primeng/primeng';
@@ -41,7 +43,6 @@ export class StudentCreateComponent implements OnInit{
   inputEmail: InputModel;
   documentTypes: Array<SelectItem>;
 
-  paymentPlans: Array<PaymentPlan>;
   obligationsStatus: Array<ObligationStatus>;
   responsibles: Array<Responsible>;
 
@@ -53,7 +54,15 @@ export class StudentCreateComponent implements OnInit{
   displayPopUp: string;
   displayLoading: string;
 
-  constructor(private studentService: StudentService, private documentTypeService: DocumentTypeService) {}
+  paymentPlansListBox: SelectItem[];
+  coursesListBox: SelectItem[];
+
+  constructor(
+              private studentService: StudentService, 
+              private documentTypeService: DocumentTypeService,
+              private paymentPlanService: PaymentPlanService,
+              private courseService: CourseService
+              ) {}
 
   ngOnInit() {
     this.loadInitData();
@@ -61,7 +70,6 @@ export class StudentCreateComponent implements OnInit{
       this.student = new Student();
     }
     this.initInputs();
-    //Aca deberia cargar con los servicios todas las listas
     this.showMessageError = false;
     this.showMessageErrorInput = false;
     this.showMessageErrorService = false;
@@ -73,6 +81,16 @@ export class StudentCreateComponent implements OnInit{
     this.documentTypeService.loadDocumentTypes()
        .subscribe(
         data => this.loadDocumentTypeOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+    );
+    this.paymentPlanService.loadPaymentPlans().subscribe(
+        data => this.loadPaymentPlansOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+    );
+    this.courseService.loadCourses().subscribe(
+        data => this.loadCoursesOK(data),
         err => this.loadErrorMessageService(err),
         () => console.log('Vacio')
     );
@@ -88,15 +106,38 @@ export class StudentCreateComponent implements OnInit{
     }
   }
 
+  loadPaymentPlansOK(data){
+    this.paymentPlansListBox = new Array<SelectItem>();
+    for(let paymentPlanJSON of data.body.result){
+      let paymentPlan: PaymentPlan = new PaymentPlan();
+      Object.assign(paymentPlan, paymentPlanJSON);
+      this.paymentPlansListBox.push({label:paymentPlan.description, value:paymentPlan.id});
+    }
+    Logger.debug("payments plans cargados: " + JSON.stringify(this.paymentPlansListBox));
+  }
+
+  loadCoursesOK(data){
+    this.coursesListBox = new Array<SelectItem>();
+    for(let courseJSON of data.body.result){
+      let course: Course = new Course();
+      Object.assign(course, courseJSON);
+      let label = "";
+      label += course.year.description + " " + course.division.description + " " + course.level.description; 
+      this.coursesListBox.push({label:label, value:course.id});
+    }
+  }
+
   initInputs(){
     this.inputName = new InputModel();
     this.inputName.id=  "name";
     this.inputName.labelContent= "Nombre";
     this.inputName.messageErrorEmpty= "Debe completar el nombre.";
     this.inputName.messageErrorValidation= "El nombre ingresado es invalido."
+    this.inputName.messageErrorMinCharacter= "El nombre debe tener 4 letras minimo."
     this.inputName.required= true;
     this.inputName.type= "text";
     this.inputName.validationActivate = true;
+    this.inputName.minCharacter = 3;
     
     this.inputDocumentNumber = new InputModel();
     this.inputDocumentNumber.id= "document-number";
@@ -108,6 +149,8 @@ export class StudentCreateComponent implements OnInit{
     this.inputDocumentNumber.maskText= "99-9999-99";
     this.inputDocumentNumber.validationActivate = true;
     this.inputDocumentNumber.maskActivate = false;
+    this.inputDocumentNumber.minCharacter = 7;
+    this.inputDocumentNumber.messageErrorMinCharacter = "El numero de documento tiene que tener minimo 8 numeros. Ejemplo 22332233";
 
     this.inputEmail = new InputModel();
     this.inputEmail.id= "email";
@@ -117,6 +160,8 @@ export class StudentCreateComponent implements OnInit{
     this.inputEmail.required= true;
     this.inputEmail.type= "email";
     this.inputEmail.validationActivate = true;
+    this.inputEmail.minCharacter = 12;
+    this.inputEmail.messageErrorMinCharacter = "Ingrese un email valido.";
 
     this.inputSurname = new InputModel();
     this.inputSurname.id= "surname"
@@ -126,6 +171,8 @@ export class StudentCreateComponent implements OnInit{
     this.inputSurname.required= true;
     this.inputSurname.type= "text";
     this.inputSurname.validationActivate = true;
+    this.inputSurname.minCharacter = 3;
+    this.inputSurname.messageErrorMinCharacter= "El apellido debe tener 4 letras minimo."
 
     if(this.inEdit){
       this.initValueInput();

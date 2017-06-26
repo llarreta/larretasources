@@ -1,15 +1,24 @@
- import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+//Angular components
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+
+//Models
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
 import { Obligation } from '../../Models/Obligation.model';
 import { Price } from '../../Models/Price.model';
 import { Detail } from '../../Models/Detail.model';
 import { LittleDetail } from '../../Models/LittleDetail.model';
+
+//Commons
 import { InputModel } from '../../Commons/Input/input.model.component';
 import { InputCommonsComponent } from '../../Commons/Input/input.component';
-//import { PaymentPlanService } from '../../services/paymentPlan.service';
 import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
 import { Logger } from '../../../../Logger/logger';
+
+//ngPrime
 import { SelectItem } from 'primeng/primeng';
+
+//Services
+import { PaymentPlanService } from '../../services/paymentPlan.service';
 
 @Component({
   selector: 'school-paymentPlan-create',
@@ -58,9 +67,9 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   inEditPopUp: boolean = false;
 
-  //constructor(private paymentPlanService: PaymentPlanService) {}
+  displayLoading: string;
 
-  constructor() {}
+  constructor(private paymentPlanService: PaymentPlanService) {}
 
   ngOnInit() {
     this.initVariablesSelected();
@@ -102,17 +111,18 @@ export class PaymentPlanCreateComponent implements OnInit{
         this.obligations.push({label:obligation.description, value:obligation});
       }
       if((this.obligationSelected != null) && (this.obligationSelected.prices != null) && (this.obligationSelected.prices.length > 0)){
+        Logger.debug("obligation selected: " + JSON.stringify(this.obligationSelected));
         for(let price of this.obligationSelected.prices){
           if((price.details != null) && (price.details.length > 0)){
             for(let detail of price.details){
               this.details.push({label:detail.description, value:detail});
             }
-            if((this.detailSelected != null) && (this.detailSelected.littleDetails != null) 
+          }
+        }
+        if((this.detailSelected != null) && (this.detailSelected.littleDetails != null) 
               && (this.detailSelected.littleDetails.length > 0)){
-              for(let littleDetail of this.detailSelected.littleDetails){
-                this.littleDetails.push({label:littleDetail.description, value:littleDetail});
-              }
-            }
+          for(let littleDetail of this.detailSelected.littleDetails){
+            this.littleDetails.push({label:littleDetail.description, value:littleDetail});
           }
         }
       }
@@ -141,6 +151,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   showDisplayPopUpDetail(){
+    this.newDetail();
     this.displayPopUp = "block";
     this.inputDetailDescription.value = "";
     this.inputDetailDescription.isAllOK = false;
@@ -158,7 +169,6 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.inputDetailValue.disabled = false;
       this.inputDetailValue.value = "";
     }
-    this.newDetail();
   }
 
   showDisplayPopUpLittleDetail(){
@@ -168,6 +178,8 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputLittleDetailDescription.isAllOK = false;
     this.inputLittleDetailValue.value = "";
     this.inputLittleDetailValue.isAllOK = false;
+    this.showMessageError = false;
+    this.showMessageErrorService = false;
     this.newLittleDetail();
   }
 
@@ -523,6 +535,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   confirm(){
+    this.showLoading();
     if(this.isAllOK()){
       this.loadPaymentPlanData();
       this.showMessageError = false;
@@ -530,27 +543,43 @@ export class PaymentPlanCreateComponent implements OnInit{
       let status;
       if(this.inEdit){
         //Llamar servicio update
-        //this.paymentPlanService.createPaymentPlan(this.paymentPlan)
-        // .subscribe(
-        //  data => this.createPaymentPlanOK(data),
-        //  err => this.loadErrorMessageService(err),
-        //  () => console.log('Vacio')
-        //);
+        Logger.debug("Creando plan de pago...");
+        this.paymentPlanService.updatePaymentPlan(this.paymentPlan)
+         .subscribe(
+          data => this.updatePaymentPlanOK(data),
+          err => this.loadErrorMessageService(err),
+          () => console.log('Vacio')
+        );
       }else{
         //llamar servicio crear
+        Logger.debug("Creando plan de pago...");
+        this.paymentPlanService.createPaymentPlan(this.paymentPlan)
+         .subscribe(
+          data => this.createPaymentPlanOK(data),
+          err => this.loadErrorMessageService(err),
+          () => console.log('Vacio')
+        );
       }
       
     }else{
+      this.hideLoading();
       this.showMessageError = true;
       this.showMessageErrorInput = true;
     }
   }
 
   createPaymentPlanOK(data){
+    this.hideLoading();
+    this.goToList();
+  }
+
+  updatePaymentPlanOK(data){
+    this.hideLoading();
     this.goToList();
   }
 
   loadErrorMessageService(error){
+    this.hideLoading();
     Logger.warn("Ocurrio un error al crear un estudiante...");
     this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
     this.showMessageErrorService = true;
@@ -681,6 +710,14 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   setPaymentPlanObligationPriceLittleDetailValue(inputModel: InputModel){
     this.inputLittleDetailValue = inputModel;
+  }
+
+  showLoading(){
+    //this.displayLoading = "block";
+  }
+
+  hideLoading(){
+    //this.displayLoading = "none";
   }
 
 }

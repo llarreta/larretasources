@@ -7,6 +7,7 @@ import { Course } from '../../Models/Course.model';
 import { Division } from '../../Models/Division.model';
 import { Level } from '../../Models/Level.model';
 import { Year } from '../../Models/Year.model';
+import { PaymentPlan } from '../../Models/PaymentPlan.model';
 
 //Components student
 import { StudentCreateComponent } from '../Create/student.create.component';
@@ -33,6 +34,7 @@ import { LevelService } from '../../services/level.service';
 import { YearService } from '../../services/year.service';
 import { DivisionService } from '../../services/division.service';
 import { CourseService } from '../../services/course.service';
+import { PaymentPlanService } from '../../services/paymentPlan.service';
 
 @Component({
   selector: 'school-students',
@@ -70,11 +72,13 @@ export class StudentComponent implements OnInit{
 
   displayLoading: string;
 
+  private havePaymentsPlans: boolean;
+
   private language: string;
 
   constructor(private studentService: StudentService, private courseService: CourseService, 
               private levelService: LevelService, private divisionService: DivisionService,
-              private yearService: YearService) {}
+              private yearService: YearService, private paymentPlanService: PaymentPlanService) {}
 
   ngOnInit() {
     this.language = "ES";
@@ -86,6 +90,7 @@ export class StudentComponent implements OnInit{
     this.moreStudents = true;
     this.loading = false;
     this.loadInitData();
+    this.loadPaymentPlans();
   }
 
   private loadInitData(){
@@ -179,10 +184,37 @@ export class StudentComponent implements OnInit{
   }
 
   goListCreate(goList: boolean) {
-    this.inUpdateStudent = false;
-    this.inCreateStudent = !goList;
-    this.inListStudent = goList;
-    this.loadInitData();
+    if(this.havePaymentsPlans){
+      this.inUpdateStudent = false;
+      this.inCreateStudent = !goList;
+      this.inListStudent = goList;
+      this.loadInitData();
+    }else{
+      this.messageErrorService = "Para crear un estudiante debe primero crear por lo menos 1 plan de pago. "; 
+      this.showMessageError = true;
+      this.showMessageErrorService = true;
+    }
+  }
+
+  private loadPaymentPlans(){
+    this.showLoading();
+    this.paymentPlanService.loadPaymentPlans()
+       .subscribe(
+        data => this.loadPaymentPlansOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion paymentPlanService...')
+    );
+  }
+
+  private loadPaymentPlansOK(data){
+    Logger.debug("Planes de pago recuperados: " + JSON.stringify(data.body.result));
+    Logger.debug("Cantidad de Planes: " + data.body.result.length);
+    if(data.body.result.length > 0){
+      this.havePaymentsPlans = true;
+    }else{
+      this.havePaymentsPlans = false;
+    }
+    this.hideLoading();
   }
 
   goListUpdate(goList: boolean){

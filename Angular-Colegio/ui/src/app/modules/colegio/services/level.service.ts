@@ -26,7 +26,8 @@ export class LevelService {
 
     loadLevels(): Observable<any> {
         var body = {};
-        return this.http.post(body, "levels/load");
+        var token = "";
+        return this.http.post(body, "levels/load", token);
     }
 
 }

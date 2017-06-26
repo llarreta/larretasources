@@ -56,16 +56,28 @@
         <div class="col-6">
           <input-commons [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
         </div>
+        <div class="col-6">
+          <h3>Planes de Pago</h3>
+          <p-listbox [options]="paymentPlansListBox" [(ngModel)]="student.paymentPlans" 
+            multiple="multiple" checkbox="checkbox" filter="filter" class="listbox-common"></p-listbox>
+        </div>
       </div>
       <div class="row">
-        <div class="col-12">
+        <div class="col-6">
+          <h3>Cursos</h3>
+          <p-listbox [options]="coursesListBox" [(ngModel)]="student.course" 
+            filter="filter" class="listbox-common"></p-listbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 confirm-student">
           <button (click)="confirm()" class="custom-green-button" type="button">Confirmar</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<!--
 <div class="modal animated fadeIn" [ngStyle]="{'display': displayLoading}">
   <table class="table-loading">
     <tr>
@@ -75,7 +87,7 @@
     </tr>
   </table>
 </div>
-
+-->
 <div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUp}">
   <div class="modal-dialog" role="document">
     <div class="modal-content animated fadeIn">

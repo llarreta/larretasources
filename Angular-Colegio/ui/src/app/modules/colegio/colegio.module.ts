@@ -44,6 +44,7 @@ import { YearService } from './services/year.service';
 import { LevelService } from './services/level.service';
 import { DivisionService } from './services/division.service';
 import { DocumentTypeService } from './services/documentType.service';
+import { PaymentPlanService } from './services/paymentPlan.service';
 
 @NgModule({
     imports:
@@ -83,7 +84,8 @@ import { DocumentTypeService } from './services/documentType.service';
         YearService,
         LevelService,
         DivisionService,
-        DocumentTypeService
+        DocumentTypeService,
+        PaymentPlanService
     ]
 })
 export class ColegioModule { }

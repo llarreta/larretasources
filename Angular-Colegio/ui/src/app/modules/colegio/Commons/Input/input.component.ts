@@ -92,10 +92,8 @@ export class InputCommonsComponent implements OnInit{
   loadConditions(){
     this.checkEmpty();
     this.checkValidation();
-    if(this.inputModel.type == "text" || this.inputModel.type == "email"){ 
-      this.checkMaxCharacter();
-      this.checkMinCharacter();
-    } 
+    this.checkMaxCharacter();
+    this.checkMinCharacter();
     if(this.inputModel.type == "number"){ 
       this.checkType();
       this.checkMaxNumber();
@@ -129,7 +127,7 @@ export class InputCommonsComponent implements OnInit{
   }
 
   checkMinCharacter(){
-    if((this.isErrorMinCharacterEnabled) && (this.inputModel.value.length < this.inputModel.minCharacter)){
+    if((this.isErrorMinCharacterEnabled) && (this.inputModel.value.length <= this.inputModel.minCharacter)){
       this.isErrorMinCharacter = true;
     }else{
       this.isErrorMinCharacter = false;

@@ -45,8 +45,6 @@ export class CourseCreateComponent implements OnInit{
   messageErrorInputs: string; 
   messageErrorService: string;
 
-  displayLoading: string;
-
   constructor(private courseService: CourseService, private levelService: LevelService,
               private divisionService: DivisionService, private yearService: YearService) {}
 
@@ -63,6 +61,7 @@ export class CourseCreateComponent implements OnInit{
   }
 
   loadInitData(){
+    Logger.debug("entrando al crear cursos");
     this.showLoading();
     this.loadDivisions();
   }
@@ -130,11 +129,12 @@ export class CourseCreateComponent implements OnInit{
   }
 
   showLoading(){
-    this.displayLoading = "block";
+    Logger.debug("Emitiendo evento mostrar loading");
+    //this.inLoading.emit(true);
   }
 
   hideLoading(){
-    this.displayLoading = "none";
+    //this.inLoading.emit(false);
   }
 
   isAllOK(){
@@ -183,7 +183,6 @@ export class CourseCreateComponent implements OnInit{
   }
 
   createCourseOK(data){
-    this.hideLoading();
     this.goToList();
   }
 

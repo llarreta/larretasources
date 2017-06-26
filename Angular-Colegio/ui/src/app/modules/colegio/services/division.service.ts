@@ -26,7 +26,8 @@ export class DivisionService {
 
     loadDivisions(): Observable<any> {
         var body = {};
-        return this.http.post(body, "divisions/load");
+        var token = "";
+        return this.http.post(body, "divisions/load", token);
     }
 
 }

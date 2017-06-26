@@ -12,8 +12,8 @@ export class Student extends Entity{
     public documentNumber: number;
     public email: string;
     public course: Course; 
-    public paymentPlans: Array<PaymentPlan>;
-    public obligationsStatus: Array<ObligationStatus>;
+    public paymentPlans: Array<number>;
+    public obligationsStatus: Array<number>;
     public responsibles: Array<Responsible>;
     
     constructor() {

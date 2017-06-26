@@ -26,7 +26,8 @@ export class YearService {
 
     loadYears(): Observable<any> {
         var body = {};
-        return this.http.post(body, "years/load");
+        var token = "";
+        return this.http.post(body, "years/load", token);
     }
 
 }

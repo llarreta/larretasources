@@ -3,7 +3,15 @@
     <div class= "col-12 common-box-extra-large">
       <div class="row">
         <div class="col-12 body-component">
-          <p-dataScroller [value]="paymentPlans" [rows]="7" class="data-scroller-two-columns">
+          <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+            <div class="col-1 error-box-icon">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </div>
+            <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+              {{messageErrorService}}
+            </div>
+          </div>
+          <p-dataScroller [value]="paymentPlans" [rows]="7" class="data-scroller-two-columns" (onLazyLoad)="loadData($event)" [lazy]="true">
             <p-header>
               <div class="list-paymentPlan-header">
                 Planes de pago
@@ -19,12 +27,12 @@
               </button>
             </p-header>
             
-            <p-footer *ngIf="!morepaymentPlans">
+            <!--<p-footer *ngIf="!morepaymentPlans">
               <div class="no-more-data">    
                 No hay mas planes de pago.
               </div>
             </p-footer>
-            
+            -->
             <p-footer *ngIf="paymentPlans.length == 0">
               <div class="no-data-footer">
                 No hay planes de pago cargados...

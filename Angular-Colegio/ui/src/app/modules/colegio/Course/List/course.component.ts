@@ -48,8 +48,8 @@ export class CourseComponent implements OnInit{
   showMessageError: boolean;
   showMessageErrorService: boolean; 
   messageErrorService: string;
-  
-  displayLoading: string;
+
+  loadingModal: boolean;
 
   private language: string;
 
@@ -154,11 +154,20 @@ export class CourseComponent implements OnInit{
     this.inListCourse = goList;
   }
 
+  inLoading(loading: boolean){
+    if(loading){
+      //this.showLoading();
+    }else{
+      //this.hideLoading();
+    }
+  }
+
   loadData(event) {
-      
+    this.loadCourses();
   }
 
   loadCourses(){
+    this.showLoading();
     this.courseService.loadCourses()
        .subscribe(
         data => this.loadCoursesOK(data),
@@ -168,7 +177,14 @@ export class CourseComponent implements OnInit{
   }
 
   loadCoursesOK(data){
-    
+    this.courses = new Array<Course>();
+    for(let courseJSON of data.body.result){
+      let course: Course = new Course();
+      Object.assign(course, courseJSON);
+      this.courses.push(course);
+    }
+    this.hideLoading();
+    Logger.debug("Cursos cargados: " + JSON.stringify(this.courses));
   }
 
   loadErrorMessageService(error){
@@ -187,11 +203,11 @@ export class CourseComponent implements OnInit{
   }
 
   showLoading(){
-    this.displayLoading = "block";
+    this.loadingModal = true;
   }
 
   hideLoading(){
-    this.displayLoading = "none";
+    this.loadingModal = false;
   }
 
 }

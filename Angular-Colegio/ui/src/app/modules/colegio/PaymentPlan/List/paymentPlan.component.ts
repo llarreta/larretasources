@@ -1,11 +1,20 @@
- import { Component, Input, OnInit, OnDestroy, ViewChild} from '@angular/core';
+//Angular components
+import { Component, Input, OnInit, OnDestroy, ViewChild} from '@angular/core';
+
+//Models
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
+
+//Commons
 import { I18n } from '../../../../i18n/i18n';
 import { Logger } from '../../../../logger/logger';
 import {Header} from 'primeng/primeng';
 import {Footer} from 'primeng/primeng';
 import { InputCommonsComponent } from '../../Commons/Input/input.component';
 import { InputModel } from '../../Commons/Input/input.model.component';
+import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
+
+//Services
+import { PaymentPlanService } from '../../services/paymentPlan.service';
 
 @Component({
   selector: 'school-paymentPlans',
@@ -21,17 +30,24 @@ export class PaymentPlanComponent implements OnInit{
   loading: boolean;
   morePaymentPlans: boolean;
   filterName: string;
+
+  //Errors
+  showMessageError: boolean;
+  showMessageErrorService: boolean; 
+  messageErrorService: string;
+
+  displayLoading: string;
   
   private language: string;
 
-  constructor() {}
+  constructor(private paymentPlanService: PaymentPlanService) {}
 
   ngOnInit() {
 
     this.language = "ES";
     this.selectedPaymentPlan = new PaymentPlan();
     this.paymentPlans = new Array<PaymentPlan>();
-    this.cargarPaymentPlanTest();
+    this.loadPaymentPlans();
     this.inListPaymentPlan = true;
     this.inCreatePaymentPlan = false;
     this.inUpdatePaymentPlan = false;
@@ -42,39 +58,48 @@ export class PaymentPlanComponent implements OnInit{
 
   protected fetchNextChunk(skip: number, limit: number): Promise<PaymentPlan[]> {
       return new Promise((resolve, reject) => {
-          new Array<PaymentPlan>();
+          this.loadPaymentPlans();
       });
   }
 
   
-  cargarPaymentPlanTest(){
+  loadPaymentPlans(){
+    this.showLoading();
+    this.paymentPlanService.loadPaymentPlans()
+       .subscribe(
+        data => this.loadPaymentPlansOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion paymentPlanService...')
+    );
+  }
 
-    let paymentPlan: PaymentPlan = new PaymentPlan();
-    paymentPlan.description = "Plan de pago 1";
-    paymentPlan.id = 1;
+  private loadPaymentPlansOK(data){
+    Logger.debug("Planes de pago recuperados: " + JSON.stringify(data.body.result));
+    Logger.debug("Cantidad de Planes: " + data.body.result.length);
+    this.paymentPlans = new Array<PaymentPlan>();
+    for(let paymentPlanJSON of data.body.result){
+      let paymentPlan: PaymentPlan = new PaymentPlan();
+      Object.assign(paymentPlan, paymentPlanJSON);
+      this.paymentPlans.push(paymentPlan);
+    }
+    Logger.debug("Planes de pago recuperados " + JSON.stringify(this.paymentPlans));
+    this.hideLoading();
+  }
 
-    let paymentPlan2: PaymentPlan = new PaymentPlan();
-    paymentPlan2.description = "Plan de pago 2";
-    paymentPlan2.id = 2;
-    
-    let paymentPlan3: PaymentPlan = new PaymentPlan();
-    paymentPlan3.description = "Plan de pago 3";
-    paymentPlan3.id = 3;
+  loadErrorMessageService(error){
+    this.hideLoading();
+    Logger.warn("Ocurrio un error al crear un estudiante...");
+    this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
+    this.showMessageErrorService = true;
+    this.showMessageError = true;
+  }
 
-    let paymentPlan4: PaymentPlan = new PaymentPlan();
-    paymentPlan4.description = "Plan de pago 4";
-    paymentPlan4.id = 4;
+  showLoading(){
+    this.displayLoading = "block";
+  }
 
-    let paymentPlan5: PaymentPlan = new PaymentPlan();
-    paymentPlan5.description = "Plan de pago 5";
-    paymentPlan5.id = 5;
-
-    this.paymentPlans = [];
-    this.paymentPlans.push(paymentPlan);
-    this.paymentPlans.push(paymentPlan2);
-    this.paymentPlans.push(paymentPlan3);
-    this.paymentPlans.push(paymentPlan4);
-    this.paymentPlans.push(paymentPlan5);
+  hideLoading(){
+    this.displayLoading = "none";
   }
 
   goListCreate(goList: boolean) {
@@ -90,7 +115,7 @@ export class PaymentPlanComponent implements OnInit{
   }
 
   loadData(event) {
-      this.cargarPaymentPlanTest();
+      this.loadPaymentPlans();
   }
 
   loadPaymentPlan(paymentPlan: PaymentPlan){

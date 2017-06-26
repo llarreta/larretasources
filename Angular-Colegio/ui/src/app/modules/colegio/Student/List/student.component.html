@@ -3,6 +3,14 @@
     <div class= "col-12 common-box-extra-large">
       <div class="row">
         <div class="col-12 body-component">
+          <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+            <div class="col-1 error-box-icon">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </div>
+            <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+              {{messageErrorService}}
+            </div>
+          </div>
           <p-dataScroller [value]="students" [rows]="7" class="data-scroller-two-columns" (onLazyLoad)="loadData($event)" [lazy]="true">
             <p-header>
               <div class="list-student-header">
@@ -26,7 +34,7 @@
                   <input class="input-filter-by-name-student" type="text" pInputText [(ngModel)]="filterName"/>
                 </div>
               </div>
-              <button type="button" class="button-add" (click)="goListCreate(false)" *ngIf="showPaymentRecord">
+              <button type="button" class="button-add" (click)="goListCreate(false)" *ngIf="!inPaymentRecord">
                   <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </p-header>

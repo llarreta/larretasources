@@ -24,7 +24,8 @@ export class CourseService {
                                  "id":course.division.id
                                 }
                 };
-        return this.http.post(body, "courses/create");
+        var token = "";
+        return this.http.post(body, "courses/create", token);
     }
 
     updateCourse(course: Course): Observable<any> {
@@ -40,19 +41,22 @@ export class CourseService {
                                  "id":course.division.id
                                 }
                 };
-        return this.http.post(body, "courses/update");
+        var token = "";
+        return this.http.post(body, "courses/update", token);
     }
 
     deleteCourse(course: Course): Observable<any> {
         var body = {
                     "target":course.id
                 };
-        return this.http.post(body, "courses/delete");
+        var token = "";
+        return this.http.post(body, "courses/delete", token);
     }
 
     loadCourses(): Observable<any> {
         var body = {};
-        return this.http.post(body, "courses/load");
+        var token = "";
+        return this.http.post(body, "courses/load", token);
     }
 
 }

@@ -14,7 +14,7 @@
               {{messageErrorService}}
             </div>
           </div>
-          <p-dataScroller [value]="courses" [rows]="7" class="data-scroller-two-columns">
+          <p-dataScroller [value]="courses" [rows]="7" class="data-scroller-two-columns" (onLazyLoad)="loadData($event)" [lazy]="true">
             <p-header>
               <div class="list-course-header">
                 Cursos
@@ -59,7 +59,7 @@
             <ng-template let-course pTemplate="item">
               <div class="data-scroller-item-1-container" (click)="loadCourse(course)">
                 <div class="data-scroller-item-1-title">
-                  {{course.year}}° {{course.division}}
+                  {{course.year.description}}° {{course.division.description}} {{course.level.description}}
                 </div>
               </div>      
             </ng-template>
@@ -75,14 +75,4 @@
   <div *ngIf="inUpdateCourse" class="animated fadeInUp">
     <school-course-create (goList)="goListUpdate($event)" [course]="selectedCourse" [inEdit]="true"></school-course-create>
   </div>
-</div>
-
-<div class="modal animated fadeIn" [ngStyle]="{'display': displayLoading}">
-  <table class="table-loading">
-    <tr>
-      <td>
-        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
-      </td>
-    </tr>
-  </table>
 </div>
