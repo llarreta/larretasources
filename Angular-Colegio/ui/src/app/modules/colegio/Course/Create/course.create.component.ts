@@ -39,6 +39,8 @@ export class CourseCreateComponent implements OnInit{
   years: Array<SelectItem>;
   divisions: Array<SelectItem>;
 
+  displayPopUp: string;
+
   showMessageError: boolean;
   showMessageErrorInput: boolean;
   showMessageErrorService: boolean;
@@ -196,6 +198,30 @@ export class CourseCreateComponent implements OnInit{
 
   goToList(){
     this.goList.emit(true);
+  }
+
+  confirmDelete(){
+    this.displayPopUp = "block";
+  }
+
+  hideDisplayPopUp(){
+    this.displayPopUp = "none";
+  }
+
+  deleteSelectedCourse(){
+    this.showLoading();
+    this.courseService.deleteCourse(this.course)
+       .subscribe(
+        data => this.deleteCourseOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion courseService...')
+    );
+  }
+
+  deleteCourseOK(data){
+    Logger.debug("Curso eliminado...");
+    this.goToList();
+    this.hideLoading();
   }
 
 }

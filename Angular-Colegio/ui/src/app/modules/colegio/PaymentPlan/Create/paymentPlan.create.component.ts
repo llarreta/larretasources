@@ -69,6 +69,8 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   displayLoading: string;
 
+  displayConfirmPopUp: string;
+
   constructor(private paymentPlanService: PaymentPlanService) {}
 
   ngOnInit() {
@@ -718,6 +720,30 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   hideLoading(){
     //this.displayLoading = "none";
+  }
+
+  confirmDelete(){
+    this.displayConfirmPopUp = "block";
+  }
+
+  hideDisplayConfirmPopUp(){
+    this.displayConfirmPopUp = "none";
+  }
+
+  deleteSelectedPaymentPlan(){
+    this.showLoading();
+    this.paymentPlanService.deletePaymentPlan(this.paymentPlan)
+       .subscribe(
+        data => this.deletePaymentPlanOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion paymentPlanService...')
+    );
+  }
+
+  deletePaymentPlanOK(data){
+    Logger.debug("Plan de pago eliminado...");
+    this.goToList();
+    this.hideLoading();
   }
 
 }

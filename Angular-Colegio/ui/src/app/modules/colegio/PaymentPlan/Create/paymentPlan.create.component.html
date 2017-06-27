@@ -4,6 +4,10 @@
       <button type="button" class="button-back" (click)="goToList(true)">
         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
       </button>
+      <button type="button" class="delete-button button-align-right" (click)="confirmDelete()" *ngIf="inEdit"
+        pTooltip="Borrar Plan de Pago">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
   <div class="row animated fadeIn">
@@ -212,6 +216,18 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
       </div>
     </div>
-
+  </div>
+</div>
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayConfirmPopUp}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content animated fadeIn">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">¿Seguro quiere borrar el plan de pago {{paymentPlan.description}}?</h3>
+      </div>
+      <div class="row modal-body">
+        <button type="button" class="btn btn-primary min-width-40" (click)="deleteSelectedPaymentPlan()">Confirmar</button>
+        <button type="button" class="btn btn-secondary min-width-40" data-dismiss="modal" (click)="hideDisplayConfirmPopUp()">Cancelar</button>
+      </div>
+    </div>
   </div>
 </div>

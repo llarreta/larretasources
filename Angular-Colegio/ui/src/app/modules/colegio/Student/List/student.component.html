@@ -50,12 +50,6 @@
                 No hay alumnos cargados...
               </div>
             </p-footer>
-
-            <p-footer *ngIf="loading">
-                <div class="loading-footer">
-                  <loading-commons></loading-commons>
-                </div>
-            </p-footer>
             
             <ng-template let-student pTemplate="item">
               <div class="data-scroller-item-1-container" (click)="loadStudent(student)">

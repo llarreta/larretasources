@@ -94,12 +94,19 @@ export class StudentComponent implements OnInit{
   }
 
   private loadInitData(){
-    this.showLoading();
+    this.showFooterLoading();
     this.loadDivisions();
   }
 
+  private showFooterLoading(){
+    this.loading = true;
+  }
+
+  private hideFooterLoading(){
+    this.loading = false;
+  }
+
   loadDivisions(){
-    this.showLoading();
     this.divisionService.loadDivisions()
        .subscribe(
         data => this.loadDivisionsOK(data),
@@ -120,7 +127,6 @@ export class StudentComponent implements OnInit{
   }
 
   loadLevels(){
-    this.showLoading();
     this.levelService.loadLevels()
        .subscribe(
         data => this.loadLevelsOK(data),
@@ -141,7 +147,6 @@ export class StudentComponent implements OnInit{
   }
 
   loadYears(){
-    this.showLoading();
     this.yearService.loadYears()
        .subscribe(
         data => this.loadYearsOK(data),
@@ -162,7 +167,6 @@ export class StudentComponent implements OnInit{
   }
 
   loadStudents(){
-    this.showLoading();
     this.studentService.loadStudents()
        .subscribe(
         data => this.loadStudentsOK(data),
@@ -180,7 +184,7 @@ export class StudentComponent implements OnInit{
       this.students.push(student);
     }
     Logger.debug("Estudiantes cargados.. " + JSON.stringify(this.students));
-    this.hideLoading();
+    this.hideFooterLoading();
   }
 
   goListCreate(goList: boolean) {
@@ -233,6 +237,7 @@ export class StudentComponent implements OnInit{
   }
 
   loadData(event) {
+    this.showFooterLoading();
     this.loadInitData();
   }
 
