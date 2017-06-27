@@ -33,40 +33,41 @@
     <div class="col-12">
       <div class="row">
         <div class="col-6">
-          <input-commons [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
+          <input-commons #nameComponent [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
         </div>
 
         <div class="col-6">
-          <input-commons [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
+          <input-commons #surnameComponent [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
           <p-dropdown [options]="documentTypes" [(ngModel)]="student.documentType" 
-            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}">
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" [ngClass]="{'error-border': errorDocumentType}">
           </p-dropdown>
         </div>
         <div class="col-6">
-          <input-commons
+          <input-commons #documentNumberComponent
             [inputModel]="inputDocumentNumber"
           (valueModel)="setDocumentNumber($event)"></input-commons>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
-          <input-commons [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
+          <input-commons #emailComponent [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
         </div>
         <div class="col-6">
           <h3>Planes de Pago</h3>
           <p-listbox [options]="paymentPlansListBox" [(ngModel)]="student.paymentPlans" 
-            multiple="multiple" checkbox="checkbox" filter="filter" class="listbox-common"></p-listbox>
+            multiple="multiple" checkbox="checkbox" filter="filter" class="listbox-common"
+            [ngClass]="{'error-border': errorPaymentPlans}"></p-listbox>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
           <h3>Cursos</h3>
           <p-listbox [options]="coursesListBox" [(ngModel)]="student.course" 
-            filter="filter" class="listbox-common"></p-listbox>
+            filter="filter" class="listbox-common" [ngClass]="{'error-border': errorCourses}"></p-listbox>
         </div>
       </div>
       <div class="row">

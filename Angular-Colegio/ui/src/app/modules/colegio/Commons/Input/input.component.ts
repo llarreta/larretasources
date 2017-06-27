@@ -127,7 +127,7 @@ export class InputCommonsComponent implements OnInit{
   }
 
   checkMinCharacter(){
-    if((this.isErrorMinCharacterEnabled) && (this.inputModel.value.length <= this.inputModel.minCharacter)){
+    if((this.isErrorMinCharacterEnabled) && (this.inputModel.value != null) && (this.inputModel.value.length <= this.inputModel.minCharacter)){
       this.isErrorMinCharacter = true;
     }else{
       this.isErrorMinCharacter = false;

@@ -1,5 +1,5 @@
 //Angular
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } from '@angular/core';
 
 //Models
 import { Student } from '../../Models/Student.model';
@@ -36,6 +36,14 @@ export class StudentCreateComponent implements OnInit{
   student: Student;
   @Input()
   inEdit: Boolean;
+  @ViewChild("nameComponent")
+  nameComponent: InputCommonsComponent;
+  @ViewChild("surnameComponent")
+  surnameComponent: InputCommonsComponent;
+  @ViewChild("documentNumberComponent")
+  documentNumberComponent: InputCommonsComponent;
+  @ViewChild("emailComponent")
+  emailComponent: InputCommonsComponent;
 
   inputName: InputModel;
   inputSurname: InputModel;
@@ -49,6 +57,11 @@ export class StudentCreateComponent implements OnInit{
   showMessageError: boolean;
   showMessageErrorInput: boolean;
   showMessageErrorService: boolean;
+  
+  errorDocumentType: boolean;
+  errorCourses: boolean;
+  errorPaymentPlans: boolean;
+
   messageErrorInputs: string; 
   messageErrorService: string;
   displayPopUp: string;
@@ -187,10 +200,31 @@ export class StudentCreateComponent implements OnInit{
   }
 
   isAllOK(){
-    if(this.inputDocumentNumber.isAllOK && this.inputEmail.isAllOK 
-      && this.inputName.isAllOK && this.inputSurname.isAllOK){
+    if((this.inputDocumentNumber.isAllOK) && (this.inputEmail.isAllOK)
+      && (this.inputName.isAllOK) && (this.inputSurname.isAllOK)
+      && (this.student.documentType != null) && (this.student.course != null)
+      && (this.student.paymentPlans != null) && (this.student.paymentPlans.length > 0)){
         return true;
     }else{
+      this.nameComponent.checkValue();
+      this.surnameComponent.checkValue();
+      this.emailComponent.checkValue();
+      this.documentNumberComponent.checkValue();
+      if(this.student.documentType == null){
+        this.errorDocumentType = true;
+      }else{
+        this.errorDocumentType = false;
+      }
+      if(this.student.course == null){
+        this.errorCourses = true;
+      }else{
+        this.errorCourses = false;
+      }
+      if((this.student.paymentPlans == null) || (this.student.paymentPlans.length <= 0)){
+        this.errorPaymentPlans = true;
+      }else{
+        this.errorPaymentPlans = false;
+      }
       return false;
     }
   }
@@ -218,12 +252,22 @@ export class StudentCreateComponent implements OnInit{
           () => console.log('Vacio')
         );
       }
+    }else{
+      this.loadErrorMessageInput("Debe completar todos los campos.");
     }
   }
 
   createStudentOK(data){
     this.hideLoading();
     this.goToList();
+  }
+
+  loadErrorMessageInput(error){
+    this.hideLoading();
+    Logger.warn("Error de validacion en abm estudiante...");
+    this.messageErrorInputs = error;
+    this.showMessageErrorInput = true;
+    this.showMessageError = true;
   }
 
   loadErrorMessageService(error){
