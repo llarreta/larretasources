@@ -47,6 +47,10 @@ export class CourseCreateComponent implements OnInit{
   messageErrorInputs: string; 
   messageErrorService: string;
 
+  errorLevel: boolean;
+  errorYear: boolean;
+  errorDivision: boolean;
+
   constructor(private courseService: CourseService, private levelService: LevelService,
               private divisionService: DivisionService, private yearService: YearService) {}
 
@@ -121,7 +125,7 @@ export class CourseCreateComponent implements OnInit{
 
   loadYearsOK(data){
     this.years = new Array<SelectItem>();
-    this.years.push({label:"Seleccionar Nivel", value:null});
+    this.years.push({label:"Seleccionar Año", value:null});
     for(let yearJSON of data.body.result){
       let year: Year = new Year();
       Object.assign(year, yearJSON);
@@ -144,14 +148,27 @@ export class CourseCreateComponent implements OnInit{
       && this.course.year != null && this.course.division != null){
         return true;
     }else{
+      this.messageErrorInputs = "";
       if(this.course.level == null){
         this.messageErrorInputs += "Debe seleccionar un nivel. ";
+        this.errorLevel = true;
+      }else{
+        this.messageErrorInputs.replace("Debe seleccionar un nivel. ", "");
+        this.errorLevel = false;
       }
       if(this.course.year == null){
         this.messageErrorInputs += "Debe seleccionar un año. ";
+        this.errorYear = true;
+      }else{
+        this.errorYear = false;
+        this.messageErrorInputs.replace("Debe seleccionar un año. ", "");
       }
       if(this.course.division == null){
         this.messageErrorInputs += "Debe seleccionar un division. ";
+        this.errorDivision = true;
+      }else{
+        this.errorDivision = false;
+        this.messageErrorInputs.replace("Debe seleccionar un division. ", "");
       }
       this.showMessageErrorInput = true;
       this.showMessageError = true;
@@ -222,6 +239,22 @@ export class CourseCreateComponent implements OnInit{
     Logger.debug("Curso eliminado...");
     this.goToList();
     this.hideLoading();
+  }
+
+  getCourseDescription(){
+    let description: string = "";
+    if(this.course != null){
+      if(this.course.year != null){
+        description += this.course.year.description + " ";
+      }
+      if(this.course.division != null){
+        description += this.course.division.description + " ";
+      }
+      if(this.course.level != null){
+        description += this.course.level.description;
+      }
+    }
+    return description;
   }
 
 }

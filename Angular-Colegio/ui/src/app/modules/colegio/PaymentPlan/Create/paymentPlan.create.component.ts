@@ -1,5 +1,5 @@
 //Angular components
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } from '@angular/core';
 
 //Models
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
@@ -32,6 +32,8 @@ export class PaymentPlanCreateComponent implements OnInit{
   inEdit: Boolean;
   @Input()
   paymentPlan: PaymentPlan;
+  @ViewChild("descriptionComponent")
+  descriptionComponent: InputCommonsComponent;
 
   inputDescription: InputModel;
   inputObligationDescription: InputModel;
@@ -54,6 +56,8 @@ export class PaymentPlanCreateComponent implements OnInit{
   messageErrorInputs: string; 
   messageErrorService: string;
   messageErrorInputsPopUp: string;
+  errorItems: boolean;
+  errorObligation: boolean;
 
   displayPopUp: string;
   obligationContentActive: Boolean;
@@ -108,14 +112,15 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.obligations = new Array<SelectItem>();
     this.details = new Array<SelectItem>();
     this.littleDetails = new Array<SelectItem>();
-    if((this.paymentPlan.obligations != null) && (this.paymentPlan.obligations.length > 0)){
+    if((this.paymentPlan != null) && (this.paymentPlan.obligations != null) 
+      && (this.paymentPlan.obligations.length > 0)){
       for(let obligation of this.paymentPlan.obligations){
         this.obligations.push({label:obligation.description, value:obligation});
       }
       if((this.obligationSelected != null) && (this.obligationSelected.prices != null) && (this.obligationSelected.prices.length > 0)){
         Logger.debug("obligation selected: " + JSON.stringify(this.obligationSelected));
         for(let price of this.obligationSelected.prices){
-          if((price.details != null) && (price.details.length > 0)){
+          if((price != null) && (price.details != null) && (price.details.length > 0)){
             for(let detail of price.details){
               this.details.push({label:detail.description, value:detail});
             }
@@ -149,6 +154,7 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.priceContentActive = false;
     this.detailContentActive = false;
     this.littleDetailContentActive = false;
+    this.showMessageErrorPopUp = false;
     this.inEditPopUp = false;
   }
 
@@ -158,6 +164,7 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputDetailDescription.value = "";
     this.inputDetailDescription.isAllOK = false;
     this.inputDetailValue.isAllOK = false;
+    this.showMessageErrorPopUp = false;
     this.inEditPopUp = false;
     if((this.detailSelected.littleDetails != null) && (this.detailSelected.littleDetails.length > 0)){
       this.inputDetailValue.disabled = true;
@@ -169,7 +176,8 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.inputDetailValue.value = String(totalPrice);
     }else{
       this.inputDetailValue.disabled = false;
-      this.inputDetailValue.value = "";
+      this.inputDetailValue.value = "0,00";
+      this.inputDetailValue.isAllOK = true;
     }
   }
 
@@ -182,6 +190,7 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputLittleDetailValue.isAllOK = false;
     this.showMessageError = false;
     this.showMessageErrorService = false;
+    this.showMessageErrorPopUp = false;
     this.newLittleDetail();
   }
 
@@ -198,6 +207,7 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   hideDisplayPopUp(){
     this.displayPopUp = "none";
+    this.refreshListBox();
   }
 
   inicializarInputs(){
@@ -210,15 +220,19 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputDescription.required= true;
     this.inputDescription.type= "text";
     this.inputDescription.validationActivate = true;
+    this.inputDescription.minCharacter = 3;
+    this.inputDescription.messageErrorMinCharacter = "El nombre debe tener minimo 3 caracteres.";
 
     this.inputObligationDescription = new InputModel();
-    this.inputObligationDescription.id=  "namePaymentPlanObligation";
-    this.inputObligationDescription.labelContent= "Nombre";
-    this.inputObligationDescription.messageErrorEmpty= "Debe indicar el nombre.";
-    this.inputObligationDescription.messageErrorValidation= "El nombre ingresado es invalido."
-    this.inputObligationDescription.required= true;
-    this.inputObligationDescription.type= "text";
+    this.inputObligationDescription.id = "namePaymentPlanObligation";
+    this.inputObligationDescription.labelContent = "Nombre";
+    this.inputObligationDescription.messageErrorEmpty = "Debe indicar el nombre.";
+    this.inputObligationDescription.messageErrorValidation = "El nombre ingresado es invalido."
+    this.inputObligationDescription.required = true;
+    this.inputObligationDescription.type = "text";
     this.inputObligationDescription.validationActivate = true;
+    this.inputObligationDescription.minCharacter = 3;
+    this.inputObligationDescription.messageErrorMinCharacter = "El nombre debe tener minimo 3 caracteres.";
 
     this.inputDetailValue = new InputModel();
     this.inputDetailValue.id=  "detailValue";
@@ -228,6 +242,9 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputDetailValue.required= true;
     this.inputDetailValue.type= "number";
     this.inputDetailValue.validationActivate = true;
+    if(!this.inEdit){
+      this.inputDetailValue.value = "0,00";
+    }
 
     this.inputDetailDescription = new InputModel();
     this.inputDetailDescription.id=  "namePaymentPlanDetail";
@@ -237,6 +254,8 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputDetailDescription.required= true;
     this.inputDetailDescription.type= "text";
     this.inputDetailDescription.validationActivate = true;
+    this.inputDetailDescription.minCharacter = 3;
+    this.inputDetailDescription.messageErrorMinCharacter = "El nombre debe tener minimo 3 caracteres.";
 
     this.inputLittleDetailDescription = new InputModel();
     this.inputLittleDetailDescription.id=  "namePaymentPlanLittleDetail";
@@ -246,6 +265,8 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputLittleDetailDescription.required= true;
     this.inputLittleDetailDescription.type= "text";
     this.inputLittleDetailDescription.validationActivate = true;
+    this.inputLittleDetailDescription.minCharacter = 3;
+    this.inputLittleDetailDescription.messageErrorMinCharacter = "El nombre debe tener minimo 3 caracteres.";
 
     this.inputLittleDetailValue = new InputModel();
     this.inputLittleDetailValue.id=  "priceValueLittleDetail";
@@ -255,23 +276,37 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputLittleDetailValue.required= true;
     this.inputLittleDetailValue.type= "number";
     this.inputLittleDetailValue.validationActivate = true;
-
+    if(!this.inEdit){
+      this.inputLittleDetailValue.value = "0,00";
+    }
   }
 
   isAllOK(){
+    this.descriptionComponent.checkValue();
     if((this.inputDescription.isAllOK) && (this.paymentPlan.obligations != null) 
       && (this.paymentPlan.obligations.length > 0) && (this.ifObligationsHaveOneDetail())){
+        this.showMessageErrorInput = false;
+        this.showMessageError = false;
+        this.errorItems = false;
+        this.errorObligation = false;
         return true;
     }else{
       this.messageErrorInputs = "";
       if(!this.inputDescription.isAllOK){
         this.messageErrorInputs += "Debe ingresar un nombre para el plan de pago."
       }
-      if((this.paymentPlan.obligations == null) || (this.paymentPlan.obligations.length <= 0)){
-        this.messageErrorInputs += " Debe ingresar al menos una cuota para crear un plan de pago."
+      if((this.paymentPlan.obligations == null) || 
+        (this.paymentPlan.obligations.length <= 0)){
+          this.errorObligation = true;
+          this.messageErrorInputs += " Debe ingresar al menos una cuota para crear un plan de pago."
+      }else{
+        this.errorObligation = false;
       }
       if(!this.ifObligationsHaveOneDetail()){
         this.messageErrorInputs += " Debe ingresar al menos un item por cuota."
+        this.errorItems = true;
+      }else{
+        this.errorItems = false;
       }
       this.showMessageError = true;
       this.showMessageErrorInput = true;
@@ -280,10 +315,27 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   ifObligationsHaveOneDetail(){
-    for(let obligation of this.paymentPlan.obligations){
-      for(let price of obligation.prices){
-        if((price.details == null) || (price.details.length <= 0)){
-          return false;
+    Logger.debug("ifObligationHaveOneDetail");
+    if(this.paymentPlan.obligations != null){
+      Logger.debug("this.paymentPlan.obligations no es null");
+      for(let obligation of this.paymentPlan.obligations){
+        Logger.debug("recorriendo obligations obligation " + JSON.stringify(obligation));
+        if((obligation != null)){
+          Logger.debug("obligation no es null");
+          if((obligation.prices != null) && (obligation.prices.length > 0)){
+            Logger.debug("obligation.prices no es null y es mas grande que 0");
+            for(let price of obligation.prices){
+              Logger.debug("recorriendo prices " + JSON.stringify(price));
+              if((price != null) && ((price.details == null) || (price.details.length <= 0))){
+                Logger.debug("price " + JSON.stringify(price));
+                Logger.debug("price no es null price.detaills es null o price.details.lenght es menor o igual a 0");
+                return false;
+              }
+            }
+          }else{
+            Logger.debug("obligation.prices es null");
+            return false;
+          }
         }
       }
     }
@@ -300,9 +352,11 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.obligationSelected.dueDate = this.dateObligation;
       this.paymentPlan.obligations.push(this.obligationSelected);
       this.refreshListBox();
+      this.errorObligation = false;
       this.hideDisplayPopUp();
     }else{
       this.showMessageErrorPopUp = true;
+      this.messageErrorInputsPopUp = "";
       if(this.dateObligation == null){
         this.messageErrorInputsPopUp += "Debe ingresar una fecha."
       }
@@ -313,6 +367,7 @@ export class PaymentPlanCreateComponent implements OnInit{
         this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
       }
     }
+    this.isAllOK();
   }
 
   saveSelectedObligationEdit(){
@@ -335,6 +390,7 @@ export class PaymentPlanCreateComponent implements OnInit{
         this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
       }
     }
+    this.isAllOK();
   }
 
   saveSelectedDetail(){
@@ -355,6 +411,11 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.priceSelected.validityStartDate = new Date();
       this.priceSelected.value = Number(this.inputDetailValue.value);
       this.obligationSelected.prices.push(this.priceSelected);
+      if(!this.ifObligationsHaveOneDetail()){
+        this.errorItems = true;
+      }else{
+        this.errorItems = false;
+      }
       this.refreshListBox();
       this.hideDisplayPopUp();
     }else{
@@ -370,6 +431,7 @@ export class PaymentPlanCreateComponent implements OnInit{
         this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
       }
     }
+    this.isAllOK();
   }
 
   saveSelectedDetailEdit(){
@@ -393,6 +455,7 @@ export class PaymentPlanCreateComponent implements OnInit{
         this.messageErrorInputsPopUp += " El nombre ingresado ya existe."
       }
     }
+    this.isAllOK();
   }
 
   saveSelectedLittleDetail(){
@@ -599,7 +662,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   newDetail(){
     this.detailSelected = new Detail();
     this.inputDetailDescription.value = "";
-    this.inputDetailValue.value = "";
+    this.inputDetailValue.value = "0,00";
     this.priceContentActive = false;
     this.detailContentActive = true;
     this.obligationContentActive = false;
@@ -609,7 +672,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   newLittleDetail(){
     this.littleDetailSelected = new LittleDetail();
     this.inputLittleDetailDescription.value = "";
-    this.inputLittleDetailValue.value = "";
+    this.inputLittleDetailValue.value = "0,00";
     this.priceContentActive = false;
     this.detailContentActive = false;
     this.obligationContentActive = false;
@@ -640,6 +703,7 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.littleDetailContentActive = false;
     this.displayPopUp = "block";
     this.inputDetailDescription.value = this.detailSelected.description;
+    this.inputDetailDescription.isAllOK = true;
     Logger.debug("Cargando detalle valor " + this.detailSelected.value);
     this.inputDetailValue.value = "" + this.detailSelected.value;
     this.inputDetailValue.value = this.inputDetailValue.value.replace(".", ",");
@@ -656,19 +720,25 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.inputDetailValue.value = String(totalPrice).replace(".", ",");;
     }else{
       this.inputDetailValue.disabled = false;
+      this.inputDetailValue.isAllOK = true;
     }
   }
 
   loadDeleteDetail(){
     for(let i = 0; i < this.obligationSelected.prices.length; i++){
-      for(let j = 0; j < this.obligationSelected.prices[i].details.length; j++){
-        if(this.obligationSelected.prices[i].details[j].description === this.detailSelected.description){
-          this.obligationSelected.prices[i].details.splice(j);
+      if((this.obligationSelected.prices[i] != null) &&
+          (this.obligationSelected.prices[i].details != null)){
+        for(let j = 0; j < this.obligationSelected.prices[i].details.length; j++){
+          if((this.obligationSelected.prices[i].details[j].description === this.detailSelected.description)){
+            delete this.obligationSelected.prices[i].details[j];
+            delete this.obligationSelected.prices[i];
+            this.detailSelected = null;
+            this.refreshListBox();
+            return "";
+          }
         }
       }
     }
-    this.detailSelected = null;
-    this.refreshListBox();
   }
 
 

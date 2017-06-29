@@ -33,7 +33,8 @@
     <div class="col-12">
       <div class="row">
         <div class="col-6">
-          <input-commons [inputModel]="inputDescription" (valueModel)="setPaymentPlanDescription($event)"></input-commons>
+          <input-commons [inputModel]="inputDescription" 
+            (valueModel)="setPaymentPlanDescription($event)" #descriptionComponent></input-commons>
         </div>
       </div>
       <div class="row">
@@ -60,7 +61,8 @@
                     </div>
                 </ng-template>
               </p-listbox>
-              <div *ngIf="(obligations == null) || (obligations.length <= 0)" class="no-obligations-message animated fadeIn">
+              <div *ngIf="(obligations == null) || (obligations.length <= 0)" 
+                class="no-obligations-message animated fadeIn" [ngClass]="{'error-border': errorObligation}">
                 No se ingresaron cuotas.
               </div>
             </div>
@@ -81,7 +83,8 @@
 
               <p-listbox [options]="details" 
                 [(ngModel)]="detailSelected" filter="filter" (onChange)="detailSelectedChange()" 
-                class="animated fadeIn listbox-common" *ngIf="(details != null) && (details.length > 0)">
+                class="animated fadeIn listbox-common" *ngIf="(details != null) && (details.length > 0)" 
+                [ngClass]="{'error-border': errorItems}">
                 <ng-template let-detail pTemplate="item">
                   <div class="ui-helper-clearfix">
                     <span class="label-with-buttons-listbox">{{detail.label}}</span>   
@@ -89,7 +92,7 @@
                 </ng-template>
               </p-listbox>
               <div *ngIf="((details == null) || (details.length <= 0)) && (obligationSelected != null)" 
-                class="no-obligations-message animated fadeIn">
+                class="no-obligations-message animated fadeIn" [ngClass]="{'error-border': errorItems}">
                 No se ingresaron items.
               </div>
               <div *ngIf="((details == null) || (details.length <= 0)) && (obligationSelected == null)" 
