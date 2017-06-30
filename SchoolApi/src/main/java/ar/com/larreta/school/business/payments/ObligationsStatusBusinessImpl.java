@@ -1,4 +1,4 @@
-package ar.com.larreta.school.business.students;
+package ar.com.larreta.school.business.payments;
 
 import java.util.Set;
 
@@ -10,23 +10,23 @@ import org.springframework.stereotype.Service;
 
 import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.business.impl.LoadBusinessImpl;
-import ar.com.larreta.school.messages.LoadStudentsData;
-import ar.com.larreta.school.persistence.Student;
+import ar.com.larreta.school.messages.ObligationStatusData;
+import ar.com.larreta.school.persistence.Obligation;
 
-@Service(StudentsLoadBusiness.BUSINESS_NAME)
+@Service(ObligationsStatusBusiness.BUSINESS_NAME)
 @Transactional
-public class StudentsLoadBusinessImpl extends LoadBusinessImpl<LoadStudentsData, Student> implements StudentsLoadBusiness {
-
+public class ObligationsStatusBusinessImpl extends LoadBusinessImpl<ObligationStatusData, Obligation> implements ObligationsStatusBusiness {
+	
 	@Override
-	@Autowired @Qualifier(StudentsBusinessConfig.STUDENT_AFTER_LOAD)
+	@Autowired @Qualifier(PaymentsBusinessConfig.OBLIGATION_STATUS_AFTER_LOAD_LISTENERS)
 	public void setAfterLoadListeners(Set<BusinessListener> afterLoadListeners) {
 		super.setAfterLoadListeners(afterLoadListeners);
 	}
 
 	@Override
-	@Autowired @Qualifier(StudentsBusinessConfig.STUDENT_BEFORE_LOAD)
+	@Autowired @Qualifier(PaymentsBusinessConfig.OBLIGATION_STATUS_BEFORE_LOAD_LISTENERS)
 	public void setBeforeLoadListeners(Set<BusinessListener> beforeLoadListeners) {
 		super.setBeforeLoadListeners(beforeLoadListeners);
 	}
-	
+
 }

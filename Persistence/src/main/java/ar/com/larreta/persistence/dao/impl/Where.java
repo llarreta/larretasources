@@ -21,6 +21,25 @@ public abstract class Where extends QueryElement {
 		}
 		getSymbolicName();
 	}
+	
+	protected void addWhere(LoadArguments args, StringBuilder hql) {
+		hql.append(LoadDAOImpl.VOID);
+		if (getMainReference()){
+			hql.append(args.getMainEntity().getAlias());
+			if (!StringUtils.isEmpty(getSymbolicName())){
+				hql.append(LoadDAOImpl.DOT);
+			}
+		}
+		
+		if (!StringUtils.isEmpty(getSymbolicName())){
+			hql.append(getSymbolicName());
+		}
+		
+		hql.append(LoadDAOImpl.VOID).append(getOperator()).append(LoadDAOImpl.VOID);
+		if (getValue()!=null){
+			hql.append(getPostOperatorSection());
+		}
+	}
 		
 	public String getPostOperatorSection(){
 		return StandardDAOImpl.TWO_POINTS + alias;
@@ -41,7 +60,9 @@ public abstract class Where extends QueryElement {
 	
 	
 	public void setQueryValue(Query query){
-		query.setParameter(alias, getValue());
+		if (!StringUtils.isEmpty(alias) && getValue()!=null){
+			query.setParameter(alias, getValue());
+		}
 	}
 	
 }

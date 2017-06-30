@@ -37,6 +37,10 @@ public class SpringUtils implements Serializable {
 		return INSTANCE.getAppContext().getBean(key);
 	}
 	
+	public static Object getBean(Class type){
+		return INSTANCE.getAppContext().getBean(type);
+	}
+	
 	public JSONParser getParser() {
 		return parser;
 	}

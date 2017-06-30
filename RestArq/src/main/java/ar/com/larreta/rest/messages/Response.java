@@ -3,6 +3,7 @@ package ar.com.larreta.rest.messages;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +15,7 @@ import ar.com.larreta.rest.messages.status.State;
 
 @Component
 @Scope("prototype")
+@XmlRootElement
 public class Response<T extends JSONable> extends Message {
 	
 	public static final String NOT_IMPLEMENTED = "not.implemented";

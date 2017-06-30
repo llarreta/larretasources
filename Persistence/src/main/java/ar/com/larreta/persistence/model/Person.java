@@ -1,7 +1,5 @@
 package ar.com.larreta.persistence.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,7 +59,7 @@ public abstract class Person extends ar.com.larreta.persistence.model.Entity {
 	public DocumentType getDocumentType() {
 		return documentType;
 	}
-	public void setDocumentType(Serializable documentType) {
+	public void setDocumentType(DocumentType documentType) {
 		this.documentType = (DocumentType) documentType;
 	}
 	

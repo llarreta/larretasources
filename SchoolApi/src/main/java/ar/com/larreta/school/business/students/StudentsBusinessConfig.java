@@ -16,12 +16,14 @@ import ar.com.larreta.rest.business.impl.BusinessListenerConfig;
 import ar.com.larreta.rest.business.impl.CollectionEntityAsignBusinessListener;
 import ar.com.larreta.rest.business.impl.EntityAsignBusinessListener;
 import ar.com.larreta.rest.business.impl.LoadArgsWhereBusinessListener;
+import ar.com.larreta.rest.business.impl.PropertyAsignBusinessListener;
 import ar.com.larreta.school.persistence.Course;
 import ar.com.larreta.school.persistence.PaymentPlan;
 
 @Configuration
 public class StudentsBusinessConfig {
 
+	public static final String STUDENT_AFTER_LOAD = "studentAfterLoad";
 	public static final String PAYMENT_PLANS 					= "paymentPlans";
 	public static final String COURSE 							= "course";
 	public static final String DOCUMENT_NUMBER 					= "documentNumber";
@@ -29,7 +31,8 @@ public class StudentsBusinessConfig {
 	public static final String NAME 							= "name";
 	public static final String DOCUMENT_TYPE 					= "documentType";
 	public static final String DOCUMENT_TYPE_ID 				= "documentType.id";
-	
+
+	public static final String DOCUMENT_TYPE_ASIGN_LISTENER 	= "documentTypeAsignListener";
 	public static final String WHERE_NAME_LISTENER 				= "whereNameListener";
 	public static final String WHERE_SURNAME_LISTENER 			= "whereSurnameListener";
 	public static final String WHERE_DOCUMENT_TYPE_LISTENER 	= "whereDocumentTypeListener";
@@ -53,6 +56,31 @@ public class StudentsBusinessConfig {
 	private EntityAsignBusinessListener<Course> 	  asignCourseListener;
 	
 	private CollectionEntityAsignBusinessListener<PaymentPlan> asignPaymentPlansListener;
+	
+	private PropertyAsignBusinessListener documentTypeAsignListener;
+
+	@Bean(name=STUDENT_AFTER_LOAD)
+	@DependsOn(value={DOCUMENT_TYPE_ASIGN_LISTENER})
+	public Set<BusinessListener> getStudentAfterLoad(){
+		Set<BusinessListener> businessListeners = new HashSet<>();
+		businessListeners.add(documentTypeAsignListener);
+		return businessListeners;
+	}
+
+	@Bean(name=DOCUMENT_TYPE_ASIGN_LISTENER)
+	public PropertyAsignBusinessListener documentTypeAsignListener(){
+		documentTypeAsignListener = new PropertyAsignBusinessListener() {
+			@Override
+			public String getTargetProperty() {
+				return DOCUMENT_TYPE;
+			}
+			@Override
+			public String getSourceProperty() {
+				return DOCUMENT_TYPE_ID;
+			}
+		};
+		return documentTypeAsignListener;
+	}
 	
 	@Bean(name=STUDENT_BEFORE_LOAD)
 	@DependsOn(value={WHERE_NAME_LISTENER, WHERE_SURNAME_LISTENER, WHERE_DOCUMENT_TYPE_LISTENER, WHERE_DOCUMENT_NUMBER_LISTENER})

@@ -11,4 +11,9 @@ public class NotExists extends Subquery {
 		super(args, StringUtils.EMPTY, NOT_EXISTS, argsSub);
 		mainReference = Boolean.FALSE;
 	}
+	
+	protected void addWhere(LoadArguments args, StringBuilder hql) {
+		hql.append(LoadDAOImpl.VOID).append(getOperator());
+		hql.append(LoadDAOImpl.VOID).append(getPostOperatorSection());
+	}
 }

@@ -17,6 +17,7 @@ import ar.com.larreta.rest.messages.LoadBody;
 import ar.com.larreta.rest.messages.Request;
 import ar.com.larreta.rest.messages.Response;
 import ar.com.larreta.rest.messages.TargetedBody;
+import ar.com.larreta.school.business.payments.ObligationsStatusBusiness;
 import ar.com.larreta.school.business.payments.PayObligationBusiness;
 import ar.com.larreta.school.business.payments.UnpaidObligationsBusiness;
 import ar.com.larreta.school.messages.PayData;
@@ -26,19 +27,27 @@ import ar.com.larreta.school.messages.PayData;
 @Validated
 public class PaymentsController {
 
-	public static final String PAY = "/pay";
-
-	public static final String UNPAID_OBLIGATIONS = "/unpaidObligations";
-
-	public static final String ROOT_MAP = "/payments";
+	public static final String OBLIGATIONS_STATUS 		= "/obligationsStatus";
+	public static final String PAY 						= "/pay";
+	public static final String UNPAID_OBLIGATIONS 		= "/unpaidObligations";
+	public static final String ROOT_MAP 				= "/payments";
 	
 	@Autowired
 	private ApplicationContext applicationContext;
-	
 	@Autowired
 	private UnpaidObligationsBusiness unpaidObligationsBusiness;
 	@Autowired
 	private PayObligationBusiness payObligationBusiness;
+	@Autowired
+	private ObligationsStatusBusiness obligationsStatusBusiness;
+
+	@RequestMapping(value = OBLIGATIONS_STATUS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Response<LoadBody<JSONable>> obligationsStatusPost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws Exception{
+		Response<LoadBody<JSONable>> response = applicationContext.getBean(Response.class);
+		LoadBody body = (LoadBody) obligationsStatusBusiness.execute(request.getBody());
+		response.setBody(body);
+		return response;
+	}
 	
 	@RequestMapping(value = UNPAID_OBLIGATIONS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<LoadBody<JSONable>> unpaidObligationsPost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws Exception{

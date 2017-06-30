@@ -7,6 +7,11 @@ import ar.com.larreta.persistence.model.Entity;
 import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.tools.TypedClassesUtils;
 
+/**
+ * Asigna una entidad de persistencia a partir de un id recibido desde un serializable 
+ *
+ * @param <E>
+ */
 public abstract class EntityAsignBusinessListener<E extends Entity> extends BusinessListenerImpl implements SourcedListener, TargetedListener{
 
 	@Override

@@ -30,8 +30,8 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 	@Override
 	public Serializable execute(Serializable input) throws Exception {
 		try {
-			Class<?> loadDataType = TypedClassesUtils.getGenerics(LoadBusinessImpl.class, this, 0);
-			Class<?> entityType = TypedClassesUtils.getGenerics(LoadBusinessImpl.class, this, 1);
+			Class<?> loadDataType 	= TypedClassesUtils.getGenerics(LoadBusinessImpl.class, this, 0);
+			Class<?> entityType 	= TypedClassesUtils.getGenerics(LoadBusinessImpl.class, this, 1);
 
 			JSONableCollection<B> jsonableCollection = new JSONableCollection<B>();	
 			LoadBody<B> response = new LoadBody<>();
@@ -51,7 +51,7 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 					
 					beanUtils.copy(entity, bodyElement);
 					
-					callListeners(afterLoadListeners, entity, bodyElement);
+					callListeners(afterLoadListeners, entity, bodyElement, input);
 					
 					jsonableCollection.add(bodyElement);
 				}
@@ -70,7 +70,7 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 			response.setMaxResults(maxResults);
 			return response;
 		} catch (Exception e){
-			LOG.error("Ocurrio un error ejecutando DeleteBusinessImpl", e);
+			LOG.error("Ocurrio un error ejecutando LoadBusinessImpl", e);
 		}
 		throw new BusinessException();
 	}

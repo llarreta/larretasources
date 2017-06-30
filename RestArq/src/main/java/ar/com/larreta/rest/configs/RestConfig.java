@@ -30,8 +30,7 @@ import ar.com.larreta.annotations.Log;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableWebMvc
-@ComponentScan(basePackages = {
-		"ar.com.larreta"})  // scan  only the packages needed
+@ComponentScan(basePackages = {"ar.com.larreta"})  // scan  only the packages needed
 @PropertySource(value=RestConfig.CLASSPATH_APPLICATION_PROPERTIES /*, ignoreResourceNotFound=true*/)
 public class RestConfig extends WebMvcConfigurerAdapter  {
 

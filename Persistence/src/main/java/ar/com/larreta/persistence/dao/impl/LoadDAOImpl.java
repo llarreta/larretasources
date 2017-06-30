@@ -81,7 +81,7 @@ public abstract class LoadDAOImpl implements LoadDao {
 		return processor.getEntities();
 	}
 
-	private List execute(QueryMaked queryMaked) {
+	public List execute(QueryMaked queryMaked) {
 		Query query = queryMaked.getQuery();
 		
 		//Seteamos los valores retornados
@@ -220,12 +220,12 @@ public abstract class LoadDAOImpl implements LoadDao {
 			hql.append(VOID).append(WHERE).append(VOID);
 			Iterator<Where> it = args.getWheres().iterator();
 			if (it.hasNext()){
-				addWhere(args, hql, (Where) it.next());
+				it.next().addWhere(args, hql);
 			} 
 			
 			while (it.hasNext()) {
 				hql.append(VOID).append(AND);
-				addWhere(args, hql, (Where) it.next());
+				it.next().addWhere(args, hql);
 			}
 		}
 	}
@@ -236,13 +236,33 @@ public abstract class LoadDAOImpl implements LoadDao {
 	 * @param hql
 	 * @param where
 	 */
-	protected void addWhere(LoadArguments args, StringBuilder hql, Where where) {
+	/*protected void addWhere(LoadArguments args, StringBuilder hql, Where where) {
 		hql.append(VOID);
 		if (where.getMainReference()){
-			hql.append(args.getMainEntity().getAlias()).append(DOT);
+			hql.append(args.getMainEntity().getAlias());
 		}
-		hql.append(where.getSymbolicName()).append(VOID).append(where.getOperator()).append(VOID).append(where.getPostOperatorSection());
+		
+		if (!StringUtils.isEmpty(where.getSymbolicName())){
+			hql.append(DOT).append(where.getSymbolicName());
+		}
+		
+		hql.append(VOID).append(where.getOperator()).append(VOID);
+		if (where.getValue()!=null){
+			hql.append(where.getPostOperatorSection());
+		}
 	}
+	
+	protected void addWhere(LoadArguments args, StringBuilder hql, Or or) {
+		hql.append(VOID);
+		hql.append("(");
+		addWhere(args, hql, or.getFirst());
+		hql.append(VOID);
+		hql.append("OR");
+		hql.append(VOID);
+		addWhere(args, hql, or.getSecond());
+		hql.append(")");
+		hql.append(VOID);
+	}*/
 	
 	/**
 	 * Agrega el ordenamiento

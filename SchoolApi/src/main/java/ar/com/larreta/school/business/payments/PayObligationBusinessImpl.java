@@ -19,7 +19,7 @@ import ar.com.larreta.school.persistence.Payment;
 public class PayObligationBusinessImpl extends CreateBusinessImpl<PayData, Payment> implements PayObligationBusiness {
 
 	@Override
-	@Autowired @Qualifier(PaymentsBusinessConfig.PAYMENT_BEFORE_PERSIT_LISTENERS)
+	@Autowired @Qualifier(PaymentsBusinessConfig.PAYMENT_BEFORE_PERSIST_LISTENERS)
 	public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
 		super.setBeforePersistListeners(beforePersistListeners);
 	}

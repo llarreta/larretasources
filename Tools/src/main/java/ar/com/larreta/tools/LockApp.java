@@ -20,6 +20,9 @@ import ar.com.larreta.annotations.Log;
 @Component
 public class LockApp {
 	
+	public static final String SRC_TEST_RESOURCES = "/src/test/resources/";
+	private static final String TEST = "test";
+	private static final String DEV = "dev";
 	private static final String SRC_MAIN_RESOURCES = "/src/main/resources/";
 	private static final String WEB_INF_CLASSES = "/WEB-INF/classes/";
 	private static final String LOCK_APP = "lock.app";
@@ -87,8 +90,12 @@ public class LockApp {
 	public void initialize() throws Exception {
 		try {
 			path = realPath + WEB_INF_CLASSES +  LOCK_APP;
-			if ("dev".equals(enviroment)){
+			//FIXME: Mejorar
+			if (DEV.equals(enviroment)){
 				path = devPath + SRC_MAIN_RESOURCES +  LOCK_APP;
+			}
+			if (TEST.equals(enviroment)){
+				path = devPath + SRC_TEST_RESOURCES +  LOCK_APP;
 			}
 
 			decode();

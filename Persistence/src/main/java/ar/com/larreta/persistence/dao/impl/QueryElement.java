@@ -35,7 +35,7 @@ public class QueryElement {
 	}
 
 	public String getSymbolicName() {
-		if (symbolicName == null) {
+		if (StringUtils.isEmpty(symbolicName) && !StringUtils.isEmpty(name)) {
 			symbolicName = getSymbolicName(name);
 		}
 		return symbolicName;

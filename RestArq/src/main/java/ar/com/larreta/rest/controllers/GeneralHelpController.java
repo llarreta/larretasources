@@ -23,6 +23,9 @@ import ar.com.larreta.rest.messages.JSONableCollection;
 import ar.com.larreta.rest.messages.MappingEntry;
 import ar.com.larreta.rest.messages.Message;
 import ar.com.larreta.rest.messages.Response;
+import ar.com.larreta.rest.messages.status.OK;
+import ar.com.larreta.rest.messages.status.State;
+import ar.com.larreta.tools.SpringUtils;
 
 @RestController
 @RequestMapping(value=GeneralHelpController.ROOT_MAP)
@@ -68,7 +71,7 @@ public class GeneralHelpController {
 
 	private Response helpProcess() {
 		JSONableCollection<MappingEntry> body = new JSONableCollection<>();
-		
+
 		Map<RequestMappingInfo, HandlerMethod> map = handlerMapping.getHandlerMethods();
 		Set<RequestMappingInfo>  setInfo = map.keySet();
 		Iterator<RequestMappingInfo> it = setInfo.iterator();
@@ -82,6 +85,7 @@ public class GeneralHelpController {
 		}
 		
 		Response<JSONableCollection<MappingEntry>> response = new Response<>();
+		response.setState((State) SpringUtils.getBean(OK.class));
 		response.setBody(body);
 		
 		return response;

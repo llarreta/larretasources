@@ -12,14 +12,17 @@ import ar.com.larreta.persistence.dao.impl.Where;
 import ar.com.larreta.rest.exceptions.BusinessException;
 import ar.com.larreta.tools.TypedClassesUtils;
 
-public abstract class LoadArgsWhereBusinessListener<W extends Where> extends BusinessListenerImpl implements SourcedListener, TargetedListener{
+public abstract class LoadArgsWhereBusinessListener<W extends Where> extends BusinessListenerImpl implements SourcedListener, TargetedListener, ValuedListener{
 
 	@Override
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
 		LoadArguments loadArgs = (LoadArguments) args[0];
 		
 		if ((source!=null) && (loadArgs!=null)){
-			Object value = beanUtils.read(source, getSourceProperty());
+			Object value = getValuedListener(source, target, args);
+			if (value==null){
+				beanUtils.read(source, getSourceProperty());
+			}
 			if (!StringUtils.isEmpty((CharSequence) value)){
 				Like like = new Like(loadArgs, getTargetProperty(), value);
 				Collection instanceArgs = new ArrayList<>();
@@ -34,4 +37,9 @@ public abstract class LoadArgsWhereBusinessListener<W extends Where> extends Bus
 		return null;
 	}
 
+	@Override
+	public Object getValuedListener(Serializable source, Serializable target, Object... args) {
+		return null;
+	}
+	
 }

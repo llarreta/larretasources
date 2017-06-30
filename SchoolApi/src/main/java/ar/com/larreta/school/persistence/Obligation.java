@@ -27,6 +27,16 @@ public class Obligation extends Product {
 	private Date dueDate;
 	private Set<Price> prices;
 	private PaymentPlan paymentPlan;
+	private Set<ObligationStatus> obligationStatus;
+
+	@OneToMany (mappedBy="obligation", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=ObligationStatus.class)
+	@Where(clause="deleted IS NULL")
+	public Set<ObligationStatus> getObligationStatus() {
+		return obligationStatus;
+	}
+	public void setObligationStatus(Set<ObligationStatus> obligationStatus) {
+		this.obligationStatus = obligationStatus;
+	}
 	
 	@ManyToOne (fetch=FetchType.LAZY, targetEntity=PaymentPlan.class)
 	@JoinColumn (name="idPaymentPlan")
