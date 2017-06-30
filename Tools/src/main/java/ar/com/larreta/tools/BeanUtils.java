@@ -15,6 +15,7 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,8 @@ public class BeanUtils {
 			if (PropertyUtils.isReadable(source, property)){
 				return PropertyUtils.getProperty(source, property);
 			}
+		} catch (NestedNullException e){
+			LOGGER.debug("La propiedad " + property + " tiene como valor null");
 		} catch (Exception e){
 			LOGGER.error("Ocurrio un error obteniendo propiedades", e);
 		}

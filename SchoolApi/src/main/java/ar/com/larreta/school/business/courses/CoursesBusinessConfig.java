@@ -162,7 +162,7 @@ public class CoursesBusinessConfig {
 	}
 	
 	@Bean(name=COURSES_AFTER_LOAD)
-	@DependsOn(value={JSON_ASIGN_LEVEL_LISTENER, JSON_ASIGN_YEAR_LISTENER, ASIGN_DIVISION_LISTENER})
+	@DependsOn(value={JSON_ASIGN_LEVEL_LISTENER, JSON_ASIGN_YEAR_LISTENER, JSON_ASIGN_DIVISION_LISTENER})
 	public Set<BusinessListener> coursesAfterLoad(){
 		Set<BusinessListener> businessListeners = new HashSet<>();
 		businessListeners.add(jsonAsignLevelListener);

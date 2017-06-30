@@ -32,7 +32,7 @@ public abstract class BusinessImpl implements Business {
 			Iterator<BusinessListener> it = listeners.iterator();
 			while (it.hasNext()) {
 				BusinessListener listener = (BusinessListener) it.next();
-				listener.process(source, target, args);;
+				listener.process(source, target, args);
 			}
 		}
 	}
