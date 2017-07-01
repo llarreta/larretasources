@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,11 +6,16 @@ import { Router } from '@angular/router';
   templateUrl: './src/app/shared/app-nav/app-nav.component.html',
   styleUrls: ['./src/app/shared/app-nav/app-nav.component.scss'],
 })
-export class AppNavComponent {
+export class AppNavComponent implements OnInit{
 
   menuActive: boolean = false;
+  disabled: boolean = false;
 
   constructor(private router: Router) { }
+
+  ngOnInit() {
+    
+  }
 
   public openCloseMenu(){
     this.menuActive = !this.menuActive;
@@ -24,6 +29,7 @@ export class AppNavComponent {
   public goHome(){
     this.router.navigate(['./colegio/home']);
     this.menuActive = false;
+    this.disabled = true;
   }
 
   public goCourses(){

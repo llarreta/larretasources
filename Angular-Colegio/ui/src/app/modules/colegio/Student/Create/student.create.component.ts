@@ -61,11 +61,14 @@ export class StudentCreateComponent implements OnInit{
   errorDocumentType: boolean;
   errorCourses: boolean;
   errorPaymentPlans: boolean;
+  isPaymentPlansOK: boolean;
+  isCoursesOK: boolean;
+  isDocumentTypeOK: boolean;
 
   messageErrorInputs: string; 
   messageErrorService: string;
   displayPopUp: string;
-  displayLoading: string;
+  loading: boolean;
 
   paymentPlansListBox: SelectItem[];
   coursesListBox: SelectItem[];
@@ -78,6 +81,7 @@ export class StudentCreateComponent implements OnInit{
               ) {}
 
   ngOnInit() {
+    this.hideLoading();
     this.loadInitData();
     if(!this.inEdit){
       this.student = new Student();
@@ -91,19 +95,10 @@ export class StudentCreateComponent implements OnInit{
   }
 
   private loadInitData(){
+    this.showLoading();
     this.documentTypeService.loadDocumentTypes()
        .subscribe(
         data => this.loadDocumentTypeOK(data),
-        err => this.loadErrorMessageService(err),
-        () => console.log('Vacio')
-    );
-    this.paymentPlanService.loadPaymentPlans().subscribe(
-        data => this.loadPaymentPlansOK(data),
-        err => this.loadErrorMessageService(err),
-        () => console.log('Vacio')
-    );
-    this.courseService.loadCourses().subscribe(
-        data => this.loadCoursesOK(data),
         err => this.loadErrorMessageService(err),
         () => console.log('Vacio')
     );
@@ -117,6 +112,11 @@ export class StudentCreateComponent implements OnInit{
       Object.assign(documentType, documentTypeJSON);
       this.documentTypes.push({label:documentType.description, value:documentType.id});
     }
+    this.paymentPlanService.loadPaymentPlans().subscribe(
+        data => this.loadPaymentPlansOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+    );
   }
 
   loadPaymentPlansOK(data){
@@ -127,6 +127,11 @@ export class StudentCreateComponent implements OnInit{
       this.paymentPlansListBox.push({label:paymentPlan.description, value:paymentPlan.id});
     }
     Logger.debug("payments plans cargados: " + JSON.stringify(this.paymentPlansListBox));
+    this.courseService.loadCourses().subscribe(
+        data => this.loadCoursesOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+    );
   }
 
   loadCoursesOK(data){
@@ -138,6 +143,7 @@ export class StudentCreateComponent implements OnInit{
       label += course.year.description + " " + course.division.description + " " + course.level.description; 
       this.coursesListBox.push({label:label, value:course.id});
     }
+    this.hideLoading();
   }
 
   initInputs(){
@@ -230,13 +236,14 @@ export class StudentCreateComponent implements OnInit{
   }
 
   confirm(){
+    this.showLoading();
     if(this.isAllOK()){
       this.loadStudentData();
       this.showMessageError = false;
       let datosResponse;
       let status;
       if(!this.inEdit){
-        this.showLoading();
+        
         this.studentService.createStudent(this.student)
         .subscribe(
           data => this.createStudentOK(data),
@@ -244,7 +251,7 @@ export class StudentCreateComponent implements OnInit{
           () => console.log('Vacio')
         );
       }else{
-        this.showLoading();
+        
         this.studentService.updateStudent(this.student)
         .subscribe(
           data => this.createStudentOK(data),
@@ -258,7 +265,6 @@ export class StudentCreateComponent implements OnInit{
   }
 
   createStudentOK(data){
-    this.hideLoading();
     this.goToList();
   }
 
@@ -298,15 +304,44 @@ export class StudentCreateComponent implements OnInit{
   deleteStudentOK(data){
     Logger.debug("Estudiante eliminado...");
     this.goToList();
-    this.hideLoading();
+  }
+
+  paymentPlanChange(){
+    if((this.student.paymentPlans != null) && (this.student.paymentPlans.length > 0)){
+      this.isPaymentPlansOK = true;
+      this.errorPaymentPlans = false;
+    }else{
+      this.isPaymentPlansOK = false;
+      this.errorPaymentPlans = true;
+    }
+  }
+
+  coursesChange(){
+    if(this.student.course != null){
+      this.errorCourses = false;
+      this.isCoursesOK = true;
+    }else{
+      this.errorCourses = true;
+      this.isCoursesOK = false;
+    }
+  }
+
+  documentTypeChange(){
+    if(this.student.documentType != null){
+      this.isDocumentTypeOK = true;
+      this.errorDocumentType = false;
+    }else{
+      this.isDocumentTypeOK = false;
+      this.errorDocumentType = true;
+    }
   }
 
   showLoading(){
-    this.displayLoading = "block";
+    this.loading = true;
   }
 
   hideLoading(){
-    this.displayLoading = "none";
+    this.loading = false;
   }
 
   goToList(){

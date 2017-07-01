@@ -49,12 +49,6 @@
                 No hay cursos cargados...
               </div>
             </p-footer>
-
-            <p-footer *ngIf="loading">
-                <div class="loading-footer">
-                  <loading-commons></loading-commons>
-                </div>
-            </p-footer>
             
             <ng-template let-course pTemplate="item">
               <div class="data-scroller-item-1-container" (click)="loadCourse(course)">
@@ -75,4 +69,13 @@
   <div *ngIf="inUpdateCourse" class="animated fadeInUp">
     <school-course-create (goList)="goListUpdate($event)" [course]="selectedCourse" [inEdit]="true"></school-course-create>
   </div>
+</div>
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
 </div>

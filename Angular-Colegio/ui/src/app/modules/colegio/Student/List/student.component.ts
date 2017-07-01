@@ -8,6 +8,7 @@ import { Division } from '../../Models/Division.model';
 import { Level } from '../../Models/Level.model';
 import { Year } from '../../Models/Year.model';
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
+import { DocumentType } from '../../Models/DocumentType.model';
 
 //Components student
 import { StudentCreateComponent } from '../Create/student.create.component';
@@ -34,6 +35,7 @@ import { LevelService } from '../../services/level.service';
 import { YearService } from '../../services/year.service';
 import { DivisionService } from '../../services/division.service';
 import { CourseService } from '../../services/course.service';
+import { DocumentTypeService } from '../../services/documentType.service';
 import { PaymentPlanService } from '../../services/paymentPlan.service';
 
 @Component({
@@ -46,13 +48,15 @@ export class StudentComponent implements OnInit{
   inPaymentRecord: boolean;
   @Output()
   goRecord = new EventEmitter();
+  @Output()
+  selectStudent = new EventEmitter();
 
   students: Array<Student>;
+  documentTypes: Array<DocumentType>;
   selectedStudent: Student;
   inCreateStudent: boolean;
   inUpdateStudent: boolean;
   inListStudent: boolean;
-  loading: boolean;
   moreStudents: boolean;
   showPaymentRecord: boolean;
   
@@ -70,7 +74,7 @@ export class StudentComponent implements OnInit{
   showMessageErrorService: boolean; 
   messageErrorService: string;
 
-  displayLoading: string;
+  loading: boolean;
 
   private havePaymentsPlans: boolean;
 
@@ -78,7 +82,8 @@ export class StudentComponent implements OnInit{
 
   constructor(private studentService: StudentService, private courseService: CourseService, 
               private levelService: LevelService, private divisionService: DivisionService,
-              private yearService: YearService, private paymentPlanService: PaymentPlanService) {}
+              private yearService: YearService, private paymentPlanService: PaymentPlanService,
+              private documentTypeService: DocumentTypeService) {}
 
   ngOnInit() {
     this.language = "ES";
@@ -107,6 +112,7 @@ export class StudentComponent implements OnInit{
   }
 
   loadDivisions(){
+    this.showLoading();
     this.divisionService.loadDivisions()
        .subscribe(
         data => this.loadDivisionsOK(data),
@@ -163,7 +169,7 @@ export class StudentComponent implements OnInit{
       Object.assign(year, yearJSON);
       this.filterYearOptions.push({label:year.description, value:year});
     }
-    this.loadStudents();
+    this.loadDocumentType();
   }
 
   loadStudents(){
@@ -185,6 +191,7 @@ export class StudentComponent implements OnInit{
     }
     Logger.debug("Estudiantes cargados.. " + JSON.stringify(this.students));
     this.hideFooterLoading();
+    this.hideLoading();
   }
 
   goListCreate(goList: boolean) {
@@ -201,7 +208,6 @@ export class StudentComponent implements OnInit{
   }
 
   private loadPaymentPlans(){
-    this.showLoading();
     this.paymentPlanService.loadPaymentPlans()
        .subscribe(
         data => this.loadPaymentPlansOK(data),
@@ -218,7 +224,6 @@ export class StudentComponent implements OnInit{
     }else{
       this.havePaymentsPlans = false;
     }
-    this.hideLoading();
   }
 
   goListUpdate(goList: boolean){
@@ -252,24 +257,52 @@ export class StudentComponent implements OnInit{
       this.inUpdateStudent = false;
       this.inListStudent = false;
       this.inCreateStudent = false;
+      Logger.debug("Emitiendo select student go record");
+      this.selectStudent.emit(student);
       this.goRecord.emit(true);
     }
   }
 
   loadErrorMessageService(error){
-    this.hideLoading();
     Logger.warn("Ocurrio un error al crear un estudiante...");
     this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
     this.showMessageErrorService = true;
     this.showMessageError = true;
+    this.hideLoading();
   }
 
   showLoading(){
-    this.displayLoading = "block";
+    this.loading = true;
   }
 
   hideLoading(){
-    this.displayLoading = "none";
+    this.loading = false;
+  }
+
+   private loadDocumentType(){
+    this.documentTypeService.loadDocumentTypes()
+       .subscribe(
+        data => this.loadDocumentTypeOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+    );
+  }
+  loadDocumentTypeOK(data){
+    this.documentTypes = new Array<DocumentType>();
+    for(let documentTypeJSON of data.body.result){
+      let documentType: DocumentType = new DocumentType();
+      Object.assign(documentType, documentTypeJSON);
+      this.documentTypes.push(documentType);
+    }
+    this.loadStudents();
+  }
+
+  getDocumentTypeDescription(id: number){
+    for(let documentType of this.documentTypes){
+      if(documentType.id == id){
+        return documentType.description;
+      }
+    }
   }
 
 }

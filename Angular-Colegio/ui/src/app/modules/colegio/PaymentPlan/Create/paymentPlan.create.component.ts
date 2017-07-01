@@ -653,6 +653,15 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   loadPaymentPlanData(){
     this.paymentPlan.description = this.inputDescription.value;
+    for(let obligation of this.paymentPlan.obligations){
+      for(let price of obligation.prices){
+        let value = 0;
+        for(let detail of price.details){
+          value += detail.value;
+        }
+        price.value = value;
+      }
+    }
   }
 
   goToList(){

@@ -43,7 +43,9 @@
       <div class="row">
         <div class="col-6">
           <p-dropdown [options]="documentTypes" [(ngModel)]="student.documentType" 
-            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" [ngClass]="{'error-border': errorDocumentType}">
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" 
+            [ngClass]="{'error-border': errorDocumentType,'is-all-ok': isDocumentTypeOK}"
+            (onChange)="documentTypeChange()">
           </p-dropdown>
         </div>
         <div class="col-6">
@@ -60,14 +62,16 @@
           <h3>Planes de Pago</h3>
           <p-listbox [options]="paymentPlansListBox" [(ngModel)]="student.paymentPlans" 
             multiple="multiple" checkbox="checkbox" filter="filter" class="listbox-common"
-            [ngClass]="{'error-border': errorPaymentPlans}"></p-listbox>
+            [ngClass]="{'error-border': errorPaymentPlans, 'is-all-ok': isPaymentPlansOK}"
+            (onChange)="paymentPlanChange()"></p-listbox>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
           <h3>Cursos</h3>
           <p-listbox [options]="coursesListBox" [(ngModel)]="student.course" 
-            filter="filter" class="listbox-common" [ngClass]="{'error-border': errorCourses}"></p-listbox>
+            filter="filter" class="listbox-common" [ngClass]="{'error-border': errorCourses, 
+            'is-all-ok': isCoursesOK}" (onChange)="coursesChange()"></p-listbox>
         </div>
       </div>
       <div class="row">
@@ -78,8 +82,7 @@
     </div>
   </div>
 </div>
-<!--
-<div class="modal animated fadeIn" [ngStyle]="{'display': displayLoading}">
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
   <table class="table-loading">
     <tr>
       <td>
@@ -88,7 +91,6 @@
     </tr>
   </table>
 </div>
--->
 <div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUp}">
   <div class="modal-dialog" role="document">
     <div class="modal-content animated fadeIn">

@@ -36,7 +36,6 @@ export class CourseComponent implements OnInit{
   inCreateCourse: boolean;
   inUpdateCourse: boolean;
   inListCourse: boolean;
-  loading: boolean;
   morecourses: boolean;
   filterLevel: Level;
   filterLevelsOptions: Array<SelectItem>;
@@ -49,7 +48,7 @@ export class CourseComponent implements OnInit{
   showMessageErrorService: boolean; 
   messageErrorService: string;
 
-  loadingModal: boolean;
+  loading: boolean;
 
   private language: string;
 
@@ -154,14 +153,6 @@ export class CourseComponent implements OnInit{
     this.inListCourse = goList;
   }
 
-  inLoading(loading: boolean){
-    if(loading){
-      //this.showLoading();
-    }else{
-      //this.hideLoading();
-    }
-  }
-
   loadData(event) {
     this.loadCourses();
   }
@@ -203,11 +194,11 @@ export class CourseComponent implements OnInit{
   }
 
   showLoading(){
-    this.loadingModal = true;
+    setTimeout(()=>{ this.loading = true; }, 500)
   }
 
   hideLoading(){
-    this.loadingModal = false;
+    setTimeout(()=>{ this.loading = false; }, 500)
   }
 
 }

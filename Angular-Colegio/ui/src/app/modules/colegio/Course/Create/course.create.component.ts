@@ -50,6 +50,7 @@ export class CourseCreateComponent implements OnInit{
   errorLevel: boolean;
   errorYear: boolean;
   errorDivision: boolean;
+  loading: boolean;
 
   constructor(private courseService: CourseService, private levelService: LevelService,
               private divisionService: DivisionService, private yearService: YearService) {}
@@ -135,12 +136,11 @@ export class CourseCreateComponent implements OnInit{
   }
 
   showLoading(){
-    Logger.debug("Emitiendo evento mostrar loading");
-    //this.inLoading.emit(true);
+    setTimeout(()=>{ this.loading = true; }, 500);
   }
 
   hideLoading(){
-    //this.inLoading.emit(false);
+    setTimeout(()=>{ this.loading = false; }, 500);
   }
 
   isAllOK(){
@@ -238,7 +238,6 @@ export class CourseCreateComponent implements OnInit{
   deleteCourseOK(data){
     Logger.debug("Curso eliminado...");
     this.goToList();
-    this.hideLoading();
   }
 
   getCourseDescription(){
