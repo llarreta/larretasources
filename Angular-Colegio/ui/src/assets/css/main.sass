@@ -3253,11 +3253,52 @@ span.label-with-buttons-listbox {
 
 .error-border .ui-dropdown,
 .error-border .ui-listbox,
-.error-border {
+.error-border-show {
     box-shadow: 0px 0px 8px 0px #c7212d;
+}
+
+.is-all-ok .ui-dropdown,
+.is-all-ok .ui-listbox,
+.is-all-ok-show{
+    box-shadow: 0px 0px 8px 0px #39cb61;
 }
 
 .modal-body {
     margin: 0px;
     padding: 0px;
+}
+
+.payment-record-value {
+    float: right;
+    font-size: 20px;
+}
+
+.paid-off{
+  box-shadow: inset 0px 0px 50px -4px #c7212d;
+  transition: linear box-shadow 0.25s;
+}
+
+.paid-off:hover {
+    box-shadow: inset 0px 0px 20px -4px #c7212d;
+}
+
+.paid-off:active {
+    box-shadow: inset 0px 0px 30px -4px #a31c26;
+}
+
+.paid-on{
+  box-shadow: inset 0px 0px 50px -4px #39cb61;
+  transition: linear box-shadow 0.25s;
+}
+
+.paid-on:hover{
+  box-shadow: inset 0px 0px 20px -4px #39cb61;
+}
+
+.paid-on:active{
+  box-shadow: inset 0px 0px 30px -4px #2b9f4a;
+}
+
+.text-align-center {
+    text-align: center;
 }

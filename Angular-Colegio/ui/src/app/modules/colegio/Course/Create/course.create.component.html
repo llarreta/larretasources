@@ -33,19 +33,19 @@
         <div class="col-4">
           <p-dropdown [options]="levels" [(ngModel)]="course.level" 
             class="drop-down-custom" filter="filter" [style]="{'width':'100%'}"
-            [ngClass]="{'error-border': errorLevel}">
+            [ngClass]="{'error-border': errorLevel, 'is-all-ok': (course.level != null)}">
           </p-dropdown>
         </div>
         <div class="col-4">
           <p-dropdown [options]="years" [(ngModel)]="course.year" 
             class="drop-down-custom" filter="filter" [style]="{'width':'100%'}"
-            [ngClass]="{'error-border': errorYear}">
+            [ngClass]="{'error-border': errorYear, 'is-all-ok': (course.year != null)}">
           </p-dropdown>
         </div>
         <div class="col-4">
           <p-dropdown [options]="divisions" [(ngModel)]="course.division" 
             class="drop-down-custom" filter="filter" [style]="{'width':'100%'}"
-            [ngClass]="{'error-border': errorDivision}">
+            [ngClass]="{'error-border': errorDivision, 'is-all-ok': (course.division != null)}">
           </p-dropdown>
         </div>
       </div>
@@ -69,4 +69,13 @@
       </div>
     </div>
   </div>
+</div>
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
 </div>

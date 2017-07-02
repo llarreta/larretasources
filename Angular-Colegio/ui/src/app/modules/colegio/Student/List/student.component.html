@@ -61,7 +61,7 @@
                 </div>
                 <div class="data-scroller-item-1-body">
                   <div class="data-scroller-item-1-body-data">
-                    {{student.documentType}}: {{student.documentNumber}}
+                    {{getDocumentTypeDescription(student.documentType)}}: {{student.documentNumber}}
                   </div>
                   <div class="data-scroller-item-1-body-data">
                     <!--{{student.course.level}}-->
@@ -90,7 +90,7 @@
   </div>
 </div>
 
-<div class="modal animated fadeIn" [ngStyle]="{'display': displayLoading}">
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
   <table class="table-loading">
     <tr>
       <td>

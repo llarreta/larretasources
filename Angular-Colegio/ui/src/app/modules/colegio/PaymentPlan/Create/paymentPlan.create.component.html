@@ -62,7 +62,7 @@
                 </ng-template>
               </p-listbox>
               <div *ngIf="(obligations == null) || (obligations.length <= 0)" 
-                class="no-obligations-message animated fadeIn" [ngClass]="{'error-border': errorObligation}">
+                class="no-obligations-message animated fadeIn" [ngClass]="{'error-border-show': errorObligation}">
                 No se ingresaron cuotas.
               </div>
             </div>
@@ -92,7 +92,7 @@
                 </ng-template>
               </p-listbox>
               <div *ngIf="((details == null) || (details.length <= 0)) && (obligationSelected != null)" 
-                class="no-obligations-message animated fadeIn" [ngClass]="{'error-border': errorItems}">
+                class="no-obligations-message animated fadeIn" [ngClass]="{'error-border-show': errorItems}">
                 No se ingresaron items.
               </div>
               <div *ngIf="((details == null) || (details.length <= 0)) && (obligationSelected == null)" 

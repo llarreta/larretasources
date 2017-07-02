@@ -1,9 +1,27 @@
-<school-students *ngIf="inList" [inPaymentRecord]="true" (goRecord)="goRecord($event)"></school-students>
+<school-students *ngIf="inList" [inPaymentRecord]="true" 
+  (goRecord)="goRecord($event)" (selectStudent)="selectStudent($event)"></school-students>
 <div class="container" *ngIf="!inList">
-  <div *ngIf="inListStudent" class="animated fadeInUp">
+  <div class="animated fadeInUp">
     <div class= "col-12 common-box-extra-large">
+      <div class="row animated fadeIn">
+        <div class="col-12">
+          <button type="button" class="button-back" (click)="goToList(true)" pTooltip="Volver">
+            <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-12 body-component">
+          <div class="row animated fadeIn">
+            <div class="col-12">
+                <h1>Estado de Cuotas</h1>
+            </div>
+          </div>
+          <div class="row animated fadeIn">
+            <div class="col-12 text-align-center">
+                <h2>{{student.name}} {{student.surname}}</h2>
+            </div>
+          </div>
           <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
             <div class="col-1 error-box-icon">
               <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
@@ -12,13 +30,38 @@
               {{messageErrorService}}
             </div>
           </div>
-          <p-dataScroller [value]="students" [rows]="7" class="data-scroller-two-columns" (onLazyLoad)="loadData($event)" [lazy]="true">
-            <ng-template let-obligation pTemplate="item">
-              
+          <p-dataScroller [value]="paymentRecords" [rows]="7" class="data-scroller-two-columns" (onLazyLoad)="loadData($event)" [lazy]="true">
+            <ng-template let-paymentRecord pTemplate="item">
+              <div class="data-scroller-item-1-container" (click)="loadPaymentRecord(paymentRecord)"
+                [ngClass]="{'paid-off': !paymentRecords.paidOff, 'paid-on': paymentRecords.paidOff}">
+                <div class="data-scroller-item-1-title">
+                   <span>{{paymentRecord.description}}</span><span class="payment-record-value">$1300,23</span>
+                </div>
+                <div class="data-scroller-item-1-body">
+                  <div class="data-scroller-item-1-body-data">
+                   Vencimiento: {{paymentRecord.dueDate | date: 'dd/MM/yyyy'}}
+                  </div>
+                  <div class="data-scroller-item-1-body-data">
+                    <!--{{student.course.level}}-->
+                  </div>
+                  <div class="data-scroller-item-1-body-data">
+                    <!--{{student.course.year}}° {{student.course.division}}-->
+                  </div>
+                </div>
+              </div>      
             </ng-template>
           </p-dataScroller>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
 </div>
