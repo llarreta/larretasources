@@ -18,12 +18,12 @@ public abstract class CallCreateBusinessListener extends CallAnotherBusinessList
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
 			try {
 				Serializable id = super.process(source, target, args);
-				if (isExecuteAvaiable()){
+				if (isExecuteAvaiable(source, target, args)){
 					Entity entity = (Entity) target;
 					if (entity!=null){
 						entity.setId((Long) id);
 					}
-					PropertyUtils.setProperty(json, "id", id);
+					PropertyUtils.setProperty(source, "id", id);
 			}
 			return id;
 		} catch (Exception e){

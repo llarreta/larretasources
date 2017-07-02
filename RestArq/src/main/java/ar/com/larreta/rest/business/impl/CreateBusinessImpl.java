@@ -27,13 +27,12 @@ public abstract class CreateBusinessImpl<J extends JSONable, E extends Entity> e
 		try {
 			Class<?> entityType = TypedClassesUtils.getGenerics(CreateBusinessImpl.class, this, 1);
 			
-			J json = (J) input;
 			E entity = (E) applicationContext.getBean(entityType);
-			beanUtils.copy(json, entity);
+			beanUtils.copy(input, entity);
 			
-			callListeners(beforePersistListeners, json, entity);
+			callListeners(beforePersistListeners, input, entity);
 			persist(entity);
-			callListeners(afterPersistListeners, json, entity);
+			callListeners(afterPersistListeners, input, entity);
 			
 			return entity.getId();
 		} catch (Exception e){

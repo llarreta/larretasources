@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import ar.com.larreta.annotations.Log;
 import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.exceptions.BusinessException;
-import ar.com.larreta.rest.messages.JSONable;
 
 public abstract class CallAnotherBusinessListener extends BusinessListenerImpl {
 
@@ -18,8 +17,6 @@ public abstract class CallAnotherBusinessListener extends BusinessListenerImpl {
 	private static @Log Logger LOG;	
 	
 	private Business business;
-	
-	protected JSONable json;
 	
 	public Business getBusiness() {
 		return business;
@@ -32,9 +29,8 @@ public abstract class CallAnotherBusinessListener extends BusinessListenerImpl {
 	@Override
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
 		try {
-			this.json = (JSONable) source;
-			if (isExecuteAvaiable()){
-				return business.execute(getParam());
+			if (isExecuteAvaiable(source, target, args)){
+				return business.execute(getParam(source, target, args));
 			}
 			return NOT_EXECUTE;
 		} catch (Exception e) {
@@ -43,10 +39,10 @@ public abstract class CallAnotherBusinessListener extends BusinessListenerImpl {
 		}
 	}
 	
-	public Boolean isExecuteAvaiable(){
+	public Boolean isExecuteAvaiable(Serializable source, Serializable target, Object... args){
 		return Boolean.TRUE;
 	}
 
-	public abstract JSONable getParam();
+	public abstract Serializable getParam(Serializable source, Serializable target, Object... args);
 
 }

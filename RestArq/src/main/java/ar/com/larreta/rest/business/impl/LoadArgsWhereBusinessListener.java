@@ -19,7 +19,7 @@ public abstract class LoadArgsWhereBusinessListener<W extends Where> extends Bus
 		LoadArguments loadArgs = (LoadArguments) args[0];
 		
 		if ((source!=null) && (loadArgs!=null)){
-			Object value = getValuedListener(source, target, args);
+			Object value = getValue(source, target, args);
 			if (value==null){
 				beanUtils.read(source, getSourceProperty());
 			}
@@ -38,7 +38,7 @@ public abstract class LoadArgsWhereBusinessListener<W extends Where> extends Bus
 	}
 
 	@Override
-	public Object getValuedListener(Serializable source, Serializable target, Object... args) {
+	public Object getValue(Serializable source, Serializable target, Object... args) {
 		return null;
 	}
 	

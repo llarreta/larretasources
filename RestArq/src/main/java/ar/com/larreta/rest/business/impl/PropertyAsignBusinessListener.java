@@ -18,7 +18,7 @@ public abstract class PropertyAsignBusinessListener extends BusinessListenerImpl
 	public Serializable process(Serializable source, Serializable target, Object... args)
 			throws BusinessException, PersistenceException {
 		
-		Object value = getValuedListener(source, target, args);
+		Object value = getValue(source, target, args);
 		if (value==null){
 			value = beanUtils.read(source, getSourceProperty());
 		}
@@ -29,7 +29,7 @@ public abstract class PropertyAsignBusinessListener extends BusinessListenerImpl
 	}
 
 	@Override
-	public Object getValuedListener(Serializable source, Serializable target, Object... args) {
+	public Object getValue(Serializable source, Serializable target, Object... args) {
 		return null;
 	}
 

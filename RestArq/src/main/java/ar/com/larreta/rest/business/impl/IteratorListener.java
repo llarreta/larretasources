@@ -37,10 +37,9 @@ public abstract class IteratorListener<E extends Serializable>  extends Business
 	
 	@Override
 	public Serializable process(Serializable source, Serializable target, Object... args) throws BusinessException{
-		Collection collection = (Collection) beanUtils.newInstanceType(target, getTargetProperty());
-		beanUtils.write(target, getTargetProperty(), collection);
+		Collection collection = initializePersist(getTarget(source, target, args));
 
-		Iterator it = beanUtils.iterator(source, getSourceProperty());
+		Iterator it = beanUtils.iterator(getSource(source, target, args), getSourceProperty());
 		
 		while (it.hasNext()) {
 			try {
@@ -48,10 +47,9 @@ public abstract class IteratorListener<E extends Serializable>  extends Business
 				Serializable targetToCollection = (Serializable) applicationContext.getBean(
 							TypedClassesUtils.getGenerics(IteratorListener.class, this, 0));
 
-				beanUtils.copy(sourceFromCollection, targetToCollection);
-				
 				BusinessImpl.callListeners(afterIterateListeners, sourceFromCollection, targetToCollection, null);
-				collection.add(targetToCollection);
+				exectue(sourceFromCollection, targetToCollection);
+				persist(collection, targetToCollection);
 				BusinessImpl.callListeners(beforeIterateListeners, sourceFromCollection, targetToCollection, null);
 			} catch (Exception e){
 				LOG.error("Ocurrio un error en IteratorListener", e);
@@ -59,6 +57,43 @@ public abstract class IteratorListener<E extends Serializable>  extends Business
 		}
 		
 		return null;
+	}
+
+	public Serializable getTarget(Serializable source, Serializable target, Object... args) {
+		return target;
+	}
+
+	public Serializable getSource(Serializable source, Serializable target, Object... args) {
+		return source;
+	}
+	
+	/**
+	 * Inicializa lo necesario para poder persistir lo generado
+	 * @param getTarget(target)
+	 * @return
+	 */
+	public Collection initializePersist(Serializable target) {
+		Collection collection = (Collection) beanUtils.newInstanceType(target, getTargetProperty());
+		beanUtils.write(target, getTargetProperty(), collection);
+		return collection;
+	}
+
+	/**
+	 * Almacena el objeto generado en la nueva collection
+	 * @param collection
+	 * @param getTarget(targetToCollection)
+	 */
+	public void persist(Collection collection, Serializable targetToCollection) {
+		collection.add(targetToCollection);
+	}
+
+	/**
+	 * Ejecuta la accion por cada elemento de la collection del source
+	 * @param getTarget(sourceFromCollection)
+	 * @param getTarget(targetToCollection)
+	 */
+	public void exectue(Serializable sourceFromCollection, Serializable targetToCollection)  throws Exception{
+		beanUtils.copy(sourceFromCollection, targetToCollection);
 	}
 
 

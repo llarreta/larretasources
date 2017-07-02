@@ -9,16 +9,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import ar.com.larreta.annotations.Log;
+import ar.com.larreta.persistence.dao.args.LoadArguments;
 import ar.com.larreta.persistence.dao.impl.Equal;
+import ar.com.larreta.persistence.exceptions.CantBuildQueryException;
 import ar.com.larreta.persistence.model.Person;
+import ar.com.larreta.rest.business.Business;
 import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.business.impl.BusinessConfig;
+import ar.com.larreta.rest.business.impl.CallAnotherBusinessListener;
 import ar.com.larreta.rest.business.impl.EntityAsignBusinessListener;
+import ar.com.larreta.rest.business.impl.IteratorCallBusinessListener;
 import ar.com.larreta.rest.business.impl.IteratorListener;
 import ar.com.larreta.rest.business.impl.LoadArgsAddInnerJoin;
 import ar.com.larreta.rest.business.impl.LoadArgsWhereBusinessListener;
 import ar.com.larreta.rest.business.impl.PropertyAsignBusinessListener;
+import ar.com.larreta.rest.messages.JSONable;
 import ar.com.larreta.rest.messages.TargetedBody;
+import ar.com.larreta.school.business.paymentPlans.PaymentPlansBusinessConfig;
+import ar.com.larreta.school.persistence.Obligation;
+import ar.com.larreta.school.persistence.ObligationStatus;
 import ar.com.larreta.school.persistence.PaymentDirection;
 import ar.com.larreta.school.persistence.PaymentEntity;
 import ar.com.larreta.school.persistence.PaymentUnit;
@@ -27,6 +37,11 @@ import ar.com.larreta.school.persistence.Product;
 @Configuration
 public class PaymentsBusinessConfig extends BusinessConfig {
 
+	public static final String OBLIGATION_STATUS_AFTER_ITERATE_LISTENER = "obligationStatusAfterIterateListener";
+	public static final String OBLIGATION 								= "obligation";
+	public static final String PAID_OFF_LISTENER 						= "paidOffListener";
+	public static final String STUDENT_ASIGN_LISTENER 					= "studentAsignListener";
+	public static final String PAID_OFF 								= "paidOff";
 	public static final String STUDENT 									= "student";
 	public static final String PRODUCT_GROUP_ID 						= "productGroup.id";
 	public static final String PRODUCT_GROUP 							= "productGroup";
@@ -41,7 +56,12 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 	public static final String ASIGN_PERSON_LISTENER 					= "asignPersonListener";
 	public static final String PAY_UNITS 								= "payUnits";
 
-	public static final String STUDENT_ASIGN_LISTENER 					= "studentAsignListener";
+	public static final String PAID_OFF_ASIGN_LISTENER 					= "paidOffAsignListener";
+	public static final String STUDENT_BENEFITING_ASIGN_LISTENER 		= "studentBenefitingAsignListener";
+	public static final String OBLIGATION_ASIGN_LISTENER 				= "obligationAsignListener";
+	public static final String ITERATE_OBLIGATION_STATUS 				= "iterateObligationStatus";
+	public static final String PAYMENTS_AFTER_PERSIST_LISTENER 			= "paymentsAfterPersistListener";
+	public static final String CALL_CREATE_OBLIGATION_STATUS_LISTENER 	= "callCreateObligationStatusListener";
 	public static final String OBLIGATION_STATUS_AFTER_LOAD_LISTENERS 	= "obligationStatusAfterLoadListeners";
 	public static final String PRODUCT_GROUP_ASIGN_LISTENER 			= "productGroupAsignListener";
 	public static final String PAYMENT_STUDENT_ID_WHERE_EQUAL_LISTENER 	= "paymentStudentIdWhereEqualListener";
@@ -68,18 +88,172 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 
 	private PropertyAsignBusinessListener							productGroupAsignListener;
 	private PropertyAsignBusinessListener							studentAsignListener;
+	private PropertyAsignBusinessListener							paidOffListener;
+	
+	private CallAnotherBusinessListener 							callCreateObligationStatusListener;
+	private IteratorCallBusinessListener<ObligationStatus> 			iterateObligationStatus;
+	
+	private PropertyAsignBusinessListener							obligationAsignListener;
+	private PropertyAsignBusinessListener							studentBenefitingAsignListener;
+	private PropertyAsignBusinessListener							paidOffAsignListener;
+
+	@Bean(name=PAID_OFF_ASIGN_LISTENER)
+	public PropertyAsignBusinessListener paidOffAsignListener(){
+		paidOffAsignListener = new PropertyAsignBusinessListener() {
+			@Override
+			public Object getValue(Serializable source, Serializable target, Object... args) {
+				return Boolean.TRUE;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return PAID_OFF;
+			}
+			
+			@Override
+			public String getSourceProperty() {
+				return null;
+			}
+		};
+		return paidOffAsignListener;
+	}
+	
+	@Bean(name=STUDENT_BENEFITING_ASIGN_LISTENER)
+	public PropertyAsignBusinessListener studentBenefitingAsignListener(){
+		studentBenefitingAsignListener = new PropertyAsignBusinessListener() {
+			@Override
+			public String getTargetProperty() {
+				return STUDENT;
+			}
+			
+			@Override
+			public String getSourceProperty() {
+				return PERSON_BENEFITING;
+			}
+		};
+		return studentBenefitingAsignListener;
+	}
+	
+	@Bean(name=OBLIGATION_ASIGN_LISTENER)
+	public PropertyAsignBusinessListener obligationAsignListener(){
+		obligationAsignListener = new PropertyAsignBusinessListener() {
+			@Override
+			public String getTargetProperty() {
+				return OBLIGATION;
+			}
+			
+			@Override
+			public String getSourceProperty() {
+				return PRODUCT;
+			}
+		};
+		return obligationAsignListener;
+	}
+	
+	@Bean(name=PAYMENTS_AFTER_PERSIST_LISTENER) 
+	@DependsOn(value={ITERATE_OBLIGATION_STATUS})
+	public Set<BusinessListener> paymentsAfterPersistListener(){
+		return getSet(iterateObligationStatus);
+	}
+	
+	@Bean(name=OBLIGATION_STATUS_AFTER_ITERATE_LISTENER) 
+	@DependsOn(value={PAID_OFF_ASIGN_LISTENER, STUDENT_BENEFITING_ASIGN_LISTENER, OBLIGATION_ASIGN_LISTENER})
+	public Set<BusinessListener> obligationStatusAfterIterateListener(){
+		return getSet(paidOffAsignListener, studentBenefitingAsignListener, obligationAsignListener);
+	}
+
+	@Bean(name=ITERATE_OBLIGATION_STATUS) 
+	@DependsOn(value={OBLIGATION_STATUS_AFTER_ITERATE_LISTENER})
+	public 	IteratorCallBusinessListener<ObligationStatus> iterateObligationStatus(){
+		iterateObligationStatus = new IteratorCallBusinessListener<ObligationStatus>(){
+			@Override
+			@Autowired @Qualifier(OBLIGATION_STATUS_AFTER_ITERATE_LISTENER)
+			public void setAfterIterateListeners(Set<BusinessListener> afterIterateListeners) {
+				super.setAfterIterateListeners(afterIterateListeners);
+			}
+			@Override
+			public Serializable getSource(Serializable source, Serializable target, Object... args) {
+				return target;
+			}
+			@Override
+			@Autowired @Qualifier(CALL_CREATE_OBLIGATION_STATUS_LISTENER)
+			public void setCallBusinessListeners(Set<BusinessListener> callBusinessListeners) {
+				super.setCallBusinessListeners(callBusinessListeners);
+			}
+			@Override
+			public String getSourceProperty() {
+				return PAYMENT_UNITS;
+			}
+			@Override
+			public String getTargetProperty() {
+				return null;
+			}
+		};
+		return iterateObligationStatus;
+	}
+	
+	@Bean(name=CALL_CREATE_OBLIGATION_STATUS_LISTENER) 
+	public CallAnotherBusinessListener callCreateObligationStatusListener(){
+		callCreateObligationStatusListener = new CallAnotherBusinessListener() {
+			@Override
+			@Autowired @Qualifier(CreateObligationStatusBusiness.BUSINESS_NAME)
+			public void setBusiness(Business business) {
+				super.setBusiness(business);
+			}
+			@Override
+			public Serializable getParam(Serializable source, Serializable target, Object... args) {
+				return target;
+			}
+		};
+		return callCreateObligationStatusListener;
+	}
 	
 	@Bean(name=OBLIGATION_STATUS_AFTER_LOAD_LISTENERS) 
-	@DependsOn(value={PRODUCT_GROUP_ASIGN_LISTENER, STUDENT_ASIGN_LISTENER})
+	@DependsOn(value={PRODUCT_GROUP_ASIGN_LISTENER, STUDENT_ASIGN_LISTENER, PAID_OFF_LISTENER})
 	public Set<BusinessListener> obligationStatusAfterLoadListeners(){
-		return getSet(productGroupAsignListener, studentAsignListener);
+		return getSet(productGroupAsignListener, studentAsignListener, paidOffListener);
+	}
+	
+	@Bean(name=PAID_OFF_LISTENER) 
+	public PropertyAsignBusinessListener paidOffListener(){
+		paidOffListener = new PropertyAsignBusinessListener() {
+			
+			@Override
+			public Object getValue(Serializable source, Serializable target, Object... args) {
+				TargetedBody body = (TargetedBody) args[0];
+				Obligation obligation = (Obligation) source;
+				LoadArguments loadArgs = new LoadArguments(ObligationStatus.class);
+				loadArgs.addWhereEqual("student.id", body.getTarget());
+				loadArgs.addWhereEqual("obligation.id", obligation.getId());
+				try {
+					ObligationStatus obligationStatus = (ObligationStatus) standardDAO.getEntity(loadArgs);
+					if (obligationStatus!=null){
+						return obligationStatus.getPaidOff();
+					}
+				} catch (CantBuildQueryException e) {
+					LOG.error("Ocurrio un error asignando paidOff", e);
+				}
+				return null;
+			}
+
+			@Override
+			public String getTargetProperty() {
+				return PAID_OFF;
+			}
+			
+			@Override
+			public String getSourceProperty() {
+				return null;
+			}
+		};
+		return paidOffListener;
 	}
 	
 	@Bean(name=STUDENT_ASIGN_LISTENER) 
 	public PropertyAsignBusinessListener studentAsignListener(){
 		studentAsignListener = new PropertyAsignBusinessListener() {
 			@Override
-			public Object getValuedListener(Serializable source, Serializable target, Object... args) {
+			public Object getValue(Serializable source, Serializable target, Object... args) {
 				TargetedBody body = (TargetedBody) args[0];
 				return body.getTarget();
 			}
@@ -123,7 +297,7 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 	public LoadArgsWhereBusinessListener<Equal> paymentStudentIdWhereEqualListener(){
 		paymentStudentIdWhereEqualListener = new LoadArgsWhereBusinessListener<Equal>() {
 			@Override
-			public Object getValuedListener(Serializable source, Serializable target, Object... args) {
+			public Object getValue(Serializable source, Serializable target, Object... args) {
 				TargetedBody body = (TargetedBody) source;
 				return body.getTarget();
 			}
