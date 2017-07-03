@@ -30,8 +30,8 @@ public class Course extends ar.com.larreta.persistence.model.Entity {
 	public Level getLevel() {
 		return level;
 	}
-	public void setLevel(Serializable level) {
-		this.level = (Level) level;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Year.class)
@@ -39,8 +39,8 @@ public class Course extends ar.com.larreta.persistence.model.Entity {
 	public Year getYear() {
 		return year;
 	}
-	public void setYear(Serializable year) {
-		this.year = (Year) year;
+	public void setYear(Year year) {
+		this.year = year;
 	}
 	
 	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Division.class)
@@ -48,8 +48,8 @@ public class Course extends ar.com.larreta.persistence.model.Entity {
 	public Division getDivision() {
 		return division;
 	}
-	public void setDivision(Serializable division) {
-		this.division = (Division) division;
+	public void setDivision(Division division) {
+		this.division = division;
 	}
 	
 	@Override
