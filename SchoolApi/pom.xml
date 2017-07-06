@@ -5,6 +5,7 @@
   <artifactId>school</artifactId>
   <version>0.0.1-SNAPSHOT</version>
       <properties>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>dd-MM-yyyy HH:mm</maven.build.timestamp.format>
         <project.basedir>${project.basedir}</project.basedir>
@@ -92,6 +93,11 @@
       	<dependency>
       		<groupId>ar.com.larreta.persistence</groupId>
       		<artifactId>Persistence</artifactId>
+      		<version>0.0.1-SNAPSHOT</version>
+      	</dependency>
+      	<dependency>
+      		<groupId>ar.com.larreta.reports</groupId>
+      		<artifactId>Reports</artifactId>
       		<version>0.0.1-SNAPSHOT</version>
       	</dependency>
       </dependencies>

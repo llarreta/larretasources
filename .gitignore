@@ -47,3 +47,11 @@ SchoolApiPom/.settings/
 Reports/.classpath
 Reports/.project
 Reports/.settings/
+CommonsParent/.project
+CommonsParent/.classpath
+CommonsPom/.project
+CommonsPom/.settings/
+MyReports/.classpath
+SchoolApiParent/.project
+SchoolApiParent/.settings/
+Tools/.project

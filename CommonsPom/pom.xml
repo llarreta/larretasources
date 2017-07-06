@@ -1,21 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>SchoolApiPom</artifactId>
-  <version>${school.project.version}</version>
+  <artifactId>CommonsPom</artifactId>
+  <version>${project.version}</version>
   <packaging>pom</packaging>
 
    <parent>
-   	<groupId>ar.com.larreta.school</groupId>
-   	<artifactId>SchoolApiParent</artifactId>
+   	<groupId>ar.com.larreta.commons</groupId>
+   	<artifactId>CommonsParent</artifactId>
    	<version>1.0.0</version>
    </parent>
   
   <modules>
-  	<module>../CommonsPom</module>
-  	<module>../SchoolApiParent</module>
-  	<module>../SchoolApi</module>
+  	<module>../CommonsParent</module>
+  	<module>../Tools</module>
+  	<module>../Reports</module>
+  	<module>../Persistence</module>
+  	<module>../RestArq</module>
   </modules>
-  
-
-  
 </project>
