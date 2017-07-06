@@ -3,8 +3,10 @@ package ar.com.larreta.rest.messages.status;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.tools.Const;
+
 @Component
-@Scope("prototype")
+@Scope(Const.PROTOTYPE)
 public class NOT extends State {
 
 	public NOT() {

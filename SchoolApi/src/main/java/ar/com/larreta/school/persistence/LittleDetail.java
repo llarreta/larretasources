@@ -16,7 +16,9 @@ import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Entity @Component @Scope("prototype")
+import ar.com.larreta.tools.Const;
+
+@Entity @Component @Scope(Const.PROTOTYPE)
 @Table(name = "littleDetail")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE LittleDetail SET deleted=CURRENT_TIMESTAMP WHERE id=?")

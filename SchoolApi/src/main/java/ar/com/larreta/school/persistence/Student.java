@@ -19,8 +19,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.persistence.model.Person;
+import ar.com.larreta.tools.Const;
 
-@Entity @Component @Scope("prototype")
+@Entity @Component @Scope(Const.PROTOTYPE)
 @Table(name = "student")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Student SET deleted=CURRENT_TIMESTAMP WHERE id=?")

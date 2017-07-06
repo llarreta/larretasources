@@ -6,7 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component @Scope("prototype")
+import ar.com.larreta.tools.Const;
+
+@Component @Scope(Const.PROTOTYPE)
 public class FormatValidatorString implements FormatValidatorProcessor {
 
 	private Pattern pattern;

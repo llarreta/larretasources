@@ -4,9 +4,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.rest.messages.JSONable;
+import ar.com.larreta.tools.Const;
 import ar.com.larreta.validators.annotations.NotNull;
 
-@Component @Scope("prototype")
+@Component @Scope(Const.PROTOTYPE)
 public class LittleDetailData extends JSONable {
 	
 	private Long 			id;

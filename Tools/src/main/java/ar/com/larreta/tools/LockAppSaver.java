@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import ar.com.larreta.annotations.Log;
 
 @Component
-@Scope("prototype")
+@Scope(Const.PROTOTYPE)
 public class LockAppSaver extends Thread {
 
 	private static @Log Logger LOG;

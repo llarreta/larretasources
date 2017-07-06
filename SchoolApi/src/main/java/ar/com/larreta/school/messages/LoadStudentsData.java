@@ -4,8 +4,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.rest.messages.JSONable;
+import ar.com.larreta.tools.Const;
 
-@Component @Scope("prototype")
+@Component @Scope(Const.PROTOTYPE)
 public class LoadStudentsData extends JSONable {
 
 	private Long 			id;

@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component(NotRequestNeeded.COMPONENT_NAME) @Scope("prototype")
+import ar.com.larreta.tools.Const;
+
+@Component(NotRequestNeeded.COMPONENT_NAME) @Scope(Const.PROTOTYPE)
 public class NotRequestNeeded extends Request<NotRequestNeededBody> {
 
 	public static final String COMPONENT_NAME = "notRequestNeeded";

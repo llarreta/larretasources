@@ -9,7 +9,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component(NotRequestNeededBody.COMPONENT_NAME) @Scope("prototype")
+import ar.com.larreta.tools.Const;
+
+@Component(NotRequestNeededBody.COMPONENT_NAME) @Scope(Const.PROTOTYPE)
 public class NotRequestNeededBody extends Body {
 	
 	public static final String COMPONENT_NAME = "notRequestNeededBody";

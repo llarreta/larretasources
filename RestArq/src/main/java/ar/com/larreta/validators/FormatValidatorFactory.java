@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.tools.Const;
 import ar.com.larreta.validators.annotations.Format;
 
-@Component @Scope("prototype")
+@Component @Scope(Const.PROTOTYPE)
 public class FormatValidatorFactory {
 
 	private Map<Format.FormatType, FormatValidatorProcessor> processors = new HashMap<>();

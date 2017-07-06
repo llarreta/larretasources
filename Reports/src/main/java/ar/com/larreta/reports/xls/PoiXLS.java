@@ -1,26 +1,29 @@
-package ar.com.larreta.commons.reports.xls;
+package ar.com.larreta.reports.xls;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFPalette;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 
-import ar.com.larreta.commons.AppConfigData;
-import ar.com.larreta.commons.reports.Report;
-import ar.com.larreta.commons.reports.XLS;
+import ar.com.larreta.annotations.Log;
+import ar.com.larreta.reports.Report;
+import ar.com.larreta.reports.XLS;
 
 public class PoiXLS extends Report {
+	
+	private static @Log Logger LOG;
 	
 	private HSSFWorkbook workbook = new HSSFWorkbook();
 	private Map<Integer, XLSPage> pages = new HashMap<Integer, XLSPage>();
 	private HSSFPalette palette = workbook.getCustomPalette();
 	
-	public PoiXLS(AppConfigData appConfigData, Integer sheetCount, Integer rowsCount, Integer columnCounts) {
-		super(appConfigData);
+	public PoiXLS (Integer sheetCount, Integer rowsCount, Integer columnCounts) {
+		super();
 		createSheets(sheetCount, rowsCount, columnCounts);
 	}
 
@@ -53,7 +56,7 @@ public class PoiXLS extends Report {
 
 	@Override
 	protected void setSpecificExporterParams() {
-		getLog().debug("setSpecificExporterParams:doNothing");
+		LOG.debug("setSpecificExporterParams:doNothing");
 	}
 
 	public HSSFWorkbook getWorkbook() {

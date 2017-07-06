@@ -1,12 +1,16 @@
 package ar.com.larreta.reports;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import ar.com.larreta.annotations.Log;
+import ar.com.larreta.tools.Const;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 
+@Component @Scope(Const.PROTOTYPE)
 public class PDF extends Report{
 	
 	private static final String REPORT_PDF_AUTOPRINT_SCRIPT = "var pp = this.getPrintParams(); pp.interactive = pp.constants.interactionLevel.silent; this.print(pp);";

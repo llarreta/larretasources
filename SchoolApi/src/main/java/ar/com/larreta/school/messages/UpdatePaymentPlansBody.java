@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.rest.messages.Body;
 import ar.com.larreta.rest.messages.JSONableCollection;
+import ar.com.larreta.tools.Const;
 import ar.com.larreta.validators.annotations.NotNull;
 
-@Component @Scope("prototype")
+@Component @Scope(Const.PROTOTYPE)
 public class UpdatePaymentPlansBody extends Body {
 
 	@NotNull(message="id.required", avaiableActions={"update"})

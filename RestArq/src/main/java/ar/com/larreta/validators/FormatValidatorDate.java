@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component @Scope("prototype")
+import ar.com.larreta.tools.Const;
+
+@Component @Scope(Const.PROTOTYPE)
 public class FormatValidatorDate implements FormatValidatorProcessor{
 
 	private SimpleDateFormat simpleDateFormat;

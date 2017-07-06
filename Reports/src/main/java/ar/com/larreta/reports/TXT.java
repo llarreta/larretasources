@@ -1,6 +1,6 @@
 package ar.com.larreta.reports;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 import ar.com.larreta.annotations.Log;
 import net.sf.jasperreports.engine.export.JRTextExporter;

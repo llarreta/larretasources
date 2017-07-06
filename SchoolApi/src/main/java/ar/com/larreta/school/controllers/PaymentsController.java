@@ -18,6 +18,7 @@ import ar.com.larreta.rest.messages.Request;
 import ar.com.larreta.rest.messages.Response;
 import ar.com.larreta.rest.messages.TargetedBody;
 import ar.com.larreta.school.business.payments.ObligationsStatusBusiness;
+import ar.com.larreta.school.business.payments.PaidObligationBuildReportBusiness;
 import ar.com.larreta.school.business.payments.PayObligationBusiness;
 import ar.com.larreta.school.business.payments.UnpaidObligationsBusiness;
 import ar.com.larreta.school.messages.PayData;
@@ -40,7 +41,15 @@ public class PaymentsController {
 	private PayObligationBusiness payObligationBusiness;
 	@Autowired
 	private ObligationsStatusBusiness obligationsStatusBusiness;
+	@Autowired
+	private PaidObligationBuildReportBusiness paidObligationBuildReportBusiness;
 
+	@RequestMapping(value = "paidObligationReport", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE) 
+	public Response<LoadBody<JSONable>> paidObligationReport()  throws Exception{
+		paidObligationBuildReportBusiness.execute(null);
+		return null;
+	}
+	
 	@RequestMapping(value = OBLIGATIONS_STATUS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<LoadBody<JSONable>> obligationsStatusPost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws Exception{
 		Response<LoadBody<JSONable>> response = applicationContext.getBean(Response.class);

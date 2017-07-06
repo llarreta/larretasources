@@ -5,8 +5,9 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.rest.messages.Body;
 import ar.com.larreta.rest.messages.ParametricData;
+import ar.com.larreta.tools.Const;
 
-@Component @Scope("prototype")
+@Component @Scope(Const.PROTOTYPE)
 public class CourseData extends Body {
 
 	private Long id;

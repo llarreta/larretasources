@@ -1,7 +1,5 @@
 package ar.com.larreta.school.persistence;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -14,8 +12,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.persistence.model.ParametricEntity;
+import ar.com.larreta.tools.Const;
 
-@Entity @Component @Scope("prototype")
+@Entity @Component @Scope(Const.PROTOTYPE)
 @Table(name = "course")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Course SET deleted=CURRENT_TIMESTAMP WHERE id=?")

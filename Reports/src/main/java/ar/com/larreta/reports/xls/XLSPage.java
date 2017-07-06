@@ -1,4 +1,4 @@
-package ar.com.larreta.commons.reports.xls;
+package ar.com.larreta.reports.xls;
 
 import java.io.Serializable;
 import java.util.HashMap;

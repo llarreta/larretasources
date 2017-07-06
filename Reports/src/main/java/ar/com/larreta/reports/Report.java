@@ -8,20 +8,25 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 
 import ar.com.larreta.annotations.Log;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRAbstractExporter;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.repo.RepositoryUtil;
 
 public abstract class Report {
@@ -30,10 +35,9 @@ public abstract class Report {
 
 	private static @Log Logger LOG;
 	
-	//FIXME: crear el archivo donde se externalizan estos valores
-	@Value("report.virtualizer.size")
+	@Value("${report.virtualizer.size}")
 	private String virtualizerSize;
-	@Value("report.virtualizer.directory")
+	@Value("${report.virtualizer.directory}")
 	private String virtualizerDirectory;
 	
 	
@@ -55,8 +59,15 @@ public abstract class Report {
 	}
 	
 	public JasperReport getJasperReport(String reportTemplatePath) throws FileNotFoundException, JRException {
-		return RepositoryUtil.getReport(reportTemplatePath);
+		return (JasperReport) JRLoader.loadObject(getClass().getClassLoader().getResourceAsStream(reportTemplatePath));
+		//return RepositoryUtil.getReport(reportTemplatePath);
 	}
+	
+	public JasperReport getJasperReport(Resource resource) throws JRException, IOException {
+		return JasperCompileManager.compileReport(resource.getInputStream());
+		//return (JasperReport) JRLoader.loadObject(resource.getInputStream());
+	}
+	
 	
 	/**
 	 * Agrega un parametro que sera tenido en cuenta a la hora de construir el reporte
@@ -92,6 +103,44 @@ public abstract class Report {
 		return print;
 	}
 	
+	protected JasperPrint getPrint(Resource resource, JRDataSource dataSource) throws IOException {
+		JasperPrint print = null;
+		try {
+			JasperReport reporte = getJasperReport(resource);
+			
+			// creating the virtualizer
+			JRFileVirtualizer virtualizer = new JRFileVirtualizer(new Integer(virtualizerSize), virtualizerDirectory); 
+
+			// Pass virtualizer object throw parameter map
+			parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer); 
+			
+		    print = JasperFillManager.fillReport(reporte,  parameters, dataSource);
+		} catch (JRException e) {
+			LOG.error("Ocurrio un error generando reporte", e);
+			//FIXME: Lanzar excepcion
+		} 
+		return print;
+	}
+	
+	protected JasperPrint getPrint(Resource resource) throws IOException {
+		JasperPrint print = null;
+		try {
+			JasperReport reporte = getJasperReport(resource);
+			
+			// creating the virtualizer
+			JRFileVirtualizer virtualizer = new JRFileVirtualizer(new Integer(virtualizerSize), virtualizerDirectory); 
+
+			// Pass virtualizer object throw parameter map
+			parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer); 
+			
+		    print = JasperFillManager.fillReport(reporte,  parameters);
+		} catch (JRException e) {
+			LOG.error("Ocurrio un error generando reporte", e);
+			//FIXME: Lanzar excepcion
+		} 
+		return print;
+	}
+	
 	/**
 	 * Obtiene un stream de salida con formato PDF
 	 * @param dataSource
@@ -100,6 +149,23 @@ public abstract class Report {
 	 */
 	public ByteArrayOutputStream getOutputStream(String reportTemplatePath, JRDataSource dataSource) throws IOException{
 		JasperPrint print = getPrint(reportTemplatePath, dataSource);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			
+			setStandardExporterParams(print, baos);
+			setSpecificExporterParams();
+             
+             exporter.exportReport();
+		} catch (JRException e) {
+			LOG.error("Ocurrio un error generando reporte", e);
+			//FIXME: Lanzar excepcion
+		}
+		
+		return baos;
+	}
+	
+	public ByteArrayOutputStream getOutputStream(Resource resource, JRDataSource dataSource) throws IOException{
+		JasperPrint print = getPrint(resource, dataSource);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			
@@ -124,11 +190,32 @@ public abstract class Report {
 	public ByteArrayOutputStream getOutputStream(String reportTemplatePath, Collection dataSource)throws IOException{
 		return getOutputStream(reportTemplatePath, new JRBeanCollectionDataSource(dataSource));
 	}
+	
+	public ByteArrayOutputStream getOutputStream(Resource resource, Collection dataSource)throws IOException{
+		return getOutputStream(resource, new JRBeanCollectionDataSource(dataSource));
+	}
 
 	public ByteArrayOutputStream getOutputStream(String reportTemplatePath)throws IOException{
 		Collection empty = new ArrayList();
 		empty.add(1);
 		return getOutputStream(reportTemplatePath, empty);
+	}
+	
+	public ByteArrayOutputStream getOutputStream(Resource resource)throws IOException{
+		JasperPrint print = getPrint(resource);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			
+			setStandardExporterParams(print, baos);
+			setSpecificExporterParams();
+             
+             exporter.exportReport();
+		} catch (JRException e) {
+			LOG.error("Ocurrio un error generando reporte", e);
+			//FIXME: Lanzar excepcion
+		}
+		
+		return baos;
 	}
 	
 	public ByteArrayOutputStream getOutputStream()throws IOException{

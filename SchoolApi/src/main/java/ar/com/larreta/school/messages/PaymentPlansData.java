@@ -5,8 +5,9 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.rest.messages.JSONable;
 import ar.com.larreta.rest.messages.JSONableCollection;
+import ar.com.larreta.tools.Const;
 
-@Component @Scope("prototype")
+@Component @Scope(Const.PROTOTYPE)
 public class PaymentPlansData extends JSONable {
 
 	private Long id;

@@ -3,7 +3,9 @@ package ar.com.larreta.rest.messages;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component @Scope("prototype")
+import ar.com.larreta.tools.Const;
+
+@Component @Scope(Const.PROTOTYPE)
 public class LoadBody<E extends JSONable> extends Body {
 
 	private Integer firstResult;

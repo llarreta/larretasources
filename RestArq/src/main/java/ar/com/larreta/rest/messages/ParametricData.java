@@ -3,7 +3,9 @@ package ar.com.larreta.rest.messages;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component @Scope("prototype")
+import ar.com.larreta.tools.Const;
+
+@Component @Scope(Const.PROTOTYPE)
 public class ParametricData extends JSONable {
 
 	private Long 			id;

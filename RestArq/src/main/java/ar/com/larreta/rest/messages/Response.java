@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.rest.messages.status.State;
+import ar.com.larreta.tools.Const;
 
-@Component
-@Scope("prototype")
+@Component @Scope(Const.PROTOTYPE)
 @XmlRootElement
 public class Response<T extends JSONable> extends Message {
 	

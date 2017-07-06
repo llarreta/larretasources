@@ -7,10 +7,11 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.rest.messages.JSONable;
 import ar.com.larreta.rest.messages.JSONableCollection;
+import ar.com.larreta.tools.Const;
 import ar.com.larreta.validators.annotations.Format;
 import ar.com.larreta.validators.annotations.NotNull;
 
-@Component @Scope("prototype")
+@Component @Scope(Const.PROTOTYPE)
 public class ObligationData extends JSONable {
 	
 	private Long 			id;

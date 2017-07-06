@@ -5,9 +5,10 @@ import javax.validation.Valid;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.tools.Const;
 import ar.com.larreta.validators.annotations.NotNull;
 
-@Component(Request.COMPONENT_NAME) @Scope("prototype")
+@Component(Request.COMPONENT_NAME) @Scope(Const.PROTOTYPE)
 public class Request<T extends JSONable> extends Message {
 	
 	public static final String COMPONENT_NAME = "request";
