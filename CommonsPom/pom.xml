@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>CommonsPom</artifactId>
-  <version>${project.version}</version>
   <packaging>pom</packaging>
 
    <parent>
@@ -9,12 +8,33 @@
    	<artifactId>CommonsParent</artifactId>
    	<version>1.0.0</version>
    </parent>
-  
+     
   <modules>
-  	<module>../CommonsParent</module>
   	<module>../Tools</module>
   	<module>../Reports</module>
   	<module>../Persistence</module>
   	<module>../RestArq</module>
   </modules>
+  <dependencies>
+  	<dependency>
+  		<groupId>ar.com.larreta.tools</groupId>
+  		<artifactId>Tools</artifactId>
+  		<version>${commons.project.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>ar.com.larreta.reports</groupId>
+  		<artifactId>Reports</artifactId>
+  		<version>${commons.project.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>ar.com.larreta.persistence</groupId>
+  		<artifactId>Persistence</artifactId>
+  		<version>${commons.project.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>ar.com.larreta.rest</groupId>
+  		<artifactId>RestArq</artifactId>
+  		<version>${commons.project.version}</version>
+  	</dependency>
+  </dependencies>
 </project>

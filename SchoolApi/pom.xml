@@ -3,13 +3,20 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ar.com.larreta.rest</groupId>
   <artifactId>school</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+
+   <parent>
+   	<groupId>ar.com.larreta.school</groupId>
+   	<artifactId>SchoolApiParent</artifactId>
+   	<version>1.0.0</version>
+   </parent> 
+  
       <properties>
        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>dd-MM-yyyy HH:mm</maven.build.timestamp.format>
         <project.basedir>${project.basedir}</project.basedir>
       </properties>
+      
       <build>
         <finalName>${project.artifactId}</finalName>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
@@ -71,34 +78,31 @@
 		          <username>root</username>
 		          <password>admin</password>
 		        </configuration>
-		      <!-- executions>
-		        <execution>
-		          <phase>process-resources</phase>
-		          <goals>
-		            <goal>update</goal>
-		          </goals>
-		        </execution>
-		      </executions-->
 		    </plugin>
-            
+      <!-- plugin>
+        <groupId>org.codehaus.mojo</groupId>
+          <artifactId>jasperreports-maven-plugin</artifactId>
+          <configuration>
+            <sourceDirectory>D:\\tutorial\\src\\main\\resources\\reports</sourceDirectory>
+            <outputDirectory>D:\\tutorial\\src\\main\\resources\\reportsCompiled</outputDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>compile-reports</goal>
+              </goals>
+              <phase>compile</phase>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+     		<groupId>net.sf.jasperreports</groupId>
+    		<artifactId>jasperreports</artifactId>
+    		<version>6.4.0</version>
+           </dependency>
+          </dependencies>
+        </plugin-->            
         </plugins>
     </build>
     
-      <dependencies>
-      	<dependency>
-      		<groupId>ar.com.larreta.rest</groupId>
-      		<artifactId>RestArq</artifactId>
-      		<version>0.0.1-SNAPSHOT</version>
-      	</dependency>
-      	<dependency>
-      		<groupId>ar.com.larreta.persistence</groupId>
-      		<artifactId>Persistence</artifactId>
-      		<version>0.0.1-SNAPSHOT</version>
-      	</dependency>
-      	<dependency>
-      		<groupId>ar.com.larreta.reports</groupId>
-      		<artifactId>Reports</artifactId>
-      		<version>0.0.1-SNAPSHOT</version>
-      	</dependency>
-      </dependencies>
 </project>

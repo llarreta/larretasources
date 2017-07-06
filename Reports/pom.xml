@@ -22,4 +22,12 @@
 		      </plugin>        
         </plugins>
     </build>
+    
+    <dependencies>
+    	<dependency>
+			<groupId>ar.com.larreta.tools</groupId>
+			<artifactId>Tools</artifactId>
+			<version>${commons.project.version}</version>
+		</dependency>
+    </dependencies>
 </project>

@@ -2,19 +2,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ar.com.larreta.commons</groupId>
   <artifactId>CommonsParent</artifactId>
-  <version>${project.version}</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   
     <properties>
-	  	<project.version>1.0.0</project.version>
+	  	<commons.project.version>${project.version}</commons.project.version>
 	  	<project.encoding>UTF-8</project.encoding>
 	  	<project.jdk.version>1.8</project.jdk.version>
 	  	
 	  	<project.compiler.plugin>3.6.1</project.compiler.plugin>
-	  	
 	
 	    <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
-  	</properties> 
+  	</properties>
 
     <repositories>
     	<repository>
@@ -100,18 +99,6 @@
   		<version>3.0.1</version>
   	</dependency>
   	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.12</version>
-  		<scope>test</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.mockito</groupId>
-  		<artifactId>mockito-all</artifactId>
-  		<version>1.10.19</version>
-  		<scope>test</scope>
-  	</dependency>
-  	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-test</artifactId>
   		<version>4.3.3.RELEASE</version>
@@ -123,17 +110,6 @@
   		<version>2.2.0</version>
   		<scope>test</scope>
   	</dependency>
-  	<dependency>
-  		<groupId>com.jayway.jsonpath</groupId>
-  		<artifactId>json-path-assert</artifactId>
-  		<version>2.2.0</version>
-  		<scope>test</scope>
-  	</dependency>
-	<dependency>
-		<groupId>ar.com.larreta.tools</groupId>
-		<artifactId>Tools</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-orm</artifactId>
@@ -169,21 +145,6 @@
     		</exclusions>
     	</dependency>
     	<dependency>
-    		<groupId>ar.com.larreta.tools</groupId>
-    		<artifactId>Tools</artifactId>
-    		<version>0.0.1-SNAPSHOT</version>
-    		<exclusions>
-    			<exclusion>
-    				<groupId>com.fasterxml.jackson.core</groupId>
-    				<artifactId>jackson-databind</artifactId>
-    			</exclusion>
-    			<exclusion>
-    				<groupId>com.fasterxml.jackson.core</groupId>
-    				<artifactId>jackson-core</artifactId>
-    			</exclusion>
-    		</exclusions>
-    	</dependency>
-    	<dependency>
     		<groupId>org.apache.poi</groupId>
     		<artifactId>poi</artifactId>
     		<version>3.16</version>
@@ -194,16 +155,6 @@
   		<version>4.3.3.RELEASE</version>
   	</dependency>
 	<dependency>
-		<groupId>ar.com.larreta.tools</groupId>
-		<artifactId>Tools</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-	<dependency>
-		<groupId>ar.com.larreta.persistence</groupId>
-		<artifactId>Persistence</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-	  	<dependency>
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>
   		<version>4.12</version>
@@ -213,24 +164,6 @@
   		<groupId>org.mockito</groupId>
   		<artifactId>mockito-all</artifactId>
   		<version>1.10.19</version>
-  		<scope>test</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-test</artifactId>
-  		<version>4.3.3.RELEASE</version>
-  		<scope>test</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.jayway.jsonpath</groupId>
-  		<artifactId>json-path</artifactId>
-  		<version>2.2.0</version>
-  		<scope>test</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.jayway.jsonpath</groupId>
-  		<artifactId>json-path-assert</artifactId>
-  		<version>2.2.0</version>
   		<scope>test</scope>
   	</dependency>
   	<dependency>

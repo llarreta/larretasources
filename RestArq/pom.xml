@@ -23,4 +23,12 @@
         </plugins>
     </build>
  
+       <dependencies>
+    	<dependency>
+			<groupId>ar.com.larreta.persistence</groupId>
+			<artifactId>Persistence</artifactId>
+			<version>${commons.project.version}</version>
+		</dependency>
+    </dependencies>
+ 
 </project>
