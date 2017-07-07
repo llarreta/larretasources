@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.com.larreta.rest.messages.DownloadBody;
 import ar.com.larreta.rest.messages.JSONable;
 import ar.com.larreta.rest.messages.LoadBody;
 import ar.com.larreta.rest.messages.Request;
@@ -45,9 +46,15 @@ public class PaymentsController {
 	private PaidObligationBuildReportBusiness paidObligationBuildReportBusiness;
 
 	@RequestMapping(value = "paidObligationReport", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE) 
-	public Response<LoadBody<JSONable>> paidObligationReport()  throws Exception{
-		paidObligationBuildReportBusiness.execute(null);
-		return null;
+	public Response<DownloadBody> paidObligationReport(@Valid @RequestBody Request<TargetedBody> request, Errors errors)  throws Exception{
+		String fileToDownload = (String) paidObligationBuildReportBusiness.execute(null);
+		
+		Response<DownloadBody> response = applicationContext.getBean(Response.class);
+		DownloadBody responseBody = applicationContext.getBean(DownloadBody.class);;
+		response.setBody(responseBody);
+		responseBody.setFileContent(fileToDownload);
+		
+		return response;
 	}
 	
 	@RequestMapping(value = OBLIGATIONS_STATUS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

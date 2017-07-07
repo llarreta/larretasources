@@ -16,20 +16,16 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import ar.com.larreta.annotations.Log;
 import ar.com.larreta.tools.JSONParser;
-
 public abstract class ControllerTest {
-	private static @Log Logger LOG;
 	
 	protected MockMvc mockMvc;
 	
 	@Autowired
 	protected WebApplicationContext context;
-	
 	@Autowired
 	protected JSONParser parser;
-	 
+	
     @Before
     public void init(){
         MockitoAnnotations.initMocks(this);

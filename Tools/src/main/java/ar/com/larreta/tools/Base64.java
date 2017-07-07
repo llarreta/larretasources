@@ -25,7 +25,12 @@ public class Base64 {
 	 * @return
 	 */
 	public String encode (String text){
-		byte[]   bytesEncoded = org.apache.commons.codec.binary.Base64.encodeBase64(text .getBytes());
+		byte[] toEncode = text.getBytes();
+		return encode(toEncode);
+	}
+
+	public String encode(byte[] toEncode) {
+		byte[]   bytesEncoded = org.apache.commons.codec.binary.Base64.encodeBase64(toEncode);
 		return new String(bytesEncoded);
 	}
 
@@ -35,7 +40,12 @@ public class Base64 {
 	 * @return
 	 */
 	public String decode (String text){
-		byte[]   bytesEncoded = org.apache.commons.codec.binary.Base64.decodeBase64(text .getBytes());
+		byte[] toDecode = text.getBytes();
+		return decode(toDecode);
+	}
+
+	public String decode(byte[] toDecode) {
+		byte[]   bytesEncoded = org.apache.commons.codec.binary.Base64.decodeBase64(toDecode);
 		return new String(bytesEncoded);
 	}
 	
