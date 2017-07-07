@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -196,13 +197,12 @@ public abstract class Report {
 	}
 
 	public ByteArrayOutputStream getOutputStream(String reportTemplatePath)throws IOException{
-		Collection empty = new ArrayList();
-		empty.add(1);
-		return getOutputStream(reportTemplatePath, empty);
+		return getOutputStream(reportTemplatePath, Arrays.asList(1));
 	}
 	
 	public ByteArrayOutputStream getOutputStream(Resource resource)throws IOException{
-		JasperPrint print = getPrint(resource);
+		return getOutputStream(resource, Arrays.asList(1));
+		/*JasperPrint print = getPrint(resource);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			
@@ -215,7 +215,7 @@ public abstract class Report {
 			//FIXME: Lanzar excepcion
 		}
 		
-		return baos;
+		return baos;*/
 	}
 	
 	public ByteArrayOutputStream getOutputStream()throws IOException{
