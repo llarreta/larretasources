@@ -202,20 +202,6 @@ public abstract class Report {
 	
 	public ByteArrayOutputStream getOutputStream(Resource resource)throws IOException{
 		return getOutputStream(resource, Arrays.asList(1));
-		/*JasperPrint print = getPrint(resource);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try {
-			
-			setStandardExporterParams(print, baos);
-			setSpecificExporterParams();
-             
-             exporter.exportReport();
-		} catch (JRException e) {
-			LOG.error("Ocurrio un error generando reporte", e);
-			//FIXME: Lanzar excepcion
-		}
-		
-		return baos;*/
 	}
 	
 	public ByteArrayOutputStream getOutputStream()throws IOException{

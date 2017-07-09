@@ -92,11 +92,6 @@ public class PersistenceConfig  {
 	@Qualifier(HIBERNATE_PROPERTIES)
 	private Properties hibernateProperties;
 	
-	@Bean
-	public Base64 Base64(){
-		return new Base64();
-	}
-	
 	/**
 	 * To resolve ${} in @Value
 	 * @return

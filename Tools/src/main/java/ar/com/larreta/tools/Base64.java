@@ -1,21 +1,35 @@
 package ar.com.larreta.tools;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.log4j.Logger;
 import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.jasypt.util.text.BasicTextEncryptor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Base64 {
 
 	private static final Logger LOGGER = Logger.getLogger(Base64.class);
 	
-	//FIXME: Seria interesante externalizar este valor
-	public static final String ENCRYPTION_PASSWORD = "aj8NxAK0wT894RwExkEpk0EikOlgztoFuIlaRrUBKkM=";
+	@Value("${base64.encryption.password}")
+	private String encriptionPassword;
+	
+	@Value("${base64.encryption.countDown}")
+	private String countDown;
+	private Integer countDownValue;
 	
 	public Base64(){}
 	
+	@PostConstruct
+	public void initialize(){
+		countDownValue = new Integer(countDown);
+	}
+	
 	private BasicTextEncryptor getEncryptor(){
 		BasicTextEncryptor basicTextEncryptor = new BasicTextEncryptor();
-		basicTextEncryptor.setPassword(ENCRYPTION_PASSWORD);
+		basicTextEncryptor.setPassword(encriptionPassword);
 		return basicTextEncryptor;
 	} 
 	
@@ -78,7 +92,7 @@ public class Base64 {
 	 * @return
 	 */
 	public String encrypt(String text){
-		return encrypt(text, 3);
+		return encrypt(text, countDownValue);
 	}
 
 	/**

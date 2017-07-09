@@ -29,6 +29,7 @@ import ar.com.larreta.school.messages.PayData;
 @Validated
 public class PaymentsController {
 
+	public static final String PAID_OBLIGATION_REPORT = "/paidObligationReport";
 	public static final String OBLIGATIONS_STATUS 		= "/obligationsStatus";
 	public static final String PAY 						= "/pay";
 	public static final String UNPAID_OBLIGATIONS 		= "/unpaidObligations";
@@ -45,9 +46,9 @@ public class PaymentsController {
 	@Autowired
 	private PaidObligationBuildReportBusiness paidObligationBuildReportBusiness;
 
-	@RequestMapping(value = "paidObligationReport", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE) 
+	@RequestMapping(value = PAID_OBLIGATION_REPORT, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE) 
 	public Response<DownloadBody> paidObligationReport(@Valid @RequestBody Request<TargetedBody> request, Errors errors)  throws Exception{
-		String fileToDownload = (String) paidObligationBuildReportBusiness.execute(null);
+		String fileToDownload = (String) paidObligationBuildReportBusiness.execute(request.getBody());
 		
 		Response<DownloadBody> response = applicationContext.getBean(Response.class);
 		DownloadBody responseBody = applicationContext.getBean(DownloadBody.class);;

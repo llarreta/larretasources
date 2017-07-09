@@ -45,15 +45,18 @@ public class QueryElement {
 		return getSymbolicName(name, Boolean.TRUE);
 	}
 	
+	//FIXME: revisar, entra en loop, codigo muy feo
 	public String getSymbolicName(String name, Boolean updateMainReference) {
 		String methodSymbolicName = StringUtils.EMPTY;
 		String field = StringUtils.EMPTY;
 		String accumulated = StringUtils.EMPTY;
 		Integer index = name.lastIndexOf(StandardDAOImpl.DOT);
+		Integer lastIndex = index;
 		if (index >= 0) {
 			field = name.substring(index + 1);
 			String packagefield = name.substring(0, index);
 			do {
+				lastIndex = index;
 				methodSymbolicName = args.getSymbol(packagefield);
 				if (methodSymbolicName==null){
 					index = packagefield.lastIndexOf(StandardDAOImpl.DOT);
@@ -65,7 +68,7 @@ public class QueryElement {
 				if (updateMainReference){
 					mainReference=(methodSymbolicName==null);
 				}
-			} while ((index>=0) && (mainReference));
+			} while ((index>=0) && (mainReference) && (index!=lastIndex));
 		}
 		if (mainReference) {
 			methodSymbolicName = name;
