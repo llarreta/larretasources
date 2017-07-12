@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import ar.com.larreta.persistence.dao.args.LoadArguments;
 import ar.com.larreta.persistence.dao.impl.ReferencedEqual;
+import ar.com.larreta.persistence.query.Query;
+import ar.com.larreta.persistence.query.Select;
 import ar.com.larreta.reports.PDF;
 import ar.com.larreta.rest.business.impl.BusinessImpl;
 import ar.com.larreta.rest.messages.TargetedBody;
@@ -31,6 +33,12 @@ public class PaidObligationsBuildReportBusinessImpl extends BusinessImpl impleme
 	@Override
 	public Serializable execute(Serializable input) throws Exception {
 		TargetedBody body = (TargetedBody) input;
+		
+		Query query = applicationContext.getBean(Query.class);
+		query.setInstruction(new Select());
+		query.addMainEntity(Student.class.getName());
+		query.addProjections("obligationsStatus.obligation.paymentUnits");
+		
 		
 		LoadArguments args = new LoadArguments(Student.class);
 

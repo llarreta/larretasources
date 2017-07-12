@@ -17,6 +17,7 @@ public class SpringUtils implements Serializable {
 	@Autowired
 	private JSONParser parser;
 
+	//FIXME: Revisar necesidad de este codigo de esta forma
 	public SpringUtils(){
 		synchronized (SpringUtils.class) {
 			if (INSTANCE==null){

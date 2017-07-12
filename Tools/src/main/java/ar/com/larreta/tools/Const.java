@@ -5,4 +5,5 @@ package ar.com.larreta.tools;
  */
 public abstract class Const {
 	public static final String PROTOTYPE = "prototype";
+	public static final String SPACE = " ";
 }
