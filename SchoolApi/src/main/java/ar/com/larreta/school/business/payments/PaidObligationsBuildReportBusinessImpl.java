@@ -39,6 +39,7 @@ public class PaidObligationsBuildReportBusinessImpl extends BusinessImpl impleme
 		query.addMainEntity(Student.class.getName());
 		query.addProjections("obligationsStatus.obligation.paymentUnits");
 		
+		query.execute();
 		
 		LoadArguments args = new LoadArguments(Student.class);
 

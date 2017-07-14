@@ -53,6 +53,8 @@ public class ReferencesManager implements Serializable {
 			Reference parent = query.getMainEntity();
 			if (lastDot>0){
 				parent = buildReference(description.substring(0, lastDot));
+				// se agrega el join con la entidad padre
+				query.addInnerJoin(parent);
 			}
 			reference.setParentReference(parent);
 		}

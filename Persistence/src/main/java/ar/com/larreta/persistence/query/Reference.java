@@ -1,11 +1,9 @@
 package ar.com.larreta.persistence.query;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +20,27 @@ public class Reference implements Serializable {
 	private String description;
 	private String alias;
 
+	public String getVirtualPath(){
+		StringBuilder builder = new StringBuilder();
+		if (parentReference!=null){
+			builder.append(parentReference.getVirtualPath());
+			builder.append(DOT);
+		}
+		builder.append(alias);
+		return builder.toString();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		if (parentReference!=null){
+			builder.append(parentReference.getAlias());
+			builder.append(DOT);
+		}
+		builder.append(getShortDescription());
+		return builder.toString();
+	}
+	
 	public Reference getParentReference() {
 		return parentReference;
 	}
@@ -30,34 +49,40 @@ public class Reference implements Serializable {
 		this.parentReference = parentReference;
 	}
 	
-	public void generateAlias(){
-		String[] descriptionSplitted = StringUtils.split(description, DOT);
-		Collection<String> splittedTexts = Arrays.asList(descriptionSplitted);
-		Iterator<String> it = splittedTexts.iterator();
-		StringBuilder descriptionBuilder = new StringBuilder();
-		Boolean first = Boolean.TRUE;
-		while (it.hasNext()) {
-			String partialDescription = (String) it.next();
-			descriptionBuilder.append(partialDescription);
-			
-			Reference reference = query.getReferencesManager().searchReferenceByDescription(descriptionBuilder.toString());
-			if (reference!=null){
-				parentReference = reference;
-			}
-			
-			if (!first){
-				descriptionBuilder.append(DOT);
-			}
-			first = Boolean.FALSE;
-		}
-	}
-	
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
+		alias = generateAlias();
 	}
+
+	//FIXME:resta considerar cuando hay mas de una palabra en la descripcion
+	public String generateAlias() {
+		Collection<String> splitted = ar.com.larreta.tools.StringUtils.splitWords(getShortDescription());
+		Iterator<String> it = splitted.iterator();
+		StringBuilder builder = new StringBuilder();
+		while (it.hasNext()) {
+			String toGenerateAlias = it.next().toUpperCase();
+			if (toGenerateAlias.length()>3){
+				toGenerateAlias = toGenerateAlias.substring(0, 3);
+			}
+			builder.append(toGenerateAlias);
+		}
+		
+		String index = new Long(System.currentTimeMillis()).toString();
+		return builder.toString() + index.substring(index.length() - 2);
+	}
+
+	public String getShortDescription() {
+		Integer lastDot = description.lastIndexOf(DOT);
+		String toShortDescription = description;
+		if (lastDot>0){
+			toShortDescription = description.substring(lastDot+1);
+		}
+		return toShortDescription;
+	}
+	
 	public String getAlias() {
 		return alias;
 	}
@@ -76,7 +101,6 @@ public class Reference implements Serializable {
 		if (obj instanceof Reference) {
 			Reference reference = (Reference) obj;
 			return reference.getDescription().equals(getDescription());
-			
 		}
 		return Boolean.FALSE;
 	}
