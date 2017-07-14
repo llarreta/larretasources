@@ -1,7 +1,5 @@
 package ar.com.larreta.school.persistence;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +14,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.persistence.model.ParametricEntity;
 import ar.com.larreta.tools.Const;
 
 @Entity @Component @Scope(Const.PROTOTYPE)
@@ -23,7 +22,7 @@ import ar.com.larreta.tools.Const;
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE LittleDetail SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class LittleDetail extends ar.com.larreta.persistence.model.Entity {
+public class LittleDetail extends ParametricEntity {
 
 	private Double value;
 	private Detail detail;
@@ -41,7 +40,7 @@ public class LittleDetail extends ar.com.larreta.persistence.model.Entity {
 	public Detail getDetail() {
 		return detail;
 	}
-	public void setDetail(Serializable detail) {
+	public void setDetail(Detail detail) {
 		this.detail = (Detail) detail;
 	}
 	
