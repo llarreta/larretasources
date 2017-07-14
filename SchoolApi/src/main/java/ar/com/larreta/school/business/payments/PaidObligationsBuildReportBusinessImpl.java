@@ -14,6 +14,7 @@ import ar.com.larreta.persistence.dao.args.LoadArguments;
 import ar.com.larreta.persistence.dao.impl.ReferencedEqual;
 import ar.com.larreta.persistence.query.Query;
 import ar.com.larreta.persistence.query.Select;
+import ar.com.larreta.persistence.query.SelectInstruction;
 import ar.com.larreta.reports.PDF;
 import ar.com.larreta.rest.business.impl.BusinessImpl;
 import ar.com.larreta.rest.messages.TargetedBody;
@@ -34,8 +35,7 @@ public class PaidObligationsBuildReportBusinessImpl extends BusinessImpl impleme
 	public Serializable execute(Serializable input) throws Exception {
 		TargetedBody body = (TargetedBody) input;
 		
-		Query query = applicationContext.getBean(Query.class);
-		query.setInstruction(new Select());
+		Query query = applicationContext.getBean(Select.class);
 		query.addMainEntity(Student.class.getName());
 		query.addProjections("obligationsStatus.obligation.paymentUnits");
 		

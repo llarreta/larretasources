@@ -1,10 +1,13 @@
 package ar.com.larreta.persistence.query;
 
-public class Select extends Instruction {
+import org.springframework.stereotype.Component;
+
+@Component
+public class SelectInstruction extends Instruction {
 
 	public static final String INSTRUCTION_NAME = "SELECT";
 
-	public Select() {
+	public SelectInstruction() {
 		super(INSTRUCTION_NAME);
 	}
 

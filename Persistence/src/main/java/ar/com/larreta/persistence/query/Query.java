@@ -16,15 +16,12 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Scope;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
-import org.springframework.stereotype.Component;
 
 import ar.com.larreta.annotations.Log;
 import ar.com.larreta.tools.Const;
 import ar.com.larreta.tools.StringUtils;
 
-@Component @Scope(Const.PROTOTYPE)
 public class Query implements Serializable {
 	
 	private static @Log Logger LOG;
