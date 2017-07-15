@@ -559,18 +559,22 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   isDuplicateDescriptionDetailEdit(description:string){
     let rNumber: number = 0;
-    for(let price of this.obligationSelected.prices){
-      for(let detail of price.details){
-        if(detail.description === description){
-          Logger.debug("descripciones iguales: " + detail.description + " : " + description);
-          rNumber++;
-          Logger.debug("Number: " + rNumber);
-          if(rNumber > 1){
-            Logger.debug("true");
-            return true;
+    if((this.obligationSelected != null) && (this.obligationSelected.prices != null)){
+      for(let price of this.obligationSelected.prices){
+        if((price != null) && (price.details != null)){
+          for(let detail of price.details){
+            if(detail.description === description){
+              Logger.debug("descripciones iguales: " + detail.description + " : " + description);
+              rNumber++;
+              Logger.debug("Number: " + rNumber);
+              if(rNumber > 1){
+                Logger.debug("true");
+                return true;
+              }
+            }
           }
         }
-      }
+      }  
     }
     return false;
   }
@@ -653,13 +657,21 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   loadPaymentPlanData(){
     this.paymentPlan.description = this.inputDescription.value;
-    for(let obligation of this.paymentPlan.obligations){
-      for(let price of obligation.prices){
-        let value = 0;
-        for(let detail of price.details){
-          value += detail.value;
+    if((this.paymentPlan != null) && (this.paymentPlan.obligations != null)){
+      for(let obligation of this.paymentPlan.obligations){
+        if((obligation != null) && (obligation.prices != null)){
+          for(let price of obligation.prices){
+            let value = 0;
+            if((price != null) && (price.details != null)){
+              for(let detail of price.details){
+                if(detail != null){
+                  value += detail.value;
+                }
+              }
+              price.value = value;
+            }
+          }
         }
-        price.value = value;
       }
     }
   }
@@ -701,7 +713,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   loadDeleteObligation(){
-    this.paymentPlan.obligations.splice(this.paymentPlan.obligations.indexOf(this.obligationSelected));
+    this.paymentPlan.obligations.splice(this.paymentPlan.obligations.indexOf(this.obligationSelected), 1);
     this.obligationSelected = null;
     this.refreshListBox();
   }
@@ -751,7 +763,7 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
 
-  loadEditLittleDetail(){
+  loadEditLittleDetail(){ 
     this.detailContentActive = false;
     this.obligationContentActive = false;
     this.littleDetailContentActive = true;
@@ -764,7 +776,11 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   loadDeleteLittleDetail(){
-    this.detailSelected.littleDetails.splice(this.detailSelected.littleDetails.indexOf(this.littleDetailSelected));
+    Logger.debug("Eliminando littleDetail: " + JSON.stringify(this.littleDetailSelected));
+    Logger.debug("Index: " + this.detailSelected.littleDetails.indexOf(this.littleDetailSelected));
+    Logger.debug("Little Details: " + JSON.stringify(this.detailSelected.littleDetails));
+    this.detailSelected.littleDetails.splice(this.detailSelected.littleDetails.indexOf(this.littleDetailSelected), 1);
+    Logger.debug("Little Details que quedaron: " + JSON.stringify(this.detailSelected.littleDetails));
     this.littleDetailSelected = null;
     this.refreshListBox();
   }
