@@ -15,6 +15,7 @@ import ar.com.larreta.rest.business.BusinessListener;
 import ar.com.larreta.rest.business.impl.BusinessListenerConfig;
 import ar.com.larreta.rest.business.impl.CollectionEntityAsignBusinessListener;
 import ar.com.larreta.rest.business.impl.EntityAsignBusinessListener;
+import ar.com.larreta.rest.business.impl.IdIteratorListener;
 import ar.com.larreta.rest.business.impl.LoadArgsWhereBusinessListener;
 import ar.com.larreta.rest.business.impl.PropertyAsignBusinessListener;
 import ar.com.larreta.school.persistence.Course;
@@ -23,7 +24,10 @@ import ar.com.larreta.school.persistence.PaymentPlan;
 @Configuration
 public class StudentsBusinessConfig {
 
-	public static final String STUDENT_AFTER_LOAD = "studentAfterLoad";
+	public static final String PAYMENT_PLANS_LISTENER = "paymentPlansListener";
+	public static final String COURSE_ASIGN_LISTENER = "courseAsignListener";
+	public static final String COURSE_ID = "course.id";
+	public static final String STUDENT_AFTER_LOAD 				= "studentAfterLoad";
 	public static final String PAYMENT_PLANS 					= "paymentPlans";
 	public static final String COURSE 							= "course";
 	public static final String DOCUMENT_NUMBER 					= "documentNumber";
@@ -58,15 +62,49 @@ public class StudentsBusinessConfig {
 	private CollectionEntityAsignBusinessListener<PaymentPlan> asignPaymentPlansListener;
 	
 	private PropertyAsignBusinessListener documentTypeAsignListener;
-
+	private PropertyAsignBusinessListener courseAsignListener;
+	private IdIteratorListener 			  paymentPlansListener;
+	
 	@Bean(name=STUDENT_AFTER_LOAD)
-	@DependsOn(value={DOCUMENT_TYPE_ASIGN_LISTENER})
+	@DependsOn(value={DOCUMENT_TYPE_ASIGN_LISTENER, COURSE_ASIGN_LISTENER, PAYMENT_PLANS_LISTENER})
 	public Set<BusinessListener> getStudentAfterLoad(){
 		Set<BusinessListener> businessListeners = new HashSet<>();
 		businessListeners.add(documentTypeAsignListener);
+		businessListeners.add(courseAsignListener);
+		businessListeners.add(paymentPlansListener);
 		return businessListeners;
 	}
 
+	@Bean(name=PAYMENT_PLANS_LISTENER)
+	public IdIteratorListener paymentPlansListener(){
+		paymentPlansListener = new IdIteratorListener() {
+			@Override
+			public String getTargetProperty() {
+				return PAYMENT_PLANS;
+			}
+			@Override
+			public String getSourceProperty() {
+				return PAYMENT_PLANS;
+			}
+		};
+		return paymentPlansListener;
+	}
+	
+	@Bean(name=COURSE_ASIGN_LISTENER)
+	public PropertyAsignBusinessListener courseAsignListener(){
+		courseAsignListener = new PropertyAsignBusinessListener() {
+			@Override
+			public String getTargetProperty() {
+				return COURSE;
+			}
+			@Override
+			public String getSourceProperty() {
+				return COURSE_ID;
+			}
+		};
+		return courseAsignListener;
+	}
+	
 	@Bean(name=DOCUMENT_TYPE_ASIGN_LISTENER)
 	public PropertyAsignBusinessListener documentTypeAsignListener(){
 		documentTypeAsignListener = new PropertyAsignBusinessListener() {

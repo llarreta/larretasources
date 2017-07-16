@@ -44,9 +44,8 @@ public abstract class IteratorListener<E extends Serializable>  extends Business
 		while (it.hasNext()) {
 			try {
 				Serializable sourceFromCollection = (Serializable) it.next();
-				Serializable targetToCollection = (Serializable) applicationContext.getBean(
-							TypedClassesUtils.getGenerics(IteratorListener.class, this, 0));
-
+				Serializable targetToCollection = getTargetToCollection(sourceFromCollection);
+				
 				BusinessImpl.callListeners(afterIterateListeners, sourceFromCollection, targetToCollection, null);
 				exectue(sourceFromCollection, targetToCollection);
 				persist(collection, targetToCollection);
@@ -57,6 +56,11 @@ public abstract class IteratorListener<E extends Serializable>  extends Business
 		}
 		
 		return null;
+	}
+
+	protected Serializable getTargetToCollection(Serializable sourceFromCollection) {
+		Serializable targetToCollection = (Serializable) applicationContext.getBean(TypedClassesUtils.getGenerics(IteratorListener.class, this, 0));
+		return targetToCollection;
 	}
 
 	public Serializable getTarget(Serializable source, Serializable target, Object... args) {

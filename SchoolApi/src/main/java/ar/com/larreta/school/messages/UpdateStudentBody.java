@@ -25,7 +25,14 @@ public class UpdateStudentBody extends Body {
 	private String 			photo;
 	private Long 			course;
 	private JSONableCollection<Long> paymentPlans;
-
+	private String 			email;
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public JSONableCollection<Long> getPaymentPlans() {
 		return paymentPlans;
 	}
