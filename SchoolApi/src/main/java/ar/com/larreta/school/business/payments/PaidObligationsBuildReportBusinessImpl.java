@@ -38,7 +38,8 @@ public class PaidObligationsBuildReportBusinessImpl extends BusinessImpl impleme
 		Query query = applicationContext.getBean(Select.class);
 		query.addMainEntity(Student.class.getName());
 		query.addProjections("obligationsStatus.obligation.paymentUnits");
-		
+		query.addWhereEqual("course.id", body.getTarget());
+		query.addWhereEqualYear("obligationsStatus.obligation.dueDate", 2017);
 		query.execute();
 		
 		LoadArguments args = new LoadArguments(Student.class);
