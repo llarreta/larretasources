@@ -21,6 +21,7 @@ import ar.com.larreta.persistence.exceptions.CantBuildQueryException;
  * DAO con la funcionalidad de poder cargar entidades desde la base  
  *
  */
+@Deprecated
 public abstract class LoadDAOImpl implements LoadDao {
 
 	private static final Logger LOGGER = Logger.getLogger(LoadDAOImpl.class);

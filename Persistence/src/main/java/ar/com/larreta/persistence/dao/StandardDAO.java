@@ -7,6 +7,7 @@ import ar.com.larreta.persistence.dao.args.LoadArguments;
 import ar.com.larreta.persistence.exceptions.CantBuildQueryException;
 import ar.com.larreta.persistence.model.Entity;
 
+@Deprecated
 public interface StandardDAO extends LoadDao {
 	/**
 	 * Obtiene una entidad de la base de datos del tipo entityClass y filtrando por el id

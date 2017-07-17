@@ -9,13 +9,13 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 import ar.com.larreta.annotations.Log;
-import ar.com.larreta.tools.Const;
 
 public class Query implements Serializable {
 	
@@ -31,7 +31,7 @@ public class Query implements Serializable {
 	private QueryBuilder 						queryBuilder;
 	
 	@Autowired
-	protected transient LocalSessionFactoryBean commonsSessionFactory;
+	protected SessionFactory sessionFactory;
 	
 	private Instruction 				instruction;
 	private Set<Reference> 				projections;
@@ -122,19 +122,8 @@ public class Query implements Serializable {
 		joins.add(join);
 	}
 
-
-	public org.hibernate.SessionFactory getSessionFactory() {
-		try {
-			return commonsSessionFactory.getObject();
-		} catch (Exception e) {		
-			//FIXME: Lanzar excepcion
-			LOG.error("Ocurrio un error obteniendo SessionFactory", e);
-		}
-		return null;
-	}
-	
 	public org.hibernate.Query getQuery(){
-		return getSessionFactory().getCurrentSession().createQuery(toString());
+		return sessionFactory.getCurrentSession().createQuery(toString());
 	}
 	
 	public void execute(){

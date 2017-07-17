@@ -27,7 +27,7 @@ public abstract class DeleteBusinessImpl<E extends Entity> extends BusinessImpl 
 					Class<?> entityType = generics[0];
 					E entity = (E) applicationContext.getBean(entityType);
 					entity.setId(id);
-					standardDAO.delete(entity);
+					persister.delete(entity);
 					return id;
 			}
 			LOG.error("No se encontraron la catidad de elementos genericos necesarios para la clase");

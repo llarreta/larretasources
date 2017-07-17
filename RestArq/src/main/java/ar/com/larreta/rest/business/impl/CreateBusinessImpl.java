@@ -42,7 +42,7 @@ public abstract class CreateBusinessImpl<J extends JSONable, E extends Entity> e
 	}
 
 	protected void persist(E entity) {
-		standardDAO.save(entity);
+		persister.save(entity);
 	}
 	
 	public Set<BusinessListener> getBeforePersistListeners() {

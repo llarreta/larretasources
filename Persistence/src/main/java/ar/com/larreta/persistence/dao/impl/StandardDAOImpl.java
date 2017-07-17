@@ -19,6 +19,7 @@ import ar.com.larreta.persistence.model.Entity;
  * Grabar, actualizar, borrar y buscar 
  */
 @Repository(StandardDAOImpl.STANDAR_DAO)
+@Deprecated
 public class StandardDAOImpl extends LoadDAOImpl implements StandardDAO{
 
 	public static final String STANDAR_DAO = "standarDAO";

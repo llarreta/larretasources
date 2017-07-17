@@ -28,6 +28,7 @@ import ar.com.larreta.persistence.dao.impl.Where;
 /**
  * Representa los diferentes argumentos o variables que pueden ser modificables para traer entidades desde la base de datos 
  */
+@Deprecated
 public class LoadArguments implements Serializable {
 
 	private static final String DOT = ".";
