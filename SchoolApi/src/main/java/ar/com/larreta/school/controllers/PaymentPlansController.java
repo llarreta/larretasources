@@ -50,20 +50,20 @@ public class PaymentPlansController extends ParentController<UpdatePaymentPlansB
 
 		private ObligationData getObligationData() {
 			ObligationData obligationData = applicationContext.getBean(ObligationData.class);
-			obligationData.setPrices(new JSONableCollection<PriceData>());
-			obligationData.getPrices().add(getPriceData());
-			obligationData.getPrices().add(getPriceData());
+			obligationData.setDetails(new JSONableCollection<DetailData>());
+			obligationData.getDetails().add(getDetailData());
+			obligationData.getDetails().add(getDetailData());
 			return obligationData;
 		}
 
-		private PriceData getPriceData() {
+/*		private PriceData getPriceData() {
 			PriceData priceData = applicationContext.getBean(PriceData.class);
 			priceData.setDetails(new JSONableCollection<DetailData>());
 			priceData.getDetails().add(getDetailData());
 			priceData.getDetails().add(getDetailData());
 			return priceData;
 		}
-
+*/
 		private DetailData getDetailData() {
 			DetailData detailData = applicationContext.getBean(DetailData.class);
 			detailData.setLittleDetails(new JSONableCollection<LittleDetailData>());

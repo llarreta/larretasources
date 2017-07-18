@@ -1,5 +1,6 @@
 package ar.com.larreta.school.persistence;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -34,6 +35,14 @@ public class Detail extends ParametricEntity{
 
 	@Basic @Column (name="detailValue")
 	public Double getValue() {
+		if (littleDetails!=null && littleDetails.size()>0){
+			Iterator<LittleDetail> it = littleDetails.iterator();
+			value = new Double(0);
+			while (it.hasNext()) {
+				LittleDetail littleDetail = (LittleDetail) it.next();
+				value += littleDetail.getValue();
+			}
+		}
 		return value;
 	}
 	public void setValue(Double value) {
