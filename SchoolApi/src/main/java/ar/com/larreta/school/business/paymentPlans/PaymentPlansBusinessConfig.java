@@ -31,13 +31,13 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	public static final String OBLIGATIONS_PROJECTED 						= "obligationsProjected";
 	
 	public static final String DETAILS_BEFORE_LOAD_LISTENERS 				= "detailsBeforeLoadListeners";
-	public static final String PRICES_BEFORE_LOAD_LISTENERS 				= "pricesBeforeLoadListeners";
+	//public static final String PRICES_BEFORE_LOAD_LISTENERS 				= "pricesBeforeLoadListeners";
 	public static final String OBLIGATIONS_BEFORE_LOAD_LISTENERS 			= "obligationsBeforeLoadListeners";
 	public static final String PAYMENT_PLANS_AFTER_LOAD_LISTENERS 			= "paymentPlansAfterLoadListeners";
 	
 	public static final String LITTLE_DETAILS_LISTENER_SERVICE_TO_FRONT 	= "littleDetailsListenerServiceToFront";
 	public static final String DETAILS_LISTENER_SERVICE_TO_FRONT 			= "detailsListenerServiceToFront";
-	public static final String PRICES_LISTENER_SERVICE_TO_FRONT 			= "pricesListenerServiceToFront";
+	//public static final String PRICES_LISTENER_SERVICE_TO_FRONT 			= "pricesListenerServiceToFront";
 	public static final String OBLIGATIONS_LISTENER_SERVICE_TO_FRONT 		= "obligationsListenerServiceToFront";
 	
 	public static final String DETAILS_BEFORE_PERSIST_LISTENERS 			= "detailsBeforePersistListeners";
@@ -61,7 +61,7 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	private IteratorListener<LittleDetail> littleDetailsListenerFrontToService;
 
 	private IteratorListener<ObligationData> obligationsListenerServiceToFront;
-	private IteratorListener<PriceData> pricesListenerServiceToFront;
+	//private IteratorListener<PriceData> pricesListenerServiceToFront;
 	private IteratorListener<DetailData> detailsListenerServiceToFront;
 	private IteratorListener<LittleDetailData> littleDetailsListenerServiceToFront;
 	
@@ -189,7 +189,7 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 		return obligationsListenerServiceToFront;
 	}
 
-	@Bean(name=PRICES_LISTENER_SERVICE_TO_FRONT)
+	/*@Bean(name=PRICES_LISTENER_SERVICE_TO_FRONT)
 	public IteratorListener<PriceData> pricesListenerServiceToFront(){
 		pricesListenerServiceToFront = new IteratorListener<PriceData>() {
 			@Override
@@ -209,11 +209,18 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 			}			
 		};
 		return pricesListenerServiceToFront;
-	}
+	}*/
 	
 	@Bean(name=DETAILS_LISTENER_SERVICE_TO_FRONT)
 	public IteratorListener<DetailData> detailsListenerServiceToFront(){
 		detailsListenerServiceToFront = new IteratorListener<DetailData>() {
+			@Override
+			public Serializable getSource(Serializable source, Serializable target, Object... args) {
+				Obligation obligation = (Obligation) super.getSource(source, target, args);
+				//FIXME: deberia devolver siempre el precio actual
+				return obligation.getPrices().iterator().next();
+			}
+
 			@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.DETAILS_BEFORE_LOAD_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
@@ -289,15 +296,15 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 		return getSet(obligationsListenerServiceToFront);
 	}
 	
-	@Bean(name=OBLIGATIONS_BEFORE_LOAD_LISTENERS) @DependsOn(value={PRICES_LISTENER_SERVICE_TO_FRONT})
+	@Bean(name=OBLIGATIONS_BEFORE_LOAD_LISTENERS) @DependsOn(value={DETAILS_LISTENER_SERVICE_TO_FRONT})
 	public Set<BusinessListener> obligationsBeforeLoadListeners(){
-		return getSet(pricesListenerServiceToFront);
-	}
-
-	@Bean(name=PRICES_BEFORE_LOAD_LISTENERS) @DependsOn(value={DETAILS_LISTENER_SERVICE_TO_FRONT})
-	public Set<BusinessListener> pricesBeforeLoadListeners(){
 		return getSet(detailsListenerServiceToFront);
 	}
+
+	/*@Bean(name=PRICES_BEFORE_LOAD_LISTENERS) @DependsOn(value={DETAILS_LISTENER_SERVICE_TO_FRONT})
+	public Set<BusinessListener> pricesBeforeLoadListeners(){
+		return getSet(detailsListenerServiceToFront);
+	}*/
 	
 	@Bean(name=DETAILS_BEFORE_LOAD_LISTENERS) @DependsOn(value={LITTLE_DETAILS_LISTENER_SERVICE_TO_FRONT})
 	public Set<BusinessListener> detailsBeforeLoadListeners(){
