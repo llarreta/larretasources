@@ -15,9 +15,9 @@ public class UpdateStudentBody extends Body {
 
 	@NotNull(message="id.required", avaiableActions={"update"})
 	private Long id;
-	@NotNull(message="name.required") @Size(min=5, message="name.min.length")
+	@NotNull(message="name.required") @Size(min=3, message="name.min.length")
 	private String 			name;
-	@NotNull(message="surname.required") @Size(min=5, message="surname.min.length")
+	@NotNull(message="surname.required") @Size(min=3, message="surname.min.length")
 	private String 			surname;
 	@Exist(message="documentType.inexistent", entityType=DocumentType.class)
 	private Long 			documentType;
