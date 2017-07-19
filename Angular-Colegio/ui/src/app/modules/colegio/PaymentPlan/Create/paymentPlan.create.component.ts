@@ -4,7 +4,6 @@ import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } 
 //Models
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
 import { Obligation } from '../../Models/Obligation.model';
-import { Price } from '../../Models/Price.model';
 import { Detail } from '../../Models/Detail.model';
 import { LittleDetail } from '../../Models/LittleDetail.model';
 
@@ -44,7 +43,6 @@ export class PaymentPlanCreateComponent implements OnInit{
   dateObligation: Date;
 
   obligationSelected: Obligation;
-  priceSelected: Price;
   detailSelected: Detail;
   littleDetailSelected: LittleDetail;
 
@@ -117,14 +115,10 @@ export class PaymentPlanCreateComponent implements OnInit{
       for(let obligation of this.paymentPlan.obligations){
         this.obligations.push({label:obligation.description, value:obligation});
       }
-      if((this.obligationSelected != null) && (this.obligationSelected.prices != null) && (this.obligationSelected.prices.length > 0)){
+      if((this.obligationSelected != null) && (this.obligationSelected.details != null) && (this.obligationSelected.details.length > 0)){
         Logger.debug("obligation selected: " + JSON.stringify(this.obligationSelected));
-        for(let price of this.obligationSelected.prices){
-          if((price != null) && (price.details != null) && (price.details.length > 0)){
-            for(let detail of price.details){
-              this.details.push({label:detail.description, value:detail});
-            }
-          }
+        for(let detail of this.obligationSelected.details){
+          this.details.push({label:detail.description, value:detail});
         }
         if((this.detailSelected != null) && (this.detailSelected.littleDetails != null) 
               && (this.detailSelected.littleDetails.length > 0)){
@@ -139,7 +133,6 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   initVariablesSelected(){
     this.obligationSelected = new Obligation();
-    this.priceSelected = new Price();
     this.detailSelected = new Detail();
     this.littleDetailSelected = new LittleDetail();
   }
@@ -322,18 +315,7 @@ export class PaymentPlanCreateComponent implements OnInit{
         Logger.debug("recorriendo obligations obligation " + JSON.stringify(obligation));
         if((obligation != null)){
           Logger.debug("obligation no es null");
-          if((obligation.prices != null) && (obligation.prices.length > 0)){
-            Logger.debug("obligation.prices no es null y es mas grande que 0");
-            for(let price of obligation.prices){
-              Logger.debug("recorriendo prices " + JSON.stringify(price));
-              if((price != null) && ((price.details == null) || (price.details.length <= 0))){
-                Logger.debug("price " + JSON.stringify(price));
-                Logger.debug("price no es null price.detaills es null o price.details.lenght es menor o igual a 0");
-                return false;
-              }
-            }
-          }else{
-            Logger.debug("obligation.prices es null");
+          if((obligation.details == null) || (obligation.details.length <= 0)){
             return false;
           }
         }
@@ -396,21 +378,15 @@ export class PaymentPlanCreateComponent implements OnInit{
   saveSelectedDetail(){
     if(this.inputDetailDescription.isAllOK && this.inputDetailValue.isAllOK 
       && !this.isDuplicateDescriptionDetail(this.inputDetailDescription.value)){
-      if(this.obligationSelected.prices == null){
-        this.obligationSelected.prices = new Array<Price>();
-      }
       this.detailSelected.description = this.inputDetailDescription.value;
       Logger.debug("Guardando detalle valor " + this.inputDetailValue.value);
       let value: number = Number(this.inputDetailValue.value.replace(",", "."));
       this.detailSelected.value = value;
       Logger.debug("Valor actual del input detalle valor " + this.detailSelected.value);
-      this.priceSelected = new Price();
-      this.priceSelected.description = this.inputDetailDescription.value;
-      this.priceSelected.details = new Array<Detail>();
-      this.priceSelected.details.push(this.detailSelected);
-      this.priceSelected.validityStartDate = new Date();
-      this.priceSelected.value = Number(this.inputDetailValue.value);
-      this.obligationSelected.prices.push(this.priceSelected);
+      if(this.obligationSelected.details == null){
+        this.obligationSelected.details = new Array<Detail>();
+      }
+      this.obligationSelected.details.push(this.detailSelected);
       if(!this.ifObligationsHaveOneDetail()){
         this.errorItems = true;
       }else{
@@ -543,14 +519,10 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   isDuplicateDescriptionDetail(description:string){
-    if(this.obligationSelected.prices != null){
-      for(let price of this.obligationSelected.prices){
-        if(price.details != null){
-          for(let detail of price.details){
-            if(detail.description === description){
-              return true;
-            }
-          }
+    if(this.obligationSelected.details != null){
+      for(let detail of this.obligationSelected.details){
+        if(detail.description === description){
+          return true;
         }
       }
     }
@@ -559,22 +531,18 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   isDuplicateDescriptionDetailEdit(description:string){
     let rNumber: number = 0;
-    if((this.obligationSelected != null) && (this.obligationSelected.prices != null)){
-      for(let price of this.obligationSelected.prices){
-        if((price != null) && (price.details != null)){
-          for(let detail of price.details){
-            if(detail.description === description){
-              Logger.debug("descripciones iguales: " + detail.description + " : " + description);
-              rNumber++;
-              Logger.debug("Number: " + rNumber);
-              if(rNumber > 1){
-                Logger.debug("true");
-                return true;
-              }
-            }
+    if((this.obligationSelected != null) && (this.obligationSelected.details != null)){
+      for(let detail of this.obligationSelected.details){
+        if(detail.description === description){
+          Logger.debug("descripciones iguales: " + detail.description + " : " + description);
+          rNumber++;
+          Logger.debug("Number: " + rNumber);
+          if(rNumber > 1){
+            Logger.debug("true");
+            return true;
           }
         }
-      }  
+      }
     }
     return false;
   }
@@ -657,23 +625,6 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   loadPaymentPlanData(){
     this.paymentPlan.description = this.inputDescription.value;
-    if((this.paymentPlan != null) && (this.paymentPlan.obligations != null)){
-      for(let obligation of this.paymentPlan.obligations){
-        if((obligation != null) && (obligation.prices != null)){
-          for(let price of obligation.prices){
-            let value = 0;
-            if((price != null) && (price.details != null)){
-              for(let detail of price.details){
-                if(detail != null){
-                  value += detail.value;
-                }
-              }
-              price.value = value;
-            }
-          }
-        }
-      }
-    }
   }
 
   goToList(){
@@ -746,20 +697,9 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   loadDeleteDetail(){
-    for(let i = 0; i < this.obligationSelected.prices.length; i++){
-      if((this.obligationSelected.prices[i] != null) &&
-          (this.obligationSelected.prices[i].details != null)){
-        for(let j = 0; j < this.obligationSelected.prices[i].details.length; j++){
-          if((this.obligationSelected.prices[i].details[j].description === this.detailSelected.description)){
-            delete this.obligationSelected.prices[i].details[j];
-            delete this.obligationSelected.prices[i];
-            this.detailSelected = null;
-            this.refreshListBox();
-            return "";
-          }
-        }
-      }
-    }
+    this.obligationSelected.details.splice(this.obligationSelected.details.indexOf(this.detailSelected), 1);
+    this.detailSelected = null;
+    this.refreshListBox();
   }
 
 

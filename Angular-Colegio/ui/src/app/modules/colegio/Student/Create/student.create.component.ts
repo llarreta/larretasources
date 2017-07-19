@@ -73,6 +73,9 @@ export class StudentCreateComponent implements OnInit{
   paymentPlansListBox: SelectItem[];
   coursesListBox: SelectItem[];
 
+  maxResult: number;
+  result: number;
+
   constructor(
               private studentService: StudentService, 
               private documentTypeService: DocumentTypeService,
@@ -276,7 +279,7 @@ export class StudentCreateComponent implements OnInit{
     this.showMessageError = true;
   }
 
-  loadErrorMessageService(error){
+  loadErrorMessageService(error){ 
     this.hideLoading();
     Logger.warn("Ocurrio un error al crear o actualizar un estudiante...");
     this.messageErrorService = ErrorMessages.getMessageError(error.codeError, "ES");
@@ -289,6 +292,7 @@ export class StudentCreateComponent implements OnInit{
     this.student.name = this.inputName.value;
     this.student.surname = this.inputSurname.value;
     this.student.documentNumber = Number(this.inputDocumentNumber.value);
+    this.student.email = this.inputEmail.value;
   }
 
   deleteSelectedStudent(){

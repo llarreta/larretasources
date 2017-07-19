@@ -23,7 +23,8 @@ export class StudentService {
                     "documentNumber": student.documentNumber,
                     "photo": null,
                     "course": student.course,
-                    "paymentPlans": student.paymentPlans
+                    "paymentPlans": student.paymentPlans,
+                    "email": student.email
                 };
         return this.http.post(body, "students/create", token);
     }
