@@ -31,7 +31,7 @@ public class Query implements Serializable {
 	private QueryBuilder 						queryBuilder;
 	
 	@Autowired
-	protected SessionFactory sessionFactory;
+	protected SessionFactory 					sessionFactory;
 	
 	private Instruction 				instruction;
 	private Set<Reference> 				projections;

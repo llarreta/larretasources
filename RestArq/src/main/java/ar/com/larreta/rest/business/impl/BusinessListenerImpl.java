@@ -18,9 +18,9 @@ public abstract class BusinessListenerImpl implements BusinessListener {
 	@Autowired
 	protected BeanUtils beanUtils;
 	
-	/*@Autowired
+	@Autowired
 	@Qualifier(value=StandardDAOImpl.STANDAR_DAO)
-	protected StandardDAO standardDAO;*/
+	protected StandardDAO standardDAO;
 	
 	@Autowired
 	protected ApplicationContext applicationContext;
