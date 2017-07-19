@@ -23,11 +23,21 @@ public class ObligationData extends JSONable {
 	@NotNull(message="dueDate.required")
 	private String 	dueDate;
 	
-	@Valid
+	/*@Valid
 	@NotNull(message="prices.required")
 	@ar.com.larreta.validators.annotations.Size(message="prices.mayorOrEqual", mayorOrEqual=1)
 	private JSONableCollection<PriceData> prices;
-
+	*/
+	@Valid
+	private JSONableCollection<DetailData> details;
+	
+	public JSONableCollection<DetailData> getDetails() {
+		return details;
+	}
+	public void setDetails(JSONableCollection<DetailData> details) {
+		this.details = details;
+	}
+	
 
 	public Long getId() {
 		return id;
@@ -42,12 +52,12 @@ public class ObligationData extends JSONable {
 		this.description = description;
 	}
 	
-	public JSONableCollection<PriceData> getPrices() {
+	/*public JSONableCollection<PriceData> getPrices() {
 		return prices;
 	}
 	public void setPrices(JSONableCollection<PriceData> prices) {
 		this.prices = prices;
-	}
+	}*/
 	public String getDueDate() {
 		return dueDate;
 	}

@@ -53,6 +53,8 @@ export class StudentComponent implements OnInit{
 
   students: Array<Student>;
   documentTypes: Array<DocumentType>;
+  courses: Array<Course>;
+
   selectedStudent: Student;
   inCreateStudent: boolean;
   inUpdateStudent: boolean;
@@ -187,6 +189,7 @@ export class StudentComponent implements OnInit{
     for(let studentJSON of data.body.result){
       let student: Student = new Student();
       Object.assign(student, studentJSON);
+      student.course = this.getCourse(studentJSON.course);
       this.students.push(student);
     }
     Logger.debug("Estudiantes cargados.. " + JSON.stringify(this.students));
@@ -279,7 +282,7 @@ export class StudentComponent implements OnInit{
     this.loading = false;
   }
 
-   private loadDocumentType(){
+  private loadDocumentType(){
     this.documentTypeService.loadDocumentTypes()
        .subscribe(
         data => this.loadDocumentTypeOK(data),
@@ -287,13 +290,34 @@ export class StudentComponent implements OnInit{
         () => console.log('Vacio')
     );
   }
-  loadDocumentTypeOK(data){
+  
+  private loadDocumentTypeOK(data){
     this.documentTypes = new Array<DocumentType>();
     for(let documentTypeJSON of data.body.result){
       let documentType: DocumentType = new DocumentType();
       Object.assign(documentType, documentTypeJSON);
       this.documentTypes.push(documentType);
     }
+    this.loadCourses();
+  }
+
+  private loadCourses(){
+    this.courseService.loadCourses()
+       .subscribe(
+        data => this.loadCoursesOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+    );
+  }
+
+  private loadCoursesOK(data){
+    this.courses = new Array<Course>();
+    for(let courseJSON of data.body.result){
+      let course: Course = new Course();
+      Object.assign(course, courseJSON);
+      this.courses.push(course);
+    }
+    Logger.debug("Cursos cargados: " + JSON.stringify(this.courses));
     this.loadStudents();
   }
 
@@ -303,6 +327,18 @@ export class StudentComponent implements OnInit{
         return documentType.description;
       }
     }
+  }
+
+  getCourse(id){
+    Logger.debug("Buscando course:" + id);
+    for(let course of this.courses){
+      if(id == course.id){
+        Logger.debug("Se encontro el curso: " + id);
+        return course;
+      }
+    }
+    Logger.debug("No se encontro el curso: " + id);
+    return null;
   }
 
 }

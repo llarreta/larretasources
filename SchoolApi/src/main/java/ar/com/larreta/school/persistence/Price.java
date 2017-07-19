@@ -1,6 +1,7 @@
 package ar.com.larreta.school.persistence;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -43,6 +44,9 @@ public class Price extends ar.com.larreta.persistence.model.Entity {
 	}
 	@Basic @Column (name="validityStartDate")
 	public Date getValidityStartDate() {
+		if (validityStartDate==null){
+			validityStartDate = new Date();
+		}
 		return validityStartDate;
 	}
 	public void setValidityStartDate(Date validityStartDate) {
@@ -51,6 +55,14 @@ public class Price extends ar.com.larreta.persistence.model.Entity {
 	
 	@Basic @Column (name="value")
 	public Double getValue() {
+		if (details!=null && details.size()>0){
+			Iterator<Detail> it = details.iterator();
+			value = new Double(0);
+			while (it.hasNext()) {
+				Detail detail = (Detail) it.next();
+				value += detail.getValue();
+			}
+		}
 		return value;
 	}
 	public void setValue(Double value) {

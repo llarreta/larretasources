@@ -31,6 +31,15 @@ public abstract class Person extends ar.com.larreta.persistence.model.Entity {
 	private DocumentType documentType;
 	private String documentNumber;
 	private String photo;
+	private String email;
+
+	@Basic @Column (name="email")
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	@Basic @Column (name="photo", columnDefinition="TEXT")
 	public String getPhoto() {

@@ -2,6 +2,7 @@ package ar.com.larreta.rest.business.impl;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -18,6 +19,12 @@ public abstract class IteratorListener<E extends Serializable>  extends Business
 	
 	private Set<BusinessListener> beforeIterateListeners;
 	private Set<BusinessListener> afterIterateListeners;
+	
+	private Set args = new HashSet<>();
+	
+	public void addArg(Serializable arg){
+		args.add(arg);
+	}
 
 	public Set<BusinessListener> getBeforeIterateListeners() {
 		return afterIterateListeners;
@@ -44,19 +51,23 @@ public abstract class IteratorListener<E extends Serializable>  extends Business
 		while (it.hasNext()) {
 			try {
 				Serializable sourceFromCollection = (Serializable) it.next();
-				Serializable targetToCollection = (Serializable) applicationContext.getBean(
-							TypedClassesUtils.getGenerics(IteratorListener.class, this, 0));
-
-				BusinessImpl.callListeners(afterIterateListeners, sourceFromCollection, targetToCollection, null);
+				Serializable targetToCollection = getTargetToCollection(sourceFromCollection);
+				
+				BusinessImpl.callListeners(afterIterateListeners, sourceFromCollection, targetToCollection, this.args.toArray());
 				exectue(sourceFromCollection, targetToCollection);
 				persist(collection, targetToCollection);
-				BusinessImpl.callListeners(beforeIterateListeners, sourceFromCollection, targetToCollection, null);
+				BusinessImpl.callListeners(beforeIterateListeners, sourceFromCollection, targetToCollection, this.args.toArray());
 			} catch (Exception e){
 				LOG.error("Ocurrio un error en IteratorListener", e);
 			}
 		}
 		
 		return null;
+	}
+
+	protected Serializable getTargetToCollection(Serializable sourceFromCollection) {
+		Serializable targetToCollection = (Serializable) applicationContext.getBean(TypedClassesUtils.getGenerics(IteratorListener.class, this, 0));
+		return targetToCollection;
 	}
 
 	public Serializable getTarget(Serializable source, Serializable target, Object... args) {

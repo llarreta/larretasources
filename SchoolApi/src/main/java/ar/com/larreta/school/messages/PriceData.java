@@ -12,6 +12,7 @@ import ar.com.larreta.validators.annotations.Format;
 import ar.com.larreta.validators.annotations.NotNull;
 
 @Component @Scope(Const.PROTOTYPE)
+@Deprecated
 public class PriceData extends JSONable {
 	
 	private Long 	id;
@@ -32,6 +33,7 @@ public class PriceData extends JSONable {
 	public void setDetails(JSONableCollection<DetailData> details) {
 		this.details = details;
 	}
+	
 	public Long getId() {
 		return id;
 	}

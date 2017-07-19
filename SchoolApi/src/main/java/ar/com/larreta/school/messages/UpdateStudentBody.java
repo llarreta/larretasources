@@ -15,9 +15,9 @@ public class UpdateStudentBody extends Body {
 
 	@NotNull(message="id.required", avaiableActions={"update"})
 	private Long id;
-	@NotNull(message="name.required") @Size(min=5, message="name.min.length")
+	@NotNull(message="name.required") @Size(min=3, message="name.min.length")
 	private String 			name;
-	@NotNull(message="surname.required") @Size(min=5, message="surname.min.length")
+	@NotNull(message="surname.required") @Size(min=3, message="surname.min.length")
 	private String 			surname;
 	@Exist(message="documentType.inexistent", entityType=DocumentType.class)
 	private Long 			documentType;
@@ -25,7 +25,14 @@ public class UpdateStudentBody extends Body {
 	private String 			photo;
 	private Long 			course;
 	private JSONableCollection<Long> paymentPlans;
-
+	private String 			email;
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public JSONableCollection<Long> getPaymentPlans() {
 		return paymentPlans;
 	}

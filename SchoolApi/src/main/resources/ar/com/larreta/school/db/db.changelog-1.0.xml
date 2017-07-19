@@ -26,6 +26,7 @@
       <column name="idDocumentType"	type="bigint" />
       <column name="documentNumber"	type="varchar(20)" />
       <column name="photo"			type="TEXT" />
+      <column name="email"			type="varchar(255)" />
     </createTable>
     
     <addForeignKeyConstraint 	constraintName		="personDocumentType" 
