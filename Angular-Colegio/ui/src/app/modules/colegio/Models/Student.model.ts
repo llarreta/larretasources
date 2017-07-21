@@ -15,6 +15,7 @@ export class Student extends Entity{
     public paymentPlans: Array<number>;
     public obligationsStatus: Array<number>;
     public responsibles: Array<Responsible>;
+    public photo: any;
     
     constructor() {
         super();

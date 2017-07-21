@@ -70,13 +70,26 @@ export class StudentComponent implements OnInit{
   filterYearOptions: Array<SelectItem>;
   filterDivision: Division;
   filterDivisionOptions: Array<SelectItem>;
-  
+  courseSelected: Course;
+  filterCourseOptions: Array<SelectItem>;
+
+  //Paginator
+  maxResult: number;
+  rows: number;
+  onLoadStudents: boolean;
+
   //Errors
   showMessageError: boolean;
   showMessageErrorService: boolean; 
   messageErrorService: string;
 
+  es: any;
+  initDate: Date;
+  endDate: Date;
+  
   loading: boolean;
+
+  displayReportPopUp: string;
 
   private havePaymentsPlans: boolean;
 
@@ -89,6 +102,16 @@ export class StudentComponent implements OnInit{
 
   ngOnInit() {
     this.language = "ES";
+    this.maxResult = 6;
+    this.onLoadStudents = false;
+    this.es = {
+            firstDayOfWeek: 1,
+            dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+            dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+            dayNamesMin: [ "D","L","M","X","J","V","S" ],
+            monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+            monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
+        };
     this.selectedStudent = new Student();
     this.students = new Array<Student>();
     this.inListStudent = true;
@@ -174,27 +197,24 @@ export class StudentComponent implements OnInit{
     this.loadDocumentType();
   }
 
-  loadStudents(){
-    this.studentService.loadStudents()
-       .subscribe(
-        data => this.loadStudentsOK(data),
-        err => this.loadErrorMessageService(err),
-        () => Logger.debug('Termino ejecucion studentService...')
-    );
-  }
-
   loadStudentsOK(data){
     Logger.debug("Estudiantes recibidos.. " + JSON.stringify(data));
-    this.students = new Array<Student>();
-    for(let studentJSON of data.body.result){
-      let student: Student = new Student();
-      Object.assign(student, studentJSON);
-      student.course = this.getCourse(studentJSON.course);
-      this.students.push(student);
+    if((data.body.result != null) && (data.body.result.length > 0)){
+      if(this.students == null){
+        this.students = new Array<Student>();
+      }
+      for(let studentJSON of data.body.result){
+        Logger.debug("Cargando estudiantes recibidos...");
+        let student: Student = new Student();
+        Object.assign(student, studentJSON);
+        student.course = this.getCourse(studentJSON.course);
+        this.students.push(student);
+      }
     }
     Logger.debug("Estudiantes cargados.. " + JSON.stringify(this.students));
     this.hideFooterLoading();
     this.hideLoading();
+    this.onLoadStudents = false;
   }
 
   goListCreate(goList: boolean) {
@@ -203,6 +223,7 @@ export class StudentComponent implements OnInit{
       this.inCreateStudent = !goList;
       this.inListStudent = goList;
       this.loadInitData();
+      this.loadStudents();
     }else{
       this.messageErrorService = "Para crear un estudiante debe primero crear por lo menos 1 plan de pago. "; 
       this.showMessageError = true;
@@ -246,7 +267,28 @@ export class StudentComponent implements OnInit{
 
   loadData(event) {
     this.showFooterLoading();
-    this.loadInitData();
+    if(this.students != null){
+      this.rows = this.students.length;
+    }else{
+      this.rows = 0;
+    }
+    if(this.courses != null){
+      this.loadStudents();    
+    }else{
+      this.loadCourses();
+    }
+  }
+
+  loadStudents(){
+    if(!this.onLoadStudents){
+      this.onLoadStudents = true;
+      this.studentService.loadStudents(this.rows, this.maxResult)
+              .subscribe(
+                data => this.loadStudentsOK(data),
+                err => this.loadErrorLoadStudentService(err),
+                () => Logger.debug('Termino ejecucion studentService...')
+        );
+    }
   }
 
   loadStudent(student: Student){
@@ -264,6 +306,15 @@ export class StudentComponent implements OnInit{
       this.selectStudent.emit(student);
       this.goRecord.emit(true);
     }
+  }
+
+  loadErrorStudentMessageService(error){
+    this.loadErrorMessageService(error);
+  }
+
+  loadErrorLoadStudentService(error){
+    this.onLoadStudents = false;
+    this.loadErrorMessageService(error);
   }
 
   loadErrorMessageService(error){
@@ -298,7 +349,7 @@ export class StudentComponent implements OnInit{
       Object.assign(documentType, documentTypeJSON);
       this.documentTypes.push(documentType);
     }
-    this.loadCourses();
+    this.hideLoading();
   }
 
   private loadCourses(){
@@ -312,9 +363,12 @@ export class StudentComponent implements OnInit{
 
   private loadCoursesOK(data){
     this.courses = new Array<Course>();
+    this.filterCourseOptions = new Array<SelectItem>();
     for(let courseJSON of data.body.result){
       let course: Course = new Course();
       Object.assign(course, courseJSON);
+      let description = course.level.description + " " + course.year.description + "° " + course.division.description;
+      this.filterCourseOptions.push({label:description, value:course});
       this.courses.push(course);
     }
     Logger.debug("Cursos cargados: " + JSON.stringify(this.courses));
@@ -322,9 +376,11 @@ export class StudentComponent implements OnInit{
   }
 
   getDocumentTypeDescription(id: number){
-    for(let documentType of this.documentTypes){
-      if(documentType.id == id){
-        return documentType.description;
+    if(this.documentTypes != null){
+      for(let documentType of this.documentTypes){
+        if(documentType.id == id){
+          return documentType.description;
+        }
       }
     }
   }
@@ -339,6 +395,24 @@ export class StudentComponent implements OnInit{
     }
     Logger.debug("No se encontro el curso: " + id);
     return null;
+  }
+
+  showReportModal(){
+    if((this.students != null) && (this.students.length > 0)){
+      this.displayReportPopUp = "block";
+    }else{
+      this.messageErrorService = "No puede generar un informe si no tiene alumnos ingresados.";
+      this.showMessageError = true;
+      this.showMessageErrorService = true;
+    }
+  }
+
+  hideReportModal(){
+    this.displayReportPopUp = "none";
+  }
+
+  downloadReport(){
+
   }
 
 }

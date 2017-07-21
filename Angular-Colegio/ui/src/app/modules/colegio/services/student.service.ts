@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { Logger } from '../../../logger/logger';
 
 import { Observable } from 'rxjs';
 
@@ -22,7 +23,7 @@ export class StudentService {
                     "documentType": student.documentType,
                     "documentNumber": student.documentNumber,
                     "photo": null,
-                    "course": student.course,
+                    "course": student.course.id,
                     "paymentPlans": student.paymentPlans,
                     "email": student.email
                 };
@@ -38,8 +39,9 @@ export class StudentService {
                     "documentType": student.documentType,
                     "documentNumber": student.documentNumber,
                     "photo": null,
-                    "course": student.course,
-                    "paymentPlans": student.paymentPlans
+                    "course": student.course.id,
+                    "paymentPlans": student.paymentPlans,
+                    "email": student.email
                 };
         return this.http.post(body, "students/update", token);
     }
@@ -52,8 +54,13 @@ export class StudentService {
         return this.http.post(body, "students/delete", token);
     }
 
-    loadStudents(): Observable<any> {
-        var body = {};
+    loadStudents(lastResult: number, maxResult: number): Observable<any> {
+        Logger.debug("loadStudents Service: " + lastResult);
+        var body = {
+                        "firstResult": lastResult,
+                        "maxResults": maxResult,
+                        "result": null
+                    };
         var token = "";
         return this.http.post(body, "students/load", token);
     }

@@ -76,6 +76,8 @@ export class StudentCreateComponent implements OnInit{
   maxResult: number;
   result: number;
 
+  uploadedPhoto: any[] = [];
+
   constructor(
               private studentService: StudentService, 
               private documentTypeService: DocumentTypeService,
@@ -144,7 +146,7 @@ export class StudentCreateComponent implements OnInit{
       Object.assign(course, courseJSON);
       let label = "";
       label += course.year.description + " " + course.division.description + " " + course.level.description; 
-      this.coursesListBox.push({label:label, value:course.id});
+      this.coursesListBox.push({label:label, value:course});
     }
     this.hideLoading();
   }
@@ -198,7 +200,10 @@ export class StudentCreateComponent implements OnInit{
 
     if(this.inEdit){
       this.initValueInput();
-    }
+    }else{
+      this.hideLoading();
+    } 
+
   }
 
   initValueInput(){
@@ -206,6 +211,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputDocumentNumber.value = String(this.student.documentNumber);
     this.inputEmail.value = this.student.email;
     this.inputSurname.value = this.student.surname;
+    this.hideLoading();
   }
 
   isAllOK(){
@@ -342,10 +348,12 @@ export class StudentCreateComponent implements OnInit{
 
   showLoading(){
     this.loading = true;
+    Logger.debug("ShowLoading");
   }
 
   hideLoading(){
     this.loading = false;
+    Logger.debug("HideLoading");
   }
 
   goToList(){

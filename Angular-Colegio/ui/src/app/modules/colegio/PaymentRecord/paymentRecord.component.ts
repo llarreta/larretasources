@@ -19,8 +19,12 @@ export class PaymentRecordComponent implements OnInit{
   inList: boolean;
   student: Student;
   paymentRecords: Array<PaymentRecord>;
+  paymentRecordSelected: PaymentRecord;
   messageErrorService: string;
+  messageErrorInputsPopUp: string;
+  displayPopUp: string;
 
+  showMessageErrorPopUp: boolean;
   showMessageError: boolean;
   showMessageErrorInput: boolean;
   showMessageErrorService: boolean;
@@ -29,6 +33,15 @@ export class PaymentRecordComponent implements OnInit{
 
   ngOnInit() {
     this.inList = true;
+    this.hidePopUp();
+  }
+
+  hidePopUp(){
+    this.displayPopUp = "none";
+  }
+
+  showPopUp(){
+    this.displayPopUp = "block";
   }
 
   loadData(event) {
@@ -71,6 +84,11 @@ export class PaymentRecordComponent implements OnInit{
           err => this.loadErrorMessageService(err),
           () => console.log('Vacio')
     );
+  }
+
+  loadPaymentRecord(paymentRecord: PaymentRecord){
+    this.paymentRecordSelected = paymentRecord;
+    this.showPopUp();
   }
 
   goToList(goList: boolean){

@@ -1,18 +1,10 @@
-/**
- * System configuration for Angular samples
- * Adjust as necessary for your application needs.
- */
 (function(global) {
     System.config({
         paths: {
-            // paths serve as alias
             'npm:': 'node_modules/'
         },
-        // map tells the System loader where to look for things
         map: {
-            // our app is within the app folder
             app: 'src/app',
-            // angular bundles
             '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
             '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
             '@angular/animations/browser': 'npm:@angular/animations/bundles/animations-browser.umd.js',
@@ -25,11 +17,9 @@
             '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-            // other libraries
-            'angular2-image-upload': 'npm:angular2-image-upload',
             'primeng': 'npm:primeng'
+
         },
-        // packages tells the System loader how to load when no filename and/or no extension
         packages: {
             app: {
                 main: './main.js',
@@ -37,10 +27,6 @@
             },
             rxjs: {
                 main: './bundles/Rx.min.js',
-                defaultExtension: 'js'
-            },
-            'angular2-image-upload':{
-                main: './index.js',
                 defaultExtension: 'js'
             },
             primeng: {

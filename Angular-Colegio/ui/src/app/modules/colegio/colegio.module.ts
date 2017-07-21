@@ -11,6 +11,7 @@ import {AccordionModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
 import {InputMaskModule} from 'primeng/primeng';
 import {ListboxModule} from 'primeng/primeng';
+import {FileUploadModule} from 'primeng/primeng';
 
 // Router
 import { ProvidersRouter } from './colegio.router';
@@ -60,7 +61,8 @@ import { PaymentPlanService } from './services/paymentPlan.service';
         AccordionModule,
         DialogModule,
         InputMaskModule,
-        ListboxModule
+        ListboxModule,
+        FileUploadModule
     ],
     declarations:
     [

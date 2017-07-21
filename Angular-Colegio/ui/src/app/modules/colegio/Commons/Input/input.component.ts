@@ -11,7 +11,7 @@ export class InputCommonsComponent implements OnInit{
 
   @Input()
   inputModel: InputModel;
-  @Output() 
+  @Output()   
   valueModel = new EventEmitter();
 
   isOnFocusLabel: boolean;

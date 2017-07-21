@@ -18,8 +18,6 @@ import { ConfigurationLoader } from './services/configuration-loader.service';
 // Services
 import { HttpRequest } from './services/http-request.service';
 
-
-
 // Shared Components
 import { AppNavComponent } from './shared/app-nav/app-nav.component';
 import { AppFooterComponent } from './shared/app-footer/app-footer.component';
@@ -39,7 +37,7 @@ import {DataScrollerModule} from 'primeng/primeng';
     ColegioModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    DataScrollerModule,
+    DataScrollerModule
   ],
   providers: [
     HttpRequest,
