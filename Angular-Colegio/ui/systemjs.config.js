@@ -17,7 +17,10 @@
             '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-            'primeng': 'npm:primeng'
+            'primeng': 'npm:primeng',
+            'text-mask-core': 'npm:text-mask-core',
+            'angular2-text-mask': 'npm:angular2-text-mask/dist/angular2TextMask.js',
+            'text-mask-addons': 'npm:text-mask-addons'
 
         },
         packages: {
@@ -30,6 +33,16 @@
                 defaultExtension: 'js'
             },
             primeng: {
+                defaultExtension: 'js'
+            },
+            'text-mask-core': {
+                defaultExtension: 'js'
+            },
+            'angular2-text-mask': {
+                defaultExtension: 'js'
+            },
+            'text-mask-addons': {
+                main: './dist/textMaskAddons.js',
                 defaultExtension: 'js'
             }
         }

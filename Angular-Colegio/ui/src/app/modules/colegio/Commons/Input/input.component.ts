@@ -30,8 +30,6 @@ export class InputCommonsComponent implements OnInit{
   isErrorMinNumberEnabled: boolean;
   isMaskEnabled: boolean;
 
-  errorTypeText: string = "Solamente puede ingresar numeros, el maximo de decimales es 2.";
-
   constructor() {}
 
   ngOnInit() {
@@ -70,7 +68,7 @@ export class InputCommonsComponent implements OnInit{
     }else{
       this.isErrorValidationEnabled = false;
     }
-    if(this.inputModel.maskText != null){
+    if(this.inputModel.mask != null){
       this.isMaskEnabled = true;
     }else{
       this.isMaskEnabled = false;
@@ -94,8 +92,8 @@ export class InputCommonsComponent implements OnInit{
     this.checkValidation();
     this.checkMaxCharacter();
     this.checkMinCharacter();
+    this.checkType();
     if(this.inputModel.type == "number"){ 
-      this.checkType();
       this.checkMaxNumber();
       this.checkMinNumber();
     }
@@ -154,6 +152,33 @@ export class InputCommonsComponent implements OnInit{
         }
       }
     }
+    if(this.inputModel.type == "mail"){
+      if(this.validateEmail(this.inputModel.value)){
+        this.isErrorType = false;
+      }else{
+        this.isErrorType = true;
+      }
+    }
+    if(this.inputModel.type == "dni"){
+      console.debug("Validando input dni");
+      if(this.validateDni(this.inputModel.value)){
+        console.debug("Validando input dni false");
+        this.isErrorType = false;
+      }else{
+        console.debug("Validando input true");
+        this.isErrorType = true;
+      }
+    }
+  }
+
+  validateDni(dni) {
+      var re: RegExp = new RegExp("^([0-9]{2})([.][0-9]{3})([.][0-9]{3})$");
+      return re.test(dni);
+  }
+
+  validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
   }
 
   checkMinNumber(){
@@ -197,12 +222,6 @@ export class InputCommonsComponent implements OnInit{
 
   changeValueModel() {
     this.valueModel.emit(this.inputModel);
-  }
-
-  applyMask(){
-    // example **-***-**
-    let valueWithMask: string;
-    this.inputModel.value = "-" + this.inputModel.value;
   }
 
   getTextWithOutMask(){

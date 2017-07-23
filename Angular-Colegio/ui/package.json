@@ -1,5 +1,5 @@
 {
-  "name": "angular-quickstart",
+  "name": "sadmin",
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\"",
@@ -34,7 +34,10 @@
     "symbol-observable": "1.0.4",
     "rxjs": "5.3.0",
     "systemjs": "0.19.39",
-    "zone.js": "0.8.4"
+    "zone.js": "0.8.4",
+    "text-mask-core": "5.0.1", 
+    "angular2-text-mask": "8.0.2",
+    "text-mask-addons": "3.6.0"
   },
   "devDependencies": {
     "@types/core-js": "0.9.34",
@@ -42,6 +45,6 @@
     "concurrently": "3.0.0",
     "lite-server": "2.2.2",
     "compass": "0.1.1",
-    "typescript": "^2.2.2"
+    "typescript": "2.2.2"
   }
 }

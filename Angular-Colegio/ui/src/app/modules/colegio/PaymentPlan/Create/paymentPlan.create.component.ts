@@ -12,6 +12,7 @@ import { InputModel } from '../../Commons/Input/input.model.component';
 import { InputCommonsComponent } from '../../Commons/Input/input.component';
 import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
 import { Logger } from '../../../../Logger/logger';
+import { MaskTemplates } from '../../Commons/Input/mask.templates';
 
 //ngPrime
 import { SelectItem } from 'primeng/primeng';
@@ -233,10 +234,12 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputDetailValue.messageErrorEmpty= "Debe indicar el valor.";
     this.inputDetailValue.messageErrorValidation= "El valor ingresado es invalido."
     this.inputDetailValue.required= true;
-    this.inputDetailValue.type= "number";
+    this.inputDetailValue.type= "price";
+    this.inputDetailValue.mask= MaskTemplates.price;
+    this.inputDetailValue.maskActivate = true;
     this.inputDetailValue.validationActivate = true;
     if(!this.inEdit){
-      this.inputDetailValue.value = "0,00";
+      this.inputDetailValue.value = "0";
     }
 
     this.inputDetailDescription = new InputModel();
@@ -267,10 +270,12 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.inputLittleDetailValue.messageErrorEmpty= "Debe indicar el valor.";
     this.inputLittleDetailValue.messageErrorValidation= "El valor ingresado es invalido."
     this.inputLittleDetailValue.required= true;
-    this.inputLittleDetailValue.type= "number";
+    this.inputLittleDetailValue.type= "price";
+    this.inputLittleDetailValue.mask = MaskTemplates.price;
+    this.inputLittleDetailValue.maskActivate = true;
     this.inputLittleDetailValue.validationActivate = true;
     if(!this.inEdit){
-      this.inputLittleDetailValue.value = "0,00";
+      this.inputLittleDetailValue.value = "0";
     }
   }
 
@@ -380,7 +385,9 @@ export class PaymentPlanCreateComponent implements OnInit{
       && !this.isDuplicateDescriptionDetail(this.inputDetailDescription.value)){
       this.detailSelected.description = this.inputDetailDescription.value;
       Logger.debug("Guardando detalle valor " + this.inputDetailValue.value);
-      let value: number = Number(this.inputDetailValue.value.replace(",", "."));
+      let valueCast = this.inputDetailValue.value.replace("$", "");
+      valueCast = valueCast.replace(",", ".");
+      let value: number = Number(valueCast);
       this.detailSelected.value = value;
       Logger.debug("Valor actual del input detalle valor " + this.detailSelected.value);
       if(this.obligationSelected.details == null){
@@ -414,7 +421,9 @@ export class PaymentPlanCreateComponent implements OnInit{
     if(this.inputDetailDescription.isAllOK && this.inputDetailValue.isAllOK 
       && !this.isDuplicateDescriptionDetailEdit(this.inputDetailDescription.value)){
       this.detailSelected.description = this.inputDetailDescription.value;
-      let value: number = Number(this.inputDetailValue.value.replace(",", "."));
+      let valueCast = this.inputDetailValue.value.replace("$", "");
+      valueCast = valueCast.replace(",", ".");
+      let value: number = Number(valueCast);
       this.detailSelected.value = value;
       this.refreshListBox();
       this.hideDisplayPopUp();
@@ -441,7 +450,9 @@ export class PaymentPlanCreateComponent implements OnInit{
         this.detailSelected.littleDetails = new Array<LittleDetail>();
       }
       this.littleDetailSelected.description = this.inputLittleDetailDescription.value;
-      let value: number = Number(this.inputLittleDetailValue.value.replace(",", "."));
+      let valueCast = this.inputLittleDetailValue.value.replace("$", "");
+      valueCast = valueCast.replace(",", ".");
+      let value: number = Number(valueCast);
       this.littleDetailSelected.value = value;
       this.detailSelected.littleDetails.push(this.littleDetailSelected);
       let totalPrice: number = 0;
@@ -470,7 +481,9 @@ export class PaymentPlanCreateComponent implements OnInit{
     if(this.inputLittleDetailDescription.isAllOK && this.inputLittleDetailValue.isAllOK 
       && !this.isDuplicateDescriptionLittleDetailEdit(this.inputLittleDetailDescription.value)){
       this.littleDetailSelected.description = this.inputLittleDetailDescription.value;
-      let value: number = Number(this.inputLittleDetailValue.value.replace(",", "."));
+      let valueCast = this.inputLittleDetailValue.value.replace("$", "");
+      valueCast = valueCast.replace(",", ".");
+      let value: number = Number(valueCast);
       this.littleDetailSelected.value = value;
       let totalPrice: number = 0;
       for(let littleDetail of this.detailSelected.littleDetails){

@@ -11,6 +11,7 @@ import { DocumentType } from '../../Models/DocumentType.model';
 
 //Commons
 import { InputModel } from '../../Commons/Input/input.model.component';
+import { MaskTemplates } from '../../Commons/Input/mask.templates';
 import { InputCommonsComponent } from '../../Commons/Input/input.component';
 import { ErrorMessages } from '../../../../ErrorMessages/ErrorMessages';
 import { Logger } from '../../../../Logger/logger';
@@ -169,12 +170,12 @@ export class StudentCreateComponent implements OnInit{
     this.inputDocumentNumber.messageErrorEmpty= "Debe completar el numero de documento.";
     this.inputDocumentNumber.messageErrorValidation= "El numero de documento es invalido.";
     this.inputDocumentNumber.required= true;
-    this.inputDocumentNumber.type= "number";
-    this.inputDocumentNumber.maskText= "99-9999-99";
+    this.inputDocumentNumber.type= "dni";
+    this.inputDocumentNumber.mask= MaskTemplates.DNI;
     this.inputDocumentNumber.validationActivate = true;
-    this.inputDocumentNumber.maskActivate = false;
-    this.inputDocumentNumber.minCharacter = 7;
-    this.inputDocumentNumber.messageErrorMinCharacter = "El numero de documento tiene que tener minimo 8 numeros. Ejemplo 22332233";
+    this.inputDocumentNumber.maskActivate = true;
+    this.inputDocumentNumber.messageErrorMinCharacter = "El numero de documento esta incompleto.";
+    this.inputDocumentNumber.messageErrorTypeText = "El dni ingresado es invalido.";
 
     this.inputEmail = new InputModel();
     this.inputEmail.id= "email";
@@ -182,10 +183,12 @@ export class StudentCreateComponent implements OnInit{
     this.inputEmail.messageErrorEmpty= "Debe completar el email.";
     this.inputEmail.messageErrorValidation="El email ingresado es invalido.";
     this.inputEmail.required= true;
-    this.inputEmail.type= "email";
+    this.inputEmail.type= "mail";
     this.inputEmail.validationActivate = true;
-    this.inputEmail.minCharacter = 12;
+    this.inputEmail.mask = MaskTemplates.MAIL;
+    this.inputEmail.maskActivate = true;
     this.inputEmail.messageErrorMinCharacter = "Ingrese un email valido.";
+    this.inputEmail.messageErrorTypeText = "El email ingresado es invalido."
 
     this.inputSurname = new InputModel();
     this.inputSurname.id= "surname"
@@ -297,7 +300,7 @@ export class StudentCreateComponent implements OnInit{
   loadStudentData(){
     this.student.name = this.inputName.value;
     this.student.surname = this.inputSurname.value;
-    this.student.documentNumber = Number(this.inputDocumentNumber.value);
+    this.student.documentNumber = this.inputDocumentNumber.value;
     this.student.email = this.inputEmail.value;
   }
 

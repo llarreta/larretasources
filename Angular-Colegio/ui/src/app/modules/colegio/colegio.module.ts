@@ -47,6 +47,9 @@ import { DivisionService } from './services/division.service';
 import { DocumentTypeService } from './services/documentType.service';
 import { PaymentPlanService } from './services/paymentPlan.service';
 
+//TextMask
+import { TextMaskModule } from 'angular2-text-mask';
+
 @NgModule({
     imports:
     [
@@ -62,7 +65,8 @@ import { PaymentPlanService } from './services/paymentPlan.service';
         DialogModule,
         InputMaskModule,
         ListboxModule,
-        FileUploadModule
+        FileUploadModule,
+        TextMaskModule
     ],
     declarations:
     [

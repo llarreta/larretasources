@@ -4,10 +4,10 @@
     id="{{inputModel.id}}" [(ngModel)]="inputModel.value" class="input__field input__field--hoshi"
     (ngModelChange)="onChange()" [disabled]="inputModel.disabled" *ngIf="!inputModel.maskActivate"/>
    
-  <!--<input (focus)="onFocus()" (blur)="onBlur()" type="text" 
+  <input (focus)="onFocus()" (blur)="onBlur()" type="text" 
     id="{{inputModel.id}}" [(ngModel)]="inputModel.value" class="input__field input__field--hoshi"
     (ngModelChange)="onChange()" [disabled]="inputModel.disabled" *ngIf="inputModel.maskActivate"
-    [mask]="'00000-000'"/>-->
+    [textMask]="{mask: inputModel.mask, showMask: false, guide: false, keepCharPositions: false}"/>
 
   <label id="{{inputModel.labelId}}" class="input__label input__label--hoshi input__label--hoshi-color-1" 
         [ngClass]="{'error-color': isErrorEmpty || isErrorValidation || isErrorMaxCharacter || isErrorMinCharacter ||

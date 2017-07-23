@@ -24,8 +24,6 @@ import { AppFooterComponent } from './shared/app-footer/app-footer.component';
 
 import { ColegioModule } from './modules/colegio/colegio.module';
 
-import {DataScrollerModule} from 'primeng/primeng';
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -36,8 +34,7 @@ import {DataScrollerModule} from 'primeng/primeng';
     ReactiveFormsModule,
     ColegioModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule,
-    DataScrollerModule
+    NoopAnimationsModule
   ],
   providers: [
     HttpRequest,

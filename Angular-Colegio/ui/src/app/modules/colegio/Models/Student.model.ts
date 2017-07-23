@@ -9,7 +9,7 @@ export class Student extends Entity{
     public name: string;
     public surname: string;
     public documentType: number;
-    public documentNumber: number;
+    public documentNumber: string;
     public email: string;
     public course: Course; 
     public paymentPlans: Array<number>;
