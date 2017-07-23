@@ -22,7 +22,7 @@ export class StudentService {
                     "surname": student.surname,
                     "documentType": student.documentType,
                     "documentNumber": student.documentNumber,
-                    "photo": null,
+                    "photo": student.photo,
                     "course": student.course.id,
                     "paymentPlans": student.paymentPlans,
                     "email": student.email
@@ -38,7 +38,7 @@ export class StudentService {
                     "surname": student.surname,
                     "documentType": student.documentType,
                     "documentNumber": student.documentNumber,
-                    "photo": null,
+                    "photo": student.photo,
                     "course": student.course.id,
                     "paymentPlans": student.paymentPlans,
                     "email": student.email

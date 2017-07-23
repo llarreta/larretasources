@@ -51,7 +51,7 @@
               </div>
             </p-footer>
             
-            <p-footer *ngIf="students.length == 0">
+            <p-footer *ngIf="(students != null) && (students.length == 0)">
               <div class="no-data-footer">
                 No hay alumnos cargados...
               </div>
@@ -63,7 +63,8 @@
                   {{student.name}} {{student.surname}}
                 </div>
                 <div class="data-scroller-item-1-photo">
-                  <img src="src/assets/images/user-image.png" class="student-photo"/>
+                  <img src="src/assets/images/user-image.png" class="student-photo" *ngIf="student.photo == null"/>
+                  <img [src]="student.photo" class="student-photo-list" *ngIf="student.photo != null"/>
                 </div>
                 <div class="data-scroller-item-1-body">
                   <div class="data-scroller-item-1-body-data">

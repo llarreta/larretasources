@@ -77,8 +77,6 @@ export class StudentCreateComponent implements OnInit{
   maxResult: number;
   result: number;
 
-  uploadedPhoto: any[] = [];
-
   constructor(
               private studentService: StudentService, 
               private documentTypeService: DocumentTypeService,
@@ -255,7 +253,6 @@ export class StudentCreateComponent implements OnInit{
       let datosResponse;
       let status;
       if(!this.inEdit){
-        
         this.studentService.createStudent(this.student)
         .subscribe(
           data => this.createStudentOK(data),
@@ -317,6 +314,16 @@ export class StudentCreateComponent implements OnInit{
   deleteStudentOK(data){
     Logger.debug("Estudiante eliminado...");
     this.goToList();
+  }
+
+  onPhotoSelect(files){
+    console.log("files:" + files);
+    let file: File = files[0];  
+    var photoReader: FileReader = new FileReader();
+    photoReader.onloadend = (e) => {
+      this.student.photo = photoReader.result;
+    }
+    photoReader.readAsDataURL(file);
   }
 
   paymentPlanChange(){

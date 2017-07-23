@@ -222,6 +222,11 @@ export class StudentComponent implements OnInit{
       this.inUpdateStudent = false;
       this.inCreateStudent = !goList;
       this.inListStudent = goList;
+      this.students = null;
+      this.rows = 0;
+      if(goList){
+        this.selectedStudent = null;
+      }
       this.loadInitData();
       this.loadStudents();
     }else{
@@ -229,6 +234,25 @@ export class StudentComponent implements OnInit{
       this.showMessageError = true;
       this.showMessageErrorService = true;
     }
+  }
+
+  goListUpdate(goList: boolean){
+    this.inCreateStudent = false;
+    this.inUpdateStudent = !goList;
+    this.inListStudent = goList;
+    this.students = null;
+    if(goList){
+        this.selectedStudent = null;
+    }
+    this.loadInitData();
+  }
+
+  goListPaymentRecord(goList: boolean){
+    this.inCreateStudent = false;
+    this.inUpdateStudent = false;
+    this.showPaymentRecord = !goList;
+    this.inListStudent = goList;
+    this.loadInitData();
   }
 
   private loadPaymentPlans(){
@@ -248,21 +272,6 @@ export class StudentComponent implements OnInit{
     }else{
       this.havePaymentsPlans = false;
     }
-  }
-
-  goListUpdate(goList: boolean){
-    this.inCreateStudent = false;
-    this.inUpdateStudent = !goList;
-    this.inListStudent = goList;
-    this.loadInitData();
-  }
-
-  goListPaymentRecord(goList: boolean){
-    this.inCreateStudent = false;
-    this.inUpdateStudent = false;
-    this.showPaymentRecord = !goList;
-    this.inListStudent = goList;
-    this.loadInitData();
   }
 
   loadData(event) {

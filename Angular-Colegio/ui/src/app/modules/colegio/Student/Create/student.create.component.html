@@ -37,9 +37,10 @@
 
         <div class="col-6">
           <div class="upload-image-container">
-            <i class="fa fa-user-circle-o image-example-user" aria-hidden="true"></i>
+            <img src="src/assets/images/user-image.png" class="image-example-user" *ngIf="student.photo == null"/>
+            <img [src]="student.photo" accept="image/*" class="student-photo-load" *ngIf="student.photo != null"/>
             <i class="fa fa-plus add-new-image" aria-hidden="true">
-              <input class="image-file" type="file" title=""/>
+              <input class="image-file" type="file" title=" " pTooltip="Seleccionar foto" #photo (change)="onPhotoSelect(photo.files)"/>
             </i>
           </div>
         </div>
