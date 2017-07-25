@@ -44,12 +44,16 @@ export class HttpRequest {
      * Interceptor para captura genérica de errores http
      * */
     public onCatch(error: Response) {
-        let responseError = 
-        { 
-            httpStatus: error.status, 
-            codeError: error.json().state.code
-        };
-        console.error(JSON.stringify(error));
-        return Observable.throw(responseError);
+        try{
+            let responseError = 
+            { 
+                httpStatus: error.status, 
+                codeError: error.json().state.code
+            };
+            console.error(JSON.stringify(error));
+            return Observable.throw(responseError);
+        }catch(e){
+            console.error("Error no controlado...");
+        }
     }
 }
