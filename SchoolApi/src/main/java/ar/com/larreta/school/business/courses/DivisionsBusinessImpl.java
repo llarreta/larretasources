@@ -4,9 +4,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import ar.com.larreta.rest.business.impl.LoadBusinessImpl;
-import ar.com.larreta.rest.messages.ParametricData;
 import ar.com.larreta.school.persistence.Division;
+import ar.com.larreta.stepper.impl.LoadBusinessImpl;
+import ar.com.larreta.stepper.messages.ParametricData;
 
 @Service(DivisionsLoadBusiness.BUSINESS_NAME)
 @Transactional

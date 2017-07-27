@@ -1,38 +1,26 @@
 package ar.com.larreta.school.business.payments;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
-import ar.com.larreta.annotations.Log;
-import ar.com.larreta.persistence.dao.args.LoadArguments;
-import ar.com.larreta.persistence.dao.impl.Equal;
-import ar.com.larreta.persistence.exceptions.CantBuildQueryException;
-import ar.com.larreta.persistence.model.Person;
-import ar.com.larreta.rest.business.Business;
-import ar.com.larreta.rest.business.BusinessListener;
-import ar.com.larreta.rest.business.impl.BusinessConfig;
-import ar.com.larreta.rest.business.impl.CallAnotherBusinessListener;
-import ar.com.larreta.rest.business.impl.EntityAsignBusinessListener;
-import ar.com.larreta.rest.business.impl.IteratorCallBusinessListener;
-import ar.com.larreta.rest.business.impl.IteratorListener;
-import ar.com.larreta.rest.business.impl.LoadArgsAddInnerJoin;
-import ar.com.larreta.rest.business.impl.LoadArgsWhereBusinessListener;
-import ar.com.larreta.rest.business.impl.PropertyAsignBusinessListener;
-import ar.com.larreta.rest.messages.JSONable;
-import ar.com.larreta.rest.messages.TargetedBody;
-import ar.com.larreta.school.business.paymentPlans.PaymentPlansBusinessConfig;
+import ar.com.larreta.mystic.model.Person;
 import ar.com.larreta.school.persistence.Obligation;
-import ar.com.larreta.school.persistence.ObligationStatus;
 import ar.com.larreta.school.persistence.PaymentDirection;
 import ar.com.larreta.school.persistence.PaymentEntity;
 import ar.com.larreta.school.persistence.PaymentUnit;
 import ar.com.larreta.school.persistence.Product;
+import ar.com.larreta.stepper.Step;
+import ar.com.larreta.stepper.impl.AddInnerJoin;
+import ar.com.larreta.stepper.impl.BusinessConfig;
+import ar.com.larreta.stepper.impl.CallAnotherBusinessListener;
+import ar.com.larreta.stepper.impl.EntityAsignBusinessListener;
+import ar.com.larreta.stepper.impl.IteratorListener;
+import ar.com.larreta.stepper.impl.PropertyAsignBusinessListener;
+import ar.com.larreta.stepper.messages.TargetedBody;
 
 @Configuration
 public class PaymentsBusinessConfig extends BusinessConfig {
@@ -82,16 +70,16 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 	
 	private IteratorListener<PaymentUnit> 							paymentUnitsListenerServiceToFront;
 	
-	private LoadArgsAddInnerJoin									paymentPlanInnerJoinListener;
-	private LoadArgsAddInnerJoin									paymentPlanStudentInnerJoinListener;
-	private LoadArgsWhereBusinessListener<Equal>					paymentStudentIdWhereEqualListener;
+	private AddInnerJoin									paymentPlanInnerJoinListener;
+	private AddInnerJoin									paymentPlanStudentInnerJoinListener;
+	//private WhereBusinessListener<Equal>					paymentStudentIdWhereEqualListener;
 
 	private PropertyAsignBusinessListener							productGroupAsignListener;
 	private PropertyAsignBusinessListener							studentAsignListener;
 	private PropertyAsignBusinessListener							paidOffListener;
 	
 	private CallAnotherBusinessListener 							callCreateObligationStatusListener;
-	private IteratorCallBusinessListener<ObligationStatus> 			iterateObligationStatus;
+	//private IteratorCallBusinessListener<ObligationStatus> 			iterateObligationStatus;
 	
 	private PropertyAsignBusinessListener							obligationAsignListener;
 	private PropertyAsignBusinessListener							studentBenefitingAsignListener;
@@ -150,7 +138,7 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 		return obligationAsignListener;
 	}
 	
-	@Bean(name=PAYMENTS_AFTER_PERSIST_LISTENER) 
+	/*@Bean(name=PAYMENTS_AFTER_PERSIST_LISTENER) 
 	@DependsOn(value={ITERATE_OBLIGATION_STATUS})
 	public Set<BusinessListener> paymentsAfterPersistListener(){
 		return getSet(iterateObligationStatus);
@@ -160,9 +148,9 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 	@DependsOn(value={PAID_OFF_ASIGN_LISTENER, STUDENT_BENEFITING_ASIGN_LISTENER, OBLIGATION_ASIGN_LISTENER})
 	public Set<BusinessListener> obligationStatusAfterIterateListener(){
 		return getSet(paidOffAsignListener, studentBenefitingAsignListener, obligationAsignListener);
-	}
+	}*/
 
-	@Bean(name=ITERATE_OBLIGATION_STATUS) 
+	/*@Bean(name=ITERATE_OBLIGATION_STATUS) 
 	@DependsOn(value={OBLIGATION_STATUS_AFTER_ITERATE_LISTENER})
 	public 	IteratorCallBusinessListener<ObligationStatus> iterateObligationStatus(){
 		iterateObligationStatus = new IteratorCallBusinessListener<ObligationStatus>(){
@@ -190,14 +178,14 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 			}
 		};
 		return iterateObligationStatus;
-	}
+	}*/
 	
 	@Bean(name=CALL_CREATE_OBLIGATION_STATUS_LISTENER) 
 	public CallAnotherBusinessListener callCreateObligationStatusListener(){
 		callCreateObligationStatusListener = new CallAnotherBusinessListener() {
 			@Override
 			@Autowired @Qualifier(CreateObligationStatusBusiness.BUSINESS_NAME)
-			public void setBusiness(Business business) {
+			public void setBusiness(Step business) {
 				super.setBusiness(business);
 			}
 			@Override
@@ -208,11 +196,11 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 		return callCreateObligationStatusListener;
 	}
 	
-	@Bean(name=OBLIGATION_STATUS_AFTER_LOAD_LISTENERS) 
+	/*@Bean(name=OBLIGATION_STATUS_AFTER_LOAD_LISTENERS) 
 	@DependsOn(value={PRODUCT_GROUP_ASIGN_LISTENER, STUDENT_ASIGN_LISTENER, PAID_OFF_LISTENER})
 	public Set<BusinessListener> obligationStatusAfterLoadListeners(){
 		return getSet(productGroupAsignListener, studentAsignListener, paidOffListener);
-	}
+	}*/
 	
 	@Bean(name=PAID_OFF_LISTENER) 
 	public PropertyAsignBusinessListener paidOffListener(){
@@ -222,7 +210,7 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 			public Object getValue(Serializable source, Serializable target, Object... args) {
 				TargetedBody body = (TargetedBody) args[0];
 				Obligation obligation = (Obligation) source;
-				LoadArguments loadArgs = new LoadArguments(ObligationStatus.class);
+				/*LoadArguments loadArgs = new LoadArguments(ObligationStatus.class);
 				loadArgs.addWhereEqual("student.id", body.getTarget());
 				loadArgs.addWhereEqual("obligation.id", obligation.getId());
 				try {
@@ -232,7 +220,7 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 					}
 				} catch (CantBuildQueryException e) {
 					LOG.error("Ocurrio un error asignando paidOff", e);
-				}
+				}*/
 				return null;
 			}
 
@@ -287,15 +275,15 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 		return productGroupAsignListener;
 	}
 	
-	@Bean(name=OBLIGATION_STATUS_BEFORE_LOAD_LISTENERS) 
+	/*@Bean(name=OBLIGATION_STATUS_BEFORE_LOAD_LISTENERS) 
 	@DependsOn(value={PAYMENT_PLAN_STUDENT_INNER_JOIN_LISTENER, PAYMENT_PLAN_INNER_JOIN_LISTENER, PAYMENT_STUDENT_ID_WHERE_EQUAL_LISTENER})
 	public Set<BusinessListener> obligationStatusBeforeLoadListeners(){
 		return getSet(paymentUnitsListenerServiceToFront);
 	}
 	
 	@Bean(name=PAYMENT_STUDENT_ID_WHERE_EQUAL_LISTENER)
-	public LoadArgsWhereBusinessListener<Equal> paymentStudentIdWhereEqualListener(){
-		paymentStudentIdWhereEqualListener = new LoadArgsWhereBusinessListener<Equal>() {
+	public WhereBusinessListener<Equal> paymentStudentIdWhereEqualListener(){
+		paymentStudentIdWhereEqualListener = new WhereBusinessListener<Equal>() {
 			@Override
 			public Object getValue(Serializable source, Serializable target, Object... args) {
 				TargetedBody body = (TargetedBody) source;
@@ -313,12 +301,12 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 			}
 		};
 		return paymentStudentIdWhereEqualListener;
-	}
+	}*/
 	
 
 	@Bean(name=PAYMENT_PLAN_STUDENT_INNER_JOIN_LISTENER)
-	public LoadArgsAddInnerJoin paymentPlanStudentInnerJoinListener(){
-		paymentPlanStudentInnerJoinListener = new LoadArgsAddInnerJoin() {
+	public AddInnerJoin paymentPlanStudentInnerJoinListener(){
+		paymentPlanStudentInnerJoinListener = new AddInnerJoin() {
 			@Override
 			public String getInnerJoin() {
 				return PAYMENT_PLAN_STUDENTS;
@@ -328,8 +316,8 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 	}
 	
 	@Bean(name=PAYMENT_PLAN_INNER_JOIN_LISTENER)
-	public LoadArgsAddInnerJoin paymentPlanInnerJoinListener(){
-		paymentPlanInnerJoinListener = new LoadArgsAddInnerJoin() {
+	public AddInnerJoin paymentPlanInnerJoinListener(){
+		paymentPlanInnerJoinListener = new AddInnerJoin() {
 			@Override
 			public String getInnerJoin() {
 				return PAYMENT_PLAN;
@@ -338,7 +326,7 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 		return paymentPlanInnerJoinListener;
 	}
 	
-	@Bean(name=PAYMENT_BEFORE_PERSIST_LISTENERS) @DependsOn(value={PAYMENT_UNITS_LISTENER_FRONT_TO_SERVICE})
+	/*@Bean(name=PAYMENT_BEFORE_PERSIST_LISTENERS) @DependsOn(value={PAYMENT_UNITS_LISTENER_FRONT_TO_SERVICE})
 	public Set<BusinessListener> paymentBeforePersistListeners(){
 		return getSet(paymentUnitsListenerServiceToFront);
 	}
@@ -347,7 +335,7 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 	@DependsOn(value={ASIGN_PERSON_LISTENER, ASIGN_PRODUCT_LISTENER, ASIGN_PAYMENT_DIRECTION_LISTENER, ASIGN_PAYMENT_ENTITY_LISTENER})
 	public Set<BusinessListener> paymentUnitBeforePeristListeners(){
 		return getSet(asignPersonListener, asignProductListener, asignPaymentDirectionListener, asignPaymentEntityListener);
-	}
+	}*/
 
 	@Bean(name=ASIGN_PAYMENT_ENTITY_LISTENER)
 	public EntityAsignBusinessListener<PaymentEntity> asignPaymentEntityListener(){
@@ -416,11 +404,11 @@ public class PaymentsBusinessConfig extends BusinessConfig {
 	@Bean(name=PAYMENT_UNITS_LISTENER_FRONT_TO_SERVICE)
 	public IteratorListener<PaymentUnit> paymentUnitsListenerFrontToService(){
 		paymentUnitsListenerServiceToFront =  new IteratorListener<PaymentUnit>() {
-			@Override
+			/*@Override
 			@Autowired @Qualifier(PaymentsBusinessConfig.PAYMENT_UNIT_BEFORE_PERIST_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
-			}
+			}*/
 
 			@Override
 			public String getSourceProperty() {

@@ -1,25 +1,15 @@
 package ar.com.larreta.school.business.students;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
-import ar.com.larreta.persistence.dao.impl.Like;
-import ar.com.larreta.persistence.model.DocumentType;
-import ar.com.larreta.rest.business.BusinessListener;
-import ar.com.larreta.rest.business.impl.BusinessListenerConfig;
-import ar.com.larreta.rest.business.impl.CollectionEntityAsignBusinessListener;
-import ar.com.larreta.rest.business.impl.EntityAsignBusinessListener;
-import ar.com.larreta.rest.business.impl.IdIteratorListener;
-import ar.com.larreta.rest.business.impl.LoadArgsWhereBusinessListener;
-import ar.com.larreta.rest.business.impl.PropertyAsignBusinessListener;
+import ar.com.larreta.mystic.model.DocumentType;
 import ar.com.larreta.school.persistence.Course;
 import ar.com.larreta.school.persistence.PaymentPlan;
+import ar.com.larreta.stepper.impl.CollectionEntityAsignBusinessListener;
+import ar.com.larreta.stepper.impl.EntityAsignBusinessListener;
+import ar.com.larreta.stepper.impl.IdIteratorListener;
+import ar.com.larreta.stepper.impl.PropertyAsignBusinessListener;
 
 @Configuration
 public class StudentsBusinessConfig {
@@ -48,13 +38,13 @@ public class StudentsBusinessConfig {
 	public static final String STUDENT_BEFORE_LOAD 				= "studentBeforeLoad";
 	public static final String STUDENT_BEFORE_PERSIST 			= "studentBeforePersist";
 	
-	@Autowired @Qualifier(BusinessListenerConfig.FIRST_AND_MAX_RESULTS)
+	/*@Autowired @Qualifier(BusinessListenerConfig.FIRST_AND_MAX_RESULTS)
 	private Set<BusinessListener> firstAndMaxResultsListeners;
 	
-	private LoadArgsWhereBusinessListener<Like> whereNameListener;
-	private LoadArgsWhereBusinessListener<Like> whereSurnameListener;
-	private LoadArgsWhereBusinessListener<Like> whereDocumentTypeListener;
-	private LoadArgsWhereBusinessListener<Like> whereDocumentNumberListener;
+	private WhereBusinessListener<Like> whereNameListener;
+	private WhereBusinessListener<Like> whereSurnameListener;
+	private WhereBusinessListener<Like> whereDocumentTypeListener;
+	private WhereBusinessListener<Like> whereDocumentNumberListener;*/
 	
 	private EntityAsignBusinessListener<DocumentType> asignDocumentTypeListener;
 	private EntityAsignBusinessListener<Course> 	  asignCourseListener;
@@ -65,7 +55,7 @@ public class StudentsBusinessConfig {
 	private PropertyAsignBusinessListener courseAsignListener;
 	private IdIteratorListener 			  paymentPlansListener;
 	
-	@Bean(name=STUDENT_AFTER_LOAD)
+	/*@Bean(name=STUDENT_AFTER_LOAD)
 	@DependsOn(value={DOCUMENT_TYPE_ASIGN_LISTENER, COURSE_ASIGN_LISTENER, PAYMENT_PLANS_LISTENER})
 	public Set<BusinessListener> getStudentAfterLoad(){
 		Set<BusinessListener> businessListeners = new HashSet<>();
@@ -73,7 +63,7 @@ public class StudentsBusinessConfig {
 		businessListeners.add(courseAsignListener);
 		businessListeners.add(paymentPlansListener);
 		return businessListeners;
-	}
+	}*/
 
 	@Bean(name=PAYMENT_PLANS_LISTENER)
 	public IdIteratorListener paymentPlansListener(){
@@ -120,7 +110,7 @@ public class StudentsBusinessConfig {
 		return documentTypeAsignListener;
 	}
 	
-	@Bean(name=STUDENT_BEFORE_LOAD)
+	/*@Bean(name=STUDENT_BEFORE_LOAD)
 	@DependsOn(value={WHERE_NAME_LISTENER, WHERE_SURNAME_LISTENER, WHERE_DOCUMENT_TYPE_LISTENER, WHERE_DOCUMENT_NUMBER_LISTENER})
 	public Set<BusinessListener> getStudentBeforeLoadS(){
 		Set<BusinessListener> businessListeners = new HashSet<>();
@@ -140,7 +130,7 @@ public class StudentsBusinessConfig {
 		businessListeners.add(asignCourseListener);
 		businessListeners.add(asignPaymentPlansListener);
 		return businessListeners;
-	}
+	}*/
 	
 	@Bean(name=ASIGN_DOCUMENT_TYPE_LISTENER)
 	public EntityAsignBusinessListener<DocumentType> asignDocumentTypeListener(){
@@ -158,9 +148,9 @@ public class StudentsBusinessConfig {
 		return asignDocumentTypeListener;
 	}
 	
-	@Bean(name=WHERE_NAME_LISTENER)
-	public LoadArgsWhereBusinessListener<Like> whereNameListener(){
-		whereNameListener = new  LoadArgsWhereBusinessListener<Like>() {
+	/*@Bean(name=WHERE_NAME_LISTENER)
+	public WhereBusinessListener<Like> whereNameListener(){
+		whereNameListener = new  WhereBusinessListener<Like>() {
 			@Override
 			public String getSourceProperty() {
 				return NAME;
@@ -171,11 +161,11 @@ public class StudentsBusinessConfig {
 			}
 		};
 		return whereNameListener;
-	}
+	}*/
 	
-	@Bean(name=WHERE_SURNAME_LISTENER)
-	public LoadArgsWhereBusinessListener<Like> whereSurnameListener(){
-		whereSurnameListener = new  LoadArgsWhereBusinessListener<Like>() {
+	/*@Bean(name=WHERE_SURNAME_LISTENER)
+	public WhereBusinessListener<Like> whereSurnameListener(){
+		whereSurnameListener = new  WhereBusinessListener<Like>() {
 			@Override
 			public String getSourceProperty() {
 				return SURNAME;
@@ -186,11 +176,11 @@ public class StudentsBusinessConfig {
 			}
 		};
 		return whereSurnameListener;
-	}
+	}*/
 	
-	@Bean(name=WHERE_DOCUMENT_TYPE_LISTENER)
-	public LoadArgsWhereBusinessListener<Like> whereDocumentTypeListener(){
-		whereDocumentTypeListener = new  LoadArgsWhereBusinessListener<Like>() {
+	/*@Bean(name=WHERE_DOCUMENT_TYPE_LISTENER)
+	public WhereBusinessListener<Like> whereDocumentTypeListener(){
+		whereDocumentTypeListener = new  WhereBusinessListener<Like>() {
 			@Override
 			public String getSourceProperty() {
 				return DOCUMENT_TYPE;
@@ -201,11 +191,11 @@ public class StudentsBusinessConfig {
 			}
 		};
 		return whereDocumentTypeListener;
-	}
+	}*/
 	
-	@Bean(name=WHERE_DOCUMENT_NUMBER_LISTENER)
-	public LoadArgsWhereBusinessListener<Like> whereDocumentNumberListener(){
-		whereDocumentNumberListener = new  LoadArgsWhereBusinessListener<Like>() {
+	/*@Bean(name=WHERE_DOCUMENT_NUMBER_LISTENER)
+	public WhereBusinessListener<Like> whereDocumentNumberListener(){
+		whereDocumentNumberListener = new  WhereBusinessListener<Like>() {
 			@Override
 			public String getSourceProperty() {
 				return DOCUMENT_NUMBER;
@@ -216,7 +206,7 @@ public class StudentsBusinessConfig {
 			}
 		};
 		return whereDocumentNumberListener;
-	}
+	}*/
 
 	@Bean(name=ASIGN_COURSE_LISTENER)
 	public EntityAsignBusinessListener<Course> asignCourseListener(){

@@ -4,24 +4,18 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 
-import ar.com.larreta.rest.business.BusinessListener;
-import ar.com.larreta.rest.business.impl.BusinessConfig;
-import ar.com.larreta.rest.business.impl.IteratorListener;
-import ar.com.larreta.rest.business.impl.LoadArgsAddProjectedCollectionLeftJoinBusinessListener;
 import ar.com.larreta.school.messages.DetailData;
 import ar.com.larreta.school.messages.LittleDetailData;
 import ar.com.larreta.school.messages.ObligationData;
-import ar.com.larreta.school.messages.PriceData;
 import ar.com.larreta.school.persistence.Detail;
 import ar.com.larreta.school.persistence.LittleDetail;
 import ar.com.larreta.school.persistence.Obligation;
 import ar.com.larreta.school.persistence.Price;
+import ar.com.larreta.stepper.impl.BusinessConfig;
+import ar.com.larreta.stepper.impl.IteratorListener;
 
 @Configuration
 public class PaymentPlansBusinessConfig extends BusinessConfig{
@@ -65,7 +59,7 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	private IteratorListener<DetailData> detailsListenerServiceToFront;
 	private IteratorListener<LittleDetailData> littleDetailsListenerServiceToFront;
 	
-	private LoadArgsAddProjectedCollectionLeftJoinBusinessListener obligationsProjected;
+	//private AddProjectedCollectionLeftJoinBusinessListener obligationsProjected;
 
 	// Services Listeners
 	
@@ -83,11 +77,11 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 				return obligation;
 			}
 
-			@Override
+			/*@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.OBLIGATIONS_BEFORE_PERSIST_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
-			}
+			}*/
 
 			@Override
 			public String getSourceProperty() {
@@ -132,11 +126,11 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 				return (Serializable) args[0];
 			}
 
-			@Override
+			/*@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.DETAILS_BEFORE_PERSIST_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
-			}
+			}*/
 
 			@Override
 			public String getSourceProperty() {
@@ -170,11 +164,11 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	@Bean(name=OBLIGATIONS_LISTENER_SERVICE_TO_FRONT)
 	public IteratorListener<ObligationData> obligationsListenerServiceToFront(){
 		obligationsListenerServiceToFront = new IteratorListener<ObligationData>() {
-			@Override
+			/*@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.OBLIGATIONS_BEFORE_LOAD_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
-			}
+			}*/
 
 			@Override
 			public String getSourceProperty() {
@@ -221,11 +215,11 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 				return obligation.getPrices().iterator().next();
 			}
 
-			@Override
+			/*@Override
 			@Autowired @Qualifier(PaymentPlansBusinessConfig.DETAILS_BEFORE_LOAD_LISTENERS)
 			public void setBeforeIterateListeners(Set<BusinessListener> beforePersistListeners) {
 				super.setBeforeIterateListeners(beforePersistListeners);
-			}
+			}*/
 
 			@Override
 			public String getSourceProperty() {
@@ -256,20 +250,20 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 		return littleDetailsListenerServiceToFront;
 	}
 
-	@Bean(name=OBLIGATIONS_PROJECTED)
-	public LoadArgsAddProjectedCollectionLeftJoinBusinessListener obligationsProjected(){
-		obligationsProjected = new LoadArgsAddProjectedCollectionLeftJoinBusinessListener() {
+	/*@Bean(name=OBLIGATIONS_PROJECTED)
+	public AddProjectedCollectionLeftJoinBusinessListener obligationsProjected(){
+		obligationsProjected = new AddProjectedCollectionLeftJoinBusinessListener() {
 			@Override
 			public String getProjectedCollection() {
 				return OBLIGATIONS;
 			}
 		};
 		return obligationsProjected;
-	}
+	}*/
 	
 	// Persist Listeners
 	
-	@Bean(name=PAYMENT_PLANS_BEFORE_PERSIST_LISTENERS) @DependsOn(value={OBLIGATIONS_LISTENER_FRONT_TO_SERVICE})
+	/*@Bean(name=PAYMENT_PLANS_BEFORE_PERSIST_LISTENERS) @DependsOn(value={OBLIGATIONS_LISTENER_FRONT_TO_SERVICE})
 	public Set<BusinessListener> paymentPlansBeforePersistListeners(){
 		return getSet(obligationsListenerFrontToService);
 	}
@@ -277,21 +271,21 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	@Bean(name=OBLIGATIONS_BEFORE_PERSIST_LISTENERS) @DependsOn(value={DETAILS_LISTENER_FRONT_TO_SERVICE})
 	public Set<BusinessListener> obligationsBeforePersistListeners(){
 		return getSet(detailsListenerFrontToService);
-	}
+	}*/
 	
 	/*@Bean(name=PRICES_BEFORE_PERSIST_LISTENERS) @DependsOn(value={DETAILS_LISTENER_FRONT_TO_SERVICE})
 	public Set<BusinessListener> pricesBeforePersistListeners(){
 		return getSet(detailsListenerFrontToService);
 	}*/
 	
-	@Bean(name=DETAILS_BEFORE_PERSIST_LISTENERS) @DependsOn(value={LITTLE_DETAILS_LISTENER_FRONT_TO_SERVICE})
+	/*@Bean(name=DETAILS_BEFORE_PERSIST_LISTENERS) @DependsOn(value={LITTLE_DETAILS_LISTENER_FRONT_TO_SERVICE})
 	public Set<BusinessListener> detailsBeforePersistListeners(){
 		return getSet(littleDetailsListenerFrontToService);
-	}
+	}*/
 
 	// Load Listeners
 	
-	@Bean(name=PAYMENT_PLANS_AFTER_LOAD_LISTENERS) @DependsOn(value={OBLIGATIONS_LISTENER_SERVICE_TO_FRONT})
+	/*@Bean(name=PAYMENT_PLANS_AFTER_LOAD_LISTENERS) @DependsOn(value={OBLIGATIONS_LISTENER_SERVICE_TO_FRONT})
 	public Set<BusinessListener> paymentPlansAfterLoadListeners(){
 		return getSet(obligationsListenerServiceToFront);
 	}
@@ -299,14 +293,14 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	@Bean(name=OBLIGATIONS_BEFORE_LOAD_LISTENERS) @DependsOn(value={DETAILS_LISTENER_SERVICE_TO_FRONT})
 	public Set<BusinessListener> obligationsBeforeLoadListeners(){
 		return getSet(detailsListenerServiceToFront);
-	}
+	}*/
 
 	/*@Bean(name=PRICES_BEFORE_LOAD_LISTENERS) @DependsOn(value={DETAILS_LISTENER_SERVICE_TO_FRONT})
 	public Set<BusinessListener> pricesBeforeLoadListeners(){
 		return getSet(detailsListenerServiceToFront);
 	}*/
 	
-	@Bean(name=DETAILS_BEFORE_LOAD_LISTENERS) @DependsOn(value={LITTLE_DETAILS_LISTENER_SERVICE_TO_FRONT})
+	/*@Bean(name=DETAILS_BEFORE_LOAD_LISTENERS) @DependsOn(value={LITTLE_DETAILS_LISTENER_SERVICE_TO_FRONT})
 	public Set<BusinessListener> detailsBeforeLoadListeners(){
 		return getSet(littleDetailsListenerServiceToFront);
 	}
@@ -314,6 +308,6 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 	@Bean(name=PAYMENT_PLANS_BEFORE_LOAD_LISTENERS) @DependsOn(value={OBLIGATIONS_PROJECTED})
 	public Set<BusinessListener> paymentPlansBeforeLoadListeners(){
 		return getSet(obligationsProjected);
-	}
+	}*/
 	
 }

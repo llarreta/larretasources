@@ -1,7 +1,7 @@
 package ar.com.larreta.school.business.courses;
 
-import ar.com.larreta.rest.business.Business;
+import ar.com.larreta.stepper.Step;
 
-public interface DivisionsLoadBusiness extends Business {
+public interface DivisionsLoadBusiness extends Step {
 	public static final String BUSINESS_NAME = "DivisionsLoadBusiness";
 }

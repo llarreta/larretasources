@@ -1,17 +1,28 @@
 package ar.com.larreta.tools;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
 public class StandardAdapter implements Adapter {
 
 	@Autowired
-	private BeanUtils beanUtils;
+	protected BeanUtils beanUtils;
+	
+	@Autowired
+	protected ApplicationContext applicationContext;
 	
 	@Override
-	public void process(String property, Object source, Object target) throws Exception{
-		beanUtils.write(target, property, beanUtils.read(source, property));
+	public Object process(Object toAdapt, Class type, Class[] generics) throws Exception {
+		return (Serializable) toAdapt;
+	}
+
+	@Override
+	public String getPropertyTarget(String propertyName) {
+		return propertyName;
 	}
 
 }

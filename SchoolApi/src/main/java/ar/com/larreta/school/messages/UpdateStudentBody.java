@@ -4,11 +4,11 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.persistence.model.DocumentType;
-import ar.com.larreta.rest.messages.Body;
-import ar.com.larreta.rest.messages.JSONableCollection;
-import ar.com.larreta.validators.annotations.Exist;
-import ar.com.larreta.validators.annotations.NotNull;
+import ar.com.larreta.mystic.model.DocumentType;
+import ar.com.larreta.stepper.messages.Body;
+import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.validators.annotations.Exist;
+import ar.com.larreta.stepper.validators.annotations.NotNull;
 
 @Component
 public class UpdateStudentBody extends Body {

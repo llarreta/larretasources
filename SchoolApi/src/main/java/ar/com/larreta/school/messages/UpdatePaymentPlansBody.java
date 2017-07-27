@@ -6,10 +6,10 @@ import javax.validation.constraints.Size;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.rest.messages.Body;
-import ar.com.larreta.rest.messages.JSONableCollection;
+import ar.com.larreta.stepper.messages.Body;
+import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.validators.annotations.NotNull;
 import ar.com.larreta.tools.Const;
-import ar.com.larreta.validators.annotations.NotNull;
 
 @Component @Scope(Const.PROTOTYPE)
 public class UpdatePaymentPlansBody extends Body {
@@ -22,7 +22,7 @@ public class UpdatePaymentPlansBody extends Body {
 	
 	@Valid
 	@NotNull(message="obligations.required")
-	@ar.com.larreta.validators.annotations.Size(message="obligations.mayorOrEqual", mayorOrEqual=1)
+	@ar.com.larreta.stepper.validators.annotations.Size(message="obligations.mayorOrEqual", mayorOrEqual=1)
 	private JSONableCollection<ObligationData> obligations;
 
 	public Long getId() {

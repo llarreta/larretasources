@@ -12,8 +12,8 @@
   <modules>
   	<module>../Tools</module>
   	<module>../Reports</module>
-  	<module>../Persistence</module>
-  	<module>../RestArq</module>
+  	<module>../Mystic</module>
+  	<module>../Stepper</module>
   </modules>
   <dependencies>
   	<dependency>
@@ -27,13 +27,13 @@
   		<version>${commons.project.version}</version>
   	</dependency>
   	<dependency>
-  		<groupId>ar.com.larreta.persistence</groupId>
-  		<artifactId>Persistence</artifactId>
+  		<groupId>ar.com.larreta.mystic</groupId>
+  		<artifactId>Mystic</artifactId>
   		<version>${commons.project.version}</version>
   	</dependency>
   	<dependency>
-  		<groupId>ar.com.larreta.rest</groupId>
-  		<artifactId>RestArq</artifactId>
+  		<groupId>ar.com.larreta.stepper</groupId>
+  		<artifactId>Stepper</artifactId>
   		<version>${commons.project.version}</version>
   	</dependency>
   </dependencies>

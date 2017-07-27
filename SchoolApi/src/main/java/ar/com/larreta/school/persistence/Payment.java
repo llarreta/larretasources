@@ -19,7 +19,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.persistence.model.Person;
+import ar.com.larreta.mystic.model.Person;
 import ar.com.larreta.tools.Const;
 
 @Entity @Component @Scope(Const.PROTOTYPE)
@@ -27,7 +27,7 @@ import ar.com.larreta.tools.Const;
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Payment SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Payment extends ar.com.larreta.persistence.model.Entity {
+public class Payment extends ar.com.larreta.mystic.model.Entity {
 
 	private Double value;
 	private Person personWhoPays;

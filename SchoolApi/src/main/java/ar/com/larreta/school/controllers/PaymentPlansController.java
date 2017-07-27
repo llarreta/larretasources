@@ -8,13 +8,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.larreta.rest.business.Business;
-import ar.com.larreta.rest.controllers.HelpConfig;
-import ar.com.larreta.rest.controllers.ParentController;
-import ar.com.larreta.rest.messages.JSONableCollection;
-import ar.com.larreta.rest.messages.LoadBody;
-import ar.com.larreta.rest.messages.Message;
-import ar.com.larreta.rest.messages.Request;
 import ar.com.larreta.school.business.paymentPlans.PaymentPlansCreateBusiness;
 import ar.com.larreta.school.business.paymentPlans.PaymentPlansDeleteBusiness;
 import ar.com.larreta.school.business.paymentPlans.PaymentPlansLoadBusiness;
@@ -26,6 +19,13 @@ import ar.com.larreta.school.messages.LoadStudentsData;
 import ar.com.larreta.school.messages.ObligationData;
 import ar.com.larreta.school.messages.PriceData;
 import ar.com.larreta.school.messages.UpdatePaymentPlansBody;
+import ar.com.larreta.stepper.Step;
+import ar.com.larreta.stepper.controllers.HelpConfig;
+import ar.com.larreta.stepper.controllers.ParentController;
+import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.messages.LoadBody;
+import ar.com.larreta.stepper.messages.Message;
+import ar.com.larreta.stepper.messages.Request;
 
 @RestController
 @RequestMapping(value=PaymentPlansController.ROOT_MAP)
@@ -94,25 +94,25 @@ public class PaymentPlansController extends ParentController<UpdatePaymentPlansB
 
 	@Autowired @Qualifier(PaymentPlansCreateBusiness.BUSINESS_NAME)
 	@Override
-	public void setCreateBusiness(Business createBusiness) {
+	public void setCreateBusiness(Step createBusiness) {
 		this.createBusiness = createBusiness;
 	}
 
 	@Autowired @Qualifier(PaymentPlansUpdateBusiness.BUSINESS_NAME)
 	@Override
-	public void setUpdateBusiness(Business updateBusiness) {
+	public void setUpdateBusiness(Step updateBusiness) {
 		this.updateBusiness = updateBusiness;
 	}
 
 	@Autowired @Qualifier(PaymentPlansDeleteBusiness.BUSINESS_NAME)
 	@Override
-	public void setDeleteBusiness(Business deleteBusiness) {
+	public void setDeleteBusiness(Step deleteBusiness) {
 		this.deleteBusiness = deleteBusiness;
 	}
 
 	@Autowired @Qualifier(PaymentPlansLoadBusiness.BUSINESS_NAME)
 	@Override
-	public void setLoadBusiness(Business loadBusiness) {
+	public void setLoadBusiness(Step loadBusiness) {
 		this.loadBusiness = loadBusiness;
 	}
 

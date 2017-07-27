@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.larreta.rest.messages.DownloadBody;
-import ar.com.larreta.rest.messages.JSONable;
-import ar.com.larreta.rest.messages.LoadBody;
-import ar.com.larreta.rest.messages.Request;
-import ar.com.larreta.rest.messages.Response;
-import ar.com.larreta.rest.messages.TargetedBody;
 import ar.com.larreta.school.business.payments.ObligationsStatusBusiness;
 import ar.com.larreta.school.business.payments.PaidObligationBuildReportBusiness;
 import ar.com.larreta.school.business.payments.PayObligationBusiness;
 import ar.com.larreta.school.business.payments.UnpaidObligationsBusiness;
 import ar.com.larreta.school.messages.PayData;
+import ar.com.larreta.stepper.messages.DownloadBody;
+import ar.com.larreta.stepper.messages.JSONable;
+import ar.com.larreta.stepper.messages.LoadBody;
+import ar.com.larreta.stepper.messages.Request;
+import ar.com.larreta.stepper.messages.Response;
+import ar.com.larreta.stepper.messages.TargetedBody;
 
 @RestController
 @RequestMapping(value=PaymentsController.ROOT_MAP)
@@ -48,7 +48,7 @@ public class PaymentsController {
 
 	@RequestMapping(value = PAID_OBLIGATION_REPORT, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE) 
 	public Response<DownloadBody> paidObligationReport(@Valid @RequestBody Request<TargetedBody> request, Errors errors)  throws Exception{
-		String fileToDownload = (String) paidObligationBuildReportBusiness.execute(request.getBody());
+		String fileToDownload = (String) paidObligationBuildReportBusiness.execute(request.getBody(), null, null);
 		
 		Response<DownloadBody> response = applicationContext.getBean(Response.class);
 		DownloadBody responseBody = applicationContext.getBean(DownloadBody.class);;
@@ -61,7 +61,7 @@ public class PaymentsController {
 	@RequestMapping(value = OBLIGATIONS_STATUS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<LoadBody<JSONable>> obligationsStatusPost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws Exception{
 		Response<LoadBody<JSONable>> response = applicationContext.getBean(Response.class);
-		LoadBody body = (LoadBody) obligationsStatusBusiness.execute(request.getBody());
+		LoadBody body = (LoadBody) obligationsStatusBusiness.execute(request.getBody(), null, null);
 		response.setBody(body);
 		return response;
 	}
@@ -69,7 +69,7 @@ public class PaymentsController {
 	@RequestMapping(value = UNPAID_OBLIGATIONS, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<LoadBody<JSONable>> unpaidObligationsPost(@Valid @RequestBody Request<TargetedBody> request, Errors errors) throws Exception{
 		Response<LoadBody<JSONable>> response = applicationContext.getBean(Response.class);
-		LoadBody body = (LoadBody) unpaidObligationsBusiness.execute(request.getBody());
+		LoadBody body = (LoadBody) unpaidObligationsBusiness.execute(request.getBody(), null, null);
 		response.setBody(body);
 		return response;
 	}
@@ -77,7 +77,7 @@ public class PaymentsController {
 	@RequestMapping(value = PAY, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response<TargetedBody>  payPost(@Valid @RequestBody Request<PayData> request, Errors errors) throws Exception{
 		Response<TargetedBody> response = applicationContext.getBean(Response.class);
-		Long target = (Long) payObligationBusiness.execute(request.getBody());
+		Long target = (Long) payObligationBusiness.execute(request.getBody(), null, null);
 		TargetedBody responseBody = new TargetedBody();
 		responseBody.setTarget(target);
 		response.setBody(responseBody);

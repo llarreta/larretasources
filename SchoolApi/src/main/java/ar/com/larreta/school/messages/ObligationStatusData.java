@@ -5,11 +5,11 @@ import javax.validation.Valid;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.rest.messages.JSONable;
-import ar.com.larreta.rest.messages.JSONableCollection;
+import ar.com.larreta.stepper.messages.JSONable;
+import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.validators.annotations.Format;
+import ar.com.larreta.stepper.validators.annotations.NotNull;
 import ar.com.larreta.tools.Const;
-import ar.com.larreta.validators.annotations.Format;
-import ar.com.larreta.validators.annotations.NotNull;
 
 @Component @Scope(Const.PROTOTYPE)
 public class ObligationStatusData extends JSONable {
@@ -26,7 +26,7 @@ public class ObligationStatusData extends JSONable {
 	
 	@Valid
 	@NotNull(message="prices.required")
-	@ar.com.larreta.validators.annotations.Size(message="prices.mayorOrEqual", mayorOrEqual=1)
+	@ar.com.larreta.stepper.validators.annotations.Size(message="prices.mayorOrEqual", mayorOrEqual=1)
 	private JSONableCollection<PriceData> prices;
 
 

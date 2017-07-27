@@ -11,14 +11,14 @@ import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.persistence.model.ParametricEntity;
+import ar.com.larreta.mystic.model.ParametricEntity;
 import ar.com.larreta.tools.Const;
 
 @Entity @Component @Scope(Const.PROTOTYPE)
 @Table(name = "course")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Course SET deleted=CURRENT_TIMESTAMP WHERE id=?")
-public class Course extends ar.com.larreta.persistence.model.Entity {
+public class Course extends ar.com.larreta.mystic.model.Entity {
 	
 	private Level 		level;
 	private Year 		year;

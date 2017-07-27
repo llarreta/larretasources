@@ -1,12 +1,12 @@
 package ar.com.larreta.school.messages;
 
-import ar.com.larreta.persistence.model.Person;
-import ar.com.larreta.rest.messages.JSONable;
+import ar.com.larreta.mystic.model.Person;
 import ar.com.larreta.school.persistence.PaymentDirection;
 import ar.com.larreta.school.persistence.PaymentEntity;
 import ar.com.larreta.school.persistence.Product;
-import ar.com.larreta.validators.annotations.Exist;
-import ar.com.larreta.validators.annotations.NotNull;
+import ar.com.larreta.stepper.messages.JSONable;
+import ar.com.larreta.stepper.validators.annotations.Exist;
+import ar.com.larreta.stepper.validators.annotations.NotNull;
 
 public class PayUnitData extends JSONable {
 

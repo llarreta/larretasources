@@ -19,7 +19,7 @@ import ar.com.larreta.tools.Const;
 @Table(name = "obligationStatus")
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE ObligationStatus SET deleted=CURRENT_TIMESTAMP WHERE id=?")
-public class ObligationStatus extends ar.com.larreta.persistence.model.Entity {
+public class ObligationStatus extends ar.com.larreta.mystic.model.Entity {
 
 	private Obligation obligation;
 	private Student student;

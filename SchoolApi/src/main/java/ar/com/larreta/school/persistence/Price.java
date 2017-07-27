@@ -27,7 +27,7 @@ import ar.com.larreta.tools.Const;
 @Where(clause="deleted IS NULL")
 @SQLDelete (sql="UPDATE Price SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 @XmlRootElement
-public class Price extends ar.com.larreta.persistence.model.Entity {
+public class Price extends ar.com.larreta.mystic.model.Entity {
 
 	private Date validityStartDate;
 	private Double value;

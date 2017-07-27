@@ -3,8 +3,8 @@ package ar.com.larreta.school.messages;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.rest.messages.Body;
-import ar.com.larreta.rest.messages.ParametricData;
+import ar.com.larreta.stepper.messages.Body;
+import ar.com.larreta.stepper.messages.ParametricData;
 import ar.com.larreta.tools.Const;
 
 @Component @Scope(Const.PROTOTYPE)

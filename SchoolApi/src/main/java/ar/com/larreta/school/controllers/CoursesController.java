@@ -8,22 +8,23 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.larreta.rest.business.Business;
-import ar.com.larreta.rest.controllers.HelpConfig;
-import ar.com.larreta.rest.controllers.ParentController;
-import ar.com.larreta.rest.messages.LoadBody;
-import ar.com.larreta.rest.messages.Message;
 import ar.com.larreta.school.business.courses.CoursesCreateBusiness;
 import ar.com.larreta.school.business.courses.CoursesDeleteBusiness;
 import ar.com.larreta.school.business.courses.CoursesLoadBusiness;
 import ar.com.larreta.school.business.courses.CoursesUpdateBusiness;
+import ar.com.larreta.school.messages.CourseData;
 import ar.com.larreta.school.messages.LoadStudentsData;
 import ar.com.larreta.school.messages.UpdateCourseBody;
+import ar.com.larreta.stepper.Step;
+import ar.com.larreta.stepper.controllers.HelpConfig;
+import ar.com.larreta.stepper.controllers.ParentController;
+import ar.com.larreta.stepper.messages.LoadBody;
+import ar.com.larreta.stepper.messages.Message;
 
 @RestController
 @RequestMapping(value=CoursesController.ROOT_MAP)
 @Validated
-public class CoursesController extends ParentController<UpdateCourseBody, LoadBody<LoadStudentsData>> {
+public class CoursesController extends ParentController<UpdateCourseBody, LoadBody<CourseData>> {
 
 	public static final String ROOT_MAP = "/courses";
 
@@ -58,25 +59,25 @@ public class CoursesController extends ParentController<UpdateCourseBody, LoadBo
 	
 	@Autowired @Qualifier(CoursesCreateBusiness.BUSINESS_NAME)
 	@Override
-	public void setCreateBusiness(Business createBusiness) {
+	public void setCreateBusiness(Step createBusiness) {
 		this.createBusiness = createBusiness;
 	}
 
 	@Autowired @Qualifier(CoursesUpdateBusiness.BUSINESS_NAME)
 	@Override
-	public void setUpdateBusiness(Business updateBusiness) {
+	public void setUpdateBusiness(Step updateBusiness) {
 		this.updateBusiness = updateBusiness;
 	}
 
 	@Autowired @Qualifier(CoursesDeleteBusiness.BUSINESS_NAME)
 	@Override
-	public void setDeleteBusiness(Business deleteBusiness) {
+	public void setDeleteBusiness(Step deleteBusiness) {
 		this.deleteBusiness = deleteBusiness;
 	}
 
 	@Autowired @Qualifier(CoursesLoadBusiness.BUSINESS_NAME)
 	@Override
-	public void setLoadBusiness(Business loadBusiness) {
+	public void setLoadBusiness(Step loadBusiness) {
 		this.loadBusiness = loadBusiness;
 	}
 	

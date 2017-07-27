@@ -3,16 +3,16 @@ package ar.com.larreta.school.messages;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.rest.messages.Body;
-import ar.com.larreta.rest.messages.ParametricData;
 import ar.com.larreta.school.persistence.Division;
 import ar.com.larreta.school.persistence.Level;
 import ar.com.larreta.school.persistence.Year;
+import ar.com.larreta.stepper.messages.Body;
+import ar.com.larreta.stepper.messages.ParametricData;
+import ar.com.larreta.stepper.validators.annotations.Exist;
+import ar.com.larreta.stepper.validators.annotations.NotExist;
+import ar.com.larreta.stepper.validators.annotations.NotNull;
+import ar.com.larreta.stepper.validators.annotations.OnlyOne;
 import ar.com.larreta.tools.Const;
-import ar.com.larreta.validators.annotations.Exist;
-import ar.com.larreta.validators.annotations.NotExist;
-import ar.com.larreta.validators.annotations.NotNull;
-import ar.com.larreta.validators.annotations.OnlyOne;
 
 @Component @Scope(Const.PROTOTYPE)
 public class UpdateCourseBody extends Body {

@@ -1,6 +1,7 @@
 package ar.com.larreta.school.business.payments;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.transaction.Transactional;
@@ -10,20 +11,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import ar.com.larreta.persistence.dao.args.LoadArguments;
-import ar.com.larreta.persistence.dao.impl.ReferencedEqual;
-import ar.com.larreta.persistence.query.Query;
-import ar.com.larreta.persistence.query.Select;
-import ar.com.larreta.persistence.query.SelectInstruction;
+import ar.com.larreta.mystic.exceptions.PersistenceException;
+import ar.com.larreta.mystic.query.Query;
+import ar.com.larreta.mystic.query.Select;
 import ar.com.larreta.reports.PDF;
-import ar.com.larreta.rest.business.impl.BusinessImpl;
-import ar.com.larreta.rest.messages.TargetedBody;
 import ar.com.larreta.school.persistence.Student;
+import ar.com.larreta.stepper.exceptions.BusinessException;
+import ar.com.larreta.stepper.impl.StepImpl;
+import ar.com.larreta.stepper.messages.TargetedBody;
 import ar.com.larreta.tools.Base64;
 
 @Service(PaidObligationBuildReportBusiness.BUSINESS_NAME)
 @Transactional
-public class PaidObligationsBuildReportBusinessImpl extends BusinessImpl implements PaidObligationBuildReportBusiness {
+public class PaidObligationsBuildReportBusinessImpl extends StepImpl implements PaidObligationBuildReportBusiness {
 
 	@Value("classpath:ar/com/larreta/school/reports/paidObligations.jrxml")
 	private Resource paidObligationReportTemplate;
@@ -32,8 +32,8 @@ public class PaidObligationsBuildReportBusinessImpl extends BusinessImpl impleme
 	private Base64 base64;
 	
 	@Override
-	public Serializable execute(Serializable input) throws Exception {
-		TargetedBody body = (TargetedBody) input;
+	public Serializable execute(Serializable source, Serializable target, Object... args) throws BusinessException, PersistenceException {
+		TargetedBody body = (TargetedBody) source;
 		
 		Query query = applicationContext.getBean(Select.class);
 		query.addMainEntity(Student.class.getName());
@@ -42,18 +42,24 @@ public class PaidObligationsBuildReportBusinessImpl extends BusinessImpl impleme
 		query.addWhereEqualYear("obligationsStatus.obligation.dueDate", 2017);
 		query.execute();
 		
-		LoadArguments args = new LoadArguments(Student.class);
+		/*LoadArguments args = new LoadArguments(Student.class);
 
 		args.addInnerJoin("obligationsStatus")
 			.addInnerJoin("obligationsStatus.obligation")
 			.addInnerJoin("obligationsStatus.obligation.paymentUnits");
 		
 		args.addWhere(new ReferencedEqual(args, "id", "obligationsStatus.obligation.paymentUnits.id"));
-		
+		*/
 		//standardDAO.load(args);
 		
 		PDF pdf = applicationContext.getBean(PDF.class);
-		ByteArrayOutputStream stream =  pdf.getOutputStream(paidObligationReportTemplate);
+		ByteArrayOutputStream stream = null;
+		try {
+			stream = pdf.getOutputStream(paidObligationReportTemplate);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return base64.encode(stream.toByteArray());
 	}

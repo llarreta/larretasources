@@ -4,8 +4,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import ar.com.larreta.rest.business.impl.DeleteBusinessImpl;
 import ar.com.larreta.school.persistence.PaymentPlan;
+import ar.com.larreta.stepper.impl.DeleteBusinessImpl;
 
 @Service(PaymentPlansDeleteBusiness.BUSINESS_NAME)
 @Transactional

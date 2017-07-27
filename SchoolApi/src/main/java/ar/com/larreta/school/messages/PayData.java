@@ -2,13 +2,13 @@ package ar.com.larreta.school.messages;
 
 import javax.validation.Valid;
 
-import ar.com.larreta.persistence.model.Person;
-import ar.com.larreta.rest.messages.JSONable;
-import ar.com.larreta.rest.messages.JSONableCollection;
-import ar.com.larreta.validators.annotations.Exist;
-import ar.com.larreta.validators.annotations.Format;
-import ar.com.larreta.validators.annotations.NotNull;
-import ar.com.larreta.validators.annotations.Size;
+import ar.com.larreta.mystic.model.Person;
+import ar.com.larreta.stepper.messages.JSONable;
+import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.validators.annotations.Exist;
+import ar.com.larreta.stepper.validators.annotations.Format;
+import ar.com.larreta.stepper.validators.annotations.NotNull;
+import ar.com.larreta.stepper.validators.annotations.Size;
 
 public class PayData extends JSONable {
 

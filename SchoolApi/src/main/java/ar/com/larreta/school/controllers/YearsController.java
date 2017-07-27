@@ -8,12 +8,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.larreta.rest.business.Business;
-import ar.com.larreta.rest.controllers.HelpConfig;
-import ar.com.larreta.rest.controllers.LoadAllController;
-import ar.com.larreta.rest.controllers.ParentController;
-import ar.com.larreta.rest.messages.Message;
 import ar.com.larreta.school.business.courses.YearsLoadBusiness;
+import ar.com.larreta.stepper.Step;
+import ar.com.larreta.stepper.controllers.HelpConfig;
+import ar.com.larreta.stepper.controllers.LoadAllController;
+import ar.com.larreta.stepper.controllers.ParentController;
+import ar.com.larreta.stepper.messages.Message;
 
 @RestController
 @RequestMapping(value=YearsController.ROOT_MAP)
@@ -34,7 +34,7 @@ public class YearsController extends LoadAllController{
 	}
 	
 	@Autowired @Qualifier(YearsLoadBusiness.BUSINESS_NAME)
-	public void setLoadBusiness(Business loadBusiness) {
+	public void setLoadBusiness(Step loadBusiness) {
 		this.loadBusiness = loadBusiness;
 	}
 	

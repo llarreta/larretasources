@@ -17,7 +17,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.persistence.model.Person;
+import ar.com.larreta.mystic.model.Person;
 import ar.com.larreta.tools.Const;
 
 @Entity @Component @Scope(Const.PROTOTYPE)

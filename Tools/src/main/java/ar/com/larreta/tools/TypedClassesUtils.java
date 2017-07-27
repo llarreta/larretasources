@@ -1,15 +1,47 @@
 package ar.com.larreta.tools;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.core.ResolvableType;
 
 public class TypedClassesUtils {
 
+	public static final String GET = "get";
+
 	/**
-	 * Retorna los tipos genericos 
+	 * Retorna el tipo generico que implementa una propiedad
+	 * @param instance
+	 * @param property
+	 * @return
+	 */
+	public static Class getGeneric(Class type, String property, Integer index){
+		return getGenerics(type, property)[index];
+	}
+	
+	/**
+	 * Retorna los tipos genericos que implementa una propiedad
+	 * @param instance
+	 * @param property
+	 * @return
+	 */
+	public static Class[] getGenerics(Class type, String property){
+		if (type!=null && !StringUtils.isEmpty(property)){
+			Method method = MethodUtils.getAccessibleMethod(type, GET + property.substring(0, 1).toUpperCase() + property.substring(1), null);
+			if (method!=null){
+				ResolvableType resolvableType =  ResolvableType.forMethodReturnType(method);
+				return resolvableType.resolveGenerics();
+			}
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * Retorna los tipos genericos que implementa una clase
 	 * @param type
 	 * @param instance
 	 * @return
@@ -28,15 +60,6 @@ public class TypedClassesUtils {
 	 */
 	public static Class getGenerics(Class type, Object instance, Integer index){
 		Collection<Class> generics = getGenerics(type, instance);
-		Iterator<Class> it = generics.iterator();
-		Integer tmpIndex = 0;
-		while (it.hasNext()) {
-			Class actual = (Class) it.next();
-			if (tmpIndex==index){
-				return actual;
-			}
-			tmpIndex++;
-		}
-		return null;
+		return (Class) generics.toArray()[index];
 	}
 }
