@@ -2,6 +2,9 @@ package ar.com.larreta.school.messages;
 
 import javax.validation.Valid;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.mystic.model.Person;
 import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.stepper.messages.JSONableCollection;
@@ -9,7 +12,9 @@ import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.Format;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
 import ar.com.larreta.stepper.validators.annotations.Size;
+import ar.com.larreta.tools.Const;
 
+@Component @Scope(Const.PROTOTYPE)
 public class PayData extends JSONable {
 
 	@NotNull(message="value.required")
@@ -22,7 +27,7 @@ public class PayData extends JSONable {
 	@Valid
 	@NotNull(message="pay.payUnits.required")
 	@Size(mayorOrEqual=1, message="pay.payUnits.size")
-	private JSONableCollection<PayUnitData> payUnits;
+	private JSONableCollection<PayUnitData> paymentUnits;
 
 	@NotNull(message="pay.paymentDate.required")
 	@Format(formatType=Format.FormatType.DATE, message="pay.paymentDate.invalid")
@@ -44,12 +49,12 @@ public class PayData extends JSONable {
 		this.personWhoPays = personWhoPays;
 	}
 
-	public JSONableCollection<PayUnitData> getPayUnits() {
-		return payUnits;
+	public JSONableCollection<PayUnitData> getPaymentUnits() {
+		return paymentUnits;
 	}
 
-	public void setPayUnits(JSONableCollection<PayUnitData> payUnits) {
-		this.payUnits = payUnits;
+	public void setPaymentUnits(JSONableCollection<PayUnitData> paymentUnits) {
+		this.paymentUnits = paymentUnits;
 	}
 
 	public String getPaymentDate() {

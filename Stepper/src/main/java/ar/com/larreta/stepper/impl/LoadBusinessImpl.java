@@ -17,6 +17,7 @@ import ar.com.larreta.mystic.query.Query;
 import ar.com.larreta.mystic.query.Select;
 import ar.com.larreta.stepper.aspects.BeforeCallStep;
 import ar.com.larreta.stepper.exceptions.BusinessException;
+import ar.com.larreta.stepper.messages.Body;
 import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.stepper.messages.JSONableCollection;
 import ar.com.larreta.stepper.messages.LoadBody;
@@ -25,6 +26,8 @@ import ar.com.larreta.tools.TypedClassesUtils;
 
 @Transactional @Scope(Const.PROTOTYPE)
 public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> extends StepImpl implements LoadBusiness{
+
+	public static final String FIRST_RESULT = "firstResult";
 
 	private static @Log Logger LOG;	
 	
@@ -49,7 +52,7 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 		try {
 			Class<?> loadDataType 	= TypedClassesUtils.getGenerics(LoadBusinessImpl.class, this, 0);
 			
-			LoadBody body = (LoadBody) source;
+			Body body = (Body) source;
 			
 			JSONableCollection<B> jsonableCollection = new JSONableCollection<B>();	
 			LoadBody<B> response = new LoadBody<>();
@@ -77,7 +80,7 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 			response.setMaxResults(result.size());
 			Integer firstResult = 0;
 			if (body!=null){
-				firstResult = body.getFirstResult();
+				firstResult = (Integer) beanUtils.read(body, FIRST_RESULT);
 				if (firstResult==null){
 					firstResult=0;
 				}
@@ -96,7 +99,7 @@ public abstract class LoadBusinessImpl <B extends JSONable, E extends Entity> ex
 		return bodyElement;
 	}
 
-	public Collection execute(Query query, Serializable source, Serializable target, Object... args) throws PersistenceException {
+	protected Collection execute(Query query, Serializable source, Serializable target, Object... args) throws PersistenceException {
 		Collection result = query.execute();
 		return result;
 	}

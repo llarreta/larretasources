@@ -1,10 +1,8 @@
 package ar.com.larreta.school.persistence;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,7 +31,7 @@ public class Obligation extends Product {
 	private PaymentPlan paymentPlan;
 	private Set<ObligationStatus> obligationStatus;
 	
-	@OneToMany (mappedBy="obligation", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=ObligationStatus.class)
+	@OneToMany (mappedBy="obligation", fetch=FetchType.LAZY, targetEntity=ObligationStatus.class)
 	@Where(clause="deleted IS NULL")
 	public Set<ObligationStatus> getObligationStatus() {
 		return obligationStatus;

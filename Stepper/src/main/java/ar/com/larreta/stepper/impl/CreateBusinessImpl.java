@@ -24,8 +24,8 @@ public abstract class CreateBusinessImpl<J extends JSONable, E extends Entity> e
 			Class<?> entityType = TypedClassesUtils.getGenerics(CreateBusinessImpl.class, this, 1);
 			
 			E entity = (E) applicationContext.getBean(entityType);
+			source = getSource(source, target, args);
 			beanUtils.copy(source, entity);
-			
 			process(entity, source, target, args);
 			
 			return entity.getId();
@@ -33,6 +33,10 @@ public abstract class CreateBusinessImpl<J extends JSONable, E extends Entity> e
 			LOG.error("Ocurrio un error ejecutando CreateBusinessImpl", e);
 		}
 		throw new BusinessException();
+	}
+
+	protected Serializable getSource(Serializable source, Serializable target, Object... args) {
+		return source;
 	}
 
 	public void process(E entity, Serializable source, Serializable target, Object... args) {

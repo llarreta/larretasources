@@ -28,10 +28,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class BeanUtils {
 
+	public static final String IN = "In";
 	public static final String GET = "get";
 	public static final String AS = "As";
 	public static final String ADAPTER = "Adapter";
 	public static final String TO = "To";
+	public static final String TO_PROP = "ToProp";
 
 	private final static Logger LOGGER = Logger.getLogger(BeanUtils.class);
 
@@ -39,6 +41,8 @@ public class BeanUtils {
 	protected ApplicationContext applicationContext;
 	
 	private Map<Class, Class> instances;
+	
+	private Collection<String> keysNotFound = new ArrayList();
 	
 	@Autowired
 	private StandardAdapter standardAdapter;
@@ -49,16 +53,21 @@ public class BeanUtils {
 		instances.put(Set.class, HashSet.class);
 	}
 	
-	public Adapter getAdapter(PropertyDescriptor source, PropertyDescriptor target){
+	public Adapter getAdapter(Object parent, PropertyDescriptor source, PropertyDescriptor target){
 		Collection<Class> sourceTypes = getTypes(source);
 		Collection<Class> targetTypes = getTypes(target);
 		
-		String completeName = getFixedName(source) + TO + getFixedName(target);
+		String completeName = getFixedName(source) + TO_PROP + getFixedName(target);
+		if (parent!=null){
+			completeName =  IN + parent.getClass().getSimpleName() + completeName; 
+		}
 		
 		Collection<String> keys = new ArrayList();
 		keys.add(completeName + ADAPTER);
 		addKeys(sourceTypes, targetTypes, keys, completeName);
 		addKeys(sourceTypes, targetTypes, keys, StringUtils.EMPTY);
+		
+		keys.removeAll(keysNotFound);
 
 		return searchAdapter(keys);
 	}
@@ -81,6 +90,7 @@ public class BeanUtils {
 			try {
 				adapter = (Adapter) applicationContext.getBean(key);
 			} catch (NoSuchBeanDefinitionException e){
+				keysNotFound.add(key);
 				LOGGER.debug("No se encontro adapter para " + key);
 			}
 		}
@@ -152,23 +162,34 @@ public class BeanUtils {
 			Set<String> propertiesNames = getPropertiesNames(source, target);
 			
 			Iterator<String> it = propertiesNames.iterator();
+			Set<String> processProperties = new HashSet<>();
 			while (it.hasNext()) {
 				String propertyName = (String) it.next();
 				
-				PropertyDescriptor sourcePropertyDescriptor = PropertyUtils.getPropertyDescriptor(source, propertyName);
-				PropertyDescriptor targetPropertyDescriptor = PropertyUtils.getPropertyDescriptor(target, propertyName);
+				PropertyDescriptor sourcePropertyDescriptor = null;
+				PropertyDescriptor targetPropertyDescriptor = null;
 				
-				Adapter adapter = getAdapter(sourcePropertyDescriptor, targetPropertyDescriptor);
+				if (!StringUtils.isEmpty(propertyName)){
+					if(source!=null){
+						sourcePropertyDescriptor = PropertyUtils.getPropertyDescriptor(source, propertyName);
+					}
+					targetPropertyDescriptor = PropertyUtils.getPropertyDescriptor(target, propertyName);
+				}
+				
+				Adapter adapter = getAdapter(source, sourcePropertyDescriptor, targetPropertyDescriptor);
 				if (adapter==null && targetPropertyDescriptor!=null){
-					Object targetObject = null;
-					try {
-						targetObject = applicationContext.getBean(targetPropertyDescriptor.getPropertyType());
-					} catch (NoSuchBeanDefinitionException e){}
-					if (targetObject!=null) {
-						write(target, propertyName, targetObject);
-						copy(read(source, propertyName), targetObject);
-					} else {
-						adapter = standardAdapter;
+					if(!processProperties.contains(propertyName)){
+						Object targetObject = null;
+						try {
+							targetObject = applicationContext.getBean(targetPropertyDescriptor.getPropertyType());
+						} catch (NoSuchBeanDefinitionException e){}
+						if (targetObject!=null) {
+							write(target, propertyName, targetObject);
+							copy(read(source, propertyName), targetObject);
+							processProperties.add(propertyName);
+						} else {
+							adapter = standardAdapter;
+						}
 					}
 				}
 				if (adapter!=null){
@@ -181,6 +202,7 @@ public class BeanUtils {
 					String propertyTargetName = adapter.getPropertyTarget(propertyName);
 					
 					write(target, propertyTargetName, propertyTargetObject);
+					processProperties.add(propertyTargetName);
 				}
 				
 			}
@@ -219,7 +241,7 @@ public class BeanUtils {
 	
 	public Object read(Object source, String property){
 		try {
-			if (PropertyUtils.isReadable(source, property)){
+			if (source!=null && !StringUtils.isEmpty(property) && PropertyUtils.isReadable(source, property)){
 				return PropertyUtils.getProperty(source, property);
 			}
 		} catch (NestedNullException e){
@@ -232,7 +254,8 @@ public class BeanUtils {
 	
 	public void write(Object target, String property, Object value){
 		try {
-			if ((value!=null) && (PropertyUtils.isWriteable(target, property))){
+			if (target!=null && !StringUtils.isEmpty(property) && 
+					(value!=null) && (PropertyUtils.isWriteable(target, property))){
 				PropertyUtils.setProperty(target, property, value);
 			}
 		} catch (IllegalArgumentException e){

@@ -31,7 +31,7 @@ public class PaymentUnit extends ParametricEntity {
 	private PaymentDirection paymentDirection;
 	private PaymentEntity paymentEntity;
 	private Payment payment;
-	
+
 	@Basic @Column (name="paymentUnitValue")
 	public Double getValue() {
 		return value;

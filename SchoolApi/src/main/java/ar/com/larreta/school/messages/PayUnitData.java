@@ -1,5 +1,8 @@
 package ar.com.larreta.school.messages;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.mystic.model.Person;
 import ar.com.larreta.school.persistence.PaymentDirection;
 import ar.com.larreta.school.persistence.PaymentEntity;
@@ -7,7 +10,9 @@ import ar.com.larreta.school.persistence.Product;
 import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
+import ar.com.larreta.tools.Const;
 
+@Component @Scope(Const.PROTOTYPE)
 public class PayUnitData extends JSONable {
 
 	@NotNull(message="payUnit.value.required")
@@ -28,6 +33,15 @@ public class PayUnitData extends JSONable {
 	@NotNull(message="payUnit.paymentEntity.required")
 	@Exist(message="paymentEntity.inexistent", entityType=PaymentEntity.class)
 	private Long paymentEntity;
+	
+	private Boolean paidOff;
+	
+	public Boolean getPaidOff() {
+		return paidOff;
+	}
+	public void setPaidOff(Boolean paidOff) {
+		this.paidOff = paidOff;
+	}
 	
 	public Double getValue() {
 		return value;

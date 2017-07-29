@@ -52,7 +52,7 @@ public class Student extends Person {
 		this.paymentPlans = paymentPlans;
 	}
 	
-	@OneToMany (mappedBy="student", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=ObligationStatus.class)
+	@OneToMany (mappedBy="student", fetch=FetchType.LAZY, targetEntity=ObligationStatus.class)
 	@Where(clause="deleted IS NULL")
 	public Set<ObligationStatus> getObligationsStatus() {
 		return obligationsStatus;
