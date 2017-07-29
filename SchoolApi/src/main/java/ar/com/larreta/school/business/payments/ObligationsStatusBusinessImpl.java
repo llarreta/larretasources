@@ -23,7 +23,8 @@ public class ObligationsStatusBusinessImpl extends LoadBusinessImpl<ObligationSt
 	
 	@BeforeCallStep(steps={	CleanLimitsResultsBusinessListener.BUSINESS_LISTENER_NAME, 
 							MaxResultsBusinessListener.BUSINESS_LISTENER_NAME, 
-							FirstResultBusinessListener.BUSINESS_LISTENER_NAME})
+							FirstResultBusinessListener.BUSINESS_LISTENER_NAME,
+							AddTargetInObligationStatus.STEP_NAME})
 	@Override
 	public Serializable execute(Serializable source, Serializable target, Object... args)
 			throws BusinessException, PersistenceException {

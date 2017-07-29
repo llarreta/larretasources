@@ -43,4 +43,18 @@ public class Equal extends Where {
 	protected String getReferenceToString() {
 		return reference.toString();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Equal) {
+			Equal equal = (Equal) obj;
+			return reference.equals(equal.getReference());			
+		} 
+		return super.equals(obj);
+	}
+	@Override
+	public int hashCode() {
+		return reference.hashCode();
+	}
+
 }

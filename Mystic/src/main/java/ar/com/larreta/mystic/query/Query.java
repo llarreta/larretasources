@@ -191,6 +191,7 @@ public class Query implements Serializable {
 		Equal equal = (Equal) applicationContext.getBean(equalType);
 		equal.setReference(referencesManager.buildReference(description));
 		equal.setValue(value);
+		wheres.remove(equal);
 		wheres.add(equal);
 	}
 }
