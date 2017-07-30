@@ -4,11 +4,12 @@ import java.text.SimpleDateFormat;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component("DateToStringAdapter")
-public class DateToStringAdapter extends StandardAdapter {
+@Component("FromDateToStringAdapter")
+public class FromDateToStringAdapter extends StandardAdapter {
 
 	@Value("${app.dateFormat}")
 	private String defaultPattern;
@@ -23,7 +24,10 @@ public class DateToStringAdapter extends StandardAdapter {
 	
 	@Override
 	public Object process(Object toAdapt, Class type, Class[] generics) throws Exception {
-		return simpleDateFormat.format(toAdapt);
+		try {
+			return simpleDateFormat.format(toAdapt);
+		} catch (IllegalArgumentException e){}
+		return StringUtils.EMPTY;
 	}
 
 }

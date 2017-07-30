@@ -3,10 +3,10 @@ package ar.com.larreta.school.adapters;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.school.persistence.Obligation;
-import ar.com.larreta.stepper.adapters.LongToEntityAdapter;
+import ar.com.larreta.stepper.adapters.FromLongToEntityAdapter;
 
 @Component("InPayUnitDataProductToPropAdapter")
-public class InPayUnitDataProductToPropAdapter extends LongToEntityAdapter {
+public class InPayUnitDataProductToPropAdapter extends FromLongToEntityAdapter {
 
 	@Override
 	public String getPropertyTarget(String propertyName) {

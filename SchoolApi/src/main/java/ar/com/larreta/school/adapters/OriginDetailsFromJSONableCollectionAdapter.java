@@ -20,22 +20,25 @@ import ar.com.larreta.tools.Adapter;
 import ar.com.larreta.tools.BeanUtils;
 import ar.com.larreta.tools.StandardAdapter;
 
-@Component("DetailsAsJSONableCollectionToAdapter")
-public class DetailsAsJSONableCollectionToAdapter extends StandardAdapter {
+@Component("OriginDetailsFromJSONableCollectionAdapter")
+public class OriginDetailsFromJSONableCollectionAdapter extends StandardAdapter {
+
 
 	@Autowired
 	private BeanUtils beanUtils;
 	
 	@Autowired
 	protected ApplicationContext applicationContext;
+
+	@Override
+	public String getPropertyTarget(String propertyName) {
+		return "prices";
+	}
+
 	
-	//FIXME: corregir
 	@Override
 	public Object process(Object toAdapt, Class type, Class[] generics)  {
-		ObligationData obligationData = (ObligationData) toAdapt;
-		//Obligation obligation = (Obligation) target;
-		
-		JSONableCollection<DetailData> details = obligationData.getDetails();
+		JSONableCollection<DetailData> details = (JSONableCollection<DetailData>) toAdapt;
 		if (details!=null){
 			Iterator<DetailData> it = details.iterator();
 			Set<Detail> newsDetails = new HashSet<>();
@@ -50,8 +53,7 @@ public class DetailsAsJSONableCollectionToAdapter extends StandardAdapter {
 			price.setDetails(newsDetails); 
 			Set<Price> prices = new HashSet<>();
 			prices.add(price);
-			//obligation.setPrices(prices);
-			
+			return prices;
 		}
 		
 		return null;		

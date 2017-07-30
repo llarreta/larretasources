@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import ar.com.larreta.mystic.model.Entity;
 import ar.com.larreta.tools.StandardAdapter;
 
-@Component("EntityToLongAdapter")
-public class EntityToLongAdapter extends StandardAdapter {
+@Component("FromEntityToLongAdapter")
+public class FromEntityToLongAdapter extends StandardAdapter {
 
 	@Override
 	public Object process(Object toAdapt, Class type, Class[] generics) throws Exception {

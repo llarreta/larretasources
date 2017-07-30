@@ -7,8 +7,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component("StringToDateAdapter")
-public class StringToDateAdapter extends StandardAdapter {
+@Component("FromStringToDateAdapter")
+public class FromStringToDateAdapter extends StandardAdapter {
 	
 	@Value("${app.dateFormat}")
 	private String defaultPattern;

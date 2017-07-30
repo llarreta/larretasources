@@ -8,8 +8,8 @@ import ar.com.larreta.mystic.query.Persister;
 import ar.com.larreta.tools.BeanUtils;
 import ar.com.larreta.tools.StandardAdapter;
 
-@Component("LongToEntityAdapter")
-public class LongToEntityAdapter extends StandardAdapter {
+@Component("FromLongToEntityAdapter")
+public class FromLongToEntityAdapter extends StandardAdapter {
 
 	@Autowired
 	private BeanUtils beanUtils;
@@ -22,8 +22,11 @@ public class LongToEntityAdapter extends StandardAdapter {
 	
 	@Override
 	public Object process(Object toAdapt, Class type, Class[] generics) throws Exception {
-		Long id = (Long) toAdapt;
-		return persister.get(type, id);
+		if (toAdapt!=null){
+			Long id = (Long) toAdapt;
+			return persister.get(type, id);
+		} 
+		return null;
 	}
 
 }

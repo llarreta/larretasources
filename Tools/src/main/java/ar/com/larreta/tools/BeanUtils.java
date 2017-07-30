@@ -28,6 +28,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class BeanUtils {
 
+	public static final String DESTINATION = "Destination";
+	public static final String ORIGIN = "Origin";
+	public static final String TARGET = "Target";
+	public static final String SOURCE = "Source";
+	public static final String FROM = "From";
 	public static final String IN = "In";
 	public static final String GET = "get";
 	public static final String AS = "As";
@@ -53,23 +58,27 @@ public class BeanUtils {
 		instances.put(Set.class, HashSet.class);
 	}
 	
-	public Adapter getAdapter(Object parent, PropertyDescriptor source, PropertyDescriptor target){
-		Collection<Class> sourceTypes = getTypes(source);
-		Collection<Class> targetTypes = getTypes(target);
+	public Adapter getAdapter(Object sourceObject, Object targetObject, PropertyDescriptor sourceProperty, PropertyDescriptor targetProperty){
+		Collection<Class> sourcePropertyTypes = getTypes(sourceProperty);
+		Collection<Class> targetPropertyTypes = getTypes(targetProperty);
 		
-		String completeName = getFixedName(source) + TO_PROP + getFixedName(target);
-		if (parent!=null){
-			completeName =  IN + parent.getClass().getSimpleName() + completeName; 
-		}
+		String sourcePropertyName = getFixedName(sourceProperty);
+		String targetPropertyName = getFixedName(targetProperty);
+		
+		String sourceObjectType = getFixedType(sourceObject);
+		String targetObjectType = getFixedType(targetObject);
 		
 		Collection<String> keys = new ArrayList();
-		keys.add(completeName + ADAPTER);
-		addKeys(sourceTypes, targetTypes, keys, completeName);
-		addKeys(sourceTypes, targetTypes, keys, StringUtils.EMPTY);
-		
-		keys.removeAll(keysNotFound);
+		addKeys(keys, sourceObjectType, targetObjectType, sourcePropertyName, targetPropertyName, sourcePropertyTypes, targetPropertyTypes);
 
 		return searchAdapter(keys);
+	}
+
+	private String getFixedType(Object sourceObject) {
+		if (sourceObject!=null){
+			return sourceObject.getClass().getSimpleName();
+		}
+		return StringUtils.EMPTY;
 	}
 	
 	public Adapter getAdapter(Class source, Class target){
@@ -77,7 +86,7 @@ public class BeanUtils {
 		Collection<Class> targetTypes = getTypes(target);
 		
 		Collection<String> keys = new ArrayList();
-		addKeys(sourceTypes, targetTypes, keys, StringUtils.EMPTY);
+		addKeys(keys, null, null, null, null, null, null);
 
 		return searchAdapter(keys);
 	}
@@ -98,32 +107,66 @@ public class BeanUtils {
 		return adapter;
 	}
 
-	public void addKeys(Collection<Class> sourceTypes, Collection<Class> targetTypes, Collection<String> keys, String aux) {
-		StringBuilder header = new StringBuilder();
-		header.append(aux);
-		if (!StringUtils.isEmpty(aux)){
-			header.append(AS);
+	private void addKeys(Collection<String> keys, String sourceObjectType, 					String targetObjectType,
+												  String sourcePropertyName, 				String targetPropertyName,
+												  Collection<Class> sourcePropertyTypes, 	Collection<Class> targetPropertyTypes) {
+		
+		String source 			= getFixed(SOURCE, 		sourceObjectType);
+		String target 			= getFixed(TARGET, 		targetObjectType);
+		
+		String origin 			= getFixed(ORIGIN, 		sourcePropertyName);
+		String destination 		= getFixed(DESTINATION, 	targetPropertyName);
+		
+		addKeys(keys, source + target + origin + destination, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, source + origin + destination, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, target + origin + destination, sourcePropertyTypes, targetPropertyTypes);
+
+		addKeys(keys, origin + destination, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, origin, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, destination, sourcePropertyTypes, targetPropertyTypes);
+
+		addKeys(keys, StringUtils.EMPTY, sourcePropertyTypes, targetPropertyTypes);
+		
+		keys.removeAll(keysNotFound);
+		
+	}
+	
+	public String getFixed(String prefix, String name){
+		if (!StringUtils.isEmpty(name)){
+			return prefix + name;
 		}
-		Iterator<Class> itSources = sourceTypes.iterator();
-		while (itSources.hasNext()) {
-			StringBuilder body = new StringBuilder();
-			body.append(header);
-			Class sourceClass = (Class) itSources.next();
-			body.append(sourceClass.getSimpleName());
-			body.append(TO);
-			if (targetTypes.size()>0){
-				Iterator<Class> itTarget = targetTypes.iterator();
-				while (itTarget.hasNext()) {
-					StringBuilder footer = new StringBuilder();
-					footer.append(body);
-					Class targetClass = (Class) itTarget.next();
-					footer.append(targetClass.getSimpleName());
-					footer.append(ADAPTER);
-					keys.add(footer.toString());
+		return StringUtils.EMPTY;
+	}
+
+	private void addKeys(Collection<String> keys, String aux, Collection<Class> sourcePropertyTypes,
+			Collection<Class> targetPropertyTypes) {
+		if (!StringUtils.isEmpty(aux)){
+			keys.add(aux + ADAPTER);
+		}
+		
+		if (sourcePropertyTypes!=null){
+		Iterator<Class> itSourcePropertyTypes = sourcePropertyTypes.iterator();
+			while (itSourcePropertyTypes.hasNext()) {
+				Class sourceClass = (Class) itSourcePropertyTypes.next();
+				String from  = FROM + sourceClass.getSimpleName();
+				if (targetPropertyTypes!=null){
+					Iterator<Class> itTargetPropertyTypes = targetPropertyTypes.iterator();
+					while (itTargetPropertyTypes.hasNext()) {
+						Class targetClass = (Class) itTargetPropertyTypes.next();
+						String to = TO + targetClass.getSimpleName();
+						keys.add(aux + from + to + ADAPTER);
+					}
 				}
-			} else {
-				body.append(ADAPTER);
-				keys.add(body.toString());
+				keys.add(aux + from + ADAPTER);
+			}
+		}
+		
+		if (targetPropertyTypes!=null){
+			Iterator<Class> itTargetPropertyTypes = targetPropertyTypes.iterator();
+			while (itTargetPropertyTypes.hasNext()) {
+				Class targetClass = (Class) itTargetPropertyTypes.next();
+				String to = TO + targetClass.getSimpleName();
+				keys.add(aux + to + ADAPTER);
 			}
 		}
 	}
@@ -176,7 +219,7 @@ public class BeanUtils {
 					targetPropertyDescriptor = PropertyUtils.getPropertyDescriptor(target, propertyName);
 				}
 				
-				Adapter adapter = getAdapter(source, sourcePropertyDescriptor, targetPropertyDescriptor);
+				Adapter adapter = getAdapter(source, target, sourcePropertyDescriptor, targetPropertyDescriptor);
 				if (adapter==null && targetPropertyDescriptor!=null){
 					if(!processProperties.contains(propertyName)){
 						Object targetObject = null;

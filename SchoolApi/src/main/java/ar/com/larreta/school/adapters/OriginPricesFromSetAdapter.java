@@ -14,8 +14,8 @@ import ar.com.larreta.stepper.messages.JSONableCollection;
 import ar.com.larreta.tools.Adapter;
 import ar.com.larreta.tools.BeanUtils;
 
-@Component("PricesToAsSetToAdapter")
-public class PricesToAsSetToAdapter implements Adapter {
+@Component("OriginPricesFromSetAdapter")
+public class OriginPricesFromSetAdapter implements Adapter {
 
 	public static final String DETAILS = "details";
 	

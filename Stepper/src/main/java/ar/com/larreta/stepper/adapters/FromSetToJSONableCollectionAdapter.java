@@ -11,8 +11,8 @@ import ar.com.larreta.stepper.messages.JSONableCollection;
 import ar.com.larreta.tools.Adapter;
 import ar.com.larreta.tools.StandardAdapter;
 
-@Component("SetToJSONableCollectionAdapter")
-public class SetToJSONableCollectionAdapter extends StandardAdapter {
+@Component("FromSetToJSONableCollectionAdapter")
+public class FromSetToJSONableCollectionAdapter extends StandardAdapter {
 	
 	@Override
 	public Object process(Object toAdapt, Class type, Class[] generics) throws Exception {		

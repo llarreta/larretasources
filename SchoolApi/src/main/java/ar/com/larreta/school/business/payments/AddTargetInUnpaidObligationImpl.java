@@ -11,8 +11,8 @@ import ar.com.larreta.stepper.impl.LoadBusiness;
 import ar.com.larreta.stepper.impl.StepImpl;
 import ar.com.larreta.stepper.messages.TargetedBody;
 
-@Component(AddTargetInObligationStatus.STEP_NAME)
-public class AddTargetInObligationStatusImpl extends StepImpl implements AddTargetInObligationStatus {
+@Component(AddTargetInUnpaidObligation.STEP_NAME)
+public class AddTargetInUnpaidObligationImpl extends StepImpl implements AddTargetInUnpaidObligation{
 
 	@Override
 	public Serializable execute(Serializable source, Serializable target, Object... args)
@@ -20,8 +20,8 @@ public class AddTargetInObligationStatusImpl extends StepImpl implements AddTarg
 		LoadBusiness loadBusiness = (LoadBusiness) source;
 		TargetedBody body = (TargetedBody) args[0];
 		Select select = loadBusiness.getSelect();
-		
-		select.addWhereEqual("student.id", body.getTarget());
+
+		select.addWhereEqual("paymentPlan.students.id", body.getTarget());
 		
 		return null;
 	}
