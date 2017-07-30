@@ -87,7 +87,7 @@ public class BeanUtils {
 		Collection<Class> targetTypes = getTypes(target);
 		
 		Collection<String> keys = new ArrayList();
-		addKeys(keys, null, null, null, null, null, null);
+		addKeys(keys, null, null, null, null, sourceTypes, targetTypes);
 
 		return searchAdapter(keys);
 	}
