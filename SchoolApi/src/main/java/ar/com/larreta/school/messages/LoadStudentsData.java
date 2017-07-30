@@ -18,7 +18,14 @@ public class LoadStudentsData extends JSONable {
 	private Long 			course;
 	private JSONableCollection<Long> paymentPlans;
 	private String 			email;
+	private String 			photo;
 	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public String getEmail() {
 		return email;
 	}
