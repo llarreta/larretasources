@@ -6,6 +6,11 @@
 
 
 	<!-- Application Loggers -->
+	<logger name="adapters">
+		<level value="DEBUG" />
+		<appender-ref ref="adaptersAppenderAsync" />
+	</logger>
+	
 	<logger name="ar.com.larreta">
 		<level value="DEBUG" />
 		<appender-ref ref="generalAppenderAsync" />
@@ -135,6 +140,9 @@
  	</appender>
  	<appender name="screenAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
 	    <appender-ref ref="screenAppender" /> 
+ 	</appender> 
+ 	<appender name="adaptersAppenderAsync" class="org.apache.log4j.AsyncAppender"> 
+	    <appender-ref ref="adaptersAppender" /> 
  	</appender> 	
 
 	<!-- Appenders -->
@@ -143,6 +151,17 @@
             <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
         </layout>
 	</appender>
+
+	<appender class="org.apache.log4j.RollingFileAppender" name="adaptersAppender">
+        <param name="Append"				value="false" />
+        <param name="File"					value="\\log\\${contextPath}\\adapters.log" />
+        <param name="Threshold"				value="ALL" />
+        <param name="MaxFileSize"			value="100MB" />
+        <param name="MaxBackupIndex"		value="3" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"			value="%d %-5p %c - %m%n" />
+        </layout>
+    </appender>
 
 	<appender class="org.apache.log4j.RollingFileAppender" name="copyAppender">
         <param name="Append"				value="false" />

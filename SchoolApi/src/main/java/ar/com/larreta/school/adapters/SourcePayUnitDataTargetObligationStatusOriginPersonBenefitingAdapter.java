@@ -2,20 +2,20 @@ package ar.com.larreta.school.adapters;
 
 import org.springframework.stereotype.Component;
 
-import ar.com.larreta.school.persistence.Obligation;
+import ar.com.larreta.school.persistence.Student;
 import ar.com.larreta.stepper.adapters.FromLongToEntityAdapter;
 
-@Component("InPayUnitDataProductToPropAdapter")
-public class InPayUnitDataProductToPropAdapter extends FromLongToEntityAdapter {
+@Component("SourcePayUnitDataTargetObligationStatusOriginPersonBenefitingAdapter")
+public class SourcePayUnitDataTargetObligationStatusOriginPersonBenefitingAdapter extends FromLongToEntityAdapter {
 
 	@Override
 	public String getPropertyTarget(String propertyName) {
-		return "obligation";
+		return "student";
 	}
 
 	@Override
 	public Object process(Object toAdapt, Class type, Class[] generics) throws Exception {
-		return super.process(toAdapt, Obligation.class, generics);
+		return super.process(toAdapt, Student.class, generics);
 	}
-
+	
 }

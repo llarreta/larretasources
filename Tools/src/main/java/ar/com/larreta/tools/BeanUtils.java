@@ -41,6 +41,7 @@ public class BeanUtils {
 	public static final String TO_PROP = "ToProp";
 
 	private final static Logger LOGGER = Logger.getLogger(BeanUtils.class);
+	private final static Logger LOGGER_ADAPTERS = Logger.getLogger("adapters");
 
 	@Autowired
 	protected ApplicationContext applicationContext;
@@ -101,6 +102,7 @@ public class BeanUtils {
 			} catch (NoSuchBeanDefinitionException e){
 				keysNotFound.add(key);
 				LOGGER.debug("No se encontro adapter para " + key);
+				LOGGER_ADAPTERS.info("No se encontro adapter para " + key);
 			}
 		}
 		
@@ -118,9 +120,17 @@ public class BeanUtils {
 		String destination 		= getFixed(DESTINATION, 	targetPropertyName);
 		
 		addKeys(keys, source + target + origin + destination, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, source + target + origin, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, source + target + destination, sourcePropertyTypes, targetPropertyTypes);
+		
 		addKeys(keys, source + origin + destination, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, source + origin, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, source + destination, sourcePropertyTypes, targetPropertyTypes);
+		
 		addKeys(keys, target + origin + destination, sourcePropertyTypes, targetPropertyTypes);
-
+		addKeys(keys, target + origin, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, target + destination, sourcePropertyTypes, targetPropertyTypes);
+		
 		addKeys(keys, origin + destination, sourcePropertyTypes, targetPropertyTypes);
 		addKeys(keys, origin, sourcePropertyTypes, targetPropertyTypes);
 		addKeys(keys, destination, sourcePropertyTypes, targetPropertyTypes);
