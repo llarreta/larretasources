@@ -3,6 +3,7 @@ package ar.com.larreta.school.business.payments;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.transaction.Transactional;
 
@@ -12,21 +13,20 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import ar.com.larreta.mystic.exceptions.PersistenceException;
-import ar.com.larreta.mystic.query.Query;
-import ar.com.larreta.mystic.query.Select;
+import ar.com.larreta.mystic.query.Persister;
 import ar.com.larreta.reports.PDF;
-import ar.com.larreta.school.persistence.Student;
+import ar.com.larreta.school.persistence.Payment;
 import ar.com.larreta.stepper.exceptions.BusinessException;
 import ar.com.larreta.stepper.impl.StepImpl;
 import ar.com.larreta.stepper.messages.TargetedBody;
 import ar.com.larreta.tools.Base64;
 
-@Service(PaidObligationBuildReportBusiness.BUSINESS_NAME)
+@Service(PayVoucherReport.NAME)
 @Transactional
-public class PaidObligationsBuildReportBusinessImpl extends StepImpl implements PaidObligationBuildReportBusiness {
+public class PayVoucherReportImpl extends StepImpl implements PayVoucherReport {
 
-	@Value("classpath:ar/com/larreta/school/reports/paidObligations.jrxml")
-	private Resource paidObligationReportTemplate;
+	@Value("classpath:ar/com/larreta/school/reports/payVoucher.jrxml")
+	private Resource template;
 	
 	@Autowired
 	private Base64 base64;
@@ -35,17 +35,13 @@ public class PaidObligationsBuildReportBusinessImpl extends StepImpl implements 
 	public Serializable execute(Serializable source, Serializable target, Object... args) throws BusinessException, PersistenceException {
 		TargetedBody body = (TargetedBody) source;
 		
-		Query query = applicationContext.getBean(Select.class);
-		query.addMainEntity(Student.class.getName());
-		query.addProjections("obligationsStatus.obligation.paymentUnits");
-		query.addWhereEqual("course.id", body.getTarget());
-		query.addWhereEqualYear("obligationsStatus.obligation.dueDate", 2017);
-		query.execute();
+		Persister persister = applicationContext.getBean(Persister.class);
+		Payment payment = (Payment) persister.get(Payment.class, body.getTarget());
 		
 		PDF pdf = applicationContext.getBean(PDF.class);
 		ByteArrayOutputStream stream = null;
 		try {
-			stream = pdf.getOutputStream(paidObligationReportTemplate);
+			stream = pdf.getOutputStream(template, Arrays.asList(payment));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

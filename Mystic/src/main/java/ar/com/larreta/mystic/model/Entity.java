@@ -14,6 +14,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.com.larreta.tools.BeanUtils;
+import ar.com.larreta.tools.SpringUtils;
 
 @MappedSuperclass
 @Where(clause=Entity.NOT_DELETED)
@@ -74,9 +75,10 @@ public class Entity implements Serializable {
 	}
 	
 	protected void writeToAll(Collection source, String property, Serializable value){
-		if (beanUtils!=null){
-			beanUtils.writeToAll(source, property, value);
+		if (beanUtils==null){
+			beanUtils = (BeanUtils) SpringUtils.getBean(BeanUtils.class);
 		}
+		beanUtils.writeToAll(source, property, value);
 	}
 
 }

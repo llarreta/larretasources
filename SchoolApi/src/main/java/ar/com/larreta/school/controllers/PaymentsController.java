@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.com.larreta.school.business.payments.ObligationsStatusBusiness;
 import ar.com.larreta.school.business.payments.PaidObligationBuildReportBusiness;
 import ar.com.larreta.school.business.payments.PayObligationBusiness;
+import ar.com.larreta.school.business.payments.PayVoucherReport;
 import ar.com.larreta.school.business.payments.UnpaidObligationsBusiness;
 import ar.com.larreta.school.messages.PayData;
 import ar.com.larreta.school.messages.PayUnitData;
@@ -35,7 +36,8 @@ import ar.com.larreta.stepper.messages.TargetedBody;
 @Validated
 public class PaymentsController {
 
-	public static final String PAID_OBLIGATION_REPORT = "/paidObligationsReport";
+	public static final String PAY_VOUCHER_REPORT 		= "/payVoucherReport";
+	public static final String PAID_OBLIGATION_REPORT 	= "/paidObligationsReport";
 	public static final String OBLIGATIONS_STATUS 		= "/paidObligations";
 	public static final String PAY 						= "/pay";
 	public static final String UNPAID_OBLIGATIONS 		= "/unpaidObligations";
@@ -51,6 +53,8 @@ public class PaymentsController {
 	private ObligationsStatusBusiness obligationsStatusBusiness;
 	@Autowired
 	private PaidObligationBuildReportBusiness paidObligationBuildReportBusiness;
+	@Autowired
+	private PayVoucherReport payVoucherReport;
 
 	@Configuration
 	public class Help extends HelpConfig{
@@ -109,5 +113,17 @@ public class PaymentsController {
 		response.setBody(responseBody);
 		return response;
 	}
-	
+
+	@RequestMapping(value = PAY_VOUCHER_REPORT, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE) 
+	public Response<DownloadBody> payVoucherReport(@Valid @RequestBody Request<TargetedBody> request, Errors errors)  throws Exception{
+		String fileToDownload = (String) payVoucherReport.execute(request.getBody(), null, null);
+		
+		Response<DownloadBody> response = applicationContext.getBean(Response.class);
+		DownloadBody responseBody = applicationContext.getBean(DownloadBody.class);;
+		response.setBody(responseBody);
+		responseBody.setFileContent(fileToDownload);
+		
+		return response;
+	}
+
 }

@@ -1,6 +1,5 @@
 package ar.com.larreta.school.adapters;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.mystic.exceptions.PersistenceException;
 import ar.com.larreta.school.messages.DetailData;
-import ar.com.larreta.school.messages.ObligationData;
 import ar.com.larreta.school.persistence.Detail;
-import ar.com.larreta.school.persistence.Obligation;
 import ar.com.larreta.school.persistence.Price;
 import ar.com.larreta.stepper.messages.JSONableCollection;
-import ar.com.larreta.tools.Adapter;
 import ar.com.larreta.tools.BeanUtils;
 import ar.com.larreta.tools.StandardAdapter;
 
@@ -34,10 +31,9 @@ public class OriginDetailsFromJSONableCollectionAdapter extends StandardAdapter 
 	public String getPropertyTarget(String propertyName) {
 		return "prices";
 	}
-
 	
 	@Override
-	public Object process(Object toAdapt, Class type, Class[] generics)  {
+	public Object process(Object toAdapt, Class type, Class[] generics) throws PersistenceException  {
 		JSONableCollection<DetailData> details = (JSONableCollection<DetailData>) toAdapt;
 		if (details!=null){
 			Iterator<DetailData> it = details.iterator();
@@ -51,6 +47,7 @@ public class OriginDetailsFromJSONableCollectionAdapter extends StandardAdapter 
 			Price price = applicationContext.getBean(Price.class);
 			price.setValidityStartDate(new Date());
 			price.setDetails(newsDetails); 
+			
 			Set<Price> prices = new HashSet<>();
 			prices.add(price);
 			return prices;

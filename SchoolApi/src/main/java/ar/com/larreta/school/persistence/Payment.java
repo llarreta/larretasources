@@ -42,7 +42,7 @@ public class Payment extends ar.com.larreta.mystic.model.Entity {
 		this.value = value;
 	}
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Product.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Person.class)
 	@JoinColumn (name="idPersonWhoPays")
 	public Person getPersonWhoPays() {
 		return personWhoPays;

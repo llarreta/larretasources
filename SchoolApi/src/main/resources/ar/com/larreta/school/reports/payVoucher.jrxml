@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="payVoucher" pageWidth="350" pageHeight="500" columnWidth="310" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9cd410b5-1c3c-4b3e-a11c-9606c458df07">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="personWhoPays.name" class="java.lang.String"/>
+	<field name="personWhoPays.surname" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="3" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="278" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="10" width="100" height="14" uuid="8d6cad63-31b8-4dc4-a92d-11c6bfbf84ca"/>
+				<text><![CDATA[Alumno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="24" width="100" height="14" uuid="03e4208b-1620-4b66-acf4-3402401dae1b"/>
+				<text><![CDATA[Sala / Grado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="38" width="100" height="14" uuid="d647c083-8c04-4283-a7dd-539d4e846715"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="52" width="100" height="14" uuid="8fd732e1-23a5-462b-aa6a-1ee542443ff3"/>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="64" y="78" width="200" height="122" uuid="59811aa0-57ae-4ddd-b1d6-5c0acdb4ca69"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/resources/ar/com/larreta/school/reports/payVoucherDetail.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="80" y="10" width="130" height="14" uuid="c128cb1f-52b3-4e01-94a7-6a1e9f6219a8"/>
+				<textFieldExpression><![CDATA[$F{personWhoPays.name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="10" width="110" height="14" uuid="0b2a490d-62ab-4ae7-84ac-d65555f51d7b"/>
+				<textFieldExpression><![CDATA[$F{personWhoPays.surname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
