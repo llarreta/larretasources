@@ -386,6 +386,7 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.detailSelected.description = this.inputDetailDescription.value;
       Logger.debug("Guardando detalle valor " + this.inputDetailValue.value);
       let valueCast = this.inputDetailValue.value.replace("$", "");
+      valueCast = valueCast.replace(".", "");
       valueCast = valueCast.replace(",", ".");
       let value: number = Number(valueCast);
       this.detailSelected.value = value;
@@ -422,6 +423,7 @@ export class PaymentPlanCreateComponent implements OnInit{
       && !this.isDuplicateDescriptionDetailEdit(this.inputDetailDescription.value)){
       this.detailSelected.description = this.inputDetailDescription.value;
       let valueCast = this.inputDetailValue.value.replace("$", "");
+      valueCast = valueCast.replace(".", "");
       valueCast = valueCast.replace(",", ".");
       let value: number = Number(valueCast);
       this.detailSelected.value = value;
@@ -451,6 +453,7 @@ export class PaymentPlanCreateComponent implements OnInit{
       }
       this.littleDetailSelected.description = this.inputLittleDetailDescription.value;
       let valueCast = this.inputLittleDetailValue.value.replace("$", "");
+      valueCast = valueCast.replace(".", "");
       valueCast = valueCast.replace(",", ".");
       let value: number = Number(valueCast);
       this.littleDetailSelected.value = value;
@@ -482,6 +485,7 @@ export class PaymentPlanCreateComponent implements OnInit{
       && !this.isDuplicateDescriptionLittleDetailEdit(this.inputLittleDetailDescription.value)){
       this.littleDetailSelected.description = this.inputLittleDetailDescription.value;
       let valueCast = this.inputLittleDetailValue.value.replace("$", "");
+      valueCast = valueCast.replace(".", "");
       valueCast = valueCast.replace(",", ".");
       let value: number = Number(valueCast);
       this.littleDetailSelected.value = value;

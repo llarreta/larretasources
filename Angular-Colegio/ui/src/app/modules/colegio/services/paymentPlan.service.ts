@@ -36,12 +36,4 @@ export class PaymentPlanService {
         return this.http.post(body, "paymentPlans/load", token);
     }
 
-    loadPaymentRecords(id: number): Observable<any> {
-        var body = {
-                        "target": id
-                    };
-        var token = "";
-        return this.http.post(body, "payments/obligationsStatus", token);
-    }
-
 }

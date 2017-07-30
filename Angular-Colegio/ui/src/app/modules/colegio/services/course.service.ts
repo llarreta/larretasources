@@ -53,8 +53,12 @@ export class CourseService {
         return this.http.post(body, "courses/delete", token);
     }
 
-    loadCourses(): Observable<any> {
-        var body = {};
+    loadCourses(lastResult: number, maxResult: number): Observable<any> {
+        var body = {
+                        "firstResult": lastResult,
+                        "maxResults": maxResult,
+                        "result": null
+                    };
         var token = "";
         return this.http.post(body, "courses/load", token);
     }

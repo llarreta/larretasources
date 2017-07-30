@@ -50,6 +50,11 @@ export class CourseComponent implements OnInit{
 
   loading: boolean;
 
+  //Paginator
+  maxResult: number;
+  rows: number;
+  onLoadCourses: boolean;
+
   private language: string;
 
   constructor(private courseService: CourseService, private levelService: LevelService,
@@ -57,9 +62,10 @@ export class CourseComponent implements OnInit{
 
   ngOnInit() {
     this.language = "ES";
+    this.maxResult = 10;
     this.selectedCourse = new Course();
     this.courses = new Array<Course>();
-    this.loadCourses();
+    this.onLoadCourses = false;
     this.inListCourse = true;
     this.inCreateCourse = false;
     this.inUpdateCourse = false;
@@ -145,30 +151,54 @@ export class CourseComponent implements OnInit{
     this.inUpdateCourse = false;
     this.inCreateCourse = !goList;
     this.inListCourse = goList;
+    this.rows = 0;
+    this.courses = null;
+    if(goList){
+        this.selectedCourse = null;
+    }
+    this.loadInitData();
   }
 
   goListUpdate(goList: boolean){
     this.inCreateCourse = false;
     this.inUpdateCourse = !goList;
     this.inListCourse = goList;
+    this.rows = 0;
+    this.courses = null;
+    this.loadInitData();
+    if(goList){
+        this.selectedCourse = null;
+    }
   }
 
   loadData(event) {
+    if(this.courses != null){
+      this.rows = this.courses.length;
+    }else{
+      this.rows = 0;
+    }
     this.loadCourses();
   }
 
   loadCourses(){
-    this.showLoading();
-    this.courseService.loadCourses()
-       .subscribe(
-        data => this.loadCoursesOK(data),
-        err => this.loadErrorMessageService(err),
-        () => console.log('Vacio')
-      );
+    if(!this.onLoadCourses){
+
+      this.showLoading();
+      this.onLoadCourses = true;
+      this.courseService.loadCourses(this.rows, this.maxResult)
+        .subscribe(
+          data => this.loadCoursesOK(data),
+          err => this.loadErrorMessageServiceLoadCourses(err),
+          () => console.log('Vacio')
+        );
+        
+    }
   }
 
   loadCoursesOK(data){
-    this.courses = new Array<Course>();
+    if(this.courses == null){
+      this.courses = new Array<Course>();
+    }
     for(let courseJSON of data.body.result){
       let course: Course = new Course();
       Object.assign(course, courseJSON);
@@ -176,6 +206,7 @@ export class CourseComponent implements OnInit{
     }
     this.hideLoading();
     Logger.debug("Cursos cargados: " + JSON.stringify(this.courses));
+    this.onLoadCourses = false;
   }
 
   loadErrorMessageService(error){
@@ -184,6 +215,12 @@ export class CourseComponent implements OnInit{
     this.showMessageErrorService = true;
     this.showMessageError = true;
     this.hideLoading();
+  }
+
+  loadErrorMessageServiceLoadCourses(error){
+    Logger.warn("Ocurrio un error al cargar un curso...");
+    this.onLoadCourses = false;
+    this.loadErrorMessageService(error);
   }
 
   loadCourse(course: Course){

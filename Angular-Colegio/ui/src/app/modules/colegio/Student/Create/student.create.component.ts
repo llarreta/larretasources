@@ -131,7 +131,7 @@ export class StudentCreateComponent implements OnInit{
       this.paymentPlansListBox.push({label:paymentPlan.description, value:paymentPlan.id});
     }
     Logger.debug("payments plans cargados: " + JSON.stringify(this.paymentPlansListBox));
-    this.courseService.loadCourses().subscribe(
+    this.courseService.loadCourses(null, null).subscribe(
         data => this.loadCoursesOK(data),
         err => this.loadErrorMessageService(err),
         () => console.log('Vacio')

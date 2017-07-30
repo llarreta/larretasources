@@ -37,6 +37,7 @@ import { DivisionService } from '../../services/division.service';
 import { CourseService } from '../../services/course.service';
 import { DocumentTypeService } from '../../services/documentType.service';
 import { PaymentPlanService } from '../../services/paymentPlan.service';
+import { PaymentRecordService } from '../../services/paymentRecord.service';
 
 @Component({
   selector: 'school-students',
@@ -45,7 +46,7 @@ import { PaymentPlanService } from '../../services/paymentPlan.service';
 export class StudentComponent implements OnInit{
 
   @Input()
-  inPaymentRecord: boolean;
+  inPaymentRecord: boolean; 
   @Output()
   goRecord = new EventEmitter();
   @Output()
@@ -98,7 +99,8 @@ export class StudentComponent implements OnInit{
   constructor(private studentService: StudentService, private courseService: CourseService, 
               private levelService: LevelService, private divisionService: DivisionService,
               private yearService: YearService, private paymentPlanService: PaymentPlanService,
-              private documentTypeService: DocumentTypeService) {}
+              private documentTypeService: DocumentTypeService,
+              private paymentRecordService: PaymentRecordService) {}
 
   ngOnInit() {
     this.language = "ES";
@@ -241,6 +243,7 @@ export class StudentComponent implements OnInit{
     this.inUpdateStudent = !goList;
     this.inListStudent = goList;
     this.students = null;
+    this.rows = 0;
     if(goList){
         this.selectedStudent = null;
     }
@@ -334,6 +337,11 @@ export class StudentComponent implements OnInit{
     this.hideLoading();
   }
 
+  loadErrorMessageReportService(error){
+    this.hideReportModal();
+    this.loadErrorMessageService(error);
+  }
+
   showLoading(){
     this.loading = true;
   }
@@ -362,7 +370,7 @@ export class StudentComponent implements OnInit{
   }
 
   private loadCourses(){
-    this.courseService.loadCourses()
+    this.courseService.loadCourses(null, null)
        .subscribe(
         data => this.loadCoursesOK(data),
         err => this.loadErrorMessageService(err),
@@ -373,6 +381,7 @@ export class StudentComponent implements OnInit{
   private loadCoursesOK(data){
     this.courses = new Array<Course>();
     this.filterCourseOptions = new Array<SelectItem>();
+    this.filterCourseOptions.push({label:"Seleccione un curso", value:null});
     for(let courseJSON of data.body.result){
       let course: Course = new Course();
       Object.assign(course, courseJSON);
@@ -421,7 +430,38 @@ export class StudentComponent implements OnInit{
   }
 
   downloadReport(){
+    if(this.courseSelected != null){
+      this.paymentRecordService.getPaymentReportFromCourse(this.courseSelected.id).subscribe(
+          data => this.getPaymentReportFromCourseOK(data),
+          err => this.loadErrorMessageReportService(err),
+          () => console.log('Vacio')
+      );
+    }
+  }
 
+  getPaymentReportFromCourseOK(data){
+    this.printPDF(data.body.fileContent);
+    this.hideReportModal();
+  }
+
+  printPDF(pdf){
+    var byteCharacters = atob(pdf);
+    var byteNumbers = new Array(byteCharacters.length);
+    var printWindow;
+    for (var i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    var blob = new Blob([byteArray], {type: "pdf"});
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      printWindow = window.navigator.msSaveOrOpenBlob(blob, 
+        "Resumen de pagos curso " + this.courseSelected.year.description + "° " 
+        + this.courseSelected.division.description + " " + this.courseSelected.level.description);
+      printWindow.print();
+    }else{
+      printWindow = window.open("data:application/pdf;base64," + pdf, "_blank");
+      printWindow.print();      
+    }
   }
 
 }

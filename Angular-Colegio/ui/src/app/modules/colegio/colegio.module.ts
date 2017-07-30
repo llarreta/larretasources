@@ -46,6 +46,7 @@ import { LevelService } from './services/level.service';
 import { DivisionService } from './services/division.service';
 import { DocumentTypeService } from './services/documentType.service';
 import { PaymentPlanService } from './services/paymentPlan.service';
+import { PaymentRecordService } from './services/paymentRecord.service';
 
 //TextMask
 import { TextMaskModule } from 'angular2-text-mask';
@@ -91,7 +92,8 @@ import { TextMaskModule } from 'angular2-text-mask';
         LevelService,
         DivisionService,
         DocumentTypeService,
-        PaymentPlanService
+        PaymentPlanService,
+        PaymentRecordService
     ]
 })
 export class ColegioModule { }

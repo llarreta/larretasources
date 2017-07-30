@@ -8,7 +8,7 @@ import { InputCommonsComponent } from '../Commons/Input/input.component';
 import { InputModel } from '../Commons/Input/input.model.component';
 
 //Services
-import { PaymentPlanService } from '../services/paymentPlan.service';
+import { PaymentRecordService } from '../services/paymentRecord.service';
 
 @Component({
   selector: 'school-paymentRecord',
@@ -29,7 +29,7 @@ export class PaymentRecordComponent implements OnInit{
   showMessageErrorInput: boolean;
   showMessageErrorService: boolean;
 
-  constructor(private paymentPlanService: PaymentPlanService) {}
+  constructor(private paymentRecordService: PaymentRecordService) {}
 
   ngOnInit() {
     this.inList = true;
@@ -79,7 +79,7 @@ export class PaymentRecordComponent implements OnInit{
 
   loadPaymentsRecords(){
     this.showLoading();
-    this.paymentPlanService.loadPaymentRecords(this.student.id).subscribe(
+    this.paymentRecordService.loadPaymentRecords(this.student.id).subscribe(
           data => this.loadPaymentRecordsOK(data),
           err => this.loadErrorMessageService(err),
           () => console.log('Vacio')

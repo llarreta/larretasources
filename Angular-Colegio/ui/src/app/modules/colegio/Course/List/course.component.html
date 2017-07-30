@@ -44,7 +44,7 @@
               </div>
             </p-footer>
             
-            <p-footer *ngIf="courses.length == 0">
+            <p-footer *ngIf="(courses != null) && (courses.length == 0)">
               <div class="no-data-footer">
                 No hay cursos cargados...
               </div>
