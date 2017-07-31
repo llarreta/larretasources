@@ -85,7 +85,6 @@ export class StudentCreateComponent implements OnInit{
               ) {}
 
   ngOnInit() {
-    this.hideLoading();
     this.loadInitData();
     if(!this.inEdit){
       this.student = new Student();
@@ -201,9 +200,7 @@ export class StudentCreateComponent implements OnInit{
 
     if(this.inEdit){
       this.initValueInput();
-    }else{
-      this.hideLoading();
-    } 
+    }
 
   }
 
@@ -212,7 +209,6 @@ export class StudentCreateComponent implements OnInit{
     this.inputDocumentNumber.value = String(this.student.documentNumber);
     this.inputEmail.value = this.student.email;
     this.inputSurname.value = this.student.surname;
-    this.hideLoading();
   }
 
   isAllOK(){

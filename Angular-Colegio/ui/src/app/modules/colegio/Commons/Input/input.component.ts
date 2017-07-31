@@ -34,10 +34,12 @@ export class InputCommonsComponent implements OnInit{
 
   ngOnInit() {
     this.isOnFocusLabel = false;
-    if(this.inputModel.validationActivate){ 
-      this.checkValidationsEnabled();
-      if(this.inputModel.value != null){
-        this.checkValue();
+    if(this.inputModel != null){
+      if(this.inputModel.validationActivate){ 
+        this.checkValidationsEnabled();
+        if(this.inputModel.value != null){
+          this.checkValue();
+        }
       }
     }
   }

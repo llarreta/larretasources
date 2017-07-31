@@ -1,5 +1,6 @@
 //Angular components
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { DatePipe } from '@angular/common'
 
 //Models
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
@@ -70,11 +71,11 @@ export class PaymentPlanCreateComponent implements OnInit{
 
   inEditPopUp: boolean = false;
 
-  displayLoading: string;
-
   displayConfirmPopUp: string;
 
-  constructor(private paymentPlanService: PaymentPlanService) {}
+  loading: boolean;
+
+  constructor(private paymentPlanService: PaymentPlanService, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.initVariablesSelected();
@@ -197,6 +198,19 @@ export class PaymentPlanCreateComponent implements OnInit{
   detailSelectedChange(){
     this.littleDetailSelected = new LittleDetail();
     this.refreshListBox();
+  }
+
+  hideDisplayPopUpObligation(){
+    this.obligationSelected = null;
+    this.detailSelected = null;
+    this.littleDetailSelected = null;
+    this.hideDisplayPopUp();
+  }
+
+  hideDisplayPopUpDetail(){
+    this.detailSelected = null;
+    this.littleDetailSelected = null;
+    this.hideDisplayPopUp();
   }
 
   hideDisplayPopUp(){
@@ -340,7 +354,7 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.paymentPlan.obligations.push(this.obligationSelected);
       this.refreshListBox();
       this.errorObligation = false;
-      this.hideDisplayPopUp();
+      this.hideDisplayPopUpObligation();
     }else{
       this.showMessageErrorPopUp = true;
       this.messageErrorInputsPopUp = "";
@@ -363,7 +377,7 @@ export class PaymentPlanCreateComponent implements OnInit{
       this.obligationSelected.description = this.inputObligationDescription.value;
       this.obligationSelected.dueDate = this.dateObligation;
       this.refreshListBox();
-      this.hideDisplayPopUp();
+      this.hideDisplayPopUpObligation();
     }else{
       this.showMessageErrorPopUp = true;
       this.messageErrorInputsPopUp = "";
@@ -401,7 +415,7 @@ export class PaymentPlanCreateComponent implements OnInit{
         this.errorItems = false;
       }
       this.refreshListBox();
-      this.hideDisplayPopUp();
+      this.hideDisplayPopUpDetail();
     }else{
       this.showMessageErrorPopUp = true;
       this.messageErrorInputsPopUp = "";
@@ -428,7 +442,7 @@ export class PaymentPlanCreateComponent implements OnInit{
       let value: number = Number(valueCast);
       this.detailSelected.value = value;
       this.refreshListBox();
-      this.hideDisplayPopUp();
+      this.hideDisplayPopUpDetail();
     }else{
       this.showMessageErrorPopUp = true;
       this.messageErrorInputsPopUp = "";
@@ -668,14 +682,14 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.littleDetailContentActive = true;
   }
 
-  loadEditObligation(){
+  loadEditObligation(){ 
     this.priceContentActive = false;
     this.detailContentActive = false;
     this.obligationContentActive = true;
     this.littleDetailContentActive = false;
     this.displayPopUp = "block";
     this.inputObligationDescription.value = this.obligationSelected.description;
-    this.dateObligation = this.obligationSelected.dueDate;
+    this.dateObligation = new Date(this.obligationSelected.dueDate);
     this.inEditPopUp = true;
     this.showMessageErrorPopUp = false;
   }
@@ -767,11 +781,13 @@ export class PaymentPlanCreateComponent implements OnInit{
   }
 
   showLoading(){
-    //this.displayLoading = "block";
+    this.loading = true;
+    this.changeDetectorRef.detectChanges();
   }
 
   hideLoading(){
-    //this.displayLoading = "none";
+    this.loading = false;
+    this.changeDetectorRef.detectChanges();
   }
 
   confirmDelete(){

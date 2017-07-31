@@ -39,12 +39,6 @@
               </div>
             </p-footer>
 
-            <p-footer *ngIf="loading">
-                <div class="loading-footer">
-                  <loading-commons></loading-commons>
-                </div>
-            </p-footer>
-            
             <ng-template let-paymentPlan pTemplate="item">
               <div class="data-scroller-item-1-container" (click)="loadPaymentPlan(paymentPlan)">
                 <div class="data-scroller-item-1-title">
@@ -64,4 +58,14 @@
   <div *ngIf="inUpdatePaymentPlan" class="animated fadeInUp">
     <school-paymentPlan-create (goList)="goListCreate($event)" [inEdit]="true" [paymentPlan]="selectedPaymentPlan"></school-paymentPlan-create>
   </div>
+</div>
+
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
 </div>

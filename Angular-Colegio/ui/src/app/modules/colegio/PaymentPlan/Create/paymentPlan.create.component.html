@@ -168,7 +168,7 @@
       <div class="row modal-footer">
         <button type="button" class="btn btn-primary" (click)="saveSelectedObligation()" *ngIf="!inEditPopUp">Guardar</button>
         <button type="button" class="btn btn-primary" (click)="saveSelectedObligationEdit()" *ngIf="inEditPopUp">Guardar Cambios</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUpObligation()">Cancelar</button>
       </div>
     </div>
 
@@ -192,7 +192,7 @@
       <div class="row modal-footer">
         <button type="button" class="btn btn-primary" (click)="saveSelectedDetail()" *ngIf="!inEditPopUp">Guardar</button>
         <button type="button" class="btn btn-primary" (click)="saveSelectedDetailEdit()" *ngIf="inEditPopUp">Guardar Cambios</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUpDetail()">Cancelar</button>
       </div>
     </div>
 
@@ -233,4 +233,14 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
 </div>

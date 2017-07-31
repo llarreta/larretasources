@@ -35,7 +35,7 @@
               <div class="data-scroller-item-1-container" (click)="loadPaymentRecord(paymentRecord)"
                 [ngClass]="{'paid-off': !paymentRecords.paidOff, 'paid-on': paymentRecords.paidOff}">
                 <div class="data-scroller-item-1-title">
-                   <span>{{paymentRecord.description}}</span><span class="payment-record-value">$1300,23</span>
+                   <span>{{paymentRecord.description}}</span><span class="payment-record-value">${{getTotal(paymentRecord)}}</span>
                 </div>
                 <div class="data-scroller-item-1-body">
                   <div class="data-scroller-item-1-body-data">
@@ -68,7 +68,7 @@
     <div class="modal-content animated fadeIn" *ngIf="paymentRecordSelected != null">
       <div class="row modal-header">
         <h3 class="col-12 modal-title">Cuota {{paymentRecordSelected.description}}</h3>
-        <button type="button" class="button-add button-print" pTooltip="Imprimir Cuota">
+        <button type="button" class="button-add button-print" pTooltip="Imprimir Cuota" (click)="getPayVoucher()">
           <i class="fa fa-print" aria-hidden="true"></i>
         </button>
       </div>
@@ -80,24 +80,16 @@
           {{messageErrorInputsPopUp}}  
         </div>
       </div> 
-      <div class="row modal-body item-payment-record">
-        <h5 class="col-6">Otro item</h5>
-        <h5 class="col-6">$100</h5>
-      </div>
-      <div class="row modal-body item-payment-record">
-        <h5 class="col-6">Otro item</h5>
-        <h5 class="col-6">$200</h5>
-      </div>
-      <div class="row modal-body item-payment-record">
-        <h5 class="col-6">Otro item</h5>
-        <h5 class="col-6">$300</h5>
+      <div class="row modal-body item-payment-record" *ngFor="let detail of paymentRecordSelected.details">
+        <h5 class="col-6">{{detail.description}}</h5>
+        <h5 class="col-6">${{getValueLabel(detail.value)}}</h5>
       </div>
       <div class="row modal-body total-price">
         <h5 class="col-6">TOTAL</h5>
-        <h5 class="col-6">$600</h5>
+        <h5 class="col-6">${{getTotal(paymentRecordSelected)}}</h5>
       </div>
       <div class="row modal-footer">
-        <button type="button" class="btn btn-primary">Marcar como paga</button>
+        <button type="button" class="btn btn-primary" (click)="payObligation()">Marcar como paga</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hidePopUp()">Cancelar</button>
       </div>
     </div>

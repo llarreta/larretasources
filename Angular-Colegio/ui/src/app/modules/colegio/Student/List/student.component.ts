@@ -93,6 +93,7 @@ export class StudentComponent implements OnInit{
   displayReportPopUp: string;
 
   private havePaymentsPlans: boolean;
+  private haveCourses: boolean;
 
   private language: string;
 
@@ -220,7 +221,7 @@ export class StudentComponent implements OnInit{
   }
 
   goListCreate(goList: boolean) {
-    if(this.havePaymentsPlans){
+    if(this.havePaymentsPlans && this.haveCourses){
       this.inUpdateStudent = false;
       this.inCreateStudent = !goList;
       this.inListStudent = goList;
@@ -232,9 +233,16 @@ export class StudentComponent implements OnInit{
       this.loadInitData();
       this.loadStudents();
     }else{
-      this.messageErrorService = "Para crear un estudiante debe primero crear por lo menos 1 plan de pago. "; 
-      this.showMessageError = true;
-      this.showMessageErrorService = true;
+      if(!this.havePaymentsPlans){
+        this.messageErrorService = "Para crear un estudiante debe primero crear por lo menos 1 plan de pago. "; 
+        this.showMessageError = true;
+        this.showMessageErrorService = true;
+      }
+      if(!this.haveCourses){
+        this.messageErrorService = "Para crear un estudiante debe primero crear por lo menos 1 curso. "; 
+        this.showMessageError = true;
+        this.showMessageErrorService = true;
+      }
     }
   }
 
@@ -262,7 +270,8 @@ export class StudentComponent implements OnInit{
     this.paymentPlanService.loadPaymentPlans()
        .subscribe(
         data => this.loadPaymentPlansOK(data),
-        err => this.loadErrorMessageService(err),
+        err
+         => this.loadErrorMessageService(err),
         () => Logger.debug('Termino ejecucion paymentPlanService...')
     );
   }
@@ -389,6 +398,11 @@ export class StudentComponent implements OnInit{
       this.filterCourseOptions.push({label:description, value:course});
       this.courses.push(course);
     }
+    if(this.courses != null && this.courses.length > 0){
+      this.haveCourses = true;
+    }else{
+      this.haveCourses = false;
+    }
     Logger.debug("Cursos cargados: " + JSON.stringify(this.courses));
     this.loadStudents();
   }
@@ -418,6 +432,9 @@ export class StudentComponent implements OnInit{
   showReportModal(){
     if((this.students != null) && (this.students.length > 0)){
       this.displayReportPopUp = "block";
+      this.courseSelected = null;
+      this.initDate = new Date();
+      this.endDate = new Date();
     }else{
       this.messageErrorService = "No puede generar un informe si no tiene alumnos ingresados.";
       this.showMessageError = true;
@@ -431,6 +448,8 @@ export class StudentComponent implements OnInit{
 
   downloadReport(){
     if(this.courseSelected != null){
+      this.hideReportModal();
+      this.showLoading();
       this.paymentRecordService.getPaymentReportFromCourse(this.courseSelected.id).subscribe(
           data => this.getPaymentReportFromCourseOK(data),
           err => this.loadErrorMessageReportService(err),
@@ -462,6 +481,7 @@ export class StudentComponent implements OnInit{
       printWindow = window.open("data:application/pdf;base64," + pdf, "_blank");
       printWindow.print();      
     }
+    this.hideLoading();
   }
 
 }

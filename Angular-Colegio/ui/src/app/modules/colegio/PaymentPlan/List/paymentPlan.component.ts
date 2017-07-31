@@ -1,5 +1,5 @@
 //Angular components
-import { Component, Input, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 
 //Models
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
@@ -35,40 +35,36 @@ export class PaymentPlanComponent implements OnInit{
   showMessageError: boolean;
   showMessageErrorService: boolean; 
   messageErrorService: string;
-
-  displayLoading: string;
   
   private language: string;
 
-  constructor(private paymentPlanService: PaymentPlanService) {}
+  onLoadPayment: boolean;
+
+  constructor(private paymentPlanService: PaymentPlanService,
+  private changeDetectorRef : ChangeDetectorRef) {}
 
   ngOnInit() {
 
     this.language = "ES";
     this.selectedPaymentPlan = new PaymentPlan();
     this.paymentPlans = new Array<PaymentPlan>();
+    this.onLoadPayment = false;
+    this.loading = false;
     this.loadPaymentPlans();
     this.inListPaymentPlan = true;
     this.inCreatePaymentPlan = false;
     this.inUpdatePaymentPlan = false;
     this.morePaymentPlans = true;
-    this.loading = false;
 
   }
 
-  protected fetchNextChunk(skip: number, limit: number): Promise<PaymentPlan[]> {
-      return new Promise((resolve, reject) => {
-          this.loadPaymentPlans();
-      });
-  }
-
-  
   loadPaymentPlans(){
     this.showLoading();
+    this.onLoadPayment = true;
     this.paymentPlanService.loadPaymentPlans()
        .subscribe(
         data => this.loadPaymentPlansOK(data),
-        err => this.loadErrorMessageService(err),
+        err => this.loadErrorMessageServicePaymentPlans(err),
         () => Logger.debug('Termino ejecucion paymentPlanService...')
     );
   }
@@ -83,7 +79,13 @@ export class PaymentPlanComponent implements OnInit{
       this.paymentPlans.push(paymentPlan);
     }
     Logger.debug("Planes de pago recuperados " + JSON.stringify(this.paymentPlans));
+    this.onLoadPayment = false;
     this.hideLoading();
+  }
+
+  loadErrorMessageServicePaymentPlans(error){
+    this.onLoadPayment = false;
+    this.loadErrorMessageService(error);
   }
 
   loadErrorMessageService(error){
@@ -94,28 +96,38 @@ export class PaymentPlanComponent implements OnInit{
     this.showMessageError = true;
   }
 
-  showLoading(){
-    this.displayLoading = "block";
+  hideLoading(){
+    this.loading = false;
+    this.changeDetectorRef.detectChanges();
   }
 
-  hideLoading(){
-    this.displayLoading = "none";
+  showLoading(){
+    this.loading = true;
+    this.changeDetectorRef.detectChanges();
   }
 
   goListCreate(goList: boolean) {
     this.inUpdatePaymentPlan = false;
     this.inCreatePaymentPlan = !goList;
     this.inListPaymentPlan = goList;
+    this.changeDetectorRef.detectChanges();
   }
 
   goListUpdate(goList: boolean){
     this.inCreatePaymentPlan = false;
     this.inUpdatePaymentPlan = !goList;
     this.inListPaymentPlan = goList;
+    this.changeDetectorRef.detectChanges();
   }
 
   loadData(event) {
+    
+    if(!this.onLoadPayment){
+    
       this.loadPaymentPlans();
+    
+    }
+
   }
 
   loadPaymentPlan(paymentPlan: PaymentPlan){

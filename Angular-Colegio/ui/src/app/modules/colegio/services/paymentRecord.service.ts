@@ -7,12 +7,48 @@ export class PaymentRecordService {
 
     constructor(private http: HttpRequest) { }
 
-    loadPaymentRecords(id: number): Observable<any> {
+    loadUnpaidObligations(idStudent: number): Observable<any> {
         var body = {
-                        "target": id
+                        "target": idStudent
                     };
         var token = "";
-        return this.http.post(body, "payments/obligationsStatus", token);
+        return this.http.post(body, "payments/unpaidObligations", token);
+    }
+
+    loadPaidObligations(idStudent: number): Observable<any> {
+        var body = {
+                        "target": idStudent
+                    };
+        var token = "";
+        return this.http.post(body, "payments/paidObligations", token);
+    }
+
+    payObligation(value: number, personWhoPaysId: number, obligationId: number) : Observable<any>{
+        var body = {
+                        "value": value,
+                        "personWhoPays": personWhoPaysId,
+                        "paymentUnits": [
+                                            {
+                                            "value": value,
+                                            "personBenefiting": personWhoPaysId,
+                                            "product": obligationId,
+                                            "paymentDirection": 1,
+                                            "paymentEntity": 1,
+                                            "paidOff": true
+                                            }
+                        ],
+                        "paymentDate": new Date()
+                    };
+        var token = "";
+        return this.http.post(body, "payments/pay", token);
+    }
+
+    getPayVoucher(idPaymentRecord: number): Observable<any>{
+        var body = {
+                        "target": idPaymentRecord
+                    };
+        var token = "";
+        return this.http.post(body, "payments/payVoucherReport", token);
     }
 
     getPaymentReportFromCourse(idCourse: number): Observable<any> {
@@ -20,7 +56,7 @@ export class PaymentRecordService {
                         "target": idCourse
                     };
         var token = "";
-        return this.http.post(body, "payments/paidObligationReport", token);
+        return this.http.post(body, "payments/paidObligationsReport", token);
     }
 
 }
