@@ -1,0 +1,246 @@
+<div class= "common-box-large">
+  <div class="row animated fadeIn">
+    <div class="col-12">
+      <button type="button" class="button-back" (click)="goToList(true)">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="delete-button button-align-right" (click)="confirmDelete()" *ngIf="inEdit"
+        pTooltip="Borrar Plan de Pago">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row animated fadeIn">
+    <div class="col-12" *ngIf="!inEdit">
+      <h1>Creando Plan de Pago</h1>
+    </div>
+    <div class="col-12" *ngIf="inEdit">
+      <h1>Modificando Plan de Pago</h1>
+    </div>
+  </div>
+  <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+    <div class="col-1 error-box-icon">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+    </div>
+    <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+      {{messageErrorInputs}}  
+    </div>
+    <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+      {{messageErrorService}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-6">
+          <input-commons [inputModel]="inputDescription" 
+            (valueModel)="setPaymentPlanDescription($event)" #descriptionComponent></input-commons>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 box-obligation-detail">
+          <div class="row">
+            <div class="col-4">
+              <button type="button" class="button-add  button-add-obligation" (click)="showDisplayPopUpObligation()"
+                pTooltip="Agregar Cuota">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="button-edit  button-edit-obligation" (click)="loadEditObligation()"
+                pTooltip="Editar Cuota" *ngIf="(obligationSelected != null) && (obligationSelected.description != null)">
+                <i class="fa fa-pencil-square-o edit-listbox animated fadeIn"  aria-hidden="true"></i>
+              </button>
+              <button type="button" class="button-delete  button-delete-obligation" (click)="loadDeleteObligation()"
+                pTooltip="Borrar Cuota" *ngIf="(obligationSelected != null) && (obligationSelected.description != null)">
+                <i class="fa fa-trash delete-listbox animated fadeIn" aria-hidden="true"></i>
+              </button>
+              <p-listbox [options]="obligations" [(ngModel)]="obligationSelected" (onChange)="obligationSelectedChange()"
+                filter="filter" class="animated fadeIn listbox-common" *ngIf="(obligations != null) && (obligations.length > 0)">
+                <ng-template let-obligation pTemplate="item">
+                    <div class="ui-helper-clearfix">
+                        <span class="label-with-buttons-listbox">{{obligation.label}}</span>
+                    </div>
+                </ng-template>
+              </p-listbox>
+              <div *ngIf="(obligations == null) || (obligations.length <= 0)" 
+                class="no-obligations-message animated fadeIn" [ngClass]="{'error-border-show': errorObligation}">
+                No se ingresaron cuotas.
+              </div>
+            </div>
+            <div class="col-4">
+              <button type="button" class="button-add  button-add-obligation" (click)="showDisplayPopUpDetail()"
+                pTooltip="Agregar Item" *ngIf="(obligationSelected != null) && (obligationSelected.description != null)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+
+              <button type="button" class="button-edit  button-edit-obligation" (click)="loadEditDetail()"
+                pTooltip="Editar Detalle" *ngIf="(detailSelected != null) && (detailSelected.description != null)">
+                <i class="fa fa-pencil-square-o edit-listbox animated fadeIn"  aria-hidden="true"></i>
+              </button>
+              <button type="button" class="button-delete  button-delete-obligation" (click)="loadDeleteDetail()"
+                pTooltip="Borrar Detalle" *ngIf="(detailSelected != null) && (detailSelected.description != null)">
+                <i class="fa fa-trash delete-listbox animated fadeIn" aria-hidden="true"></i>
+              </button>
+
+              <p-listbox [options]="details" 
+                [(ngModel)]="detailSelected" filter="filter" (onChange)="detailSelectedChange()" 
+                class="animated fadeIn listbox-common" *ngIf="(details != null) && (details.length > 0)" 
+                [ngClass]="{'error-border': errorItems}">
+                <ng-template let-detail pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <span class="label-with-buttons-listbox">{{detail.label}}</span>   
+                  </div>
+                </ng-template>
+              </p-listbox>
+              <div *ngIf="((details == null) || (details.length <= 0)) && (obligationSelected != null)" 
+                class="no-obligations-message animated fadeIn" [ngClass]="{'error-border-show': errorItems}">
+                No se ingresaron items.
+              </div>
+              <div *ngIf="((details == null) || (details.length <= 0)) && (obligationSelected == null)" 
+                class="no-obligations-message animated fadeIn">
+                Seleccione una cuota.
+              </div>
+            </div>
+            <div class="col-4">
+              <button type="button" class="button-add  button-add-obligation" (click)="showDisplayPopUpLittleDetail()"
+                pTooltip="Agregar Detalle" *ngIf="(detailSelected != null) && (detailSelected.description != null)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+
+              <button type="button" class="button-edit  button-edit-obligation" (click)="loadEditLittleDetail()"
+                pTooltip="Editar Detalle" *ngIf="(littleDetailSelected != null) && (littleDetailSelected.description != null)">
+                <i class="fa fa-pencil-square-o edit-listbox animated fadeIn"  aria-hidden="true"></i>
+              </button>
+              <button type="button" class="button-delete  button-delete-obligation" (click)="loadDeleteLittleDetail()"
+                pTooltip="Borrar Detalle" *ngIf="(littleDetailSelected != null) && (littleDetailSelected.description != null)">
+                <i class="fa fa-trash delete-listbox animated fadeIn" aria-hidden="true"></i>
+              </button>
+
+              <p-listbox [options]="littleDetails" 
+                [(ngModel)]="littleDetailSelected" filter="filter" (onChange)="refreshListBox()" 
+                class="animated fadeIn listbox-common" *ngIf="(littleDetails != null) && (littleDetails.length > 0)">
+                <ng-template let-littleDetail pTemplate="item">
+                  <div class="ui-helper-clearfix">
+                    <span class="label-with-buttons-listbox">{{littleDetail.label}}</span>     
+                  </div>
+                </ng-template>
+              </p-listbox>
+              <div *ngIf="((littleDetails == null) || (littleDetails.length <= 0)) && (detailSelected != null)" 
+                class="no-obligations-message-large animated fadeIn">
+                No se ingresaron detalles.
+              </div>
+              <div *ngIf="((littleDetails == null) || (littleDetails.length <= 0)) && (detailSelected == null)" 
+                class="no-obligations-message animated fadeIn">
+                Seleccione un item.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button (click)="confirm()" class="custom-green-button" type="button">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUp}">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content animated" [ngClass]="{'fadeIn': obligationContentActive}" *ngIf="obligationContentActive">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nueva Cuota</h3>
+        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Cuota</h3>
+      </div>
+      <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
+        <div class="col-1 error-box-icon">
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        </div>
+        <div class="col-11 error-box-message">
+          {{messageErrorInputsPopUp}}  
+        </div>
+      </div> 
+      <div class="row modal-body">
+        <h5 class="col-12">Fecha de Vencimiento</h5>
+        <p-calendar class="col-12" [(ngModel)]="dateObligation" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+        <input-commons class="col-12" [inputModel]="inputObligationDescription" (valueModel)="setPaymentPlanObligationDescription($event)"></input-commons>
+      </div>
+      <div class="row modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveSelectedObligation()" *ngIf="!inEditPopUp">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="saveSelectedObligationEdit()" *ngIf="inEditPopUp">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUpObligation()">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="modal-content animated" [ngClass]="{'fadeIn': detailContentActive}" *ngIf="detailContentActive">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nuevo Item</h3>
+        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Item</h3>
+      </div>
+      <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
+        <div class="col-1 error-box-icon">
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        </div>
+        <div class="col-11 error-box-message">
+          {{messageErrorInputsPopUp}}  
+        </div>
+      </div> 
+      <div class="row modal-body">
+        <input-commons class="col-12" [inputModel]="inputDetailDescription" (valueModel)="setPaymentPlanObligationPriceDetailDescription($event)"></input-commons>
+        <input-commons class="col-12" [inputModel]="inputDetailValue" (valueModel)="setPaymentPlanObligationPriceDetailValue($event)"></input-commons>
+      </div>
+      <div class="row modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveSelectedDetail()" *ngIf="!inEditPopUp">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="saveSelectedDetailEdit()" *ngIf="inEditPopUp">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUpDetail()">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="modal-content animated" [ngClass]="{'fadeIn': littleDetailContentActive}" *ngIf="littleDetailContentActive">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title" *ngIf="!inEditPopUp">Nuevo Detalle</h3>
+        <h3 class="col-12 modal-title" *ngIf="inEditPopUp">Modificando Detalle</h3>
+      </div>
+      <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
+        <div class="col-1 error-box-icon">
+          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+        </div>
+        <div class="col-11 error-box-message">
+          {{messageErrorInputsPopUp}}  
+        </div>
+      </div> 
+      <div class="row modal-body">
+        <input-commons class="col-12" [inputModel]="inputLittleDetailDescription" (valueModel)="setPaymentPlanObligationPriceLittleDetailDescription($event)"></input-commons>
+        <input-commons class="col-12" [inputModel]="inputLittleDetailValue" (valueModel)="setPaymentPlanObligationPriceLittleDetailValue($event)"></input-commons>
+      </div>
+      <div class="row modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveSelectedLittleDetail()" *ngIf="!inEditPopUp">Guardar</button>
+        <button type="button" class="btn btn-primary" (click)="saveSelectedLittleDetailEdit()" *ngIf="inEditPopUp">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayConfirmPopUp}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content animated fadeIn">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">¿Seguro quiere borrar el plan de pago {{paymentPlan.description}}?</h3>
+      </div>
+      <div class="row modal-body">
+        <button type="button" class="btn btn-primary min-width-40" (click)="deleteSelectedPaymentPlan()">Confirmar</button>
+        <button type="button" class="btn btn-secondary min-width-40" data-dismiss="modal" (click)="hideDisplayConfirmPopUp()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
+</div>

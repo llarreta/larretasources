@@ -1,0 +1,81 @@
+<div class= "common-box">
+  <div class="row animated fadeIn">
+    <div class="col-12">
+      <button type="button" class="button-back" (click)="goToList()">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="delete-button button-align-right" (click)="confirmDelete()" *ngIf="inEdit"
+        pTooltip="Borrar Curso">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row animated fadeIn">
+    <div class="col-12">
+        <h1 *ngIf="!inEdit">Creando Curso</h1>
+        <h1 *ngIf="inEdit">Modificando Curso</h1>
+    </div>
+  </div>
+  <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+    <div class="col-1 error-box-icon">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+    </div>
+    <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+      {{messageErrorInputs}}  
+    </div>
+    <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+      {{messageErrorService}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-4">
+          <p-dropdown [options]="levels" [(ngModel)]="course.level" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}"
+            [ngClass]="{'error-border': errorLevel, 'is-all-ok': (course.level != null)}">
+          </p-dropdown>
+        </div>
+        <div class="col-4">
+          <p-dropdown [options]="years" [(ngModel)]="course.year" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}"
+            [ngClass]="{'error-border': errorYear, 'is-all-ok': (course.year != null)}">
+          </p-dropdown>
+        </div>
+        <div class="col-4">
+          <p-dropdown [options]="divisions" [(ngModel)]="course.division" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}"
+            [ngClass]="{'error-border': errorDivision, 'is-all-ok': (course.division != null)}">
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button (click)="confirm()" class="custom-green-button" type="button">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUp}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content animated fadeIn">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">¿Seguro quiere borrar el curso {{getCourseDescription()}}?</h3>
+      </div>
+      <div class="row modal-body">
+        <button type="button" class="btn btn-primary min-width-40" (click)="deleteSelectedCourse()">Confirmar</button>
+        <button type="button" class="btn btn-secondary min-width-40" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
+</div>

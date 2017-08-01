@@ -1,0 +1,37 @@
+.table-commons-paginator-container {
+    text-align: center;
+    background-color: rgba(221, 221, 221, 0.69);
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-shadow: 1px 1px 5px -2px rgba(128, 128, 128, 0.65);
+}
+
+button.table-commons-paginator-button {
+    margin-right: 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.74);
+    transition: color 0.25s linear;
+}
+
+button.table-commons-paginator-button:hover {
+    color: lightgray;
+    cursor: pointer;
+}
+
+.table-commons-emptymessage {
+    background: whitesmoke;
+    color: darkgray;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px -2px rgba(128, 128, 128, 0.65);
+    width: 25px;
+}
+
+button.table-commons-paginator-button.table-commons-paginator-button-active {
+    background: rgb(34, 169, 224);
+    border-radius: 8px;
+}

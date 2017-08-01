@@ -1,0 +1,120 @@
+<div class= "common-box">
+  <div class="row animated fadeIn">
+    <div class="col-12">
+      <button type="button" class="button-back" (click)="goToList(true)" pTooltip="Volver">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="delete-button button-align-right" (click)="confirmDelete()" *ngIf="inEdit"
+        pTooltip="Borrar Alumno">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row animated fadeIn">
+    <div class="col-12" *ngIf="!inEdit">
+        <h1>Creando Alumnos</h1>
+    </div>
+    <div class="col-12" *ngIf="inEdit">
+        <h1>Modificando Alumnos</h1>
+    </div>
+  </div>
+  <div *ngIf="showMessageError" class="row error-box animated fadeInDown">
+    <div class="col-1 error-box-icon">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+    </div>
+    <div *ngIf="showMessageErrorInput" class="col-11 error-box-message">
+      {{messageErrorInputs}}  
+    </div>
+    <div *ngIf="showMessageErrorService" class="col-11 error-box-message">
+      {{messageErrorService}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-6">
+        </div>
+
+        <div class="col-6">
+          <div class="upload-image-container">
+            <img src="src/assets/images/user-image.png" class="image-example-user" *ngIf="student.photo == null"/>
+            <img [src]="student.photo" accept="image/*" class="student-photo-load" *ngIf="student.photo != null"/>
+            <i class="fa fa-plus add-new-image" aria-hidden="true">
+              <input class="image-file" type="file" title=" " pTooltip="Seleccionar foto" #photo (change)="onPhotoSelect(photo.files)"/>
+            </i>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input-commons #nameComponent [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
+        </div>
+
+        <div class="col-6">
+          <input-commons #surnameComponent [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p-dropdown [options]="documentTypes" [(ngModel)]="student.documentType" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" 
+            [ngClass]="{'error-border': errorDocumentType,'is-all-ok': isDocumentTypeOK}"
+            (onChange)="documentTypeChange()">
+          </p-dropdown>
+        </div>
+        <div class="col-6">
+          <input-commons #documentNumberComponent
+            [inputModel]="inputDocumentNumber"
+          (valueModel)="setDocumentNumber($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input-commons #emailComponent [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
+        </div>
+        <div class="col-6">
+          <h3>Planes de Pago</h3>
+          <p-listbox [options]="paymentPlansListBox" [(ngModel)]="student.paymentPlans" 
+            multiple="multiple" checkbox="checkbox" filter="filter" class="listbox-common"
+            [ngClass]="{'error-border': errorPaymentPlans, 'is-all-ok': isPaymentPlansOK}"
+            (onChange)="paymentPlanChange()"></p-listbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <h3>Cursos</h3>
+          <p-listbox [options]="coursesListBox" [(ngModel)]="student.course" 
+            filter="filter" class="listbox-common" [ngClass]="{'error-border': errorCourses, 
+            'is-all-ok': isCoursesOK}" (onChange)="coursesChange()"></p-listbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 confirm-student">
+          <button (click)="confirm()" class="custom-green-button" type="button">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal animated fadeIn" [ngClass]="{'display-block': loading, 'display-none': !loading}">
+  <table class="table-loading">
+    <tr>
+      <td>
+        <loading-commons class="loading-class" [fontSize]="50"></loading-commons>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUp}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content animated fadeIn">
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">¿Seguro quiere borrar el alumno {{student.name}} {{student.surname}}?</h3>
+      </div>
+      <div class="row modal-body">
+        <button type="button" class="btn btn-primary min-width-40" (click)="deleteSelectedStudent()">Confirmar</button>
+        <button type="button" class="btn btn-secondary min-width-40" data-dismiss="modal" (click)="hideDisplayPopUp()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
