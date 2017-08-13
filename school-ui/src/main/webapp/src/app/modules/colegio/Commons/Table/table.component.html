@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-12">
+        <div class="col-12" *ngIf="tableModel.globalFilter">
+            <input-commons [inputModel]="inputGlobalFilter" (valueModel)="setGlobalFilter($event)"></input-commons>
+        </div>  
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th *ngFor="let column of tableModel.columns; let iColumn = index" class="{{column.classStyle}}">
+                        {{column.header}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody *ngIf="valuesForView.length > 0">
+                <tr *ngFor="let value of valuesForView[actualPage]; let iValue = index" class="animated fadeIn">
+                    <td class="table-commons-td" *ngFor="let valueChild of value.slice(1); let iValueChild = index">
+                        <div *ngIf="!tableModel.columns[iValueChild].columnButton">
+                            {{valueChild}}
+                        </div>
+                        <div style="min-width:90px!important" *ngIf="tableModel.columns[iValueChild].columnButton">
+                            <button *ngFor="let button of tableModel.columns[iValueChild].buttons" 
+                                (click)="buttonClick(button.action, value[0])"
+                                class="{{button.styleClass}}" type="button">
+                                {{button.label}}
+                                <i class="fa {{button.iconAwesome}} {{button.iconAwesomeStyleClass}}" aria-hidden="true"></i> 
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="valuesForView.length == 0" class="table-commons-emptymessage">
+            {{tableModel.emptyMessage}}
+        </div>
+    </div>
+</div>
+        

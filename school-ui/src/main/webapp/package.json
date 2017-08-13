@@ -1,0 +1,50 @@
+{
+  "name": "sadmin",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server\"",
+    "lite": "lite-server",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "compass": "compass watch"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/angular/angular.io/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "@angular/animations": "4.3.1",
+    "@angular/common": "4.3.1",
+    "@angular/compiler": "4.3.1",
+    "@angular/core": "4.3.1",
+    "@angular/forms": "4.3.1",
+    "@angular/http": "4.3.1",
+    "@angular/platform-browser": "4.3.1",
+    "@angular/platform-browser-dynamic": "4.3.1",
+    "@angular/platform-server": "4.3.1",
+    "@angular/router": "4.3.1",
+    "@angular/upgrade": "4.3.1",
+    "core-js": "2.4.1",
+    "json-loader": "0.5.4",
+    "primeng": "4.0.0",
+    "reflect-metadata": "0.1.8",
+    "typescript": "2.2.2",
+    "symbol-observable": "1.0.4",
+    "rxjs": "5.3.0",
+    "systemjs": "0.19.39",
+    "zone.js": "0.8.4",
+    "text-mask-core": "5.0.1", 
+    "angular2-text-mask": "8.0.2",
+    "text-mask-addons": "3.6.0"
+  },
+  "devDependencies": {
+    "@types/core-js": "0.9.34",
+    "@types/node": "6.0.45",
+    "concurrently": "3.0.0",
+    "lite-server": "2.2.2",
+    "compass": "0.1.1",
+    "typescript": "2.2.2"
+  }
+}

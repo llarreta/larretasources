@@ -1,0 +1,52 @@
+<div class="row menu-custom">
+  <div class="col-md-12">
+      <div class="nav-toggle" id="nav-toggle" (click)="openCloseMenu()"
+        [ngClass]="{'active': menuActive}" >
+          <span class="top"></span>
+          <span class="middle"></span>
+          <span class="bottom"></span>
+      </div>
+      <div class="navbar" id="navbar" [ngClass]="{'open': menuActive}">
+          <nav>
+              <ul>
+                  <li (click)="goHome()">
+                    <i class="fa fa-home icon-menu"></i>
+                    <a class="item-menu">
+                      HOME
+                    </a>
+                  </li>
+                  <li (click)="goStudents()">
+                    <i class="fa fa-user icon-menu"></i>
+                    <a class="item-menu">
+                      Alumnos
+                    </a>
+                  </li>
+                  <li (click)="goCourses()">
+                    <i class="fa fa-users icon-menu"></i>
+                    <a class="item-menu">
+                      Cursos
+                    </a>
+                  </li>
+                  <li (click)="goPaymentPlans()">
+                    <i class="fa fa-tasks icon-menu"></i>
+                    <a class="item-menu">
+                      Planes de Pago
+                    </a>
+                  </li>
+                  <li (click)="goPaymentRecord()">
+                    <i class="fa fa-money icon-menu"></i>
+                    <a class="item-menu" href="#">
+                      Pagos
+                    </a>
+                  </li>
+                  <!--<li (click)="openCloseMenu()">
+                    <i class="fa fa-male icon-menu"></i>
+                    <a class="item-menu" href="#">
+                      Responsables
+                    </a>
+                  </li>-->
+              </ul>
+          </nav>
+      </div>
+  </div>
+</div>
