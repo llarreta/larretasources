@@ -17,7 +17,6 @@ import ar.com.larreta.school.messages.LittleDetailData;
 import ar.com.larreta.school.messages.LoadStudentData;
 import ar.com.larreta.school.messages.LoadStudentsData;
 import ar.com.larreta.school.messages.ObligationData;
-import ar.com.larreta.school.messages.PriceData;
 import ar.com.larreta.school.messages.UpdatePaymentPlansBody;
 import ar.com.larreta.stepper.Step;
 import ar.com.larreta.stepper.controllers.HelpConfig;

@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import ar.com.larreta.mystic.exceptions.PersistenceException;
 import ar.com.larreta.mystic.query.Query;
-import ar.com.larreta.mystic.query.Where;
+import ar.com.larreta.mystic.query.wheres.Where;
 import ar.com.larreta.stepper.exceptions.BusinessException;
 
 public abstract class WhereBusinessListener<W extends Where> extends StepImpl implements SourcedListener, TargetedListener, ValuedListener{

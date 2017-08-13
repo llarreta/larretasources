@@ -1,4 +1,4 @@
-package ar.com.larreta.mystic.query;
+package ar.com.larreta.mystic.query.wheres;
 
 import java.io.Serializable;
 
@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.mystic.query.Reference;
 import ar.com.larreta.tools.Const;
 
 @Component(Equal.NAME)

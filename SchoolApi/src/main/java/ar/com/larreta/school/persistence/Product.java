@@ -42,7 +42,7 @@ public class Product extends ParametricEntity{
 		this.paymentUnits = paymentUnits;
 	}
 
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=ProductGroup.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=ProductGroup.class, cascade=CascadeType.ALL)
 	@JoinColumn (name="idProductGroup")
 	public ProductGroup getProductGroup() {
 		return productGroup;

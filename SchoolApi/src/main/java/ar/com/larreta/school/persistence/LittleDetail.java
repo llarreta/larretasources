@@ -1,6 +1,7 @@
 package ar.com.larreta.school.persistence;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class LittleDetail extends ParametricEntity {
 		this.value = value;
 	}
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Detail.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Detail.class, cascade=CascadeType.ALL)
 	@JoinColumn (name="idDetail")
 	public Detail getDetail() {
 		return detail;

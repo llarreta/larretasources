@@ -1,4 +1,4 @@
-package ar.com.larreta.mystic.query;
+package ar.com.larreta.mystic.query.wheres;
 
 import java.io.Serializable;
 

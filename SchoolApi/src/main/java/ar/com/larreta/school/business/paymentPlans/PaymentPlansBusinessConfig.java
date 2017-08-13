@@ -1,8 +1,6 @@
 package ar.com.larreta.school.business.paymentPlans;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +11,6 @@ import ar.com.larreta.school.messages.ObligationData;
 import ar.com.larreta.school.persistence.Detail;
 import ar.com.larreta.school.persistence.LittleDetail;
 import ar.com.larreta.school.persistence.Obligation;
-import ar.com.larreta.school.persistence.Price;
 import ar.com.larreta.stepper.impl.BusinessConfig;
 import ar.com.larreta.stepper.impl.IteratorListener;
 
@@ -69,11 +66,11 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 			@Override
 			protected Serializable getTargetToCollection(Serializable sourceFromCollection) {
 				Obligation obligation = (Obligation) super.getTargetToCollection(sourceFromCollection);
-				Price price = applicationContext.getBean(Price.class);
+				/*Price price = applicationContext.getBean(Price.class);
 				this.addArg(price);
 				Set<Price> prices = new HashSet<>();
 				prices.add(price);
-				obligation.setPrices(prices);
+				obligation.setPrices(prices);*/
 				return obligation;
 			}
 
@@ -212,7 +209,7 @@ public class PaymentPlansBusinessConfig extends BusinessConfig{
 			public Serializable getSource(Serializable source, Serializable target, Object... args) {
 				Obligation obligation = (Obligation) super.getSource(source, target, args);
 				//FIXME: deberia devolver siempre el precio actual
-				return obligation.getPrices().iterator().next();
+				return null;
 			}
 
 			/*@Override

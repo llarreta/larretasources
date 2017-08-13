@@ -27,9 +27,19 @@ import ar.com.larreta.tools.Const;
 public class Obligation extends Product {
 	
 	private Date dueDate;
-	private Set<Price> prices;
+	private Set<Detail> details;
 	private PaymentPlan paymentPlan;
 	private Set<ObligationStatus> obligationStatus;
+	
+	@OneToMany (mappedBy="obligation", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=Detail.class, orphanRemoval=true)
+	@Where(clause="deleted IS NULL")
+	public Set<Detail> getDetails() {
+		return details;
+	}
+	public void setDetails(Set<Detail> details) {
+		this.details = details;
+		writeToAll(details, "obligation", this);
+	}
 	
 	@OneToMany (mappedBy="obligation", fetch=FetchType.LAZY, targetEntity=ObligationStatus.class)
 	@Where(clause="deleted IS NULL")
@@ -40,7 +50,7 @@ public class Obligation extends Product {
 		this.obligationStatus = obligationStatus;
 	}
 	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=PaymentPlan.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=PaymentPlan.class, cascade=CascadeType.ALL)
 	@JoinColumn (name="idPaymentPlan")
 	public PaymentPlan getPaymentPlan() {
 		return paymentPlan;
@@ -56,16 +66,5 @@ public class Obligation extends Product {
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
-	
-	@OneToMany (mappedBy="obligation", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=Price.class)
-	@Where(clause="deleted IS NULL")
-	public Set<Price> getPrices() {
-		return prices;
-	}
-	public void setPrices(Set<Price> prices) {
-		this.prices = prices;
-		writeToAll(prices, "obligation", this);
-	}
-
 	
 }

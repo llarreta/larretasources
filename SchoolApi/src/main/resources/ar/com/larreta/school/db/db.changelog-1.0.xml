@@ -158,21 +158,6 @@
     							baseTableName		="obligation"				baseColumnNames			="id"
     							/>  							  
 
-    <createTable tableName="price" >
-      <column name="id" 			type="bigint" 		autoIncrement="true">
-        <constraints nullable="false" primaryKey="true" unique="true"/>
-      </column>
-      <column name="deleted"			type="datetime" />
-      <column name="idObligation"		type="bigint" />
-      <column name="validityStartDate"	type="datetime" />
-      <column name="value"			type="double" />
-    </createTable>
-
-    <addForeignKeyConstraint 	constraintName		="priceObligation" 
-    							referencedTableName	="obligation"				referencedColumnNames	="id" 
-    							baseTableName		="price"					baseColumnNames			="idObligation"
-    							/>  
-
     <createTable tableName="detail" >
       <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
@@ -180,12 +165,12 @@
       <column name="deleted"			type="datetime" />
       <column name="description"		type="varchar(255)" />
       <column name="detailValue"		type="double" />
-      <column name="idPrice"			type="bigint" />
+      <column name="idObligation"		type="bigint" />
     </createTable>
 
-    <addForeignKeyConstraint 	constraintName		="detailPrice" 
-    							referencedTableName	="price"					referencedColumnNames	="id" 
-    							baseTableName		="detail"					baseColumnNames			="idPrice"
+    <addForeignKeyConstraint 	constraintName		="detailObligation" 
+    							referencedTableName	="obligation"				referencedColumnNames	="id" 
+    							baseTableName		="detail"					baseColumnNames			="idObligation"
     							/>  
 
     <createTable tableName="littleDetail" >

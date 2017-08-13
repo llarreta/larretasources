@@ -31,8 +31,16 @@ public class Detail extends ParametricEntity{
 
 	private Double value;
 	private Set<LittleDetail> littleDetails;
-	private Price price;
+	private Obligation obligation;
 
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Obligation.class, cascade=CascadeType.ALL)
+	@JoinColumn (name="idObligation")
+	public Obligation getObligation() {
+		return obligation;
+	}
+	public void setObligation(Obligation obligation) {
+		this.obligation = obligation;
+	}
 	@Basic @Column (name="detailValue")
 	public Double getValue() {
 		if (littleDetails!=null && littleDetails.size()>0){
@@ -49,7 +57,7 @@ public class Detail extends ParametricEntity{
 		this.value = value;
 	}
 
-	@OneToMany (mappedBy="detail", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=LittleDetail.class)
+	@OneToMany (mappedBy="detail", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=LittleDetail.class, orphanRemoval=true)
 	@Where(clause="deleted IS NULL")
 	public Set<LittleDetail> getLittleDetails() {
 		return littleDetails;
@@ -58,14 +66,5 @@ public class Detail extends ParametricEntity{
 		this.littleDetails = littleDetails;
 		writeToAll(littleDetails, "detail", this);
 	}
-	
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Price.class)
-	@JoinColumn (name="idPrice")
-	public Price getPrice() {
-		return price;
-	}
-	public void setPrice(Price price) {
-		this.price = price;
-	}	
 
 }

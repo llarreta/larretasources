@@ -30,7 +30,7 @@ public class PaymentPlan extends ParametricEntity {
 	private Set<Obligation> obligations;
 	private Set<Student> students;
 	
-	@ManyToMany (fetch=FetchType.LAZY, targetEntity=Student.class, cascade=CascadeType.PERSIST )
+	@ManyToMany (fetch=FetchType.LAZY, targetEntity=Student.class, cascade=CascadeType.ALL )
 	@JoinTable(name = "studentPaymentPlan", joinColumns = { @JoinColumn(name = "idPaymentPlan") }, 
 		inverseJoinColumns = { @JoinColumn(name = "idStudent") })
 	public Set<Student> getStudents() {

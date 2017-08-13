@@ -12,10 +12,19 @@ import javax.annotation.PostConstruct;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 
 import ar.com.larreta.annotations.Log;
 import ar.com.larreta.mystic.exceptions.PersistenceException;
+import ar.com.larreta.mystic.query.wheres.Equal;
+import ar.com.larreta.mystic.query.wheres.EqualYear;
+import ar.com.larreta.mystic.query.wheres.In;
+import ar.com.larreta.mystic.query.wheres.InSubquery;
+import ar.com.larreta.mystic.query.wheres.NotIn;
+import ar.com.larreta.mystic.query.wheres.NotInSubquery;
+import ar.com.larreta.mystic.query.wheres.Where;
+import ar.com.larreta.tools.BeanUtils;
 
 public class Query implements Serializable {
 	
@@ -27,11 +36,13 @@ public class Query implements Serializable {
 	@Autowired
 	private ReferencesManager 					referencesManager;
 	
-	@Autowired
 	private QueryBuilder 						queryBuilder;
 	
 	@Autowired
 	protected SessionFactory 					sessionFactory;
+	
+	@Autowired
+	protected BeanUtils 						beanUtils;
 	
 	private Instruction 				instruction;
 	private Set<Reference> 				projections;
@@ -75,7 +86,18 @@ public class Query implements Serializable {
 	
 	@Override
 	public String toString() {
+		addMainEntityToOrphans();
 		return queryBuilder.build();
+	}
+
+	private void addMainEntityToOrphans() {
+		//Revisar huerfanos
+		Collection<Reference> orphans = referencesManager.getOrphans();
+		Iterator<Reference> it = orphans.iterator();
+		while (it.hasNext()) {
+			Reference reference = (Reference) it.next();
+			reference.setParentReference(mainEntity);
+		}
 	}
 
 	public Set<Aggregate> getAggregates() {
@@ -84,6 +106,11 @@ public class Query implements Serializable {
 
 	public QueryBuilder getQueryBuilder() {
 		return queryBuilder;
+	}
+	
+	@Autowired @Qualifier(QueryBuilder.NAME)
+	public void setQueryBuilder(QueryBuilder queryBuilder) {
+		this.queryBuilder = queryBuilder;
 	}
 
 	public Set<Where> getWheres() {
@@ -123,11 +150,12 @@ public class Query implements Serializable {
 		Reference reference = applicationContext.getBean(Reference.class);
 		reference.setDescription(mainEntity);
 		reference.setQuery(this);
-		this.mainEntity = reference;
+		addMainEntity(reference);
 	}
 	
 	public void addMainEntity(Reference	mainEntity){
 		this.mainEntity = mainEntity;
+		mainEntity.setMainEntity(Boolean.TRUE);
 	}
 
 	public void addProjections(String ... projections){
@@ -168,6 +196,19 @@ public class Query implements Serializable {
 	
 	public Collection execute() throws PersistenceException{
 		org.hibernate.Query query = getQuery();
+		setValues(query);
+		return execute(query);
+	}
+
+	protected Collection execute(org.hibernate.Query query) {
+		return query.list();
+	}
+
+	public void setValues(org.hibernate.Query query) {
+		setValues(query, this.wheres);
+	}
+
+	protected void setValues(org.hibernate.Query query, Set<Where> wheres) {
 		if (wheres.size()>0){
 			Iterator<Where> it = wheres.iterator();
 			while (it.hasNext()) {
@@ -175,7 +216,6 @@ public class Query implements Serializable {
 				where.setValues(query);
 			}
 		}
-		return query.list();
 	}
 	
 	public void addWhereEqual(String description,  Serializable value){
@@ -193,5 +233,39 @@ public class Query implements Serializable {
 		equal.setValue(value);
 		wheres.remove(equal);
 		wheres.add(equal);
+	}
+
+	public void addWhereIn(String description, Collection values) {
+		addWhereIn(In.NAME, description, values);
+	}
+	
+	public void addWhereNotIn(String description, Collection values) {
+		addWhereIn(NotIn.NAME, description, values);
+	}
+
+	protected void addWhereIn(String type, String description, Collection values) {
+		if (values!=null && values.size()>0){
+			In in = (In) applicationContext.getBean(type);
+			in.setReference(referencesManager.buildReference(description));
+			in.setValues(values);
+			wheres.remove(in);
+			wheres.add(in);
+		}
+	}
+
+	public void addWhereInSubquery(String description, Select select) {
+		addWhereInSubquery(InSubquery.NAME, description, select);
+	}
+	
+	public void addWhereNotInSubquery(String description, Select select) {
+		addWhereInSubquery(NotInSubquery.NAME, description, select);
+	}
+	
+	protected void addWhereInSubquery(String type, String description, Select select) {
+		InSubquery in = (InSubquery) applicationContext.getBean(type);
+		in.setReference(referencesManager.buildReference(description));
+		in.setSelect(select);
+		wheres.remove(in);
+		wheres.add(in);
 	}
 }

@@ -5,8 +5,11 @@ import javax.validation.Valid;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import ar.com.larreta.mystic.model.DocumentType;
+import ar.com.larreta.school.persistence.ProductGroup;
 import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.Format;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
 import ar.com.larreta.tools.Const;
@@ -17,17 +20,13 @@ public class ObligationData extends JSONable {
 	private Long 			id;
 	private String 			description;
 	
+	@Exist(message="productGroup.inexistent", entityType=ProductGroup.class)
 	private Long 	productGroup;
 	
 	@Format(formatType=Format.FormatType.DATE, message="dueDate.obligation.invalid")
 	@NotNull(message="dueDate.required")
 	private String 	dueDate;
 	
-	/*@Valid
-	@NotNull(message="prices.required")
-	@ar.com.larreta.validators.annotations.Size(message="prices.mayorOrEqual", mayorOrEqual=1)
-	private JSONableCollection<PriceData> prices;
-	*/
 	@Valid
 	private JSONableCollection<DetailData> details;
 	

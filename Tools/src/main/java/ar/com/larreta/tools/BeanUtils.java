@@ -2,6 +2,7 @@ package ar.com.larreta.tools;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -264,16 +265,44 @@ public class BeanUtils {
 		}
 	}
 	
+	public Collection<PropertyAnnotation> getAnnotatedProperties(Class type, Class<? extends Annotation> annotation){
+		Collection<PropertyAnnotation> properties = new ArrayList<>();
+		PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(type);
+		Collection<PropertyDescriptor> descriptorsCol = Arrays.asList(descriptors);
+		Iterator<PropertyDescriptor> it = descriptorsCol.iterator();
+		while (it.hasNext()) {
+			PropertyDescriptor propertyDescriptor = (PropertyDescriptor) it.next();
+			if (propertyDescriptor.getReadMethod().isAnnotationPresent(annotation)){
+				properties.add(new PropertyAnnotation(propertyDescriptor.getName(),
+						propertyDescriptor.getReadMethod().getAnnotation(annotation))
+						);
+			}
+		}
+		return properties;
+	}
+	
+	
 	public Class getPropertyType (Object source, String property){
 		if (source!=null && !StringUtils.isEmpty(property)) {
-			Method method = MethodUtils.getAccessibleMethod(source.getClass(), GET + property.substring(0, 1).toUpperCase() + property.substring(1), null);
-			if (method!=null){
-				return method.getReturnType();
-			}
+			Class type = source.getClass();
+			String propertyName = property;
+			return getPropertyType(type, propertyName);
 		}
 		return null;
 	}
 
+	public Class getPropertyType(Class type, String propertyName) {
+		Method method = MethodUtils.getAccessibleMethod(type, GET + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1), null);
+		if (method!=null){
+			return method.getReturnType();
+		}
+		return null;
+	}
+
+	private Set<String> getPropertiesNames(Object source) {
+		return getPropertiesNames(source, null);
+	}
+	
 	private Set<String> getPropertiesNames(Object source, Object target) {
 		Collection<PropertyDescriptor> descriptors = new ArrayList<>();
 		if (source!=null){

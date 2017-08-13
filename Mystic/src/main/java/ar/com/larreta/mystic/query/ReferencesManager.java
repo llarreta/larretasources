@@ -1,7 +1,10 @@
 package ar.com.larreta.mystic.query;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,4 +74,17 @@ public class ReferencesManager implements Serializable {
 		return references.get(description);
 	}
 	
+	public Collection getOrphans(){
+		Collection<Reference> orphans = new ArrayList<>();
+		Iterator<Reference> it = references.values().iterator();
+		while (it.hasNext()) {
+			Reference reference = it.next();
+			//FIXME: Revisar si esta condicion aplica en todos los casos
+			if (!reference.containParent()){
+				orphans.add(reference);
+			}
+		}
+		return orphans;
+		
+	}
 }

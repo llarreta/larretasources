@@ -19,58 +19,11 @@ public class Reference implements Serializable {
 	
 	private String description;
 	private String alias;
-
-	public String getVirtualPath(){
-		StringBuilder builder = new StringBuilder();
-		if (parentReference!=null){
-			builder.append(parentReference.getVirtualPath());
-			builder.append(DOT);
-		}
-		builder.append(alias);
-		return builder.toString();
-	}
 	
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		if (parentReference!=null){
-			builder.append(parentReference.getAlias());
-			builder.append(DOT);
-		}
-		builder.append(getShortDescription());
-		return builder.toString();
-	}
-	
-	public Reference getParentReference() {
-		return parentReference;
-	}
-
-	public void setParentReference(Reference parentReference) {
-		this.parentReference = parentReference;
-	}
+	private Boolean mainEntity = Boolean.FALSE;
 	
 	public String getDescription() {
 		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-		alias = generateAlias();
-	}
-
-	public String generateAlias() {
-		Collection<String> splitted = ar.com.larreta.tools.StringUtils.splitWords(getShortDescription());
-		Iterator<String> it = splitted.iterator();
-		StringBuilder builder = new StringBuilder();
-		while (it.hasNext()) {
-			String toGenerateAlias = it.next().toUpperCase();
-			if (toGenerateAlias.length()>3){
-				toGenerateAlias = toGenerateAlias.substring(0, 3);
-			}
-			builder.append(toGenerateAlias);
-		}
-		
-		String index = new Long(System.currentTimeMillis()).toString();
-		return builder.toString() + index.substring(index.length() - 2);
 	}
 
 	public String getShortDescription() {
@@ -81,10 +34,73 @@ public class Reference implements Serializable {
 		}
 		return toShortDescription;
 	}
-	
+
 	public String getAlias() {
 		return alias;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		if (containParent()){
+			builder.append(parentReference.getAlias());
+			builder.append(DOT);
+		}
+		String shortDescription = getShortDescription();
+		if (mainEntity){
+			shortDescription = getAlias();
+		}
+		builder.append(shortDescription);
+		return builder.toString();
+	}
+	
+	public Boolean getMainEntity() {
+		return mainEntity;
+	}
+
+	public void setMainEntity(Boolean mainEntity) {
+		if (mainEntity!=null){
+			this.mainEntity = mainEntity;
+		}
+	}
+
+	public Boolean isAliasEnable(){
+		return containParent() && (description.indexOf(DOT)>0);
+	}
+
+	public Boolean containParent() {
+		return parentReference!=null;
+	}
+	
+	public Reference getParentReference() {
+		return parentReference;
+	}
+
+	public void setParentReference(Reference parentReference) {
+		this.parentReference = parentReference;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+		alias = generateAlias();
+	}
+
+	private String generateAlias() {
+		Collection<String> splitted = ar.com.larreta.tools.StringUtils.splitWords(getShortDescription());
+		Iterator<String> it = splitted.iterator();
+		StringBuilder builder = new StringBuilder();
+		while (it.hasNext()) {
+			String toGenerateAlias = it.next().toUpperCase();
+			if (toGenerateAlias.length()>3){
+				toGenerateAlias = toGenerateAlias.substring(0, 3);
+			}
+			builder.append(toGenerateAlias);
+		}
+	
+		String index = new Long(System.currentTimeMillis()).toString();
+		return builder.toString() + index.substring(index.length() - 2);
+	}
+	
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}

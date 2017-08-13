@@ -8,10 +8,8 @@ import ar.com.larreta.tools.Const;
 
 @Component @Scope(Const.PROTOTYPE)
 public class Select extends Query {
-
 	@Autowired
 	public void setInstruction(SelectInstruction instruction) {
 		super.setInstruction(instruction);
 	}
-
 }
