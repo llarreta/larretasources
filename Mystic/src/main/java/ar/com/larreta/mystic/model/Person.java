@@ -1,5 +1,8 @@
 package ar.com.larreta.mystic.model;
 
+import java.util.Date;
+import java.util.Set;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,13 +30,42 @@ import ar.com.larreta.tools.Const;
 @XmlRootElement
 public abstract class Person extends ar.com.larreta.mystic.model.Entity {
 
-	private String name;
-	private String surname;
-	private DocumentType documentType;
-	private String documentNumber;
-	private String photo;
-	private String email;
+	private String 			name;
+	private String 			surname;
+	private DocumentType 	documentType;
+	private String 			documentNumber;
+	private String 			photo;
+	private String 			email;
+	private Date 			birthdate;
+	private Country 		nationality;
+	private Set<PersonAddressRelationship> 	addressesRelationship;
 
+	@OneToMany (mappedBy="person", fetch=FetchType.LAZY, targetEntity=PersonAddressRelationship.class)
+	@Where(clause="deleted IS NULL")	
+	public Set<PersonAddressRelationship> getAddressesRelationship() {
+		return addressesRelationship;
+	}
+	public void setAddressesRelationship(Set<PersonAddressRelationship> addressesRelationship) {
+		this.addressesRelationship = addressesRelationship;
+		writeToAll(addressesRelationship, "person", this);
+	}
+	
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Country.class)
+	@JoinColumn (name="idNationality")
+	public Country getNationality() {
+		return nationality;
+	}
+	public void setNationality(Country nationality) {
+		this.nationality = nationality;
+	}
+	@Basic @Column (name="birthdate")
+	public Date getBirthdate() {
+		return birthdate;
+	}
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+	
 	@Basic @Column (name="email")
 	public String getEmail() {
 		return email;

@@ -8,6 +8,50 @@
                       
   <changeSet author="Leonel" id="changelog-1.0">
 
+							
+    <createTable tableName="addressType" >
+      <column name="id" 			type="bigint" 		autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+
+    <createTable tableName="country" >
+      <column name="id" 			type="bigint" 		autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+    </createTable>
+
+    <createTable tableName="state" >
+      <column name="id" 			type="bigint" 		autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+      <column name="idCountry"		type="bigint" />
+    </createTable>
+    
+    <addForeignKeyConstraint 	constraintName		="stateCountry" 
+							referencedTableName	="country" 			referencedColumnNames	="id" 
+							baseTableName		="state"			baseColumnNames			="idCountry" />
+    
+    <createTable tableName="location" >
+      <column name="id" 			type="bigint" 		autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+      <column name="idState"		type="bigint" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="locationState" 
+							referencedTableName	="state" 			referencedColumnNames	="id" 
+							baseTableName		="location"			baseColumnNames			="idState" />
+
+
     <createTable tableName="documentType" >
       <column name="id" 			type="bigint" 		autoIncrement="true">
         <constraints nullable="false" primaryKey="true" unique="true"/>
@@ -27,12 +71,69 @@
       <column name="documentNumber"	type="varchar(20)" />
       <column name="photo"			type="TEXT" />
       <column name="email"			type="varchar(255)" />
+      <column name="birthdate"		type="datetime" />
+	  <column name="idNationality"	type="bigint" />
     </createTable>
     
     <addForeignKeyConstraint 	constraintName		="personDocumentType" 
     							referencedTableName	="documentType" 			referencedColumnNames	="id" 
     							baseTableName		="person"					baseColumnNames			="idDocumentType"
     							/>
+
+    <addForeignKeyConstraint 	constraintName		="personNationality" 
+    							referencedTableName	="country" 				referencedColumnNames	="id" 
+    							baseTableName		="person"				baseColumnNames			="idNationality"
+    							/>    							
+
+    <createTable tableName="address" >
+      <column name="id" 			type="bigint" 		autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="street"			type="varchar(255)" />
+      <column name="number"			type="integer" />
+      <column name="floor"			type="integer" />
+      <column name="department"		type="varchar(25)" />
+      <column name="idCountry"		type="bigint" />
+      <column name="idState"		type="bigint" />
+      <column name="idLocation"		type="bigint" />
+      <column name="postalCode"		type="varchar(10)" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="addressCountry" 
+							referencedTableName	="country" 			referencedColumnNames	="id" 
+							baseTableName		="address"			baseColumnNames			="idCountry" />
+
+    <addForeignKeyConstraint 	constraintName		="addressState" 
+							referencedTableName	="state" 			referencedColumnNames	="id" 
+							baseTableName		="address"			baseColumnNames			="idState"	/>	
+
+    <addForeignKeyConstraint 	constraintName		="addressLocation" 
+							referencedTableName	="location" 			referencedColumnNames	="id" 
+							baseTableName		="address"			baseColumnNames			="idLocation"	/>					
+
+
+    <createTable tableName="personAddress" >
+      <column name="id" 			type="bigint" 		autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"			type="datetime" />
+      <column name="idPerson"			type="bigint" />
+      <column name="idAddress"			type="bigint" />
+      <column name="idAddressType"		type="bigint" />
+    </createTable>
+
+    <addForeignKeyConstraint 	constraintName		="personAddressPerson" 
+							referencedTableName	="person" 					referencedColumnNames	="id" 
+							baseTableName		="personAddress"			baseColumnNames			="idPerson" />
+
+    <addForeignKeyConstraint 	constraintName		="personAddressAddress" 
+							referencedTableName	="address" 					referencedColumnNames	="id" 
+							baseTableName		="personAddress"			baseColumnNames			="idAddress" />
+							
+    <addForeignKeyConstraint 	constraintName		="personAddressType" 
+							referencedTableName	="addressType" 					referencedColumnNames	="id" 
+							baseTableName		="personAddress"			baseColumnNames			="idAddressType" />							
 
     <createTable tableName="year" >
       <column name="id" 			type="bigint" 		autoIncrement="true">
@@ -87,6 +188,7 @@
       </column>
       <column name="deleted"		type="datetime" />
       <column name="idCourse"		type="bigint" />
+      <column name="code"			type="varchar(255)" />
     </createTable>
 
     <addForeignKeyConstraint 	constraintName		="studentCourse" 

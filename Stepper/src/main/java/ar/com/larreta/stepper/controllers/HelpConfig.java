@@ -9,6 +9,7 @@ import ar.com.larreta.stepper.messages.Message;
 import ar.com.larreta.stepper.messages.NotRequestNeeded;
 import ar.com.larreta.stepper.messages.Request;
 import ar.com.larreta.stepper.messages.TargetedBody;
+import ar.com.larreta.tools.BeanUtils;
 
 public abstract class HelpConfig <UpdateBodyRequest extends Body, LoadBodyRequest extends Body> {
 
@@ -18,7 +19,11 @@ public abstract class HelpConfig <UpdateBodyRequest extends Body, LoadBodyReques
 	public Message getCreateHelp(){
 		Class<?>[] generics = ResolvableType.forClass(HelpConfig.class, getClass()).resolveGenerics();
 		Request<Body> request = (Request<Body>) applicationContext.getBean(Request.COMPONENT_NAME);
-		request.setBody((Body) applicationContext.getBean(generics[0]));
+		Body body = (Body) applicationContext.getBean(generics[0]);
+		
+		
+		
+		request.setBody(body);
 		return request;
 	}
 

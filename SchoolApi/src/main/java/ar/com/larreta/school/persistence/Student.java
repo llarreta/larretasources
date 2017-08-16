@@ -2,7 +2,9 @@ package ar.com.larreta.school.persistence;
 
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -32,6 +34,15 @@ public class Student extends Person {
 	private Set<PaymentPlan> paymentPlans;
 	private Set<ObligationStatus> obligationsStatus;
 	private Set<Responsible> responsibles;
+	private String code;
+	
+	@Basic @Column (name="code")
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	
 	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Course.class)
 	@JoinColumn (name="idCourse")

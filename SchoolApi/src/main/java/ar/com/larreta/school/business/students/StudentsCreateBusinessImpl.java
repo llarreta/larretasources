@@ -12,11 +12,5 @@ import ar.com.larreta.stepper.impl.CreateBusinessImpl;
 @Transactional
 public class StudentsCreateBusinessImpl extends CreateBusinessImpl<UpdateStudentBody, Student> implements StudentsCreateBusiness {
 
-	/*@Override
-	@Autowired @Qualifier(StudentsBusinessConfig.STUDENT_BEFORE_PERSIST)
-	public void setBeforePersistListeners(Set<BusinessListener> beforePersistListeners) {
-		super.setBeforePersistListeners(beforePersistListeners);
-	}*/
-
 }
 
