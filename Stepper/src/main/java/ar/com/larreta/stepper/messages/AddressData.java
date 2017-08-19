@@ -1,5 +1,8 @@
 package ar.com.larreta.stepper.messages;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class AddressData extends JSONable {
 
 	private Long 		id;

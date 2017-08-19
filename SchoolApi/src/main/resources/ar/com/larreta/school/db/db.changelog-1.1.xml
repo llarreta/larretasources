@@ -120,7 +120,15 @@
 		<column name="id" 			value="1" />
 	</insert>		
 
-
+	<insert tableName="addressType">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Casa" />
+	</insert>
+	
+	<insert tableName="country">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Argentina" />
+	</insert>
 
   </changeSet>
 </databaseChangeLog> 

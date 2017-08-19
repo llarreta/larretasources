@@ -2,17 +2,15 @@ package ar.com.larreta.stepper.messages;
 
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Component;
+
 import ar.com.larreta.mystic.model.AddressType;
-import ar.com.larreta.mystic.model.Person;
 import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
 
+@Component
 public class PersonAddressRelationshipData extends JSONable {
 
-	@Exist(message="person.inexistent", entityType=Person.class)
-	@NotNull(message="person.required")
-	private Long 		person;
-	
 	@Exist(message="addressType.inexistent", entityType=AddressType.class)
 	@NotNull(message="addressType.required")
 	private Long 		addressType;
@@ -26,12 +24,6 @@ public class PersonAddressRelationshipData extends JSONable {
 	}
 	public void setAddress(AddressData address) {
 		this.address = address;
-	}
-	public Long getPerson() {
-		return person;
-	}
-	public void setPerson(Long person) {
-		this.person = person;
 	}
 	public Long getAddressType() {
 		return addressType;

@@ -1,5 +1,6 @@
 package ar.com.larreta.mystic.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -37,7 +38,7 @@ public class PersonAddressRelationship extends ar.com.larreta.mystic.model.Entit
 		this.person = person;
 	}
 
-	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Address.class)
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Address.class, cascade=CascadeType.ALL)
 	@JoinColumn (name="idAddress")
 	public Address getAddress() {
 		return address;

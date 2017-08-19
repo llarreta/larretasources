@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,7 +41,7 @@ public abstract class Person extends ar.com.larreta.mystic.model.Entity {
 	private Country 		nationality;
 	private Set<PersonAddressRelationship> 	addressesRelationship;
 
-	@OneToMany (mappedBy="person", fetch=FetchType.LAZY, targetEntity=PersonAddressRelationship.class)
+	@OneToMany (mappedBy="person", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=PersonAddressRelationship.class)
 	@Where(clause="deleted IS NULL")	
 	public Set<PersonAddressRelationship> getAddressesRelationship() {
 		return addressesRelationship;

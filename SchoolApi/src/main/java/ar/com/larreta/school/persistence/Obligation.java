@@ -31,7 +31,7 @@ public class Obligation extends Product {
 	private PaymentPlan paymentPlan;
 	private Set<ObligationStatus> obligationStatus;
 	
-	@OneToMany (mappedBy="obligation", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=Detail.class, orphanRemoval=true)
+	@OneToMany (mappedBy="obligation", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=Detail.class)
 	@Where(clause="deleted IS NULL")
 	public Set<Detail> getDetails() {
 		return details;

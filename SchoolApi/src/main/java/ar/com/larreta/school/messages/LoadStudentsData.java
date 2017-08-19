@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.messages.PersonAddressRelationshipData;
 import ar.com.larreta.tools.Const;
 
 @Component @Scope(Const.PROTOTYPE)
@@ -19,7 +20,14 @@ public class LoadStudentsData extends JSONable {
 	private JSONableCollection<Long> paymentPlans;
 	private String 			email;
 	private String 			photo;
+	private JSONableCollection<PersonAddressRelationshipData> addressesRelationship;
 	
+	public JSONableCollection<PersonAddressRelationshipData> getAddressesRelationship() {
+		return addressesRelationship;
+	}
+	public void setAddressesRelationship(JSONableCollection<PersonAddressRelationshipData> addressesRelationship) {
+		this.addressesRelationship = addressesRelationship;
+	}
 	public String getPhoto() {
 		return photo;
 	}

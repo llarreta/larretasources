@@ -123,6 +123,7 @@ public class BeanUtils {
 		addKeys(keys, source + target + origin + destination, sourcePropertyTypes, targetPropertyTypes);
 		addKeys(keys, source + target + origin, sourcePropertyTypes, targetPropertyTypes);
 		addKeys(keys, source + target + destination, sourcePropertyTypes, targetPropertyTypes);
+		addKeys(keys, source + target, sourcePropertyTypes, targetPropertyTypes);
 		
 		addKeys(keys, source + origin + destination, sourcePropertyTypes, targetPropertyTypes);
 		addKeys(keys, source + origin, sourcePropertyTypes, targetPropertyTypes);

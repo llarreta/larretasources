@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.mystic.model.Country;
 import ar.com.larreta.mystic.model.DocumentType;
-import ar.com.larreta.mystic.model.PersonAddressRelationship;
 import ar.com.larreta.stepper.messages.Body;
 import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.messages.PersonAddressRelationshipData;
 import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.Format;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
@@ -46,13 +46,14 @@ public class UpdateStudentBody extends Body {
 	private Long 			nationality;
 	
 	@Valid
-	private JSONableCollection<PersonAddressRelationship> addressRelationships;
+	private JSONableCollection<PersonAddressRelationshipData> addressesRelationship;
 	
-	public JSONableCollection<PersonAddressRelationship> getAddressRelationships() {
-		return addressRelationships;
+
+	public JSONableCollection<PersonAddressRelationshipData> getAddressesRelationship() {
+		return addressesRelationship;
 	}
-	public void setAddressRelationships(JSONableCollection<PersonAddressRelationship> addressRelationships) {
-		this.addressRelationships = addressRelationships;
+	public void setAddressesRelationship(JSONableCollection<PersonAddressRelationshipData> addressesRelationship) {
+		this.addressesRelationship = addressesRelationship;
 	}
 	public Long getNationality() {
 		return nationality;
