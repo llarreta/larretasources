@@ -33,8 +33,17 @@ public class Student extends Person {
 	private Course course;
 	private Set<PaymentPlan> paymentPlans;
 	private Set<ObligationStatus> obligationsStatus;
-	private Set<Responsible> responsibles;
 	private String code;
+	private Set<StudentResponsibleRelationship> responsibles;
+
+	@OneToMany (mappedBy="student", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=StudentResponsibleRelationship.class)
+	@Where(clause="deleted IS NULL")	
+	public Set<StudentResponsibleRelationship> getResponsibles() {
+		return responsibles;
+	}
+	public void setResponsibles(Set<StudentResponsibleRelationship> responsibles) {
+		this.responsibles = responsibles;
+	}
 	
 	@Basic @Column (name="code")
 	public String getCode() {
@@ -70,16 +79,6 @@ public class Student extends Person {
 	}
 	public void setObligationsStatus(Set<ObligationStatus> obligationsStatus) {
 		this.obligationsStatus = obligationsStatus;
-	}
-	
-	@ManyToMany (fetch=FetchType.LAZY, targetEntity=Responsible.class)
-	@JoinTable(name = "studentResponsible", joinColumns = { @JoinColumn(name = "idStudent") }, 
-		inverseJoinColumns = { @JoinColumn(name = "idResponsible") })
-	public Set<Responsible> getResponsibles() {
-		return responsibles;
-	}
-	public void setResponsibles(Set<Responsible> responsibles) {
-		this.responsibles = responsibles;
 	}
 
 }

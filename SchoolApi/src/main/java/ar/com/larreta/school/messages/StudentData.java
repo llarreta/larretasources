@@ -10,12 +10,14 @@ import ar.com.larreta.mystic.model.DocumentType;
 import ar.com.larreta.stepper.messages.Body;
 import ar.com.larreta.stepper.messages.JSONableCollection;
 import ar.com.larreta.stepper.messages.PersonAddressRelationshipData;
+import ar.com.larreta.stepper.messages.PersonEmailRelationshipData;
+import ar.com.larreta.stepper.messages.PersonTelephoneRelationshipData;
 import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.Format;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
 
 @Component
-public class UpdateStudentBody extends Body {
+public class StudentData extends Body {
 
 	@NotNull(message="id.required", avaiableActions={"update"})
 	private Long id;
@@ -35,25 +37,48 @@ public class UpdateStudentBody extends Body {
 	
 	private Long 			course;
 	
-	private JSONableCollection<Long> paymentPlans;
-	
-	private String 			email;
-	
 	@Format(formatType=Format.FormatType.DATE, message="birthdate.student.invalid")
 	private String 			birthdate;
 	
 	@Exist(message="nationality.inexistent", entityType=Country.class)
 	private Long 			nationality;
 	
-	@Valid
-	private JSONableCollection<PersonAddressRelationshipData> addressesRelationship;
-	
+	private String 			code;
 
-	public JSONableCollection<PersonAddressRelationshipData> getAddressesRelationship() {
-		return addressesRelationship;
+	private JSONableCollection<Long> paymentPlans;
+
+	@Valid
+	private JSONableCollection<PersonEmailRelationshipData> emails;
+	
+	@Valid
+	private JSONableCollection<PersonTelephoneRelationshipData> telephones;
+	
+	@Valid
+	private JSONableCollection<PersonAddressRelationshipData> addresses;
+
+	public JSONableCollection<PersonAddressRelationshipData> getAddresses() {
+		return addresses;
 	}
-	public void setAddressesRelationship(JSONableCollection<PersonAddressRelationshipData> addressesRelationship) {
-		this.addressesRelationship = addressesRelationship;
+	public void setAddresses(JSONableCollection<PersonAddressRelationshipData> addresses) {
+		this.addresses = addresses;
+	}
+	public JSONableCollection<PersonEmailRelationshipData> getEmails() {
+		return emails;
+	}
+	public void setEmails(JSONableCollection<PersonEmailRelationshipData> emails) {
+		this.emails = emails;
+	}
+	public JSONableCollection<PersonTelephoneRelationshipData> getTelephones() {
+		return telephones;
+	}
+	public void setTelephones(JSONableCollection<PersonTelephoneRelationshipData> telephones) {
+		this.telephones = telephones;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public Long getNationality() {
 		return nationality;
@@ -67,12 +92,6 @@ public class UpdateStudentBody extends Body {
 	}
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public JSONableCollection<Long> getPaymentPlans() {
 		return paymentPlans;

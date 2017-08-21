@@ -130,5 +130,25 @@
 		<column name="description" 	value="Argentina" />
 	</insert>
 
+	<insert tableName="responsibleType">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Madre" />
+	</insert>
+	
+	<insert tableName="responsibleType">
+		<column name="id" 			value="2" />
+		<column name="description" 	value="Padre" />
+	</insert>
+
+	<insert tableName="emailType">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Personal" />
+	</insert>
+	
+	<insert tableName="telephoneType">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Personal" />
+	</insert>
+
   </changeSet>
 </databaseChangeLog> 

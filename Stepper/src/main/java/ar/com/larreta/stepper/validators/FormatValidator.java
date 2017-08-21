@@ -10,6 +10,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import antlr.StringUtils;
 import ar.com.larreta.stepper.validators.annotations.Format;
 
 @Transactional
@@ -34,6 +35,9 @@ public class FormatValidator implements ConstraintValidator<Annotation, Object> 
 
 	@Override
 	public boolean isValid(Object field, ConstraintValidatorContext context) {
+		if(org.apache.commons.lang3.StringUtils.isEmpty((String) field)){
+			return Boolean.TRUE;
+		}
 		return factory.process(format.formatType(), (String) field);
 	}
 

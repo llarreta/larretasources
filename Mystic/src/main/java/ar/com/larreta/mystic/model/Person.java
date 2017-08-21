@@ -36,19 +36,38 @@ public abstract class Person extends ar.com.larreta.mystic.model.Entity {
 	private DocumentType 	documentType;
 	private String 			documentNumber;
 	private String 			photo;
-	private String 			email;
 	private Date 			birthdate;
 	private Country 		nationality;
-	private Set<PersonAddressRelationship> 	addressesRelationship;
+	private Set<PersonEmailRelationship> 		emails;
+	private Set<PersonTelephoneRelationship> 	telephones;
+	private Set<PersonAddressRelationship> 		addresses;
+
+	@OneToMany (mappedBy="person", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=PersonEmailRelationship.class)
+	@Where(clause="deleted IS NULL")		
+	public Set<PersonEmailRelationship> getEmails() {
+		return emails;
+	}
+	public void setEmails(Set<PersonEmailRelationship> emails) {
+		this.emails = emails;
+	}
+	
+	@OneToMany (mappedBy="person", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=PersonTelephoneRelationship.class)
+	@Where(clause="deleted IS NULL")	
+	public Set<PersonTelephoneRelationship> getTelephones() {
+		return telephones;
+	}
+	public void setTelephones(Set<PersonTelephoneRelationship> telephones) {
+		this.telephones = telephones;
+	}
 
 	@OneToMany (mappedBy="person", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=PersonAddressRelationship.class)
 	@Where(clause="deleted IS NULL")	
-	public Set<PersonAddressRelationship> getAddressesRelationship() {
-		return addressesRelationship;
+	public Set<PersonAddressRelationship> getAddresses() {
+		return addresses;
 	}
-	public void setAddressesRelationship(Set<PersonAddressRelationship> addressesRelationship) {
-		this.addressesRelationship = addressesRelationship;
-		writeToAll(addressesRelationship, "person", this);
+	public void setAddresses(Set<PersonAddressRelationship> addresses) {
+		this.addresses = addresses;
+		writeToAll(addresses, "person", this);
 	}
 	
 	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Country.class)
@@ -65,14 +84,6 @@ public abstract class Person extends ar.com.larreta.mystic.model.Entity {
 	}
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
-	}
-	
-	@Basic @Column (name="email")
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	
 	@Basic @Column (name="photo", columnDefinition="TEXT")

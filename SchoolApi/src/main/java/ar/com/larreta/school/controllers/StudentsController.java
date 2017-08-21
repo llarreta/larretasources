@@ -12,9 +12,7 @@ import ar.com.larreta.school.business.students.StudentsCreateBusiness;
 import ar.com.larreta.school.business.students.StudentsDeleteBusiness;
 import ar.com.larreta.school.business.students.StudentsLoadBusiness;
 import ar.com.larreta.school.business.students.StudentsUpdateBusiness;
-import ar.com.larreta.school.messages.LoadStudentData;
-import ar.com.larreta.school.messages.LoadStudentsData;
-import ar.com.larreta.school.messages.UpdateStudentBody;
+import ar.com.larreta.school.messages.StudentData;
 import ar.com.larreta.stepper.Step;
 import ar.com.larreta.stepper.controllers.HelpConfig;
 import ar.com.larreta.stepper.controllers.ParentController;
@@ -24,12 +22,12 @@ import ar.com.larreta.stepper.messages.Message;
 @RestController
 @RequestMapping(value=StudentsController.ROOT_MAP)
 @Validated
-public class StudentsController extends ParentController<UpdateStudentBody, LoadBody<LoadStudentData>> {
+public class StudentsController extends ParentController<StudentData, LoadBody<StudentData>> {
 
 	public static final String ROOT_MAP = "/students";
 
 	@Configuration
-	public class Help extends HelpConfig<UpdateStudentBody, LoadBody<LoadStudentsData>> {
+	public class Help extends HelpConfig<StudentData, LoadBody<StudentData>> {
 
 		@Bean(name=ROOT_MAP + ParentController.CREATE)
 		@Override

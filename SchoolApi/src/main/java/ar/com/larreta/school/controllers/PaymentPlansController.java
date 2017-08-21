@@ -15,7 +15,6 @@ import ar.com.larreta.school.business.paymentPlans.PaymentPlansUpdateBusiness;
 import ar.com.larreta.school.messages.DetailData;
 import ar.com.larreta.school.messages.LittleDetailData;
 import ar.com.larreta.school.messages.LoadStudentData;
-import ar.com.larreta.school.messages.LoadStudentsData;
 import ar.com.larreta.school.messages.ObligationData;
 import ar.com.larreta.school.messages.UpdatePaymentPlansBody;
 import ar.com.larreta.stepper.Step;
@@ -34,7 +33,7 @@ public class PaymentPlansController extends ParentController<UpdatePaymentPlansB
 	public static final String ROOT_MAP = "/paymentPlans";
 	
 	@Configuration
-	public class Help extends HelpConfig<UpdatePaymentPlansBody, LoadBody<LoadStudentsData>> {
+	public class Help extends HelpConfig<UpdatePaymentPlansBody, LoadBody<LoadStudentData>> {
 
 		@Bean(name=ROOT_MAP + ParentController.CREATE)
 		@Override
