@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,9 @@ public class FromStringToDateAdapter extends StandardAdapter {
 	
 	@Override
 	public Object process(Object toAdapt, Class type, Class[] generics) throws Exception {
+		if (StringUtils.isEmpty((CharSequence) toAdapt)){
+			return null;
+		}
 		return simpleDateFormat.parse((String) toAdapt);
 	}
 

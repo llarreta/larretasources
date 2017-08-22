@@ -43,6 +43,7 @@ public class Student extends Person {
 	}
 	public void setResponsibles(Set<StudentResponsibleRelationship> responsibles) {
 		this.responsibles = responsibles;
+		writeToAll(responsibles, "student", this);
 	}
 	
 	@Basic @Column (name="code")

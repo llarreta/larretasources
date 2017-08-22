@@ -55,7 +55,16 @@ public class StudentData extends Body {
 	
 	@Valid
 	private JSONableCollection<PersonAddressRelationshipData> addresses;
+	
+	@Valid
+	private JSONableCollection<StudentResponsibleRelationshipData> responsibles;
 
+	public JSONableCollection<StudentResponsibleRelationshipData> getResponsibles() {
+		return responsibles;
+	}
+	public void setResponsibles(JSONableCollection<StudentResponsibleRelationshipData> responsibles) {
+		this.responsibles = responsibles;
+	}
 	public JSONableCollection<PersonAddressRelationshipData> getAddresses() {
 		return addresses;
 	}
