@@ -45,6 +45,12 @@ public class StudentData extends Body {
 	
 	private String 			code;
 
+	private String healthService;
+	
+	private String healthServicePlan;
+	
+	private String healthServiceCredential;
+	
 	private JSONableCollection<Long> paymentPlans;
 
 	@Valid
@@ -59,6 +65,24 @@ public class StudentData extends Body {
 	@Valid
 	private JSONableCollection<StudentResponsibleRelationshipData> responsibles;
 
+	public String getHealthService() {
+		return healthService;
+	}
+	public void setHealthService(String healthService) {
+		this.healthService = healthService;
+	}
+	public String getHealthServicePlan() {
+		return healthServicePlan;
+	}
+	public void setHealthServicePlan(String healthServicePlan) {
+		this.healthServicePlan = healthServicePlan;
+	}
+	public String getHealthServiceCredential() {
+		return healthServiceCredential;
+	}
+	public void setHealthServiceCredential(String healthServiceCredential) {
+		this.healthServiceCredential = healthServiceCredential;
+	}
 	public JSONableCollection<StudentResponsibleRelationshipData> getResponsibles() {
 		return responsibles;
 	}

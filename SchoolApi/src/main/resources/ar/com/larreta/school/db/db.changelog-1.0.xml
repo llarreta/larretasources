@@ -272,6 +272,9 @@
       <column name="deleted"		type="datetime" />
       <column name="idCourse"		type="bigint" />
       <column name="code"			type="varchar(255)" />
+      <column name="healthService"			type="varchar(255)" />
+      <column name="healthServicePlan"			type="varchar(255)" />
+      <column name="healthServiceCredential"			type="varchar(255)" />
     </createTable>
 
     <addForeignKeyConstraint 	constraintName		="studentCourse" 

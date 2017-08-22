@@ -35,7 +35,33 @@ public class Student extends Person {
 	private Set<ObligationStatus> obligationsStatus;
 	private String code;
 	private Set<StudentResponsibleRelationship> responsibles;
-
+	private String healthService;
+	private String healthServicePlan;
+	private String healthServiceCredential;
+	
+	@Basic @Column (name="healthService")
+	public String getHealthService() {
+		return healthService;
+	}
+	public void setHealthService(String healthService) {
+		this.healthService = healthService;
+	}
+	
+	@Basic @Column (name="healthServicePlan")
+	public String getHealthServicePlan() {
+		return healthServicePlan;
+	}
+	public void setHealthServicePlan(String healthServicePlan) {
+		this.healthServicePlan = healthServicePlan;
+	}
+	
+	@Basic @Column (name="healthServiceCredential")
+	public String getHealthServiceCredential() {
+		return healthServiceCredential;
+	}
+	public void setHealthServiceCredential(String healthServiceCredential) {
+		this.healthServiceCredential = healthServiceCredential;
+	}
 	@OneToMany (mappedBy="student", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=StudentResponsibleRelationship.class)
 	@Where(clause="deleted IS NULL")	
 	public Set<StudentResponsibleRelationship> getResponsibles() {
