@@ -6,7 +6,7 @@ export class ConfigurationLoader {
     private CONF: { [id: string] : IConfig } = {
         "DEV": {
             APP_URL: "http://localhost:3000/",
-            API_URL: window.location.origin + "/school/",
+            API_URL: "http://localhost:8089" + "/school/",
             LOG_LEVEL: "ALL",
             MOCK: true
         },
