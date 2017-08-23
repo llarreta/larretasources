@@ -25,7 +25,9 @@ export class StudentService {
                     "photo": student.photo,
                     "course": student.course.id,
                     "paymentPlans": student.paymentPlans,
-                    "email": student.email
+                    "emails": student.emails,
+                    "telephones": student.telephones,
+                    "addresses": student.addresses
                 };
         return this.http.post(body, "students/create", token);
     }
@@ -41,7 +43,9 @@ export class StudentService {
                     "photo": student.photo,
                     "course": student.course.id,
                     "paymentPlans": student.paymentPlans,
-                    "email": student.email
+                    "emails": student.emails,
+                    "telephones": student.telephones,
+                    "addresses": student.addresses
                 };
         return this.http.post(body, "students/update", token);
     }

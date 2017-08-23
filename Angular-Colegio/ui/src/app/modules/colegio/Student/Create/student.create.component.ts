@@ -8,6 +8,12 @@ import { PaymentPlan } from '../../Models/PaymentPlan.model';
 import { ObligationStatus } from '../../Models/ObligationStatus.model';
 import { Responsible } from '../../Models/Responsible.model';
 import { DocumentType } from '../../Models/DocumentType.model';
+import { Email } from '../../Models/Email.model';
+import { Country } from '../../Models/Country.model';
+import { State } from '../../Models/State.model';
+import { Location } from '../../Models/Location.model';
+import { Telephone } from '../../Models/Telephon.model';
+import { AddressP } from '../../Models/Address.model';
 
 //Commons
 import { InputModel } from '../../Commons/Input/input.model.component';
@@ -21,6 +27,9 @@ import { StudentService } from '../../services/student.service';
 import { DocumentTypeService } from '../../services/documentType.service';
 import { PaymentPlanService } from '../../services/paymentPlan.service';
 import { CourseService } from '../../services/course.service';
+import { CountryService } from '../../services/country.service';
+import { LocationService } from '../../services/location.service';
+import { StateService } from '../../services/state.service';
 
 //ngPrime
 import { SelectItem } from 'primeng/primeng';
@@ -45,11 +54,17 @@ export class StudentCreateComponent implements OnInit{
   documentNumberComponent: InputCommonsComponent;
   @ViewChild("emailComponent")
   emailComponent: InputCommonsComponent;
+  @ViewChild("telphoneComponent")
+  telphoneComponent: InputCommonsComponent;
+  @ViewChild("codeComponent")
+  codeComponent: InputCommonsComponent;
 
   inputName: InputModel;
   inputSurname: InputModel;
   inputDocumentNumber: InputModel;
   inputEmail: InputModel;
+  inputTelphone: InputModel;
+  inputCode: InputModel;
   documentTypes: Array<SelectItem>;
 
   obligationsStatus: Array<ObligationStatus>;
@@ -60,11 +75,13 @@ export class StudentCreateComponent implements OnInit{
   showMessageErrorService: boolean;
   
   errorDocumentType: boolean;
+  errorNationality: boolean;
   errorCourses: boolean;
   errorPaymentPlans: boolean;
   isPaymentPlansOK: boolean;
   isCoursesOK: boolean;
   isDocumentTypeOK: boolean;
+  isNationalityOK: boolean;
 
   messageErrorInputs: string; 
   messageErrorService: string;
@@ -73,15 +90,24 @@ export class StudentCreateComponent implements OnInit{
 
   paymentPlansListBox: SelectItem[];
   coursesListBox: SelectItem[];
+  nationalityListBox: SelectItem[];
+  countrysListBox: SelectItem[];
+  locationsListBox: SelectItem[];
+  statesListBox: SelectItem[];
 
   maxResult: number;
   result: number;
+
+  es: any;
 
   constructor(
               private studentService: StudentService, 
               private documentTypeService: DocumentTypeService,
               private paymentPlanService: PaymentPlanService,
-              private courseService: CourseService
+              private courseService: CourseService,
+              private countryService: CountryService,
+              private locationService: LocationService,
+              private stateService: StateService
               ) {}
 
   ngOnInit() {
@@ -95,6 +121,14 @@ export class StudentCreateComponent implements OnInit{
     this.showMessageErrorService = false;
     this.messageErrorInputs = "Debes corregir todos los errores antes de continuar.";
     this.messageErrorService = "Ocurrio un error de conexion con el servidor, reintentelo en un momento."
+    this.es = { 
+            firstDayOfWeek: 1,
+            dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+            dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+            dayNamesMin: [ "D","L","M","X","J","V","S" ],
+            monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+            monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
+        };
   }
 
   private loadInitData(){
@@ -130,6 +164,25 @@ export class StudentCreateComponent implements OnInit{
       this.paymentPlansListBox.push({label:paymentPlan.description, value:paymentPlan.id});
     }
     Logger.debug("payments plans cargados: " + JSON.stringify(this.paymentPlansListBox));
+    this.countryService.loadCountrys().subscribe(
+      data => this.loadCountrysOK(data),
+      err => this.loadErrorMessageService(err),
+      () => console.log('Vacio')
+    );
+  }
+
+  loadCountrysOK(data){
+    this.countrysListBox = new Array<SelectItem>();
+    this.nationalityListBox = new Array<SelectItem>();
+    this.coursesListBox.push({label:"Seleccionar Pais", value:null});
+    this.nationalityListBox.push({label:"Seleccionar Nacionalidad", value:null});
+    for(let countryJSON of data.body.result){
+      let country: Country = new Country();
+      Object.assign(country, countryJSON);
+      let label = country.description; 
+      this.coursesListBox.push({label:label, value:country.id});
+      this.nationalityListBox.push({label:label, value:country.id});
+    }
     this.courseService.loadCourses(null, null).subscribe(
         data => this.loadCoursesOK(data),
         err => this.loadErrorMessageService(err),
@@ -150,6 +203,29 @@ export class StudentCreateComponent implements OnInit{
   }
 
   initInputs(){
+
+    this.inputTelphone = new InputModel();
+    this.inputTelphone.id=  "telphone";
+    this.inputTelphone.labelContent= "Telefono";
+    this.inputTelphone.messageErrorEmpty= "Debe completar el telefono.";
+    this.inputTelphone.messageErrorValidation= "El telefono ingresado es invalido."
+    this.inputTelphone.required= true;
+    this.inputTelphone.type= "text";
+    this.inputTelphone.validationActivate = true;
+    this.inputTelphone.mask= MaskTemplates.TELPHONE;
+    this.inputTelphone.maskActivate = true;
+
+    this.inputCode = new InputModel();
+    this.inputCode.id=  "code";
+    this.inputCode.labelContent= "Codigo de Alumno";
+    this.inputCode.messageErrorEmpty= "Debe completar el codigo de alumno.";
+    this.inputCode.messageErrorValidation= "El codigo ingresado es invalido."
+    this.inputCode.messageErrorMinCharacter= "El codigo debe tener 5 caracteres minimo."
+    this.inputCode.required= true;
+    this.inputCode.type= "text";
+    this.inputCode.validationActivate = true;
+    this.inputCode.minCharacter = 4;
+
     this.inputName = new InputModel();
     this.inputName.id=  "name";
     this.inputName.labelContent= "Nombre";
@@ -160,7 +236,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputName.type= "text";
     this.inputName.validationActivate = true;
     this.inputName.minCharacter = 3;
-    
+
     this.inputDocumentNumber = new InputModel();
     this.inputDocumentNumber.id= "document-number";
     this.inputDocumentNumber.labelContent= "Numero de Documento";
@@ -207,8 +283,9 @@ export class StudentCreateComponent implements OnInit{
   initValueInput(){
     this.inputName.value = this.student.name;
     this.inputDocumentNumber.value = String(this.student.documentNumber);
-    this.inputEmail.value = this.student.email;
+    this.inputEmail.value = this.student.emails[0].email.address;
     this.inputSurname.value = this.student.surname;
+    this.inputTelphone.value = this.student.telephones[0].telephone.number;
   }
 
   isAllOK(){
@@ -224,8 +301,17 @@ export class StudentCreateComponent implements OnInit{
       this.documentNumberComponent.checkValue();
       if(this.student.documentType == null){
         this.errorDocumentType = true;
+        this.isDocumentTypeOK = false;
       }else{
         this.errorDocumentType = false;
+        this.isDocumentTypeOK = true;
+      }
+      if(this.student.nationality == null){
+        this.errorNationality = true;
+        this.isNationalityOK = false;
+      }else{
+        this.errorNationality = false;
+        this.isNationalityOK = true;
       }
       if(this.student.course == null){
         this.errorCourses = true;
@@ -294,7 +380,28 @@ export class StudentCreateComponent implements OnInit{
     this.student.name = this.inputName.value;
     this.student.surname = this.inputSurname.value;
     this.student.documentNumber = this.inputDocumentNumber.value;
-    this.student.email = this.inputEmail.value;
+    this.student.code = this.inputCode.value;
+
+    if((this.student.telephones != null) && (this.student.telephones.length > 0)){
+      this.student.telephones[0].telephone.number = this.inputTelphone.value;
+    }else{
+      this.student.telephones = new Array<Telephone>();
+      let telephone: Telephone = new Telephone();
+      telephone.telephoneType = 1;
+      telephone.createInstanceTelephoneNumber();
+      telephone.telephone.number = this.inputTelphone.value;
+      this.student.telephones.push(telephone);
+    }
+    if((this.student.emails != null) && (this.student.emails.length > 0)){
+      this.student.emails[0].email.address = this.inputEmail.value;
+    }else{
+      this.student.emails = new Array<Email>();
+      let email: Email = new Email();
+      email.emailType = 1;
+      email.createInstanceEmailAddress();
+      email.email.address = this.inputEmail.value;
+      this.student.emails.push(email);
+    }
   }
 
   deleteSelectedStudent(){
@@ -352,6 +459,16 @@ export class StudentCreateComponent implements OnInit{
     }
   }
 
+  nationalityChange(){
+    if(this.student.nationality != null){
+      this.isNationalityOK = true;
+      this.errorNationality = false;
+    }else{
+      this.isNationalityOK = false;
+      this.errorNationality = true;
+    }
+  }
+
   showLoading(){
     this.loading = true;
     Logger.debug("ShowLoading");
@@ -385,5 +502,11 @@ export class StudentCreateComponent implements OnInit{
   }
   setEmail(inputModel: InputModel){
     this.inputEmail = inputModel;
+  }
+  setStudentCode(inputModel: InputModel){
+    this.inputCode = inputModel;
+  }
+  setTelphone(inputModel: InputModel){
+    this.inputTelphone = inputModel;
   }
 }

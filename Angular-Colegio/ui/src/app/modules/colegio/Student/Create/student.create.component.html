@@ -47,11 +47,33 @@
       </div>
       <div class="row">
         <div class="col-6">
+          <input-commons #codeComponent [inputModel]="inputCode" (valueModel)="setStudentCode($event)"></input-commons>
+        </div>
+        <div class="col-6">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
           <input-commons #nameComponent [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
         </div>
 
         <div class="col-6">
           <input-commons #surnameComponent [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <h5 class="col-12">Fecha de Nacimiento</h5>
+          <p-calendar class="col-12" [(ngModel)]="student.birthdate" [locale]="es" dateFormat="dd/mm/yy" 
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2100"></p-calendar>
+        </div>
+
+        <div class="col-6">
+          <p-dropdown [options]="nationalityListBox" [(ngModel)]="student.nationality" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" 
+            [ngClass]="{'error-border': errorNationality,'is-all-ok': isNationalityOK}"
+            (onChange)="nationalityChange()">
+          </p-dropdown>
         </div>
       </div>
       <div class="row">
@@ -70,8 +92,13 @@
       </div>
       <div class="row">
         <div class="col-6">
+          <input-commons #telphoneComponent [inputModel]="inputTelphone" (valueModel)="setTelphone($event)"></input-commons>
+        </div>
+        <div class="col-6">
           <input-commons #emailComponent [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
         </div>
+      </div>
+      <div class="row">
         <div class="col-6">
           <h3>Planes de Pago</h3>
           <p-listbox [options]="paymentPlansListBox" [(ngModel)]="student.paymentPlans" 
@@ -79,8 +106,6 @@
             [ngClass]="{'error-border': errorPaymentPlans, 'is-all-ok': isPaymentPlansOK}"
             (onChange)="paymentPlanChange()"></p-listbox>
         </div>
-      </div>
-      <div class="row">
         <div class="col-6">
           <h3>Cursos</h3>
           <p-listbox [options]="coursesListBox" [(ngModel)]="student.course" 

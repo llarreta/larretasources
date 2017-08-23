@@ -47,6 +47,9 @@ import { DivisionService } from './services/division.service';
 import { DocumentTypeService } from './services/documentType.service';
 import { PaymentPlanService } from './services/paymentPlan.service';
 import { PaymentRecordService } from './services/paymentRecord.service';
+import { CountryService } from './services/country.service';
+import { LocationService } from './services/location.service';
+import { StateService } from './services/state.service';
 
 //TextMask
 import { TextMaskModule } from 'angular2-text-mask';
@@ -93,7 +96,10 @@ import { TextMaskModule } from 'angular2-text-mask';
         DivisionService,
         DocumentTypeService,
         PaymentPlanService,
-        PaymentRecordService
+        PaymentRecordService,
+        CountryService,
+        LocationService,
+        StateService
     ]
 })
 export class ColegioModule { }
