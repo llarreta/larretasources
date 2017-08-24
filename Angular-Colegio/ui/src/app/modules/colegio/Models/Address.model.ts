@@ -5,6 +5,12 @@ export class AddressP {
     
     constructor() {}
     
+    public createInstanceAddress(){
+
+        this.address = new Address();
+        
+    }
+
 }
 
 class Address {

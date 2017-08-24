@@ -15,7 +15,7 @@ export class CountryService {
     loadCountrys(): Observable<any> {
         var body = {};
         var token = "";
-        return this.http.post(body, "countrys/load", token);
+        return this.http.post(body, "countries/load", token);
     }
 
 }

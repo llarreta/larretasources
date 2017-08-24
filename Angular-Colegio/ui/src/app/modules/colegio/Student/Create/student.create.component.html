@@ -65,7 +65,9 @@
         <div class="col-6">
           <h5 class="col-12">Fecha de Nacimiento</h5>
           <p-calendar class="col-12" [(ngModel)]="student.birthdate" [locale]="es" dateFormat="dd/mm/yy" 
-            [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2100"></p-calendar>
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2100"
+            [ngClass]="{'error-border': errorBirthdate, 'is-all-ok': isBirthdateOK}"
+            (onSelect)="birthdateChange()"></p-calendar>
         </div>
 
         <div class="col-6">
@@ -90,6 +92,63 @@
           (valueModel)="setDocumentNumber($event)"></input-commons>
         </div>
       </div>
+      <div class="row">
+        <h3 class="col-12">Dirección</h3>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <h5>Pais</h5>
+          <p-listbox [options]="countrysListBox" [(ngModel)]="countrySelected" 
+            filter="filter" class="listbox-common" [ngClass]="{'error-border': errorCountry, 
+            'is-all-ok': isCountryOK}" (onChange)="countryChange()"></p-listbox>
+        </div>
+        <div class="col-4">
+          <h5>Provincia</h5>
+          <p-listbox [options]="locationsListBox" [(ngModel)]="locationSelected" 
+            filter="filter" class="listbox-common" [ngClass]="{'error-border': errorLocation, 
+            'is-all-ok': isLocationOK}" (onChange)="locationChange()"></p-listbox>
+        </div>
+        <div class="col-4">
+          <h5>Barrio</h5>
+          <p-listbox [options]="statesListBox" [(ngModel)]="stateSelected" 
+            filter="filter" class="listbox-common" [ngClass]="{'error-border': errorState, 
+            'is-all-ok': isStateOK}" (onChange)="stateChange()"></p-listbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input-commons #streetComponent [inputModel]="inputStreet" (valueModel)="setStreet($event)"></input-commons>
+        </div>
+        <div class="col-6">
+          <input-commons #numberComponent [inputModel]="inputNumber" (valueModel)="setNumber($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-4">
+            <input-commons #floorComponent [inputModel]="inputFloor" (valueModel)="setFloor($event)"></input-commons>
+          </div>
+          <div class="col-4">
+            <input-commons #departmentComponent [inputModel]="inputDepartment" (valueModel)="setDepartment($event)"></input-commons>
+          </div>
+          <div class="col-4">
+              <input-commons #postalCodeComponent [inputModel]="inputPostalCode" (valueModel)="setPostalCode($event)"></input-commons>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input-commons #healthServiceComponent [inputModel]="inputHealthService" (valueModel)="setHealthService($event)"></input-commons>
+        </div>
+        <div class="col-6">
+          <input-commons #healthServicePlanComponent [inputModel]="inputHealthServicePlan" (valueModel)="setHealthServicePlan($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-6">
+            <input-commons #healthServiceCredentialComponent [inputModel]="inputHealthServiceCredential" (valueModel)="setHealthServiceCredential($event)"></input-commons>
+          </div>
+          <div class="col-6">
+          </div>
+        </div>
       <div class="row">
         <div class="col-6">
           <input-commons #telphoneComponent [inputModel]="inputTelphone" (valueModel)="setTelphone($event)"></input-commons>

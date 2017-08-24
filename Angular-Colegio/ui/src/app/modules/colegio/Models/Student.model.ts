@@ -18,6 +18,9 @@ export class Student extends Entity{
     public birthdate: Date;
     public nationality: number;
     public code: string;
+    public healthService: string;
+    public healthServicePlan: string;
+    public healthServiceCredential: string;
     public paymentPlans: Array<number>;
     public emails: Array<Email>;
     public telephones: Array<Telephone>;
