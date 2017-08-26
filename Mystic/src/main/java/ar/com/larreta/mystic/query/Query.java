@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import ar.com.larreta.mystic.query.wheres.Equal;
 import ar.com.larreta.mystic.query.wheres.EqualYear;
 import ar.com.larreta.mystic.query.wheres.In;
 import ar.com.larreta.mystic.query.wheres.InSubquery;
+import ar.com.larreta.mystic.query.wheres.Like;
 import ar.com.larreta.mystic.query.wheres.NotIn;
 import ar.com.larreta.mystic.query.wheres.NotInSubquery;
 import ar.com.larreta.mystic.query.wheres.Where;
@@ -233,6 +235,16 @@ public class Query implements Serializable {
 		equal.setValue(value);
 		wheres.remove(equal);
 		wheres.add(equal);
+	}
+	
+	public void addWhereLike(String description, String value) {
+		if (!StringUtils.isEmpty(value)){
+			Like equal = (Like) applicationContext.getBean(Like.NAME);
+			equal.setReference(referencesManager.buildReference(description));
+			equal.setValue(value);
+			wheres.remove(equal);
+			wheres.add(equal);
+		}
 	}
 
 	public void addWhereIn(String description, Collection values) {

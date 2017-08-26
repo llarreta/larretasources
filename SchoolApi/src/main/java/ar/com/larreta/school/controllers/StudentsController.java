@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.larreta.annotations.PerformanceMonitor;
+import ar.com.larreta.school.business.students.SearchResponsible;
 import ar.com.larreta.school.business.students.StudentsCodeExists;
 import ar.com.larreta.school.business.students.StudentsCreateBusiness;
 import ar.com.larreta.school.business.students.StudentsDeleteBusiness;
@@ -22,11 +23,13 @@ import ar.com.larreta.school.business.students.StudentsLoadBusiness;
 import ar.com.larreta.school.business.students.StudentsUpdateBusiness;
 import ar.com.larreta.school.messages.CodeExistData;
 import ar.com.larreta.school.messages.CodeExistResult;
+import ar.com.larreta.school.messages.SearchResponsibleData;
 import ar.com.larreta.school.messages.StudentData;
 import ar.com.larreta.stepper.Step;
 import ar.com.larreta.stepper.controllers.HelpConfig;
 import ar.com.larreta.stepper.controllers.ParentController;
 import ar.com.larreta.stepper.messages.Body;
+import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.stepper.messages.LoadBody;
 import ar.com.larreta.stepper.messages.Message;
 import ar.com.larreta.stepper.messages.Request;
@@ -37,12 +40,16 @@ import ar.com.larreta.stepper.messages.Response;
 @Validated
 public class StudentsController extends ParentController<StudentData, LoadBody<StudentData>> {
 
+	public static final String SEARCH_RESPONSIBLE = "/searchResponsible";
+
 	public static final String EXIST_CODE = "/existCode";
 
 	public static final String ROOT_MAP = "/students";
 	
 	@Autowired
 	private StudentsCodeExists codeExists;
+	@Autowired
+	private SearchResponsible searchResponsible;
 
 	@Configuration
 	public class Help extends HelpConfig<StudentData, LoadBody<StudentData>> {
@@ -80,6 +87,15 @@ public class StudentsController extends ParentController<StudentData, LoadBody<S
 			return request;
 		}
 		
+		@Bean(name=ROOT_MAP + SEARCH_RESPONSIBLE)
+		public Message getSearchResponsible() {
+			Request<Body> request = (Request<Body>) applicationContext.getBean(Request.COMPONENT_NAME);
+			SearchResponsibleData data = applicationContext.getBean(SearchResponsibleData.class);
+			instanceJsonables(data);
+			request.setBody(data);
+			return request;
+		}
+		
 	}
 	
 	@Autowired @Qualifier(StudentsCreateBusiness.BUSINESS_NAME)
@@ -112,6 +128,15 @@ public class StudentsController extends ParentController<StudentData, LoadBody<S
 	public Response<CodeExistResult> existCodePost(@Valid @RequestBody Request<CodeExistData> request, Errors errors) throws Exception{
 		Response<CodeExistResult> response = applicationContext.getBean(Response.class);;
 		CodeExistResult body = (CodeExistResult) codeExists.execute(request.getBody(), null, null);
+		response.setBody(body);
+		return response;
+	}
+	
+	@PerformanceMonitor
+	@RequestMapping(value = SEARCH_RESPONSIBLE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Response<LoadBody<JSONable>> searchResponsiblePost(@Valid @RequestBody Request<SearchResponsibleData> request, Errors errors) throws Exception{
+		Response<LoadBody<JSONable>> response = applicationContext.getBean(Response.class);;
+		LoadBody body = (LoadBody) searchResponsible.execute(request.getBody(), null, null);
 		response.setBody(body);
 		return response;
 	}
