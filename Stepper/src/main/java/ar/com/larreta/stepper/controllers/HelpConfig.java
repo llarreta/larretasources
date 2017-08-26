@@ -33,7 +33,7 @@ public abstract class HelpConfig <UpdateBodyRequest extends Body, LoadBodyReques
 		return request;
 	}
 
-	private void instanceJsonables(JSONable json) {
+	protected void instanceJsonables(JSONable json) {
 		Collection<PropertyDescriptor> descriptors = Arrays.asList(PropertyUtils.getPropertyDescriptors(json));
 		Iterator<PropertyDescriptor> it = descriptors.iterator();
 		
