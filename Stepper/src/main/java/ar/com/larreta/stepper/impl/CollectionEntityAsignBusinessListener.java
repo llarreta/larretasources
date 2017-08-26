@@ -6,6 +6,8 @@ import java.util.Iterator;
 
 import ar.com.larreta.mystic.exceptions.PersistenceException;
 import ar.com.larreta.mystic.model.Entity;
+import ar.com.larreta.stepper.SourcedListener;
+import ar.com.larreta.stepper.TargetedListener;
 import ar.com.larreta.stepper.exceptions.BusinessException;
 import ar.com.larreta.tools.TypedClassesUtils;
 

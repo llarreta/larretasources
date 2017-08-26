@@ -1,4 +1,4 @@
-package ar.com.larreta.school.controllers;
+package ar.com.larreta.stepper.controllers;
 
 import javax.validation.Valid;
 
@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.larreta.annotations.PerformanceMonitor;
-import ar.com.larreta.school.business.courses.StatesLoadBusiness;
+import ar.com.larreta.stepper.StatesLoadBusiness;
 import ar.com.larreta.stepper.Step;
-import ar.com.larreta.stepper.controllers.HelpConfig;
-import ar.com.larreta.stepper.controllers.ParentController;
 import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.stepper.messages.LoadBody;
 import ar.com.larreta.stepper.messages.Message;

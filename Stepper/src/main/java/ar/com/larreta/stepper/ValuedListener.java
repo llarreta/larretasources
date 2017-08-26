@@ -1,4 +1,4 @@
-package ar.com.larreta.stepper.impl;
+package ar.com.larreta.stepper;
 
 import java.io.Serializable;
 

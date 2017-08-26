@@ -3,6 +3,8 @@ package ar.com.larreta.stepper.impl;
 import java.io.Serializable;
 
 import ar.com.larreta.mystic.exceptions.PersistenceException;
+import ar.com.larreta.stepper.SourcedListener;
+import ar.com.larreta.stepper.TargetedListener;
 import ar.com.larreta.stepper.exceptions.BusinessException;
 import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.tools.TypedClassesUtils;
