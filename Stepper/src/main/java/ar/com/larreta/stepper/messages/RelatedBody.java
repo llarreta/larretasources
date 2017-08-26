@@ -6,16 +6,18 @@ import org.springframework.stereotype.Component;
 import ar.com.larreta.tools.Const;
 
 @Component @Scope(Const.PROTOTYPE)
-public class DownloadBody extends Body {
+public class RelatedBody extends Body {
 
-	private String fileContent;
+	public Long idRelated;
 
-	public String getFileContent() {
-		return fileContent;
+	public Long getIdRelated() {
+		return idRelated;
 	}
 
-	public void setFileContent(String fileContent) {
-		this.fileContent = fileContent;
+	public void setIdRelated(Long idRelated) {
+		this.idRelated = idRelated;
 	}
+	
+	
 	
 }

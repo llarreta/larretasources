@@ -1,8 +1,11 @@
 package ar.com.larreta.stepper.messages;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component
+import ar.com.larreta.tools.Const;
+
+@Component @Scope(Const.PROTOTYPE)
 public class AddressData extends JSONable {
 
 	private Long 		id;
