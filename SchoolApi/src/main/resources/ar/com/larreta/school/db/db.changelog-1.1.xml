@@ -161,6 +161,18 @@
 		<column name="description" 	value="Lomas del mirador" />
 		<column name="idState" 		value="1" />
 	</insert>
+	
+	<insert tableName="scholarship">
+		<column name="id" 			value="2" />
+		<column name="description" 	value="Beca 25%" />
+		<column name="value" 		value="25" />
+	</insert>
+	
+	<insert tableName="scholarship">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Beca 50%" />
+		<column name="value" 		value="50" />
+	</insert>
 
   </changeSet>
 </databaseChangeLog> 

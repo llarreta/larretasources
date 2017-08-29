@@ -1,5 +1,6 @@
 package ar.com.larreta.school.messages;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
@@ -7,6 +8,9 @@ import org.springframework.stereotype.Component;
 import ar.com.larreta.mystic.model.Country;
 import ar.com.larreta.mystic.model.DocumentType;
 import ar.com.larreta.stepper.messages.JSONable;
+import ar.com.larreta.stepper.messages.JSONableCollection;
+import ar.com.larreta.stepper.messages.PersonEmailRelationshipData;
+import ar.com.larreta.stepper.messages.PersonTelephoneRelationshipData;
 import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.Format;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
@@ -38,6 +42,38 @@ public class ResponsibleData extends JSONable {
 	private String 			cbu;
 	
 	private String 			cuil;
+	
+	private String profession;
+	
+	@Valid
+	private JSONableCollection<PersonEmailRelationshipData> emails;
+	
+	@Valid
+	private JSONableCollection<PersonTelephoneRelationshipData> telephones;
+
+	public String getProfession() {
+		return profession;
+	}
+
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
+	
+	public JSONableCollection<PersonEmailRelationshipData> getEmails() {
+		return emails;
+	}
+
+	public void setEmails(JSONableCollection<PersonEmailRelationshipData> emails) {
+		this.emails = emails;
+	}
+
+	public JSONableCollection<PersonTelephoneRelationshipData> getTelephones() {
+		return telephones;
+	}
+
+	public void setTelephones(JSONableCollection<PersonTelephoneRelationshipData> telephones) {
+		this.telephones = telephones;
+	}
 
 	public Long getId() {
 		return id;

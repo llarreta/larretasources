@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import ar.com.larreta.mystic.model.Country;
 import ar.com.larreta.mystic.model.DocumentType;
+import ar.com.larreta.school.persistence.Scholarship;
 import ar.com.larreta.stepper.messages.Body;
 import ar.com.larreta.stepper.messages.JSONableCollection;
 import ar.com.larreta.stepper.messages.PersonAddressRelationshipData;
@@ -50,6 +51,9 @@ public class StudentData extends Body {
 	private String healthServicePlan;
 	
 	private String healthServiceCredential;
+
+	@Exist(message="scholarship.inexistent", entityType=Scholarship.class)
+	private Long 			scholarship;
 	
 	private JSONableCollection<Long> paymentPlans;
 
@@ -65,6 +69,13 @@ public class StudentData extends Body {
 	@Valid
 	private JSONableCollection<StudentResponsibleRelationshipData> responsibles;
 
+	public Long getScholarship() {
+		return scholarship;
+	}
+	public void setScholarship(Long scholarship) {
+		this.scholarship = scholarship;
+	}
+	
 	public String getHealthService() {
 		return healthService;
 	}

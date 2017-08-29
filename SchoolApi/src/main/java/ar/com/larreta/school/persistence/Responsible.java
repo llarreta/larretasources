@@ -29,8 +29,17 @@ public class Responsible extends Person {
 
 	private String cbu;
 	private String cuil;
+	private String profession;
 	private Set<Student> students;
 
+	@Basic @Column (name="profession")
+	public String getProfession() {
+		return profession;
+	}
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
+	
 	@Basic @Column (name="cbu")
 	public String getCbu() {
 		return cbu;

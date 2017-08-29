@@ -422,6 +422,7 @@
       <column name="deleted"			type="datetime" />
       <column name="cbu"				type="varchar(255)" />
       <column name="cuil"				type="varchar(255)" />
+      <column name="profession"				type="varchar(255)" />
     </createTable>
  
     <addForeignKeyConstraint 	constraintName		="responsiblePerson" 
