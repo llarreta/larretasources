@@ -264,6 +264,16 @@
     							referencedTableName	="division"					referencedColumnNames	="id" 
     							baseTableName		="course"					baseColumnNames			="idDivision"
     							/>    
+
+    <createTable tableName="scholarship" >
+      <column name="id" 			type="bigint" 		autoIncrement="true">
+        <constraints nullable="false" primaryKey="true" unique="true"/>
+      </column>
+      <column name="deleted"		type="datetime" />
+      <column name="description"	type="varchar(255)" />
+      <column name="value"			type="TEXT" />
+    </createTable>
+
     							
     <createTable tableName="student" >
       <column name="id" 			type="bigint" 		autoIncrement="true">
@@ -275,12 +285,19 @@
       <column name="healthService"			type="varchar(255)" />
       <column name="healthServicePlan"			type="varchar(255)" />
       <column name="healthServiceCredential"			type="varchar(255)" />
+      <column name="idScholarship"		type="bigint" />
     </createTable>
 
     <addForeignKeyConstraint 	constraintName		="studentCourse" 
     							referencedTableName	="course"					referencedColumnNames	="id" 
     							baseTableName		="student"					baseColumnNames			="idCourse"
     							/>    
+
+    <addForeignKeyConstraint 	constraintName		="studentScholarship" 
+    							referencedTableName	="scholarship"					referencedColumnNames	="id" 
+    							baseTableName		="student"					baseColumnNames			="idScholarship"
+    							/>    
+
 
     <createTable tableName="paymentDirection" >
       <column name="id" 			type="bigint" 		autoIncrement="true">

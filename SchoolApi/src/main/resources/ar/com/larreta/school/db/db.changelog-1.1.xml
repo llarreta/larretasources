@@ -149,6 +149,18 @@
 		<column name="id" 			value="1" />
 		<column name="description" 	value="Personal" />
 	</insert>
+	
+	<insert tableName="state">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Buenos Aires" />
+		<column name="idCountry" 			value="1" />
+	</insert>
+	
+	<insert tableName="location">
+		<column name="id" 			value="1" />
+		<column name="description" 	value="Lomas del mirador" />
+		<column name="idState" 		value="1" />
+	</insert>
 
   </changeSet>
 </databaseChangeLog> 

@@ -38,6 +38,16 @@ public class Student extends Person {
 	private String healthService;
 	private String healthServicePlan;
 	private String healthServiceCredential;
+	private Scholarship scholarship;
+
+	@ManyToOne (fetch=FetchType.LAZY, targetEntity=Scholarship.class)
+	@JoinColumn (name="idScholarship")
+	public Scholarship getScholarship() {
+		return scholarship;
+	}
+	public void setScholarship(Scholarship scholarship) {
+		this.scholarship = scholarship;
+	}
 	
 	@Basic @Column (name="healthService")
 	public String getHealthService() {

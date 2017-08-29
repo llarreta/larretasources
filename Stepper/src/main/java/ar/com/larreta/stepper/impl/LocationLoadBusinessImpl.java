@@ -11,11 +11,11 @@ import ar.com.larreta.mystic.model.Location;
 import ar.com.larreta.stepper.LocationLoadBusiness;
 import ar.com.larreta.stepper.aspects.BeforeCallStep;
 import ar.com.larreta.stepper.exceptions.BusinessException;
-import ar.com.larreta.stepper.messages.RelatedBody;
+import ar.com.larreta.stepper.messages.ParametricData;
 
 @Service(LocationLoadBusiness.BUSINESS_NAME)
 @Transactional
-public class LocationLoadBusinessImpl extends LoadBusinessImpl<RelatedBody, Location> implements LocationLoadBusiness {
+public class LocationLoadBusinessImpl extends LoadBusinessImpl<ParametricData, Location> implements LocationLoadBusiness {
 
 	@BeforeCallStep(steps={	CleanLimitsResultsBusinessListener.BUSINESS_LISTENER_NAME, 
 			MaxResultsBusinessListener.BUSINESS_LISTENER_NAME, 
