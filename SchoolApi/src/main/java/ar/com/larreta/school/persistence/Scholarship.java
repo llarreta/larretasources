@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,8 @@ import ar.com.larreta.tools.Const;
 
 @Entity @Component @Scope(Const.PROTOTYPE)
 @Table(name = "scholarship")
+@Where(clause="deleted IS NULL")
+@SQLDelete (sql="UPDATE Scholarship SET deleted=CURRENT_TIMESTAMP WHERE id=?")
 public class Scholarship extends ExtendedParametricEntity {
 
 	private Set<Student> students;
