@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import ar.com.larreta.mystic.exceptions.PersistenceException;
+import ar.com.larreta.school.messages.ResponsibleData;
 import ar.com.larreta.school.messages.SearchResponsibleData;
 import ar.com.larreta.school.persistence.Responsible;
 import ar.com.larreta.stepper.aspects.BeforeCallStep;
@@ -18,7 +19,7 @@ import ar.com.larreta.stepper.impl.MaxResultsBusinessListener;
 
 @Service(SearchResponsible.BUSINESS_NAME)
 @Transactional
-public class SearchResponsibleImpl extends LoadBusinessImpl<SearchResponsibleData, Responsible> implements SearchResponsible {
+public class SearchResponsibleImpl extends LoadBusinessImpl<ResponsibleData, Responsible> implements SearchResponsible {
 
 	@BeforeCallStep(steps={	CleanLimitsResultsBusinessListener.BUSINESS_LISTENER_NAME, 
 			MaxResultsBusinessListener.BUSINESS_LISTENER_NAME, 
