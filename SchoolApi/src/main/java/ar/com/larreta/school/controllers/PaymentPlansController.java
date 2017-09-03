@@ -38,12 +38,7 @@ public class PaymentPlansController extends ParentController<UpdatePaymentPlansB
 		@Bean(name=ROOT_MAP + ParentController.CREATE)
 		@Override
 		public Message getCreateHelp() {
-			Request<UpdatePaymentPlansBody> request = (Request<UpdatePaymentPlansBody>) super.getCreateHelp();
-			JSONableCollection<ObligationData> obligations = new JSONableCollection<>();
-			request.getBody().setObligations(new JSONableCollection<ObligationData>());
-			request.getBody().getObligations().add(getObligationData());
-			request.getBody().getObligations().add(getObligationData());
-			return request;
+			return super.getCreateHelp();
 		}
 
 		private ObligationData getObligationData() {
@@ -54,14 +49,6 @@ public class PaymentPlansController extends ParentController<UpdatePaymentPlansB
 			return obligationData;
 		}
 
-/*		private PriceData getPriceData() {
-			PriceData priceData = applicationContext.getBean(PriceData.class);
-			priceData.setDetails(new JSONableCollection<DetailData>());
-			priceData.getDetails().add(getDetailData());
-			priceData.getDetails().add(getDetailData());
-			return priceData;
-		}
-*/
 		private DetailData getDetailData() {
 			DetailData detailData = applicationContext.getBean(DetailData.class);
 			detailData.setLittleDetails(new JSONableCollection<LittleDetailData>());

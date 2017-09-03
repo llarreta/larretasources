@@ -24,6 +24,16 @@ public class UpdatePaymentPlansBody extends Body {
 	@NotNull(message="obligations.required")
 	@ar.com.larreta.stepper.validators.annotations.Size(message="obligations.mayorOrEqual", mayorOrEqual=1)
 	private JSONableCollection<ObligationData> obligations;
+	
+	private JSONableCollection<DiscountData> discounts;
+
+	public JSONableCollection<DiscountData> getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(JSONableCollection<DiscountData> discounts) {
+		this.discounts = discounts;
+	}
 
 	public Long getId() {
 		return id;

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ar.com.larreta.mystic.exceptions.PersistenceException;
 import ar.com.larreta.school.messages.ResponsibleData;
-import ar.com.larreta.school.messages.SearchResponsibleData;
 import ar.com.larreta.school.persistence.Responsible;
 import ar.com.larreta.stepper.aspects.BeforeCallStep;
 import ar.com.larreta.stepper.exceptions.BusinessException;
