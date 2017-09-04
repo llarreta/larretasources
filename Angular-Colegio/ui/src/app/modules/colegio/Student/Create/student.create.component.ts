@@ -6,7 +6,7 @@ import { Student } from '../../Models/Student.model';
 import { Course } from '../../Models/Course.model';
 import { PaymentPlan } from '../../Models/PaymentPlan.model';
 import { ObligationStatus } from '../../Models/ObligationStatus.model';
-import { Responsible } from '../../Models/Responsible.model';
+import { ResponsibleP } from '../../Models/Responsible.model';
 import { DocumentType } from '../../Models/DocumentType.model';
 import { Email } from '../../Models/Email.model';
 import { Country } from '../../Models/Country.model';
@@ -14,6 +14,8 @@ import { State } from '../../Models/State.model';
 import { Location } from '../../Models/Location.model';
 import { Telephone } from '../../Models/Telephon.model';
 import { AddressP } from '../../Models/Address.model';
+import { Scholarship } from '../../Models/Scholarship.model';
+import { TelphoneType } from '../../Models/Telphone.enum';
 
 //Commons
 import { InputModel } from '../../Commons/Input/input.model.component';
@@ -30,6 +32,8 @@ import { CourseService } from '../../services/course.service';
 import { CountryService } from '../../services/country.service';
 import { LocationService } from '../../services/location.service';
 import { StateService } from '../../services/state.service';
+import { ScholarshipService } from '../../services/scholarship.service';
+import { ResponsibleService } from '../../services/responsible.service';
 
 //ngPrime
 import { SelectItem } from 'primeng/primeng';
@@ -74,6 +78,27 @@ export class StudentCreateComponent implements OnInit{
   healthServicePlanComponent: InputCommonsComponent;
   @ViewChild("healthServiceCredentialComponent")
   healthServiceCredentialComponent: InputCommonsComponent;
+  //Modal Responsibles
+  @ViewChild("searchBySurnameComponent")
+  searchBySurnameComponent: InputCommonsComponent;
+  @ViewChild("nameResponsibleComponent")
+  nameResponsibleComponent: InputCommonsComponent;
+  @ViewChild("surnameResponsibleComponent")
+  surnameResponsibleComponent: InputCommonsComponent;
+  @ViewChild("documentNumberResponsibleComponent")
+  documentNumberResponsibleComponent: InputCommonsComponent;
+  @ViewChild("cbuResponsibleComponent")
+  cbuResponsibleComponent: InputCommonsComponent;
+  @ViewChild("cuilResponsibleComponent")
+  cuilResponsibleComponent: InputCommonsComponent;
+  @ViewChild("professionResponsibleComponent")
+  professionResponsibleComponent: InputCommonsComponent;
+  @ViewChild("emailResponsibleComponent")
+  emailResponsibleComponent: InputCommonsComponent;
+  @ViewChild("workTelphoneResponsibleComponent")
+  workTelphoneResponsibleComponent: InputCommonsComponent;
+  @ViewChild("cellTelphoneResponsibleComponent")
+  cellTelphoneResponsibleComponent: InputCommonsComponent;
 
   inputName: InputModel;
   inputSurname: InputModel;
@@ -89,11 +114,26 @@ export class StudentCreateComponent implements OnInit{
   inputHealthService: InputModel;
   inputHealthServicePlan: InputModel;
   inputHealthServiceCredential: InputModel;
+  //Modal Responsibles
+  inputSearchBySurname: InputModel;
+  inputNameResponsible: InputModel;
+  inputSurnameResponsible: InputModel;
+  inputDocumentNumberResponsible: InputModel;
+  inputCBUResponsible: InputModel;
+  inputCUILResponsible: InputModel;
+  inputProfessionResponsible: InputModel;
+  inputEmailResponsible: InputModel;
+  inputWorkTelphoneResponsible: InputModel;
+  inputCellTelphoneResponsible: InputModel;
+
+  inEditResponsible: boolean;
+  inLoadSearchResponsible: boolean;
 
   documentTypes: Array<SelectItem>;
 
   obligationsStatus: Array<ObligationStatus>;
-  responsibles: Array<Responsible>;
+  responsibles: Array<ResponsibleP>;
+  responsibleSelected: ResponsibleP;
 
   showMessageError: boolean;
   showMessageErrorInput: boolean;
@@ -107,6 +147,10 @@ export class StudentCreateComponent implements OnInit{
   errorLocation: boolean;
   errorState: boolean;
   errorBirthdate: boolean;
+  errorDocumentTypeResponsible: boolean;
+  errorBirthdateResponsible: boolean; 
+  errorNationalityResponsible: boolean;
+
   isPaymentPlansOK: boolean;
   isCoursesOK: boolean;
   isDocumentTypeOK: boolean;
@@ -115,10 +159,17 @@ export class StudentCreateComponent implements OnInit{
   isLocationOK: boolean;
   isStateOK: boolean;
   isBirthdateOK: boolean;
+  isDocumentTypeResponsibleOK: boolean;
+  isBirthdateResponsibleOK: boolean;
+  isNationalityResponsibleOK: boolean;
 
   messageErrorInputs: string; 
   messageErrorService: string;
+
   displayPopUp: string;
+  displayPopUpResponsibles: string;
+  displayPopUpDeleteResponsible: string;
+
   loading: boolean;
 
   paymentPlansListBox: SelectItem[];
@@ -127,6 +178,9 @@ export class StudentCreateComponent implements OnInit{
   countrysListBox: SelectItem[];
   locationsListBox: SelectItem[];
   statesListBox: SelectItem[];
+  responsiblesListBox: SelectItem[];
+  responsiblesSearchListBox: SelectItem[];
+  scholarshipListBox: SelectItem[];
 
   maxResult: number;
   result: number;
@@ -144,7 +198,9 @@ export class StudentCreateComponent implements OnInit{
               private courseService: CourseService,
               private countryService: CountryService,
               private locationService: LocationService,
-              private stateService: StateService
+              private stateService: StateService,
+              private scholarshipService: ScholarshipService,
+              private responsibleService: ResponsibleService
               ) {}
 
   ngOnInit() {
@@ -241,8 +297,28 @@ export class StudentCreateComponent implements OnInit{
    
     }
 
-    this.hideLoading();
+    this.scholarshipService.load().subscribe(
+      data => this.loadScholarshipOK(data),
+      err => this.loadErrorMessageService(err),
+      () => console.log('Vacio')
+    );
+  }
 
+  loadScholarshipOK(data){
+
+    this.scholarshipListBox = new Array<SelectItem>();
+    
+    this.scholarshipListBox.push({label:"Sin Beca", value:null});
+
+    for(let scholarshipJSON of data.body.result){
+    
+      let scholarship: Scholarship = new Scholarship();
+      Object.assign(scholarship, scholarshipJSON);
+      this.scholarshipListBox.push({label:scholarship.description, value:scholarship.id});
+    
+    }
+
+    this.hideLoading();
   }
 
   initInputs(){
@@ -312,7 +388,7 @@ export class StudentCreateComponent implements OnInit{
     this.inputNumber.required= true;
     this.inputNumber.type= "number";
     this.inputNumber.validationActivate = true;
-    this.inputNumber.maxNumber = 8;
+    this.inputNumber.maxCharacter = 8;
     this.inputNumber.messageErrorMaxNumber = "El número máximo es de 8 digitos."
 
     this.inputStreet = new InputModel();
@@ -393,6 +469,116 @@ export class StudentCreateComponent implements OnInit{
     this.inputSurname.minCharacter = 3;
     this.inputSurname.messageErrorMinCharacter= "El apellido debe tener 4 letras minimo."
 
+    this.inputSearchBySurname = new InputModel();
+    this.inputSearchBySurname.id= "searchBySurname"
+    this.inputSearchBySurname.labelContent= "Busqueda por apellido...";
+    this.inputSearchBySurname.messageErrorEmpty= "Debe ingresar un apellido para realizar la busqueda.";
+    this.inputSearchBySurname.messageErrorValidation= "El apellido ingresado es invalido.";
+    this.inputSearchBySurname.required= true;
+    this.inputSearchBySurname.type= "text";
+    this.inputSearchBySurname.validationActivate = true;
+    this.inputSearchBySurname.minCharacter = 3;
+    this.inputSearchBySurname.messageErrorMinCharacter= "El apellido debe tener 4 letras minimo."
+
+    this.inputNameResponsible = new InputModel();
+    this.inputNameResponsible.id= "nameResponsible"
+    this.inputNameResponsible.labelContent= "Nombre";
+    this.inputNameResponsible.messageErrorEmpty= "Debe ingresar un nombre.";
+    this.inputNameResponsible.messageErrorValidation= "El nombre ingresado es invalido.";
+    this.inputNameResponsible.required= true;
+    this.inputNameResponsible.type= "text";
+    this.inputNameResponsible.validationActivate = true;
+    this.inputNameResponsible.minCharacter = 3;
+    this.inputNameResponsible.messageErrorMinCharacter= "El nombre debe tener 4 letras minimo."
+
+    this.inputSurnameResponsible = new InputModel();
+    this.inputSurnameResponsible.id= "surnameResponsible"
+    this.inputSurnameResponsible.labelContent= "Apellido";
+    this.inputSurnameResponsible.messageErrorEmpty= "Debe ingresar un apellido.";
+    this.inputSurnameResponsible.messageErrorValidation= "El apellido ingresado es invalido.";
+    this.inputSurnameResponsible.required= true;
+    this.inputSurnameResponsible.type= "text";
+    this.inputSurnameResponsible.validationActivate = true;
+    this.inputSurnameResponsible.minCharacter = 3;
+    this.inputSurnameResponsible.messageErrorMinCharacter= "El apellido debe tener 4 letras minimo."
+
+    this.inputDocumentNumberResponsible = new InputModel();
+    this.inputDocumentNumberResponsible.id= "document-number";
+    this.inputDocumentNumberResponsible.labelContent= "Numero de Documento";
+    this.inputDocumentNumberResponsible.messageErrorEmpty= "Debe completar el numero de documento.";
+    this.inputDocumentNumberResponsible.messageErrorValidation= "El numero de documento es invalido.";
+    this.inputDocumentNumberResponsible.required= true;
+    this.inputDocumentNumberResponsible.type= "dni";
+    this.inputDocumentNumberResponsible.mask= MaskTemplates.DNI;
+    this.inputDocumentNumberResponsible.validationActivate = true;
+    this.inputDocumentNumberResponsible.maskActivate = true;
+    this.inputDocumentNumberResponsible.messageErrorMinCharacter = "El numero de documento esta incompleto.";
+    this.inputDocumentNumberResponsible.messageErrorTypeText = "El dni ingresado es invalido.";
+
+    this.inputCBUResponsible = new InputModel();
+    this.inputCBUResponsible.id= "cbuResponsible"
+    this.inputCBUResponsible.labelContent= "CBU";
+    this.inputCBUResponsible.messageErrorValidation= "El CBU ingresado es invalido.";
+    this.inputCBUResponsible.type= "text";
+    this.inputCBUResponsible.validationActivate = true;
+    this.inputCBUResponsible.minCharacter = 6;
+    this.inputCBUResponsible.messageErrorMinCharacter= "El cbu debe tener 7 caracteres minimo."
+
+    this.inputCUILResponsible = new InputModel();
+    this.inputCUILResponsible.id= "cuilResponsible"
+    this.inputCUILResponsible.labelContent= "CUIL";
+    this.inputCUILResponsible.messageErrorValidation= "El CUIL ingresado es invalido.";
+    this.inputCUILResponsible.type= "text";
+    this.inputCUILResponsible.validationActivate = true;
+    this.inputCUILResponsible.minCharacter = 11;
+    this.inputCUILResponsible.messageErrorMinCharacter= "El apellido debe tener 12 letras minimo."
+
+    this.inputEmailResponsible = new InputModel();
+    this.inputEmailResponsible.id= "emailResponsible";
+    this.inputEmailResponsible.labelContent= "E-mail";
+    this.inputEmailResponsible.messageErrorEmpty= "Debe completar el email.";
+    this.inputEmailResponsible.messageErrorValidation="El email ingresado es invalido.";
+    this.inputEmailResponsible.required= true;
+    this.inputEmailResponsible.type= "mail";
+    this.inputEmailResponsible.validationActivate = true;
+    this.inputEmailResponsible.mask = MaskTemplates.MAIL;
+    this.inputEmailResponsible.maskActivate = true;
+    this.inputEmailResponsible.messageErrorMinCharacter = "Ingrese un email valido.";
+    this.inputEmailResponsible.messageErrorTypeText = "El email ingresado es invalido."
+
+    this.inputCellTelphoneResponsible = new InputModel();
+    this.inputCellTelphoneResponsible.id=  "telphoneCellResponsible";
+    this.inputCellTelphoneResponsible.labelContent= "Telefono Celular";
+    this.inputCellTelphoneResponsible.messageErrorEmpty= "Debe completar el telefono.";
+    this.inputCellTelphoneResponsible.messageErrorValidation= "El telefono ingresado es invalido."
+    this.inputCellTelphoneResponsible.required= true;
+    this.inputCellTelphoneResponsible.type= "telphone";
+    this.inputCellTelphoneResponsible.validationActivate = true;
+    this.inputCellTelphoneResponsible.mask= MaskTemplates.TELPHONE;
+    this.inputCellTelphoneResponsible.maskActivate = true;
+
+    this.inputWorkTelphoneResponsible = new InputModel();
+    this.inputWorkTelphoneResponsible.id=  "telphoneWorkResponsible";
+    this.inputWorkTelphoneResponsible.labelContent= "Telefono Laboral";
+    this.inputWorkTelphoneResponsible.messageErrorEmpty= "Debe completar el telefono.";
+    this.inputWorkTelphoneResponsible.messageErrorValidation= "El telefono ingresado es invalido."
+    this.inputWorkTelphoneResponsible.required= true;
+    this.inputWorkTelphoneResponsible.type= "telphone";
+    this.inputWorkTelphoneResponsible.validationActivate = true;
+    this.inputWorkTelphoneResponsible.mask= MaskTemplates.TELPHONE;
+    this.inputWorkTelphoneResponsible.maskActivate = true;
+
+    this.inputProfessionResponsible = new InputModel();
+    this.inputProfessionResponsible.id=  "professionResponsible";
+    this.inputProfessionResponsible.labelContent= "Profesion";
+    this.inputProfessionResponsible.messageErrorEmpty= "Debe completar la profesion.";
+    this.inputProfessionResponsible.messageErrorValidation= "La profesion ingresada es invalida."
+    this.inputProfessionResponsible.messageErrorMinCharacter= "La profesion debe tener 4 letras minimo."
+    this.inputProfessionResponsible.required= true;
+    this.inputProfessionResponsible.type= "text";
+    this.inputProfessionResponsible.validationActivate = true;
+    this.inputProfessionResponsible.minCharacter = 3;
+
     if(this.inEdit){
 
       this.initValueInput();
@@ -420,10 +606,67 @@ export class StudentCreateComponent implements OnInit{
     this.countrySelected = this.student.addresses[0].address.country;
     this.stateSelected = this.student.addresses[0].address.state;
     this.locationSelected = this.student.addresses[0].address.location;
+    this.refreshListBoxResponsibles();
     
   }
 
+  responsibleIsAllOK(){
+    Logger.debug("Revisando que este todo ok...");
+    this.cbuResponsibleComponent.checkValue();
+    this.cuilResponsibleComponent.checkValue();
+    this.documentNumberResponsibleComponent.checkValue();
+    this.nameResponsibleComponent.checkValue();
+    this.surnameResponsibleComponent.checkValue();
+    this.cellTelphoneResponsibleComponent.checkValue();
+    this.workTelphoneResponsibleComponent.checkValue();
+    this.professionResponsibleComponent.checkValue();
+    this.emailResponsibleComponent.checkValue();
+
+    this.documentTypeResponsibleChange();
+    this.nationalityResponsibleChange();
+    this.birthdateResponsibleChange();  
+
+    if((this.inputCBUResponsible.isAllOK) && (this.inputCUILResponsible.isAllOK)
+      && (this.inputNameResponsible.isAllOK) && (this.inputSurnameResponsible.isAllOK)
+      && (this.inputDocumentNumberResponsible.isAllOK)
+      && (this.isDocumentTypeResponsibleOK) && (this.isNationalityResponsibleOK)
+      && (this.isBirthdateResponsibleOK) && (this.inputEmailResponsible.isAllOK)
+      && (this.inputCellTelphoneResponsible.isAllOK) && (this.inputWorkTelphoneResponsible.isAllOK)
+      && (this.inputProfessionResponsible.isAllOK)){
+        Logger.debug("isAllOK true");
+        return true;
+
+    }else{
+      Logger.debug("isAllOk false");
+      return false;
+
+    }
+
+  }
+
   isAllOK(){
+  
+    this.nameComponent.checkValue();
+    this.surnameComponent.checkValue();
+    this.emailComponent.checkValue();
+    this.documentNumberComponent.checkValue();
+    this.codeComponent.checkValue();
+    this.numberComponent.checkValue();
+    this.postalCodeComponent.checkValue();
+    this.streetComponent.checkValue();
+    this.telphoneComponent.checkValue();
+    this.healthServiceComponent.checkValue();
+    this.healthServiceCredentialComponent.checkValue();
+    this.healthServicePlanComponent.checkValue();
+
+    this.documentTypeChange();
+    this.nationalityChange();
+    this.coursesChange();
+    this.paymentPlanChange();
+    this.countryChange();
+    this.locationChange();
+    this.stateChange();
+    this.birthdateChange();
 
     if((this.inputDocumentNumber.isAllOK) && (this.inputEmail.isAllOK)
       && (this.inputName.isAllOK) && (this.inputSurname.isAllOK)
@@ -440,32 +683,37 @@ export class StudentCreateComponent implements OnInit{
 
     }else{
 
-      this.nameComponent.checkValue();
-      this.surnameComponent.checkValue();
-      this.emailComponent.checkValue();
-      this.documentNumberComponent.checkValue();
-      this.codeComponent.checkValue();
-      this.numberComponent.checkValue();
-      this.postalCodeComponent.checkValue();
-      this.streetComponent.checkValue();
-      this.telphoneComponent.checkValue();
-      this.healthServiceComponent.checkValue();
-      this.healthServiceCredentialComponent.checkValue();
-      this.healthServicePlanComponent.checkValue();
-
-      this.documentTypeChange();
-      this.nationalityChange();
-      this.coursesChange();
-      this.paymentPlanChange();
-      this.countryChange();
-      this.locationChange();
-      this.stateChange();
-      this.birthdateChange();
-
       return false;
 
     }
 
+  }
+
+  searchResponsible(){
+    if(this.inputSearchBySurname.value != ""){
+      this.responsibleService.getBySurname(this.inputSearchBySurname.value)
+      .subscribe(
+        data => this.getBySurnameResponsibleOK(data),
+        err => this.loadErrorMessageService(err),
+        () => console.log('Vacio')
+      );
+    }
+  }
+
+  getBySurnameResponsibleOK(data: any){
+    this.responsiblesSearchListBox = new Array<SelectItem>();
+    this.responsiblesSearchListBox.push({label:"Crear nuevo responsable", value:null});
+    for(let responsibleJSON of data.body.result){
+      let responsible: ResponsibleP = new ResponsibleP();
+      Object.assign(responsible, responsibleJSON);
+      let lable = responsible.responsible.name + " " + responsible.responsible.surname;
+      this.responsiblesSearchListBox.push({label: lable, value:responsible});
+    }
+    this.hideLoading();
+  }
+
+  responsibleSelectedChange(){
+    this.loadDataInputResponsible();
   }
 
   confirm(){
@@ -500,6 +748,64 @@ export class StudentCreateComponent implements OnInit{
     this.goToList();
   }
 
+  saveSelectedResponsible(){
+    Logger.debug("Guardando responsable..");
+    if(this.loadDataInSelectedResponsible()){
+      Logger.debug("inEditResponsible: " + this.inEditResponsible);
+      if(!this.inEditResponsible){
+        Logger.debug("Guardando responsable...");
+        if(this.student.responsibles == null){
+          this.student.responsibles = new Array<ResponsibleP>();
+        }
+        this.responsibleSelected.responsibleType = 1;
+        this.student.responsibles.push(this.responsibleSelected);
+      }
+      this.refreshListBoxResponsibles();
+      this.hideDisplayPopUpResponsibles();
+    }  
+  }
+
+  refreshListBoxResponsibles(){
+    Logger.debug("Actualizando listBox Responsibles");
+    this.responsiblesListBox = new Array<SelectItem>();
+    for(let responsible of this.student.responsibles){
+      let label: string = responsible.responsible.name + " " + responsible.responsible.surname;
+      this.responsiblesListBox.push({label:label, value:responsible});
+    }
+  }
+
+  loadDataInSelectedResponsible(){
+    Logger.debug("Cargando datos del responsable..");
+    if(this.responsibleIsAllOK()){
+
+      Logger.debug("Todo esta ok cargando datos para guardar");
+      this.responsibleSelected.responsible.name = this.inputNameResponsible.value;
+      this.responsibleSelected.responsible.surname = this.inputSurnameResponsible.value;
+      this.responsibleSelected.responsible.documentNumber = this.inputDocumentNumberResponsible.value;
+      this.responsibleSelected.responsible.cbu = this.inputCBUResponsible.value;
+      this.responsibleSelected.responsible.cuil = this.inputCUILResponsible.value;
+      this.setTelphoneResponsible(TelphoneType.WORK, this.inputWorkTelphoneResponsible);
+      this.setTelphoneResponsible(TelphoneType.PERSONAL, this.inputCellTelphoneResponsible);
+      this.responsibleSelected.responsible.profession = this.inputProfessionResponsible.value;
+      if(this.responsibleSelected.responsible.emails != null){
+        this.responsibleSelected.responsible.emails[0].email.address = this.inputEmailResponsible.value;
+      }else{
+        this.responsibleSelected.responsible.emails = new Array<Email>();
+        let email: Email = new Email();
+        email.createInstanceEmailAddress();
+        email.emailType = 1;
+        email.email.address = this.inputEmailResponsible.value;
+        this.responsibleSelected.responsible.emails.push(email);
+      }
+
+      return true;
+
+    }
+
+    Logger.debug("Alguna validacion no es correcta...");
+    return false;
+  }
+
   loadErrorMessageInput(error){
     this.hideLoading();
     Logger.warn("Error de validacion en abm estudiante...");
@@ -529,6 +835,7 @@ export class StudentCreateComponent implements OnInit{
 
     if((this.student.addresses != null) && (this.student.addresses.length > 0)){
 
+      this.student.addresses[0].addressType = 1;
       this.student.addresses[0].address.country = this.countrySelected;
       this.student.addresses[0].address.department = this.inputDepartment.value;
       this.student.addresses[0].address.floor = this.inputFloor.value;
@@ -543,6 +850,7 @@ export class StudentCreateComponent implements OnInit{
       this.student.addresses = new Array<AddressP>();
       let address: AddressP = new AddressP();
       address.createInstanceAddress();
+      address.addressType = 1;
       address.address.country = this.countrySelected;
       address.address.department = this.inputDepartment.value;
       address.address.floor = this.inputFloor.value;
@@ -565,7 +873,7 @@ export class StudentCreateComponent implements OnInit{
       this.student.telephones = new Array<Telephone>();
 
       let telephone: Telephone = new Telephone();
-      telephone.telephoneType = 1;
+      telephone.telephoneType = TelphoneType.HOME;
       telephone.createInstanceTelephoneNumber();
       telephone.telephone.number = this.inputTelphone.value;
       this.student.telephones.push(telephone);
@@ -589,6 +897,127 @@ export class StudentCreateComponent implements OnInit{
 
   }
 
+  loadNewResponsible(){
+
+    this.responsibleSelected = new ResponsibleP();
+    this.responsibleSelected.createInstanceResponsible();
+    this.inEditResponsible = false;
+    this.initResponsibleInputs();
+    this.showDisplayPopUpResponsibles();
+    
+  }
+
+  loadEditResponsible(){
+
+    this.inEditResponsible = true;
+    this.initResponsibleInputs();
+    this.showDisplayPopUpResponsibles();
+
+  }
+
+  initResponsibleInputs(){
+    
+    if(this.inEditResponsible || this.inLoadSearchResponsible){
+      
+      this.loadDataInputResponsible();
+
+    }else{
+
+      this.inputCBUResponsible.value = "";
+      this.inputCUILResponsible.value = "";
+      this.inputNameResponsible.value = "";
+      this.inputSurnameResponsible.value = "";
+      this.inputDocumentNumberResponsible.value = "";
+      this.inputCellTelphoneResponsible.value = "";
+      this.inputWorkTelphoneResponsible.value = "";
+      this.inputEmailResponsible.value = "";
+      this.inputProfessionResponsible.value = "";
+
+    }
+
+    this.inputSearchBySurname.value = "";
+    this.responsiblesSearchListBox = new Array<SelectItem>();
+
+  }
+
+  loadDataInputResponsible(){
+    
+    this.inputCBUResponsible.value = this.responsibleSelected.responsible.cbu;
+    this.inputCUILResponsible.value = this.responsibleSelected.responsible.cuil;
+    this.inputNameResponsible.value = this.responsibleSelected.responsible.name;
+    this.inputSurnameResponsible.value = this.responsibleSelected.responsible.surname;
+    this.inputDocumentNumberResponsible.value = this.responsibleSelected.responsible.documentNumber;
+    
+    let cellPhone: Telephone = this.searchTelponeResponsible(TelphoneType.PERSONAL);
+    if(cellPhone != null){
+      this.inputCellTelphoneResponsible.value = cellPhone.telephone.number;
+    }
+    
+    let workPhone: Telephone = this.searchTelponeResponsible(TelphoneType.WORK);
+    if(workPhone != null){
+      this.inputWorkTelphoneResponsible.value = workPhone.telephone.number;
+    }
+    
+    if((this.responsibleSelected != null) 
+      && (this.responsibleSelected.responsible != null)
+      && (this.responsibleSelected.responsible.emails != null)){
+      this.inputEmailResponsible.value = this.responsibleSelected.responsible.emails[0].email.address;
+    }
+
+    this.inputProfessionResponsible.value = this.responsibleSelected.responsible.profession;
+
+  }
+
+  searchTelponeResponsible(telphoneType: TelphoneType){
+
+    if((this.responsibleSelected != null) 
+      && (this.responsibleSelected.responsible != null) 
+      && (this.responsibleSelected.responsible.telephones != null)){
+     
+      for(let telphone of this.responsibleSelected.responsible.telephones){
+        
+        if(telphone.telephoneType == telphoneType){
+
+          return telphone;
+
+        }
+
+      }
+
+    }
+
+    return null;
+
+  }
+
+  setTelphoneResponsible(telphoneType: TelphoneType, inputModel: InputModel){
+
+    if(this.responsibleSelected.responsible.telephones == null){
+
+      this.responsibleSelected.responsible.telephones = new Array<Telephone>();
+      this.insertNewResponsibleTelphone(telphoneType, inputModel);
+
+    }else{
+
+      let telphone: Telephone = this.searchTelponeResponsible(telphoneType);
+
+      if(telphone != null){
+        telphone.telephone.number = inputModel.value;
+      }else{
+        this.insertNewResponsibleTelphone(telphoneType, inputModel);
+      }
+
+    }
+  }
+
+  private insertNewResponsibleTelphone(telphoneType: TelphoneType, inputModel: InputModel){
+    let telphone: Telephone = new Telephone();
+    telphone.createInstanceTelephoneNumber();
+    telphone.telephoneType = telphoneType;
+    telphone.telephone.number = inputModel.value;
+    this.responsibleSelected.responsible.telephones.push(telphone);
+  }
+
   deleteSelectedStudent(){
     this.showLoading();
     this.studentService.deleteStudent(this.student)
@@ -597,6 +1026,13 @@ export class StudentCreateComponent implements OnInit{
         err => this.loadErrorMessageService(err),
         () => Logger.debug('Termino ejecucion studentService...')
     );
+  }
+
+  deleteSelectedResponsible(){
+    this.student.responsibles.splice(this.student.responsibles.indexOf(this.responsibleSelected), 1);
+    this.responsibleSelected = null;
+    this.hideDisplayPopUpDeleteResponsible();
+    this.refreshListBoxResponsibles();
   }
 
   deleteStudentOK(data){
@@ -654,6 +1090,63 @@ export class StudentCreateComponent implements OnInit{
     }
   }
 
+  loadStateByCountry(){
+    this.showLoading();
+    this.stateService.loadStatesByCountry(this.countrySelected)
+       .subscribe(
+        data => this.loadStatesByCountryOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion loadStateByCountry...')
+    );
+  }
+
+  loadStatesByCountryOK(data){
+    this.statesListBox = new Array<SelectItem>();
+    this.statesListBox.push({label:"Seleccionar provincia", value:null});
+    Logger.debug("Estados: " + JSON.stringify(data.body.result));
+    for(let stateJSON of data.body.result){
+      let state: State = new State();
+      Object.assign(state, stateJSON);
+      this.statesListBox.push({label:state.description, value:state.id});
+    }
+    this.hideLoading();
+  }
+
+  stateChangeAndLoadLocation(){
+    this.stateChange();
+    if(this.isStateOK){
+      this.loadLocationByState();
+    }
+  }
+
+  loadLocationByState(){
+    this.showLoading();
+    this.locationService.loadLocationByState(this.stateSelected)
+       .subscribe(
+        data => this.loadLocationByStateOK(data),
+        err => this.loadErrorMessageService(err),
+        () => Logger.debug('Termino ejecucion loadLocationByState...')
+    );
+  }
+
+  loadLocationByStateOK(data){
+    this.locationsListBox = new Array<SelectItem>();
+    this.locationsListBox.push({label:"Seleccionar barrio", value:null});
+    for(let locationJSON of data.body.result){
+      let location: Location = new Location();
+      Object.assign(location, locationJSON);
+      this.locationsListBox.push({label:location.description, value:location.id});
+    }
+    this.hideLoading();
+  }
+
+  countryChangeAndLoadStates(){
+    this.countryChange();
+    if(this.isCountryOK){
+      this.loadStateByCountry();
+    }
+  }
+
   countryChange(){
     if(this.countrySelected != null){
       this.isCountryOK = true;
@@ -694,6 +1187,36 @@ export class StudentCreateComponent implements OnInit{
     }
   }
 
+  documentTypeResponsibleChange(){
+    if(this.responsibleSelected.responsible.documentType != null){
+      this.isDocumentTypeResponsibleOK = true;
+      this.errorDocumentTypeResponsible = false;
+    }else{
+      this.isDocumentTypeResponsibleOK = false;
+      this.errorDocumentTypeResponsible = true;
+    }
+  }
+
+  birthdateResponsibleChange(){
+    if(this.responsibleSelected.responsible.birthdate != null){
+      this.isBirthdateResponsibleOK = true;
+      this.errorBirthdateResponsible = false;
+    }else{
+      this.isBirthdateResponsibleOK = false;
+      this.errorBirthdateResponsible = true;
+    }
+  }
+
+  nationalityResponsibleChange(){
+    if(this.responsibleSelected.responsible.nationality != null){
+      this.isNationalityResponsibleOK = true;
+      this.errorNationalityResponsible = false;
+    }else{
+      this.isNationalityResponsibleOK = false;
+      this.errorNationalityResponsible = true;
+    }
+  }
+
   showLoading(){
     this.loading = true;
     Logger.debug("ShowLoading");
@@ -706,6 +1229,23 @@ export class StudentCreateComponent implements OnInit{
 
   goToList(){
     this.goList.emit(true);
+  }
+
+  showDisplayPopUpResponsibles(){
+    this.displayPopUpResponsibles = "block";
+  }
+
+  hideDisplayPopUpResponsibles(){
+    this.displayPopUpResponsibles = "none";
+    this.responsibleSelected = null;
+  }
+
+  showDisplayPopUpDeleteResponsible(){
+    this.displayPopUpDeleteResponsible = "block";
+  }
+
+  hideDisplayPopUpDeleteResponsible(){
+    this.displayPopUpDeleteResponsible = "none";
   }
 
   confirmDelete(){
@@ -748,5 +1288,44 @@ export class StudentCreateComponent implements OnInit{
   }
   setPostalCode(inputModel: InputModel){
     this.inputPostalCode = inputModel;
+  }
+  setSearchBySurname(inputModel: InputModel){
+    this.inputSearchBySurname = inputModel;
+  }
+  setHealthService(inputModel: InputModel){
+    this.inputHealthService = inputModel;
+  }
+  setHealthServicePlan(inputModel: InputModel){
+    this.inputHealthServicePlan = inputModel;
+  }
+  setHealthServiceCredential(inputModel: InputModel){
+    this.inputHealthServiceCredential = inputModel;
+  }
+  setNameResponsible(inputModel: InputModel){
+    this.inputNameResponsible = inputModel;
+  }
+  setSurnameResponsible(inputModel: InputModel){
+    this.inputSurnameResponsible = inputModel;
+  }
+  setDocumentNumberResponsible(inputModel: InputModel){
+    this.inputDocumentNumberResponsible = inputModel;
+  }
+  setCBUResponsible(inputModel: InputModel){
+    this.inputCBUResponsible = inputModel;
+  }
+  setCUILResponsible(inputModel: InputModel){
+    this.inputCUILResponsible = inputModel;
+  }
+  setProfessionResponsible(inputModel: InputModel){
+    this.inputProfessionResponsible = inputModel;
+  }
+  setEmailResponsible(inputModel: InputModel){
+    this.inputEmailResponsible = inputModel;
+  }
+  setWorkTelphoneResponsible(inputModel: InputModel){
+    this.inputWorkTelphoneResponsible = inputModel;
+  }
+  setCellTelphoneResponsible(inputModel: InputModel){
+    this.inputCellTelphoneResponsible = inputModel;
   }
 }

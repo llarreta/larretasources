@@ -2,7 +2,7 @@ import { Entity } from './Entity.model';
 import { Course } from './Course.model';
 import { PaymentPlan } from './PaymentPlan.model';
 import { ObligationStatus } from './ObligationStatus.model';
-import { Responsible } from './Responsible.model';
+import { ResponsibleP } from './Responsible.model';
 import { Email } from './Email.model';
 import { Telephone } from './Telephon.model';
 import { AddressP } from './Address.model';
@@ -25,9 +25,9 @@ export class Student extends Entity{
     public emails: Array<Email>;
     public telephones: Array<Telephone>;
     public addresses: Array<AddressP>;
-
     public obligationsStatus: Array<number>;
-    public responsibles: Array<Responsible>;
+    public responsibles: Array<ResponsibleP>;
+    public scholarship: number;
 
     constructor() {
         super();

@@ -5,19 +5,19 @@ import { Observable } from 'rxjs';
 
 import { HttpRequest, Modules } from '../../../services/index';
 import { DefaultRequest } from '../../../models/default-request.model';
-import { State } from '../models/state.model';
 
 @Injectable()
-export class StateService {
+export class ResponsibleService {
 
     constructor(private http: HttpRequest) { }
 
-    loadStatesByCountry(idCountry: number): Observable<any> {
+    getBySurname(surname: string): Observable<any> {
         var body = {
-            "idRelated": idCountry
+            "name": null,
+            "surname": surname
         };
         var token = "";
-        return this.http.post(body, "states/load", token);
+        return this.http.post(body, "students/searchResponsible", token);
     }
 
 }

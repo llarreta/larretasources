@@ -24,10 +24,18 @@ export class StudentService {
                     "documentNumber": student.documentNumber,
                     "photo": student.photo,
                     "course": student.course.id,
+                    "birthdate": student.birthdate,
+                    "nationality": student.nationality,
+                    "code": student.code,
+                    "healthService": student.healthService,
+                    "healthServicePlan": student.healthServicePlan,
+                    "healthServiceCredential": student.healthServiceCredential,
+                    "scholarship": student.scholarship,
                     "paymentPlans": student.paymentPlans,
                     "emails": student.emails,
                     "telephones": student.telephones,
-                    "addresses": student.addresses
+                    "addresses": student.addresses,
+                    "responsibles": student.responsibles
                 };
         return this.http.post(body, "students/create", token);
     }
@@ -42,10 +50,18 @@ export class StudentService {
                     "documentNumber": student.documentNumber,
                     "photo": student.photo,
                     "course": student.course.id,
+                    "birthdate": student.birthdate,
+                    "nationality": student.nationality,
+                    "code": student.code,
+                    "healthService": student.healthService,
+                    "healthServicePlan": student.healthServicePlan,
+                    "healthServiceCredential": student.healthServiceCredential,
+                    "scholarship": student.scholarship,
                     "paymentPlans": student.paymentPlans,
                     "emails": student.emails,
                     "telephones": student.telephones,
-                    "addresses": student.addresses
+                    "addresses": student.addresses,
+                    "responsibles": student.responsibles
                 };
         return this.http.post(body, "students/update", token);
     }

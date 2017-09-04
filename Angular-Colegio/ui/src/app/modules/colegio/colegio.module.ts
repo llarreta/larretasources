@@ -50,6 +50,8 @@ import { PaymentRecordService } from './services/paymentRecord.service';
 import { CountryService } from './services/country.service';
 import { LocationService } from './services/location.service';
 import { StateService } from './services/state.service';
+import { ScholarshipService } from './services/scholarship.service';
+import { ResponsibleService } from './services/responsible.service';
 
 //TextMask
 import { TextMaskModule } from 'angular2-text-mask';
@@ -99,7 +101,9 @@ import { TextMaskModule } from 'angular2-text-mask';
         PaymentRecordService,
         CountryService,
         LocationService,
-        StateService
+        StateService,
+        ScholarshipService,
+        ResponsibleService
     ]
 })
 export class ColegioModule { }

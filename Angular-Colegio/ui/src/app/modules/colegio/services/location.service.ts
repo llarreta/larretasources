@@ -12,9 +12,9 @@ export class LocationService {
 
     constructor(private http: HttpRequest) { }
 
-    loadLocationByCountry(idCountry: number): Observable<any> {
+    loadLocationByState(idState: number): Observable<any> {
         var body = {
-            "country": idCountry
+            "idRelated": idState
         };
         var token = "";
         return this.http.post(body, "locations/load", token);
