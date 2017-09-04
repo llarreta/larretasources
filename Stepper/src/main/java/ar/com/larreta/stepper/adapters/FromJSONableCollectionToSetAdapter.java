@@ -24,15 +24,19 @@ public class FromJSONableCollectionToSetAdapter extends StandardAdapter {
 			Iterator it = set.iterator();
 			while (it.hasNext()) {
 				Serializable actual = (Serializable) it.next();
-				Serializable newInstance = (Serializable) applicationContext.getBean(genericType);
-				
-				Adapter adapter = beanUtils.getAdapter(actual.getClass(), newInstance.getClass());
+				Adapter adapter = beanUtils.getAdapter(actual.getClass(), genericType);
 				if (adapter!=null){
 					actual = (Serializable) adapter.process(actual, genericType, null);
 				}
 				
-				beanUtils.copy(actual, newInstance);
-				collection.add(newInstance);
+				if (actual!=null){
+					if (!actual.getClass().equals(genericType)){
+						Serializable newInstance = (Serializable) applicationContext.getBean(genericType);
+						beanUtils.copy(actual, newInstance);
+						actual = newInstance;
+					}
+					collection.add(actual);
+				}
 			}
 		}
 

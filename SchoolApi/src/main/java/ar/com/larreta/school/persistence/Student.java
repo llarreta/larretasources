@@ -99,7 +99,7 @@ public class Student extends Person {
 		this.course = course;
 	}
 	
-	@ManyToMany (fetch=FetchType.LAZY, targetEntity=PaymentPlan.class, cascade=CascadeType.PERSIST )
+	@ManyToMany (fetch=FetchType.LAZY, targetEntity=PaymentPlan.class )
 	@JoinTable(name = "studentPaymentPlan", joinColumns = { @JoinColumn(name = "idStudent") }, 
 		inverseJoinColumns = { @JoinColumn(name = "idPaymentPlan") })
 	public Set<PaymentPlan> getPaymentPlans() {
