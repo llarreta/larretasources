@@ -705,7 +705,9 @@ export class StudentCreateComponent implements OnInit{
     this.responsiblesSearchListBox.push({label:"Crear nuevo responsable", value:null});
     for(let responsibleJSON of data.body.result){
       let responsible: ResponsibleP = new ResponsibleP();
-      Object.assign(responsible, responsibleJSON);
+      responsible.createInstanceResponsible();
+      responsible.responsibleType = 1;
+      Object.assign(responsible.responsible, responsibleJSON);
       let lable = responsible.responsible.name + " " + responsible.responsible.surname;
       this.responsiblesSearchListBox.push({label: lable, value:responsible});
     }
@@ -942,6 +944,11 @@ export class StudentCreateComponent implements OnInit{
 
   loadDataInputResponsible(){
     
+    if(this.responsibleSelected == null){
+      this.responsibleSelected = new ResponsibleP();
+      this.responsibleSelected.createInstanceResponsible();
+    }
+
     this.inputCBUResponsible.value = this.responsibleSelected.responsible.cbu;
     this.inputCUILResponsible.value = this.responsibleSelected.responsible.cuil;
     this.inputNameResponsible.value = this.responsibleSelected.responsible.name;
@@ -960,11 +967,14 @@ export class StudentCreateComponent implements OnInit{
     
     if((this.responsibleSelected != null) 
       && (this.responsibleSelected.responsible != null)
-      && (this.responsibleSelected.responsible.emails != null)){
+      && (this.responsibleSelected.responsible.emails != null)
+      && (this.responsibleSelected.responsible.emails[0] != null)){
       this.inputEmailResponsible.value = this.responsibleSelected.responsible.emails[0].email.address;
     }
 
     this.inputProfessionResponsible.value = this.responsibleSelected.responsible.profession;
+
+    this.responsibleIsAllOK();
 
   }
 
