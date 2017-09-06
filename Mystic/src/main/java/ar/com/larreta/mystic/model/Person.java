@@ -59,6 +59,7 @@ public abstract class Person extends ar.com.larreta.mystic.model.Entity {
 	}
 	public void setTelephones(Set<PersonTelephoneRelationship> telephones) {
 		this.telephones = telephones;
+		writeToAll(telephones, "person", this);
 	}
 
 	@OneToMany (mappedBy="person", fetch=FetchType.LAZY, cascade=CascadeType.ALL, targetEntity=PersonAddressRelationship.class)
