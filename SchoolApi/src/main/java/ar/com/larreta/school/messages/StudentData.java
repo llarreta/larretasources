@@ -3,6 +3,7 @@ package ar.com.larreta.school.messages;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.mystic.model.Country;
@@ -16,8 +17,9 @@ import ar.com.larreta.stepper.messages.PersonTelephoneRelationshipData;
 import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.Format;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
+import ar.com.larreta.tools.Const;
 
-@Component
+@Component @Scope(Const.PROTOTYPE)
 public class StudentData extends Body {
 
 	@NotNull(message="id.required", avaiableActions={"update"})

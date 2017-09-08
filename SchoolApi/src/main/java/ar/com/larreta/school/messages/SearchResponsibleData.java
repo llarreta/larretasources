@@ -1,10 +1,12 @@
 package ar.com.larreta.school.messages;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.stepper.messages.Body;
+import ar.com.larreta.tools.Const;
 
-@Component
+@Component @Scope(Const.PROTOTYPE)
 public class SearchResponsibleData extends Body {
 	
 	private String name;

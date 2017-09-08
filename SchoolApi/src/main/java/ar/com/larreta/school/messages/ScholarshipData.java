@@ -1,10 +1,12 @@
 package ar.com.larreta.school.messages;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.stepper.messages.JSONable;
+import ar.com.larreta.tools.Const;
 
-@Component
+@Component @Scope(Const.PROTOTYPE)
 public class ScholarshipData extends JSONable {
 
 	private Long id;

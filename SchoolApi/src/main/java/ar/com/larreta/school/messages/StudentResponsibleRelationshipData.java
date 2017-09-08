@@ -2,14 +2,16 @@ package ar.com.larreta.school.messages;
 
 import javax.validation.Valid;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ar.com.larreta.school.persistence.ResponsibleType;
 import ar.com.larreta.stepper.messages.JSONable;
 import ar.com.larreta.stepper.validators.annotations.Exist;
 import ar.com.larreta.stepper.validators.annotations.NotNull;
+import ar.com.larreta.tools.Const;
 
-@Component
+@Component @Scope(Const.PROTOTYPE)
 public class StudentResponsibleRelationshipData extends JSONable {
 
 	@Exist(message="responsibleType.inexistent", entityType=ResponsibleType.class)
