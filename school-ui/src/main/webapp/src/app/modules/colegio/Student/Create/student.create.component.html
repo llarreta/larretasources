@@ -31,10 +31,9 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <div class="row">
+      <div class="row"> 
         <div class="col-6">
         </div>
-
         <div class="col-6">
           <div class="upload-image-container">
             <img src="src/assets/images/user-image.png" class="image-example-user" *ngIf="student.photo == null"/>
@@ -47,11 +46,35 @@
       </div>
       <div class="row">
         <div class="col-6">
+          <input-commons #codeComponent [inputModel]="inputCode" (valueModel)="setStudentCode($event)"></input-commons>
+        </div>
+        <div class="col-6">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
           <input-commons #nameComponent [inputModel]="inputName" (valueModel)="setStudentName($event)"></input-commons>
         </div>
 
         <div class="col-6">
           <input-commons #surnameComponent [inputModel]="inputSurname" (valueModel)="setStudentSurname($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <h5 class="col-12">Fecha de Nacimiento</h5>
+          <p-calendar class="col-12" [(ngModel)]="student.birthdate" [locale]="es" dateFormat="dd/mm/yy" 
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2100"
+            [ngClass]="{'error-border': errorBirthdate, 'is-all-ok': isBirthdateOK}"
+            (onSelect)="birthdateChange()"></p-calendar>
+        </div>
+
+        <div class="col-6">
+          <p-dropdown [options]="nationalityListBox" [(ngModel)]="student.nationality" 
+            class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" 
+            [ngClass]="{'error-border': errorNationality,'is-all-ok': isNationalityOK}"
+            (onChange)="nationalityChange()">
+          </p-dropdown>
         </div>
       </div>
       <div class="row">
@@ -69,9 +92,74 @@
         </div>
       </div>
       <div class="row">
+        <h3 class="col-12">Dirección</h3>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <h5>Pais</h5>
+          <h6 *ngIf="countrySelected != null" class="animated fade-in">{{getLabelCountrySelected()}}</h6>
+          <p-listbox [options]="countrysListBox" [(ngModel)]="countrySelected" 
+            filter="filter" class="listbox-common" [ngClass]="{'error-border': errorCountry, 
+            'is-all-ok': isCountryOK}" (onChange)="countryChangeAndLoadStates()"></p-listbox>
+        </div>
+        <div class="col-4">
+          <h5>Provincia</h5>
+          <h6 *ngIf="stateSelected != null" class="animated fade-in">{{getLabelStateSelected()}}</h6>
+          <p-listbox [options]="statesListBox" [(ngModel)]="stateSelected" 
+          filter="filter" class="listbox-common" [ngClass]="{'error-border': errorState, 
+          'is-all-ok': isStateOK}" (onChange)="stateChangeAndLoadLocation()"></p-listbox>
+        </div>
+        <div class="col-4">
+          <h5>Barrio</h5>
+          <h6 *ngIf="locationSelected != null" class="animated fade-in">{{getLabelLocationSelected()}}</h6>
+          <p-listbox [options]="locationsListBox" [(ngModel)]="locationSelected" 
+          filter="filter" class="listbox-common" [ngClass]="{'error-border': errorLocation, 
+          'is-all-ok': isLocationOK}" (onChange)="locationChange()"></p-listbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input-commons #streetComponent [inputModel]="inputStreet" (valueModel)="setStreet($event)"></input-commons>
+        </div>
+        <div class="col-6">
+          <input-commons #numberComponent [inputModel]="inputNumber" (valueModel)="setNumber($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-4">
+            <input-commons #floorComponent [inputModel]="inputFloor" (valueModel)="setFloor($event)"></input-commons>
+          </div>
+          <div class="col-4">
+            <input-commons #departmentComponent [inputModel]="inputDepartment" (valueModel)="setDepartment($event)"></input-commons>
+          </div>
+          <div class="col-4">
+              <input-commons #postalCodeComponent [inputModel]="inputPostalCode" (valueModel)="setPostalCode($event)"></input-commons>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input-commons #healthServiceComponent [inputModel]="inputHealthService" (valueModel)="setHealthService($event)"></input-commons>
+        </div>
+        <div class="col-6">
+          <input-commons #healthServicePlanComponent [inputModel]="inputHealthServicePlan" (valueModel)="setHealthServicePlan($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-6">
+            <input-commons #healthServiceCredentialComponent [inputModel]="inputHealthServiceCredential" (valueModel)="setHealthServiceCredential($event)"></input-commons>
+          </div>
+          <div class="col-6">
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-6">
+          <input-commons #telphoneComponent [inputModel]="inputTelphone" (valueModel)="setTelphone($event)"></input-commons>
+        </div>
         <div class="col-6">
           <input-commons #emailComponent [inputModel]="inputEmail" (valueModel)="setEmail($event)"></input-commons>
         </div>
+      </div>
+      <div class="row">
         <div class="col-6">
           <h3>Planes de Pago</h3>
           <p-listbox [options]="paymentPlansListBox" [(ngModel)]="student.paymentPlans" 
@@ -79,14 +167,47 @@
             [ngClass]="{'error-border': errorPaymentPlans, 'is-all-ok': isPaymentPlansOK}"
             (onChange)="paymentPlanChange()"></p-listbox>
         </div>
-      </div>
-      <div class="row">
         <div class="col-6">
           <h3>Cursos</h3>
           <p-listbox [options]="coursesListBox" [(ngModel)]="student.course" 
             filter="filter" class="listbox-common" [ngClass]="{'error-border': errorCourses, 
             'is-all-ok': isCoursesOK}" (onChange)="coursesChange()"></p-listbox>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <h3>Becas</h3>
+          <p-listbox [options]="scholarshipListBox" [(ngModel)]="student.scholarship" 
+            filter="filter" class="listbox-common"></p-listbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h3>Responsables a cargo</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button type="button" class="button-add  button-add-obligation" (click)="loadNewResponsible()"
+          pTooltip="Agregar Responsabel a cargo">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="button-edit  button-edit-obligation" (click)="loadEditResponsible()"
+            pTooltip="Editar Responsable a cargo" *ngIf="(responsibleSelected != null) && (responsibleSelected.responsible != null)">
+            <i class="fa fa-pencil-square-o edit-listbox animated fadeIn"  aria-hidden="true"></i>
+          </button>
+          <button type="button" class="button-delete  button-delete-obligation" (click)="showDisplayPopUpDeleteResponsible()"
+            pTooltip="Borrar Responsable a cargo" *ngIf="(responsibleSelected != null) && (responsibleSelected.responsible != null)">
+            <i class="fa fa-trash delete-listbox animated fadeIn" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-10">
+            <p-listbox [options]="responsiblesListBox" [(ngModel)]="responsibleSelected" 
+              filter="filter" class="listbox-common" [ngClass]="{'error-border': errorResponsibles, 
+              'is-all-ok': isResponsiblesOK}"></p-listbox>
+          </div>
       </div>
       <div class="row">
         <div class="col-12 confirm-student">
@@ -117,4 +238,134 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUpDeleteResponsible}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content animated fadeIn">
+        <div class="row modal-header">
+          <h3 class="col-12 modal-title" *ngIf="(responsibleSelected != null) && (responsibleSelected.responsible != null)">¿Seguro quiere borrar el responsable {{responsibleSelected.responsible.name}} {{responsibleSelected.responsible.surname}}?</h3>
+        </div>
+        <div class="row modal-body">
+          <button type="button" class="btn btn-primary min-width-40" (click)="deleteSelectedResponsible()">Confirmar</button>
+          <button type="button" class="btn btn-secondary min-width-40" data-dismiss="modal" (click)="hideDisplayPopUpDeleteResponsible()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal animated fadeIn" [ngStyle]="{'display': displayPopUpResponsibles}">
+
+  <div class="modal-dialog content-modal-medium" role="document">
+
+    <div class="modal-content animated fadeIn">
+
+      <div class="row modal-header">
+        <h3 class="col-12 modal-title">Responsable</h3>
+        <div *ngIf="showMessageErrorPopUp" class="row error-box animated fadeInDown">
+          <div class="col-1 error-box-icon">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 error-box-message">
+            {{messageErrorInputsPopUp}}  
+          </div>
+        </div> 
+        <div class="col-6">
+          <div class="col-12">
+            <input-commons #searchBySurnameComponent [inputModel]="inputSearchBySurname" (valueModel)="setSearchBySurname($event)"></input-commons>
+          </div>         
+          <div class="col-12">
+            <button type="button" class="btn btn-primary" (click)="searchResponsible()">Buscar</button>
+          </div>         
+        </div>
+        <div class="col-6">
+          <p-listbox [options]="responsiblesSearchListBox" [(ngModel)]="responsibleSelected" 
+            filter="filter" class="listbox-common" (onChange)="responsibleSelectedChange()"></p-listbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+            <p-dropdown [options]="responsibleTypes" [(ngModel)]="responsibleSelected.responsibleType" 
+              class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" 
+              [ngClass]="{'error-border': errorResponsibleType,'is-all-ok': isResponsibleTypeOK}"
+              (onChange)="responsibleTypeChange()" *ngIf="responsibleSelected != null">
+            </p-dropdown>
+        </div>
+        <div class="col-6">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input-commons #nameResponsibleComponent [inputModel]="inputNameResponsible" (valueModel)="setNameResponsible($event)"></input-commons>
+        </div>
+        <div class="col-6">
+          <input-commons #surnameResponsibleComponent [inputModel]="inputSurnameResponsible" (valueModel)="setSurnameResponsible($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+            <p-dropdown [options]="documentTypes" [(ngModel)]="responsibleSelected.responsible.documentType" 
+              class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" 
+              [ngClass]="{'error-border': errorDocumentTypeResponsible,'is-all-ok': isDocumentTypeResponsibleOK}"
+              (onChange)="documentTypeResponsibleChange()" *ngIf="(responsibleSelected != null) && (responsibleSelected.responsible != null)">
+            </p-dropdown>
+        </div>
+        <div class="col-6">
+            <input-commons #documentNumberResponsibleComponent
+              [inputModel]="inputDocumentNumberResponsible"
+              (valueModel)="setDocumentNumberResponsible($event)"></input-commons>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-6">
+            <h5 class="col-12">Fecha de Nacimiento</h5>
+            <p-calendar class="col-12" [(ngModel)]="responsibleSelected.responsible.birthdate" [locale]="es" dateFormat="dd/mm/yy" 
+              [monthNavigator]="true" [yearNavigator]="true" yearRange="1920:2100"
+              [ngClass]="{'error-border': errorBirthdateResponsible, 'is-all-ok': isBirthdateResponsibleOK}"
+              (onSelect)="birthdateResponsibleChange()" *ngIf="(responsibleSelected != null) && (responsibleSelected.responsible != null)"></p-calendar>
+          </div>
+  
+          <div class="col-6">
+            <p-dropdown [options]="nationalityListBox" [(ngModel)]="responsibleSelected.responsible.nationality" 
+              class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" 
+              [ngClass]="{'error-border': errorNationalityResponsible,'is-all-ok': isNationalityResponsibleOK}"
+              (onChange)="nationalityResponsibleChange()" *ngIf="(responsibleSelected != null) && (responsibleSelected.responsible != null)">
+            </p-dropdown>
+          </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <input-commons #professionResponsibleComponent [inputModel]="inputProfessionResponsible" (valueModel)="setProfessionResponsible($event)"></input-commons>
+      </div>
+      <div class="col-6">
+        <input-commons #emailResponsibleComponent [inputModel]="inputEmailResponsible" (valueModel)="setEmailResponsible($event)"></input-commons>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <input-commons #workTelphoneResponsibleComponent [inputModel]="inputWorkTelphoneResponsible" (valueModel)="setWorkTelphoneResponsible($event)"></input-commons>
+      </div>
+      <div class="col-6">
+        <input-commons #cellTelphoneResponsibleComponent [inputModel]="inputCellTelphoneResponsible" (valueModel)="setCellTelphoneResponsible($event)"></input-commons>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input-commons #cbuResponsibleComponent [inputModel]="inputCBUResponsible" (valueModel)="setCBUResponsible($event)"></input-commons>
+        </div>
+        <div class="col-6">
+            <input-commons #cuilResponsibleComponent [inputModel]="inputCUILResponsible" (valueModel)="setCUILResponsible($event)"></input-commons>
+        </div>
+    </div>
+    <div class="row modal-footer">
+      <div class="col-12 text-align-center">
+        <button type="button" class="btn btn-primary" (click)="saveSelectedResponsible()">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hideDisplayPopUpResponsibles()">Cancelar</button>
+      </div>
+    </div>
+
+    </div>
+    
+  </div>
+
 </div>

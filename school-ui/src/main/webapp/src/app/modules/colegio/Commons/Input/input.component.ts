@@ -119,7 +119,8 @@ export class InputCommonsComponent implements OnInit{
   }
 
   checkMaxCharacter(){
-    if((this.isErrorMaxCharacterEnabled) && (this.inputModel.value.length > this.inputModel.maxCharacter)){
+    if((this.inputModel.value != null) && (this.isErrorMaxCharacterEnabled) 
+      && (this.inputModel.value.length > this.inputModel.maxCharacter)){
       this.isErrorMaxCharacter = true;
     }else{
       this.isErrorMaxCharacter = false;
@@ -127,7 +128,8 @@ export class InputCommonsComponent implements OnInit{
   }
 
   checkMinCharacter(){
-    if((this.isErrorMinCharacterEnabled) && (this.inputModel.value != null) && (this.inputModel.value.length <= this.inputModel.minCharacter)){
+    if((this.isErrorMinCharacterEnabled) && (this.inputModel.value != null) && (this.inputModel.value.length > 0) 
+       && (this.inputModel.value.length <= this.inputModel.minCharacter)){
       this.isErrorMinCharacter = true;
     }else{
       this.isErrorMinCharacter = false;
@@ -171,11 +173,26 @@ export class InputCommonsComponent implements OnInit{
         this.isErrorType = true;
       }
     }
+    if(this.inputModel.type == "telphone"){
+      console.debug("Validando input Telphone");
+      if(this.validateThelphone(this.inputModel.value)){
+        console.debug("Validando input thelphone false");
+        this.isErrorType = false;
+      }else{
+        console.debug("Validando input true");
+        this.isErrorType = true;
+      }
+    }
   }
 
   validateDni(dni) {
       var re: RegExp = new RegExp("^([0-9]{2})([.][0-9]{3})([.][0-9]{3})$");
       return re.test(dni);
+  }
+
+  validateThelphone(telphone) {
+    var re: RegExp = new RegExp("^([0-9]{2})([-][0-9]{4})([-][0-9]{4})$");
+    return re.test(telphone);
   }
 
   validateEmail(email) {
@@ -227,7 +244,7 @@ export class InputCommonsComponent implements OnInit{
   }
 
   getTextWithOutMask(){
-    return this.inputModel.value;
+    return String(this.inputModel.value);
   }
 
 }

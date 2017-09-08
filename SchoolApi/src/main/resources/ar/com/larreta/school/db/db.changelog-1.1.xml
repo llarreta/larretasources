@@ -12,10 +12,6 @@
 		<column name="id" 			value="1" />
 		<column name="description" 	value="DNI" />
 	</insert>
-	<insert tableName="documentType">
-		<column name="id" 			value="2" />
-		<column name="description" 	value="Pasaporte" />
-	</insert>
 	
 	<insert tableName="year">
 		<column name="id" 			value="1" />
@@ -138,6 +134,11 @@
 	<insert tableName="responsibleType">
 		<column name="id" 			value="2" />
 		<column name="description" 	value="Padre" />
+	</insert>
+	
+	<insert tableName="responsibleType">
+		<column name="id" 			value="3" />
+		<column name="description" 	value="Tutor" />
 	</insert>
 
 	<insert tableName="emailType">

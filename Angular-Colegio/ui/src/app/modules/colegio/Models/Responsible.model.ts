@@ -1,12 +1,15 @@
+import { Entity } from './Entity.model';
 import { Email } from './Email.model';
 import { Telephone } from './Telephon.model';
 
-export class ResponsibleP{
+export class ResponsibleP extends Entity{
     
     public responsibleType: number;
     public responsible: Responsible;
 
-    constructor() {}
+    constructor() {
+        super();
+    }
 
     public createInstanceResponsible(){
         

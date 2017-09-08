@@ -1,13 +1,9 @@
-import { Entity } from './Entity.model';
-
-export class Email extends Entity{
+export class Email {
 
     public emailType: number;
     public email: EmailAddress;
     
-    constructor() {
-        super();
-    }
+    constructor() {}
     
     public createInstanceEmailAddress(){
         this.email = new EmailAddress();

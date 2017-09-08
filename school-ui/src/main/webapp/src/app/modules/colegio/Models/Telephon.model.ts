@@ -1,13 +1,9 @@
-import { Entity } from './Entity.model';
-
-export class Telephone extends Entity{
+export class Telephone {
 
     public telephoneType: number;
     public telephone: TelephoneNumber;
     
-    constructor() {
-        super();
-    }
+    constructor() {}
     
     public createInstanceTelephoneNumber(){
         this.telephone = new TelephoneNumber();

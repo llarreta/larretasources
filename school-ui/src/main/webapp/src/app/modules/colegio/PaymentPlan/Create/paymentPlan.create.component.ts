@@ -93,7 +93,7 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.showMessageErrorService = false;
     this.messageErrorInputs = "Debes corregir todos los errores antes de continuar.";
     this.messageErrorService = "Ocurrio un error de conexion con el servidor, reintentelo en un momento.";
-    this.es = {
+    this.es = { 
             firstDayOfWeek: 1,
             dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
             dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
@@ -689,7 +689,7 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.littleDetailContentActive = false;
     this.displayPopUp = "block";
     this.inputObligationDescription.value = this.obligationSelected.description;
-    this.dateObligation = new Date(this.obligationSelected.dueDate);
+    this.dateObligation = new Date(this.obligationSelected.dueDate); 
     this.inEditPopUp = true;
     this.showMessageErrorPopUp = false;
   }

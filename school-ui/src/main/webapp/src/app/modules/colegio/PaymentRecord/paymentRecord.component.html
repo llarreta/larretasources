@@ -83,6 +83,12 @@
       <div class="row modal-body item-payment-record" *ngFor="let detail of paymentRecordSelected.details">
         <h5 class="col-6">{{detail.description}}</h5>
         <h5 class="col-6">${{getValueLabel(detail.value)}}</h5>
+        <div *ngIf="(detail.littleDetails != null) && (detail.littleDetails.length > 0)">
+          <div class="row" *ngFor="let littleDetails of detail.littleDetails">
+            <h6 class="col-6">{{littleDetails.description}}</h6>
+            <h6 class="col-6">${{getValueLabel(littleDetails.value)}}</h6>
+          </div>
+        </div>
       </div>
       <div class="row modal-body total-price">
         <h5 class="col-6">TOTAL</h5>

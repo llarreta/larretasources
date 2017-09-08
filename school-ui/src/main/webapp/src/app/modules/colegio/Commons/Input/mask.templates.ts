@@ -4,7 +4,8 @@ import emailMask from 'text-mask-addons/dist/emailMask'
 
 export class MaskTemplates{    
 
-    public static DNI = [ /[ 1-9 ]/ , /[ 1-9 ]/ , '.' , /[ 1-9 ]/ , /[ 1-9 ]/ , /[ 1-9 ]/ , '.' , /[ 1-9 ]/ , /[ 1-9 ]/ , /[ 1-9 ]/ ];
+    public static DNI = [ /[ 0-9 ]/ , /[ 0-9 ]/ , '.' , /[ 0-9 ]/ , /[ 0-9 ]/ , /[ 0-9 ]/ , '.' , /[ 0-9 ]/ , /[ 0-9 ]/ , /[ 0-9 ]/ ];
+    public static TELPHONE = [ /[ 0-9 ]/ , /[ 0-9 ]/ , '-' , /[ 0-9 ]/ , /[ 0-9 ]/ , /[ 0-9 ]/ , /[ 0-9 ]/ , '-' , /[ 0-9 ]/ , /[ 0-9 ]/ , /[ 0-9 ]/ , /[ 0-9 ]/ ];
     public static MAIL = emailMask;
     public static price = createNumberMask({
                                                 prefix: '$',
