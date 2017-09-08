@@ -14,6 +14,8 @@ import ar.com.larreta.tools.Const;
 @Component @Scope(Const.PROTOTYPE)
 public class StudentResponsibleRelationshipData extends JSONable {
 
+	private Long id;
+	
 	@Exist(message="responsibleType.inexistent", entityType=ResponsibleType.class)
 	@NotNull(message="responsibleType.required")
 	private Long 		responsibleType;
@@ -21,6 +23,14 @@ public class StudentResponsibleRelationshipData extends JSONable {
 	@NotNull(message="address.required")
 	@Valid
 	private ResponsibleData responsible;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getResponsibleType() {
 		return responsibleType;
