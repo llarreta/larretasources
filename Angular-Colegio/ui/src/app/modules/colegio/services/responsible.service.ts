@@ -20,4 +20,11 @@ export class ResponsibleService {
         return this.http.post(body, "students/searchResponsible", token);
     }
 
+    loadResponsibleTypes(): Observable<any> {
+        var body = {
+        };
+        var token = "";
+        return this.http.post(body, "responsibleTypes/load", token);
+    }
+
 }

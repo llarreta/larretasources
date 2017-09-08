@@ -97,18 +97,21 @@
       <div class="row">
         <div class="col-4">
           <h5>Pais</h5>
+          <h6 *ngIf="countrySelected != null" class="animated fade-in">{{getLabelCountrySelected()}}</h6>
           <p-listbox [options]="countrysListBox" [(ngModel)]="countrySelected" 
             filter="filter" class="listbox-common" [ngClass]="{'error-border': errorCountry, 
             'is-all-ok': isCountryOK}" (onChange)="countryChangeAndLoadStates()"></p-listbox>
         </div>
         <div class="col-4">
           <h5>Provincia</h5>
+          <h6 *ngIf="stateSelected != null" class="animated fade-in">{{getLabelStateSelected()}}</h6>
           <p-listbox [options]="statesListBox" [(ngModel)]="stateSelected" 
           filter="filter" class="listbox-common" [ngClass]="{'error-border': errorState, 
           'is-all-ok': isStateOK}" (onChange)="stateChangeAndLoadLocation()"></p-listbox>
         </div>
         <div class="col-4">
           <h5>Barrio</h5>
+          <h6 *ngIf="locationSelected != null" class="animated fade-in">{{getLabelLocationSelected()}}</h6>
           <p-listbox [options]="locationsListBox" [(ngModel)]="locationSelected" 
           filter="filter" class="listbox-common" [ngClass]="{'error-border': errorLocation, 
           'is-all-ok': isLocationOK}" (onChange)="locationChange()"></p-listbox>
@@ -278,6 +281,17 @@
         <div class="col-6">
           <p-listbox [options]="responsiblesSearchListBox" [(ngModel)]="responsibleSelected" 
             filter="filter" class="listbox-common" (onChange)="responsibleSelectedChange()"></p-listbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+            <p-dropdown [options]="responsibleTypes" [(ngModel)]="responsibleSelected.responsibleType" 
+              class="drop-down-custom" filter="filter" [style]="{'width':'100%'}" 
+              [ngClass]="{'error-border': errorResponsibleType,'is-all-ok': isResponsibleTypeOK}"
+              (onChange)="responsibleTypeChange()" *ngIf="responsibleSelected != null">
+            </p-dropdown>
+        </div>
+        <div class="col-6">
         </div>
       </div>
       <div class="row">

@@ -68,13 +68,23 @@
                 </div>
                 <div class="data-scroller-item-1-body">
                   <div class="data-scroller-item-1-body-data">
-                    {{getDocumentTypeDescription(student.documentType)}}: {{student.documentNumber}}
+                    Codigo del Alumno: {{student.code}}
                   </div>
                   <div class="data-scroller-item-1-body-data">
                     {{student.course.level.description}} {{student.course.year.description}}° {{student.course.division.description}}
                   </div>
+                  <div class="data-scroller-item-1-body-data" 
+                    *ngIf="(student.responsibles != null) && (student.responsibles.length > 0)">
+                    Responsable: {{student.responsibles[0].responsible.name}} {{student.responsibles[0].responsible.surname}}
+                  </div>
+                  <div class="data-scroller-item-1-body-data" 
+                    *ngIf="(student.responsibles != null) && (student.responsibles.length > 0) 
+                      && (student.responsibles[0].responsible != null) 
+                      && (student.responsibles[0].responsible.telephones != null)
+                      && (student.responsibles[0].responsible.telephones.length > 0)">
+                    Telefono: {{student.responsibles[0].responsible.telephones[0].telephone.number}}
+                  </div>
                 </div>
-                  
               </div>      
             </ng-template>
 

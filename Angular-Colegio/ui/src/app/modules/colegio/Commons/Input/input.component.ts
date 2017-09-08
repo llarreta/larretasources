@@ -244,7 +244,7 @@ export class InputCommonsComponent implements OnInit{
   }
 
   getTextWithOutMask(){
-    return this.inputModel.value;
+    return String(this.inputModel.value);
   }
 
 }
