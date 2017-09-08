@@ -16,6 +16,7 @@ import { Telephone } from '../../Models/Telephon.model';
 import { AddressP } from '../../Models/Address.model';
 import { Scholarship } from '../../Models/Scholarship.model';
 import { TelphoneType } from '../../Models/Telphone.enum';
+import { ResponsibleType } from '../../Models/ResponsibleType.model';
 
 //Commons
 import { InputModel } from '../../Commons/Input/input.model.component';
@@ -130,6 +131,7 @@ export class StudentCreateComponent implements OnInit{
   inLoadSearchResponsible: boolean;
 
   documentTypes: Array<SelectItem>;
+  responsibleTypes: Array<SelectItem>;
 
   obligationsStatus: Array<ObligationStatus>;
   responsibles: Array<ResponsibleP>;
@@ -150,6 +152,7 @@ export class StudentCreateComponent implements OnInit{
   errorDocumentTypeResponsible: boolean;
   errorBirthdateResponsible: boolean; 
   errorNationalityResponsible: boolean;
+  errorResponsibleType: boolean;
 
   isPaymentPlansOK: boolean;
   isCoursesOK: boolean;
@@ -162,6 +165,7 @@ export class StudentCreateComponent implements OnInit{
   isDocumentTypeResponsibleOK: boolean;
   isBirthdateResponsibleOK: boolean;
   isNationalityResponsibleOK: boolean;
+  isResponsibleTypeOK: boolean;
 
   messageErrorInputs: string; 
   messageErrorService: string;
@@ -190,6 +194,8 @@ export class StudentCreateComponent implements OnInit{
   countrySelected: number;
   locationSelected: number;
   stateSelected: number;
+
+  private codeAlumnAux: string;
 
   constructor(
               private studentService: StudentService, 
@@ -226,11 +232,28 @@ export class StudentCreateComponent implements OnInit{
 
   private loadInitData(){
     this.showLoading();
+    this.responsibleService.loadResponsibleTypes()
+      .subscribe(
+      data => this.loadResponsibleTypesOK(data),
+      err => this.loadErrorMessageService(err),
+      () => console.log('Vacio')
+    );
+  }
+
+  loadResponsibleTypesOK(data){
+    this.responsibleTypes = new Array<SelectItem>();
+    this.responsibleTypes.push({label:"Seleccionar Tipo de Responsable", value:null});
+    for(let responsibleTypeJSON of data.body.result){
+      let responsibleType: ResponsibleType = new ResponsibleType();
+      Object.assign(responsibleType, responsibleTypeJSON);
+      this.responsibleTypes.push({label:responsibleType.description, value:responsibleType.id});
+    }
+
     this.documentTypeService.loadDocumentTypes()
-       .subscribe(
-        data => this.loadDocumentTypeOK(data),
-        err => this.loadErrorMessageService(err),
-        () => console.log('Vacio')
+      .subscribe(
+      data => this.loadDocumentTypeOK(data),
+      err => this.loadErrorMessageService(err),
+      () => console.log('Vacio')
     );
   }
 
@@ -607,6 +630,9 @@ export class StudentCreateComponent implements OnInit{
     this.stateSelected = this.student.addresses[0].address.state;
     this.locationSelected = this.student.addresses[0].address.location;
     this.refreshListBoxResponsibles();
+    this.loadStateByCountry();
+    this.loadLocationByState();
+    this.codeAlumnAux = this.student.code.toString();
     
   }
 
@@ -624,7 +650,8 @@ export class StudentCreateComponent implements OnInit{
 
     this.documentTypeResponsibleChange();
     this.nationalityResponsibleChange();
-    this.birthdateResponsibleChange();  
+    this.birthdateResponsibleChange(); 
+    this.responsibleTypeChange(); 
 
     if((this.inputCBUResponsible.isAllOK) && (this.inputCUILResponsible.isAllOK)
       && (this.inputNameResponsible.isAllOK) && (this.inputSurnameResponsible.isAllOK)
@@ -632,7 +659,7 @@ export class StudentCreateComponent implements OnInit{
       && (this.isDocumentTypeResponsibleOK) && (this.isNationalityResponsibleOK)
       && (this.isBirthdateResponsibleOK) && (this.inputEmailResponsible.isAllOK)
       && (this.inputCellTelphoneResponsible.isAllOK) && (this.inputWorkTelphoneResponsible.isAllOK)
-      && (this.inputProfessionResponsible.isAllOK)){
+      && (this.inputProfessionResponsible.isAllOK) && (this.isResponsibleTypeOK)){
         Logger.debug("isAllOK true");
         return true;
 
@@ -726,6 +753,40 @@ export class StudentCreateComponent implements OnInit{
       let datosResponse;
       let status;
       if(!this.inEdit){
+        this.studentService.existCode(this.student.code)
+        .subscribe(
+          data => this.existCodeOK(data),
+          err => this.loadErrorMessageService(err),
+          () => console.log('Vacio')
+        );
+      }else{
+        debugger
+        if(this.codeAlumnAux == this.student.code){
+          this.studentService.updateStudent(this.student)
+          .subscribe(
+            data => this.createStudentOK(data),
+            err => this.loadErrorMessageService(err),
+            () => console.log('Vacio')
+          );
+        }else{
+          this.studentService.existCode(this.student.code)
+          .subscribe(
+            data => this.existCodeOK(data),
+            err => this.loadErrorMessageService(err),
+            () => console.log('Vacio')
+          );
+        }
+
+      }
+    }else{
+      this.loadErrorMessageInput("Debe completar todos los campos.");
+    }
+  }
+
+  existCodeOK(data){
+    if(!data.body.exist){
+      
+      if(!this.inEdit){
         this.studentService.createStudent(this.student)
         .subscribe(
           data => this.createStudentOK(data),
@@ -733,7 +794,6 @@ export class StudentCreateComponent implements OnInit{
           () => console.log('Vacio')
         );
       }else{
-        
         this.studentService.updateStudent(this.student)
         .subscribe(
           data => this.createStudentOK(data),
@@ -741,9 +801,17 @@ export class StudentCreateComponent implements OnInit{
           () => console.log('Vacio')
         );
       }
+
     }else{
-      this.loadErrorMessageInput("Debe completar todos los campos.");
+
+      this.messageErrorService = "El codigo de alumno ya se encuentra ingresado, por favor ingrese otro distinto.";
+      this.showMessageErrorService = true;
+      this.showMessageError = true;
+      this.hideLoading();
+      window.scrollTo(0,0);
+
     }
+    
   }
 
   createStudentOK(data){
@@ -759,7 +827,6 @@ export class StudentCreateComponent implements OnInit{
         if(this.student.responsibles == null){
           this.student.responsibles = new Array<ResponsibleP>();
         }
-        this.responsibleSelected.responsibleType = 1;
         this.student.responsibles.push(this.responsibleSelected);
       }
       this.refreshListBoxResponsibles();
@@ -973,6 +1040,8 @@ export class StudentCreateComponent implements OnInit{
     }
 
     this.inputProfessionResponsible.value = this.responsibleSelected.responsible.profession;
+
+    this.responsibleSelected.responsible.birthdate = new Date(this.responsibleSelected.responsible.birthdate);
 
     this.responsibleIsAllOK();
 
@@ -1207,6 +1276,16 @@ export class StudentCreateComponent implements OnInit{
     }
   }
 
+  responsibleTypeChange(){
+    if(this.responsibleSelected.responsibleType != null){
+      this.isResponsibleTypeOK = true;
+      this.errorResponsibleType = false;
+    }else{
+      this.isResponsibleTypeOK = false;
+      this.errorResponsibleType = true;
+    }
+  }
+
   birthdateResponsibleChange(){
     if(this.responsibleSelected.responsible.birthdate != null){
       this.isBirthdateResponsibleOK = true;
@@ -1225,6 +1304,39 @@ export class StudentCreateComponent implements OnInit{
       this.isNationalityResponsibleOK = false;
       this.errorNationalityResponsible = true;
     }
+  }
+
+  getLabelCountrySelected(){
+    if((this.countrySelected != null) && (this.countrysListBox != null) && (this.countrysListBox.length > 0)){
+      for(let country of this.countrysListBox){
+        if(country.value == this.countrySelected){
+          return country.label;
+        }
+      }
+    }
+    return "";
+  }
+
+  getLabelStateSelected(){
+    if((this.stateSelected != null) && (this.statesListBox != null) && (this.statesListBox.length > 0)){
+      for(let state of this.statesListBox){
+        if(state.value == this.stateSelected){
+          return state.label;
+        }
+      }
+    }
+    return "";
+  }
+
+  getLabelLocationSelected(){
+    if((this.locationSelected != null) && (this.locationsListBox != null) && (this.locationsListBox.length > 0)){
+      for(let location of this.locationsListBox){
+        if(location.value == this.locationSelected){
+          return location.label;
+        }
+      }
+    }
+    return "";
   }
 
   showLoading(){

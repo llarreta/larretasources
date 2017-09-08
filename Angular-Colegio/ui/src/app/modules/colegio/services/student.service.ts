@@ -85,4 +85,13 @@ export class StudentService {
         return this.http.post(body, "students/load", token);
     }
 
+    existCode(code: string){
+        Logger.debug("existCode Service: " + code);
+        var body = {
+                        "code": code
+                    };
+        var token = "";
+        return this.http.post(body, "students/existCode", token);
+    }
+
 }

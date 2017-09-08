@@ -210,6 +210,7 @@ export class StudentComponent implements OnInit{
         Logger.debug("Cargando estudiantes recibidos...");
         let student: Student = new Student();
         Object.assign(student, studentJSON);
+        student.birthdate = new Date(studentJSON.birthdate);
         student.course = this.getCourse(studentJSON.course);
         this.students.push(student);
       }

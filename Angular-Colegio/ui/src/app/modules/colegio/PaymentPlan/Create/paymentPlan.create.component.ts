@@ -689,7 +689,7 @@ export class PaymentPlanCreateComponent implements OnInit{
     this.littleDetailContentActive = false;
     this.displayPopUp = "block";
     this.inputObligationDescription.value = this.obligationSelected.description;
-    this.dateObligation = new Date(this.obligationSelected.dueDate);
+    this.dateObligation = new Date(this.obligationSelected.dueDate); 
     this.inEditPopUp = true;
     this.showMessageErrorPopUp = false;
   }
